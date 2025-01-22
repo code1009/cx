@@ -1,6 +1,11 @@
 # cx
+- 어플리케이션을 개발하기 위한 C++ 프레임 워크입니다.
+- 아직 코드 작성중입니다.
 
-## Code1009-X
+
+
+
+### 컴포넌트
 - wui(Windows User Interface)
 - runtime
 - gw(Graphic Window)
