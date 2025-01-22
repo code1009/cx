@@ -1,8 +1,6 @@
 # cx
 
 Code1009 eXtention Library  
-: Windows Desktop Application Framework
-
 - wui(Windows User Interface)
 - runtime
 - gw(Graphic Window)
