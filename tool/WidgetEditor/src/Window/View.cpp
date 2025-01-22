@@ -53,6 +53,8 @@ View::View(HWND parentWindowHandle)
 
 	//-----------------------------------------------------------------------
 	_gw_window = std::make_unique<gw::basic_window>(*this);
+	_gw_window->get_status()->set_visible(true);
+	_gw_window->get_document_grid()->set_visible(true);
 
 
 	//-----------------------------------------------------------------------

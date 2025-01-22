@@ -250,11 +250,6 @@ basic_window::basic_window(HWND hwnd, bool center) :
 	_viewport->set_window_size(0, 0);
 	_viewport->set_document_size(1920, 1080);
 	_viewport->enable_scrollbar(true);
-
-
-	//-----------------------------------------------------------------------
-	//_document_grid->set_visible(true);
-	//_status->set_visible(true);
 }
 
 //===========================================================================
