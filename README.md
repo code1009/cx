@@ -21,9 +21,9 @@ Code1009 eXtention Library
 
 
 
-### CHANGELOG
+### 변경이력
 
-#### 0.0.0.1a
+#### 1
 _2025년 01월 22일_
 - 생성
 
