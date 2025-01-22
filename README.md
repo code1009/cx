@@ -17,7 +17,7 @@
 
 ### 특징
 - Modern C++ 스타일 
-- RAII 스타일
+- RAII 스타일[프로젝트생성및설정](document/프로젝트생성및설정.md)
 - Window API 기반 
 - STL 기반 
 
