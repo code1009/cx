@@ -7,6 +7,6 @@
 #ifndef PCH_H
 #define PCH_H
 
-#include "cx_framework.hpp"
+#include "library_window_cpp_framework.hpp"
 
 #endif //PCH_H
