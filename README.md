@@ -1,6 +1,6 @@
 # cx
 
-Code1009 eXtention Library  
+## Code1009-X
 - wui(Windows User Interface)
 - runtime
 - gw(Graphic Window)
@@ -10,7 +10,7 @@ Code1009 eXtention Library
 
 
 
-## 특징
+### 특징
 - Modern C++ 스타일 
 - RAII 스타일
 - Window API 기반 
@@ -19,9 +19,9 @@ Code1009 eXtention Library
 
 
 
-## 변경이력
+### 변경이력
 
-### _2025년 01월 22일_
+#### _2025년 01월 22일_
 - 생성
 
 
