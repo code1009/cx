@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\library\gw\drawable.cpp" />
+    <ClCompile Include="..\..\library\gw\dx2d.cpp" />
+    <ClCompile Include="..\..\library\gw\viewport.cpp" />
+    <ClCompile Include="..\..\library\gw\window.cpp" />
+    <ClCompile Include="..\..\library\runtime\Assert.cpp" />
+    <ClCompile Include="..\..\library\runtime\DebugMemory.cpp" />
+    <ClCompile Include="..\..\library\runtime\LastError.cpp" />
+    <ClCompile Include="..\..\library\runtime\Log.cpp" />
+    <ClCompile Include="..\..\library\runtime\WindowApplication.cpp" />
+    <ClCompile Include="..\..\library\wui\AppModule.cpp" />
+    <ClCompile Include="..\..\library\wui\BaseWindow.cpp" />
+    <ClCompile Include="..\..\library\wui\Coord.cpp" />
+    <ClCompile Include="..\..\library\wui\DC.cpp" />
+    <ClCompile Include="..\..\library\wui\DCClasses.cpp" />
+    <ClCompile Include="..\..\library\wui\DCFunctions.cpp" />
+    <ClCompile Include="..\..\library\wui\DialogTemplate.cpp" />
+    <ClCompile Include="..\..\library\wui\GDIObject.cpp" />
+    <ClCompile Include="..\..\library\wui\Resource.cpp" />
+    <ClCompile Include="..\..\library\wui\ResourceFunctions.cpp" />
+    <ClCompile Include="..\..\library\wui\Window.cpp" />
+    <ClCompile Include="..\..\library\wui\WindowClass.cpp" />
+    <ClCompile Include="..\..\library\wui\WindowFunctions.cpp" />
+    <ClCompile Include="..\..\library\wui\WindowMessage.cpp" />
+    <ClCompile Include="..\..\library\wui\WindowMessageCrack.cpp" />
+    <ClCompile Include="..\..\library\wui\WindowMessageLoop.cpp" />
+    <ClCompile Include="..\..\library\wui\WindowProc.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Window\View.cpp" />
+    <ClCompile Include="src\Window\MainFrame.cpp" />
+    <ClCompile Include="src\Window\MyBox.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\library\cx_framework.hpp" />
+    <ClInclude Include="..\..\library\gw\drawable.hpp" />
+    <ClInclude Include="..\..\library\gw\dx2d.hpp" />
+    <ClInclude Include="..\..\library\gw\gw.hpp" />
+    <ClInclude Include="..\..\library\gw\pch.hpp" />
+    <ClInclude Include="..\..\library\gw\viewport.hpp" />
+    <ClInclude Include="..\..\library\gw\window.hpp" />
+    <ClInclude Include="..\..\library\pch.hpp" />
+    <ClInclude Include="..\..\library\runtime\Assert.hpp" />
+    <ClInclude Include="..\..\library\runtime\DebugMemory.hpp" />
+    <ClInclude Include="..\..\library\runtime\LastError.hpp" />
+    <ClInclude Include="..\..\library\runtime\Log.hpp" />
+    <ClInclude Include="..\..\library\runtime\Macros.hpp" />
+    <ClInclude Include="..\..\library\runtime\pch.hpp" />
+    <ClInclude Include="..\..\library\runtime\runtime.hpp" />
+    <ClInclude Include="..\..\library\runtime\WindowApplication.hpp" />
+    <ClInclude Include="..\..\library\wui\AppModule.hpp" />
+    <ClInclude Include="..\..\library\wui\BaseWindow.hpp" />
+    <ClInclude Include="..\..\library\wui\Coord.hpp" />
+    <ClInclude Include="..\..\library\wui\DC.hpp" />
+    <ClInclude Include="..\..\library\wui\DCClasses.hpp" />
+    <ClInclude Include="..\..\library\wui\DCFunctions.hpp" />
+    <ClInclude Include="..\..\library\wui\DialogTemplate.hpp" />
+    <ClInclude Include="..\..\library\wui\GDIObject.hpp" />
+    <ClInclude Include="..\..\library\wui\MessageMapWindow.hpp" />
+    <ClInclude Include="..\..\library\wui\pch.hpp" />
+    <ClInclude Include="..\..\library\wui\Resource.hpp" />
+    <ClInclude Include="..\..\library\wui\ResourceFunctions.hpp" />
+    <ClInclude Include="..\..\library\wui\Window.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowClass.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowFunctions.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowMessage.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowMessageCrack.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowMessageHandler.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowMessageLoop.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowMessageMap.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowProc.hpp" />
+    <ClInclude Include="..\..\library\wui\WindowStyle.hpp" />
+    <ClInclude Include="..\..\library\wui\wui.hpp" />
+    <ClInclude Include="res\Resource.h" />
+    <ClInclude Include="src\framework.hpp" />
+    <ClInclude Include="src\Main.hpp" />
+    <ClInclude Include="src\pch.hpp" />
+    <ClInclude Include="src\targetver.h" />
+    <ClInclude Include="src\Window\AboutBox.hpp" />
+    <ClInclude Include="src\Window\View.hpp" />
+    <ClInclude Include="src\Window\MainFrame.hpp" />
+    <ClInclude Include="src\Window\MyBox.hpp" />
+    <ClInclude Include="src\Window\pch.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Application.ico" />
+    <Image Include="res\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\Application.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{b916c1dd-b567-42d1-b448-a51d8fa0589c}</ProjectGuid>
+    <RootNamespace>DX2D</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(SolutionDir)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)Output/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(SolutionDir)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)Output/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
