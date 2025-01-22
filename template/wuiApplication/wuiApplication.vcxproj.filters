@@ -254,7 +254,7 @@
     <ClInclude Include="..\..\library\runtime\Macros.hpp">
       <Filter>library\runtime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx_framework.hpp">
+    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
       <Filter>library</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\pch.hpp">

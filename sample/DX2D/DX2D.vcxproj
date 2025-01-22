@@ -55,7 +55,7 @@
     <ClCompile Include="src\Window\MyBox.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\library\cx_framework.hpp" />
+    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
     <ClInclude Include="..\..\library\gw\drawable.hpp" />
     <ClInclude Include="..\..\library\gw\dx2d.hpp" />
     <ClInclude Include="..\..\library\gw\gw.hpp" />

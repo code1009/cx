@@ -149,7 +149,7 @@
     <ClInclude Include="src\framework.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx_framework.hpp">
+    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
       <Filter>library</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\pch.hpp">
