@@ -11,8 +11,10 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// https://learn.microsoft.com/ko-kr/cpp/c-runtime-library/debug-routines?view=msvc-170
 // https://learn.microsoft.com/ko-kr/cpp/sanitizers/asan?view=msvc-170
+// https://learn.microsoft.com/ko-kr/cpp/c-runtime-library/debug-routines?view=msvc-170
+// https://learn.microsoft.com/ko-kr/cpp/c-runtime-library/find-memory-leaks-using-the-crt-library?view=msvc-170
+// https://learn.microsoft.com/ko-kr/cpp/c-runtime-library/recommendations-for-choosing-between-functions-and-macros?view=msvc-170
 
 
 
