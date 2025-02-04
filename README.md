@@ -13,8 +13,7 @@
 ### 컴포넌트
 - wui(Windows User Interface)
 - runtime
-- gw(Graphic Window)
-- gw/widget
+- gw(Graphic Widget)
 
 
 
