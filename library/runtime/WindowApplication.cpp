@@ -39,7 +39,7 @@ bool WindowApplication::initialize(void)
 	//-----------------------------------------------------------------------
 	if (gw::dx2d::new_factory() == false)
 	{
-		::CoUninitialize();
+		::OleUninitialize();
 
 		return false;
 	}
