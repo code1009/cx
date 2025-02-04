@@ -11,6 +11,7 @@
 #include "../res/resource.h"
 	
 //===========================================================================
+#include "Window/ToolBox.hpp"
 #include "Window/View.hpp"
 #include "Window/MainFrame.hpp"
 

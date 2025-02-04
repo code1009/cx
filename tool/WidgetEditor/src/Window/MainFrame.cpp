@@ -12,6 +12,7 @@
 
 //===========================================================================
 #include "View.hpp"
+#include "ToolBox.hpp"
 #include "MainFrame.hpp"
 #include "AboutBox.hpp"
 
@@ -70,6 +71,10 @@ MainFrame::MainFrame()
 
 	//-----------------------------------------------------------------------
 	::SetCursor(::LoadCursor(nullptr, IDC_ARROW));
+
+
+	//-----------------------------------------------------------------------
+	_ToolBox = std::make_unique<ToolBox>(*this);
 }
 
 //===========================================================================
@@ -82,6 +87,8 @@ void MainFrame::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_ERASEBKGND) = &MainFrame::onEraseBkgnd;
 	_WindowMessageMap.handle(WM_KEYDOWN   ) = &MainFrame::onKeyDown;
 	_WindowMessageMap.handle(WM_COMMAND   ) = &MainFrame::onCommand;
+	_WindowMessageMap.handle(WM_NOTIFY    ) = &MainFrame::onNotify;
+	_WindowMessageMap.handle(WM_USER      ) = &MainFrame::onUser0;
 }
 
 void MainFrame::onCreate(wui::WindowMessage& windowMessage)
@@ -90,6 +97,12 @@ void MainFrame::onCreate(wui::WindowMessage& windowMessage)
 
 void MainFrame::onDestroy(wui::WindowMessage& windowMessage)
 {
+	if (_ToolBox)
+	{
+		//_ToolBox->destroyWindow();
+		_ToolBox.reset();
+	}
+
 	::PostQuitMessage(0);
 }
 
@@ -209,6 +222,26 @@ void MainFrame::onCtlCommand(wui::WindowMessage& windowMessage)
 	default:
 		defaultWindowProc(windowMessage);
 		break;
+	}
+}
+
+void MainFrame::onNotify(wui::WindowMessage& windowMessage)
+{
+	wui::WM_NOTIFY_WindowMessageCrack wm{ windowMessage };
+}
+
+void MainFrame::onUser0(wui::WindowMessage& windowMessage)
+{
+	auto child = reinterpret_cast<wui::BaseWindow*>(windowMessage.lParam);
+
+	
+	if (child)
+	{
+		if (_ToolBox.get() == child)
+		{
+			_ToolBox->destroyWindow();
+			_ToolBox.reset();
+		}
 	}
 }
 

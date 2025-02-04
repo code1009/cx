@@ -76,6 +76,7 @@
     <ClInclude Include="src\Window\AboutBox.hpp" />
     <ClInclude Include="src\Window\MainFrame.hpp" />
     <ClInclude Include="src\Window\pch.hpp" />
+    <ClInclude Include="src\Window\ToolBox.hpp" />
     <ClInclude Include="src\Window\View.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +114,7 @@
     </ClCompile>
     <ClCompile Include="src\Window\AboutBox.cpp" />
     <ClCompile Include="src\Window\MainFrame.cpp" />
+    <ClCompile Include="src\Window\ToolBox.cpp" />
     <ClCompile Include="src\Window\View.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
