@@ -222,7 +222,7 @@ void viewport::set_window_size(std::int64_t cx, std::int64_t cy)
 
 void viewport::set_scale(double scale)
 {
-	if (_scale > 0.0)
+	if (scale > 0.0)
 	{
 		_scale = scale;
 
