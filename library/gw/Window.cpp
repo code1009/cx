@@ -76,7 +76,6 @@ Window::~Window()
 	destroyDeviceResources();
 }
 
-
 //===========================================================================
 void Window::resize(std::int64_t width, std::int64_t height)
 {
