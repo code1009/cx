@@ -101,7 +101,7 @@ void BaseWindow::destroyWindow(void)
 		rv = ::DestroyWindow(handle);
 		if (FALSE == rv)
 		{
-			throw std::runtime_error("BasicWindow::destroyWindow(): DestroyWindow() failed");
+			throw std::runtime_error("BaseWindow::destroyWindow(): DestroyWindow() failed");
 		}
 
 		setWindowHandle(nullptr);

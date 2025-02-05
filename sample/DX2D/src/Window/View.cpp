@@ -19,23 +19,23 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-my_gw_window::my_gw_window(HWND hwnd) :
-	gw::window{ hwnd, false }
+My_gw_Window::My_gw_Window(HWND hwnd) :
+	gw::Window{ hwnd, false }
 {
 	//-----------------------------------------------------------------------
-	_viewport->set_window_size(0, 0);
-	_viewport->set_document_size(1024, 768);
-	_viewport->enable_scrollbar(false);
+	getViewport()->setWindowSize(0, 0);
+	getViewport()->setDocumentSize(1024, 768);
+	getViewport()->enableScrollbar(false);
 }
 
 //===========================================================================
-bool my_gw_window::create_device_resources(void)
+bool My_gw_Window::createDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	bool rv;
 
 	
-	rv = gw::window::create_device_resources();
+	rv = gw::Window::createDeviceResources();
 	if (!rv)
 	{
 		return false;
@@ -48,7 +48,7 @@ bool my_gw_window::create_device_resources(void)
 
 	if (!_Brush)
 	{
-		hr = get_DRenderTarget()->CreateSolidColorBrush(
+		hr = getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 1.0f, 0.5f),
 			&_Brush
 		);
@@ -61,7 +61,7 @@ bool my_gw_window::create_device_resources(void)
 	return true;
 }
 
-void my_gw_window::destroy_device_resources(void)
+void My_gw_Window::destroyDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	if (_Brush)
@@ -72,13 +72,13 @@ void my_gw_window::destroy_device_resources(void)
 
 
 	//-----------------------------------------------------------------------
-	gw::window::destroy_device_resources();
+	gw::Window::destroyDeviceResources();
 }
 
-void my_gw_window::draw(void)
+void My_gw_Window::draw(void)
 {
 	//-----------------------------------------------------------------------
-	gw::window::draw();
+	gw::Window::draw();
 
 
 	//-----------------------------------------------------------------------
@@ -92,7 +92,7 @@ void my_gw_window::draw(void)
 	rrect.radiusX = 10.0f;
 	rrect.radiusY = 10.0f;
 
-	get_DRenderTarget()->FillRoundedRectangle(&rrect, _Brush);
+	getDRenderTarget()->FillRoundedRectangle(&rrect, _Brush);
 }
 
 
@@ -128,7 +128,7 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_gw_window = std::make_unique<my_gw_window>(*this);
+	_gwWindow = std::make_unique<My_gw_Window>(*this);
 
 
 	//-----------------------------------------------------------------------
@@ -219,9 +219,9 @@ void View::onSize(wui::WindowMessage& windowMessage)
 	UINT cx = static_cast<UINT>(rect.right - rect.left);
 	UINT cy = static_cast<UINT>(rect.bottom - rect.top);
 
-	if (_gw_window.get())
+	if (_gwWindow.get())
 	{
-		_gw_window->resize(cx, cy);
+		_gwWindow->resize(cx, cy);
 	}
 }
 
@@ -230,7 +230,7 @@ void View::onHScroll(wui::WindowMessage& windowMessage)
 	wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gw_window->get_viewport()->hscroll(wm.nSBCode());
+	_gwWindow->getViewport()->handleHScrollbar(wm.nSBCode());
 }
 
 void View::onVScroll(wui::WindowMessage& windowMessage)
@@ -238,7 +238,7 @@ void View::onVScroll(wui::WindowMessage& windowMessage)
 	wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gw_window->get_viewport()->vscroll(wm.nSBCode());
+	_gwWindow->getViewport()->handleVScrollbar(wm.nSBCode());
 }
 
 void View::onMouseWheel(wui::WindowMessage& windowMessage)
@@ -282,23 +282,23 @@ void View::onMouseWheel(wui::WindowMessage& windowMessage)
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gw_window->get_viewport()->zoom(true);
+			_gwWindow->getViewport()->zoom(true);
 		}
 		else
 		{
 
-			_gw_window->get_viewport()->zoom(false);
+			_gwWindow->getViewport()->zoom(false);
 		}
 	}
 	else
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gw_window->get_viewport()->vscroll(SB_LINEUP);
+			_gwWindow->getViewport()->handleVScrollbar(SB_LINEUP);
 		}
 		else
 		{
-			_gw_window->get_viewport()->vscroll(SB_LINEDOWN);
+			_gwWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
 		}
 	}
 }
@@ -317,7 +317,7 @@ void View::onPaint(wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"View::onPaint()\r\n");
 
-	_gw_window->render();
+	_gwWindow->render();
 
 	// The ValidateRect function validates the client area within a rectangle by
 	// removing the rectangle from the update region of the window.
@@ -327,7 +327,7 @@ void View::onPaint(wui::WindowMessage& windowMessage)
 //===========================================================================
 void View::onIdle(void)
 {
-	_gw_window->render();
+	_gwWindow->render();
 }
 
 

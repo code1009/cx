@@ -52,7 +52,7 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_gw_window = std::make_unique<gw::basic_window>(*this);
+	_gwWindow = std::make_unique<gw::BaseEditWindow>(*this);
 
 
 	//-----------------------------------------------------------------------
@@ -134,9 +134,9 @@ void View::onSize(wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	if (_gw_window.get())
+	if (_gwWindow.get())
 	{
-		_gw_window->resize(cx, cy);
+		_gwWindow->resize(cx, cy);
 	}
 }
 
@@ -145,7 +145,7 @@ void View::onHScroll(wui::WindowMessage& windowMessage)
 	wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gw_window->get_viewport()->hscroll(wm.nSBCode());
+	_gwWindow->getViewport()->handleHScrollbar(wm.nSBCode());
 }
 
 void View::onVScroll(wui::WindowMessage& windowMessage)
@@ -153,7 +153,7 @@ void View::onVScroll(wui::WindowMessage& windowMessage)
 	wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gw_window->get_viewport()->vscroll(wm.nSBCode());
+	_gwWindow->getViewport()->handleVScrollbar(wm.nSBCode());
 }
 
 void View::onMouseWheel(wui::WindowMessage& windowMessage)
@@ -197,23 +197,23 @@ void View::onMouseWheel(wui::WindowMessage& windowMessage)
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gw_window->get_viewport()->zoom(true);
+			_gwWindow->getViewport()->zoom(true);
 		}
 		else
 		{
 
-			_gw_window->get_viewport()->zoom(false);
+			_gwWindow->getViewport()->zoom(false);
 		}
 	}
 	else
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gw_window->get_viewport()->vscroll(SB_LINEUP);
+			_gwWindow->getViewport()->handleVScrollbar(SB_LINEUP);
 		}
 		else
 		{
-			_gw_window->get_viewport()->vscroll(SB_LINEDOWN);
+			_gwWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
 		}
 	}
 }
@@ -225,7 +225,7 @@ void View::onMouseMove(wui::WindowMessage& windowMessage)
 	POINT pt = wm.point();
 
 
-	_gw_window->get_status()->set_mouse_position(pt.x, pt.y);
+	_gwWindow->getStatusOverayPanel()->setMousePosition(pt.x, pt.y);
 }
 
 void View::onKeyDown(wui::WindowMessage& windowMessage)
@@ -236,11 +236,11 @@ void View::onKeyDown(wui::WindowMessage& windowMessage)
 	switch (wm.nChar())
 	{
 	case VK_F7:
-		_gw_window->get_status()->set_visible(!_gw_window->get_status()->get_visible());
+		_gwWindow->getStatusOverayPanel()->setVisible(!_gwWindow->getStatusOverayPanel()->getVisible());
 		break;
 
 	case VK_F8:
-		_gw_window->get_document_grid()->set_visible(!_gw_window->get_document_grid()->get_visible());
+		_gwWindow->getDocumentGrid()->setVisible(!_gwWindow->getDocumentGrid()->getVisible());
 		break;
 
 	default:
@@ -260,9 +260,9 @@ void View::onEraseBkgnd(wui::WindowMessage& windowMessage)
 void View::onPaint(wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
-	if (_gw_window.get())
+	if (_gwWindow.get())
 	{
-		_gw_window->render();
+		_gwWindow->render();
 	}
 
 
@@ -318,9 +318,9 @@ void View::onCtlCommand(wui::WindowMessage& windowMessage)
 //===========================================================================
 void View::onIdle(void)
 {
-	if (_gw_window.get())
+	if (_gwWindow.get())
 	{
-		_gw_window->render();
+		_gwWindow->render();
 	}
 }
 

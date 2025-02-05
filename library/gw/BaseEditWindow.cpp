@@ -20,33 +20,31 @@ namespace gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-BasicEditWindow::BasicEditWindow(HWND hwnd, bool center) :
+BaseEditWindow::BaseEditWindow(HWND hwnd, bool center) :
 	Window{ hwnd, center }
 {
 	//-----------------------------------------------------------------------
 	_DocumentGrid = std::make_unique<DocumentGrid>();
 	_DocumentGrid->setVisibleChangedHandler(
-		std::bind(&BasicEditWindow::render, this)
+		std::bind(&BaseEditWindow::render, this)
 	);
 
 
 	//-----------------------------------------------------------------------
 	_StatusOverayPanel = std::make_unique<StatusOverayPanel>();
 	_StatusOverayPanel->setVisibleChangedHandler(
-		std::bind(&BasicEditWindow::render, this)
+		std::bind(&BaseEditWindow::render, this)
 	);
 
 
 	//-----------------------------------------------------------------------
-	_Viewport->setWindowSize(0, 0);
-	_Viewport->setDocumentSize(1920, 1080);
-	_Viewport->enableScrollbar(true);
+	getViewport()->setWindowSize(0, 0);
+	getViewport()->setDocumentSize(1920, 1080);
+	getViewport()->enableScrollbar(true);
 }
 
 //===========================================================================
-bool BasicEditWindow::createDeviceResources(void)
+bool BaseEditWindow::createDeviceResources(void)
 {
 	bool rv;
 
@@ -75,7 +73,7 @@ bool BasicEditWindow::createDeviceResources(void)
 	return true;
 }
 
-void BasicEditWindow::destroyDeviceResources(void)
+void BaseEditWindow::destroyDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	_StatusOverayPanel->destroyDeviceResources();
@@ -86,7 +84,7 @@ void BasicEditWindow::destroyDeviceResources(void)
 	Window::destroyDeviceResources();
 }
 
-void BasicEditWindow::draw(void)
+void BaseEditWindow::draw(void)
 {
 	//-----------------------------------------------------------------------
 	Window::draw();
@@ -104,7 +102,7 @@ void BasicEditWindow::draw(void)
 	_StatusOverayPanel->draw(this);
 }
 
-void BasicEditWindow::drawDocument(void)
+void BaseEditWindow::drawDocument(void)
 {
 
 }

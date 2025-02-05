@@ -52,7 +52,7 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_gwWindow = std::make_unique<gw::BasicEditWindow>(*this);
+	_gwWindow = std::make_unique<gw::BaseEditWindow>(*this);
 	_gwWindow->getStatusOverayPanel()->setVisible(true);
 	_gwWindow->getDocumentGrid()->setVisible(true);
 

@@ -6,19 +6,19 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class my_gw_window : public gw::window
+class My_gw_Window : public gw::Window
 {
 private:
 	ID2D1SolidColorBrush* _Brush{ nullptr };
 
 public:
-	my_gw_window(HWND hwnd);
+	My_gw_Window(HWND hwnd);
 
 	//-----------------------------------------------------------------------
 	// gw::window
 public:
-	virtual bool create_device_resources(void) override;
-	virtual void destroy_device_resources(void) override;
+	virtual bool createDeviceResources(void) override;
+	virtual void destroyDeviceResources(void) override;
 	virtual void draw(void) override;
 };
 
@@ -31,7 +31,7 @@ public:
 class View : public wui::MessageMapWindowT<View, wui::BaseWindow>
 {
 public:
-	std::unique_ptr<my_gw_window> _gw_window;
+	std::unique_ptr<My_gw_Window> _gwWindow;
 
 public:
 	explicit View(HWND parentWindowHandle);

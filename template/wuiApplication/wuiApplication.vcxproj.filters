@@ -7,20 +7,20 @@
     <Filter Include="res">
       <UniqueIdentifier>{32d999d2-9124-45f2-97c8-0b06cafc67d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="library">
-      <UniqueIdentifier>{e108e4d3-b3ba-4c1e-876d-8a9d43ae1730}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="library\wui">
-      <UniqueIdentifier>{41e4281b-400f-4521-b806-d7ccb6fe8d57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="library\runtime">
-      <UniqueIdentifier>{5557d140-991a-4aea-a56f-7453253839d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="library\gw">
-      <UniqueIdentifier>{58cf9c67-eff2-454a-af3a-e7327fa53550}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Window">
       <UniqueIdentifier>{48b7b302-691a-47bf-80aa-6132461e8dc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library_cx">
+      <UniqueIdentifier>{70d39ed5-f233-4543-8fd5-ff6a981f1e68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library_cx\wui">
+      <UniqueIdentifier>{e9da5045-25de-464c-a82b-236546e0ec9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library_cx\runtime">
+      <UniqueIdentifier>{a072a5be-a309-4196-8d05-9724b85fb8e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library_cx\gw">
+      <UniqueIdentifier>{f218ab38-7313-4bfd-9f1e-a8725760101a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -29,69 +29,6 @@
     </ClCompile>
     <ClCompile Include="src\pch.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\window.cpp">
-      <Filter>library\gw</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\drawable.cpp">
-      <Filter>library\gw</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\dx2d.cpp">
-      <Filter>library\gw</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\viewport.cpp">
-      <Filter>library\gw</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\AppModule.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\BaseWindow.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\Coord.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\DC.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\DCFunctions.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\DialogTemplate.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\GDIObject.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\ResourceFunctions.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\Window.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowClass.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowFunctions.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessageCrack.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessageLoop.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowProc.cpp">
-      <Filter>library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\runtime\WindowApplication.cpp">
-      <Filter>library\runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\runtime\DebugMemory.cpp">
-      <Filter>library\runtime</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\View.cpp">
       <Filter>src\Window</Filter>
@@ -105,20 +42,86 @@
     <ClCompile Include="src\Application.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\runtime\LastError.cpp">
-      <Filter>library\runtime</Filter>
+    <ClCompile Include="..\..\library\wui\AppModule.cpp">
+      <Filter>library_cx\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\runtime\Log.cpp">
-      <Filter>library\runtime</Filter>
+    <ClCompile Include="..\..\library\wui\BaseWindow.cpp">
+      <Filter>library_cx\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\runtime\Assert.cpp">
-      <Filter>library\runtime</Filter>
+    <ClCompile Include="..\..\library\wui\Coord.cpp">
+      <Filter>library_cx\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\DCClasses.cpp">
-      <Filter>library\wui</Filter>
+    <ClCompile Include="..\..\library\wui\DC.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\DC_Classes.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\DC_Functions.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\DialogTemplate.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\GDIObject.cpp">
+      <Filter>library_cx\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Resource.cpp">
-      <Filter>library\wui</Filter>
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\Resource_Functions.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\Window.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\WindowClass.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\Window_Functions.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\WindowMessage.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\WindowMessageCrack.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\WindowMessageLoop.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\WindowProc.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\Assert.cpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\DebugMemory.cpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\LastError.cpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\Log.cpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\WindowApplication.cpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp">
+      <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Viewport.cpp">
+      <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Window.cpp">
+      <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Drawable.cpp">
+      <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp">
+      <Filter>library_cx\gw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,96 +137,6 @@
     <ClInclude Include="res\Resource.h">
       <Filter>res</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\gw\window.hpp">
-      <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\drawable.hpp">
-      <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\dx2d.hpp">
-      <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\gw.hpp">
-      <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\pch.hpp">
-      <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\viewport.hpp">
-      <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\AppModule.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\BaseWindow.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\Coord.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\DC.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\DCFunctions.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\DialogTemplate.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\GDIObject.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\MessageMapWindow.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\pch.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\ResourceFunctions.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\Window.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowClass.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowFunctions.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessageCrack.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessageHandler.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessageLoop.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessageMap.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowProc.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowStyle.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\wui.hpp">
-      <Filter>library\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\WindowApplication.hpp">
-      <Filter>library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\pch.hpp">
-      <Filter>library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\DebugMemory.hpp">
-      <Filter>library\runtime</Filter>
-    </ClInclude>
     <ClInclude Include="src\Window\pch.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
@@ -236,35 +149,128 @@
     <ClInclude Include="src\Window\MainFrame.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\runtime\runtime.hpp">
-      <Filter>library\runtime</Filter>
-    </ClInclude>
     <ClInclude Include="src\Application.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\runtime\LastError.hpp">
-      <Filter>library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\Log.hpp">
-      <Filter>library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\Assert.hpp">
-      <Filter>library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\Macros.hpp">
-      <Filter>library\runtime</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
-      <Filter>library</Filter>
+      <Filter>library_cx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\pch.hpp">
-      <Filter>library</Filter>
+      <Filter>library_cx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\AppModule.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\BaseWindow.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Coord.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\DC.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\DC_Classes.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\DC_Functions.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\DialogTemplate.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\GDIObject.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\MessageMapWindow.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\pch.hpp">
+      <Filter>library_cx\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Resource.hpp">
-      <Filter>library\wui</Filter>
+      <Filter>library_cx\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\DCClasses.hpp">
-      <Filter>library\wui</Filter>
+    <ClInclude Include="..\..\library\wui\Resource_Functions.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\WindowClass.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window_Functions.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\WindowMessage.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\WindowMessageCrack.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\WindowMessageHandler.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\WindowMessageLoop.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\WindowMessageMap.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\WindowProc.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\WindowStyle.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\wui.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\Assert.hpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\DebugMemory.hpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\LastError.hpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\Log.hpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\Macros.hpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\pch.hpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\runtime.hpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\WindowApplication.hpp">
+      <Filter>library_cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\gw.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\pch.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Viewport.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Window.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Drawable.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp">
+      <Filter>library_cx\gw</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

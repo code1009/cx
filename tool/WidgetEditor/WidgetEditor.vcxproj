@@ -29,7 +29,7 @@
     <ResourceCompile Include="res\Application.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\library\gw\BasicEditWindow.hpp" />
+    <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp" />
     <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp" />
     <ClInclude Include="..\..\library\gw\Drawable.hpp" />
     <ClInclude Include="..\..\library\gw\gw.hpp" />
@@ -81,7 +81,7 @@
     <ClInclude Include="src\Window\View.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\library\gw\BasicEditWindow.cpp" />
+    <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp" />
     <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp" />
     <ClCompile Include="..\..\library\gw\Drawable.cpp" />
     <ClCompile Include="..\..\library\gw\Viewport.cpp" />

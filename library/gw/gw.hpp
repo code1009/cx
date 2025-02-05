@@ -7,4 +7,4 @@
 #include "Window.hpp"
 
 #include "Drawable.hpp"
-#include "BasicEditWindow.hpp"
+#include "BaseEditWindow.hpp"

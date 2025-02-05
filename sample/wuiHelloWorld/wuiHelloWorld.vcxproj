@@ -26,13 +26,14 @@
     <ResourceCompile Include="res\Application.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
-    <ClInclude Include="..\..\library\gw\drawable.hpp" />
-    <ClInclude Include="..\..\library\gw\dx2d.hpp" />
+    <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp" />
+    <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp" />
+    <ClInclude Include="..\..\library\gw\Drawable.hpp" />
     <ClInclude Include="..\..\library\gw\gw.hpp" />
     <ClInclude Include="..\..\library\gw\pch.hpp" />
-    <ClInclude Include="..\..\library\gw\viewport.hpp" />
-    <ClInclude Include="..\..\library\gw\window.hpp" />
+    <ClInclude Include="..\..\library\gw\Viewport.hpp" />
+    <ClInclude Include="..\..\library\gw\Window.hpp" />
+    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
     <ClInclude Include="..\..\library\pch.hpp" />
     <ClInclude Include="..\..\library\runtime\Assert.hpp" />
     <ClInclude Include="..\..\library\runtime\DebugMemory.hpp" />
@@ -46,17 +47,16 @@
     <ClInclude Include="..\..\library\wui\BaseWindow.hpp" />
     <ClInclude Include="..\..\library\wui\Coord.hpp" />
     <ClInclude Include="..\..\library\wui\DC.hpp" />
-    <ClInclude Include="..\..\library\wui\DCClasses.hpp" />
-    <ClInclude Include="..\..\library\wui\DCFunctions.hpp" />
+    <ClInclude Include="..\..\library\wui\DC_Classes.hpp" />
+    <ClInclude Include="..\..\library\wui\DC_Functions.hpp" />
     <ClInclude Include="..\..\library\wui\DialogTemplate.hpp" />
     <ClInclude Include="..\..\library\wui\GDIObject.hpp" />
     <ClInclude Include="..\..\library\wui\MessageMapWindow.hpp" />
     <ClInclude Include="..\..\library\wui\pch.hpp" />
     <ClInclude Include="..\..\library\wui\Resource.hpp" />
-    <ClInclude Include="..\..\library\wui\ResourceFunctions.hpp" />
+    <ClInclude Include="..\..\library\wui\Resource_Functions.hpp" />
     <ClInclude Include="..\..\library\wui\Window.hpp" />
     <ClInclude Include="..\..\library\wui\WindowClass.hpp" />
-    <ClInclude Include="..\..\library\wui\WindowFunctions.hpp" />
     <ClInclude Include="..\..\library\wui\WindowMessage.hpp" />
     <ClInclude Include="..\..\library\wui\WindowMessageCrack.hpp" />
     <ClInclude Include="..\..\library\wui\WindowMessageHandler.hpp" />
@@ -64,6 +64,7 @@
     <ClInclude Include="..\..\library\wui\WindowMessageMap.hpp" />
     <ClInclude Include="..\..\library\wui\WindowProc.hpp" />
     <ClInclude Include="..\..\library\wui\WindowStyle.hpp" />
+    <ClInclude Include="..\..\library\wui\Window_Functions.hpp" />
     <ClInclude Include="..\..\library\wui\wui.hpp" />
     <ClInclude Include="res\Resource.h" />
     <ClInclude Include="src\framework.hpp" />
@@ -71,10 +72,11 @@
     <ClInclude Include="src\targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\library\gw\drawable.cpp" />
-    <ClCompile Include="..\..\library\gw\dx2d.cpp" />
-    <ClCompile Include="..\..\library\gw\viewport.cpp" />
-    <ClCompile Include="..\..\library\gw\window.cpp" />
+    <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp" />
+    <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp" />
+    <ClCompile Include="..\..\library\gw\Drawable.cpp" />
+    <ClCompile Include="..\..\library\gw\Viewport.cpp" />
+    <ClCompile Include="..\..\library\gw\Window.cpp" />
     <ClCompile Include="..\..\library\runtime\Assert.cpp" />
     <ClCompile Include="..\..\library\runtime\DebugMemory.cpp" />
     <ClCompile Include="..\..\library\runtime\LastError.cpp" />
@@ -84,19 +86,19 @@
     <ClCompile Include="..\..\library\wui\BaseWindow.cpp" />
     <ClCompile Include="..\..\library\wui\Coord.cpp" />
     <ClCompile Include="..\..\library\wui\DC.cpp" />
-    <ClCompile Include="..\..\library\wui\DCClasses.cpp" />
-    <ClCompile Include="..\..\library\wui\DCFunctions.cpp" />
+    <ClCompile Include="..\..\library\wui\DC_Classes.cpp" />
+    <ClCompile Include="..\..\library\wui\DC_Functions.cpp" />
     <ClCompile Include="..\..\library\wui\DialogTemplate.cpp" />
     <ClCompile Include="..\..\library\wui\GDIObject.cpp" />
     <ClCompile Include="..\..\library\wui\Resource.cpp" />
-    <ClCompile Include="..\..\library\wui\ResourceFunctions.cpp" />
+    <ClCompile Include="..\..\library\wui\Resource_Functions.cpp" />
     <ClCompile Include="..\..\library\wui\Window.cpp" />
     <ClCompile Include="..\..\library\wui\WindowClass.cpp" />
-    <ClCompile Include="..\..\library\wui\WindowFunctions.cpp" />
     <ClCompile Include="..\..\library\wui\WindowMessage.cpp" />
     <ClCompile Include="..\..\library\wui\WindowMessageCrack.cpp" />
     <ClCompile Include="..\..\library\wui\WindowMessageLoop.cpp" />
     <ClCompile Include="..\..\library\wui\WindowProc.cpp" />
+    <ClCompile Include="..\..\library\wui\Window_Functions.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

@@ -10,7 +10,7 @@ class View :
 	public wui::MessageMapWindowT<View, wui::BaseWindow>
 {
 private:
-	std::unique_ptr<gw::basic_window> _gw_window;
+	std::unique_ptr<gw::BaseEditWindow> _gwWindow;
 
 public:
 	explicit View(HWND parentWindowHandle);

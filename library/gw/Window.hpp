@@ -19,7 +19,7 @@ namespace gw
 //===========================================================================
 class Window
 {
-protected:
+private:
 	HWND                      _WindowHandle      { nullptr };
 	std::unique_ptr<Viewport> _Viewport          {};
 	ID2D1Factory*             _pDFactory         { nullptr };

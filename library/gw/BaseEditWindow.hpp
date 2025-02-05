@@ -17,14 +17,14 @@ namespace gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class BasicEditWindow : public Window
+class BaseEditWindow : public Window
 {
 protected:
 	std::unique_ptr<DocumentGrid>      _DocumentGrid{};
 	std::unique_ptr<StatusOverayPanel> _StatusOverayPanel{};
 
 public:
-	explicit BasicEditWindow(HWND hwnd, bool center = true);
+	explicit BaseEditWindow(HWND hwnd, bool center = true);
 
 	//-----------------------------------------------------------------------
 	// Window
@@ -34,7 +34,7 @@ protected:
 	virtual void draw(void) override;
 
 	//-----------------------------------------------------------------------
-	// BasicEditWindow
+	// BaseEditWindow
 public:
 	[[nodiscard]] constexpr DocumentGrid*      getDocumentGrid     (void) { return _DocumentGrid.get();      }
 	[[nodiscard]] constexpr StatusOverayPanel* getStatusOverayPanel(void) { return _StatusOverayPanel.get(); }
