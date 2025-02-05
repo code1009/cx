@@ -325,53 +325,53 @@ void Viewport::updateViewScroll(void)
 	{
 		if (_Window_CX < _Image_CX)
 		{
-			_View_X_ScrollMin = 0;
-			_View_X_ScrollMax = _Image_CX;
-			_View_X_ScrollPage = _Window_CX;
-			_View_X_ScrollLine = _X_ScrollLine;
+			_View_X_Scroll_Min = 0;
+			_View_X_Scroll_Max = _Image_CX;
+			_View_X_Scroll_Page = _Window_CX;
+			_View_X_Scroll_Line = _X_ScrollLine;
 		}
 		else
 		{
-			_View_X_ScrollMin = 0;
-			_View_X_ScrollMax = 0;
-			_View_X_ScrollPage = 0;
-			_View_X_ScrollLine = 0;
+			_View_X_Scroll_Min = 0;
+			_View_X_Scroll_Max = 0;
+			_View_X_Scroll_Page = 0;
+			_View_X_Scroll_Line = 0;
 		}
 
 
 		if (_Window_CY < _Image_CY)
 		{
-			_View_Y_ScrollMin = 0;
-			_View_Y_ScrollMax = _Image_CY;
-			_View_Y_ScrollPage = _Window_CY;
-			_View_Y_ScrollLine = _Y_ScrollLine;
+			_View_Y_Scroll_Min = 0;
+			_View_Y_Scroll_Max = _Image_CY;
+			_View_Y_Scroll_Page = _Window_CY;
+			_View_Y_Scroll_Line = _Y_ScrollLine;
 		}
 		else
 		{
-			_View_Y_ScrollMin = 0;
-			_View_Y_ScrollMax = 0;
-			_View_Y_ScrollPage = 0;
-			_View_Y_ScrollLine = 0;
+			_View_Y_Scroll_Min = 0;
+			_View_Y_Scroll_Max = 0;
+			_View_Y_Scroll_Page = 0;
+			_View_Y_Scroll_Line = 0;
 		}
 	}
 	else
 	{
-		_View_X_ScrollMin = 0;
-		_View_X_ScrollMax = 0;
-		_View_X_ScrollPage = 0;
-		_View_X_ScrollLine = 0;
+		_View_X_Scroll_Min = 0;
+		_View_X_Scroll_Max = 0;
+		_View_X_Scroll_Page = 0;
+		_View_X_Scroll_Line = 0;
 
-		_View_Y_ScrollMin = 0;
-		_View_Y_ScrollMax = 0;
-		_View_Y_ScrollPage = 0;
-		_View_Y_ScrollLine = 0;
+		_View_Y_Scroll_Min = 0;
+		_View_Y_Scroll_Max = 0;
+		_View_Y_Scroll_Page = 0;
+		_View_Y_Scroll_Line = 0;
 	}
 }
 
 void Viewport::updateScrollbarPosition(void)
 {
-	SetScrollInfo64(_WindowHandle, SB_HORZ, SIF_ALL, _View_X_ScrollMax, _ImageViewport_X, _View_X_ScrollPage, TRUE);
-	SetScrollInfo64(_WindowHandle, SB_VERT, SIF_ALL, _View_Y_ScrollMax, _ImageViewport_Y, _View_Y_ScrollPage, TRUE);
+	SetScrollInfo64(_WindowHandle, SB_HORZ, SIF_ALL, _View_X_Scroll_Max, _ImageViewport_X, _View_X_Scroll_Page, TRUE);
+	SetScrollInfo64(_WindowHandle, SB_VERT, SIF_ALL, _View_Y_Scroll_Max, _ImageViewport_Y, _View_Y_Scroll_Page, TRUE);
 }
 
 //===========================================================================
@@ -381,7 +381,7 @@ void Viewport::handleVScrollbar(std::uint32_t scrollbarCode)
 	std::int64_t pos;
 
 
-	pos = GetScrollPos64(_WindowHandle, SB_VERT, SIF_TRACKPOS, _View_Y_ScrollMax);
+	pos = GetScrollPos64(_WindowHandle, SB_VERT, SIF_TRACKPOS, _View_Y_Scroll_Max);
 
 
 	//-----------------------------------------------------------------------
@@ -391,10 +391,10 @@ void Viewport::handleVScrollbar(std::uint32_t scrollbarCode)
 
 	view_scroll_pos = _ImageViewport_Y;
 	view_scroll_pos_current = scroll(scrollbarCode, pos,
-		_View_Y_ScrollPage,
-		_View_Y_ScrollLine,
-		_View_Y_ScrollMin,
-		_View_Y_ScrollMax,
+		_View_Y_Scroll_Page,
+		_View_Y_Scroll_Line,
+		_View_Y_Scroll_Min,
+		_View_Y_Scroll_Max,
 		_ImageViewport_Y
 	);
 
@@ -419,7 +419,7 @@ void Viewport::handleHScrollbar(std::uint32_t scrollbarCode)
 	std::int64_t pos;
 
 
-	pos = GetScrollPos64(_WindowHandle, SB_HORZ, SIF_TRACKPOS, _View_X_ScrollMax);
+	pos = GetScrollPos64(_WindowHandle, SB_HORZ, SIF_TRACKPOS, _View_X_Scroll_Max);
 
 
 	//-----------------------------------------------------------------------
@@ -429,10 +429,10 @@ void Viewport::handleHScrollbar(std::uint32_t scrollbarCode)
 
 	view_scroll_pos = _ImageViewport_X;
 	view_scroll_pos_current = scroll(scrollbarCode, pos,
-		_View_X_ScrollPage,
-		_View_X_ScrollLine,
-		_View_X_ScrollMin,
-		_View_X_ScrollMax,
+		_View_X_Scroll_Page,
+		_View_X_Scroll_Line,
+		_View_X_Scroll_Min,
+		_View_X_Scroll_Max,
 		_ImageViewport_X
 	);
 

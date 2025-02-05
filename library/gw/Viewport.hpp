@@ -50,15 +50,15 @@ protected:
 	std::int64_t _ImageViewport_Y{ 0 };
 
 protected:
-	std::int64_t _View_X_ScrollMin{ 0 };
-	std::int64_t _View_X_ScrollMax{ 0 };
-	std::int64_t _View_X_ScrollPage{ 0 };
-	std::int64_t _View_X_ScrollLine{ 0 };
+	std::int64_t _View_X_Scroll_Min{ 0 };
+	std::int64_t _View_X_Scroll_Max{ 0 };
+	std::int64_t _View_X_Scroll_Page{ 0 };
+	std::int64_t _View_X_Scroll_Line{ 0 };
 
-	std::int64_t _View_Y_ScrollMin{ 0 };
-	std::int64_t _View_Y_ScrollMax{ 0 };
-	std::int64_t _View_Y_ScrollPage{ 0 };
-	std::int64_t _View_Y_ScrollLine{ 0 };
+	std::int64_t _View_Y_Scroll_Min{ 0 };
+	std::int64_t _View_Y_Scroll_Max{ 0 };
+	std::int64_t _View_Y_Scroll_Page{ 0 };
+	std::int64_t _View_Y_Scroll_Line{ 0 };
 
 	bool _ScrollbarEnabled{ false };
 
@@ -118,11 +118,11 @@ protected:
 	virtual std::int64_t scroll(
 		std::uint32_t scrollbarCode,
 		std::int64_t  scrollbarPos,
-		std::uint64_t scrollPage,
-		std::uint64_t scrollLine,
-		std::uint64_t scrollMin,
-		std::uint64_t scrollMax,
-		std::uint64_t scrollPos);
+		std::uint64_t scroll_page,
+		std::uint64_t scroll_line,
+		std::uint64_t scroll_min,
+		std::uint64_t scroll_max,
+		std::uint64_t scroll_pos);
 
 public:
 	virtual void enableScrollbar(bool enable);
