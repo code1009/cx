@@ -87,10 +87,10 @@
     <ClInclude Include="..\..\library\wui\DC.hpp">
       <Filter>library\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\DCFunctions.hpp">
+    <ClInclude Include="..\..\library\wui\DC_Functions.hpp">
       <Filter>library\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\DCClasses.hpp">
+    <ClInclude Include="..\..\library\wui\DC_Classes.hpp">
       <Filter>library\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\DialogTemplate.hpp">
@@ -108,7 +108,7 @@
     <ClInclude Include="..\..\library\wui\Resource.hpp">
       <Filter>library\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\ResourceFunctions.hpp">
+    <ClInclude Include="..\..\library\wui\Resource_Functions.hpp">
       <Filter>library\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window.hpp">
@@ -117,7 +117,7 @@
     <ClInclude Include="..\..\library\wui\WindowClass.hpp">
       <Filter>library\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowFunctions.hpp">
+    <ClInclude Include="..\..\library\wui\Window_Functions.hpp">
       <Filter>library\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\WindowMessage.hpp">
@@ -180,6 +180,18 @@
     <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp">
       <Filter>library\gw</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Viewport.hpp">
+      <Filter>library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Window.hpp">
+      <Filter>library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Drawable.hpp">
+      <Filter>library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\BasicEditWindow.hpp">
+      <Filter>library\gw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -203,7 +215,7 @@
     <ClCompile Include="..\..\library\wui\AppModule.cpp">
       <Filter>library\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\DCClasses.cpp">
+    <ClCompile Include="..\..\library\wui\DC_Classes.cpp">
       <Filter>library\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\BaseWindow.cpp">
@@ -215,7 +227,7 @@
     <ClCompile Include="..\..\library\wui\DC.cpp">
       <Filter>library\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\DCFunctions.cpp">
+    <ClCompile Include="..\..\library\wui\DC_Functions.cpp">
       <Filter>library\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\DialogTemplate.cpp">
@@ -227,7 +239,7 @@
     <ClCompile Include="..\..\library\wui\Resource.cpp">
       <Filter>library\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\ResourceFunctions.cpp">
+    <ClCompile Include="..\..\library\wui\Resource_Functions.cpp">
       <Filter>library\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Window.cpp">
@@ -236,7 +248,7 @@
     <ClCompile Include="..\..\library\wui\WindowClass.cpp">
       <Filter>library\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowFunctions.cpp">
+    <ClCompile Include="..\..\library\wui\Window_Functions.cpp">
       <Filter>library\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\WindowMessage.cpp">
@@ -270,6 +282,18 @@
       <Filter>src\Window</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp">
+      <Filter>library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Viewport.cpp">
+      <Filter>library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Window.cpp">
+      <Filter>library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Drawable.cpp">
+      <Filter>library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\BasicEditWindow.cpp">
       <Filter>library\gw</Filter>
     </ClCompile>
   </ItemGroup>

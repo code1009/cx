@@ -20,62 +20,91 @@ namespace gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-window::window(HWND hwnd, bool center):
-	_hwnd{ hwnd }
+Window::Window(HWND hwnd, bool center):
+	_WindowHandle{ hwnd }
 {
 	//-----------------------------------------------------------------------
 	if (center)
 	{
-		_viewport = std::make_unique<center_viewport>(
+		_Viewport = std::make_unique<CenterViewport>(
 			hwnd,
-			std::bind(&window::render, this)
+			std::bind(&Window::render, this),
+			[this](std::int64_t width, std::int64_t height)
+			{
+				if (_pDHwndRenderTarget)
+				{
+					_pDHwndRenderTarget->Resize(
+						D2D1::SizeU(
+							static_cast<UINT32>(width),
+							static_cast<UINT32>(height)
+						)
+					);
+				}
+			}
 		);
 	}
 	else
 	{
-		_viewport = std::make_unique<viewport>(
+		_Viewport = std::make_unique<Viewport>(
 			hwnd,
-			std::bind(&window::render, this)
+			std::bind(&Window::render, this),
+			[this](std::int64_t width, std::int64_t height)
+			{
+				if (_pDHwndRenderTarget)
+				{
+					_pDHwndRenderTarget->Resize(
+						D2D1::SizeU(
+							static_cast<UINT32>(width),
+							static_cast<UINT32>(height)
+						)
+					);
+				}
+			}
 		);
 	}
 
 
 	//-----------------------------------------------------------------------
-	_pDFactory = dx2d::getDFactory();
-	_pDWriteFactory = dx2d::getDWriteFactory();
+	_pDFactory = DirectX2DGraphic::getDFactory();
+	_pDWriteFactory = DirectX2DGraphic::getDWriteFactory();
 	_pDHwndRenderTarget = nullptr;
 }
 
 //===========================================================================
-window::~window()
+Window::~Window()
 {
-	destroy_device_resources();
+	destroyDeviceResources();
 }
 
 
 //===========================================================================
-void window::resize(std::int64_t width, std::int64_t height)
+void Window::resize(std::int64_t width, std::int64_t height)
 {
+#if 0
 	if (_pDHwndRenderTarget)
 	{
 		// Note: This method can fail, but it's okay to ignore the
 		// error here, because the error will be returned again
 		// the next time EndDraw is called.
 		_pDHwndRenderTarget->Resize(
-			D2D1::SizeU(static_cast<UINT32>(width), static_cast<UINT32>(height))
+			D2D1::SizeU(
+				static_cast<UINT32>(width),
+				static_cast<UINT32>(height)
+			)
 		);
 	}
+#endif
 
-	_viewport->set_window_size(width, height);
+	_Viewport->setWindowSize(width, height);
 }
 
 //===========================================================================
-void window::render(void)
+void Window::render(void)
 {
 	bool rv;
 
 
-	rv = create_device_resources();
+	rv = createDeviceResources();
 	if (rv)
 	{
 		_pDHwndRenderTarget->BeginDraw();
@@ -90,22 +119,22 @@ void window::render(void)
 		hr = _pDHwndRenderTarget->EndDraw();
 		if (hr == D2DERR_RECREATE_TARGET)
 		{
-			destroy_device_resources();
+			destroyDeviceResources();
 		}
 	}
 	else
 	{
-		destroy_device_resources();
+		destroyDeviceResources();
 	}
 }
 
 //===========================================================================
-bool window::create_device_resources(void)
+bool Window::createDeviceResources(void)
 {
 	bool rv;
 
 
-	rv = create_render_target();
+	rv = createRenderTarget();
 	if (!rv)
 	{
 		return false;
@@ -114,13 +143,13 @@ bool window::create_device_resources(void)
 	return true;
 }
 
-void window::destroy_device_resources(void)
+void Window::destroyDeviceResources(void)
 {
-	release_render_target();
+	releaseRenderTarget();
 }
 
 //===========================================================================
-bool window::create_render_target(void)
+bool Window::createRenderTarget(void)
 {
 	HRESULT hr = S_OK;
 
@@ -131,7 +160,7 @@ bool window::create_render_target(void)
 		RECT rect;
 
 
-		GetClientRect(_hwnd, &rect);
+		GetClientRect(_WindowHandle, &rect);
 
 
 		//-------------------------------------------------------------------
@@ -156,7 +185,7 @@ bool window::create_render_target(void)
 #else
 		hr = _pDFactory->CreateHwndRenderTarget(
 			D2D1::RenderTargetProperties(),
-			D2D1::HwndRenderTargetProperties(_hwnd, size),
+			D2D1::HwndRenderTargetProperties(_WindowHandle, size),
 			&_pDHwndRenderTarget
 		);
 #endif
@@ -170,7 +199,7 @@ bool window::create_render_target(void)
 	return true;
 }
 
-void window::release_render_target(void)
+void Window::releaseRenderTarget(void)
 {
 	if (_pDHwndRenderTarget)
 	{
@@ -180,7 +209,7 @@ void window::release_render_target(void)
 }
 
 //===========================================================================
-void window::draw(void)
+void Window::draw(void)
 {
 	//-----------------------------------------------------------------------
 	D2D1::Matrix3x2F matrix;
@@ -194,14 +223,14 @@ void window::draw(void)
 	double translation_y;
 
 
-	_viewport->get_document_viewport_point_translation(translation_x, translation_y);
+	_Viewport->getDocumentViewportPointTranslation(translation_x, translation_y);
 
 
 	//-----------------------------------------------------------------------
 	double scale;
 
 
-	_viewport->get_scale(scale);
+	_Viewport->getScale(scale);
 
 
 	//-----------------------------------------------------------------------
@@ -221,99 +250,6 @@ void window::draw(void)
 
 	//-----------------------------------------------------------------------
 	_pDHwndRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-basic_window::basic_window(HWND hwnd, bool center) :
-	window{ hwnd, center }
-{
-	//-----------------------------------------------------------------------
-	_document_grid = std::make_unique<document_grid>();
-	_document_grid->set_visible_changed_handler(
-		std::bind(&basic_window::render, this)
-	);
-
-
-	//-----------------------------------------------------------------------
-	_status = std::make_unique<status>();
-	_status->set_visible_changed_handler(
-		std::bind(&basic_window::render, this)
-	);
-
-
-	//-----------------------------------------------------------------------
-	_viewport->set_window_size(0, 0);
-	_viewport->set_document_size(1920, 1080);
-	_viewport->enable_scrollbar(true);
-}
-
-//===========================================================================
-bool basic_window::create_device_resources(void)
-{
-	bool rv;
-
-
-	//-----------------------------------------------------------------------
-	rv = window::create_device_resources();
-	if (!rv)
-	{
-		return false;
-	}
-
-
-	//-----------------------------------------------------------------------
-	rv = _status->create_device_resources(this);
-	if (!rv)
-	{
-		return false;
-	}
-	rv = _document_grid->create_device_resources(this);
-	if (!rv)
-	{
-		return false;
-	}
-
-
-	return true;
-}
-
-void basic_window::destroy_device_resources(void)
-{
-	//-----------------------------------------------------------------------
-	_status->destroy_device_resources();
-	_document_grid->destroy_device_resources();
-
-
-	//-----------------------------------------------------------------------
-	window::destroy_device_resources();
-}
-
-void basic_window::draw(void)
-{
-	//-----------------------------------------------------------------------
-	window::draw();
-
-
-	//-----------------------------------------------------------------------
-	_document_grid->draw(this);
-
-
-	//-----------------------------------------------------------------------
-	draw_document();
-
-
-	//-----------------------------------------------------------------------
-	_status->draw(this);
-}
-
-void basic_window::draw_document(void)
-{
-
 }
 
 

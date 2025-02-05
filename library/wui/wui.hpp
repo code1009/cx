@@ -50,7 +50,7 @@
 #include "WindowMessageCrack.hpp"
 
 // # Window 함수들
-#include "WindowFunctions.hpp"
+#include "Window_Functions.hpp"
 
 //===========================================================================
 // # 좌표
@@ -59,8 +59,8 @@
 //===========================================================================
 // # DeviceContext
 #include "DC.hpp"
-#include "DCClasses.hpp"
-#include "DCFunctions.hpp"
+#include "DC_Classes.hpp"
+#include "DC_Functions.hpp"
 
 // # GDI 객체
 #include "GDIObject.hpp"
@@ -68,7 +68,7 @@
 //===========================================================================
 // # .rc 리소스
 #include "Resource.hpp"
-#include "ResourceFunctions.hpp"
+#include "Resource_Functions.hpp"
 #include "DialogTemplate.hpp"
 
 

@@ -17,7 +17,7 @@ namespace gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class window;
+class Window;
 
 
 
@@ -25,37 +25,38 @@ class window;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class drawable
+class Drawable
 {
 public:
-	using visible_changed_handler = std::function<void(drawable*)>;
+	using VisibleChangedHandlerParam = Drawable*;
+	using VisibleChangedHandler = std::function<void(VisibleChangedHandlerParam)>;
 
 private:
-	visible_changed_handler _visible_changed_handler;
-	bool _visible{ false };
+	VisibleChangedHandler _VisibleChangedHandler;
+	bool _Visible{ false };
 
 public:
-	drawable() = default;
+	Drawable() = default;
 
 public:
-	virtual ~drawable() = default;
+	virtual ~Drawable() = default;
 
 public:
-	drawable(const drawable&) = delete;
-	drawable& operator=(const drawable&) = delete;
-	drawable(drawable&&) = delete;
-	drawable& operator=(drawable&&) = delete;
+	Drawable(const Drawable&) = delete;
+	Drawable& operator=(const Drawable&) = delete;
+	Drawable(Drawable&&) = delete;
+	Drawable& operator=(Drawable&&) = delete;
 
 public:
-	virtual bool get_visible(void) const;	
-	virtual bool set_visible(bool value);
-	virtual void set_visible_changed(void);
-	virtual void set_visible_changed_handler(visible_changed_handler handler);
+	virtual bool getVisible(void) const;
+	virtual bool setVisible(bool value);
+	virtual void setVisibleChanged(void);
+	virtual void setVisibleChangedHandler(VisibleChangedHandler handler);
 
 public:
-	virtual bool create_device_resources(window* w) = 0;
-	virtual void destroy_device_resources(void) = 0;
-	virtual void draw(window* w) = 0;
+	virtual bool createDeviceResources(Window* w) = 0;
+	virtual void destroyDeviceResources(void) = 0;
+	virtual void draw(Window* winwdow) = 0;
 };
 
 
@@ -64,7 +65,7 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class document_grid : public drawable
+class DocumentGrid : public Drawable
 {
 private:
 	ID2D1SolidColorBrush* _pDocumentGridLine0Brush{ nullptr };
@@ -77,22 +78,22 @@ private:
 	ID2D1SolidColorBrush* _pCoordTextBrush{ nullptr };
 
 public:
-	document_grid() = default;
+	DocumentGrid() = default;
 
 public:
-	virtual ~document_grid();
+	virtual ~DocumentGrid();
 
 	//-----------------------------------------------------------------------
-	// drawable
+	// Drawable
 public:
-	virtual bool create_device_resources(window* w) override;
-	virtual void destroy_device_resources(void) override;
-	virtual void draw(window* w) override;
+	virtual bool createDeviceResources(Window* w) override;
+	virtual void destroyDeviceResources(void) override;
+	virtual void draw(Window* w) override;
 
 	//-----------------------------------------------------------------------
-	// document_grid
+	// DocumentGrid
 private:
-	void draw_document_grid(window* w);
+	void drawDocumentGrid(Window* w);
 };
 
 
@@ -101,17 +102,17 @@ private:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class status : public drawable
+class StatusOverayPanel : public Drawable
 {
 	//-----------------------------------------------------------------------
 private:
-	std::chrono::time_point<std::chrono::steady_clock> _last_draw_time;
-	std::int64_t                                       _frame_draw_count{ 0 };
-	float                                              _fps{ 0.0f };
+	std::chrono::time_point<std::chrono::steady_clock> _LastDrawTime;
+	std::int64_t                                       _FrameDrawCount{ 0 };
+	float                                              _FPS{ 0.0f };
 
 private:
-	std::int64_t _mouse_x{ 0 };
-	std::int64_t _mouse_y{ 0 };
+	std::int64_t _MouseX{ 0 };
+	std::int64_t _MouseY{ 0 };
 
 private:
 	//IDWriteTextLayout*    _pStatusTextLayout{ nullptr };
@@ -122,26 +123,26 @@ private:
 
 	//-----------------------------------------------------------------------
 public:
-	status();
+	StatusOverayPanel();
 
 public:
-	virtual ~status();
+	virtual ~StatusOverayPanel();
 
 	//-----------------------------------------------------------------------
-	// drawable
+	// Drawable
 public:
-	virtual bool create_device_resources(window* w) override;
-	virtual void destroy_device_resources(void) override;
-	virtual void draw(window* w) override;
+	virtual bool createDeviceResources(Window* w) override;
+	virtual void destroyDeviceResources(void) override;
+	virtual void draw(Window* w) override;
 
 	//-----------------------------------------------------------------------
-	// status
+	// StatusOverayPanel
 private:
-	void draw_status(window* w);
+	void drawStatusOverayPanel(Window* w);
 
 public:
-	void calculate_fps(void);
-	void set_mouse_position(std::int64_t mouse_x, std::int64_t mouse_y);
+	void calculateFPS(void);
+	void setMousePosition(std::int64_t mouse_x, std::int64_t mouse_y);
 };
 
 

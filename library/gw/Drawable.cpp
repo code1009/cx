@@ -20,23 +20,18 @@ namespace gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void drawable::set_visible_changed_handler(visible_changed_handler handler)
+bool Drawable::getVisible(void) const
 {
-	_visible_changed_handler = handler;
+	return _Visible;
 }
 
-bool drawable::get_visible(void) const
+bool Drawable::setVisible(bool value)
 {
-	return _visible;
-}
-
-bool drawable::set_visible(bool value)
-{
-	if (_visible != value)
+	if (_Visible != value)
 	{
-		_visible = value;
+		_Visible = value;
 
-		set_visible_changed();
+		setVisibleChanged();
 
 		return true;
 	}
@@ -44,11 +39,16 @@ bool drawable::set_visible(bool value)
 	return false;
 }
 
-void drawable::set_visible_changed(void)
+void Drawable::setVisibleChangedHandler(VisibleChangedHandler handler)
 {
-	if (_visible_changed_handler)
+	_VisibleChangedHandler = handler;
+}
+
+void Drawable::setVisibleChanged(void)
+{
+	if (_VisibleChangedHandler)
 	{
-		_visible_changed_handler(this);
+		_VisibleChangedHandler(this);
 	}
 }
 
@@ -58,13 +58,13 @@ void drawable::set_visible_changed(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-document_grid::~document_grid()
+DocumentGrid::~DocumentGrid()
 {
-	destroy_device_resources();
+	destroyDeviceResources();
 }
 
 //===========================================================================
-bool document_grid::create_device_resources(window* w)
+bool DocumentGrid::createDeviceResources(Window* w)
 {
 	//-----------------------------------------------------------------------
 	HRESULT hr; 
@@ -73,7 +73,7 @@ bool document_grid::create_device_resources(window* w)
 	//-----------------------------------------------------------------------
 	if (!_pDocumentGridLine0Brush)
 	{
-		hr = w->get_DRenderTarget()->CreateSolidColorBrush(
+		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.9f, 0.9f, 0.9f),
 			&_pDocumentGridLine0Brush
 		);
@@ -84,7 +84,7 @@ bool document_grid::create_device_resources(window* w)
 	}
 	if (!_pDocumentGridLine1Brush)
 	{
-		hr = w->get_DRenderTarget()->CreateSolidColorBrush(
+		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f),
 			&_pDocumentGridLine1Brush
 		);
@@ -95,7 +95,7 @@ bool document_grid::create_device_resources(window* w)
 	}
 	if (!_pDocumentGridLine2Brush)
 	{
-		hr = w->get_DRenderTarget()->CreateSolidColorBrush(
+		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 1.0f),
 			&_pDocumentGridLine2Brush
 		);
@@ -108,7 +108,7 @@ bool document_grid::create_device_resources(window* w)
 	//-----------------------------------------------------------------------
 	if (!_pCoordTextBrush)
 	{
-		hr = w->get_DRenderTarget()->CreateSolidColorBrush(
+		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.5f),
 			&_pCoordTextBrush
 		);
@@ -119,7 +119,7 @@ bool document_grid::create_device_resources(window* w)
 	}
 	if (!_pCoordTextFormat)
 	{
-		hr = w->get_DWriteFactory()->CreateTextFormat(
+		hr = w->getDWriteFactory()->CreateTextFormat(
 			L"Arial",
 			nullptr,
 			DWRITE_FONT_WEIGHT_THIN,
@@ -140,7 +140,7 @@ bool document_grid::create_device_resources(window* w)
 	return true;
 }
 
-void document_grid::destroy_device_resources(void)
+void DocumentGrid::destroyDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	if (_pDocumentGridLine0Brush)
@@ -173,23 +173,23 @@ void document_grid::destroy_device_resources(void)
 }
 
 //===========================================================================
-void document_grid::draw(window* w)
+void DocumentGrid::draw(Window* w)
 {
-	if (get_visible())
+	if (getVisible())
 	{
-		draw_document_grid(w);
+		drawDocumentGrid(w);
 	}
 }
 
 //===========================================================================
-void document_grid::draw_document_grid(window* w)
+void DocumentGrid::drawDocumentGrid(Window* w)
 {
 	//-----------------------------------------------------------------------
 	double document_cx;
 	double document_cy;
 
 
-	w->get_viewport()->get_document_size(document_cx, document_cy);
+	w->getViewport()->getDocumentSize(document_cx, document_cy);
 
 
 	//-----------------------------------------------------------------------
@@ -199,8 +199,8 @@ void document_grid::draw_document_grid(window* w)
 	double viewport_cy;
 
 
-	w->get_viewport()->get_document_viewport_point(viewport_x, viewport_y);
-	w->get_viewport()->get_document_viewport_size(viewport_cx, viewport_cy);
+	w->getViewport()->getDocumentViewportPoint(viewport_x, viewport_y);
+	w->getViewport()->getDocumentViewportSize(viewport_cx, viewport_cy);
 
 
 	//-----------------------------------------------------------------------
@@ -228,7 +228,7 @@ void document_grid::draw_document_grid(window* w)
 	oe = static_cast<float>(document_cy);
 	for (ci = cb; ci < ce; ci += cd)
 	{
-		w->get_DRenderTarget()->DrawLine(
+		w->getDRenderTarget()->DrawLine(
 			D2D1::Point2F(ci, ob),
 			D2D1::Point2F(ci, oe),
 			_pDocumentGridLine0Brush,
@@ -243,7 +243,7 @@ void document_grid::draw_document_grid(window* w)
 	oe = static_cast<float>(document_cx);
 	for (ci = cb; ci < ce; ci += cd)
 	{
-		w->get_DRenderTarget()->DrawLine(
+		w->getDRenderTarget()->DrawLine(
 			D2D1::Point2F(ob, ci),
 			D2D1::Point2F(oe, ci),
 			_pDocumentGridLine0Brush,
@@ -260,7 +260,7 @@ void document_grid::draw_document_grid(window* w)
 	oe = static_cast<float>(document_cy);
 	for (ci = cb; ci < ce; ci += cd)
 	{
-		w->get_DRenderTarget()->DrawLine(
+		w->getDRenderTarget()->DrawLine(
 			D2D1::Point2F(ci, ob),
 			D2D1::Point2F(ci, oe),
 			_pDocumentGridLine1Brush,
@@ -275,7 +275,7 @@ void document_grid::draw_document_grid(window* w)
 	oe = static_cast<float>(document_cx);
 	for (ci = cb; ci < ce; ci += cd)
 	{
-		w->get_DRenderTarget()->DrawLine(
+		w->getDRenderTarget()->DrawLine(
 			D2D1::Point2F(ob, ci),
 			D2D1::Point2F(oe, ci),
 			_pDocumentGridLine1Brush,
@@ -291,7 +291,7 @@ void document_grid::draw_document_grid(window* w)
 	ob = static_cast<float>(0.0f);
 	oe = static_cast<float>(document_cy);
 	ci = (ce - cb) / 2.0f;
-	w->get_DRenderTarget()->DrawLine(
+	w->getDRenderTarget()->DrawLine(
 		D2D1::Point2F(ci, ob),
 		D2D1::Point2F(ci, oe),
 		_pDocumentGridLine2Brush,
@@ -303,7 +303,7 @@ void document_grid::draw_document_grid(window* w)
 	ob = static_cast<float>(0.0f);
 	oe = static_cast<float>(document_cx);
 	ci = (ce - cb) / 2.0f;
-	w->get_DRenderTarget()->DrawLine(
+	w->getDRenderTarget()->DrawLine(
 		D2D1::Point2F(ob, ci),
 		D2D1::Point2F(oe, ci),
 		_pDocumentGridLine2Brush,
@@ -320,7 +320,7 @@ void document_grid::draw_document_grid(window* w)
 	rect.top    = static_cast<float>(0.0f);
 	rect.right  = static_cast<float>(document_cx);
 	rect.bottom = static_cast<float>(document_cy);
-	w->get_DRenderTarget()->DrawRectangle(
+	w->getDRenderTarget()->DrawRectangle(
 		&rect,
 		_pDocumentGridLine2Brush,
 		4.0f
@@ -354,7 +354,7 @@ void document_grid::draw_document_grid(window* w)
 				static_cast<int>(tx / tdx),
 				static_cast<int>(ty / tdy));
 
-			w->get_DRenderTarget()->DrawTextW(
+			w->getDRenderTarget()->DrawTextW(
 				text,
 				static_cast<UINT32>(lstrlen(text)),
 				_pCoordTextFormat,
@@ -371,19 +371,19 @@ void document_grid::draw_document_grid(window* w)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-status::status()
+StatusOverayPanel::StatusOverayPanel()
 {
-	_last_draw_time = std::chrono::steady_clock::now();
+	_LastDrawTime = std::chrono::steady_clock::now();
 }
 
 //===========================================================================
-status::~status()
+StatusOverayPanel::~StatusOverayPanel()
 {
-	destroy_device_resources();
+	destroyDeviceResources();
 }
 
 //===========================================================================
-bool status::create_device_resources(window* w)
+bool StatusOverayPanel::createDeviceResources(Window* w)
 {
 	//-----------------------------------------------------------------------
 	HRESULT hr; 
@@ -392,7 +392,7 @@ bool status::create_device_resources(window* w)
 	//-----------------------------------------------------------------------
 	if (!_pStatusBoxFillBrush)
 	{
-		hr = w->get_DRenderTarget()->CreateSolidColorBrush(
+		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.75f, 0.75f, 0.75f, 0.25f),
 			&_pStatusBoxFillBrush
 		);
@@ -403,7 +403,7 @@ bool status::create_device_resources(window* w)
 	}
 	if (!_pStatusBoxLineBrush)
 	{
-		hr = w->get_DRenderTarget()->CreateSolidColorBrush(
+		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.5f),
 			&_pStatusBoxLineBrush
 		);
@@ -416,7 +416,7 @@ bool status::create_device_resources(window* w)
 	//-----------------------------------------------------------------------
 	if (!_pStatusTextBrush)
 	{
-		hr = w->get_DRenderTarget()->CreateSolidColorBrush(
+		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 1.0f),
 			&_pStatusTextBrush
 		);
@@ -427,7 +427,7 @@ bool status::create_device_resources(window* w)
 	}
 	if (!_pStatusTextFormat)
 	{
-		hr = w->get_DWriteFactory()->CreateTextFormat(
+		hr = w->getDWriteFactory()->CreateTextFormat(
 			//L"Arial",
 			L"돋움",
 			//L"FixedSys",
@@ -451,7 +451,7 @@ bool status::create_device_resources(window* w)
 	return true;
 }
 
-void status::destroy_device_resources(void)
+void StatusOverayPanel::destroyDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	if (_pStatusBoxFillBrush)
@@ -479,10 +479,10 @@ void status::destroy_device_resources(void)
 }
 
 //===========================================================================
-void status::draw(window* w)
+void StatusOverayPanel::draw(Window* w)
 {
 	//-----------------------------------------------------------------------
-	calculate_fps();
+	calculateFPS();
 
 
 	//-----------------------------------------------------------------------
@@ -490,17 +490,17 @@ void status::draw(window* w)
 
 
 	matrix = D2D1::Matrix3x2F::Identity();
-	w->get_DRenderTarget()->SetTransform(matrix);
+	w->getDRenderTarget()->SetTransform(matrix);
 
 
 	//-----------------------------------------------------------------------
-	if (get_visible())
+	if (getVisible())
 	{
-		draw_status(w);
+		drawStatusOverayPanel(w);
 	}
 }
 
-void status::draw_status(window* w)
+void StatusOverayPanel::drawStatusOverayPanel(Window* w)
 {
 	//-----------------------------------------------------------------------
 	SYSTEMTIME st;
@@ -526,7 +526,7 @@ void status::draw_status(window* w)
 
 
 	swprintf_s(fpsText, L"%03d FPS",
-		static_cast<int>(_fps)
+		static_cast<int>(_FPS)
 	);
 
 
@@ -535,7 +535,7 @@ void status::draw_status(window* w)
 
 
 	swprintf_s(frameText, L"프레임: %03d",
-		static_cast<int>(_frame_draw_count)
+		static_cast<int>(_FrameDrawCount)
 	);
 
 
@@ -543,7 +543,7 @@ void status::draw_status(window* w)
 	double scale;
 
 
-	w->get_viewport()->get_scale(scale);
+	w->getViewport()->getScale(scale);
 
 
 	wchar_t scaleText[256];
@@ -560,16 +560,16 @@ void status::draw_status(window* w)
 	std::int64_t _window_mouse_x;
 	std::int64_t _window_mouse_y;
 
-	w->get_viewport()->window_to_document(_mouse_x, _mouse_y, _document_mouse_x, _document_mouse_y);
-	w->get_viewport()->document_to_window(_document_mouse_x, _document_mouse_y, _window_mouse_x, _window_mouse_y);
+	w->getViewport()->WindowToDocument(_MouseX, _MouseY, _document_mouse_x, _document_mouse_y);
+	w->getViewport()->DocumentToWindow(_document_mouse_x, _document_mouse_y, _window_mouse_x, _window_mouse_y);
 
 
 	wchar_t mouseText[256];
 
 
 	swprintf_s(mouseText, L"마우스: (%d,%d)->(%.0f,%.0f)->(%d,%d)",
-		static_cast<int>(_mouse_x),
-		static_cast<int>(_mouse_y),
+		static_cast<int>(_MouseX),
+		static_cast<int>(_MouseY),
 		_document_mouse_x,
 		_document_mouse_y,
 		static_cast<int>(_window_mouse_x),
@@ -589,7 +589,7 @@ void status::draw_status(window* w)
 
 
 	//-----------------------------------------------------------------------
-	D2D1_SIZE_F size = w->get_DRenderTarget()->GetSize();
+	D2D1_SIZE_F size = w->getDRenderTarget()->GetSize();
 
 	float space  = 20.0f;
 	float box_cx = 320;
@@ -613,8 +613,8 @@ void status::draw_status(window* w)
 	rect.bottom = rect.top  + box_cy;
 
 #if 0
-	w->get_DRenderTarget()->FillRectangle(&rect, _pStatusBoxFillBrush);
-	w->get_DRenderTarget()->DrawRectangle(&rect, _pStatusBoxLineBrush);
+	w->getDRenderTarget()->FillRectangle(&rect, _pStatusBoxFillBrush);
+	w->getDRenderTarget()->DrawRectangle(&rect, _pStatusBoxLineBrush);
 #else
 	D2D1_ROUNDED_RECT rrect;
 	
@@ -625,15 +625,15 @@ void status::draw_status(window* w)
 	rrect.rect.bottom = rect.bottom;
 	rrect.radiusX = 5.0f;
 	rrect.radiusY = 5.0f;
-	w->get_DRenderTarget()->FillRoundedRectangle(&rrect, _pStatusBoxFillBrush);
-	w->get_DRenderTarget()->DrawRoundedRectangle(&rrect, _pStatusBoxLineBrush);
+	w->getDRenderTarget()->FillRoundedRectangle(&rrect, _pStatusBoxFillBrush);
+	w->getDRenderTarget()->DrawRoundedRectangle(&rrect, _pStatusBoxLineBrush);
 #endif
 
 	rect.left   += 5.0f;
 	rect.top    += 5.0f;
 	rect.right  -= 5.0f;
 	rect.bottom -= 5.0f;
-	w->get_DRenderTarget()->DrawTextW(
+	w->getDRenderTarget()->DrawTextW(
 		text.c_str(),
 		static_cast<UINT32>(text.length()),
 		_pStatusTextFormat,
@@ -643,27 +643,27 @@ void status::draw_status(window* w)
 }
 
 //===========================================================================
-void status::calculate_fps(void)
+void StatusOverayPanel::calculateFPS(void)
 {
-	_frame_draw_count++;
+	_FrameDrawCount++;
 
 
 	auto current_draw_time = std::chrono::steady_clock::now();
-	std::chrono::duration<float> elapsed = current_draw_time - _last_draw_time;
+	std::chrono::duration<float> elapsed = current_draw_time - _LastDrawTime;
 
 
 	if (elapsed.count() >= 1.0f)
 	{
-		_fps = _frame_draw_count / elapsed.count();
-		_frame_draw_count = 0;
-		_last_draw_time = current_draw_time;
+		_FPS = _FrameDrawCount / elapsed.count();
+		_FrameDrawCount = 0;
+		_LastDrawTime = current_draw_time;
 	}
 }
 
-void status::set_mouse_position(std::int64_t mouse_x, std::int64_t mouse_y)
+void StatusOverayPanel::setMousePosition(std::int64_t mouse_x, std::int64_t mouse_y)
 {
-	_mouse_x = mouse_x;
-	_mouse_y = mouse_y;
+	_MouseX = mouse_x;
+	_MouseY = mouse_y;
 }
 
 

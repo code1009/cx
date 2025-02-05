@@ -25,7 +25,7 @@ private:
 
 public:
 	static bool createFactory(void);
-	static void releaseFactory(void);
+	static void destroyFactory(void);
 
 public:
 	static ID2D1Factory*   getDFactory(void);

@@ -129,244 +129,259 @@ UINT64 GetScrollPos64(HWND hwnd,
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-viewport::viewport(HWND hwnd, repainter r) :
-	_hwnd{ hwnd },
-	_repainter{ r }
+Viewport::Viewport(HWND hwnd, RepaintHandler repaintHandler, ResizeHandler resizeHandler) :
+	_WindowHandle{ hwnd },
+	_RepaintHandler{ repaintHandler },
+	_ResizeHandler{ resizeHandler }
 {
 }
 
 //===========================================================================
-HWND viewport::get_hwnd(void)
+HWND Viewport::getWindowHandle(void)
 {
-	return _hwnd;
+	return _WindowHandle;
 }
 
-void viewport::repaint(void)
+void Viewport::repaint(void)
 {
-	_repainter();
+	if (_RepaintHandler)
+	{
+		_RepaintHandler();
+	}
 }
 
-//===========================================================================
-void viewport::get_window_size(std::int64_t& cx, std::int64_t& cy)
+void Viewport::resize(std::int64_t cx, std::int64_t cy)
 {
-	cx = _window_cx;
-	cy = _window_cy;
-}
-
-void viewport::get_scale(double& scale)
-{
-	scale = _scale;
-}
-
-void viewport::get_document_size(double& cx, double& cy)
-{
-	cx = _document_cx;
-	cy = _document_cy;
-}
-
-void viewport::get_document_viewport_point(double& x, double& y)
-{
-	x = _document_viewport_x;
-	y = _document_viewport_y;
-}
-
-void viewport::get_document_viewport_size(double& cx, double& cy)
-{
-	cx = _window_cx / _scale;
-	cy = _window_cy / _scale;
-}
-
-void viewport::get_image_size(std::int64_t& cx, std::int64_t& cy)
-{
-	cx = _image_cx;
-	cy = _image_cy;
-}
-
-void viewport::get_image_viewport_point(std::int64_t& x, std::int64_t& y)
-{
-	x = _image_viewport_x;
-	y = _image_viewport_y;
-}
-
-void viewport::get_image_viewport_size(std::int64_t& cx, std::int64_t& cy)
-{
-	cx = _window_cx;
-	cy = _window_cy;
+	if (_ResizeHandler)
+	{
+		_ResizeHandler(cx, cy);
+	}
 }
 
 //===========================================================================
-void viewport::window_to_document(std::int64_t window_x, std::int64_t window_y, double& document_x, double& document_y)
+void Viewport::getWindowSize(std::int64_t& cx, std::int64_t& cy)
 {
-	document_x = _document_viewport_x + (window_x / _scale);
-	document_y = _document_viewport_y + (window_y / _scale);
+	cx = _WindowCX;
+	cy = _WindowCY;
 }
 
-void viewport::document_to_window(double document_x, double document_y, std::int64_t& window_x, std::int64_t& window_y)
+void Viewport::getScale(double& scale)
 {
-	window_x = static_cast<std::int64_t>((document_x - _document_viewport_x) * _scale);
-	window_y = static_cast<std::int64_t>((document_y - _document_viewport_y) * _scale);
+	scale = _Scale;
+}
+
+void Viewport::getDocumentSize(double& cx, double& cy)
+{
+	cx = _DocumentCX;
+	cy = _DocumentCY;
+}
+
+void Viewport::getDocumentViewportPoint(double& x, double& y)
+{
+	x = _DocumentViewportX;
+	y = _DocumentViewportY;
+}
+
+void Viewport::getDocumentViewportSize(double& cx, double& cy)
+{
+	cx = _WindowCX / _Scale;
+	cy = _WindowCY / _Scale;
+}
+
+void Viewport::getImageSize(std::int64_t& cx, std::int64_t& cy)
+{
+	cx = _ImageCX;
+	cy = _ImageCY;
+}
+
+void Viewport::getImageViewportPoint(std::int64_t& x, std::int64_t& y)
+{
+	x = _ImageViewportX;
+	y = _ImageViewportY;
+}
+
+void Viewport::getImageViewportSize(std::int64_t& cx, std::int64_t& cy)
+{
+	cx = _WindowCX;
+	cy = _WindowCY;
 }
 
 //===========================================================================
-void viewport::set_window_size(std::int64_t cx, std::int64_t cy)
+void Viewport::WindowToDocument(std::int64_t window_x, std::int64_t window_y, double& document_x, double& document_y)
 {
-	_window_cx = cx;
-	_window_cy = cy;
-
-
-	update_image_size();
-	update_viewport();
-	update_view_scroll();
-	update_scrollbar_position();
+	document_x = _DocumentViewportX + (window_x / _Scale);
+	document_y = _DocumentViewportY + (window_y / _Scale);
 }
 
-void viewport::set_scale(double scale)
+void Viewport::DocumentToWindow(double document_x, double document_y, std::int64_t& window_x, std::int64_t& window_y)
+{
+	window_x = static_cast<std::int64_t>((document_x - _DocumentViewportX) * _Scale);
+	window_y = static_cast<std::int64_t>((document_y - _DocumentViewportY) * _Scale);
+}
+
+//===========================================================================
+void Viewport::setWindowSize(std::int64_t cx, std::int64_t cy)
+{
+	resize(cx, cy);
+
+
+	_WindowCX = cx;
+	_WindowCY = cy;
+
+
+	updateImageSize();
+	updateViewport();
+	updateViewScroll();
+	updateScrollbarPosition();
+}
+
+void Viewport::setScale(double scale)
 {
 	if (scale > 0.0)
 	{
-		_scale = scale;
+		_Scale = scale;
 
-		update_image_size();
-		update_viewport();
-		update_view_scroll();
-		update_scrollbar_position();
+		updateImageSize();
+		updateViewport();
+		updateViewScroll();
+		updateScrollbarPosition();
 
 		repaint();
 	}
 }
 
-void viewport::set_document_size(double cx, double cy)
+void Viewport::setDocumentSize(double cx, double cy)
 {
-	_document_viewport_x = 0.0;
-	_document_viewport_y = 0.0;
-	_document_cx = cx;
-	_document_cy = cy;
+	_DocumentViewportX = 0.0;
+	_DocumentViewportY = 0.0;
+	_DocumentCX = cx;
+	_DocumentCY = cy;
 
-	update_image_size();
-	update_viewport();
-	update_view_scroll();
-	update_scrollbar_position();
+	updateImageSize();
+	updateViewport();
+	updateViewScroll();
+	updateScrollbarPosition();
 
 	repaint();
 }
 
 //===========================================================================
-void viewport::update_image_size(void)
+void Viewport::updateImageSize(void)
 {
-	_image_cx = static_cast<std::int64_t>(_document_cx * _scale);
-	_image_cy = static_cast<std::int64_t>(_document_cy * _scale);
+	_ImageCX = static_cast<std::int64_t>(_DocumentCX * _Scale);
+	_ImageCY = static_cast<std::int64_t>(_DocumentCY * _Scale);
 }
 
-void viewport::update_viewport(void)
+void Viewport::updateViewport(void)
 {
 	//-----------------------------------------------------------------------
-	// 변수명은 _window_cx이지만 _image_viewport_cx으로 해석 해야 함
-	// _window_cx == _image_viewport_cx
-	// _window_cy == _image_viewport_cy
+	// 변수명은 _WindowCX이지만 _imageViewportCX으로 해석 해야 함
+	// _WindowCX == _imageViewportCX
+	// _WindowCY == _imageViewportCY
 
 
 	//-----------------------------------------------------------------------
-	_image_viewport_x = static_cast<std::int64_t>(_document_viewport_x * _scale);
-	if (_image_cx < _window_cx)
+	_ImageViewportX = static_cast<std::int64_t>(_DocumentViewportX * _Scale);
+	if (_ImageCX < _WindowCX)
 	{
-		_image_viewport_x = 0;
+		_ImageViewportX = 0;
 	}
 	else
 	{
-		if (_image_cx < (_image_viewport_x + _window_cx))
+		if (_ImageCX < (_ImageViewportX + _WindowCX))
 		{
-			_image_viewport_x = _image_cx - _window_cx;
+			_ImageViewportX = _ImageCX - _WindowCX;
 		}
 	}
 
 
 	//-----------------------------------------------------------------------
-	_image_viewport_y = static_cast<std::int64_t>(_document_viewport_y * _scale);
-	if (_image_cy < _window_cy)
+	_ImageViewportY = static_cast<std::int64_t>(_DocumentViewportY * _Scale);
+	if (_ImageCY < _WindowCY)
 	{
-		_image_viewport_y = 0;
+		_ImageViewportY = 0;
 	}
 	else
 	{
-		if (_image_cy < (_image_viewport_y + _window_cy))
+		if (_ImageCY < (_ImageViewportY + _WindowCY))
 		{
-			_image_viewport_y = _image_cy - _window_cy;
+			_ImageViewportY = _ImageCY - _WindowCY;
 		}
 	}
 
 
 	//-----------------------------------------------------------------------
-	_document_viewport_x = _image_viewport_x / _scale;
-	_document_viewport_y = _image_viewport_y / _scale;
+	_DocumentViewportX = _ImageViewportX / _Scale;
+	_DocumentViewportY = _ImageViewportY / _Scale;
 }
 
-void viewport::update_view_scroll(void)
+void Viewport::updateViewScroll(void)
 {
-	constexpr std::uint64_t _scrollbar_x_line_size = 20;
-	constexpr std::uint64_t _scrollbar_y_line_size = 20;
+	constexpr std::uint64_t _Scrollbar_XLine = 20;
+	constexpr std::uint64_t _Scrollbar_YLine = 20;
 
 
-	if (_scrollbar_enabled)
+	if (_ScrollbarEnabled)
 	{
-		if (_window_cx < _image_cx)
+		if (_WindowCX < _ImageCX)
 		{
-			_view_x_scroll_min = 0;
-			_view_x_scroll_max = _image_cx;
-			_view_x_scroll_page = _window_cx;
-			_view_x_scroll_line = _scrollbar_x_line_size;
+			_ViewXScrollMin = 0;
+			_ViewXScrollMax = _ImageCX;
+			_ViewXScrollPage = _WindowCX;
+			_ViewXScrollLine = _Scrollbar_XLine;
 		}
 		else
 		{
-			_view_x_scroll_min = 0;
-			_view_x_scroll_max = 0;
-			_view_x_scroll_page = 0;
-			_view_x_scroll_line = 0;
+			_ViewXScrollMin = 0;
+			_ViewXScrollMax = 0;
+			_ViewXScrollPage = 0;
+			_ViewXScrollLine = 0;
 		}
 
 
-		if (_window_cy < _image_cy)
+		if (_WindowCY < _ImageCY)
 		{
-			_view_y_scroll_min = 0;
-			_view_y_scroll_max = _image_cy;
-			_view_y_scroll_page = _window_cy;
-			_view_y_scroll_line = _scrollbar_y_line_size;
+			_ViewYScrollMin = 0;
+			_ViewYScrollMax = _ImageCY;
+			_ViewYScrollPage = _WindowCY;
+			_ViewYScrollLine = _Scrollbar_YLine;
 		}
 		else
 		{
-			_view_y_scroll_min = 0;
-			_view_y_scroll_max = 0;
-			_view_y_scroll_page = 0;
-			_view_y_scroll_line = 0;
+			_ViewYScrollMin = 0;
+			_ViewYScrollMax = 0;
+			_ViewYScrollPage = 0;
+			_ViewYScrollLine = 0;
 		}
 	}
 	else
 	{
-		_view_x_scroll_min = 0;
-		_view_x_scroll_max = 0;
-		_view_x_scroll_page = 0;
-		_view_x_scroll_line = 0;
+		_ViewXScrollMin = 0;
+		_ViewXScrollMax = 0;
+		_ViewXScrollPage = 0;
+		_ViewXScrollLine = 0;
 
-		_view_y_scroll_min = 0;
-		_view_y_scroll_max = 0;
-		_view_y_scroll_page = 0;
-		_view_y_scroll_line = 0;
+		_ViewYScrollMin = 0;
+		_ViewYScrollMax = 0;
+		_ViewYScrollPage = 0;
+		_ViewYScrollLine = 0;
 	}
 }
 
-void viewport::update_scrollbar_position(void)
+void Viewport::updateScrollbarPosition(void)
 {
-	SetScrollInfo64(_hwnd, SB_HORZ, SIF_ALL, _view_x_scroll_max, _image_viewport_x, _view_x_scroll_page, TRUE);
-	SetScrollInfo64(_hwnd, SB_VERT, SIF_ALL, _view_y_scroll_max, _image_viewport_y, _view_y_scroll_page, TRUE);
+	SetScrollInfo64(_WindowHandle, SB_HORZ, SIF_ALL, _ViewXScrollMax, _ImageViewportX, _ViewXScrollPage, TRUE);
+	SetScrollInfo64(_WindowHandle, SB_VERT, SIF_ALL, _ViewYScrollMax, _ImageViewportY, _ViewYScrollPage, TRUE);
 }
 
 //===========================================================================
-void viewport::vscroll(std::uint32_t scroll_code)
+void Viewport::vscroll(std::uint32_t scroll_code)
 {
 	//-----------------------------------------------------------------------
 	std::int64_t pos;
 
 
-	pos = GetScrollPos64(_hwnd, SB_VERT, SIF_TRACKPOS, _view_y_scroll_max);
+	pos = GetScrollPos64(_WindowHandle, SB_VERT, SIF_TRACKPOS, _ViewYScrollMax);
 
 
 	//-----------------------------------------------------------------------
@@ -374,37 +389,37 @@ void viewport::vscroll(std::uint32_t scroll_code)
 	std::int64_t view_scroll_pos;
 
 
-	view_scroll_pos = _image_viewport_y;
+	view_scroll_pos = _ImageViewportY;
 	view_scroll_pos_current = scroll(scroll_code, pos,
-		_view_y_scroll_page,
-		_view_y_scroll_line,
-		_view_y_scroll_min,
-		_view_y_scroll_max,
-		_image_viewport_y
+		_ViewYScrollPage,
+		_ViewYScrollLine,
+		_ViewYScrollMin,
+		_ViewYScrollMax,
+		_ImageViewportY
 	);
 
 
 	//-----------------------------------------------------------------------
 	if (view_scroll_pos != view_scroll_pos_current)
 	{
-		_image_viewport_y = view_scroll_pos_current;
-		_document_viewport_y = view_scroll_pos_current / _scale;
+		_ImageViewportY = view_scroll_pos_current;
+		_DocumentViewportY = view_scroll_pos_current / _Scale;
 
-		update_viewport();
+		updateViewport();
 
-		update_scrollbar_position();
+		updateScrollbarPosition();
 
 		repaint();
 	}
 }
 
-void viewport::hscroll(std::uint32_t scroll_code)
+void Viewport::hscroll(std::uint32_t scroll_code)
 {
 	//-----------------------------------------------------------------------
 	std::int64_t pos;
 
 
-	pos = GetScrollPos64(_hwnd, SB_HORZ, SIF_TRACKPOS, _view_x_scroll_max);
+	pos = GetScrollPos64(_WindowHandle, SB_HORZ, SIF_TRACKPOS, _ViewXScrollMax);
 
 
 	//-----------------------------------------------------------------------
@@ -412,33 +427,34 @@ void viewport::hscroll(std::uint32_t scroll_code)
 	std::int64_t view_scroll_pos;
 
 
-	view_scroll_pos = _image_viewport_x;
+	view_scroll_pos = _ImageViewportX;
 	view_scroll_pos_current = scroll(scroll_code, pos,
-		_view_x_scroll_page,
-		_view_x_scroll_line,
-		_view_x_scroll_min,
-		_view_x_scroll_max,
-		_image_viewport_x
+		_ViewXScrollPage,
+		_ViewXScrollLine,
+		_ViewXScrollMin,
+		_ViewXScrollMax,
+		_ImageViewportX
 	);
 
 
 	//-----------------------------------------------------------------------
 	if (view_scroll_pos != view_scroll_pos_current)
 	{
-		_image_viewport_x = view_scroll_pos_current;
-		_document_viewport_x = view_scroll_pos_current / _scale;
+		_ImageViewportX = view_scroll_pos_current;
+		_DocumentViewportX = view_scroll_pos_current / _Scale;
 
-		update_viewport();
+		updateViewport();
 
-		update_scrollbar_position();
+		updateScrollbarPosition();
 
 		repaint();
 	}
 }
 
 //===========================================================================
-std::int64_t viewport::scroll(
-	std::uint32_t scroll_code, std::int64_t scroll_pos,
+std::int64_t Viewport::scroll(
+	std::uint32_t scroll_code, 
+	std::int64_t  scroll_pos,
 	std::uint64_t a_view_scroll_page,
 	std::uint64_t a_view_scroll_line,
 	std::uint64_t a_view_scroll_min,
@@ -563,34 +579,34 @@ std::int64_t viewport::scroll(
 	return view_scroll_pos_current;
 }
 
-void viewport::enable_scrollbar(bool enable)
+void Viewport::enableScrollbar(bool enable)
 {
-	_scrollbar_enabled = enable;
+	_ScrollbarEnabled = enable;
 
-	update_view_scroll();
-	update_scrollbar_position();
+	updateViewScroll();
+	updateScrollbarPosition();
 }
 
 //===========================================================================
-void viewport::fit_document_to_window(bool vert)
+void Viewport::fitDocumentToWindow(bool vert)
 {
 	if (vert)
 	{
-		if (_window_cy)
+		if (_WindowCY)
 		{
-			set_scale(_window_cy / _document_cy);
+			setScale(_WindowCY / _DocumentCY);
 		}
 	}
 	else
 	{
-		if (_window_cx)
+		if (_WindowCX)
 		{
-			set_scale(_window_cx / _document_cx);
+			setScale(_WindowCX / _DocumentCX);
 		}
 	}
 }
 
-void viewport::zoom(bool zoom_in)
+void Viewport::zoom(bool zoom_in)
 {
 	constexpr double scale_max   = 10.0f;
 	constexpr double scale_min   = 0.1f;
@@ -601,7 +617,7 @@ void viewport::zoom(bool zoom_in)
 	int scale_x10;
 
 
-	get_scale(scale);
+	getScale(scale);
 
 	scale_x10 = static_cast<int>((scale + 0.05) * 10);
 	scale = scale_x10 / 10.0;
@@ -627,13 +643,13 @@ void viewport::zoom(bool zoom_in)
 	}
 
 
-	set_scale(scale);
+	setScale(scale);
 }
 
-void viewport::get_document_viewport_point_translation(double& x, double& y)
+void Viewport::getDocumentViewportPointTranslation(double& x, double& y)
 {
-	x = -_document_viewport_x;
-	y = -_document_viewport_y;
+	x = -_DocumentViewportX;
+	y = -_DocumentViewportY;
 }
 
 
@@ -642,115 +658,109 @@ void viewport::get_document_viewport_point_translation(double& x, double& y)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-center_viewport::center_viewport(HWND hwnd, repainter r) :
-	viewport{ hwnd, r }
+CenterViewport::CenterViewport(HWND hwnd, RepaintHandler repaintHandler, ResizeHandler resizeHandler) :
+	Viewport{ hwnd, repaintHandler, resizeHandler }
 {
 }
 
 //===========================================================================
-void center_viewport::window_to_document(std::int64_t window_x, std::int64_t window_y, double& document_x, double& document_y)
+void CenterViewport::WindowToDocument(std::int64_t window_x, std::int64_t window_y, double& document_x, double& document_y)
 {
-	if (_image_cx < _window_cx)
+	if (_ImageCX < _WindowCX)
 	{
-		document_x = (window_x / _scale) - ((_window_cx - _image_cx) / _scale / 2);
+		document_x = (window_x / _Scale) - ((_WindowCX - _ImageCX) / _Scale / 2);
 	}
 	else
 	{
-		document_x = _document_viewport_x + (window_x / _scale);
+		document_x = _DocumentViewportX + (window_x / _Scale);
 	}
 
-	if (_image_cy < _window_cy)
+	if (_ImageCY < _WindowCY)
 	{
-		document_y = (window_y / _scale) - ((_window_cy - _image_cy) / _scale / 2);
+		document_y = (window_y / _Scale) - ((_WindowCY - _ImageCY) / _Scale / 2);
 	}
 	else
 	{
-		document_y = _document_viewport_y + (window_y / _scale);
+		document_y = _DocumentViewportY + (window_y / _Scale);
 	}
 }
 
-void center_viewport::document_to_window(double document_x, double document_y, std::int64_t& window_x, std::int64_t& window_y)
+void CenterViewport::DocumentToWindow(double document_x, double document_y, std::int64_t& window_x, std::int64_t& window_y)
 {
-	if (_image_cx < _window_cx)
+	if (_ImageCX < _WindowCX)
 	{
-		window_x = static_cast<std::int64_t>(((_window_cx - _image_cx) / 2) + (document_x * _scale));
+		window_x = static_cast<std::int64_t>(((_WindowCX - _ImageCX) / 2) + (document_x * _Scale));
 	}
 	else
 	{
-		window_x = static_cast<std::int64_t>((document_x - _document_viewport_x) * _scale);
+		window_x = static_cast<std::int64_t>((document_x - _DocumentViewportX) * _Scale);
 	}
 
-	if (_image_cy < _window_cy)
+	if (_ImageCY < _WindowCY)
 	{
-		window_y = static_cast<std::int64_t>(((_window_cy - _image_cy) / 2) + (document_y * _scale));
+		window_y = static_cast<std::int64_t>(((_WindowCY - _ImageCY) / 2) + (document_y * _Scale));
 	}
 	else
 	{
-		window_y = static_cast<std::int64_t>((document_y - _document_viewport_y) * _scale);
+		window_y = static_cast<std::int64_t>((document_y - _DocumentViewportY) * _Scale);
 	}
 }
 
-void center_viewport::update_viewport(void)
+void CenterViewport::updateViewport(void)
 {
 	//-----------------------------------------------------------------------
-	// 변수명은 _window_cx이지만 _image_viewport_cx으로 해석 해야 함
-	// _window_cx == _image_viewport_cx
-	// _window_cy == _image_viewport_cy
-
-
-	//-----------------------------------------------------------------------
-	_image_viewport_x = static_cast<std::int64_t>(_document_viewport_x * _scale);
-	if (_image_cx < _window_cx)
+	_ImageViewportX = static_cast<std::int64_t>(_DocumentViewportX * _Scale);
+	if (_ImageCX < _WindowCX)
 	{
-		_image_viewport_x = (_window_cx - _image_cx) / 2;
+		_ImageViewportX = (_WindowCX - _ImageCX) / 2;
 	}
 	else
 	{
-		if (_image_cx < (_image_viewport_x + _window_cx))
+		if (_ImageCX < (_ImageViewportX + _WindowCX))
 		{
-			_image_viewport_x = _image_cx - _window_cx;
+			_ImageViewportX = _ImageCX - _WindowCX;
 		}
 	}
 
 
 	//-----------------------------------------------------------------------
-	_image_viewport_y = static_cast<std::int64_t>(_document_viewport_y * _scale);
-	if (_image_cy < _window_cy)
+	_ImageViewportY = static_cast<std::int64_t>(_DocumentViewportY * _Scale);
+	if (_ImageCY < _WindowCY)
 	{
-		_image_viewport_y = (_window_cy - _image_cy) / 2;
+		_ImageViewportY = (_WindowCY - _ImageCY) / 2;
 	}
 	else
 	{
-		if (_image_cy < (_image_viewport_y + _window_cy))
+		if (_ImageCY < (_ImageViewportY + _WindowCY))
 		{
-			_image_viewport_y = _image_cy - _window_cy;
+			_ImageViewportY = _ImageCY - _WindowCY;
 		}
 	}
 
 
 	//-----------------------------------------------------------------------
-	_document_viewport_x = _image_viewport_x / _scale;
-	_document_viewport_y = _image_viewport_y / _scale;
+	_DocumentViewportX = _ImageViewportX / _Scale;
+	_DocumentViewportY = _ImageViewportY / _Scale;
 }
 
-void center_viewport::get_document_viewport_point_translation(double& x, double& y)
+void CenterViewport::getDocumentViewportPointTranslation(double& x, double& y)
 {
-	if (_image_cx < _window_cx)
+	if (_ImageCX < _WindowCX)
 	{
-		x = +_document_viewport_x;
+		x = +_DocumentViewportX;
 	}
 	else
 	{
-		x = -_document_viewport_x;
+		x = -_DocumentViewportX;
 	}
 
-	if (_image_cy < _window_cy)
+	if (_ImageCY < _WindowCY)
 	{
-		y = +_document_viewport_y;
+		y = +_DocumentViewportY;
 	}
 	else
 	{
-		y = -_document_viewport_y;
+		y = -_DocumentViewportY;
 	}
 }
 

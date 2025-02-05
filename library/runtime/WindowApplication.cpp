@@ -60,7 +60,7 @@ void WindowApplication::terminate(void)
 
 
 	//-----------------------------------------------------------------------
-	gw::DirectX2DGraphic::releaseFactory();
+	gw::DirectX2DGraphic::destroyFactory();
 
 
 	//-----------------------------------------------------------------------

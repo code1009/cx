@@ -55,7 +55,7 @@ bool DirectX2DGraphic::createFactory(void)
 	);
 	if (FAILED(hr))
 	{
-		releaseFactory();
+		destroyFactory();
 		return false;
 	}
 
@@ -63,7 +63,7 @@ bool DirectX2DGraphic::createFactory(void)
 	return true;
 }
 
-void DirectX2DGraphic::releaseFactory(void)
+void DirectX2DGraphic::destroyFactory(void)
 {
 	if (_pDFactory)
 	{
