@@ -111,8 +111,8 @@ private:
 	float                                              _FPS{ 0.0f };
 
 private:
-	std::int64_t _MouseX{ 0 };
-	std::int64_t _MouseY{ 0 };
+	std::int64_t _Mouse_X{ 0 };
+	std::int64_t _Mouse_Y{ 0 };
 
 private:
 	//IDWriteTextLayout*    _pStatusTextLayout{ nullptr };

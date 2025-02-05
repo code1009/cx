@@ -31,34 +31,34 @@ protected:
 	ResizeHandler  _ResizeHandler{};
 
 protected:
-	std::int64_t _WindowCX{ 0 };
-	std::int64_t _WindowCY{ 0 };
+	std::int64_t _Window_CX{ 0 };
+	std::int64_t _Window_CY{ 0 };
 
-	double _DocumentCX{ 0 };
-	double _DocumentCY{ 0 };
+	double _Document_CX{ 0 };
+	double _Document_CY{ 0 };
 
 	double _Scale{ 1.0 };
 
-	std::int64_t _ImageCX{ 0 };
-	std::int64_t _ImageCY{ 0 };
+	std::int64_t _Image_CX{ 0 };
+	std::int64_t _Image_CY{ 0 };
 
 protected:
-	double _DocumentViewportX{ 0 };
-	double _DocumentViewportY{ 0 };
+	double _DocumentViewport_X{ 0 };
+	double _DocumentViewport_Y{ 0 };
 
-	std::int64_t _ImageViewportX{ 0 };
-	std::int64_t _ImageViewportY{ 0 };
+	std::int64_t _ImageViewport_X{ 0 };
+	std::int64_t _ImageViewport_Y{ 0 };
 
 protected:
-	std::int64_t _ViewXScrollMin{ 0 };
-	std::int64_t _ViewXScrollMax{ 0 };
-	std::int64_t _ViewXScrollPage{ 0 };
-	std::int64_t _ViewXScrollLine{ 0 };
+	std::int64_t _View_X_ScrollMin{ 0 };
+	std::int64_t _View_X_ScrollMax{ 0 };
+	std::int64_t _View_X_ScrollPage{ 0 };
+	std::int64_t _View_X_ScrollLine{ 0 };
 
-	std::int64_t _ViewYScrollMin{ 0 };
-	std::int64_t _ViewYScrollMax{ 0 };
-	std::int64_t _ViewYScrollPage{ 0 };
-	std::int64_t _ViewYScrollLine{ 0 };
+	std::int64_t _View_Y_ScrollMin{ 0 };
+	std::int64_t _View_Y_ScrollMax{ 0 };
+	std::int64_t _View_Y_ScrollPage{ 0 };
+	std::int64_t _View_Y_ScrollLine{ 0 };
 
 	bool _ScrollbarEnabled{ false };
 
@@ -111,18 +111,18 @@ protected:
 
 	//-----------------------------------------------------------------------
 public:
-	virtual void vscroll(std::uint32_t scroll_code);
-	virtual void hscroll(std::uint32_t scroll_code);
+	virtual void handleVScrollbar(std::uint32_t scrollbarCode);
+	virtual void handleHScrollbar(std::uint32_t scrollbarCode);
 
 protected:
 	virtual std::int64_t scroll(
-		std::uint32_t scroll_code,
-		std::int64_t  scroll_pos,
-		std::uint64_t a_view_scroll_page,
-		std::uint64_t a_view_scroll_line,
-		std::uint64_t a_view_scroll_min,
-		std::uint64_t a_view_scroll_max,
-		std::uint64_t a_view_scroll_pos);
+		std::uint32_t scrollbarCode,
+		std::int64_t  scrollbarPos,
+		std::uint64_t scrollPage,
+		std::uint64_t scrollLine,
+		std::uint64_t scrollMin,
+		std::uint64_t scrollMax,
+		std::uint64_t scrollPos);
 
 public:
 	virtual void enableScrollbar(bool enable);
@@ -131,7 +131,7 @@ public:
 	//-----------------------------------------------------------------------
 public:
 	virtual void zoom(bool zoom_in);
-	virtual void fitDocumentToWindow(bool vert = false);
+	virtual void fitDocumentToWindow(bool vertical = false);
 
 
 	//-----------------------------------------------------------------------

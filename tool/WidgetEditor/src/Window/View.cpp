@@ -152,7 +152,7 @@ void View::onHScroll(wui::WindowMessage& windowMessage)
 	wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gwWindow->getViewport()->hscroll(wm.nSBCode());
+	_gwWindow->getViewport()->handleHScrollbar(wm.nSBCode());
 }
 
 void View::onVScroll(wui::WindowMessage& windowMessage)
@@ -160,7 +160,7 @@ void View::onVScroll(wui::WindowMessage& windowMessage)
 	wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gwWindow->getViewport()->vscroll(wm.nSBCode());
+	_gwWindow->getViewport()->handleVScrollbar(wm.nSBCode());
 }
 
 void View::onMouseWheel(wui::WindowMessage& windowMessage)
@@ -216,11 +216,11 @@ void View::onMouseWheel(wui::WindowMessage& windowMessage)
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gwWindow->getViewport()->vscroll(SB_LINEUP);
+			_gwWindow->getViewport()->handleVScrollbar(SB_LINEUP);
 		}
 		else
 		{
-			_gwWindow->getViewport()->vscroll(SB_LINEDOWN);
+			_gwWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
 		}
 	}
 }

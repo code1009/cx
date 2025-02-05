@@ -219,11 +219,11 @@ void Window::draw(void)
 
 
 	//-----------------------------------------------------------------------
-	double translation_x;
-	double translation_y;
+	double translationX;
+	double translationY;
 
 
-	_Viewport->getDocumentViewportPointTranslation(translation_x, translation_y);
+	_Viewport->getDocumentViewportPointTranslation(translationX, translationY);
 
 
 	//-----------------------------------------------------------------------
@@ -242,8 +242,8 @@ void Window::draw(void)
 	matrix =
 		matrix *
 		D2D1::Matrix3x2F::Translation(
-			static_cast<FLOAT>(translation_x * scale),
-			static_cast<FLOAT>(translation_y * scale)
+			static_cast<FLOAT>(translationX * scale),
+			static_cast<FLOAT>(translationY * scale)
 		);
 	_pDHwndRenderTarget->SetTransform(matrix);
 

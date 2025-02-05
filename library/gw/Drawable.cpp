@@ -555,25 +555,25 @@ void StatusOverayPanel::drawStatusOverayPanel(Window* w)
 
 
 	//-----------------------------------------------------------------------
-	double _document_mouse_x;
-	double _document_mouse_y;
-	std::int64_t _window_mouse_x;
-	std::int64_t _window_mouse_y;
+	double _Document_Mouse_X;
+	double _Document_Mouse_Y;
+	std::int64_t _Window_Mouse_X;
+	std::int64_t _Window_Mouse_Y;
 
-	w->getViewport()->WindowToDocument(_MouseX, _MouseY, _document_mouse_x, _document_mouse_y);
-	w->getViewport()->DocumentToWindow(_document_mouse_x, _document_mouse_y, _window_mouse_x, _window_mouse_y);
+	w->getViewport()->WindowToDocument(_Mouse_X, _Mouse_Y, _Document_Mouse_X, _Document_Mouse_Y);
+	w->getViewport()->DocumentToWindow(_Document_Mouse_X, _Document_Mouse_Y, _Window_Mouse_X, _Window_Mouse_Y);
 
 
 	wchar_t mouseText[256];
 
 
 	swprintf_s(mouseText, L"마우스: (%d,%d)->(%.0f,%.0f)->(%d,%d)",
-		static_cast<int>(_MouseX),
-		static_cast<int>(_MouseY),
-		_document_mouse_x,
-		_document_mouse_y,
-		static_cast<int>(_window_mouse_x),
-		static_cast<int>(_window_mouse_y)
+		static_cast<int>(_Mouse_X),
+		static_cast<int>(_Mouse_Y),
+		_Document_Mouse_X,
+		_Document_Mouse_Y,
+		static_cast<int>(_Window_Mouse_X),
+		static_cast<int>(_Window_Mouse_Y)
 		);
 
 
@@ -648,22 +648,22 @@ void StatusOverayPanel::calculateFPS(void)
 	_FrameDrawCount++;
 
 
-	auto current_draw_time = std::chrono::steady_clock::now();
-	std::chrono::duration<float> elapsed = current_draw_time - _LastDrawTime;
+	auto currentDrawTime = std::chrono::steady_clock::now();
+	std::chrono::duration<float> elapsed = currentDrawTime - _LastDrawTime;
 
 
 	if (elapsed.count() >= 1.0f)
 	{
 		_FPS = _FrameDrawCount / elapsed.count();
 		_FrameDrawCount = 0;
-		_LastDrawTime = current_draw_time;
+		_LastDrawTime = currentDrawTime;
 	}
 }
 
 void StatusOverayPanel::setMousePosition(std::int64_t mouse_x, std::int64_t mouse_y)
 {
-	_MouseX = mouse_x;
-	_MouseY = mouse_y;
+	_Mouse_X = mouse_x;
+	_Mouse_Y = mouse_y;
 }
 
 
