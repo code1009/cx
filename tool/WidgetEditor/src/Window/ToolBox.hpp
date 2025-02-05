@@ -15,8 +15,8 @@ public:
 	class SubItem;
 	class ListWindow;
 
-	using ItemPtr = std::shared_ptr<Item>;
-	using ItemPtrs = std::vector<ItemPtr>;
+	using ItemHandle = std::shared_ptr<Item>;
+	using ItemHandles = std::vector<ItemHandle>;
 
 private:
 	HWND _parentWindowHandle{ nullptr };

@@ -111,7 +111,7 @@ class ToolBox::GroupItem : public ToolBox::Item
 {
 private:
 	bool _CollapseSubItems { false };
-	ItemPtrs _SubItems;
+	ItemHandles _SubItems;
 
 public:
 	GroupItem(void) = default;
@@ -122,7 +122,7 @@ public:
 	virtual std::size_t calcWidth(void) override;
 
 public:
-	ItemPtrs& getSubItems(void);
+	ItemHandles& getSubItems(void);
 	void CollapseSubItems(bool collapse);
 };
 
@@ -159,7 +159,7 @@ std::size_t ToolBox::GroupItem::calcWidth(void)
 	return width;
 }
 
-ToolBox::ItemPtrs& ToolBox::GroupItem::getSubItems(void)
+ToolBox::ItemHandles& ToolBox::GroupItem::getSubItems(void)
 {
 	return _SubItems;
 }
@@ -191,7 +191,7 @@ public:
 class ToolBox::ListWindow
 {
 private:
-	ItemPtrs _Items;
+	ItemHandles _Items;
 
 public:
 	ListWindow(void) = default;
@@ -205,11 +205,11 @@ public:
 	ListWindow& operator=(ListWindow&&) = delete;
 
 public:
-	ItemPtrs& getItems(void);
+	ItemHandles& getItems(void);
 };
 
 //===========================================================================
-ToolBox::ItemPtrs& ToolBox::ListWindow::getItems(void)
+ToolBox::ItemHandles& ToolBox::ListWindow::getItems(void)
 {
 	return _Items;
 }
