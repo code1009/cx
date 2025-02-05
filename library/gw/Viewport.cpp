@@ -608,9 +608,9 @@ void Viewport::fitDocumentToWindow(bool vertical)
 
 void Viewport::zoom(bool zoom_in)
 {
-	constexpr double scaleMax   = 10.0f;
-	constexpr double scaleMin   = 0.1f;
-	constexpr double scaleDelta = 0.1f;
+	constexpr double _Scale_Max   = 10.0f;
+	constexpr double _Scale_Min   = 0.1f;
+	constexpr double _Scale_Delta = 0.1f;
 
 
 	double scale;
@@ -625,21 +625,21 @@ void Viewport::zoom(bool zoom_in)
 
 	if (zoom_in)
 	{
-		scale = scale + scaleDelta;
+		scale = scale + _Scale_Delta;
 	}
 	else
 	{
-		scale = scale - scaleDelta;
+		scale = scale - _Scale_Delta;
 	}
 
 
-	if (scale > scaleMax)
+	if (scale > _Scale_Max)
 	{
-		scale = scaleMax;
+		scale = _Scale_Max;
 	}
-	if (scale < scaleMin)
+	if (scale < _Scale_Min)
 	{
-		scale = scaleMin;
+		scale = _Scale_Min;
 	}
 
 
