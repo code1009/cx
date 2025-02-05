@@ -29,13 +29,10 @@
     <ResourceCompile Include="res\Application.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
-    <ClInclude Include="..\..\library\gw\drawable.hpp" />
-    <ClInclude Include="..\..\library\gw\dx2d.hpp" />
+    <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp" />
     <ClInclude Include="..\..\library\gw\gw.hpp" />
     <ClInclude Include="..\..\library\gw\pch.hpp" />
-    <ClInclude Include="..\..\library\gw\viewport.hpp" />
-    <ClInclude Include="..\..\library\gw\window.hpp" />
+    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
     <ClInclude Include="..\..\library\pch.hpp" />
     <ClInclude Include="..\..\library\runtime\Assert.hpp" />
     <ClInclude Include="..\..\library\runtime\DebugMemory.hpp" />
@@ -80,10 +77,7 @@
     <ClInclude Include="src\Window\View.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\library\gw\drawable.cpp" />
-    <ClCompile Include="..\..\library\gw\dx2d.cpp" />
-    <ClCompile Include="..\..\library\gw\viewport.cpp" />
-    <ClCompile Include="..\..\library\gw\window.cpp" />
+    <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp" />
     <ClCompile Include="..\..\library\runtime\Assert.cpp" />
     <ClCompile Include="..\..\library\runtime\DebugMemory.cpp" />
     <ClCompile Include="..\..\library\runtime\LastError.cpp" />

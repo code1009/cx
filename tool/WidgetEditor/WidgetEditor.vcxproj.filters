@@ -168,14 +168,8 @@
     <ClInclude Include="..\..\library\runtime\DebugMemory.hpp">
       <Filter>library\runtime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\gw\window.hpp">
-      <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\drawable.hpp">
-      <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\dx2d.hpp">
-      <Filter>library\gw</Filter>
+    <ClInclude Include="src\Window\ToolBox.hpp">
+      <Filter>src\Window</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\gw\gw.hpp">
       <Filter>library\gw</Filter>
@@ -183,11 +177,8 @@
     <ClInclude Include="..\..\library\gw\pch.hpp">
       <Filter>library\gw</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\gw\viewport.hpp">
+    <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp">
       <Filter>library\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\ToolBox.hpp">
-      <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,20 +266,11 @@
     <ClCompile Include="..\..\library\runtime\DebugMemory.cpp">
       <Filter>library\runtime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\gw\window.cpp">
-      <Filter>library\gw</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\drawable.cpp">
-      <Filter>library\gw</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\dx2d.cpp">
-      <Filter>library\gw</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\viewport.cpp">
-      <Filter>library\gw</Filter>
-    </ClCompile>
     <ClCompile Include="src\Window\ToolBox.cpp">
       <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp">
+      <Filter>library\gw</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
