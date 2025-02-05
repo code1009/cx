@@ -9,8 +9,18 @@
 class ToolBox : 
 	public wui::MessageMapWindowT<ToolBox, wui::BaseWindow>
 {
+public:
+	class Item;
+	class GroupItem;
+	class SubItem;
+	class ListWindow;
+
+	using ItemPtr = std::shared_ptr<Item>;
+	using ItemPtrs = std::vector< ItemPtr >;
+
 private:
 	HWND _parentWindowHandle{ nullptr };
+	std::unique_ptr<ListWindow> _ListWindow;
 
 public:
 	explicit ToolBox(HWND parentWindowHandle);

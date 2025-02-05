@@ -19,6 +19,207 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class ToolBox::Item
+{
+private:
+	std::uint32_t _ID{ 0 };
+	std::wstring _Caption{ };
+	std::wstring _Description{ };
+	// todo: icon
+
+private:
+	std::size_t _cx{ 0 };
+	std::size_t _cy{ 0 };
+
+private:
+	std::uint32_t _Depth{ 0 };
+
+private:
+	std::size_t _x{ 0 };
+	std::size_t _y{ 0 };
+
+public:
+	Item(void) = default;
+	virtual ~Item(void) = default;
+
+public:
+	Item(const Item&) = delete;
+	Item& operator=(const Item&) = delete;
+
+	Item(Item&&) = delete;
+	Item& operator=(Item&&) = delete;
+
+public:
+	std::uint32_t getID(void) const;
+	void setID(std::uint32_t id);
+
+	std::uint32_t getDepth(void) const;
+	void setDepth(std::uint32_t depth);
+
+	std::wstring getCaption(void) const;
+	std::wstring getDescription(void) const;
+	void setCaption(const std::wstring& caption);
+	void setDescription(const std::wstring& description);
+
+	std::size_t getCX(void) const;
+	std::size_t getCY(void) const;
+	std::size_t getX(void) const;
+	std::size_t getY(void) const;
+	void setCX(std::size_t cx);
+	void setCY(std::size_t cy);
+	void setX(std::size_t x);
+	void setY(std::size_t y);
+
+public:
+	virtual std::size_t calcHeight(void);
+	virtual std::size_t calcWidth(void);
+};
+
+//===========================================================================
+std::uint32_t ToolBox::Item::getID(void) const { return _ID; }
+void ToolBox::Item::setID(std::uint32_t id) { _ID = id; }
+
+std::uint32_t ToolBox::Item::getDepth(void) const { return _Depth; }
+void ToolBox::Item::setDepth(std::uint32_t depth) { _Depth = depth; }
+
+std::wstring ToolBox::Item::getCaption(void) const { return _Caption; }
+std::wstring ToolBox::Item::getDescription(void) const { return _Description; }
+void ToolBox::Item::setCaption(const std::wstring& caption) { _Caption = caption; }
+void ToolBox::Item::setDescription(const std::wstring& description) { _Description = description; }
+
+std::size_t ToolBox::Item::getCX(void) const { return _cx; }
+std::size_t ToolBox::Item::getCY(void) const { return _cy; }
+void ToolBox::Item::setCX(std::size_t cx) { _cx = cx; }
+void ToolBox::Item::setCY(std::size_t cy) { _cy = cy; }
+
+std::size_t ToolBox::Item::getX(void) const { return _x; }
+std::size_t ToolBox::Item::getY(void) const { return _y; }
+void ToolBox::Item::setX(std::size_t x) { _x = x; }
+void ToolBox::Item::setY(std::size_t y) { _y = y; }
+
+//===========================================================================
+std::size_t ToolBox::Item::calcHeight(void) { return _cy; }
+std::size_t ToolBox::Item::calcWidth(void) { return _cx; }
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class ToolBox::GroupItem : public ToolBox::Item
+{
+private:
+	bool _CollapseSubItems { false };
+	ItemPtrs _SubItems;
+
+public:
+	GroupItem(void) = default;
+	virtual ~GroupItem(void) = default;
+
+public:
+	virtual std::size_t calcHeight(void) override;
+	virtual std::size_t calcWidth(void) override;
+
+public:
+	ItemPtrs& getSubItems(void);
+	void CollapseSubItems(bool collapse);
+};
+
+//===========================================================================
+std::size_t ToolBox::GroupItem::calcHeight(void)
+{
+	std::size_t height = getCY();
+
+
+	if (!_CollapseSubItems)
+	{
+		for (auto& item : _SubItems)
+		{
+			height += item->calcHeight();
+		}
+	}
+
+	return height;
+}
+
+std::size_t ToolBox::GroupItem::calcWidth(void)
+{
+	std::size_t width = getCX();
+
+
+	if (!_CollapseSubItems)
+	{
+		for (auto& item : _SubItems)
+		{
+			width += item->calcWidth();
+		}
+	}
+
+	return width;
+}
+
+ToolBox::ItemPtrs& ToolBox::GroupItem::getSubItems(void)
+{
+	return _SubItems;
+}
+
+void ToolBox::GroupItem::CollapseSubItems(bool collapse)
+{
+	_CollapseSubItems = collapse;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class ToolBox::SubItem : public ToolBox::Item
+{
+public:
+	SubItem(void) = default;
+	virtual ~SubItem(void) = default;
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class ToolBox::ListWindow
+{
+private:
+	ItemPtrs _Items;
+
+public:
+	ListWindow(void) = default;
+	virtual ~ListWindow(void) = default;
+
+public:
+	ListWindow(const ListWindow&) = delete;
+	ListWindow& operator=(const ListWindow&) = delete;
+
+	ListWindow(ListWindow&&) = delete;
+	ListWindow& operator=(ListWindow&&) = delete;
+
+public:
+	ItemPtrs& getItems(void);
+};
+
+//===========================================================================
+ToolBox::ItemPtrs& ToolBox::ListWindow::getItems(void)
+{
+	return _Items;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 constexpr LPCWSTR ToolBox_WindowClassName = L"ToolBox";
 constexpr UINT    ToolBox_WindowID        = 0;
 
@@ -65,6 +266,10 @@ ToolBox::ToolBox(HWND parentWindowHandle)
 
 	//-----------------------------------------------------------------------
 	::SetCursor(::LoadCursor(nullptr, IDC_ARROW));
+
+
+	//-----------------------------------------------------------------------
+	_ListWindow = std::make_unique<ListWindow>();
 }
 
 //===========================================================================
