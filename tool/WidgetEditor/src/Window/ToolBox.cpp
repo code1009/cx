@@ -546,29 +546,29 @@ void ToolBox::onMouseWheel(wui::WindowMessage& windowMessage)
 	switch (fwKeys)
 	{
 	case MK_LBUTTON:
-	break;
+		break;
 
 	case MK_RBUTTON:
-	break;
+		break;
 
 	case MK_MBUTTON:
-	break;
+		break;
 
 	case MK_XBUTTON1:
-	break;
+		break;
 
 	case MK_XBUTTON2:
-	break;
+		break;
 
 	case MK_CONTROL:
-	scale = true;
-	break;
+		scale = true;
+		break;
 
 	case MK_SHIFT:
-	break;
+		break;
 
 	default:
-	break;
+		break;
 	}
 
 
