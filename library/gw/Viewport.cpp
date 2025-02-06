@@ -317,23 +317,23 @@ void Viewport::updateViewport(void)
 
 void Viewport::updateViewScroll(void)
 {
-	constexpr std::uint64_t _X_ScrollLine = 20;
-	constexpr std::uint64_t _Y_ScrollLine = 20;
+	constexpr std::uint64_t _X_Scroll_Line = 20;
+	constexpr std::uint64_t _Y_Scroll_Line = 20;
 
 
 	if (_ScrollbarEnabled)
 	{
 		if (_Window_CX < _Image_CX)
 		{
-			_View_X_Scroll_Min = 0;
-			_View_X_Scroll_Max = _Image_CX;
+			_View_X_Scroll_Min  = 0;
+			_View_X_Scroll_Max  = _Image_CX;
 			_View_X_Scroll_Page = _Window_CX;
-			_View_X_Scroll_Line = _X_ScrollLine;
+			_View_X_Scroll_Line = _X_Scroll_Line;
 		}
 		else
 		{
-			_View_X_Scroll_Min = 0;
-			_View_X_Scroll_Max = 0;
+			_View_X_Scroll_Min  = 0;
+			_View_X_Scroll_Max  = 0;
 			_View_X_Scroll_Page = 0;
 			_View_X_Scroll_Line = 0;
 		}
@@ -341,28 +341,28 @@ void Viewport::updateViewScroll(void)
 
 		if (_Window_CY < _Image_CY)
 		{
-			_View_Y_Scroll_Min = 0;
-			_View_Y_Scroll_Max = _Image_CY;
+			_View_Y_Scroll_Min  = 0;
+			_View_Y_Scroll_Max  = _Image_CY;
 			_View_Y_Scroll_Page = _Window_CY;
-			_View_Y_Scroll_Line = _Y_ScrollLine;
+			_View_Y_Scroll_Line = _Y_Scroll_Line;
 		}
 		else
 		{
-			_View_Y_Scroll_Min = 0;
-			_View_Y_Scroll_Max = 0;
+			_View_Y_Scroll_Min  = 0;
+			_View_Y_Scroll_Max  = 0;
 			_View_Y_Scroll_Page = 0;
 			_View_Y_Scroll_Line = 0;
 		}
 	}
 	else
 	{
-		_View_X_Scroll_Min = 0;
-		_View_X_Scroll_Max = 0;
+		_View_X_Scroll_Min  = 0;
+		_View_X_Scroll_Max  = 0;
 		_View_X_Scroll_Page = 0;
 		_View_X_Scroll_Line = 0;
 
-		_View_Y_Scroll_Min = 0;
-		_View_Y_Scroll_Max = 0;
+		_View_Y_Scroll_Min  = 0;
+		_View_Y_Scroll_Max  = 0;
 		_View_Y_Scroll_Page = 0;
 		_View_Y_Scroll_Line = 0;
 	}
