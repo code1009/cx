@@ -224,30 +224,32 @@ void Viewport::setWindowSize(std::int64_t cx, std::int64_t cy)
 {
 	resize(cx, cy);
 
-
 	_Window_CX = cx;
 	_Window_CY = cy;
-
 
 	updateImageSize();
 	updateViewport();
 	updateViewScroll();
 	updateScrollbarPosition();
+
+	repaint();
 }
 
 void Viewport::setScale(double scale)
 {
-	if (scale > 0.0)
+	if (scale <= 0.0)
 	{
-		_Scale = scale;
-
-		updateImageSize();
-		updateViewport();
-		updateViewScroll();
-		updateScrollbarPosition();
-
-		repaint();
+		return;
 	}
+
+	_Scale = scale;
+
+	updateImageSize();
+	updateViewport();
+	updateViewScroll();
+	updateScrollbarPosition();
+
+	repaint();
 }
 
 void Viewport::setDocumentSize(double cx, double cy)
