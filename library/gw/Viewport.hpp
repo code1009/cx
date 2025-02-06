@@ -21,42 +21,42 @@ class Viewport
 {
 public:
 	using RepaintHandler = std::function<void(void)>;
-	using ResizeHandler = std::function<void(std::int64_t width, std::int64_t height)>;
+	using ResizeHandler  = std::function<void(std::int64_t width, std::int64_t height)>;
 
 protected:
 	HWND _WindowHandle{ nullptr };
 
 protected:
 	RepaintHandler _RepaintHandler{};
-	ResizeHandler  _ResizeHandler{};
+	ResizeHandler  _ResizeHandler {};
 
 protected:
-	std::int64_t _Window_CX{ 0 };
-	std::int64_t _Window_CY{ 0 };
+	std::int64_t _Window_CX  { 0 };
+	std::int64_t _Window_CY  { 0 };
 
-	double _Document_CX{ 0 };
-	double _Document_CY{ 0 };
+	double       _Document_CX{ 0.0 };
+	double       _Document_CY{ 0.0 };
 
-	double _Scale{ 1.0 };
+	double       _Scale      { 1.0 };
 
-	std::int64_t _Image_CX{ 0 };
-	std::int64_t _Image_CY{ 0 };
-
-protected:
-	double _DocumentViewport_X{ 0 };
-	double _DocumentViewport_Y{ 0 };
-
-	std::int64_t _ImageViewport_X{ 0 };
-	std::int64_t _ImageViewport_Y{ 0 };
+	std::int64_t _Image_CX   { 0 };
+	std::int64_t _Image_CY   { 0 };
 
 protected:
-	std::int64_t _View_X_Scroll_Min{ 0 };
-	std::int64_t _View_X_Scroll_Max{ 0 };
+	double       _DocumentViewport_X{ 0 };
+	double       _DocumentViewport_Y{ 0 };
+
+	std::int64_t _ImageViewport_X   { 0 };
+	std::int64_t _ImageViewport_Y   { 0 };
+
+protected:
+	std::int64_t _View_X_Scroll_Min { 0 };
+	std::int64_t _View_X_Scroll_Max { 0 };
 	std::int64_t _View_X_Scroll_Page{ 0 };
 	std::int64_t _View_X_Scroll_Line{ 0 };
 
-	std::int64_t _View_Y_Scroll_Min{ 0 };
-	std::int64_t _View_Y_Scroll_Max{ 0 };
+	std::int64_t _View_Y_Scroll_Min { 0 };
+	std::int64_t _View_Y_Scroll_Max { 0 };
 	std::int64_t _View_Y_Scroll_Page{ 0 };
 	std::int64_t _View_Y_Scroll_Line{ 0 };
 
@@ -74,6 +74,8 @@ public:
 	//-----------------------------------------------------------------------
 public:
 	virtual HWND getWindowHandle(void);
+
+public:
 	virtual void repaint(void);
 
 private:
