@@ -278,8 +278,8 @@ void Viewport::updateViewport(void)
 {
 	//-----------------------------------------------------------------------
 	// 변수명은 _Window_CX이지만 _imageViewportCX으로 해석 해야 함
-	// _Window_CX == _imageViewport_CX
-	// _Window_CY == _imageViewport_CY
+	// _Window_CX == _ImageViewport_CX
+	// _Window_CY == _ImageViewport_CY
 
 
 	//-----------------------------------------------------------------------
