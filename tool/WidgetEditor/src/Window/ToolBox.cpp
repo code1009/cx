@@ -276,7 +276,7 @@ ToolBox::ToolBox(HWND parentWindowHandle)
 HWND ToolBox::createToolBox(HWND parentWindowHandle)
 {
 	//-----------------------------------------------------------------------
-	_parentWindowHandle = parentWindowHandle;
+	_ParentWindowHandle = parentWindowHandle;
 
 
 	//-----------------------------------------------------------------------
@@ -404,7 +404,7 @@ void ToolBox::onClose(wui::WindowMessage& windowMessage)
 
 	HWND parent;
 	//parent = GetParent(*this);
-	parent = _parentWindowHandle;
+	parent = _ParentWindowHandle;
 
 	::PostMessageW(
 		parent,

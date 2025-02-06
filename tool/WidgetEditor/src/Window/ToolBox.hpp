@@ -19,7 +19,7 @@ public:
 	using ItemHandles = std::vector<ItemHandle>;
 
 private:
-	HWND _parentWindowHandle{ nullptr };
+	HWND _ParentWindowHandle{ nullptr };
 	std::unique_ptr<ListWindow> _ListWindow;
 
 public:
