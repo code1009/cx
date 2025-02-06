@@ -188,13 +188,17 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class ToolBox::ListWindow
+class ToolBox::ListWindow : public gw::Window
 {
 private:
+	HWND _WindowHandle{ nullptr };
 	ItemHandles _Items;
 
+private:
+	ID2D1SolidColorBrush* _Brush{ nullptr };
+
 public:
-	ListWindow(void) = default;
+	explicit ListWindow(HWND hwnd);
 	virtual ~ListWindow(void) = default;
 
 public:
@@ -204,11 +208,94 @@ public:
 	ListWindow(ListWindow&&) = delete;
 	ListWindow& operator=(ListWindow&&) = delete;
 
+	//-----------------------------------------------------------------------
+	// window
+public:
+	virtual bool createDeviceResources(void) override;
+	virtual void destroyDeviceResources(void) override;
+	virtual void draw(void) override;
+
 public:
 	ItemHandles& getItems(void);
 };
 
 //===========================================================================
+ToolBox::ListWindow::ListWindow(HWND hwnd) :
+	gw::Window(hwnd, false),
+	_WindowHandle(hwnd)
+{
+	getViewport()->setWindowSize(0, 0);
+	getViewport()->setDocumentSize(1024, 768);
+	getViewport()->enableScrollbar(true);
+}
+
+//===========================================================================
+bool ToolBox::ListWindow::createDeviceResources(void)
+{
+	//-----------------------------------------------------------------------
+	bool rv;
+
+
+	rv = gw::Window::createDeviceResources();
+	if (!rv)
+	{
+		return false;
+	}
+
+
+	//-----------------------------------------------------------------------
+	HRESULT hr;
+
+
+	if (!_Brush)
+	{
+		hr = getDRenderTarget()->CreateSolidColorBrush(
+			D2D1::ColorF(0.5f, 0.5f, 1.0f, 0.5f),
+			&_Brush
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void ToolBox::ListWindow::destroyDeviceResources(void)
+{
+	//-----------------------------------------------------------------------
+	if (_Brush)
+	{
+		_Brush->Release();
+		_Brush = nullptr;
+	}
+
+
+	//-----------------------------------------------------------------------
+	gw::Window::destroyDeviceResources();
+}
+
+void ToolBox::ListWindow::draw(void)
+{
+	//-----------------------------------------------------------------------
+	gw::Window::draw();
+
+
+	//-----------------------------------------------------------------------
+	D2D1_ROUNDED_RECT rrect;
+
+
+	rrect.rect.left = 100.0f;
+	rrect.rect.top = 100.0f;
+	rrect.rect.right = 200.0f;
+	rrect.rect.bottom = 200.0f;
+	rrect.radiusX = 10.0f;
+	rrect.radiusY = 10.0f;
+
+	getDRenderTarget()->FillRoundedRectangle(&rrect, _Brush);
+}
+
 ToolBox::ItemHandles& ToolBox::ListWindow::getItems(void)
 {
 	return _Items;
@@ -269,7 +356,7 @@ ToolBox::ToolBox(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_ListWindow = std::make_unique<ListWindow>();
+	_ListWindow = std::make_unique<ListWindow>(*this);
 }
 
 //===========================================================================
@@ -387,9 +474,13 @@ void ToolBox::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_CREATE    ) = &ToolBox::onCreate;
 	_WindowMessageMap.handle(WM_CLOSE     ) = &ToolBox::onClose;
 	_WindowMessageMap.handle(WM_SIZE      ) = &ToolBox::onSize;
-	_WindowMessageMap.handle(WM_ERASEBKGND) = &ToolBox::onEraseBkgnd;
+	_WindowMessageMap.handle(WM_HSCROLL   ) = &ToolBox::onHScroll;
+	_WindowMessageMap.handle(WM_VSCROLL   ) = &ToolBox::onVScroll;
+	_WindowMessageMap.handle(WM_MOUSEWHEEL) = &ToolBox::onMouseWheel;
 	_WindowMessageMap.handle(WM_KEYDOWN   ) = &ToolBox::onKeyDown;
 	_WindowMessageMap.handle(WM_COMMAND   ) = &ToolBox::onCommand;
+	_WindowMessageMap.handle(WM_ERASEBKGND) = &ToolBox::onEraseBkgnd;
+	_WindowMessageMap.handle(WM_PAINT     ) = &ToolBox::onPaint;
 }
 
 void ToolBox::onCreate(wui::WindowMessage& windowMessage)
@@ -416,31 +507,94 @@ void ToolBox::onClose(wui::WindowMessage& windowMessage)
 
 void ToolBox::onSize(wui::WindowMessage& windowMessage)
 {
-	//-----------------------------------------------------------------------
 	RECT rect;
+	GetClientRect(*this, &rect);
 
+	UINT cx = static_cast<UINT>(rect.right - rect.left);
+	UINT cy = static_cast<UINT>(rect.bottom - rect.top);
 
-	::GetClientRect(*this, &rect);
-
-
-	//-----------------------------------------------------------------------
-	UINT cx;
-	UINT cy;
-
-
-	cx = static_cast<UINT>(rect.right - rect.left);
-	cy = static_cast<UINT>(rect.bottom - rect.top);
-
-
-	//-----------------------------------------------------------------------
+	if (_ListWindow.get())
+	{
+		_ListWindow->resize(cx, cy);
+	}
 }
 
-void ToolBox::onEraseBkgnd(wui::WindowMessage& windowMessage)
+void ToolBox::onHScroll(wui::WindowMessage& windowMessage)
 {
-	wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
+	wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	wm.Result(TRUE);
+	_ListWindow->getViewport()->handleHScrollbar(wm.nSBCode());
+}
+
+void ToolBox::onVScroll(wui::WindowMessage& windowMessage)
+{
+	wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
+
+
+	_ListWindow->getViewport()->handleVScrollbar(wm.nSBCode());
+}
+
+void ToolBox::onMouseWheel(wui::WindowMessage& windowMessage)
+{
+	wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
+
+	UINT fwKeys = GET_KEYSTATE_WPARAM(windowMessage.wParam);
+	bool scale = false;
+
+
+	switch (fwKeys)
+	{
+	case MK_LBUTTON:
+	break;
+
+	case MK_RBUTTON:
+	break;
+
+	case MK_MBUTTON:
+	break;
+
+	case MK_XBUTTON1:
+	break;
+
+	case MK_XBUTTON2:
+	break;
+
+	case MK_CONTROL:
+	scale = true;
+	break;
+
+	case MK_SHIFT:
+	break;
+
+	default:
+	break;
+	}
+
+
+	if (scale)
+	{
+		if (wm.zDelta() > 0)
+		{
+			//_ListWindow->getViewport()->zoom(true);
+		}
+		else
+		{
+
+			//_ListWindow->getViewport()->zoom(false);
+		}
+	}
+	else
+	{
+		if (wm.zDelta() > 0)
+		{
+			_ListWindow->getViewport()->handleVScrollbar(SB_LINEUP);
+		}
+		else
+		{
+			_ListWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
+		}
+	}
 }
 
 void ToolBox::onKeyDown(wui::WindowMessage& windowMessage)
@@ -498,6 +652,26 @@ void ToolBox::onCtlCommand(wui::WindowMessage& windowMessage)
 		defaultWindowProc(windowMessage);
 		break;
 	}
+}
+
+void ToolBox::onEraseBkgnd(wui::WindowMessage& windowMessage)
+{
+	wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
+
+
+	wm.Result(TRUE);
+}
+
+void ToolBox::onPaint(wui::WindowMessage& windowMessage)
+{
+	if(_ListWindow)
+	{
+		_ListWindow->render();
+	}
+
+	// The ValidateRect function validates the client area within a rectangle by
+	// removing the rectangle from the update region of the window.
+	::ValidateRect(*this, nullptr);
 }
 
 //===========================================================================

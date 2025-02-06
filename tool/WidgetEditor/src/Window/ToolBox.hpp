@@ -33,11 +33,15 @@ public:
 	void onCreate(wui::WindowMessage& windowMessage);
 	void onClose(wui::WindowMessage& windowMessage);
 	void onSize(wui::WindowMessage& windowMessage);
-	void onEraseBkgnd(wui::WindowMessage& windowMessage);
+	void onHScroll(wui::WindowMessage& windowMessage);
+	void onVScroll(wui::WindowMessage& windowMessage);
+	void onMouseWheel(wui::WindowMessage& windowMessage);
 	void onKeyDown(wui::WindowMessage& windowMessage);
 	void onCommand(wui::WindowMessage& windowMessage);
 	void onMenuCommand(wui::WindowMessage& windowMessage);
 	void onCtlCommand(wui::WindowMessage& windowMessage);
+	void onEraseBkgnd(wui::WindowMessage& windowMessage);
+	void onPaint(wui::WindowMessage& windowMessage);
 
 public:
 	void onIdle(void);
