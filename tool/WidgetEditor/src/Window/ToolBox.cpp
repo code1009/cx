@@ -209,14 +209,18 @@ public:
 	ListWindow& operator=(ListWindow&&) = delete;
 
 	//-----------------------------------------------------------------------
-	// window
+	// gw::Window
 public:
 	virtual bool createDeviceResources(void) override;
 	virtual void destroyDeviceResources(void) override;
 	virtual void draw(void) override;
 
+	//-----------------------------------------------------------------------
 public:
 	ItemHandles& getItems(void);
+
+	//-----------------------------------------------------------------------
+public:
 };
 
 //===========================================================================
@@ -225,7 +229,7 @@ ToolBox::ListWindow::ListWindow(HWND hwnd) :
 	_WindowHandle(hwnd)
 {
 	getViewport()->setWindowSize(0, 0);
-	getViewport()->setDocumentSize(1024, 768);
+	getViewport()->setDocumentSize(0, 0);
 	getViewport()->enableScrollbar(true);
 }
 
@@ -515,7 +519,7 @@ void ToolBox::onSize(wui::WindowMessage& windowMessage)
 
 	if (_ListWindow.get())
 	{
-		_ListWindow->resize(cx, cy);
+		_ListWindow->getViewport()->setWindowSize(cx, cy);
 	}
 }
 

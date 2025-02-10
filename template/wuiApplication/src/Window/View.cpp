@@ -136,7 +136,7 @@ void View::onSize(wui::WindowMessage& windowMessage)
 	//-----------------------------------------------------------------------
 	if (_gwWindow.get())
 	{
-		_gwWindow->resize(cx, cy);
+		_gwWindow->getViewport()->setWindowSize(cx, cy);
 	}
 }
 

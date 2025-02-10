@@ -77,9 +77,9 @@ Window::~Window()
 }
 
 //===========================================================================
+#if 0
 void Window::resize(std::int64_t width, std::int64_t height)
 {
-#if 0
 	if (_pDHwndRenderTarget)
 	{
 		// Note: This method can fail, but it's okay to ignore the
@@ -92,10 +92,10 @@ void Window::resize(std::int64_t width, std::int64_t height)
 			)
 		);
 	}
-#endif
 
 	_Viewport->setWindowSize(width, height);
 }
+#endif
 
 //===========================================================================
 void Window::render(void)

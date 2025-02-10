@@ -220,8 +220,8 @@ void View::onSize(wui::WindowMessage& windowMessage)
 	UINT cy = static_cast<UINT>(rect.bottom - rect.top);
 
 	if (_gwWindow.get())
-	{
-		_gwWindow->resize(cx, cy);
+	{	
+		_gwWindow->getViewport()->setWindowSize(cx, cy);
 	}
 }
 

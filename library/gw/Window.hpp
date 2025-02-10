@@ -47,9 +47,6 @@ public:
 	[[nodiscard]] constexpr Viewport*          getViewport     (void) { return _Viewport.get();     }
 
 public:
-	virtual void resize(std::int64_t width, std::int64_t height);
-
-public:
 	virtual void render(void);
 
 protected:
