@@ -17,12 +17,6 @@ namespace cx
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-std::wstring ltrim_std_wstring(const std::wstring& s);
-std::wstring rtrim_std_wstring(const std::wstring& s);
-std::wstring trim_std_wstring(const std::wstring& s);
-
-std::vector<std::wstring> tokenize_std_wstring(const std::wstring& s, std::wstring_view delimiter=L",", bool trim=true);
-
 std::wstring to_std_wstring(const float value);
 float to_float(const std::wstring value);
 

@@ -14,7 +14,8 @@
 #include "BaseEditWindow.hpp"
 
 //===========================================================================
-#include "../component/to_string.hpp"
+#include "../component/std_wstring_utility.hpp"
+#include "../component/to_std_wstring.hpp"
 
 
 

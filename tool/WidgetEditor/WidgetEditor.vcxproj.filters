@@ -201,13 +201,22 @@
     <ClInclude Include="..\..\library\gw\Color.hpp">
       <Filter>library_cx\gw</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\component\to_string.hpp">
+    <ClInclude Include="..\..\library\component\to_std_wstring.hpp">
       <Filter>library_cx\component</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\component\pch.hpp">
       <Filter>library_cx\component</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\component\xml.hpp">
+      <Filter>library_cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\std_wstring_utility.hpp">
+      <Filter>library_cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\parse_c_string.hpp">
+      <Filter>library_cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\charset_system.hpp">
       <Filter>library_cx\component</Filter>
     </ClInclude>
   </ItemGroup>
@@ -320,10 +329,19 @@
     <ClCompile Include="..\..\library\gw\Color.cpp">
       <Filter>library_cx\gw</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\component\to_string.cpp">
+    <ClCompile Include="..\..\library\component\to_std_wstring.cpp">
       <Filter>library_cx\component</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\component\xml.cpp">
+      <Filter>library_cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\charset_system.cpp">
+      <Filter>library_cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\std_wstring_utility.cpp">
+      <Filter>library_cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\parse_c_string.cpp">
       <Filter>library_cx\component</Filter>
     </ClCompile>
   </ItemGroup>

@@ -29,8 +29,11 @@
     <ResourceCompile Include="res\Application.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\library\component\charset_system.hpp" />
+    <ClInclude Include="..\..\library\component\parse_c_string.hpp" />
     <ClInclude Include="..\..\library\component\pch.hpp" />
-    <ClInclude Include="..\..\library\component\to_string.hpp" />
+    <ClInclude Include="..\..\library\component\std_wstring_utility.hpp" />
+    <ClInclude Include="..\..\library\component\to_std_wstring.hpp" />
     <ClInclude Include="..\..\library\component\xml.hpp" />
     <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp" />
     <ClInclude Include="..\..\library\gw\Color.hpp" />
@@ -86,7 +89,10 @@
     <ClInclude Include="src\Window\View.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\library\component\to_string.cpp" />
+    <ClCompile Include="..\..\library\component\charset_system.cpp" />
+    <ClCompile Include="..\..\library\component\parse_c_string.cpp" />
+    <ClCompile Include="..\..\library\component\std_wstring_utility.cpp" />
+    <ClCompile Include="..\..\library\component\to_std_wstring.cpp" />
     <ClCompile Include="..\..\library\component\xml.cpp" />
     <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp" />
     <ClCompile Include="..\..\library\gw\Color.cpp" />

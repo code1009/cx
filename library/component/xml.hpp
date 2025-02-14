@@ -188,36 +188,4 @@ bool write_xml_attr_wstring(xml_writer_t& xml_writer, const wchar_t* xml_attr_na
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-std::string wcs_to_mbcs(std::wstring input, UINT codepage = CP_ACP);
-std::wstring mbcs_to_wcs(std::string input, UINT codepage = CP_ACP);
-std::string  wcs_to_utf8(std::wstring input);
-std::wstring utf8_to_wcs(std::string input);
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-std::wstring get_directory_of_file_path(std::wstring file_path);
-std::wstring get_file_of_file_path(std::wstring file_path);
-
-//===========================================================================
-std::wstring get_file_extension_of_file_path(std::wstring file_path);
-std::wstring get_file_extension_name_of_file_path(std::wstring file_path);
-
-//===========================================================================
-std::wstring get_directory_name_of_directory(std::wstring directory);
-std::wstring get_parent_directory_of_directory(std::wstring directory);
-
-//===========================================================================
-std::wstring get_file_path_of_current_process(void);
-std::wstring get_directory_of_current_process(void);
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 }

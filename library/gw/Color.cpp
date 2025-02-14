@@ -70,7 +70,7 @@ Color to_Color(const std::wstring& v)
 	Color color;
 
 	
-	auto tokens = cx::tokenize_std_wstring(v);
+	auto tokens = cx::tokenizeObject_std_wstring(v);
 	if (tokens.size() == 3)
 	{
 		color._r = cx::to_float(tokens[0]);
