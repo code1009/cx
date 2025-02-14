@@ -228,6 +228,9 @@
     <ClInclude Include="src\Window\ToolBox_ControlWindow.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
+    <ClInclude Include="src\Window\ToolBox_ItemView.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -360,6 +363,9 @@
       <Filter>src\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\ToolBox_ControlWindow.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\ToolBox_ItemView.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
   </ItemGroup>

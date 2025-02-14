@@ -8,19 +8,9 @@
 //===========================================================================
 class ToolBox::ControlWindow : public cx::gw::Window
 {
-public:
-	
 private:
 	HWND _WindowHandle{ nullptr };
-	ToolBox::ItemSharedPtrs _Items;
-	std::size_t _LastMadeID{ 0 };
-
-private:
-	ID2D1SolidColorBrush* _Brush{ nullptr };
-
-	ToolBox::ItemDrawingSharedPtrs _ItemDrawings;
-	ToolBox::ItemDrawingSharedPtr _GroupItemDrawing;
-	ToolBox::ItemDrawingSharedPtr _SubItemDrawing;
+	std::unique_ptr<ToolBox::ItemView> _ItemView;
 
 public:
 	explicit ControlWindow(HWND hwnd);
@@ -43,32 +33,6 @@ public:
 
 	//-----------------------------------------------------------------------
 	// ToolBox::ControlWindow
-public:
-	std::size_t makeID(void);
-
-public:
-	ToolBox::ItemSharedPtrs& getItems(void);
-
-public:
-	void addItem(ToolBox::GroupItemSharedPtr parentItem, ToolBox::ItemSharedPtr item);
-	void removeItem(ToolBox::ItemSharedPtr item);
-	void removeItem(ToolBox::ItemSharedPtrs& items, ToolBox::ItemSharedPtr item);
-	void clearItems(void);
-	void clearItems(ToolBox::ItemSharedPtrs& items);
-	void clearSubItems(ToolBox::GroupItemSharedPtr& groupItem);
-
-	ToolBox::ItemSharedPtr findItem(std::size_t id);
-	ToolBox::ItemSharedPtr findItem(ToolBox::ItemSharedPtrs& items, std::size_t id);
-
-public:
-	void recalcLayout(void);
-	cx::gw::coord_t recalcItemLayout(cx::gw::coord_t offset, ToolBox::ItemSharedPtr item);
-
-public:
-	ToolBox::ItemDrawingSharedPtr getItemDrawing(ToolBox::ItemSharedPtr item);
-
-public:
-	void drawItems(void);
-	void drawItem(ToolBox::ItemSharedPtr item);	
+	ToolBox::ItemView* getItemView(void);
 };
 

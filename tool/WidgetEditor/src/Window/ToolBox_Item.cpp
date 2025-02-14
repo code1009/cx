@@ -15,6 +15,7 @@
 
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
+#include "ToolBox_ItemView.hpp"
 #include "ToolBox_ControlWindow.hpp"
 
 

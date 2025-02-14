@@ -222,10 +222,15 @@ void Viewport::DocumentToWindow(double document_x, double document_y, std::int64
 //===========================================================================
 void Viewport::setWindowSize(std::int64_t cx, std::int64_t cy)
 {
-	resize(cx, cy);
+	if (_Window_CX == cx && _Window_CY == cy)
+	{
+		return;
+	}
+
 
 	_Window_CX = cx;
 	_Window_CY = cy;
+
 
 	updateImageSize();
 	updateViewport();
@@ -233,6 +238,8 @@ void Viewport::setWindowSize(std::int64_t cx, std::int64_t cy)
 	updateScrollbarPosition();
 
 	repaint();
+
+	resize(cx, cy);
 }
 
 void Viewport::setScale(double scale)

@@ -89,6 +89,7 @@
     <ClInclude Include="src\Window\ToolBox_ControlWindow.hpp" />
     <ClInclude Include="src\Window\ToolBox_Drawing.hpp" />
     <ClInclude Include="src\Window\ToolBox_Item.hpp" />
+    <ClInclude Include="src\Window\ToolBox_ItemView.hpp" />
     <ClInclude Include="src\Window\View.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,7 @@
     <ClCompile Include="src\Window\ToolBox_ControlWindow.cpp" />
     <ClCompile Include="src\Window\ToolBox_Drawing.cpp" />
     <ClCompile Include="src\Window\ToolBox_Item.cpp" />
+    <ClCompile Include="src\Window\ToolBox_ItemView.cpp" />
     <ClCompile Include="src\Window\View.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

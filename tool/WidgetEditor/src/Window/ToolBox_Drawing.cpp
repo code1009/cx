@@ -15,6 +15,7 @@
 
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
+#include "ToolBox_ItemView.hpp"
 #include "ToolBox_ControlWindow.hpp"
 
 
@@ -23,7 +24,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ControlWindow* window)
+bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ItemView* itemView)
 {
 	//-----------------------------------------------------------------------
 	HRESULT hr;
@@ -32,7 +33,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ControlWindow* window)
 	//-----------------------------------------------------------------------
 	if (!_pFrameFillBrush)
 	{
-		hr = window->getDRenderTarget()->CreateSolidColorBrush(
+		hr = itemView->getWindow()->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.75f, 0.75f, 0.75f, 0.25f),
 			&_pFrameFillBrush
 		);
@@ -43,7 +44,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ControlWindow* window)
 	}
 	if (!_pFrameLineBrush)
 	{
-		hr = window->getDRenderTarget()->CreateSolidColorBrush(
+		hr = itemView->getWindow()->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.5f),
 			&_pFrameLineBrush
 		);
@@ -56,7 +57,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ControlWindow* window)
 	//-----------------------------------------------------------------------
 	if (!_pCaptionTextBrush)
 	{
-		hr = window->getDRenderTarget()->CreateSolidColorBrush(
+		hr = itemView->getWindow()->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 1.0f),
 			&_pCaptionTextBrush
 		);
@@ -67,7 +68,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ControlWindow* window)
 	}
 	if (!_pCaptionTextFormat)
 	{
-		hr = window->getDWriteFactory()->CreateTextFormat(
+		hr = itemView->getWindow()->getDWriteFactory()->CreateTextFormat(
 			//L"Arial",
 			L"돋움",
 			//L"FixedSys",
@@ -118,13 +119,13 @@ void ToolBox::ItemDrawing::destroyDeviceResources(void)
 	}
 }
 
-void ToolBox::ItemDrawing::draw(ToolBox::ControlWindow* window, ToolBox::Item* item)
+void ToolBox::ItemDrawing::draw(ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
-	drawFrame(window, item);
-	drawCaption(window, item);
+	drawFrame(itemView, item);
+	drawCaption(itemView, item);
 }
 
-void ToolBox::ItemDrawing::drawFrame(ToolBox::ControlWindow* window, ToolBox::Item* item)
+void ToolBox::ItemDrawing::drawFrame(ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
 	D2D1_RECT_F rect;
 
@@ -134,11 +135,11 @@ void ToolBox::ItemDrawing::drawFrame(ToolBox::ControlWindow* window, ToolBox::It
 	rect.top = item->getY();
 	rect.bottom = item->getY() + item->getCY();
 
-	window->getDRenderTarget()->FillRectangle(&rect, _pFrameFillBrush);
-	window->getDRenderTarget()->DrawRectangle(&rect, _pFrameLineBrush);
+	itemView->getWindow()->getDRenderTarget()->FillRectangle(&rect, _pFrameFillBrush);
+	itemView->getWindow()->getDRenderTarget()->DrawRectangle(&rect, _pFrameLineBrush);
 }
 
-void ToolBox::ItemDrawing::drawCaption(ToolBox::ControlWindow* window, ToolBox::Item* item)
+void ToolBox::ItemDrawing::drawCaption(ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
 	D2D1_RECT_F rect;
 
@@ -149,7 +150,7 @@ void ToolBox::ItemDrawing::drawCaption(ToolBox::ControlWindow* window, ToolBox::
 	rect.bottom = item->getY() + item->getCY();
 
 
-	window->getDRenderTarget()->DrawTextW(
+	itemView->getWindow()->getDRenderTarget()->DrawTextW(
 		item->getCaption().c_str(),
 		static_cast<UINT32>(item->getCaption().length()),
 		_pCaptionTextFormat,

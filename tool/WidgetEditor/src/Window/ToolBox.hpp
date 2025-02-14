@@ -13,11 +13,8 @@ public:
 	class Item;
 	class GroupItem;
 	class SubItem;
-
-public:
+	class ItemView;
 	class ControlWindow;
-
-public:
 	class ItemDrawing;
 	class GroupItemDrawing;
 	class SubItemDrawing;

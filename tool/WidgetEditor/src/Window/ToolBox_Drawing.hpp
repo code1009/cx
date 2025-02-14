@@ -19,13 +19,13 @@ public:
 	virtual ~ItemDrawing(void) = default;
 
 public:
-	virtual bool createDeviceResources(ToolBox::ControlWindow* window);
+	virtual bool createDeviceResources(ToolBox::ItemView* itemView);
 	virtual void destroyDeviceResources(void);
 
 public:
-	virtual void draw(ToolBox::ControlWindow* window, ToolBox::Item* item);
-	virtual void drawFrame(ToolBox::ControlWindow* window, ToolBox::Item* item);
-	virtual void drawCaption(ToolBox::ControlWindow* window, ToolBox::Item* item);
+	virtual void draw(ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawFrame(ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawCaption(ToolBox::ItemView* itemView, ToolBox::Item* item);
 };
 
 
