@@ -40,6 +40,8 @@ Window::Window(HWND hwnd, bool center):
 						)
 					);
 				}
+
+				resize(width, height);
 			}
 		);
 	}
@@ -59,6 +61,8 @@ Window::Window(HWND hwnd, bool center):
 						)
 					);
 				}
+
+				resize(width, height);
 			}
 		);
 	}
@@ -77,6 +81,10 @@ Window::~Window()
 }
 
 //===========================================================================
+void Window::resize(std::int64_t width, std::int64_t height)
+{
+}
+
 #if 0
 void Window::resize(std::int64_t width, std::int64_t height)
 {

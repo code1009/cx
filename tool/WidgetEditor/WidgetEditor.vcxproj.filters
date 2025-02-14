@@ -219,6 +219,15 @@
     <ClInclude Include="..\..\library\component\charset_system.hpp">
       <Filter>library_cx\component</Filter>
     </ClInclude>
+    <ClInclude Include="src\Window\ToolBox_Item.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\ToolBox_Drawing.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\ToolBox_ControlWindow.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -343,6 +352,15 @@
     </ClCompile>
     <ClCompile Include="..\..\library\component\parse_c_string.cpp">
       <Filter>library_cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\ToolBox_Item.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\ToolBox_Drawing.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\ToolBox_ControlWindow.cpp">
+      <Filter>src\Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

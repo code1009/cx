@@ -10,9 +10,6 @@ class ToolBox :
 	public cx::wui::MessageMapWindowT<ToolBox, cx::wui::BaseWindow>
 {
 public:
-	using coord_t = float;
-
-public:
 	class Item;
 	class GroupItem;
 	class SubItem;
@@ -24,12 +21,27 @@ public:
 	class ItemDrawing;
 	class GroupItemDrawing;
 	class SubItemDrawing;
+
+public:
 	//class RecalcLayout;
 	//class Notify;
 
 public:
-	using ItemHandle = std::shared_ptr<Item>;
-	using ItemHandles = std::vector<ItemHandle>;
+	using ItemWeakPtr = std::weak_ptr<Item>;
+	using ItemSharedPtr = std::shared_ptr<Item>;
+	using ItemSharedPtrs = std::vector<ItemSharedPtr>;
+
+	using GroupItemWeakPtr = std::weak_ptr<GroupItem>;
+	using GroupItemSharedPtr = std::shared_ptr<GroupItem>;
+	using GroupItemSharedPtrs = std::vector<GroupItemSharedPtr>;
+
+	using SubItemWeakPtr = std::weak_ptr<Item>;
+	using SubItemSharedPtr = std::shared_ptr<SubItem>;
+	using SubItemSharedPtrs = std::vector<SubItemSharedPtr>;
+
+	using ItemDrawingWeakPtr = std::weak_ptr<Item>;
+	using ItemDrawingSharedPtr = std::shared_ptr<ItemDrawing>;
+	using ItemDrawingSharedPtrs = std::vector<ItemDrawingSharedPtr>;
 
 private:
 	HWND _ParentWindowHandle{ nullptr };

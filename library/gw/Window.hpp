@@ -46,6 +46,9 @@ public:
 	[[nodiscard]] constexpr ID2D1RenderTarget* getDRenderTarget(void) { return _pDHwndRenderTarget; }
 	[[nodiscard]] constexpr Viewport*          getViewport     (void) { return _Viewport.get();     }
 
+protected:
+	virtual void resize(std::int64_t width, std::int64_t height);
+	
 public:
 	virtual void render(void);
 
