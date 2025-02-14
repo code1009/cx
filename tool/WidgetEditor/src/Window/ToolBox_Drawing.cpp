@@ -58,7 +58,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ItemView* itemView)
 	if (!_pCaptionTextBrush)
 	{
 		hr = itemView->getWindow()->getDRenderTarget()->CreateSolidColorBrush(
-			D2D1::ColorF(0.5f, 0.5f, 0.5f, 1.0f),
+			D2D1::ColorF(0.0f, 0.0f, 0.0f, 1.0f),
 			&_pCaptionTextBrush
 		);
 		if (FAILED(hr))
@@ -70,13 +70,14 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ItemView* itemView)
 	{
 		hr = itemView->getWindow()->getDWriteFactory()->CreateTextFormat(
 			//L"Arial",
-			L"돋움",
+			//L"돋움",
 			//L"FixedSys",
+			L"맑은 고딕",
 			nullptr,
-			DWRITE_FONT_WEIGHT_ULTRA_BLACK, // DWRITE_FONT_WEIGHT_NORMAL,
+			DWRITE_FONT_WEIGHT_NORMAL, // DWRITE_FONT_WEIGHT_BOLD, // DWRITE_FONT_WEIGHT_ULTRA_BLACK, // DWRITE_FONT_WEIGHT_NORMAL,
 			DWRITE_FONT_STYLE_NORMAL,
 			DWRITE_FONT_STRETCH_NORMAL,
-			16.0f,
+			12.0f,
 			//L"en-us",
 			L"ko-kr",
 			&_pCaptionTextFormat
@@ -86,7 +87,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ItemView* itemView)
 			return false;
 		}
 		//_pCaptionTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // hcenter
-		//_pCaptionTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
+		_pCaptionTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
 	}
 
 	return true;
