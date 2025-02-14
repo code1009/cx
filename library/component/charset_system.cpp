@@ -105,12 +105,12 @@ std::string mbcs_to_utf8 (std::string /*input*/mbcs, UINT codepage)
 	return utf8;
 }
 
-std::string wcs_to_utf8(std::wstring input)
+std::string wcs_to_utf8 (std::wstring input)
 {
 	return wcs_to_mbcs(input, CP_UTF8);
 }
 
-std::wstring utf8_to_wcs(std::string input)
+std::wstring utf8_to_wcs (std::string input)
 {
 	return mbcs_to_wcs(input, CP_UTF8);
 }
