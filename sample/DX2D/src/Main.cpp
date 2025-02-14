@@ -31,7 +31,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Application : public runtime::WindowApplication
+class Application : public cx::runtime::WindowApplication
 {
 public:
 	Application() = default;
@@ -40,7 +40,7 @@ public:
 	virtual ~Application() = default;
 
 	//-----------------------------------------------------------------------
-	// runtime::WindowApplication
+	// cx::runtime::WindowApplication
 public:
 	virtual bool initialize(void) override;
 	virtual void terminate(void) override;
@@ -58,7 +58,7 @@ bool Application::initialize(void)
 	bool rv;
 
 
-	rv = runtime::WindowApplication::initialize();
+	rv = cx::runtime::WindowApplication::initialize();
 	if (false == rv)
 	{
 		terminate();
@@ -70,14 +70,14 @@ bool Application::initialize(void)
 
 void Application::terminate(void)
 {
-	runtime::WindowApplication::terminate();
+	cx::runtime::WindowApplication::terminate();
 }
 
 void Application::run(void)
 {
 	MainFrame mainFrame;
 
-	wui::WindowMessageLoop windowMessageLoop;
+	cx::wui::WindowMessageLoop windowMessageLoop;
 	windowMessageLoop.addIdleHandler(std::bind(&MainFrame::onIdle, &mainFrame));
 	windowMessageLoop.run();
 }
@@ -117,7 +117,7 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
-	wui::getAppModule()->setInstanceHandle(hInstance);
+	cx::wui::getAppModule()->setInstanceHandle(hInstance);
 
 	
 	getApplication()->launch();

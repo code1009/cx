@@ -6,16 +6,16 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class My_gw_Window : public gw::Window
+class MyWindow : public cx::gw::Window
 {
 private:
 	ID2D1SolidColorBrush* _Brush{ nullptr };
 
 public:
-	My_gw_Window(HWND hwnd);
+	MyWindow(HWND hwnd);
 
 	//-----------------------------------------------------------------------
-	// gw::window
+	// cx::gw::window
 public:
 	virtual bool createDeviceResources(void) override;
 	virtual void destroyDeviceResources(void) override;
@@ -28,10 +28,10 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class View : public wui::MessageMapWindowT<View, wui::BaseWindow>
+class View : public cx::wui::MessageMapWindowT<View, cx::wui::BaseWindow>
 {
 public:
-	std::unique_ptr<My_gw_Window> _gwWindow;
+	std::unique_ptr<MyWindow> _Window;
 
 public:
 	explicit View(HWND parentWindowHandle);
@@ -41,15 +41,15 @@ public:
 
 public:
 	void registerWindowMessageMap(void);
-	void onCreate(wui::WindowMessage& windowMessage);
-	void onDestroy(wui::WindowMessage& windowMessage);
-	void onClose(wui::WindowMessage& windowMessage);
-	void onSize(wui::WindowMessage& windowMessage);
-	void onHScroll(wui::WindowMessage& windowMessage);
-	void onVScroll(wui::WindowMessage& windowMessage);
-	void onMouseWheel(wui::WindowMessage& windowMessage);
-	void onEraseBkgnd(wui::WindowMessage& windowMessage);
-	void onPaint(wui::WindowMessage& windowMessage);
+	void onCreate(cx::wui::WindowMessage& windowMessage);
+	void onDestroy(cx::wui::WindowMessage& windowMessage);
+	void onClose(cx::wui::WindowMessage& windowMessage);
+	void onSize(cx::wui::WindowMessage& windowMessage);
+	void onHScroll(cx::wui::WindowMessage& windowMessage);
+	void onVScroll(cx::wui::WindowMessage& windowMessage);
+	void onMouseWheel(cx::wui::WindowMessage& windowMessage);
+	void onEraseBkgnd(cx::wui::WindowMessage& windowMessage);
+	void onPaint(cx::wui::WindowMessage& windowMessage);
 
 public:
 	void onIdle(void);

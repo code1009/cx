@@ -37,7 +37,7 @@ constexpr UINT MainFrame_Timer_Time = 100;
 MainFrame::MainFrame()
 {
 	//-----------------------------------------------------------------------
-	wui::WindowClass windowClass;
+	cx::wui::WindowClass windowClass;
 
 
 	windowClass.registerWindowClass(
@@ -91,11 +91,11 @@ void MainFrame::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_USER      ) = &MainFrame::onUser0;
 }
 
-void MainFrame::onCreate(wui::WindowMessage& windowMessage)
+void MainFrame::onCreate(cx::wui::WindowMessage& windowMessage)
 {
 }
 
-void MainFrame::onDestroy(wui::WindowMessage& windowMessage)
+void MainFrame::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
 	if (_ToolBox)
 	{
@@ -106,12 +106,12 @@ void MainFrame::onDestroy(wui::WindowMessage& windowMessage)
 	::PostQuitMessage(0);
 }
 
-void MainFrame::onClose(wui::WindowMessage& windowMessage)
+void MainFrame::onClose(cx::wui::WindowMessage& windowMessage)
 {
 	destroyWindow();
 }
 
-void MainFrame::onSize(wui::WindowMessage& windowMessage)
+void MainFrame::onSize(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
 	RECT rect;
@@ -136,17 +136,17 @@ void MainFrame::onSize(wui::WindowMessage& windowMessage)
 	}
 }
 
-void MainFrame::onEraseBkgnd(wui::WindowMessage& windowMessage)
+void MainFrame::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
 
 
 	wm.Result(TRUE);
 }
 
-void MainFrame::onKeyDown(wui::WindowMessage& windowMessage)
+void MainFrame::onKeyDown(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_KEYDOWN_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_KEYDOWN_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nChar())
@@ -165,9 +165,9 @@ void MainFrame::onKeyDown(wui::WindowMessage& windowMessage)
 	}
 }
 
-void MainFrame::onCommand(wui::WindowMessage& windowMessage)
+void MainFrame::onCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	if (wm.wndCtl() == nullptr)
@@ -180,9 +180,9 @@ void MainFrame::onCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void MainFrame::onMenuCommand(wui::WindowMessage& windowMessage)
+void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())
@@ -201,7 +201,7 @@ void MainFrame::onMenuCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void MainFrame::onAppAbout(wui::WindowMessage& windowMessage)
+void MainFrame::onAppAbout(cx::wui::WindowMessage& windowMessage)
 {
 	AboutBox aboutBox;
 
@@ -209,9 +209,9 @@ void MainFrame::onAppAbout(wui::WindowMessage& windowMessage)
 	aboutBox.doModal(*this);
 }
 
-void MainFrame::onCtlCommand(wui::WindowMessage& windowMessage)
+void MainFrame::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())
@@ -225,14 +225,14 @@ void MainFrame::onCtlCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void MainFrame::onNotify(wui::WindowMessage& windowMessage)
+void MainFrame::onNotify(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_NOTIFY_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_NOTIFY_WindowMessageCrack wm{ windowMessage };
 }
 
-void MainFrame::onUser0(wui::WindowMessage& windowMessage)
+void MainFrame::onUser0(cx::wui::WindowMessage& windowMessage)
 {
-	auto child = reinterpret_cast<wui::BaseWindow*>(windowMessage.lParam);
+	auto child = reinterpret_cast<cx::wui::BaseWindow*>(windowMessage.lParam);
 
 	
 	if (child)

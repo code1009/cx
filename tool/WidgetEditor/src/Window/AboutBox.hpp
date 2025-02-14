@@ -7,10 +7,10 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class AboutBox : 
-	public wui::MessageMapWindowT<AboutBox, wui::ModalIndirectBaseDialog>
+	public cx::wui::MessageMapWindowT<AboutBox, cx::wui::ModalIndirectBaseDialog>
 {
 private:
-	wui::MemoryDialogTemplate _DialogTemplate;
+	cx::wui::MemoryDialogTemplate _DialogTemplate;
 
 public:
 	AboutBox();
@@ -20,6 +20,6 @@ public:
 
 public:
 	void registerWindowMessageMap(void);
-	void onInitDialog(wui::WindowMessage& windowMessage);
-	void onCommand(wui::WindowMessage& windowMessage);
+	void onInitDialog(cx::wui::WindowMessage& windowMessage);
+	void onCommand(cx::wui::WindowMessage& windowMessage);
 };

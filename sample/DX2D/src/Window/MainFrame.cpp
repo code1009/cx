@@ -37,7 +37,7 @@ constexpr UINT MainFrame_Timer_Time = 100;
 MainFrame::MainFrame()
 {
 	//-----------------------------------------------------------------------
-	wui::WindowClass windowClass(MainFrame_WindowClassName, IDC_MAIN,IDI_MAIN, IDI_SMALL);
+	cx::wui::WindowClass windowClass(MainFrame_WindowClassName, IDC_MAIN,IDI_MAIN, IDI_SMALL);
 
 
 	//-----------------------------------------------------------------------
@@ -74,28 +74,28 @@ void MainFrame::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_COMMAND)    = &MainFrame::onCommand;
 }
 
-void MainFrame::onCreate(wui::WindowMessage& windowMessage)
+void MainFrame::onCreate(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"MainFrame::onCreate()\r\n");
 
 	//::MessageBoxW(*this, wm.lpCreateStruct()->lpszClass, L"MainFrame::onCreate()", MB_OK);
 }
 
-void MainFrame::onDestroy(wui::WindowMessage& windowMessage)
+void MainFrame::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"MainFrame::onDestroy()\r\n");
 
 	::PostQuitMessage(0);
 }
 
-void MainFrame::onClose(wui::WindowMessage& windowMessage)
+void MainFrame::onClose(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"MainFrame::onClose()\r\n");
 
 	destroyWindow();
 }
 
-void MainFrame::onSize(wui::WindowMessage& windowMessage)
+void MainFrame::onSize(cx::wui::WindowMessage& windowMessage)
 {
 	RECT rect;
 	::GetClientRect(*this, &rect);
@@ -106,25 +106,25 @@ void MainFrame::onSize(wui::WindowMessage& windowMessage)
 	::MoveWindow(*_View, 0, 0, cx, cy, TRUE);
 }
 
-void MainFrame::onEraseBkgnd(wui::WindowMessage& windowMessage)
+void MainFrame::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
 
 
 	wm.Result(FALSE);
 }
 
-void MainFrame::onPaint(wui::WindowMessage& windowMessage)
+void MainFrame::onPaint(cx::wui::WindowMessage& windowMessage)
 {
-	wui::PaintDC paintDC{ *this };
+	cx::wui::PaintDC paintDC{ *this };
 	
 
 	::TextOutW(paintDC, 10, 10, L"Hello, Windows!", 15);
 }
 
-void MainFrame::onCommand(wui::WindowMessage& windowMessage)
+void MainFrame::onCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	if (wm.wndCtl() == nullptr)
@@ -137,9 +137,9 @@ void MainFrame::onCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void MainFrame::onMenuCommand(wui::WindowMessage& windowMessage)
+void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())
@@ -158,7 +158,7 @@ void MainFrame::onMenuCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void MainFrame::onAppAbout(wui::WindowMessage& windowMessage)
+void MainFrame::onAppAbout(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"MainFrame::onAppAbout()\r\n");
 
@@ -171,11 +171,11 @@ void MainFrame::onAppAbout(wui::WindowMessage& windowMessage)
 #endif
 }
 
-void MainFrame::onCtlCommand(wui::WindowMessage& windowMessage)
+void MainFrame::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"MainFrame::onCtlCommand()\r\n");
 
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())

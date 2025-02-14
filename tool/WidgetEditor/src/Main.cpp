@@ -30,21 +30,21 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
-	//RUNTIME_ASSERT(1==0);
+	//CX_RUNTIME_ASSERT(1==0);
 
-	RUNTIME_LOG(LInfo)
+	CX_RUNTIME_LOG(LInfo)
 		<< L"LINE" << 1 << L": -------------------------" << std::endl
 		<< L"LINE" << 2 << L": START" << std::endl
 		<< L"LINE" << 3 << L": -------------------------" << std::endl;
 
 
-	wui::getAppModule()->setInstanceHandle(hInstance);
+	cx::wui::getAppModule()->setInstanceHandle(hInstance);
 
 	
 	getApplication()->launch();
 
 
-	RUNTIME_LOG(LInfo)
+	CX_RUNTIME_LOG(LInfo)
 		<< L"LINE" << 1 << L": -------------------------" << std::endl
 		<< L"LINE" << 2 << L": END" << std::endl
 		<< L"LINE" << 3 << L": -------------------------" << std::endl;

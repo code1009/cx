@@ -19,8 +19,8 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-My_gw_Window::My_gw_Window(HWND hwnd) :
-	gw::Window{ hwnd, false }
+MyWindow::MyWindow(HWND hwnd) :
+	cx::gw::Window{ hwnd, false }
 {
 	//-----------------------------------------------------------------------
 	getViewport()->setWindowSize(0, 0);
@@ -29,13 +29,13 @@ My_gw_Window::My_gw_Window(HWND hwnd) :
 }
 
 //===========================================================================
-bool My_gw_Window::createDeviceResources(void)
+bool MyWindow::createDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	bool rv;
 
 	
-	rv = gw::Window::createDeviceResources();
+	rv = cx::gw::Window::createDeviceResources();
 	if (!rv)
 	{
 		return false;
@@ -61,7 +61,7 @@ bool My_gw_Window::createDeviceResources(void)
 	return true;
 }
 
-void My_gw_Window::destroyDeviceResources(void)
+void MyWindow::destroyDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	if (_Brush)
@@ -72,13 +72,13 @@ void My_gw_Window::destroyDeviceResources(void)
 
 
 	//-----------------------------------------------------------------------
-	gw::Window::destroyDeviceResources();
+	cx::gw::Window::destroyDeviceResources();
 }
 
-void My_gw_Window::draw(void)
+void MyWindow::draw(void)
 {
 	//-----------------------------------------------------------------------
-	gw::Window::draw();
+	cx::gw::Window::draw();
 
 
 	//-----------------------------------------------------------------------
@@ -111,7 +111,7 @@ constexpr LPCWSTR View_WindowClassName = L"View";
 View::View(HWND parentWindowHandle)
 {
 	//-----------------------------------------------------------------------
-	wui::WindowClass windowClass(View_WindowClassName);
+	cx::wui::WindowClass windowClass(View_WindowClassName);
 
 
 	//-----------------------------------------------------------------------
@@ -128,7 +128,7 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_gwWindow = std::make_unique<My_gw_Window>(*this);
+	_Window = std::make_unique<MyWindow>(*this);
 
 
 	//-----------------------------------------------------------------------
@@ -142,8 +142,8 @@ HWND View::createView(HWND parentWindowHandle)
 	LPCWSTR   lpszClassName = View_WindowClassName;
 	HWND      hWndParent    = parentWindowHandle;
 	LPCWSTR   lpWindowName  = L"Window";
-	DWORD     dwStyle       = wui::ChildWindowStyle;
-	DWORD     dwExStyle     = wui::ChildWindowStyleEx;
+	DWORD     dwStyle       = cx::wui::ChildWindowStyle;
+	DWORD     dwExStyle     = cx::wui::ChildWindowStyleEx;
 	int       X             = CW_USEDEFAULT;
 	int       Y             = CW_USEDEFAULT;
 	int       nWidth        = CW_USEDEFAULT;
@@ -192,26 +192,26 @@ void View::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_PAINT     ) = &View::onPaint;
 }
 
-void View::onCreate(wui::WindowMessage& windowMessage)
+void View::onCreate(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"View::onCreate()\r\n");
 }
 
-void View::onDestroy(wui::WindowMessage& windowMessage)
+void View::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"View::onDestroy()\r\n");
 
 	::PostQuitMessage(0);
 }
 
-void View::onClose(wui::WindowMessage& windowMessage)
+void View::onClose(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"View::onClose()\r\n");
 
 	destroyWindow();
 }
 
-void View::onSize(wui::WindowMessage& windowMessage)
+void View::onSize(cx::wui::WindowMessage& windowMessage)
 {
 	RECT rect;
 	GetClientRect(*this, &rect);
@@ -219,31 +219,31 @@ void View::onSize(wui::WindowMessage& windowMessage)
 	UINT cx = static_cast<UINT>(rect.right - rect.left);
 	UINT cy = static_cast<UINT>(rect.bottom - rect.top);
 
-	if (_gwWindow.get())
+	if (_Window.get())
 	{	
-		_gwWindow->getViewport()->setWindowSize(cx, cy);
+		_Window->getViewport()->setWindowSize(cx, cy);
 	}
 }
 
-void View::onHScroll(wui::WindowMessage& windowMessage)
+void View::onHScroll(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gwWindow->getViewport()->handleHScrollbar(wm.nSBCode());
+	_Window->getViewport()->handleHScrollbar(wm.nSBCode());
 }
 
-void View::onVScroll(wui::WindowMessage& windowMessage)
+void View::onVScroll(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gwWindow->getViewport()->handleVScrollbar(wm.nSBCode());
+	_Window->getViewport()->handleVScrollbar(wm.nSBCode());
 }
 
-void View::onMouseWheel(wui::WindowMessage& windowMessage)
+void View::onMouseWheel(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
 
 	UINT fwKeys = GET_KEYSTATE_WPARAM(windowMessage.wParam);
 	bool scale = false;
@@ -282,42 +282,42 @@ void View::onMouseWheel(wui::WindowMessage& windowMessage)
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gwWindow->getViewport()->zoom(true);
+			_Window->getViewport()->zoom(true);
 		}
 		else
 		{
 
-			_gwWindow->getViewport()->zoom(false);
+			_Window->getViewport()->zoom(false);
 		}
 	}
 	else
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gwWindow->getViewport()->handleVScrollbar(SB_LINEUP);
+			_Window->getViewport()->handleVScrollbar(SB_LINEUP);
 		}
 		else
 		{
-			_gwWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
+			_Window->getViewport()->handleVScrollbar(SB_LINEDOWN);
 		}
 	}
 }
 
-void View::onEraseBkgnd(wui::WindowMessage& windowMessage)
+void View::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"View::onEraseBkgnd()\r\n");
 
-	wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
 
 
 	wm.Result(TRUE);
 }
 
-void View::onPaint(wui::WindowMessage& windowMessage)
+void View::onPaint(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"View::onPaint()\r\n");
 
-	_gwWindow->render();
+	_Window->render();
 
 	// The ValidateRect function validates the client area within a rectangle by
 	// removing the rectangle from the update region of the window.
@@ -327,7 +327,7 @@ void View::onPaint(wui::WindowMessage& windowMessage)
 //===========================================================================
 void View::onIdle(void)
 {
-	_gwWindow->render();
+	_Window->render();
 }
 
 

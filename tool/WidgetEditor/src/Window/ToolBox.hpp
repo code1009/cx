@@ -7,20 +7,33 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class ToolBox : 
-	public wui::MessageMapWindowT<ToolBox, wui::BaseWindow>
+	public cx::wui::MessageMapWindowT<ToolBox, cx::wui::BaseWindow>
 {
+public:
+	using coord_t = float;
+
 public:
 	class Item;
 	class GroupItem;
 	class SubItem;
-	class ListWindow;
 
+public:
+	class ControlWindow;
+
+public:
+	class ItemDrawing;
+	class GroupItemDrawing;
+	class SubItemDrawing;
+	//class RecalcLayout;
+	//class Notify;
+
+public:
 	using ItemHandle = std::shared_ptr<Item>;
 	using ItemHandles = std::vector<ItemHandle>;
 
 private:
 	HWND _ParentWindowHandle{ nullptr };
-	std::unique_ptr<ListWindow> _ListWindow;
+	std::unique_ptr<ControlWindow> _ControlWindow;
 
 public:
 	explicit ToolBox(HWND parentWindowHandle);
@@ -30,18 +43,18 @@ public:
 
 public:
 	void registerWindowMessageMap(void);
-	void onCreate(wui::WindowMessage& windowMessage);
-	void onClose(wui::WindowMessage& windowMessage);
-	void onSize(wui::WindowMessage& windowMessage);
-	void onHScroll(wui::WindowMessage& windowMessage);
-	void onVScroll(wui::WindowMessage& windowMessage);
-	void onMouseWheel(wui::WindowMessage& windowMessage);
-	void onKeyDown(wui::WindowMessage& windowMessage);
-	void onCommand(wui::WindowMessage& windowMessage);
-	void onMenuCommand(wui::WindowMessage& windowMessage);
-	void onCtlCommand(wui::WindowMessage& windowMessage);
-	void onEraseBkgnd(wui::WindowMessage& windowMessage);
-	void onPaint(wui::WindowMessage& windowMessage);
+	void onCreate(cx::wui::WindowMessage& windowMessage);
+	void onClose(cx::wui::WindowMessage& windowMessage);
+	void onSize(cx::wui::WindowMessage& windowMessage);
+	void onHScroll(cx::wui::WindowMessage& windowMessage);
+	void onVScroll(cx::wui::WindowMessage& windowMessage);
+	void onMouseWheel(cx::wui::WindowMessage& windowMessage);
+	void onKeyDown(cx::wui::WindowMessage& windowMessage);
+	void onCommand(cx::wui::WindowMessage& windowMessage);
+	void onMenuCommand(cx::wui::WindowMessage& windowMessage);
+	void onCtlCommand(cx::wui::WindowMessage& windowMessage);
+	void onEraseBkgnd(cx::wui::WindowMessage& windowMessage);
+	void onPaint(cx::wui::WindowMessage& windowMessage);
 
 public:
 	void onIdle(void);

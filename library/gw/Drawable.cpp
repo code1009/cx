@@ -11,7 +11,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace gw
+namespace cx::gw
 {
 
 
@@ -71,33 +71,33 @@ bool DocumentGrid::createDeviceResources(Window* w)
 	
 	
 	//-----------------------------------------------------------------------
-	if (!_pDocumentGridLine0Brush)
+	if (!_pDocumentGrid0_LineBrush)
 	{
 		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.9f, 0.9f, 0.9f),
-			&_pDocumentGridLine0Brush
+			&_pDocumentGrid0_LineBrush
 		);
 		if (FAILED(hr))
 		{
 			return false;
 		}
 	}
-	if (!_pDocumentGridLine1Brush)
+	if (!_pDocumentGrid1_LineBrush)
 	{
 		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f),
-			&_pDocumentGridLine1Brush
+			&_pDocumentGrid1_LineBrush
 		);
 		if (FAILED(hr))
 		{
 			return false;
 		}
 	}
-	if (!_pDocumentGridLine2Brush)
+	if (!_pDocumentGrid2_LineBrush)
 	{
 		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 1.0f),
-			&_pDocumentGridLine2Brush
+			&_pDocumentGrid2_LineBrush
 		);
 		if (FAILED(hr))
 		{
@@ -106,18 +106,18 @@ bool DocumentGrid::createDeviceResources(Window* w)
 	}
 
 	//-----------------------------------------------------------------------
-	if (!_pCoordTextBrush)
+	if (!_pCoord_TextBrush)
 	{
 		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.5f),
-			&_pCoordTextBrush
+			&_pCoord_TextBrush
 		);
 		if (FAILED(hr))
 		{
 			return false;
 		}
 	}
-	if (!_pCoordTextFormat)
+	if (!_pCoord_TextFormat)
 	{
 		hr = w->getDWriteFactory()->CreateTextFormat(
 			L"Arial",
@@ -127,14 +127,14 @@ bool DocumentGrid::createDeviceResources(Window* w)
 			DWRITE_FONT_STRETCH_ULTRA_CONDENSED,
 			9.0f,
 			L"ko-kr",
-			&_pCoordTextFormat
+			&_pCoord_TextFormat
 		);
 		if (FAILED(hr))
 		{
 			return false;
 		}
-		_pCoordTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
-		_pCoordTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+		_pCoord_TextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		_pCoord_TextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 	}
 
 	return true;
@@ -143,32 +143,32 @@ bool DocumentGrid::createDeviceResources(Window* w)
 void DocumentGrid::destroyDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
-	if (_pDocumentGridLine0Brush)
+	if (_pDocumentGrid0_LineBrush)
 	{
-		_pDocumentGridLine0Brush->Release();
-		_pDocumentGridLine0Brush = nullptr;
+		_pDocumentGrid0_LineBrush->Release();
+		_pDocumentGrid0_LineBrush = nullptr;
 	}
-	if (_pDocumentGridLine1Brush)
+	if (_pDocumentGrid1_LineBrush)
 	{
-		_pDocumentGridLine1Brush->Release();
-		_pDocumentGridLine1Brush = nullptr;
+		_pDocumentGrid1_LineBrush->Release();
+		_pDocumentGrid1_LineBrush = nullptr;
 	}
-	if (_pDocumentGridLine2Brush)
+	if (_pDocumentGrid2_LineBrush)
 	{
-		_pDocumentGridLine2Brush->Release();
-		_pDocumentGridLine2Brush = nullptr;
+		_pDocumentGrid2_LineBrush->Release();
+		_pDocumentGrid2_LineBrush = nullptr;
 	}
 
 	//-----------------------------------------------------------------------
-	if (_pCoordTextBrush)
+	if (_pCoord_TextBrush)
 	{
-		_pCoordTextBrush->Release();
-		_pCoordTextBrush = nullptr;
+		_pCoord_TextBrush->Release();
+		_pCoord_TextBrush = nullptr;
 	}
-	if (_pCoordTextFormat)
+	if (_pCoord_TextFormat)
 	{
-		_pCoordTextFormat->Release();
-		_pCoordTextFormat = nullptr;
+		_pCoord_TextFormat->Release();
+		_pCoord_TextFormat = nullptr;
 	}
 }
 
@@ -231,7 +231,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 		w->getDRenderTarget()->DrawLine(
 			D2D1::Point2F(ci, ob),
 			D2D1::Point2F(ci, oe),
-			_pDocumentGridLine0Brush,
+			_pDocumentGrid0_LineBrush,
 			1.0f
 		);
 	}
@@ -246,7 +246,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 		w->getDRenderTarget()->DrawLine(
 			D2D1::Point2F(ob, ci),
 			D2D1::Point2F(oe, ci),
-			_pDocumentGridLine0Brush,
+			_pDocumentGrid0_LineBrush,
 			1.0f
 		);
 	}
@@ -263,7 +263,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 		w->getDRenderTarget()->DrawLine(
 			D2D1::Point2F(ci, ob),
 			D2D1::Point2F(ci, oe),
-			_pDocumentGridLine1Brush,
+			_pDocumentGrid1_LineBrush,
 			1.0f
 		);
 	}
@@ -278,7 +278,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 		w->getDRenderTarget()->DrawLine(
 			D2D1::Point2F(ob, ci),
 			D2D1::Point2F(oe, ci),
-			_pDocumentGridLine1Brush,
+			_pDocumentGrid1_LineBrush,
 			1.0f
 		);
 	}
@@ -294,7 +294,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	w->getDRenderTarget()->DrawLine(
 		D2D1::Point2F(ci, ob),
 		D2D1::Point2F(ci, oe),
-		_pDocumentGridLine2Brush,
+		_pDocumentGrid2_LineBrush,
 		2.0f
 	);
 
@@ -306,7 +306,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	w->getDRenderTarget()->DrawLine(
 		D2D1::Point2F(ob, ci),
 		D2D1::Point2F(oe, ci),
-		_pDocumentGridLine2Brush,
+		_pDocumentGrid2_LineBrush,
 		2.0f
 	);
 
@@ -322,7 +322,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	rect.bottom = static_cast<float>(document_cy);
 	w->getDRenderTarget()->DrawRectangle(
 		&rect,
-		_pDocumentGridLine2Brush,
+		_pDocumentGrid2_LineBrush,
 		4.0f
 	);
 
@@ -357,9 +357,9 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 			w->getDRenderTarget()->DrawTextW(
 				text,
 				static_cast<UINT32>(lstrlen(text)),
-				_pCoordTextFormat,
+				_pCoord_TextFormat,
 				rect,
-				_pCoordTextBrush
+				_pCoord_TextBrush
 			);
 		}
 	}
@@ -390,22 +390,22 @@ bool StatusOverayPanel::createDeviceResources(Window* w)
 	
 	
 	//-----------------------------------------------------------------------
-	if (!_pStatusBoxFillBrush)
+	if (!_pStatusBox_FillBrush)
 	{
 		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.75f, 0.75f, 0.75f, 0.25f),
-			&_pStatusBoxFillBrush
+			&_pStatusBox_FillBrush
 		);
 		if (FAILED(hr))
 		{
 			return false;
 		}
 	}
-	if (!_pStatusBoxLineBrush)
+	if (!_pStatusBox_LineBrush)
 	{
 		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.5f),
-			&_pStatusBoxLineBrush
+			&_pStatusBox_LineBrush
 		);
 		if (FAILED(hr))
 		{
@@ -414,18 +414,18 @@ bool StatusOverayPanel::createDeviceResources(Window* w)
 	}
 
 	//-----------------------------------------------------------------------
-	if (!_pStatusTextBrush)
+	if (!_pStatus_TextBrush)
 	{
 		hr = w->getDRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 1.0f),
-			&_pStatusTextBrush
+			&_pStatus_TextBrush
 		);
 		if (FAILED(hr))
 		{
 			return false;
 		}
 	}
-	if (!_pStatusTextFormat)
+	if (!_pStatus_TextFormat)
 	{
 		hr = w->getDWriteFactory()->CreateTextFormat(
 			//L"Arial",
@@ -438,14 +438,14 @@ bool StatusOverayPanel::createDeviceResources(Window* w)
 			12.0f,
 			//L"en-us",
 			L"ko-kr",
-			&_pStatusTextFormat
+			&_pStatus_TextFormat
 		);
 		if (FAILED(hr))
 		{
 			return false;
 		}
-		//_pStatusTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // hcenter
-		//_pStatusTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
+		//_pStatus_TextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // hcenter
+		//_pStatus_TextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
 	}
 
 	return true;
@@ -454,27 +454,27 @@ bool StatusOverayPanel::createDeviceResources(Window* w)
 void StatusOverayPanel::destroyDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
-	if (_pStatusBoxFillBrush)
+	if (_pStatusBox_FillBrush)
 	{
-		_pStatusBoxFillBrush->Release();
-		_pStatusBoxFillBrush = nullptr;
+		_pStatusBox_FillBrush->Release();
+		_pStatusBox_FillBrush = nullptr;
 	}
-	if (_pStatusBoxLineBrush)
+	if (_pStatusBox_LineBrush)
 	{
-		_pStatusBoxLineBrush->Release();
-		_pStatusBoxLineBrush = nullptr;
+		_pStatusBox_LineBrush->Release();
+		_pStatusBox_LineBrush = nullptr;
 	}
 
 	//-----------------------------------------------------------------------
-	if (_pStatusTextBrush)
+	if (_pStatus_TextBrush)
 	{
-		_pStatusTextBrush->Release();
-		_pStatusTextBrush = nullptr;
+		_pStatus_TextBrush->Release();
+		_pStatus_TextBrush = nullptr;
 	}
-	if (_pStatusTextFormat)
+	if (_pStatus_TextFormat)
 	{
-		_pStatusTextFormat->Release();
-		_pStatusTextFormat = nullptr;
+		_pStatus_TextFormat->Release();
+		_pStatus_TextFormat = nullptr;
 	}
 }
 
@@ -625,8 +625,8 @@ void StatusOverayPanel::drawStatusOverayPanel(Window* w)
 	rrect.rect.bottom = rect.bottom;
 	rrect.radiusX = 5.0f;
 	rrect.radiusY = 5.0f;
-	w->getDRenderTarget()->FillRoundedRectangle(&rrect, _pStatusBoxFillBrush);
-	w->getDRenderTarget()->DrawRoundedRectangle(&rrect, _pStatusBoxLineBrush);
+	w->getDRenderTarget()->FillRoundedRectangle(&rrect, _pStatusBox_FillBrush);
+	w->getDRenderTarget()->DrawRoundedRectangle(&rrect, _pStatusBox_LineBrush);
 #endif
 
 	rect.left   += 5.0f;
@@ -636,9 +636,9 @@ void StatusOverayPanel::drawStatusOverayPanel(Window* w)
 	w->getDRenderTarget()->DrawTextW(
 		text.c_str(),
 		static_cast<UINT32>(text.length()),
-		_pStatusTextFormat,
+		_pStatus_TextFormat,
 		rect,
-		_pStatusTextBrush
+		_pStatus_TextBrush
 	);
 }
 

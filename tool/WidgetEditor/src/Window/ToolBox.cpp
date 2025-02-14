@@ -23,20 +23,16 @@ class ToolBox::Item
 {
 private:
 	std::uint32_t _ID{ 0 };
+	std::uint32_t _Depth{ 0 };
 	std::wstring _Caption{ };
 	std::wstring _Description{ };
 	// todo: icon
 
 private:
-	std::size_t _cx{ 0 };
-	std::size_t _cy{ 0 };
-
-private:
-	std::uint32_t _Depth{ 0 };
-
-private:
-	std::size_t _x{ 0 };
-	std::size_t _y{ 0 };
+	ToolBox::coord_t _cx{ 0 };
+	ToolBox::coord_t _cy{ 0 };
+	ToolBox::coord_t _x{ 0 };
+	ToolBox::coord_t _y{ 0 };
 
 public:
 	Item(void) = default;
@@ -61,45 +57,45 @@ public:
 	void setCaption(const std::wstring& caption);
 	void setDescription(const std::wstring& description);
 
-	std::size_t getCX(void) const;
-	std::size_t getCY(void) const;
-	std::size_t getX(void) const;
-	std::size_t getY(void) const;
-	void setCX(std::size_t cx);
-	void setCY(std::size_t cy);
-	void setX(std::size_t x);
-	void setY(std::size_t y);
+	ToolBox::coord_t getCX(void) const;
+	ToolBox::coord_t getCY(void) const;
+	ToolBox::coord_t getX(void) const;
+	ToolBox::coord_t getY(void) const;
+	void setCX(ToolBox::coord_t cx);
+	void setCY(ToolBox::coord_t cy);
+	void setX(ToolBox::coord_t x);
+	void setY(ToolBox::coord_t y);
 
 public:
-	virtual std::size_t calcHeight(void);
-	virtual std::size_t calcWidth(void);
+	virtual ToolBox::coord_t calcHeight(void);
+	virtual ToolBox::coord_t calcWidth(void);
 };
 
 //===========================================================================
-std::uint32_t ToolBox::Item::getID(void) const { return _ID; }
-void ToolBox::Item::setID(std::uint32_t id) { _ID = id; }
+std::uint32_t    ToolBox::Item::getID(void) const       { return _ID; }
+void             ToolBox::Item::setID(std::uint32_t id) { _ID = id; }
 
-std::uint32_t ToolBox::Item::getDepth(void) const { return _Depth; }
-void ToolBox::Item::setDepth(std::uint32_t depth) { _Depth = depth; }
+std::uint32_t    ToolBox::Item::getDepth(void) const          { return _Depth; }
+void             ToolBox::Item::setDepth(std::uint32_t depth) { _Depth = depth; }
 
-std::wstring ToolBox::Item::getCaption(void) const { return _Caption; }
-std::wstring ToolBox::Item::getDescription(void) const { return _Description; }
-void ToolBox::Item::setCaption(const std::wstring& caption) { _Caption = caption; }
-void ToolBox::Item::setDescription(const std::wstring& description) { _Description = description; }
+std::wstring     ToolBox::Item::getCaption(void) const                          { return _Caption; }
+std::wstring     ToolBox::Item::getDescription(void) const                      { return _Description; }
+void             ToolBox::Item::setCaption(const std::wstring& caption)         { _Caption = caption; }
+void             ToolBox::Item::setDescription(const std::wstring& description) { _Description = description; }
 
-std::size_t ToolBox::Item::getCX(void) const { return _cx; }
-std::size_t ToolBox::Item::getCY(void) const { return _cy; }
-void ToolBox::Item::setCX(std::size_t cx) { _cx = cx; }
-void ToolBox::Item::setCY(std::size_t cy) { _cy = cy; }
+ToolBox::coord_t ToolBox::Item::getCX(void) const          { return _cx; }
+ToolBox::coord_t ToolBox::Item::getCY(void) const          { return _cy; }
+void             ToolBox::Item::setCX(ToolBox::coord_t cx) { _cx = cx; }
+void             ToolBox::Item::setCY(ToolBox::coord_t cy) { _cy = cy; }
 
-std::size_t ToolBox::Item::getX(void) const { return _x; }
-std::size_t ToolBox::Item::getY(void) const { return _y; }
-void ToolBox::Item::setX(std::size_t x) { _x = x; }
-void ToolBox::Item::setY(std::size_t y) { _y = y; }
+ToolBox::coord_t ToolBox::Item::getX(void) const         { return _x; }
+ToolBox::coord_t ToolBox::Item::getY(void) const         { return _y; }
+void             ToolBox::Item::setX(ToolBox::coord_t x) { _x = x; }
+void             ToolBox::Item::setY(ToolBox::coord_t y) { _y = y; }
 
 //===========================================================================
-std::size_t ToolBox::Item::calcHeight(void) { return _cy; }
-std::size_t ToolBox::Item::calcWidth(void) { return _cx; }
+ToolBox::coord_t ToolBox::Item::calcHeight(void) { return _cy; }
+ToolBox::coord_t ToolBox::Item::calcWidth(void)  { return _cx; }
 
 
 
@@ -111,25 +107,25 @@ class ToolBox::GroupItem : public ToolBox::Item
 {
 private:
 	bool _CollapseSubItems { false };
-	ItemHandles _SubItems;
+	ToolBox::ItemHandles _SubItems;
 
 public:
 	GroupItem(void) = default;
 	virtual ~GroupItem(void) = default;
 
 public:
-	virtual std::size_t calcHeight(void) override;
-	virtual std::size_t calcWidth(void) override;
+	virtual ToolBox::coord_t calcHeight(void) override;
+	virtual ToolBox::coord_t calcWidth(void) override;
 
 public:
-	ItemHandles& getSubItems(void);
+	ToolBox::ItemHandles& getSubItems(void);
 	void CollapseSubItems(bool collapse);
 };
 
 //===========================================================================
-std::size_t ToolBox::GroupItem::calcHeight(void)
+ToolBox::coord_t ToolBox::GroupItem::calcHeight(void)
 {
-	std::size_t height = getCY();
+	ToolBox::coord_t height = getCY();
 
 
 	if (!_CollapseSubItems)
@@ -143,9 +139,9 @@ std::size_t ToolBox::GroupItem::calcHeight(void)
 	return height;
 }
 
-std::size_t ToolBox::GroupItem::calcWidth(void)
+ToolBox::coord_t ToolBox::GroupItem::calcWidth(void)
 {
-	std::size_t width = getCX();
+	ToolBox::coord_t width = getCX();
 
 
 	if (!_CollapseSubItems)
@@ -188,28 +184,28 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class ToolBox::ListWindow : public gw::Window
+class ToolBox::ControlWindow : public cx::gw::Window
 {
 private:
 	HWND _WindowHandle{ nullptr };
-	ItemHandles _Items;
+	ToolBox::ItemHandles _Items;
 
 private:
 	ID2D1SolidColorBrush* _Brush{ nullptr };
 
 public:
-	explicit ListWindow(HWND hwnd);
-	virtual ~ListWindow(void) = default;
+	explicit ControlWindow(HWND hwnd);
+	virtual ~ControlWindow(void) = default;
 
 public:
-	ListWindow(const ListWindow&) = delete;
-	ListWindow& operator=(const ListWindow&) = delete;
+	ControlWindow(const ControlWindow&) = delete;
+	ControlWindow& operator=(const ControlWindow&) = delete;
 
-	ListWindow(ListWindow&&) = delete;
-	ListWindow& operator=(ListWindow&&) = delete;
+	ControlWindow(ControlWindow&&) = delete;
+	ControlWindow& operator=(ControlWindow&&) = delete;
 
 	//-----------------------------------------------------------------------
-	// gw::Window
+	// cx::gw::Window
 public:
 	virtual bool createDeviceResources(void) override;
 	virtual void destroyDeviceResources(void) override;
@@ -217,15 +213,202 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	ItemHandles& getItems(void);
+	ToolBox::ItemHandles& getItems(void);
 
 	//-----------------------------------------------------------------------
 public:
 };
 
+/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-ToolBox::ListWindow::ListWindow(HWND hwnd) :
-	gw::Window(hwnd, false),
+class ToolBox::ItemDrawing
+{
+public:
+	IDWriteTextFormat* _pCaptionTextFormat{ nullptr };
+	ID2D1SolidColorBrush* _pCaptionTextBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFrameFillBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFrameLineBrush{ nullptr };
+
+public:
+	ItemDrawing(void) = default;
+	virtual ~ItemDrawing(void) = default;
+
+public:
+	virtual bool createDeviceResources(ToolBox::ControlWindow* window);
+	virtual void destroyDeviceResources(void);
+
+public:
+	virtual void draw(ToolBox::ControlWindow* window, ToolBox::Item* item);
+	virtual void drawFrame(ToolBox::ControlWindow* window, ToolBox::Item* item);
+	virtual void drawCaption(ToolBox::ControlWindow* window, ToolBox::Item* item);
+};
+
+bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ControlWindow* window)
+{
+	//-----------------------------------------------------------------------
+	HRESULT hr;
+
+
+	//-----------------------------------------------------------------------
+	if (!_pFrameFillBrush)
+	{
+		hr = window->getDRenderTarget()->CreateSolidColorBrush(
+			D2D1::ColorF(0.75f, 0.75f, 0.75f, 0.25f),
+			&_pFrameFillBrush
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+	if (!_pFrameLineBrush)
+	{
+		hr = window->getDRenderTarget()->CreateSolidColorBrush(
+			D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.5f),
+			&_pFrameLineBrush
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+
+	//-----------------------------------------------------------------------
+	if (!_pCaptionTextBrush)
+	{
+		hr = window->getDRenderTarget()->CreateSolidColorBrush(
+			D2D1::ColorF(0.5f, 0.5f, 0.5f, 1.0f),
+			&_pCaptionTextBrush
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+	if (!_pCaptionTextFormat)
+	{
+		hr = window->getDWriteFactory()->CreateTextFormat(
+			//L"Arial",
+			L"돋움",
+			//L"FixedSys",
+			nullptr,
+			DWRITE_FONT_WEIGHT_ULTRA_BLACK, // DWRITE_FONT_WEIGHT_NORMAL,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_NORMAL,
+			12.0f,
+			//L"en-us",
+			L"ko-kr",
+			&_pCaptionTextFormat
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+		//_pCaptionTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // hcenter
+		//_pCaptionTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
+	}
+
+	return true;
+}
+
+void ToolBox::ItemDrawing::destroyDeviceResources(void)
+{
+	//-----------------------------------------------------------------------
+	if (_pFrameFillBrush)
+	{
+		_pFrameFillBrush->Release();
+		_pFrameFillBrush = nullptr;
+	}
+	if (_pFrameLineBrush)
+	{
+		_pFrameLineBrush->Release();
+		_pFrameLineBrush = nullptr;
+	}
+
+	//-----------------------------------------------------------------------
+	if (_pCaptionTextBrush)
+	{
+		_pCaptionTextBrush->Release();
+		_pCaptionTextBrush = nullptr;
+	}
+	if (_pCaptionTextFormat)
+	{
+		_pCaptionTextFormat->Release();
+		_pCaptionTextFormat = nullptr;
+	}
+}
+
+void ToolBox::ItemDrawing::draw(ToolBox::ControlWindow* window, ToolBox::Item* item)
+{
+	drawFrame(window, item);
+	drawCaption(window, item);
+}
+
+void ToolBox::ItemDrawing::drawFrame(ToolBox::ControlWindow* window, ToolBox::Item* item)
+{
+	D2D1_RECT_F rect;
+
+
+	rect.left = item->getX();
+	rect.right = item->getX() + item->getCX();
+	rect.top = item->getY();
+	rect.bottom = item->getY() + item->getCY();
+
+	window->getDRenderTarget()->FillRectangle(&rect, _pFrameFillBrush);
+	window->getDRenderTarget()->DrawRectangle(&rect, _pFrameLineBrush);
+}
+
+void ToolBox::ItemDrawing::drawCaption(ToolBox::ControlWindow* window, ToolBox::Item* item)
+{
+	D2D1_RECT_F rect;
+
+
+	rect.left = item->getX();
+	rect.right = item->getX() + item->getCX();
+	rect.top = item->getY();
+	rect.bottom = item->getY() + item->getCY();
+
+
+	window->getDRenderTarget()->DrawTextW(
+		item->getCaption().c_str(),
+		static_cast<UINT32>(item->getCaption().length()),
+		_pCaptionTextFormat,
+		rect,
+		_pCaptionTextBrush
+	);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class ToolBox::GroupItemDrawing : public ToolBox::ItemDrawing
+{
+public:
+	GroupItemDrawing(void) = default;
+	virtual ~GroupItemDrawing(void) = default;
+
+public:
+};
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class ToolBox::SubItemDrawing : public ToolBox::ItemDrawing
+{
+public:
+	SubItemDrawing(void) = default;
+	virtual ~SubItemDrawing(void) = default;
+};
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// class ToolBox::ControlWindow
+// 
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+ToolBox::ControlWindow::ControlWindow(HWND hwnd) :
+	cx::gw::Window(hwnd, false),
 	_WindowHandle(hwnd)
 {
 	getViewport()->setWindowSize(0, 0);
@@ -234,13 +417,13 @@ ToolBox::ListWindow::ListWindow(HWND hwnd) :
 }
 
 //===========================================================================
-bool ToolBox::ListWindow::createDeviceResources(void)
+bool ToolBox::ControlWindow::createDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	bool rv;
 
 
-	rv = gw::Window::createDeviceResources();
+	rv = cx::gw::Window::createDeviceResources();
 	if (!rv)
 	{
 		return false;
@@ -266,7 +449,7 @@ bool ToolBox::ListWindow::createDeviceResources(void)
 	return true;
 }
 
-void ToolBox::ListWindow::destroyDeviceResources(void)
+void ToolBox::ControlWindow::destroyDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
 	if (_Brush)
@@ -277,13 +460,13 @@ void ToolBox::ListWindow::destroyDeviceResources(void)
 
 
 	//-----------------------------------------------------------------------
-	gw::Window::destroyDeviceResources();
+	cx::gw::Window::destroyDeviceResources();
 }
 
-void ToolBox::ListWindow::draw(void)
+void ToolBox::ControlWindow::draw(void)
 {
 	//-----------------------------------------------------------------------
-	gw::Window::draw();
+	cx::gw::Window::draw();
 
 
 	//-----------------------------------------------------------------------
@@ -300,7 +483,7 @@ void ToolBox::ListWindow::draw(void)
 	getDRenderTarget()->FillRoundedRectangle(&rrect, _Brush);
 }
 
-ToolBox::ItemHandles& ToolBox::ListWindow::getItems(void)
+ToolBox::ItemHandles& ToolBox::ControlWindow::getItems(void)
 {
 	return _Items;
 }
@@ -327,7 +510,7 @@ constexpr UINT ToolBox_Timer_Time = 100;
 ToolBox::ToolBox(HWND parentWindowHandle)
 {
 	//-----------------------------------------------------------------------
-	wui::WindowClass windowClass;
+	cx::wui::WindowClass windowClass;
 
 
 	windowClass.registerWindowClass(
@@ -351,7 +534,7 @@ ToolBox::ToolBox(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_ListWindow = std::make_unique<ListWindow>(*this);
+	_ControlWindow = std::make_unique<ControlWindow>(*this);
 
 
 	//-----------------------------------------------------------------------
@@ -395,8 +578,8 @@ HWND ToolBox::createToolBox(HWND parentWindowHandle)
 	HWND      hWndParent    = parentWindowHandle;
 	LPCWSTR   lpszClassName = ToolBox_WindowClassName;
 	LPCWSTR   lpWindowName  = L"도구상자";
-	DWORD     dwStyle       = wui::ToolWindowStyle;
-	DWORD     dwExStyle     = wui::ToolWindowStyleEx;
+	DWORD     dwStyle       = cx::wui::ToolWindowStyle;
+	DWORD     dwExStyle     = cx::wui::ToolWindowStyleEx;
 	int       X             = 0;
 	int       Y             = 0;
 	int       nWidth        = 0;
@@ -487,12 +670,12 @@ void ToolBox::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_PAINT     ) = &ToolBox::onPaint;
 }
 
-void ToolBox::onCreate(wui::WindowMessage& windowMessage)
+void ToolBox::onCreate(cx::wui::WindowMessage& windowMessage)
 {
 	defaultWindowProc(windowMessage);
 }
 
-void ToolBox::onClose(wui::WindowMessage& windowMessage)
+void ToolBox::onClose(cx::wui::WindowMessage& windowMessage)
 {
 	UINT id;
 	id = ::GetDlgCtrlID(*this);
@@ -509,7 +692,7 @@ void ToolBox::onClose(wui::WindowMessage& windowMessage)
 	);
 }
 
-void ToolBox::onSize(wui::WindowMessage& windowMessage)
+void ToolBox::onSize(cx::wui::WindowMessage& windowMessage)
 {
 	RECT rect;
 	GetClientRect(*this, &rect);
@@ -517,31 +700,31 @@ void ToolBox::onSize(wui::WindowMessage& windowMessage)
 	UINT cx = static_cast<UINT>(rect.right - rect.left);
 	UINT cy = static_cast<UINT>(rect.bottom - rect.top);
 
-	if (_ListWindow.get())
+	if (_ControlWindow.get())
 	{
-		_ListWindow->getViewport()->setWindowSize(cx, cy);
+		_ControlWindow->getViewport()->setWindowSize(cx, cy);
 	}
 }
 
-void ToolBox::onHScroll(wui::WindowMessage& windowMessage)
+void ToolBox::onHScroll(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_ListWindow->getViewport()->handleHScrollbar(wm.nSBCode());
+	_ControlWindow->getViewport()->handleHScrollbar(wm.nSBCode());
 }
 
-void ToolBox::onVScroll(wui::WindowMessage& windowMessage)
+void ToolBox::onVScroll(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_ListWindow->getViewport()->handleVScrollbar(wm.nSBCode());
+	_ControlWindow->getViewport()->handleVScrollbar(wm.nSBCode());
 }
 
-void ToolBox::onMouseWheel(wui::WindowMessage& windowMessage)
+void ToolBox::onMouseWheel(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
 
 	UINT fwKeys = GET_KEYSTATE_WPARAM(windowMessage.wParam);
 	bool scale = false;
@@ -580,30 +763,30 @@ void ToolBox::onMouseWheel(wui::WindowMessage& windowMessage)
 	{
 		if (wm.zDelta() > 0)
 		{
-			//_ListWindow->getViewport()->zoom(true);
+			//_ControlWindow->getViewport()->zoom(true);
 		}
 		else
 		{
 
-			//_ListWindow->getViewport()->zoom(false);
+			//_ControlWindow->getViewport()->zoom(false);
 		}
 	}
 	else
 	{
 		if (wm.zDelta() > 0)
 		{
-			_ListWindow->getViewport()->handleVScrollbar(SB_LINEUP);
+			_ControlWindow->getViewport()->handleVScrollbar(SB_LINEUP);
 		}
 		else
 		{
-			_ListWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
+			_ControlWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
 		}
 	}
 }
 
-void ToolBox::onKeyDown(wui::WindowMessage& windowMessage)
+void ToolBox::onKeyDown(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_KEYDOWN_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_KEYDOWN_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nChar())
@@ -615,9 +798,9 @@ void ToolBox::onKeyDown(wui::WindowMessage& windowMessage)
 	}
 }
 
-void ToolBox::onCommand(wui::WindowMessage& windowMessage)
+void ToolBox::onCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	if (wm.wndCtl() == nullptr)
@@ -630,9 +813,9 @@ void ToolBox::onCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void ToolBox::onMenuCommand(wui::WindowMessage& windowMessage)
+void ToolBox::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())
@@ -644,9 +827,9 @@ void ToolBox::onMenuCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void ToolBox::onCtlCommand(wui::WindowMessage& windowMessage)
+void ToolBox::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())
@@ -658,19 +841,19 @@ void ToolBox::onCtlCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void ToolBox::onEraseBkgnd(wui::WindowMessage& windowMessage)
+void ToolBox::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
 
 
 	wm.Result(TRUE);
 }
 
-void ToolBox::onPaint(wui::WindowMessage& windowMessage)
+void ToolBox::onPaint(cx::wui::WindowMessage& windowMessage)
 {
-	if(_ListWindow)
+	if(_ControlWindow)
 	{
-		_ListWindow->render();
+		_ControlWindow->render();
 	}
 
 	// The ValidateRect function validates the client area within a rectangle by

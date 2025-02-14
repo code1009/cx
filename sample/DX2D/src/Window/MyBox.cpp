@@ -29,7 +29,7 @@ MyBox::MyBox()
 //===========================================================================
 void MyBox::initializeDialogTemplate(void)
 {
-	wui::MemoryDialogTemplateWriter w(_DialogTemplate);
+	cx::wui::MemoryDialogTemplateWriter w(_DialogTemplate);
 
 #if 0
 	w.BEGIN_DIALOG(10, 10, 200, 100);
@@ -69,33 +69,33 @@ void MyBox::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_COMMAND   ) = &MyBox::onCommand;
 }
 
-void MyBox::onInitDialog(wui::WindowMessage& windowMessage)
+void MyBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"MyBox::onInitDialog()\r\n");
 
 	std::wstring text = L"MyBox::onInitDialog()\r\n";
-	wui::setWindowText(::GetDlgItem(*this, 1002), text);
+	cx::wui::setWindowText(::GetDlgItem(*this, 1002), text);
 
 	windowMessage.setResult(TRUE);
 }
 
-void MyBox::onDestroy(wui::WindowMessage& windowMessage)
+void MyBox::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"MyBox::onDestroy()\r\n");
 
 	windowMessage.setResult(TRUE);
 }
 
-void MyBox::onClose(wui::WindowMessage& windowMessage)
+void MyBox::onClose(cx::wui::WindowMessage& windowMessage)
 {
 	OutputDebugStringW(L"MyBox::onClose()\r\n");
 
 	windowMessage.setResult(FALSE);
 }
 
-void MyBox::onCommand(wui::WindowMessage& windowMessage)
+void MyBox::onCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())

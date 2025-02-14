@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class MainFrame : 
-	public wui::MessageMapWindowT<MainFrame, wui::BaseWindow>
+	public cx::wui::MessageMapWindowT<MainFrame, cx::wui::BaseWindow>
 {
 private:
 	std::unique_ptr<View> _View;
@@ -17,16 +17,16 @@ public:
 
 public:
 	void registerWindowMessageMap(void);
-	void onCreate(wui::WindowMessage& windowMessage);
-	void onDestroy(wui::WindowMessage& windowMessage);
-	void onClose(wui::WindowMessage& windowMessage);	
-	void onSize(wui::WindowMessage& windowMessage);
-	void onEraseBkgnd(wui::WindowMessage& windowMessage);
-	void onKeyDown(wui::WindowMessage& windowMessage);
-	void onCommand(wui::WindowMessage& windowMessage);
-	void onMenuCommand(wui::WindowMessage& windowMessage);
-	void onAppAbout(wui::WindowMessage& windowMessage);
-	void onCtlCommand(wui::WindowMessage& windowMessage);
+	void onCreate(cx::wui::WindowMessage& windowMessage);
+	void onDestroy(cx::wui::WindowMessage& windowMessage);
+	void onClose(cx::wui::WindowMessage& windowMessage);	
+	void onSize(cx::wui::WindowMessage& windowMessage);
+	void onEraseBkgnd(cx::wui::WindowMessage& windowMessage);
+	void onKeyDown(cx::wui::WindowMessage& windowMessage);
+	void onCommand(cx::wui::WindowMessage& windowMessage);
+	void onMenuCommand(cx::wui::WindowMessage& windowMessage);
+	void onAppAbout(cx::wui::WindowMessage& windowMessage);
+	void onCtlCommand(cx::wui::WindowMessage& windowMessage);
 
 public:
 	void onIdle(void);

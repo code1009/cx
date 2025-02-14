@@ -47,7 +47,7 @@ AboutBox::AboutBox()
 //===========================================================================
 void AboutBox::initializeDialogTemplate(void)
 {
-	wui::MemoryDialogTemplateWriter w(_DialogTemplate);
+	cx::wui::MemoryDialogTemplateWriter w(_DialogTemplate);
 
 
 	w.BEGIN_DIALOG(0, 0, 260, 150);
@@ -77,7 +77,7 @@ void AboutBox::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_COMMAND   ) = &AboutBox::onCommand;
 }
 
-void AboutBox::onInitDialog(wui::WindowMessage& windowMessage)
+void AboutBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
 	int v0;
@@ -97,7 +97,7 @@ void AboutBox::onInitDialog(wui::WindowMessage& windowMessage)
 
 
 	GetModuleFileNameW(
-		wui::getAppModule()->getInstanceHandle(),
+		cx::wui::getAppModule()->getInstanceHandle(),
 		szFileName,
 		sizeof(szFileName) / sizeof(wchar_t)
 	);
@@ -150,7 +150,7 @@ void AboutBox::onInitDialog(wui::WindowMessage& windowMessage)
 
 
 	LoadStringW(
-		wui::getAppModule()->getInstanceHandle(),
+		cx::wui::getAppModule()->getInstanceHandle(),
 		IDS_APP_TITLE,
 		app_name,
 		sizeof(app_name) / sizeof(wchar_t)
@@ -174,9 +174,9 @@ void AboutBox::onInitDialog(wui::WindowMessage& windowMessage)
 	windowMessage.setResult(TRUE);
 }
 
-void AboutBox::onCommand(wui::WindowMessage& windowMessage)
+void AboutBox::onCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())

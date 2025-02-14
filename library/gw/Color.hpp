@@ -1,3 +1,5 @@
+﻿/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 #pragma once
 
 
@@ -6,7 +8,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::wui
+namespace cx::gw
 {
 
 
@@ -15,30 +17,26 @@ namespace cx::wui
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class AppModule
+class Color
 {
-private:
-	HINSTANCE _InstanceHandle{ nullptr };
-	HINSTANCE _ResourceInstanceHandle{ nullptr };
+public:
+	float _r{0.0f};
+	float _g{0.0f};
+	float _b{0.0f};
+	float _a{1.0f};
 
 public:
-	AppModule() = default;
-	virtual ~AppModule() = default;
+	Color() = default;
 
 public:
-	AppModule(const AppModule&) = delete;
-	AppModule& operator=(const AppModule&) = delete;
-
-	AppModule(AppModule&&) = delete;
-	AppModule& operator=(AppModule&&) = delete;
+	explicit Color(float R, float G, float B, float A = 1.0f);
 
 public:
-	virtual HINSTANCE getInstanceHandle(void) const;
-	virtual HINSTANCE setInstanceHandle(HINSTANCE handle);
+	virtual ~Color() = default;
 
 public:
-	virtual HINSTANCE getResourceInstanceHandle(void) const;
-	virtual HINSTANCE setResourceInstanceHandle(HINSTANCE handle);
+	bool operator== (const Color& v) const;
+	bool operator!= (const Color& v) const;
 };
 
 
@@ -47,7 +45,8 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-AppModule* getAppModule(void);
+std::wstring to_std_wstring(const Color& v);
+Color to_Color(const std::wstring& v);
 
 
 

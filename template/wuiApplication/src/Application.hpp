@@ -6,7 +6,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Application : public runtime::WindowApplication
+class Application : public cx::runtime::WindowApplication
 {
 public:
 	Application() = default;
@@ -15,7 +15,7 @@ public:
 	virtual ~Application() = default;
 
 	//-----------------------------------------------------------------------
-	// runtime::WindowApplication
+	// cx::runtime::WindowApplication
 public:
 	virtual bool initialize(void) override;
 	virtual void terminate(void) override;

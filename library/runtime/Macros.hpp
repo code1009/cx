@@ -8,62 +8,62 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#define RUNTIME_PREPROCESSOR_WCSTRING_L_DOUBLE_SHARP(x) L##x
-#define RUNTIME_PREPROCESSOR_WCSTRING(x) RUNTIME_PREPROCESSOR_WCSTRING_L_DOUBLE_SHARP(x)
+#define CX_RUNTIME_PREPROCESSOR_WCSTRING_L_DOUBLE_SHARP(x) L##x
+#define CX_RUNTIME_PREPROCESSOR_WCSTRING(x) CX_RUNTIME_PREPROCESSOR_WCSTRING_L_DOUBLE_SHARP(x)
 
 //===========================================================================
-#define RUNTIME_FILEW RUNTIME_PREPROCESSOR_WCSTRING(__FILE__)
-#define RUNTIME_FUNCW RUNTIME_PREPROCESSOR_WCSTRING(__FUNCTION__)
+#define CX_RUNTIME_FILEW CX_RUNTIME_PREPROCESSOR_WCSTRING(__FILE__)
+#define CX_RUNTIME_FUNCW CX_RUNTIME_PREPROCESSOR_WCSTRING(__FUNCTION__)
 
 //===========================================================================
-#define RUNTIME_LOG(level) \
-	runtime::Log(             \
-		runtime::getLogger(), \
-		(level),              \
-		RUNTIME_FILEW,        \
-		__LINE__,             \
-		RUNTIME_FUNCW         \
+#define CX_RUNTIME_LOG(level)                \
+	cx::runtime::Log(                        \
+		cx::runtime::getLogger(),            \
+		(level),                             \
+		CX_RUNTIME_FILEW,                    \
+		__LINE__,                            \
+		CX_RUNTIME_FUNCW                     \
 	)
 
-#define RUNTIME_LOGP(level,param) \
-	runtime::Log(             \
-		runtime::getLogger(), \
-		(level),              \
-		RUNTIME_FILEW,        \
-		__LINE__,             \
-		RUNTIME_FUNCW         \
-		(param)               \
-	)
-
-//===========================================================================
-#define RUNTIME_TLOG(logger,level) \
-	runtime::Log(             \
-		(logger),             \
-		(level),              \
-		RUNTIME_FILEW,        \
-		__LINE__,             \
-		RUNTIME_FUNCW         \
-	)
-
-#define RUNTIME_TLOGP(logger,level,param) \
-	runtime::Log(             \
-		(logger),             \
-		(level),              \
-		RUNTIME_FILEW,        \
-		__LINE__,             \
-		RUNTIME_FUNCW         \
-		(param)               \
+#define CX_RUNTIME_LOGP(level,param)         \
+	cx::runtime::Log(                        \
+		cx::runtime::getLogger(),            \
+		(level),                             \
+		CX_RUNTIME_FILEW,                    \
+		__LINE__,                            \
+		CX_RUNTIME_FUNCW                     \
+		(param)                              \
 	)
 
 //===========================================================================
-#define LVerb runtime::LogLevel::Verbose
-#define LDbug runtime::LogLevel::Debug
-#define LNorm runtime::LogLevel::Normal
-#define LDump runtime::LogLevel::Dump
-#define LInfo runtime::LogLevel::Information
-#define LWarn runtime::LogLevel::Warning
-#define LErro runtime::LogLevel::Error
-#define LCrit runtime::LogLevel::Critical
+#define CX_RUNTIME_TLOG(logger,level)        \
+	cx::runtime::Log(                        \
+		(logger),                            \
+		(level),                             \
+		CX_RUNTIME_FILEW,                    \
+		__LINE__,                            \
+		CX_RUNTIME_FUNCW                     \
+	)
+
+#define CX_RUNTIME_TLOGP(logger,level,param) \
+	cx::runtime::Log(                        \
+		(logger),                            \
+		(level),                             \
+		CX_RUNTIME_FILEW,                    \
+		__LINE__,                            \
+		CX_RUNTIME_FUNCW                     \
+		(param)                              \
+	)
+
+//===========================================================================
+#define LVerb cx::runtime::LogLevel::Verbose
+#define LDbug cx::runtime::LogLevel::Debug
+#define LNorm cx::runtime::LogLevel::Normal
+#define LDump cx::runtime::LogLevel::Dump
+#define LInfo cx::runtime::LogLevel::Information
+#define LWarn cx::runtime::LogLevel::Warning
+#define LErro cx::runtime::LogLevel::Error
+#define LCrit cx::runtime::LogLevel::Critical
 
 
 
@@ -71,47 +71,47 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#if (RUNTIME_ASSERT_DISABLE==0)
+#if (CX_RUNTIME_ASSERT_DISABLE==0)
 
 #if _DEBUG
 
-#define RUNTIME_ASSERT(X) \
-	do                                              \
-	{                                               \
-		if (!(X))                                   \
-		{                                           \
-			_CrtDbgBreak();                         \
-			runtime::assertCondition(               \
-				(X),                                \
-				RUNTIME_PREPROCESSOR_WCSTRING(#X),  \
-				RUNTIME_FILEW,                      \
-				__LINE__,                           \
-				RUNTIME_FUNCW                       \
-				);                                  \
-		}                                           \
-	}                                               \
+#define CX_RUNTIME_ASSERT(X) \
+	do                                                \
+	{                                                 \
+		if (!(X))                                     \
+		{                                             \
+			_CrtDbgBreak();                           \
+			cx::runtime::assertCondition(             \
+				(X),                                  \
+				CX_RUNTIME_PREPROCESSOR_WCSTRING(#X), \
+				CX_RUNTIME_FILEW,                     \
+				__LINE__,                             \
+				CX_RUNTIME_FUNCW                      \
+				);                                    \
+		}                                             \
+	}                                                 \
 	while (0)
 
 #else	
 
-#define RUNTIME_ASSERT(X) \
-	do                                         \
-	{                                          \
-		runtime::assertCondition(              \
-			(X),                               \
-			RUNTIME_PREPROCESSOR_WCSTRING(#X), \
-			RUNTIME_FILEW,                     \
-			__LINE__,                          \
-			RUNTIME_FUNCW                      \
-			);                                 \
-	}                                          \
+#define CX_RUNTIME_ASSERT(X)                          \
+	do                                                \
+	{                                                 \
+		cx::runtime::assertCondition(                 \
+			(X),                                      \
+			CX_RUNTIME_PREPROCESSOR_WCSTRING(#X),     \
+			CX_RUNTIME_FILEW,                         \
+			__LINE__,                                 \
+			CX_RUNTIME_FUNCW                          \
+			);                                        \
+	}                                                 \
 	while (0)
 
 #endif
 
 #else
 
-#define RUNTIME_ASSERT runtime::AssertNull
+#define CX_RUNTIME_ASSERT cx::runtime::AssertNull
 
 #endif
 

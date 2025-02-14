@@ -14,7 +14,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class MainFrame : public wui::MessageMapWindowT<MainFrame, wui::BaseWindow>
+class MainFrame : public cx::wui::MessageMapWindowT<MainFrame, cx::wui::BaseWindow>
 {
 protected:
 	LPCWSTR _WindowClassName = L"MainFrame";
@@ -24,15 +24,15 @@ public:
 
 public:
 	void registerWindowMessageMap(void);
-	void onDestroy(wui::WindowMessage& windowMessage);
-	void onClose  (wui::WindowMessage& windowMessage);
-	void onPaint  (wui::WindowMessage& windowMessage);
-	void onCommand(wui::WindowMessage& windowMessage);
+	void onDestroy(cx::wui::WindowMessage& windowMessage);
+	void onClose  (cx::wui::WindowMessage& windowMessage);
+	void onPaint  (cx::wui::WindowMessage& windowMessage);
+	void onCommand(cx::wui::WindowMessage& windowMessage);
 };
 
 MainFrame::MainFrame()
 {
-	wui::WindowClass windowClass(_WindowClassName, IDC_MAIN, IDI_MAIN, IDI_SMALL);
+	cx::wui::WindowClass windowClass(_WindowClassName, IDC_MAIN, IDI_MAIN, IDI_SMALL);
 
 
 	registerWindowMessageMap();
@@ -54,28 +54,28 @@ void MainFrame::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_COMMAND) = &MainFrame::onCommand;
 }
 
-void MainFrame::onDestroy(wui::WindowMessage& windowMessage)
+void MainFrame::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
 	::PostQuitMessage(0);
 }
 
-void MainFrame::onClose(wui::WindowMessage& windowMessage)
+void MainFrame::onClose(cx::wui::WindowMessage& windowMessage)
 {
 	destroyWindow();
 }
 
-void MainFrame::onPaint(wui::WindowMessage& windowMessage)
+void MainFrame::onPaint(cx::wui::WindowMessage& windowMessage)
 {
-	wui::PaintDC paintDC{ *this };
+	cx::wui::PaintDC paintDC{ *this };
 
 
 	std::wstring text = L"Hello, World!";
 	::TextOutW(paintDC, 10, 10, text.c_str(), static_cast<int>(text.length()));
 }
 
-void MainFrame::onCommand(wui::WindowMessage& windowMessage)
+void MainFrame::onCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())
@@ -106,11 +106,11 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
-	wui::getAppModule()->setInstanceHandle(hInstance);
+	cx::wui::getAppModule()->setInstanceHandle(hInstance);
 		
 	MainFrame mainFrame;
 
-	wui::WindowMessageLoop windowMessageLoop;
+	cx::wui::WindowMessageLoop windowMessageLoop;
 	windowMessageLoop.run();
 
 	return 0;

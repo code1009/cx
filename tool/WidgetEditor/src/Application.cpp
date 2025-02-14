@@ -29,7 +29,7 @@ bool Application::initialize(void)
 	bool rv;
 
 
-	rv = runtime::WindowApplication::initialize();
+	rv = cx::runtime::WindowApplication::initialize();
 	if (false == rv)
 	{
 		terminate();
@@ -41,14 +41,14 @@ bool Application::initialize(void)
 
 void Application::terminate(void)
 {
-	runtime::WindowApplication::terminate();
+	cx::runtime::WindowApplication::terminate();
 }
 
 void Application::run(void)
 {
 	MainFrame mainFrame;
 
-	wui::WindowMessageLoop windowMessageLoop;
+	cx::wui::WindowMessageLoop windowMessageLoop;
 	windowMessageLoop.addIdleHandler(std::bind(&MainFrame::onIdle, &mainFrame));
 	windowMessageLoop.run();
 }

@@ -8,7 +8,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace gw
+namespace cx::gw
 {
 
 
@@ -68,14 +68,14 @@ public:
 class DocumentGrid : public Drawable
 {
 private:
-	ID2D1SolidColorBrush* _pDocumentGridLine0Brush{ nullptr };
-	ID2D1SolidColorBrush* _pDocumentGridLine1Brush{ nullptr };
-	ID2D1SolidColorBrush* _pDocumentGridLine2Brush{ nullptr };
+	ID2D1SolidColorBrush* _pDocumentGrid0_LineBrush{ nullptr };
+	ID2D1SolidColorBrush* _pDocumentGrid1_LineBrush{ nullptr };
+	ID2D1SolidColorBrush* _pDocumentGrid2_LineBrush{ nullptr };
 
 private:
 	//IDWriteTextLayout*    _pCoordTextLayout{ nullptr };
-	IDWriteTextFormat*    _pCoordTextFormat{ nullptr };
-	ID2D1SolidColorBrush* _pCoordTextBrush{ nullptr };
+	IDWriteTextFormat*    _pCoord_TextFormat{ nullptr };
+	ID2D1SolidColorBrush* _pCoord_TextBrush{ nullptr };
 
 public:
 	DocumentGrid() = default;
@@ -116,10 +116,10 @@ private:
 
 private:
 	//IDWriteTextLayout*    _pStatusTextLayout{ nullptr };
-	IDWriteTextFormat*    _pStatusTextFormat{ nullptr };
-	ID2D1SolidColorBrush* _pStatusTextBrush{ nullptr };
-	ID2D1SolidColorBrush* _pStatusBoxFillBrush{ nullptr };
-	ID2D1SolidColorBrush* _pStatusBoxLineBrush{ nullptr };
+	IDWriteTextFormat*    _pStatus_TextFormat{ nullptr };
+	ID2D1SolidColorBrush* _pStatus_TextBrush{ nullptr };
+	ID2D1SolidColorBrush* _pStatusBox_FillBrush{ nullptr };
+	ID2D1SolidColorBrush* _pStatusBox_LineBrush{ nullptr };
 
 	//-----------------------------------------------------------------------
 public:

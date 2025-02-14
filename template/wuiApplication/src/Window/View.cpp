@@ -30,7 +30,7 @@ constexpr LPCWSTR View_WindowClassName = L"View";
 View::View(HWND parentWindowHandle)
 {
 	//-----------------------------------------------------------------------
-	wui::WindowClass windowClass;
+	cx::wui::WindowClass windowClass;
 
 
 	windowClass.registerWindowClass(
@@ -52,7 +52,7 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_gwWindow = std::make_unique<gw::BaseEditWindow>(*this);
+	_Window = std::make_unique<cx::gw::BaseEditWindow>(*this);
 
 
 	//-----------------------------------------------------------------------
@@ -66,8 +66,8 @@ HWND View::createView(HWND parentWindowHandle)
 	LPCWSTR   lpszClassName = View_WindowClassName;
 	HWND      hWndParent    = parentWindowHandle;
 	LPCWSTR   lpWindowName  = L"Window";
-	DWORD     dwStyle       = wui::ChildWindowStyle;
-	DWORD     dwExStyle     = wui::ChildWindowStyleEx;
+	DWORD     dwStyle       = cx::wui::ChildWindowStyle;
+	DWORD     dwExStyle     = cx::wui::ChildWindowStyleEx;
 
 
 	HWND hwnd;
@@ -104,19 +104,19 @@ void View::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_COMMAND   ) = &View::onCommand;
 }
 
-void View::onCreate(wui::WindowMessage& windowMessage)
+void View::onCreate(cx::wui::WindowMessage& windowMessage)
 {
 }
 
-void View::onDestroy(wui::WindowMessage& windowMessage)
+void View::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
 }
 
-void View::onClose(wui::WindowMessage& windowMessage)
+void View::onClose(cx::wui::WindowMessage& windowMessage)
 {
 }
 
-void View::onSize(wui::WindowMessage& windowMessage)
+void View::onSize(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
 	RECT rect;
@@ -134,31 +134,31 @@ void View::onSize(wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	if (_gwWindow.get())
+	if (_Window.get())
 	{
-		_gwWindow->getViewport()->setWindowSize(cx, cy);
+		_Window->getViewport()->setWindowSize(cx, cy);
 	}
 }
 
-void View::onHScroll(wui::WindowMessage& windowMessage)
+void View::onHScroll(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_HSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gwWindow->getViewport()->handleHScrollbar(wm.nSBCode());
+	_Window->getViewport()->handleHScrollbar(wm.nSBCode());
 }
 
-void View::onVScroll(wui::WindowMessage& windowMessage)
+void View::onVScroll(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_VSCROLL_WindowMessageCrack wm{ windowMessage };
 
 
-	_gwWindow->getViewport()->handleVScrollbar(wm.nSBCode());
+	_Window->getViewport()->handleVScrollbar(wm.nSBCode());
 }
 
-void View::onMouseWheel(wui::WindowMessage& windowMessage)
+void View::onMouseWheel(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
 
 	UINT fwKeys = GET_KEYSTATE_WPARAM(windowMessage.wParam);
 	bool scale  = false;
@@ -197,50 +197,50 @@ void View::onMouseWheel(wui::WindowMessage& windowMessage)
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gwWindow->getViewport()->zoom(true);
+			_Window->getViewport()->zoom(true);
 		}
 		else
 		{
 
-			_gwWindow->getViewport()->zoom(false);
+			_Window->getViewport()->zoom(false);
 		}
 	}
 	else
 	{
 		if (wm.zDelta() > 0)
 		{
-			_gwWindow->getViewport()->handleVScrollbar(SB_LINEUP);
+			_Window->getViewport()->handleVScrollbar(SB_LINEUP);
 		}
 		else
 		{
-			_gwWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
+			_Window->getViewport()->handleVScrollbar(SB_LINEDOWN);
 		}
 	}
 }
 
-void View::onMouseMove(wui::WindowMessage& windowMessage)
+void View::onMouseMove(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
 	
 	POINT pt = wm.point();
 
 
-	_gwWindow->getStatusOverayPanel()->setMousePosition(pt.x, pt.y);
+	_Window->getStatusOverayPanel()->setMousePosition(pt.x, pt.y);
 }
 
-void View::onKeyDown(wui::WindowMessage& windowMessage)
+void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_KEYDOWN_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_KEYDOWN_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nChar())
 	{
 	case VK_F7:
-		_gwWindow->getStatusOverayPanel()->setVisible(!_gwWindow->getStatusOverayPanel()->getVisible());
+		_Window->getStatusOverayPanel()->setVisible(!_Window->getStatusOverayPanel()->getVisible());
 		break;
 
 	case VK_F8:
-		_gwWindow->getDocumentGrid()->setVisible(!_gwWindow->getDocumentGrid()->getVisible());
+		_Window->getDocumentGrid()->setVisible(!_Window->getDocumentGrid()->getVisible());
 		break;
 
 	default:
@@ -249,20 +249,20 @@ void View::onKeyDown(wui::WindowMessage& windowMessage)
 	}
 }
 
-void View::onEraseBkgnd(wui::WindowMessage& windowMessage)
+void View::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
 
 
 	wm.Result(TRUE);
 }
 
-void View::onPaint(wui::WindowMessage& windowMessage)
+void View::onPaint(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
-	if (_gwWindow.get())
+	if (_Window.get())
 	{
-		_gwWindow->render();
+		_Window->render();
 	}
 
 
@@ -272,9 +272,9 @@ void View::onPaint(wui::WindowMessage& windowMessage)
 	::ValidateRect(*this, nullptr);
 }
 
-void View::onCommand(wui::WindowMessage& windowMessage)
+void View::onCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	if (wm.wndCtl() == nullptr)
@@ -287,9 +287,9 @@ void View::onCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void View::onMenuCommand(wui::WindowMessage& windowMessage)
+void View::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())
@@ -301,9 +301,9 @@ void View::onMenuCommand(wui::WindowMessage& windowMessage)
 	}
 }
 
-void View::onCtlCommand(wui::WindowMessage& windowMessage)
+void View::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 {
-	wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	switch (wm.nID())
@@ -318,9 +318,9 @@ void View::onCtlCommand(wui::WindowMessage& windowMessage)
 //===========================================================================
 void View::onIdle(void)
 {
-	if (_gwWindow.get())
+	if (_Window.get())
 	{
-		_gwWindow->render();
+		_Window->render();
 	}
 }
 

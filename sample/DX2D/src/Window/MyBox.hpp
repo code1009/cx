@@ -6,10 +6,10 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class MyBox : public wui::MessageMapWindowT<MyBox, wui::ModalIndirectBaseDialog>
+class MyBox : public cx::wui::MessageMapWindowT<MyBox, cx::wui::ModalIndirectBaseDialog>
 {
 public:
-	wui::MemoryDialogTemplate _DialogTemplate;
+	cx::wui::MemoryDialogTemplate _DialogTemplate;
 
 public:
 	MyBox();
@@ -19,8 +19,8 @@ public:
 
 public:
 	void registerWindowMessageMap(void);
-	void onInitDialog(wui::WindowMessage& windowMessage);
-	void onDestroy(wui::WindowMessage& windowMessage);
-	void onClose(wui::WindowMessage& windowMessage);
-	void onCommand(wui::WindowMessage& windowMessage);
+	void onInitDialog(cx::wui::WindowMessage& windowMessage);
+	void onDestroy(cx::wui::WindowMessage& windowMessage);
+	void onClose(cx::wui::WindowMessage& windowMessage);
+	void onCommand(cx::wui::WindowMessage& windowMessage);
 };

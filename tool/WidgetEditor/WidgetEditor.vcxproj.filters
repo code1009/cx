@@ -22,6 +22,9 @@
     <Filter Include="library_cx\gw">
       <UniqueIdentifier>{68430ee4-8e7c-40da-b516-b1bbe793dfb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="library_cx\component">
+      <UniqueIdentifier>{8f0762f0-b953-4809-bcd7-7467e4d5e3db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps">
@@ -192,6 +195,21 @@
     <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp">
       <Filter>library_cx\gw</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Point.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Color.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\to_string.hpp">
+      <Filter>library_cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\pch.hpp">
+      <Filter>library_cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\xml.hpp">
+      <Filter>library_cx\component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -295,6 +313,18 @@
     </ClCompile>
     <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp">
       <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Point.cpp">
+      <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Color.cpp">
+      <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\to_string.cpp">
+      <Filter>library_cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\xml.cpp">
+      <Filter>library_cx\component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

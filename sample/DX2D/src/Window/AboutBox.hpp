@@ -6,7 +6,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class AboutBox : public wui::MessageMapWindowT<AboutBox, wui::ModalTemplateBaseDialog>
+class AboutBox : public cx::wui::MessageMapWindowT<AboutBox, cx::wui::ModalTemplateBaseDialog>
 {
 public:
 	AboutBox()
@@ -18,11 +18,11 @@ public:
 
 #if 0
 	//-----------------------------------------------------------------------
-	// wui::Window
+	// cx::wui::Window
 public:
 	virtual LRESULT onMessage(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam) override
 	{
-		wui::WindowMessage windowMessage{ hwnd, umsg, wparam, lparam };
+		cx::wui::WindowMessage windowMessage{ hwnd, umsg, wparam, lparam };
 
 
 		switch (umsg)
@@ -54,21 +54,21 @@ public:
 		_WindowMessageMap.handle(WM_COMMAND)    = &AboutBox::onCommand;
 	}
 
-	void onInitDialog(wui::WindowMessage& windowMessage)
+	void onInitDialog(cx::wui::WindowMessage& windowMessage)
 	{
 		OutputDebugStringW(L"AboutBox::onInitDialog()\r\n");
 
 		windowMessage.setResult(TRUE);
 	}
 
-	void onDestroy(wui::WindowMessage& windowMessage)
+	void onDestroy(cx::wui::WindowMessage& windowMessage)
 	{
 		OutputDebugStringW(L"AboutBox::onDestroy()\r\n");
 
 		windowMessage.setResult(TRUE);
 	}
 
-	void onClose(wui::WindowMessage& windowMessage)
+	void onClose(cx::wui::WindowMessage& windowMessage)
 	{
 		OutputDebugStringW(L"AboutBox::onClose()\r\n");
 
@@ -76,9 +76,9 @@ public:
 		windowMessage.setResult(TRUE);
 	}
 
-	void onCommand(wui::WindowMessage& windowMessage)
+	void onCommand(cx::wui::WindowMessage& windowMessage)
 	{
-		wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+		cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 		switch (wm.nID())
