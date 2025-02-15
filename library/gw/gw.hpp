@@ -9,6 +9,7 @@
 
 #include "Point.hpp"
 #include "Color.hpp"
+#include "WICBitmap.hpp"
 
 #include "Drawable.hpp"
 #include "BaseEditWindow.hpp"

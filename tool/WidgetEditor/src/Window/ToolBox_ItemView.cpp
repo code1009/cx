@@ -39,7 +39,7 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 
 	_GroupItemDrawing = std::make_shared<ToolBox::ItemDrawing>();
 	_ItemDrawings.push_back(_GroupItemDrawing);
-	_SubItemDrawing = std::make_shared<ToolBox::ItemDrawing>();
+	_SubItemDrawing = std::make_shared<ToolBox::SubItemDrawing>();
 	_ItemDrawings.push_back(_SubItemDrawing);
 
 
@@ -273,8 +273,14 @@ cx::gw::coord_t ToolBox::ItemView::recalcItemLayout(cx::gw::coord_t offset, cx::
 //===========================================================================
 ToolBox::ItemDrawingSharedPtr ToolBox::ItemView::getItemDrawing(ToolBox::ItemSharedPtr item)
 {
-	//_GroupItemDrawing;
-	//_SubItemDrawing;
+	if (auto groupItem = std::dynamic_pointer_cast<ToolBox::GroupItem>(item))
+	{
+		return _GroupItemDrawing;
+	}
+	if (auto subItem = std::dynamic_pointer_cast<ToolBox::SubItem>(item))
+	{
+		return _SubItemDrawing;
+	}
 
 	return _GroupItemDrawing;
 }

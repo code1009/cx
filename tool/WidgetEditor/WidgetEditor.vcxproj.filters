@@ -231,6 +231,9 @@
     <ClInclude Include="src\Window\ToolBox_ItemView.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\WICBitmap.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -367,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="src\Window\ToolBox_ItemView.cpp">
       <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\WICBitmap.cpp">
+      <Filter>library_cx\gw</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

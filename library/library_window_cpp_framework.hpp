@@ -41,13 +41,16 @@
 #include <windowsx.h>
 #include <winuser.h>
 
+//===========================================================================
 #include <shellapi.h>
 #include <commctrl.h>
 #include <olectl.h>
 
+//===========================================================================
 #include <d2d1.h>
 #include <d2d1helper.h>
 #include <dwrite.h>
+#include <wincodec.h>
 
 
 

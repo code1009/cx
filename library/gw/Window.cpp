@@ -65,7 +65,7 @@ Window::Window(HWND hwnd, bool center):
 
 
 	//-----------------------------------------------------------------------
-	_pDFactory = DirectX2DGraphic::getDFactory();
+	_pD2dFactory = DirectX2DGraphic::getD2dFactory();
 	_pDWriteFactory = DirectX2DGraphic::getDWriteFactory();
 	_pDHwndRenderTarget = nullptr;
 }
@@ -170,7 +170,7 @@ bool Window::createRenderTarget(void)
 
 #if 0
 		constexpr int DEFAULT_DPI{ 96 };
-		hr = _pDFactory->CreateHwndRenderTarget(
+		hr = _pD2dFactory->CreateHwndRenderTarget(
 			D2D1::RenderTargetProperties(
 				D2D1_RENDER_TARGET_TYPE_DEFAULT,
 				D2D1::PixelFormat(),
@@ -182,7 +182,7 @@ bool Window::createRenderTarget(void)
 			&_pDHwndRenderTarget
 		);
 #else
-		hr = _pDFactory->CreateHwndRenderTarget(
+		hr = _pD2dFactory->CreateHwndRenderTarget(
 			D2D1::RenderTargetProperties(),
 			D2D1::HwndRenderTargetProperties(_WindowHandle, size),
 			&_pDHwndRenderTarget

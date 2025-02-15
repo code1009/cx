@@ -29,8 +29,9 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-ID2D1Factory*   DirectX2DGraphic::_pDFactory = nullptr;
-IDWriteFactory* DirectX2DGraphic::_pDWriteFactory = nullptr;
+ID2D1Factory*       DirectX2DGraphic::_pD2dFactory        = nullptr;
+IDWriteFactory*     DirectX2DGraphic::_pDWriteFactory     = nullptr;
+IWICImagingFactory* DirectX2DGraphic::_pWICImagingFactory = nullptr;
 
 //===========================================================================
 bool DirectX2DGraphic::createFactory(void)
@@ -40,7 +41,7 @@ bool DirectX2DGraphic::createFactory(void)
 
 
 	//-----------------------------------------------------------------------
-	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &_pDFactory);
+	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &_pD2dFactory);
 	if (FAILED(hr))
 	{
 		return false;
@@ -60,15 +61,29 @@ bool DirectX2DGraphic::createFactory(void)
 	}
 
 
+	//-----------------------------------------------------------------------
+	hr = CoCreateInstance(
+		CLSID_WICImagingFactory,
+		nullptr,
+		CLSCTX_INPROC_SERVER,
+		IID_PPV_ARGS(&_pWICImagingFactory)
+	);
+	if (FAILED(hr))
+	{
+		destroyFactory();
+		return false;
+	}
+
+
 	return true;
 }
 
 void DirectX2DGraphic::destroyFactory(void)
 {
-	if (_pDFactory)
+	if (_pD2dFactory)
 	{
-		_pDFactory->Release();
-		_pDFactory = nullptr;
+		_pD2dFactory->Release();
+		_pD2dFactory = nullptr;
 	}
 
 
@@ -77,12 +92,19 @@ void DirectX2DGraphic::destroyFactory(void)
 		_pDWriteFactory->Release();
 		_pDWriteFactory = nullptr;
 	}
+
+
+	if (_pWICImagingFactory)
+	{
+		_pWICImagingFactory->Release();
+		_pWICImagingFactory = nullptr;
+	}
 }
 
 //===========================================================================
-ID2D1Factory* DirectX2DGraphic::getDFactory(void)
+ID2D1Factory* DirectX2DGraphic::getD2dFactory(void)
 {
-	return _pDFactory;
+	return _pD2dFactory;
 }
 
 IDWriteFactory* DirectX2DGraphic::getDWriteFactory(void)
@@ -90,6 +112,10 @@ IDWriteFactory* DirectX2DGraphic::getDWriteFactory(void)
 	return _pDWriteFactory;
 }
 
+IWICImagingFactory* DirectX2DGraphic::getWICImagingFactory(void)
+{
+	return _pWICImagingFactory;
+}
 
 
 

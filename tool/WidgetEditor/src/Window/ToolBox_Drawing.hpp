@@ -71,4 +71,9 @@ class ToolBox::SubItemDrawing : public ToolBox::ItemDrawing
 public:
 	SubItemDrawing(void) = default;
 	virtual ~SubItemDrawing(void) = default;
+
+	virtual void getFrame_FillColor(cx::gw::Color& color)
+	{
+		color = cx::gw::Color(1.00f, 1.00f, 1.00f, 1.0f);
+	}
 };

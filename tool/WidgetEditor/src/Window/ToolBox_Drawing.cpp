@@ -158,7 +158,11 @@ void ToolBox::ItemDrawing::drawFrame(ToolBox::ItemView* itemView, ToolBox::Item*
 	rect.bottom = p1._y;
 
 	itemView->getWindow()->getDRenderTarget()->FillRectangle(&rect, _pFrameFillBrush);
-	itemView->getWindow()->getDRenderTarget()->DrawRectangle(&rect, _pFrameLineBrush, lineSize);
+
+	if (lineSize>0)
+	{
+		itemView->getWindow()->getDRenderTarget()->DrawRectangle(&rect, _pFrameLineBrush, lineSize);
+	}
 }
 
 void ToolBox::ItemDrawing::drawCaption(ToolBox::ItemView* itemView, ToolBox::Item* item)
@@ -201,7 +205,7 @@ void ToolBox::ItemDrawing::getFrame_LineColor(cx::gw::Color& color)
 
 void ToolBox::ItemDrawing::getFrame_LineSize(cx::gw::coord_t& size)
 {
-	size = 1;
+	size = 0;
 }
 
 void ToolBox::ItemDrawing::getCaption_TextColor(cx::gw::Color& color)
