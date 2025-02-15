@@ -17,23 +17,23 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class WICBitmap
+class BitmapSource
 {
 private:
 	IWICBitmapSource* _pWICBitmapSource { nullptr };
 
 public:
-	WICBitmap() = default;
+	BitmapSource() = default;
 
 public:
-	virtual ~WICBitmap();
+	virtual ~BitmapSource();
 
 public:
-	WICBitmap(const WICBitmap&) = delete;
-	WICBitmap& operator=(const WICBitmap&) = delete;
+	BitmapSource(const BitmapSource&) = delete;
+	BitmapSource& operator=(const BitmapSource&) = delete;
 
-	WICBitmap(WICBitmap&&) = delete;
-	WICBitmap& operator=(WICBitmap&&) = delete;
+	BitmapSource(BitmapSource&&) = delete;
+	BitmapSource& operator=(BitmapSource&&) = delete;
 
 public:
 	void Release(void);

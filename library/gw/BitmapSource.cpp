@@ -20,12 +20,12 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WICBitmap::~WICBitmap()
+BitmapSource::~BitmapSource()
 {
 	Release();
 }
 
-bool WICBitmap::loadBitmapFromMemory(const BYTE* pImageData, UINT imageSize)
+bool BitmapSource::loadBitmapFromMemory(const BYTE* pImageData, UINT imageSize)
 {
 	IWICStream*            pStream = nullptr;
 	IWICBitmapDecoder*     pBitmapDecoder = nullptr;
@@ -81,11 +81,10 @@ bool WICBitmap::loadBitmapFromMemory(const BYTE* pImageData, UINT imageSize)
 		if (pFormatConverter) pFormatConverter->Release();
 	}
 
-
 	return SUCCEEDED(hr);
 }
 
-void WICBitmap::Release(void)
+void BitmapSource::Release(void)
 {
 	if (_pWICBitmapSource)
 	{
@@ -94,17 +93,17 @@ void WICBitmap::Release(void)
 	}
 }
 
-IWICBitmapSource* WICBitmap::getWICBitmapSource(void)
+IWICBitmapSource* BitmapSource::getWICBitmapSource(void)
 {
 	return _pWICBitmapSource;
 }
 
-bool WICBitmap::isNull(void)
+bool BitmapSource::isNull(void)
 {
 	return _pWICBitmapSource == nullptr;
 }
 
-void WICBitmap::getBitmapSize(std::size_t& cx, std::size_t& cy)
+void BitmapSource::getBitmapSize(std::size_t& cx, std::size_t& cy)
 {
 	if (!_pWICBitmapSource)
 	{
