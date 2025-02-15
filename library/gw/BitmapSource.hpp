@@ -46,7 +46,8 @@ public:
 	void getBitmapSize(std::size_t& cx, std::size_t& cy);
 
 public:
-	bool loadBitmapFromMemory(const BYTE* pImageData, UINT imageSize);
+	bool loadFromMemory(const BYTE* pImageData, UINT imageSize);
+	bool loadFromFile(const std::wstring& filePath);
 };
 
 
