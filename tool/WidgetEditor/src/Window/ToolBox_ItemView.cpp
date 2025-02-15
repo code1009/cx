@@ -268,26 +268,6 @@ cx::gw::coord_t ToolBox::ItemView::recalcItemLayout(cx::gw::coord_t offset, cx::
 	}
 	
 	return offset;
-
-#if 0
-	/*
-	item->setCX(size);
-	item->setCY(size);
-	item->setP0({ 0, 0 });
-	item->setP1({ size, size });
-	item->CollapseSubItems(false);
-	item->getSubItems().clear();
-	item->getSubItems().shrink_to_fit();
-	*/
-	if (parent)
-	{
-		item->setDepth(parent->getDepth() + 1);
-	}
-	else
-	{
-		item->setDepth(0);
-	}
-#endif
 }
 
 //===========================================================================
