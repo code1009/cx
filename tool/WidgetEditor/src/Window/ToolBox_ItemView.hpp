@@ -18,6 +18,7 @@ private:
 	ToolBox::ItemDrawingSharedPtrs _ItemDrawings;
 	ToolBox::ItemDrawingSharedPtr _GroupItemDrawing;
 	ToolBox::ItemDrawingSharedPtr _SubItemDrawing;
+	cx::gw::BitmapList* _BitmapList;
 
 public:
 	explicit ItemView(ToolBox::ControlWindow* window);
