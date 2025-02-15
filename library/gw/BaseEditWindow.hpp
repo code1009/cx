@@ -19,7 +19,7 @@ namespace cx::gw
 //===========================================================================
 class BaseEditWindow : public Window
 {
-protected:
+private:
 	std::unique_ptr<DocumentGrid>      _DocumentGrid{};
 	std::unique_ptr<StatusOverayPanel> _StatusOverayPanel{};
 
