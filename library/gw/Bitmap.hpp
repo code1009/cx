@@ -99,7 +99,6 @@ public:
 //===========================================================================
 using BitmapWeakPtr = std::weak_ptr<Bitmap>;
 using BitmapSharedPtr = std::shared_ptr<Bitmap>;
-using BitmapSharedPtrs = std::vector<BitmapSharedPtr>;
 
 
 
@@ -109,8 +108,11 @@ using BitmapSharedPtrs = std::vector<BitmapSharedPtr>;
 //===========================================================================
 class BitmapList
 {
+public:
+	using BitmapMap = std::map<std::wstring, BitmapSharedPtr>;
+
 private:
-	std::map<std::wstring, BitmapSharedPtr> _BitmapMap;
+	BitmapMap _BitmapMap;
 
 public:
 	BitmapList() = default;
@@ -128,6 +130,12 @@ public:
 public:
 	virtual bool createDeviceResources(Context* ctx);
 	virtual void destroyDeviceResources(void);
+
+public:
+	BitmapSharedPtr findBitmap(const std::wstring& key);
+	bool addBitmap(const std::wstring& key, BitmapSharedPtr bitmap);
+	bool removeBitmap(const std::wstring& key);
+	void clearBitmaps(void);
 };
 
 

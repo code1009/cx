@@ -24,6 +24,10 @@ Window::Window(HWND hwnd, bool center):
 	_WindowHandle{ hwnd }
 {
 	//-----------------------------------------------------------------------
+	_Context = std::make_unique<Context>();
+
+
+	//-----------------------------------------------------------------------
 	if (center)
 	{
 		_Viewport = std::make_unique<CenterViewport>(
@@ -31,9 +35,9 @@ Window::Window(HWND hwnd, bool center):
 			std::bind(&Window::render, this),
 			[this](std::int64_t width, std::int64_t height)
 			{
-				if (_pD2dHwndRenderTarget)
+				if (getContext()->getD2dHwndRenderTarget())
 				{
-					_pD2dHwndRenderTarget->Resize(
+					getContext()->getD2dHwndRenderTarget()->Resize(
 						D2D1::SizeU(
 							static_cast<UINT32>(width),
 							static_cast<UINT32>(height)
@@ -50,9 +54,9 @@ Window::Window(HWND hwnd, bool center):
 			std::bind(&Window::render, this),
 			[this](std::int64_t width, std::int64_t height)
 			{
-				if (_pD2dHwndRenderTarget)
+				if (getContext()->getD2dHwndRenderTarget())
 				{
-					_pD2dHwndRenderTarget->Resize(
+					getContext()->getD2dHwndRenderTarget()->Resize(
 						D2D1::SizeU(
 							static_cast<UINT32>(width),
 							static_cast<UINT32>(height)
@@ -65,9 +69,11 @@ Window::Window(HWND hwnd, bool center):
 
 
 	//-----------------------------------------------------------------------
-	_pD2dFactory = DirectX2DGraphic::getD2dFactory();
-	_pDWriteFactory = DirectX2DGraphic::getDWriteFactory();
-	_pD2dHwndRenderTarget = nullptr;
+	getContext()->setD2dFactory(DirectX2DGraphic::getD2dFactory());
+	getContext()->setDWriteFactory(DirectX2DGraphic::getDWriteFactory());
+	getContext()->setWICImagingFactory(DirectX2DGraphic::getWICImagingFactory());
+	getContext()->setD2dRenderTarget(nullptr);
+	getContext()->setD2dHwndRenderTarget(nullptr);
 }
 
 //===========================================================================
@@ -106,7 +112,7 @@ void Window::render(void)
 	rv = createDeviceResources();
 	if (rv)
 	{
-		_pD2dHwndRenderTarget->BeginDraw();
+		getContext()->getD2dHwndRenderTarget()->BeginDraw();
 
 
 		draw();
@@ -115,7 +121,7 @@ void Window::render(void)
 		HRESULT hr;
 
 
-		hr = _pD2dHwndRenderTarget->EndDraw();
+		hr = getContext()->getD2dHwndRenderTarget()->EndDraw();
 		if (hr == D2DERR_RECREATE_TARGET)
 		{
 			destroyDeviceResources();
@@ -144,7 +150,7 @@ bool Window::createDeviceResources(void)
 
 void Window::destroyDeviceResources(void)
 {
-	releaseRenderTarget();
+	destroyRenderTarget();
 }
 
 //===========================================================================
@@ -153,57 +159,68 @@ bool Window::createRenderTarget(void)
 	HRESULT hr = S_OK;
 
 
-	if (!_pD2dHwndRenderTarget)
+	if (getContext()->getD2dHwndRenderTarget())
 	{
-		//-------------------------------------------------------------------
-		RECT rect;
-
-
-		GetClientRect(_WindowHandle, &rect);
-
-
-		//-------------------------------------------------------------------
-		D2D1_SIZE_U size = D2D1::SizeU(
-			rect.right - rect.left,
-			rect.bottom - rect.top
-		);
-
-#if 0
-		constexpr int DEFAULT_DPI{ 96 };
-		hr = _pD2dFactory->CreateHwndRenderTarget(
-			D2D1::RenderTargetProperties(
-				D2D1_RENDER_TARGET_TYPE_DEFAULT,
-				D2D1::PixelFormat(),
-				DEFAULT_DPI, DEFAULT_DPI,
-				D2D1_RENDER_TARGET_USAGE_NONE,
-				D2D1_FEATURE_LEVEL_DEFAULT
-			),
-			D2D1::HwndRenderTargetProperties(hwnd, size),
-			&_pD2dHwndRenderTarget
-		);
-#else
-		hr = _pD2dFactory->CreateHwndRenderTarget(
-			D2D1::RenderTargetProperties(),
-			D2D1::HwndRenderTargetProperties(_WindowHandle, size),
-			&_pD2dHwndRenderTarget
-		);
-#endif
-		if (FAILED(hr))
-		{
-			return false;
-		}
+		return true;
 	}
 
+
+	//-------------------------------------------------------------------
+	RECT rect;
+
+
+	GetClientRect(_WindowHandle, &rect);
+
+
+	//-------------------------------------------------------------------
+	D2D1_SIZE_U size = D2D1::SizeU(
+		rect.right - rect.left,
+		rect.bottom - rect.top
+	);
+
+
+	//-------------------------------------------------------------------
+	ID2D1HwndRenderTarget* _pD2dHwndRenderTarget{ nullptr };
+
+#if 0
+	constexpr int DEFAULT_DPI{ 96 };
+	hr = getContext()->getD2dFactory()->CreateHwndRenderTarget(
+		D2D1::RenderTargetProperties(
+			D2D1_RENDER_TARGET_TYPE_DEFAULT,
+			D2D1::PixelFormat(),
+			DEFAULT_DPI, DEFAULT_DPI,
+			D2D1_RENDER_TARGET_USAGE_NONE,
+			D2D1_FEATURE_LEVEL_DEFAULT
+		),
+		D2D1::HwndRenderTargetProperties(hwnd, size),
+		&_pD2dHwndRenderTarget
+	);
+#else
+	hr = getContext()->getD2dFactory()->CreateHwndRenderTarget(
+		D2D1::RenderTargetProperties(),
+		D2D1::HwndRenderTargetProperties(_WindowHandle, size),
+		&_pD2dHwndRenderTarget
+	);
+#endif
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	getContext()->setD2dHwndRenderTarget(_pD2dHwndRenderTarget);
+	getContext()->setD2dRenderTarget(_pD2dHwndRenderTarget);
 
 	return true;
 }
 
-void Window::releaseRenderTarget(void)
+void Window::destroyRenderTarget(void)
 {
-	if (_pD2dHwndRenderTarget)
+	if (getContext()->getD2dHwndRenderTarget())
 	{
-		_pD2dHwndRenderTarget->Release();
-		_pD2dHwndRenderTarget = nullptr;
+		getContext()->getD2dHwndRenderTarget()->Release();
+
+		getContext()->setD2dHwndRenderTarget(nullptr);
+		getContext()->setD2dRenderTarget(nullptr);
 	}
 }
 
@@ -244,11 +261,11 @@ void Window::draw(void)
 			static_cast<FLOAT>(translationX * scale),
 			static_cast<FLOAT>(translationY * scale)
 		);
-	_pD2dHwndRenderTarget->SetTransform(matrix);
+	getContext()->getD2dRenderTarget()->SetTransform(matrix);
 
 
 	//-----------------------------------------------------------------------
-	_pD2dHwndRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
+	getContext()->getD2dRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::White));
 }
 
 

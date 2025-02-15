@@ -48,7 +48,7 @@ bool ToolBox::ControlWindow::createDeviceResources(void)
 	//-----------------------------------------------------------------------
 	if (getItemView())
 	{
-		rv = getItemView()->createDeviceResources();
+		rv = getItemView()->createDeviceResources(getContext());
 		if (!rv)
 		{
 			return false;
@@ -90,7 +90,7 @@ void ToolBox::ControlWindow::draw(void)
 			getViewport()->setDocumentSize(itemViewSize._x, itemViewSize._y);
 		}
 
-		getItemView()->draw();
+		getItemView()->draw(getContext());
 	}
 }
 

@@ -83,7 +83,7 @@ cx::gw::Point ToolBox::ItemView::getItemViewSize(void)
 }
 
 //===========================================================================
-bool ToolBox::ItemView::createDeviceResources(void)
+bool ToolBox::ItemView::createDeviceResources(cx::gw::Context* ctx)
 {
 	//-----------------------------------------------------------------------
 	bool rv;
@@ -92,7 +92,7 @@ bool ToolBox::ItemView::createDeviceResources(void)
 	//-----------------------------------------------------------------------
 	for (auto& itemDrawing : _ItemDrawings)
 	{
-		rv = itemDrawing->createDeviceResources(this);
+		rv = itemDrawing->createDeviceResources(ctx);
 		if (!rv)
 		{
 			return false;
@@ -110,9 +110,9 @@ void ToolBox::ItemView::destroyDeviceResources(void)
 	}
 }
 
-void ToolBox::ItemView::draw(void)
+void ToolBox::ItemView::draw(cx::gw::Context* ctx)
 {
-	drawItems();
+	drawItems(ctx);
 }
 
 //===========================================================================
@@ -286,20 +286,20 @@ ToolBox::ItemDrawingSharedPtr ToolBox::ItemView::getItemDrawing(ToolBox::ItemSha
 }
 
 //===========================================================================
-void ToolBox::ItemView::drawItems(void)
+void ToolBox::ItemView::drawItems(cx::gw::Context* ctx)
 {
 	for (auto& item : getItems())
 	{
-		drawItem(item);
+		drawItem(ctx, item);
 	}
 }
 
-void ToolBox::ItemView::drawItem(ToolBox::ItemSharedPtr item)
+void ToolBox::ItemView::drawItem(cx::gw::Context* ctx, ToolBox::ItemSharedPtr item)
 {
 	auto itemDrawing = getItemDrawing(item);
 	if (itemDrawing)
 	{
-		itemDrawing->draw(this, item.get());
+		itemDrawing->draw(ctx, item.get());
 
 		if (auto groupItem = std::dynamic_pointer_cast<ToolBox::GroupItem>(item))
 		{
@@ -309,7 +309,7 @@ void ToolBox::ItemView::drawItem(ToolBox::ItemSharedPtr item)
 				{
 					for (auto& subItem : groupItem->getSubItems())
 					{
-						drawItem(subItem);
+						drawItem(ctx, subItem);
 					}
 				}
 			}

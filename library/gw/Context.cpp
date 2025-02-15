@@ -41,6 +41,11 @@ void Context::setD2dRenderTarget(ID2D1RenderTarget* v)
 	_pD2dRenderTarget = v;
 }
 
+void Context::setD2dHwndRenderTarget(ID2D1HwndRenderTarget* v)
+{
+	_pD2dHwndRenderTarget = v;
+}
+
 
 
 

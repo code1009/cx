@@ -25,7 +25,8 @@ protected:
 	IWICImagingFactory* _pWICImagingFactory{ nullptr };
 
 protected:
-	ID2D1RenderTarget*  _pD2dRenderTarget  { nullptr };
+	ID2D1RenderTarget*     _pD2dRenderTarget    { nullptr };
+	ID2D1HwndRenderTarget* _pD2dHwndRenderTarget{ nullptr };
 
 public:
 	Context() = default;
@@ -43,7 +44,8 @@ public:
 	[[nodiscard]] constexpr IWICImagingFactory* getWICImagingFactory(void) { return _pWICImagingFactory; }
 
 public:
-	[[nodiscard]] constexpr ID2D1RenderTarget* getD2dRenderTarget(void) { return _pD2dRenderTarget; }
+	[[nodiscard]] constexpr ID2D1RenderTarget*     getD2dRenderTarget    (void) { return _pD2dRenderTarget; }
+	[[nodiscard]] constexpr ID2D1HwndRenderTarget* getD2dHwndRenderTarget(void) { return _pD2dHwndRenderTarget; }
 
 public:
 	virtual void setD2dFactory(ID2D1Factory* v);
@@ -52,6 +54,7 @@ public:
 
 public:
 	virtual void setD2dRenderTarget(ID2D1RenderTarget* v);
+	virtual void setD2dHwndRenderTarget(ID2D1HwndRenderTarget* v);
 };
 
 

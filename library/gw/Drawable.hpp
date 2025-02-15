@@ -54,9 +54,9 @@ public:
 	virtual void setVisibleChangedHandler(VisibleChangedHandler handler);
 
 public:
-	virtual bool createDeviceResources(Window* w) = 0;
+	virtual bool createDeviceResources(Context* ctx) = 0;
 	virtual void destroyDeviceResources(void) = 0;
-	virtual void draw(Window* winwdow) = 0;
+	virtual void draw(Context* ctx) = 0;
 };
 
 
@@ -68,6 +68,9 @@ public:
 class DocumentGrid : public Drawable
 {
 private:
+	Viewport* _Viewport{ nullptr };
+
+private:
 	ID2D1SolidColorBrush* _pDocumentGrid0_LineBrush{ nullptr };
 	ID2D1SolidColorBrush* _pDocumentGrid1_LineBrush{ nullptr };
 	ID2D1SolidColorBrush* _pDocumentGrid2_LineBrush{ nullptr };
@@ -78,7 +81,7 @@ private:
 	ID2D1SolidColorBrush* _pCoord_TextBrush{ nullptr };
 
 public:
-	DocumentGrid() = default;
+	explicit DocumentGrid(Viewport* viewport);
 
 public:
 	virtual ~DocumentGrid();
@@ -86,14 +89,14 @@ public:
 	//-----------------------------------------------------------------------
 	// Drawable
 public:
-	virtual bool createDeviceResources(Window* w) override;
+	virtual bool createDeviceResources(Context* ctx) override;
 	virtual void destroyDeviceResources(void) override;
-	virtual void draw(Window* w) override;
+	virtual void draw(Context* ctx) override;
 
 	//-----------------------------------------------------------------------
 	// DocumentGrid
 private:
-	void drawDocumentGrid(Window* w);
+	void drawDocumentGrid(Context* ctx);
 };
 
 
@@ -104,7 +107,9 @@ private:
 //===========================================================================
 class StatusOverayPanel : public Drawable
 {
-	//-----------------------------------------------------------------------
+private:
+	Viewport* _Viewport{ nullptr };
+
 private:
 	std::chrono::time_point<std::chrono::steady_clock> _LastDrawTime;
 	std::int64_t                                       _FrameDrawCount{ 0 };
@@ -123,7 +128,7 @@ private:
 
 	//-----------------------------------------------------------------------
 public:
-	StatusOverayPanel();
+	explicit StatusOverayPanel(Viewport* viewport);
 
 public:
 	virtual ~StatusOverayPanel();
@@ -131,14 +136,14 @@ public:
 	//-----------------------------------------------------------------------
 	// Drawable
 public:
-	virtual bool createDeviceResources(Window* w) override;
+	virtual bool createDeviceResources(Context* ctx) override;
 	virtual void destroyDeviceResources(void) override;
-	virtual void draw(Window* w) override;
+	virtual void draw(Context* ctx) override;
 
 	//-----------------------------------------------------------------------
 	// StatusOverayPanel
 private:
-	void drawStatusOverayPanel(Window* w);
+	void drawStatusOverayPanel(Context* ctx);
 
 public:
 	void calculateFPS(void);

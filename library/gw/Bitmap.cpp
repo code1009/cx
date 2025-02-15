@@ -288,6 +288,65 @@ void Bitmap::destroyDeviceResources(void)
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+BitmapList::~BitmapList()
+{
+	clearBitmaps();
+}
+
+//===========================================================================
+bool BitmapList::createDeviceResources(Context* ctx)
+{
+	for (auto& pair : _BitmapMap)
+	{
+		if (!pair.second->createDeviceResources(ctx))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+void BitmapList::destroyDeviceResources(void)
+{
+	for (auto& pair : _BitmapMap)
+	{
+		pair.second->destroyDeviceResources();
+	}
+}
+
+BitmapSharedPtr BitmapList::findBitmap(const std::wstring& key)
+{
+	auto it = _BitmapMap.find(key);
+	if (it != _BitmapMap.end())
+	{
+		return it->second;
+	}
+	return nullptr;
+}
+
+bool BitmapList::addBitmap(const std::wstring& key, BitmapSharedPtr bitmap)
+{
+	auto result = _BitmapMap.emplace(key, std::move(bitmap));
+	return result.second;
+}
+
+bool BitmapList::removeBitmap(const std::wstring& key)
+{
+	return _BitmapMap.erase(key) > 0;
+}
+
+void BitmapList::clearBitmaps(void)
+{
+	_BitmapMap.clear();
+}
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }

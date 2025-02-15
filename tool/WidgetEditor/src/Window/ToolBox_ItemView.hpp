@@ -37,9 +37,9 @@ public:
 	cx::gw::Point getItemViewSize(void);
 
 public:
-	bool createDeviceResources(void);
+	bool createDeviceResources(cx::gw::Context* ctx);
 	void destroyDeviceResources(void);
-	void draw(void);
+	void draw(cx::gw::Context* ctx);
 
 public:
 	std::size_t makeID(void);
@@ -66,7 +66,7 @@ public:
 	ToolBox::ItemDrawingSharedPtr getItemDrawing(ToolBox::ItemSharedPtr item);
 
 public:
-	void drawItems(void);
-	void drawItem(ToolBox::ItemSharedPtr item);	
+	void drawItems(cx::gw::Context* ctx);
+	void drawItem(cx::gw::Context* ctx, ToolBox::ItemSharedPtr item);
 };
 

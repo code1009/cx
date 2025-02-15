@@ -24,14 +24,14 @@ BaseEditWindow::BaseEditWindow(HWND hwnd, bool center) :
 	Window{ hwnd, center }
 {
 	//-----------------------------------------------------------------------
-	_DocumentGrid = std::make_unique<DocumentGrid>();
+	_DocumentGrid = std::make_unique<DocumentGrid>(getViewport());
 	_DocumentGrid->setVisibleChangedHandler(
 		std::bind(&BaseEditWindow::render, this)
 	);
 
 
 	//-----------------------------------------------------------------------
-	_StatusOverayPanel = std::make_unique<StatusOverayPanel>();
+	_StatusOverayPanel = std::make_unique<StatusOverayPanel>(getViewport());
 	_StatusOverayPanel->setVisibleChangedHandler(
 		std::bind(&BaseEditWindow::render, this)
 	);
@@ -58,12 +58,12 @@ bool BaseEditWindow::createDeviceResources(void)
 
 
 	//-----------------------------------------------------------------------
-	rv = _StatusOverayPanel->createDeviceResources(this);
+	rv = _StatusOverayPanel->createDeviceResources(getContext());
 	if (!rv)
 	{
 		return false;
 	}
-	rv = _DocumentGrid->createDeviceResources(this);
+	rv = _DocumentGrid->createDeviceResources(getContext());
 	if (!rv)
 	{
 		return false;
@@ -91,7 +91,7 @@ void BaseEditWindow::draw(void)
 
 
 	//-----------------------------------------------------------------------
-	_DocumentGrid->draw(this);
+	_DocumentGrid->draw(getContext());
 
 
 	//-----------------------------------------------------------------------
@@ -99,7 +99,7 @@ void BaseEditWindow::draw(void)
 
 
 	//-----------------------------------------------------------------------
-	_StatusOverayPanel->draw(this);
+	_StatusOverayPanel->draw(getContext());
 }
 
 void BaseEditWindow::drawDocument(void)
