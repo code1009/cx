@@ -90,7 +90,7 @@ void WindowClass::registerWindowClass(
 	_WindowClassStructure.cbWndExtra    = 0;
 	_WindowClassStructure.hInstance     = hInstance;
 	_WindowClassStructure.hIcon         = loadIcon(idIcon);
-	_WindowClassStructure.hCursor       = loadCursor(idCursor);
+	_WindowClassStructure.hCursor       = 0 == idCursor ? ::LoadCursor(NULL, IDC_ARROW) : loadCursor(idCursor);
 	_WindowClassStructure.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
 	_WindowClassStructure.lpszMenuName  = makeIntResource(idMenu);
 	_WindowClassStructure.lpszClassName = className;

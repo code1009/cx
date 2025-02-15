@@ -26,7 +26,6 @@ public:
 	//-----------------------------------------------------------------------
 	// cx::gw::Window
 public:
-	virtual void resize(std::int64_t width, std::int64_t height) override;
 	virtual bool createDeviceResources(void) override;
 	virtual void destroyDeviceResources(void) override;
 	virtual void draw(void) override;

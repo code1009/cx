@@ -32,21 +32,6 @@ ToolBox::ControlWindow::ControlWindow(HWND hwnd) :
 }
 
 //===========================================================================
-void ToolBox::ControlWindow::resize(std::int64_t width, std::int64_t height)
-{
-	if (getItemView())
-	{
-		cx::gw::Point itemViewSize = getItemView()->getItemViewSize();
-
-		getItemView()->recalcLayout();
-
-		if (itemViewSize != getItemView()->getItemViewSize())
-		{
-			getViewport()->setDocumentSize(itemViewSize._x, itemViewSize._y);
-		}
-	}
-}
-
 bool ToolBox::ControlWindow::createDeviceResources(void)
 {
 	//-----------------------------------------------------------------------
@@ -94,8 +79,17 @@ void ToolBox::ControlWindow::draw(void)
 
 
 	//-----------------------------------------------------------------------
-	if(getItemView())
+	if (getItemView())
 	{
+		cx::gw::Point itemViewSize = getItemView()->getItemViewSize();
+
+		getItemView()->recalcLayout();
+
+		if (itemViewSize != getItemView()->getItemViewSize())
+		{
+			getViewport()->setDocumentSize(itemViewSize._x, itemViewSize._y);
+		}
+
 		getItemView()->draw();
 	}
 }

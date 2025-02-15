@@ -60,7 +60,8 @@ protected:
 	std::int64_t _View_Y_Scroll_Page{ 0 };
 	std::int64_t _View_Y_Scroll_Line{ 0 };
 
-	bool _ScrollbarEnabled{ false };
+	bool _VScrollbarEnabled{ false };
+	bool _HScrollbarEnabled{ false };
 
 
 	//-----------------------------------------------------------------------
@@ -128,6 +129,8 @@ protected:
 
 public:
 	virtual void enableScrollbar(bool enable);
+	virtual void enableVScrollbar(bool enable);
+	virtual void enableHScrollbar(bool enable);
 
 
 	//-----------------------------------------------------------------------

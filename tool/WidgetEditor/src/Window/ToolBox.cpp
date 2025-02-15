@@ -125,6 +125,7 @@ HWND ToolBox::createToolBox(HWND parentWindowHandle)
 		| WS_SYSMENU
 		| WS_CLIPCHILDREN
 		| WS_CLIPSIBLINGS
+		| WS_VSCROLL
 		;
 
 	dwExStyle = 0

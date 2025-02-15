@@ -58,12 +58,12 @@ void example(HWND hwnd)
 // Wrapper around SetScrollInfo, performs scaling to 
 // allow massive 64bit scroll ranges
 static BOOL SetScrollInfo64(HWND hwnd,
-	int nBar,
-	UINT fMask,
+	int    nBar,
+	UINT   fMask,
 	UINT64 nMax64,
 	UINT64 nPos64,
 	UINT64 nPage,
-	BOOL fRedraw
+	BOOL   fRedraw
 )
 {
 	SCROLLINFO si = { static_cast<UINT>(sizeof(si)), fMask };
@@ -71,26 +71,26 @@ static BOOL SetScrollInfo64(HWND hwnd,
 	// normal scroll range requires no adjustment
 	if (nMax64 <= WIN32_SCROLLBAR_MAX)
 	{
-		si.nMin = (int)0;
-		si.nMax = (int)nMax64;
+		si.nMin  = (int)0;
+		si.nMax  = (int)nMax64;
 		si.nPage = (int)nPage;
-		si.nPos = (int)nPos64;
+		si.nPos  = (int)nPos64;
 	}
 	// scale the scrollrange down into allowed bounds
 	else
 	{
-		si.nMin = (int)0;
-		si.nMax = (int)WIN16_SCROLLBAR_MAX;
+		si.nMin  = (int)0;
+		si.nMax  = (int)WIN16_SCROLLBAR_MAX;
 		si.nPage = (int)nPage;
-		si.nPos = (int)(nPos64 / (nMax64 / WIN16_SCROLLBAR_MAX));
+		si.nPos  = (int)(nPos64 / (nMax64 / WIN16_SCROLLBAR_MAX));
 	}
 
 	return SetScrollInfo(hwnd, nBar, &si, fRedraw);
 }
 
 static UINT64 GetScrollPos64(HWND hwnd,
-	int nBar,
-	UINT fMask,
+	int    nBar,
+	UINT   fMask,
 	UINT64 nMax64
 )
 {
@@ -227,6 +227,9 @@ void Viewport::setWindowSize(std::int64_t cx, std::int64_t cy)
 		return;
 	}
 
+	
+	resize(cx, cy);
+
 
 	_Window_CX = cx;
 	_Window_CY = cy;
@@ -234,25 +237,33 @@ void Viewport::setWindowSize(std::int64_t cx, std::int64_t cy)
 
 	updateImageSize();
 	updateViewport();
+
 	updateViewScroll();
 	updateScrollbarPosition();
 
 	repaint();
-
-	resize(cx, cy);
 }
 
 void Viewport::setScale(double scale)
 {
+	if (_Scale == scale)
+	{
+		return;
+	}
+
+
 	if (scale <= 0.0)
 	{
 		return;
 	}
 
+
 	_Scale = scale;
+
 
 	updateImageSize();
 	updateViewport();
+
 	updateViewScroll();
 	updateScrollbarPosition();
 
@@ -261,10 +272,17 @@ void Viewport::setScale(double scale)
 
 void Viewport::setDocumentSize(double cx, double cy)
 {
+	if (_Document_CX == cx && _Document_CY == cy)
+	{
+		return;
+	}
+
+
 	_DocumentViewport_X = 0.0;
 	_DocumentViewport_Y = 0.0;
 	_Document_CX = cx;
 	_Document_CY = cy;
+
 
 	updateImageSize();
 	updateViewport();
@@ -330,7 +348,7 @@ void Viewport::updateViewScroll(void)
 	constexpr std::uint64_t _Y_Scroll_Line = 20;
 
 
-	if (_ScrollbarEnabled)
+	if (_HScrollbarEnabled)
 	{
 		if (_Window_CX < _Image_CX)
 		{
@@ -346,8 +364,18 @@ void Viewport::updateViewScroll(void)
 			_View_X_Scroll_Page = 0;
 			_View_X_Scroll_Line = 0;
 		}
+	}
+	else
+	{
+		_View_X_Scroll_Min  = 0;
+		_View_X_Scroll_Max  = 0;
+		_View_X_Scroll_Page = 0;
+		_View_X_Scroll_Line = 0;
+	}
 
 
+	if (_VScrollbarEnabled)
+	{
 		if (_Window_CY < _Image_CY)
 		{
 			_View_Y_Scroll_Min  = 0;
@@ -365,11 +393,6 @@ void Viewport::updateViewScroll(void)
 	}
 	else
 	{
-		_View_X_Scroll_Min  = 0;
-		_View_X_Scroll_Max  = 0;
-		_View_X_Scroll_Page = 0;
-		_View_X_Scroll_Line = 0;
-
 		_View_Y_Scroll_Min  = 0;
 		_View_Y_Scroll_Max  = 0;
 		_View_Y_Scroll_Page = 0;
@@ -379,8 +402,8 @@ void Viewport::updateViewScroll(void)
 
 void Viewport::updateScrollbarPosition(void)
 {
-	SetScrollInfo64(_WindowHandle, SB_HORZ, SIF_ALL, _View_X_Scroll_Max, _ImageViewport_X, _View_X_Scroll_Page, TRUE);
-	SetScrollInfo64(_WindowHandle, SB_VERT, SIF_ALL, _View_Y_Scroll_Max, _ImageViewport_Y, _View_Y_Scroll_Page, TRUE);
+	SetScrollInfo64(_WindowHandle, SB_HORZ, SIF_ALL, _View_X_Scroll_Max, _ImageViewport_X, _View_X_Scroll_Page, FALSE);
+	SetScrollInfo64(_WindowHandle, SB_VERT, SIF_ALL, _View_Y_Scroll_Max, _ImageViewport_Y, _View_Y_Scroll_Page, FALSE);
 }
 
 //===========================================================================
@@ -590,10 +613,48 @@ std::int64_t Viewport::scroll(
 
 void Viewport::enableScrollbar(bool enable)
 {
-	_ScrollbarEnabled = enable;
+	if (_VScrollbarEnabled == enable && _HScrollbarEnabled == enable)
+	{
+		return;
+	}
+
+	_VScrollbarEnabled = enable;
+	_HScrollbarEnabled = enable;
 
 	updateViewScroll();
 	updateScrollbarPosition();
+
+	repaint();
+}
+
+void Viewport::enableVScrollbar(bool enable)
+{
+	if (_VScrollbarEnabled == enable)
+	{
+		return;
+	}
+
+	_VScrollbarEnabled = enable;
+
+	updateViewScroll();
+	updateScrollbarPosition();
+
+	repaint();
+}
+
+void Viewport::enableHScrollbar(bool enable)
+{
+	if (_HScrollbarEnabled == enable)
+	{
+		return;
+	}
+
+	_HScrollbarEnabled = enable;
+
+	updateViewScroll();
+	updateScrollbarPosition();
+
+	repaint();
 }
 
 //===========================================================================

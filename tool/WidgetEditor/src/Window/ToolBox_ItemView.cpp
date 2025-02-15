@@ -30,7 +30,7 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	//-----------------------------------------------------------------------
 	getWindow()->getViewport()->setWindowSize(0, 0);
 	getWindow()->getViewport()->setDocumentSize(0, 0);
-	getWindow()->getViewport()->enableScrollbar(true);
+	getWindow()->getViewport()->enableVScrollbar(true);
 
 
 	//-----------------------------------------------------------------------
