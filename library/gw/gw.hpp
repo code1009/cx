@@ -3,13 +3,15 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "DirectX2DGraphic.hpp"
+#include "Context.hpp"
 
 #include "Viewport.hpp"
 #include "Window.hpp"
 
 #include "Point.hpp"
 #include "Color.hpp"
-#include "BitmapSource.hpp"
+
+#include "Bitmap.hpp"
 
 #include "Drawable.hpp"
 #include "BaseEditWindow.hpp"

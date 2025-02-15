@@ -73,7 +73,7 @@ bool DocumentGrid::createDeviceResources(Window* w)
 	//-----------------------------------------------------------------------
 	if (!_pDocumentGrid0_LineBrush)
 	{
-		hr = w->getDRenderTarget()->CreateSolidColorBrush(
+		hr = w->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.9f, 0.9f, 0.9f),
 			&_pDocumentGrid0_LineBrush
 		);
@@ -84,7 +84,7 @@ bool DocumentGrid::createDeviceResources(Window* w)
 	}
 	if (!_pDocumentGrid1_LineBrush)
 	{
-		hr = w->getDRenderTarget()->CreateSolidColorBrush(
+		hr = w->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f),
 			&_pDocumentGrid1_LineBrush
 		);
@@ -95,7 +95,7 @@ bool DocumentGrid::createDeviceResources(Window* w)
 	}
 	if (!_pDocumentGrid2_LineBrush)
 	{
-		hr = w->getDRenderTarget()->CreateSolidColorBrush(
+		hr = w->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 1.0f),
 			&_pDocumentGrid2_LineBrush
 		);
@@ -108,7 +108,7 @@ bool DocumentGrid::createDeviceResources(Window* w)
 	//-----------------------------------------------------------------------
 	if (!_pCoord_TextBrush)
 	{
-		hr = w->getDRenderTarget()->CreateSolidColorBrush(
+		hr = w->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.5f),
 			&_pCoord_TextBrush
 		);
@@ -228,7 +228,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	oe = static_cast<float>(document_cy);
 	for (ci = cb; ci < ce; ci += cd)
 	{
-		w->getDRenderTarget()->DrawLine(
+		w->getD2dRenderTarget()->DrawLine(
 			D2D1::Point2F(ci, ob),
 			D2D1::Point2F(ci, oe),
 			_pDocumentGrid0_LineBrush,
@@ -243,7 +243,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	oe = static_cast<float>(document_cx);
 	for (ci = cb; ci < ce; ci += cd)
 	{
-		w->getDRenderTarget()->DrawLine(
+		w->getD2dRenderTarget()->DrawLine(
 			D2D1::Point2F(ob, ci),
 			D2D1::Point2F(oe, ci),
 			_pDocumentGrid0_LineBrush,
@@ -260,7 +260,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	oe = static_cast<float>(document_cy);
 	for (ci = cb; ci < ce; ci += cd)
 	{
-		w->getDRenderTarget()->DrawLine(
+		w->getD2dRenderTarget()->DrawLine(
 			D2D1::Point2F(ci, ob),
 			D2D1::Point2F(ci, oe),
 			_pDocumentGrid1_LineBrush,
@@ -275,7 +275,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	oe = static_cast<float>(document_cx);
 	for (ci = cb; ci < ce; ci += cd)
 	{
-		w->getDRenderTarget()->DrawLine(
+		w->getD2dRenderTarget()->DrawLine(
 			D2D1::Point2F(ob, ci),
 			D2D1::Point2F(oe, ci),
 			_pDocumentGrid1_LineBrush,
@@ -291,7 +291,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	ob = static_cast<float>(0.0f);
 	oe = static_cast<float>(document_cy);
 	ci = (ce - cb) / 2.0f;
-	w->getDRenderTarget()->DrawLine(
+	w->getD2dRenderTarget()->DrawLine(
 		D2D1::Point2F(ci, ob),
 		D2D1::Point2F(ci, oe),
 		_pDocumentGrid2_LineBrush,
@@ -303,7 +303,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	ob = static_cast<float>(0.0f);
 	oe = static_cast<float>(document_cx);
 	ci = (ce - cb) / 2.0f;
-	w->getDRenderTarget()->DrawLine(
+	w->getD2dRenderTarget()->DrawLine(
 		D2D1::Point2F(ob, ci),
 		D2D1::Point2F(oe, ci),
 		_pDocumentGrid2_LineBrush,
@@ -320,7 +320,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 	rect.top    = static_cast<float>(0.0f);
 	rect.right  = static_cast<float>(document_cx);
 	rect.bottom = static_cast<float>(document_cy);
-	w->getDRenderTarget()->DrawRectangle(
+	w->getD2dRenderTarget()->DrawRectangle(
 		&rect,
 		_pDocumentGrid2_LineBrush,
 		4.0f
@@ -354,7 +354,7 @@ void DocumentGrid::drawDocumentGrid(Window* w)
 				static_cast<int>(tx / tdx),
 				static_cast<int>(ty / tdy));
 
-			w->getDRenderTarget()->DrawTextW(
+			w->getD2dRenderTarget()->DrawTextW(
 				text,
 				static_cast<UINT32>(lstrlen(text)),
 				_pCoord_TextFormat,
@@ -392,7 +392,7 @@ bool StatusOverayPanel::createDeviceResources(Window* w)
 	//-----------------------------------------------------------------------
 	if (!_pStatusBox_FillBrush)
 	{
-		hr = w->getDRenderTarget()->CreateSolidColorBrush(
+		hr = w->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.75f, 0.75f, 0.75f, 0.25f),
 			&_pStatusBox_FillBrush
 		);
@@ -403,7 +403,7 @@ bool StatusOverayPanel::createDeviceResources(Window* w)
 	}
 	if (!_pStatusBox_LineBrush)
 	{
-		hr = w->getDRenderTarget()->CreateSolidColorBrush(
+		hr = w->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.5f),
 			&_pStatusBox_LineBrush
 		);
@@ -416,7 +416,7 @@ bool StatusOverayPanel::createDeviceResources(Window* w)
 	//-----------------------------------------------------------------------
 	if (!_pStatus_TextBrush)
 	{
-		hr = w->getDRenderTarget()->CreateSolidColorBrush(
+		hr = w->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 0.5f, 1.0f),
 			&_pStatus_TextBrush
 		);
@@ -490,7 +490,7 @@ void StatusOverayPanel::draw(Window* w)
 
 
 	matrix = D2D1::Matrix3x2F::Identity();
-	w->getDRenderTarget()->SetTransform(matrix);
+	w->getD2dRenderTarget()->SetTransform(matrix);
 
 
 	//-----------------------------------------------------------------------
@@ -589,7 +589,7 @@ void StatusOverayPanel::drawStatusOverayPanel(Window* w)
 
 
 	//-----------------------------------------------------------------------
-	D2D1_SIZE_F size = w->getDRenderTarget()->GetSize();
+	D2D1_SIZE_F size = w->getD2dRenderTarget()->GetSize();
 
 	float space  = 20.0f;
 	float box_cx = 320;
@@ -613,8 +613,8 @@ void StatusOverayPanel::drawStatusOverayPanel(Window* w)
 	rect.bottom = rect.top  + box_cy;
 
 #if 0
-	w->getDRenderTarget()->FillRectangle(&rect, _pStatusBoxFillBrush);
-	w->getDRenderTarget()->DrawRectangle(&rect, _pStatusBoxLineBrush);
+	w->getD2dRenderTarget()->FillRectangle(&rect, _pStatusBoxFillBrush);
+	w->getD2dRenderTarget()->DrawRectangle(&rect, _pStatusBoxLineBrush);
 #else
 	D2D1_ROUNDED_RECT rrect;
 	
@@ -625,15 +625,15 @@ void StatusOverayPanel::drawStatusOverayPanel(Window* w)
 	rrect.rect.bottom = rect.bottom;
 	rrect.radiusX = 5.0f;
 	rrect.radiusY = 5.0f;
-	w->getDRenderTarget()->FillRoundedRectangle(&rrect, _pStatusBox_FillBrush);
-	w->getDRenderTarget()->DrawRoundedRectangle(&rrect, _pStatusBox_LineBrush);
+	w->getD2dRenderTarget()->FillRoundedRectangle(&rrect, _pStatusBox_FillBrush);
+	w->getD2dRenderTarget()->DrawRoundedRectangle(&rrect, _pStatusBox_LineBrush);
 #endif
 
 	rect.left   += 5.0f;
 	rect.top    += 5.0f;
 	rect.right  -= 5.0f;
 	rect.bottom -= 5.0f;
-	w->getDRenderTarget()->DrawTextW(
+	w->getD2dRenderTarget()->DrawTextW(
 		text.c_str(),
 		static_cast<UINT32>(text.length()),
 		_pStatus_TextFormat,

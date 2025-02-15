@@ -35,7 +35,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ItemView* itemView)
 	{
 		cx::gw::Color Frame_FillColor;
 		getFrame_FillColor(Frame_FillColor);
-		hr = itemView->getWindow()->getDRenderTarget()->CreateSolidColorBrush(
+		hr = itemView->getWindow()->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(Frame_FillColor._r, Frame_FillColor._g, Frame_FillColor._b, Frame_FillColor._a),
 			&_pFrameFillBrush
 		);
@@ -48,7 +48,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ItemView* itemView)
 	{
 		cx::gw::Color Frame_LineColor;		
 		getFrame_LineColor(Frame_LineColor);
-		hr = itemView->getWindow()->getDRenderTarget()->CreateSolidColorBrush(
+		hr = itemView->getWindow()->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(Frame_LineColor._r, Frame_LineColor._g, Frame_LineColor._b, Frame_LineColor._a),
 			&_pFrameLineBrush
 		);
@@ -63,7 +63,7 @@ bool ToolBox::ItemDrawing::createDeviceResources(ToolBox::ItemView* itemView)
 	{
 		cx::gw::Color Caption_TextColor;
 		getCaption_TextColor(Caption_TextColor);
-		hr = itemView->getWindow()->getDRenderTarget()->CreateSolidColorBrush(
+		hr = itemView->getWindow()->getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(Caption_TextColor._r, Caption_TextColor._g, Caption_TextColor._b, Caption_TextColor._a),
 			&_pCaptionTextBrush
 		);
@@ -157,11 +157,11 @@ void ToolBox::ItemDrawing::drawFrame(ToolBox::ItemView* itemView, ToolBox::Item*
 	rect.top    = p0._y;
 	rect.bottom = p1._y;
 
-	itemView->getWindow()->getDRenderTarget()->FillRectangle(&rect, _pFrameFillBrush);
+	itemView->getWindow()->getD2dRenderTarget()->FillRectangle(&rect, _pFrameFillBrush);
 
 	if (lineSize>0)
 	{
-		itemView->getWindow()->getDRenderTarget()->DrawRectangle(&rect, _pFrameLineBrush, lineSize);
+		itemView->getWindow()->getD2dRenderTarget()->DrawRectangle(&rect, _pFrameLineBrush, lineSize);
 	}
 }
 
@@ -183,7 +183,7 @@ void ToolBox::ItemDrawing::drawCaption(ToolBox::ItemView* itemView, ToolBox::Ite
 	rect.bottom = p1._y;
 
 
-	itemView->getWindow()->getDRenderTarget()->DrawTextW(
+	itemView->getWindow()->getD2dRenderTarget()->DrawTextW(
 		item->getCaption().c_str(),
 		static_cast<UINT32>(item->getCaption().length()),
 		_pCaptionTextFormat,

@@ -48,7 +48,7 @@ bool MyWindow::createDeviceResources(void)
 
 	if (!_Brush)
 	{
-		hr = getDRenderTarget()->CreateSolidColorBrush(
+		hr = getD2dRenderTarget()->CreateSolidColorBrush(
 			D2D1::ColorF(0.5f, 0.5f, 1.0f, 0.5f),
 			&_Brush
 		);
@@ -92,7 +92,7 @@ void MyWindow::draw(void)
 	rrect.radiusX = 10.0f;
 	rrect.radiusY = 10.0f;
 
-	getDRenderTarget()->FillRoundedRectangle(&rrect, _Brush);
+	getD2dRenderTarget()->FillRoundedRectangle(&rrect, _Brush);
 }
 
 

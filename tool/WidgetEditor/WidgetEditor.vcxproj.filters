@@ -231,7 +231,10 @@
     <ClInclude Include="src\Window\ToolBox_ItemView.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\gw\BitmapSource.hpp">
+    <ClInclude Include="..\..\library\gw\Bitmap.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Context.hpp">
       <Filter>library_cx\gw</Filter>
     </ClInclude>
   </ItemGroup>
@@ -371,7 +374,10 @@
     <ClCompile Include="src\Window\ToolBox_ItemView.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\gw\BitmapSource.cpp">
+    <ClCompile Include="..\..\library\gw\Bitmap.cpp">
+      <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Context.cpp">
       <Filter>library_cx\gw</Filter>
     </ClCompile>
   </ItemGroup>

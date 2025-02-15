@@ -36,8 +36,9 @@
     <ClInclude Include="..\..\library\component\to_std_wstring.hpp" />
     <ClInclude Include="..\..\library\component\xml.hpp" />
     <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp" />
-    <ClInclude Include="..\..\library\gw\BitmapSource.hpp" />
+    <ClInclude Include="..\..\library\gw\Bitmap.hpp" />
     <ClInclude Include="..\..\library\gw\Color.hpp" />
+    <ClInclude Include="..\..\library\gw\Context.hpp" />
     <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp" />
     <ClInclude Include="..\..\library\gw\Drawable.hpp" />
     <ClInclude Include="..\..\library\gw\gw.hpp" />
@@ -100,8 +101,9 @@
     <ClCompile Include="..\..\library\component\to_std_wstring.cpp" />
     <ClCompile Include="..\..\library\component\xml.cpp" />
     <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp" />
-    <ClCompile Include="..\..\library\gw\BitmapSource.cpp" />
+    <ClCompile Include="..\..\library\gw\Bitmap.cpp" />
     <ClCompile Include="..\..\library\gw\Color.cpp" />
+    <ClCompile Include="..\..\library\gw\Context.cpp" />
     <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp" />
     <ClCompile Include="..\..\library\gw\Drawable.cpp" />
     <ClCompile Include="..\..\library\gw\Point.cpp" />

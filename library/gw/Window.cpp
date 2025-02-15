@@ -31,9 +31,9 @@ Window::Window(HWND hwnd, bool center):
 			std::bind(&Window::render, this),
 			[this](std::int64_t width, std::int64_t height)
 			{
-				if (_pDHwndRenderTarget)
+				if (_pD2dHwndRenderTarget)
 				{
-					_pDHwndRenderTarget->Resize(
+					_pD2dHwndRenderTarget->Resize(
 						D2D1::SizeU(
 							static_cast<UINT32>(width),
 							static_cast<UINT32>(height)
@@ -50,9 +50,9 @@ Window::Window(HWND hwnd, bool center):
 			std::bind(&Window::render, this),
 			[this](std::int64_t width, std::int64_t height)
 			{
-				if (_pDHwndRenderTarget)
+				if (_pD2dHwndRenderTarget)
 				{
-					_pDHwndRenderTarget->Resize(
+					_pD2dHwndRenderTarget->Resize(
 						D2D1::SizeU(
 							static_cast<UINT32>(width),
 							static_cast<UINT32>(height)
@@ -67,7 +67,7 @@ Window::Window(HWND hwnd, bool center):
 	//-----------------------------------------------------------------------
 	_pD2dFactory = DirectX2DGraphic::getD2dFactory();
 	_pDWriteFactory = DirectX2DGraphic::getDWriteFactory();
-	_pDHwndRenderTarget = nullptr;
+	_pD2dHwndRenderTarget = nullptr;
 }
 
 //===========================================================================
@@ -80,12 +80,12 @@ Window::~Window()
 #if 0
 void Window::resize(std::int64_t width, std::int64_t height)
 {
-	if (_pDHwndRenderTarget)
+	if (_pD2dHwndRenderTarget)
 	{
 		// Note: This method can fail, but it's okay to ignore the
 		// error here, because the error will be returned again
 		// the next time EndDraw is called.
-		_pDHwndRenderTarget->Resize(
+		_pD2dHwndRenderTarget->Resize(
 			D2D1::SizeU(
 				static_cast<UINT32>(width),
 				static_cast<UINT32>(height)
@@ -106,7 +106,7 @@ void Window::render(void)
 	rv = createDeviceResources();
 	if (rv)
 	{
-		_pDHwndRenderTarget->BeginDraw();
+		_pD2dHwndRenderTarget->BeginDraw();
 
 
 		draw();
@@ -115,7 +115,7 @@ void Window::render(void)
 		HRESULT hr;
 
 
-		hr = _pDHwndRenderTarget->EndDraw();
+		hr = _pD2dHwndRenderTarget->EndDraw();
 		if (hr == D2DERR_RECREATE_TARGET)
 		{
 			destroyDeviceResources();
@@ -153,7 +153,7 @@ bool Window::createRenderTarget(void)
 	HRESULT hr = S_OK;
 
 
-	if (!_pDHwndRenderTarget)
+	if (!_pD2dHwndRenderTarget)
 	{
 		//-------------------------------------------------------------------
 		RECT rect;
@@ -179,13 +179,13 @@ bool Window::createRenderTarget(void)
 				D2D1_FEATURE_LEVEL_DEFAULT
 			),
 			D2D1::HwndRenderTargetProperties(hwnd, size),
-			&_pDHwndRenderTarget
+			&_pD2dHwndRenderTarget
 		);
 #else
 		hr = _pD2dFactory->CreateHwndRenderTarget(
 			D2D1::RenderTargetProperties(),
 			D2D1::HwndRenderTargetProperties(_WindowHandle, size),
-			&_pDHwndRenderTarget
+			&_pD2dHwndRenderTarget
 		);
 #endif
 		if (FAILED(hr))
@@ -200,10 +200,10 @@ bool Window::createRenderTarget(void)
 
 void Window::releaseRenderTarget(void)
 {
-	if (_pDHwndRenderTarget)
+	if (_pD2dHwndRenderTarget)
 	{
-		_pDHwndRenderTarget->Release();
-		_pDHwndRenderTarget = nullptr;
+		_pD2dHwndRenderTarget->Release();
+		_pD2dHwndRenderTarget = nullptr;
 	}
 }
 
@@ -244,11 +244,11 @@ void Window::draw(void)
 			static_cast<FLOAT>(translationX * scale),
 			static_cast<FLOAT>(translationY * scale)
 		);
-	_pDHwndRenderTarget->SetTransform(matrix);
+	_pD2dHwndRenderTarget->SetTransform(matrix);
 
 
 	//-----------------------------------------------------------------------
-	_pDHwndRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
+	_pD2dHwndRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
 }
 
 

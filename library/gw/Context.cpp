@@ -1,6 +1,9 @@
 ﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#pragma once
+#include "pch.hpp"
+
+//===========================================================================
+#include "gw.hpp"
 
 
 
@@ -17,39 +20,26 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class BitmapSource
+void Context::setD2dFactory(ID2D1Factory* v)
 {
-private:
-	IWICBitmapSource* _pWICBitmapSource { nullptr };
+	_pD2dFactory = v;
+}
 
-public:
-	BitmapSource() = default;
+void Context::setDWriteFactory(IDWriteFactory* v)
+{
+	_pDWriteFactory = v;
+}
 
-public:
-	virtual ~BitmapSource();
+void Context::setWICImagingFactory(IWICImagingFactory* v)
+{
+	_pWICImagingFactory = v;
+}
 
-public:
-	BitmapSource(const BitmapSource&) = delete;
-	BitmapSource& operator=(const BitmapSource&) = delete;
-
-	BitmapSource(BitmapSource&&) = delete;
-	BitmapSource& operator=(BitmapSource&&) = delete;
-
-public:
-	void Release(void);
-
-public:
-	IWICBitmapSource* getWICBitmapSource(void);
-
-public:
-	bool isNull(void);
-	void getBitmapSize(std::size_t& cx, std::size_t& cy);
-
-public:
-	bool loadFromMemory(const BYTE* pImageData, UINT imageSize);
-	bool loadFromFile(const std::wstring& filePath);
-};
-
+//===========================================================================
+void Context::setD2dRenderTarget(ID2D1RenderTarget* v)
+{
+	_pD2dRenderTarget = v;
+}
 
 
 
