@@ -25,7 +25,7 @@ BitmapSource::~BitmapSource()
 	Release();
 }
 
-
+//===========================================================================
 void BitmapSource::Release(void)
 {
 	if (_pWICBitmapSource)
@@ -212,6 +212,7 @@ Bitmap::Bitmap()
 	_BitmapSource = std::make_unique<BitmapSource>();
 }
 
+//===========================================================================
 Bitmap::~Bitmap()
 {
 	Release();
@@ -261,14 +262,19 @@ void Bitmap::getBitmapSize(std::size_t& cx, std::size_t& cy)
 
 bool Bitmap::createDeviceResources(Context* ctx)
 {
-	if (_pDBitmap)
-	{
-		return true;
-	}
-
 	if (!_BitmapSource || _BitmapSource->isNull())
 	{
 		return false;
+	}
+
+	if (!ctx->getD2dRenderTarget())
+	{
+		return false;
+	}
+
+	if (_pDBitmap)
+	{
+		return true;
 	}
 
 	HRESULT hr = ctx->getD2dRenderTarget()->CreateBitmapFromWicBitmap(
