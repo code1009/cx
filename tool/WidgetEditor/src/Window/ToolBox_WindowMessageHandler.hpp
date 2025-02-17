@@ -65,7 +65,8 @@ private:
 	bool _WindowMouseCaptured      { false };
 
 private:
-	std::uint64_t _MouseClickedTime{ 0 };
+	std::uint64_t _MouseClickedTime{ 0   };
+	std::uint64_t _MouseDbClickTime{ 300 };
 
 public:
 	WindowMessageHandler() = default;
@@ -93,6 +94,10 @@ public:
 	ToolBox::Item* hitTest(const cx::gw::Point& point);
 	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtrs& items);
 	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtr& item);
+
+public:
+	void getMouseDbClickTime(std::uint64_t& time);
+	void setMouseDbClickTime(std::uint64_t time);
 
 public:
 	bool getWindowMouseCaptureEnabled (void);

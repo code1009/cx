@@ -25,14 +25,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-constexpr std::uint64_t _MouseDbClickTime = 300u;
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 void ToolBox::WindowMessageHandler::setItemView(ToolBox::ItemView* itemView)
 {
 	_ItemView = itemView;
@@ -109,6 +101,17 @@ ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point
 	}
 
 	return nullptr;
+}
+
+//===========================================================================
+void ToolBox::WindowMessageHandler::getMouseDbClickTime(std::uint64_t& time)
+{
+	time = _MouseDbClickTime;
+}
+
+void ToolBox::WindowMessageHandler::setMouseDbClickTime(std::uint64_t time)
+{
+	_MouseDbClickTime = time;
 }
 
 //===========================================================================
