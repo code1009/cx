@@ -320,6 +320,11 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	recalcLayout();
 }
 
+ToolBox::ItemView::~ItemView()
+{
+	clearItems();
+}
+
 //===========================================================================
 ToolBox::ControlWindow* ToolBox::ItemView::getWindow(void)
 {
@@ -410,6 +415,8 @@ void ToolBox::ItemView::addItem(ToolBox::GroupItemSharedPtr parentItem, ToolBox:
 
 		getItems().push_back(item);
 	}
+
+	item->getStatus()->setStatusChangedHandler(std::bind(&ToolBox::ItemView::onItemStatusChanged, this, item.get()));
 }
 
 void ToolBox::ItemView::removeItem(ToolBox::ItemSharedPtr item)
@@ -438,16 +445,29 @@ void ToolBox::ItemView::removeItem(ToolBox::ItemSharedPtrs& items, ToolBox::Item
 	{
 		return;
 	}
+
+	item->getStatus()->setStatusChangedHandler(nullptr);
+
 	items.erase(it);
 }
 
 void ToolBox::ItemView::clearItems(void)
 {
+	for (auto& item : getItems())
+	{
+		item->getStatus()->setStatusChangedHandler(nullptr);
+	}
+
 	getItems().clear();
 }
 
 void ToolBox::ItemView::clearItems(ToolBox::ItemSharedPtrs& items)
 {
+	for (auto& item : items)
+	{
+		item->getStatus()->setStatusChangedHandler(nullptr);
+	}
+
 	items.clear();
 }
 
@@ -599,3 +619,8 @@ void ToolBox::ItemView::drawItem(cx::gw::Context* ctx, ToolBox::ItemSharedPtr it
 	}
 }
 
+//===========================================================================
+void ToolBox::ItemView::onItemStatusChanged(ToolBox::Item* item)
+{
+	getWindow()->render();
+}

@@ -21,7 +21,7 @@ private:
 
 public:
 	explicit ItemView(ToolBox::ControlWindow* window);
-	virtual ~ItemView(void) = default;
+	virtual ~ItemView(void);
 
 public:
 	ItemView(const ItemView&) = delete;
@@ -71,5 +71,8 @@ public:
 public:
 	void drawItems(cx::gw::Context* ctx);
 	void drawItem(cx::gw::Context* ctx, ToolBox::ItemSharedPtr item);
+
+public:
+	void onItemStatusChanged(ToolBox::Item* item);
 };
 
