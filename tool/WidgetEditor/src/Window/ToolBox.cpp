@@ -15,6 +15,7 @@
 
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
+#include "ToolBox_ItemView.hpp"
 #include "ToolBox_ControlWindow.hpp"
 
 
@@ -383,6 +384,15 @@ void ToolBox::onPaint(cx::wui::WindowMessage& windowMessage)
 {
 	if(_ControlWindow)
 	{
+		cx::gw::Point itemViewSize = _ControlWindow->getItemView()->getItemViewSize();
+
+		_ControlWindow->getItemView()->recalcLayout();
+
+		if (itemViewSize != _ControlWindow->getItemView()->getItemViewSize())
+		{
+			_ControlWindow->getViewport()->setDocumentSize(itemViewSize._x, itemViewSize._y);
+		}
+
 		_ControlWindow->render();
 	}
 

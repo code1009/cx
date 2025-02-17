@@ -402,8 +402,8 @@ void Viewport::updateViewScroll(void)
 
 void Viewport::updateScrollbarPosition(void)
 {
-	SetScrollInfo64(_WindowHandle, SB_HORZ, SIF_ALL, _View_X_Scroll_Max, _ImageViewport_X, _View_X_Scroll_Page, FALSE);
-	SetScrollInfo64(_WindowHandle, SB_VERT, SIF_ALL, _View_Y_Scroll_Max, _ImageViewport_Y, _View_Y_Scroll_Page, FALSE);
+	SetScrollInfo64(_WindowHandle, SB_HORZ, SIF_ALL, _View_X_Scroll_Max, _ImageViewport_X, _View_X_Scroll_Page, TRUE);
+	SetScrollInfo64(_WindowHandle, SB_VERT, SIF_ALL, _View_Y_Scroll_Max, _ImageViewport_Y, _View_Y_Scroll_Page, TRUE);
 }
 
 //===========================================================================

@@ -81,15 +81,6 @@ void ToolBox::ControlWindow::draw(void)
 	//-----------------------------------------------------------------------
 	if (getItemView())
 	{
-		cx::gw::Point itemViewSize = getItemView()->getItemViewSize();
-
-		getItemView()->recalcLayout();
-
-		if (itemViewSize != getItemView()->getItemViewSize())
-		{
-			getViewport()->setDocumentSize(itemViewSize._x, itemViewSize._y);
-		}
-
 		getItemView()->draw(getContext());
 	}
 }
