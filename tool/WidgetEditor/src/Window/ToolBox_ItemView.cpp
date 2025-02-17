@@ -631,17 +631,76 @@ void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::Mous
 
 }
 
-void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
+	switch (eventType)
+	{
+	case ToolBox::EventType::Unknown:
+		break;
+
+	case ToolBox::EventType::MouseMove:
+		break;
+	case ToolBox::EventType::MouseLButtonDown:
+		break;
+	case ToolBox::EventType::MouseLButtonUp:
+		break;
+
+	case ToolBox::EventType::MousePressed:
+		item->getStatus()->setPressed(true);
+		break;
+	case ToolBox::EventType::MouseReleased:
+		item->getStatus()->setPressed(false);
+		break;
+	case ToolBox::EventType::MouseClicked:
+		if (dynamic_cast<ToolBox::GroupItem*>(item))
+		{
+			onGroupItemMouseEvent(eventType, item, param);
+		}
+		if (dynamic_cast<ToolBox::SubItem*>(item))
+		{
+			onSubItemMouseEvent(eventType, item, param);
+		}
+		break;
+	case ToolBox::EventType::MouseDbClicked:
+		break;
+	case ToolBox::EventType::MouseOver:
+		break;
+	case ToolBox::EventType::MouseLeave:
+		break;
+	case ToolBox::EventType::MouseDragging:
+		break;
+
+	default:
+		break;
+	}
+}
+
+void ToolBox::ItemView::onGroupItemMouseEvent(ToolBox::EventType eventType, ToolBox::Item* item, ToolBox::MouseEventParam& param)
+{
+	auto groupItem = dynamic_cast<ToolBox::GroupItem*>(item);
+	if (!groupItem)
+	{
+		return;
+	}
+	if (groupItem->isCollapseSubItems())
+	{
+		groupItem->CollapseSubItems(false);
+	}
+	else
+	{
+		groupItem->CollapseSubItems(true);
+	}
+
+	recalcLayout();
 
 }
 
-ToolBox::ItemSharedPtr ToolBox::ItemView::hitTest(cx::gw::Point pt)
+void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
-	return nullptr;
+	auto subItem = dynamic_cast<ToolBox::SubItem*>(item);
+	if (!subItem)
+	{
+		return;
+	}
 }
-
-
-
-
 

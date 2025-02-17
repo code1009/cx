@@ -60,7 +60,7 @@ bool ToolBox::ItemStatus::getPressed(void) const
 
 void ToolBox::ItemStatus::setPressed(bool pressed)
 {
-	if (_Pressed = pressed)
+	if (_Pressed != pressed)
 	{
 		_Pressed = pressed;
 		setStatusChanged();
@@ -74,7 +74,7 @@ bool ToolBox::ItemStatus::getDisabled(void) const
 
 void ToolBox::ItemStatus::setDisabled(bool disabled)
 {
-	if (_Disabled = disabled)
+	if (_Disabled != disabled)
 	{
 		_Disabled = disabled;
 		setStatusChanged();

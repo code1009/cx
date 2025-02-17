@@ -30,6 +30,8 @@ ToolBox::ControlWindow::ControlWindow(HWND hwnd) :
 	_WindowHandle(hwnd)
 {
 	_ItemView = std::make_unique<ToolBox::ItemView>(this);
+
+	_WindowMessageHandler.setItemView(_ItemView.get());
 }
 
 //===========================================================================
@@ -91,3 +93,12 @@ ToolBox::ItemView* ToolBox::ControlWindow::getItemView(void)
 {
 	return _ItemView.get();
 }
+
+ToolBox::WindowMessageHandler* ToolBox::ControlWindow::getWindowMessageHandler(void)
+{
+	return &_WindowMessageHandler;
+}
+
+
+
+

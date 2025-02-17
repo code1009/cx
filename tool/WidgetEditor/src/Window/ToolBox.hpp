@@ -57,6 +57,9 @@ public:
 	explicit ToolBox(HWND parentWindowHandle);
 
 public:
+	virtual LRESULT onWindowMessage(cx::wui::WindowMessage& windowMessage) override;
+
+public:
 	virtual HWND createToolBox(HWND parentWindowHandle);
 
 public:

@@ -78,6 +78,25 @@ ToolBox::ToolBox(HWND parentWindowHandle)
 }
 
 //===========================================================================
+LRESULT ToolBox::onWindowMessage(cx::wui::WindowMessage& windowMessage)
+{
+	auto result = cx::wui::MessageMapWindowT<ToolBox, cx::wui::BaseWindow>::onWindowMessage(windowMessage);
+
+	if (_ControlWindow)
+	{
+		_ControlWindow->getWindowMessageHandler()->onWindowMessage(
+			windowMessage.hWnd,
+			windowMessage.uMsg,
+			windowMessage.wParam,
+			windowMessage.lParam
+		);
+	}
+
+	return result;
+}
+
+
+//===========================================================================
 HWND ToolBox::createToolBox(HWND parentWindowHandle)
 {
 	//-----------------------------------------------------------------------

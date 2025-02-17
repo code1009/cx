@@ -4,6 +4,8 @@
 
 
 
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 enum class ToolBox::EventType
@@ -23,6 +25,12 @@ enum class ToolBox::EventType
 	MouseDragging
 };
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class ToolBox::MouseEventParam
 {
 public:
@@ -45,12 +53,12 @@ private:
 	ToolBox::ItemView* _ItemView{ nullptr };
 
 private:
-	ToolBox::ItemSharedPtr _MousePressedItem  { nullptr };
-	ToolBox::ItemSharedPtr _MouseReleasedItem { nullptr };
-	ToolBox::ItemSharedPtr _MouseClickedItem  { nullptr };
-	ToolBox::ItemSharedPtr _MouseDbclickedItem{ nullptr };
-	ToolBox::ItemSharedPtr _MouseOverItem     { nullptr };
-	ToolBox::ItemSharedPtr _MouseDraggingItem { nullptr };
+	ToolBox::Item* _MousePressedItem  { nullptr };
+	ToolBox::Item* _MouseReleasedItem { nullptr };
+	ToolBox::Item* _MouseClickedItem  { nullptr };
+	ToolBox::Item* _MouseDbclickedItem{ nullptr };
+	ToolBox::Item* _MouseOverItem     { nullptr };
+	ToolBox::Item* _MouseDraggingItem { nullptr };
 
 private:
 	bool _WindowMouseCaptureEnabled{ true };
@@ -76,8 +84,15 @@ public:
 	void setItemView(ToolBox::ItemView* itemView);
 
 public:
-	bool isItemIn(ToolBox::ItemSharedPtr test);
 	void reset(void);
+
+public:
+	bool isIn(ToolBox::Item* test);
+
+public:
+	ToolBox::Item* hitTest(const cx::gw::Point& point);
+	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtrs& items);
+	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtr& item);
 
 public:
 	bool getWindowMouseCaptureEnabled (void);
@@ -95,7 +110,7 @@ public:
 	void onMouse(ToolBox::EventType eventType, ToolBox::MouseEventParam& param);
 
 public:
-	void onMouseMove         (ToolBox::MouseEventParam& param);
+	void onMouseMove        (ToolBox::MouseEventParam& param);
 	void onMouseLButtonDown (ToolBox::MouseEventParam& param);
 	void onMouseLButtonUp   (ToolBox::MouseEventParam& param);
 
@@ -104,13 +119,13 @@ public:
 	void notifyMouseLButtonDown (ToolBox::MouseEventParam& param);
 	void notifyMouseLButtonUp   (ToolBox::MouseEventParam& param);
 
-	void notifyMousePressed  (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param);
-	void notifyMouseReleased (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param);
-	void notifyMouseClicked  (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param);
-	void notifyMouseDbClicked(ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param);
-	void notifyMouseOver     (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param);
-	void notifyMouseLeave    (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param);
-	void notifyMouseDragging (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param);
+	void notifyMousePressed  (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseReleased (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseClicked  (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseDbClicked(ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseOver     (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseLeave    (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseDragging (ToolBox::Item* item, ToolBox::MouseEventParam& param);
 };
 
 

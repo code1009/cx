@@ -15,10 +15,9 @@
 
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
+#include "ToolBox_WindowMessageHandler.hpp"
 #include "ToolBox_ItemView.hpp"
 #include "ToolBox_ControlWindow.hpp"
-
-#include "ToolBox_WindowMessageHandler.hpp"
 
 
 
@@ -40,11 +39,11 @@ void ToolBox::WindowMessageHandler::setItemView(ToolBox::ItemView* itemView)
 }
 
 //===========================================================================
-bool ToolBox::WindowMessageHandler::isItemIn(ToolBox::ItemSharedPtr test)
+bool ToolBox::WindowMessageHandler::isIn(ToolBox::Item* test)
 {
 	for(auto& item : _ItemView->getItems())
 	{
-		if (item == test)
+		if (item.get() == test)
 		{
 			return true;
 		}
@@ -55,12 +54,61 @@ bool ToolBox::WindowMessageHandler::isItemIn(ToolBox::ItemSharedPtr test)
 
 void ToolBox::WindowMessageHandler::reset(void)
 {
-	if (false==isItemIn(_MousePressedItem  )){_MousePressedItem  =nullptr;}
-	if (false==isItemIn(_MouseReleasedItem )){_MouseReleasedItem =nullptr;}
-	if (false==isItemIn(_MouseClickedItem  )){_MouseClickedItem  =nullptr;}
-	if (false==isItemIn(_MouseDbclickedItem)){_MouseDbclickedItem=nullptr;}
-	if (false==isItemIn(_MouseOverItem     )){_MouseOverItem     =nullptr;}
-	if (false==isItemIn(_MouseDraggingItem )){_MouseDraggingItem =nullptr;}
+	if (false==isIn(_MousePressedItem  )){_MousePressedItem  =nullptr;}
+	if (false==isIn(_MouseReleasedItem )){_MouseReleasedItem =nullptr;}
+	if (false==isIn(_MouseClickedItem  )){_MouseClickedItem  =nullptr;}
+	if (false==isIn(_MouseDbclickedItem)){_MouseDbclickedItem=nullptr;}
+	if (false==isIn(_MouseOverItem     )){_MouseOverItem     =nullptr;}
+	if (false==isIn(_MouseDraggingItem )){_MouseDraggingItem =nullptr;}
+}
+
+ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point)
+{
+	return hitTest(point, _ItemView->getItems());
+}
+
+ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtrs& items)
+{
+	for (auto& item : items)
+	{
+		auto found = hitTest(point, item);
+		if (found)
+		{
+			return found;
+		}
+
+		if (auto groupItem = std::dynamic_pointer_cast<ToolBox::GroupItem>(item))
+		{
+			if (!groupItem->getSubItems().empty())
+			{
+				if (!groupItem->isCollapseSubItems())
+				{
+					auto found = hitTest(point, groupItem->getSubItems());
+					if (found)
+					{
+						return found;
+					}
+				}
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtr& item)
+{
+	cx::gw::Point p0 = item->getP0();
+	cx::gw::Point p1 = item->getP1();
+
+
+	auto rv = cx::gw::isPointInBounds(p0, p1, point);
+	if (rv)
+	{
+		return item.get();
+	}
+
+	return nullptr;
 }
 
 //===========================================================================
@@ -241,10 +289,10 @@ void ToolBox::WindowMessageHandler::onMouseMove (ToolBox::MouseEventParam& param
 
 
 	//-----------------------------------------------------------------------
-	ToolBox::ItemSharedPtr item;
+	ToolBox::Item* item;
 	
 
-	item = _ItemView->hitTest(param._MousePosition);
+	item = hitTest(param._MousePosition);
 	
 
 	//-----------------------------------------------------------------------
@@ -289,9 +337,9 @@ void ToolBox::WindowMessageHandler::onMouseLButtonDown (ToolBox::MouseEventParam
 
 
 	//-----------------------------------------------------------------------
-	ToolBox::ItemSharedPtr item;
+	ToolBox::Item* item;
 
-	item = _ItemView->hitTest(param._MousePosition);
+	item = hitTest(param._MousePosition);
 
 	
 	//-----------------------------------------------------------------------
@@ -314,10 +362,10 @@ void ToolBox::WindowMessageHandler::onMouseLButtonUp (ToolBox::MouseEventParam& 
 
 
 	//-----------------------------------------------------------------------
-	ToolBox::ItemSharedPtr item;
+	ToolBox::Item* item;
 
 
-	item = _ItemView->hitTest(param._MousePosition);
+	item = hitTest(param._MousePosition);
 	
 
 	//-----------------------------------------------------------------------
@@ -404,7 +452,7 @@ void ToolBox::WindowMessageHandler::notifyMouseLButtonUp (ToolBox::MouseEventPar
 }
 
 //===========================================================================
-void ToolBox::WindowMessageHandler::notifyMousePressed (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+void ToolBox::WindowMessageHandler::notifyMousePressed (ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
 	_ItemView->onMouseEvent(
 		ToolBox::EventType::MousePressed,
@@ -413,7 +461,7 @@ void ToolBox::WindowMessageHandler::notifyMousePressed (ToolBox::ItemSharedPtr i
 	);
 }
 
-void ToolBox::WindowMessageHandler::notifyMouseReleased (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+void ToolBox::WindowMessageHandler::notifyMouseReleased (ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
 	_ItemView->onMouseEvent(
 		ToolBox::EventType::MouseReleased,
@@ -422,7 +470,7 @@ void ToolBox::WindowMessageHandler::notifyMouseReleased (ToolBox::ItemSharedPtr 
 	);
 }
 
-void ToolBox::WindowMessageHandler::notifyMouseClicked (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+void ToolBox::WindowMessageHandler::notifyMouseClicked (ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
 	_ItemView->onMouseEvent(
 		ToolBox::EventType::MouseClicked,
@@ -431,7 +479,7 @@ void ToolBox::WindowMessageHandler::notifyMouseClicked (ToolBox::ItemSharedPtr i
 	);
 }
 
-void ToolBox::WindowMessageHandler::notifyMouseDbClicked (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+void ToolBox::WindowMessageHandler::notifyMouseDbClicked (ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
 	_ItemView->onMouseEvent(
 		ToolBox::EventType::MouseDbClicked,
@@ -440,7 +488,7 @@ void ToolBox::WindowMessageHandler::notifyMouseDbClicked (ToolBox::ItemSharedPtr
 	);
 }
 
-void ToolBox::WindowMessageHandler::notifyMouseOver (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+void ToolBox::WindowMessageHandler::notifyMouseOver (ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
 	_ItemView->onMouseEvent(
 		ToolBox::EventType::MouseOver,
@@ -449,7 +497,7 @@ void ToolBox::WindowMessageHandler::notifyMouseOver (ToolBox::ItemSharedPtr item
 	);
 }
 
-void ToolBox::WindowMessageHandler::notifyMouseLeave (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+void ToolBox::WindowMessageHandler::notifyMouseLeave (ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
 	_ItemView->onMouseEvent(
 		ToolBox::EventType::MouseLeave,
@@ -458,7 +506,7 @@ void ToolBox::WindowMessageHandler::notifyMouseLeave (ToolBox::ItemSharedPtr ite
 	);
 }
 
-void ToolBox::WindowMessageHandler::notifyMouseDragging (ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+void ToolBox::WindowMessageHandler::notifyMouseDragging (ToolBox::Item* item, ToolBox::MouseEventParam& param)
 {
 	_ItemView->onMouseEvent(
 		ToolBox::EventType::MouseDragging,
