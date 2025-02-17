@@ -9,11 +9,16 @@
 class ToolBox::ItemDrawing
 {
 public:
-	ID2D1SolidColorBrush* _pFrameFillBrush{ nullptr };
-	ID2D1SolidColorBrush* _pFrameLineBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFrame_FillBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFrame_LineBrush{ nullptr };
 
-	IDWriteTextFormat* _pCaptionTextFormat{ nullptr };
-	ID2D1SolidColorBrush* _pCaptionTextBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFace_FillBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFace_LineBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFace_ButtonH_LineBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFace_ButtonS_LineBrush{ nullptr };
+
+	IDWriteTextFormat* _pCaption_TextFormat{ nullptr };
+	ID2D1SolidColorBrush* _pCaption_TextBrush{ nullptr };
 
 public:
 	ItemDrawing(void) = default;
@@ -28,6 +33,7 @@ public:
 
 public:
 	virtual void drawFrame(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawFace(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 	virtual void drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 	virtual void drawCaption(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 
@@ -35,11 +41,19 @@ public:
 	virtual void getFrame_FillColor(cx::gw::Color& color);
 	virtual void getFrame_LineColor(cx::gw::Color& color);
 	virtual void getFrame_LineSize(cx::gw::coord_t& size);
+
+	virtual void getFace_FillColor(cx::gw::Color& color);
+	virtual void getFace_LineColor(cx::gw::Color& color);
+	virtual void getFace_ButtonH_LineColor(cx::gw::Color& color);
+	virtual void getFace_ButtonS_LineColor(cx::gw::Color& color);
+	virtual void getFace_LineSize(cx::gw::coord_t& size);
+
 	virtual void getCaption_TextColor(cx::gw::Color& color);
 	virtual void getCaption_TextFontBold(bool& bold);
 
 public:
 	virtual void getFrame_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
+	virtual void getFace_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 	virtual void getIcon_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 	virtual void getCaption_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 
@@ -82,7 +96,7 @@ public:
 	virtual ~SubItemDrawing(void) = default;
 
 public:
-	virtual void getFrame_FillColor(cx::gw::Color& color) override
+	virtual void getFace_FillColor(cx::gw::Color& color) override
 	{
 		color = cx::gw::Color(1.00f, 1.00f, 1.00f, 1.0f);
 	}
