@@ -260,28 +260,28 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	groupItem = makeGroupItem(makeID(), L"파일", L"expand.png");
 	addItem(rootGroupItem, groupItem);
 
-	subItem = makeSubItem(makeID(), L"새 파일", L"item.png");
+	subItem = makeSubItem(makeID(), L"새 파일");
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"파일 저장", L"item.png");
+	subItem = makeSubItem(makeID(), L"파일 저장");
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"파일 열기", L"item.png");
+	subItem = makeSubItem(makeID(), L"파일 열기");
 	addItem(groupItem, subItem);
 
 	groupItem = makeGroupItem(makeID(), L"편집", L"expand.png");
 	addItem(rootGroupItem, groupItem);
 
-	subItem = makeSubItem(makeID(), L"잘라내기", L"item.png");
+	subItem = makeSubItem(makeID(), L"잘라내기");
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"복사", L"item.png");
+	subItem = makeSubItem(makeID(), L"복사");
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"붙여넣기", L"item.png");
+	subItem = makeSubItem(makeID(), L"붙여넣기");
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"삭제", L"item.png");
+	subItem = makeSubItem(makeID(), L"삭제");
 	addItem(groupItem, subItem);
 
 	groupItem = makeGroupItem(makeID(), L"위젯", L"expand.png");
@@ -295,8 +295,6 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 
 	subItem = makeSubItem(makeID(), L"원", L"item.png");
 	addItem(groupItem, subItem);
-
-
 #endif
 
 
