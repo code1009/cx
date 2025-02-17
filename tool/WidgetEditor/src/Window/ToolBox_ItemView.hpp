@@ -14,6 +14,7 @@ private:
 	std::size_t _LastMadeID{ 0 };
 	cx::gw::Point _ItemViewSize;
 	cx::gw::BitmapList _BitmapList;
+	ToolBox::ItemViewDrawingSharedPtr _ItemViewDrawing;
 	ToolBox::ItemDrawingSharedPtrs _ItemDrawings;
 	ToolBox::ItemDrawingSharedPtr _GroupItemDrawing;
 	ToolBox::ItemDrawingSharedPtr _SubItemDrawing;

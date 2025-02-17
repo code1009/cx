@@ -15,6 +15,7 @@ public:
 	class SubItem;
 	class ItemView;
 	class ControlWindow;
+	class ItemViewDrawing;
 	class ItemDrawing;
 	class GroupItemDrawing;
 	class SubItemDrawing;
@@ -32,11 +33,15 @@ public:
 	using GroupItemSharedPtr = std::shared_ptr<GroupItem>;
 	using GroupItemSharedPtrs = std::vector<GroupItemSharedPtr>;
 
-	using SubItemWeakPtr = std::weak_ptr<Item>;
+	using SubItemWeakPtr = std::weak_ptr<SubItem>;
 	using SubItemSharedPtr = std::shared_ptr<SubItem>;
 	using SubItemSharedPtrs = std::vector<SubItemSharedPtr>;
 
-	using ItemDrawingWeakPtr = std::weak_ptr<Item>;
+	using ItemViewDrawingWeakPtr = std::weak_ptr<ItemViewDrawing>;
+	using ItemViewDrawingSharedPtr = std::shared_ptr<ItemViewDrawing>;
+	using ItemViewDrawingSharedPtrs = std::vector<ItemViewDrawingSharedPtr>;
+
+	using ItemDrawingWeakPtr = std::weak_ptr<ItemDrawing>;
 	using ItemDrawingSharedPtr = std::shared_ptr<ItemDrawing>;
 	using ItemDrawingSharedPtrs = std::vector<ItemDrawingSharedPtr>;
 

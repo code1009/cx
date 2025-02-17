@@ -24,6 +24,124 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+bool ToolBox::ItemViewDrawing::createDeviceResources(cx::gw::Context* ctx)
+{
+	//-----------------------------------------------------------------------
+	HRESULT hr;
+
+
+	//-----------------------------------------------------------------------
+	if (!_pFrame_FillBrush)
+	{
+		cx::gw::Color Frame_FillColor;
+		getFrame_FillColor(Frame_FillColor);
+		hr = ctx->getD2dRenderTarget()->CreateSolidColorBrush(
+			D2D1::ColorF(Frame_FillColor._r, Frame_FillColor._g, Frame_FillColor._b, Frame_FillColor._a),
+			&_pFrame_FillBrush
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+	if (!_pFrame_LineBrush)
+	{
+		cx::gw::Color Frame_LineColor;
+		getFrame_LineColor(Frame_LineColor);
+		hr = ctx->getD2dRenderTarget()->CreateSolidColorBrush(
+			D2D1::ColorF(Frame_LineColor._r, Frame_LineColor._g, Frame_LineColor._b, Frame_LineColor._a),
+			&_pFrame_LineBrush
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void ToolBox::ItemViewDrawing::destroyDeviceResources(void)
+{
+	//-----------------------------------------------------------------------
+	if (_pFrame_FillBrush)
+	{
+		_pFrame_FillBrush->Release();
+		_pFrame_FillBrush = nullptr;
+	}
+	if (_pFrame_LineBrush)
+	{
+		_pFrame_LineBrush->Release();
+		_pFrame_LineBrush = nullptr;
+	}
+}
+
+//===========================================================================
+void ToolBox::ItemViewDrawing::drawItemView(cx::gw::Context* ctx, ToolBox::ItemView* itemView)
+{
+	drawFrame(ctx, itemView);
+}
+
+void ToolBox::ItemViewDrawing::drawFrame(cx::gw::Context* ctx, ToolBox::ItemView* itemView)
+{
+	cx::gw::Point p0;
+	cx::gw::Point p1;
+	getFrame_Bounds(itemView, p0, p1);
+
+
+	cx::gw::coord_t lineSize;
+	getFrame_LineSize(lineSize);
+
+
+	D2D1_RECT_F rect;
+	rect.left = p0._x;
+	rect.right = p1._x;
+	rect.top = p0._y;
+	rect.bottom = p1._y;
+
+
+	ctx->getD2dRenderTarget()->FillRectangle(&rect, _pFrame_FillBrush);
+	if (lineSize > 0)
+	{
+		ctx->getD2dRenderTarget()->DrawRectangle(&rect, _pFrame_LineBrush, lineSize);
+	}
+}
+
+//===========================================================================
+void ToolBox::ItemViewDrawing::getFrame_FillColor(cx::gw::Color& color)
+{
+	color = cx::gw::Color(0.90f, 0.90f, 0.90f, 1.0f);
+}
+
+void ToolBox::ItemViewDrawing::getFrame_LineColor(cx::gw::Color& color)
+{
+	color = cx::gw::Color(0.50f, 0.50f, 0.50f, 1.0f);
+}
+
+void ToolBox::ItemViewDrawing::getFrame_LineSize(cx::gw::coord_t& size)
+{
+	size = 0;
+}
+
+//===========================================================================
+void ToolBox::ItemViewDrawing::getFrame_Bounds(ToolBox::ItemView* itemView, cx::gw::Point& p0, cx::gw::Point& p1)
+{
+	std::int64_t cx;
+	std::int64_t cy;
+
+
+	itemView->getWindow()->getViewport()->getWindowSize(cx, cy);
+
+	p0 = cx::gw::Point(0, 0);
+	p1 = cx::gw::Point(static_cast<cx::gw::coord_t>(cx), static_cast<cx::gw::coord_t>(cy));
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 bool ToolBox::ItemDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
 	//-----------------------------------------------------------------------
@@ -168,6 +286,21 @@ void ToolBox::ItemDrawing::destroyDeviceResources(void)
 	{
 		_pFrame_LineBrush->Release();
 		_pFrame_LineBrush = nullptr;
+	}
+	if (_pFace_LineBrush)
+	{
+		_pFace_LineBrush->Release();
+		_pFace_LineBrush = nullptr;
+	}
+	if (_pFace_ButtonH_LineBrush)
+	{
+		_pFace_ButtonH_LineBrush->Release();
+		_pFace_ButtonH_LineBrush = nullptr;
+	}
+	if (_pFace_ButtonS_LineBrush)
+	{
+		_pFace_ButtonS_LineBrush->Release();
+		_pFace_ButtonS_LineBrush = nullptr;
 	}
 
 	//-----------------------------------------------------------------------
@@ -342,7 +475,7 @@ void ToolBox::ItemDrawing::drawCaption(cx::gw::Context* ctx, ToolBox::ItemView* 
 //===========================================================================
 void ToolBox::ItemDrawing::getFrame_FillColor(cx::gw::Color& color)
 {
-	color = cx::gw::Color(0.80f, 0.80f, 0.80f, 1.0f);
+	color = cx::gw::Color(0.90f, 0.90f, 0.90f, 1.0f);
 }
 
 void ToolBox::ItemDrawing::getFrame_LineColor(cx::gw::Color& color)
@@ -436,12 +569,12 @@ void ToolBox::ItemDrawing::getCaption_Bounds(ToolBox::Item* item, cx::gw::Point&
 //===========================================================================
 void ToolBox::ItemDrawing::getIndentSpace_Size(ToolBox::Item* item, cx::gw::coord_t& size)
 {
-	size = 4;
+	size = 8;
 }
 
 void ToolBox::ItemDrawing::getDepth_Size(ToolBox::Item* item, cx::gw::coord_t& size)
 {
-	size = 8;
+	size = 16;
 }
 
 void ToolBox::ItemDrawing::getIcon_Size(ToolBox::Item* item, cx::gw::coord_t& size)

@@ -135,6 +135,10 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 
 
 	//-----------------------------------------------------------------------
+	_ItemViewDrawing = std::make_shared<ToolBox::ItemViewDrawing>();
+
+
+	//-----------------------------------------------------------------------
 	ToolBox::ItemDrawingSharedPtr itemDrawing;
 	
 
@@ -205,6 +209,12 @@ bool ToolBox::ItemView::createDeviceResources(cx::gw::Context* ctx)
 
 
 	//-----------------------------------------------------------------------
+	rv = _ItemViewDrawing->createDeviceResources(ctx);
+	if (!rv)
+	{
+		return false;
+	}
+
 	for (auto& itemDrawing : _ItemDrawings)
 	{
 		rv = itemDrawing->createDeviceResources(ctx);
@@ -214,7 +224,8 @@ bool ToolBox::ItemView::createDeviceResources(cx::gw::Context* ctx)
 		}
 	}
 
-	if (!_BitmapList.createDeviceResources(ctx))
+	rv = _BitmapList.createDeviceResources(ctx);
+	if (!rv)
 	{
 		return false;
 	}
@@ -231,10 +242,14 @@ void ToolBox::ItemView::destroyDeviceResources(void)
 	{
 		itemDrawing->destroyDeviceResources();
 	}
+
+	_ItemViewDrawing->destroyDeviceResources();
 }
 
 void ToolBox::ItemView::draw(cx::gw::Context* ctx)
 {
+	_ItemViewDrawing->drawItemView(ctx, this);
+
 	drawItems(ctx);
 }
 

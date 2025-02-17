@@ -6,6 +6,40 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class ToolBox::ItemViewDrawing
+{
+public:
+	ID2D1SolidColorBrush* _pFrame_FillBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFrame_LineBrush{ nullptr };
+
+public:
+	ItemViewDrawing(void) = default;
+	virtual ~ItemViewDrawing(void) = default;
+
+public:
+	virtual bool createDeviceResources(cx::gw::Context* ctx);
+	virtual void destroyDeviceResources(void);
+
+public:
+	virtual void drawItemView(cx::gw::Context* ctx, ToolBox::ItemView* itemView);
+
+public:
+	virtual void drawFrame(cx::gw::Context* ctx, ToolBox::ItemView* itemView);
+
+public:
+	virtual void getFrame_FillColor(cx::gw::Color& color);
+	virtual void getFrame_LineColor(cx::gw::Color& color);
+	virtual void getFrame_LineSize(cx::gw::coord_t& size);
+
+public:
+	virtual void getFrame_Bounds(ToolBox::ItemView* itemView, cx::gw::Point& p0, cx::gw::Point& p1);
+};
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class ToolBox::ItemDrawing
 {
 public:
