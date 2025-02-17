@@ -428,7 +428,7 @@ void ToolBox::ItemView::drawItem(cx::gw::Context* ctx, ToolBox::ItemSharedPtr it
 	auto itemDrawing = getItemDrawing(item);
 	if (itemDrawing)
 	{
-		itemDrawing->draw(ctx, this, item.get());
+		itemDrawing->drawItem(ctx, this, item.get());
 
 		if (auto groupItem = std::dynamic_pointer_cast<ToolBox::GroupItem>(item))
 		{

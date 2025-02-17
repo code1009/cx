@@ -24,7 +24,9 @@ public:
 	virtual void destroyDeviceResources(void);
 
 public:
-	virtual void draw(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+
+public:
 	virtual void drawFrame(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 	virtual void drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 	virtual void drawCaption(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);

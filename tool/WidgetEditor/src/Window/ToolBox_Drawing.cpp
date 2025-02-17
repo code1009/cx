@@ -127,7 +127,7 @@ void ToolBox::ItemDrawing::destroyDeviceResources(void)
 }
 
 //===========================================================================
-void ToolBox::ItemDrawing::draw(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
+void ToolBox::ItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
 	drawFrame(ctx, itemView, item);
 
