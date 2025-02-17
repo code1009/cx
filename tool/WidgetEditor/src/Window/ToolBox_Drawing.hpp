@@ -24,9 +24,10 @@ public:
 	virtual void destroyDeviceResources(void);
 
 public:
-	virtual void draw(cx::gw::Context* ctx, ToolBox::Item* item);
-	virtual void drawFrame(cx::gw::Context* ctx, ToolBox::Item* item);
-	virtual void drawCaption(cx::gw::Context* ctx, ToolBox::Item* item);
+	virtual void draw(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawFrame(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawCaption(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 
 public:
 	virtual void getFrame_FillColor(cx::gw::Color& color);
@@ -36,6 +37,7 @@ public:
 
 public:
 	virtual void getFrame_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
+	virtual void getIcon_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 	virtual void getCaption_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 
 public:

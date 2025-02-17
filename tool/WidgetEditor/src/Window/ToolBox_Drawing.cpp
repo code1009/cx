@@ -127,13 +127,15 @@ void ToolBox::ItemDrawing::destroyDeviceResources(void)
 }
 
 //===========================================================================
-void ToolBox::ItemDrawing::draw(cx::gw::Context* ctx, ToolBox::Item* item)
+void ToolBox::ItemDrawing::draw(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
-	drawFrame(ctx, item);
-	drawCaption(ctx, item);
+	drawFrame(ctx, itemView, item);
+
+	drawIcon(ctx, itemView, item);
+	drawCaption(ctx, itemView, item);
 }
 
-void ToolBox::ItemDrawing::drawFrame(cx::gw::Context* ctx, ToolBox::Item* item)
+void ToolBox::ItemDrawing::drawFrame(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
 	cx::gw::Point p0;
 	cx::gw::Point p1;
@@ -165,7 +167,48 @@ void ToolBox::ItemDrawing::drawFrame(cx::gw::Context* ctx, ToolBox::Item* item)
 	}
 }
 
-void ToolBox::ItemDrawing::drawCaption(cx::gw::Context* ctx, ToolBox::Item* item)
+void ToolBox::ItemDrawing::drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
+{
+	cx::gw::Point p0;
+	cx::gw::Point p1;
+
+
+	getIcon_Bounds(item, p0, p1);
+
+
+	cx::gw::BitmapSharedPtr bitmapSharedPtr;
+	bitmapSharedPtr = itemView->getBitmapList()->findBitmap(item->getIcon());
+	if (!bitmapSharedPtr)
+	{
+		return;
+	}
+
+	cx::gw::coord_t cx = p1._x - p0._x;
+	cx::gw::coord_t cy = p1._y - p0._y;
+
+	std::size_t bitmapCx;
+	std::size_t bitmapCy;
+	bitmapSharedPtr->getBitmapSize(bitmapCx, bitmapCy);
+
+	cx::gw::coord_t offsetX = cx - bitmapCx;
+	cx::gw::coord_t offsetY = cy - bitmapCy;
+	cx::gw::Point bitmapP0;
+	cx::gw::Point bitmapP1;
+
+	bitmapP0._x = p0._x + offsetX / 2.0f;
+	bitmapP0._y = p0._y + offsetY / 2.0f;
+	bitmapP1._x = bitmapP0._x + bitmapCx;
+	bitmapP1._y = bitmapP0._y + bitmapCx;
+
+	ctx->getD2dRenderTarget()->DrawBitmap(
+		bitmapSharedPtr->getDBitmap(),
+		D2D1::RectF(bitmapP0._x, bitmapP0._y, bitmapP1._x, bitmapP1._y),
+		1.0f,
+		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR
+	);
+}
+
+void ToolBox::ItemDrawing::drawCaption(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
 	cx::gw::Point p0;
 	cx::gw::Point p1;
@@ -222,6 +265,21 @@ void ToolBox::ItemDrawing::getFrame_Bounds(ToolBox::Item* item, cx::gw::Point& p
 	p1._y = item->getY() + item->getCY();
 }
 
+void ToolBox::ItemDrawing::getIcon_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1)
+{
+	cx::gw::coord_t indentSpace_Size;
+	cx::gw::coord_t depth_Size;
+	cx::gw::coord_t icon_Size;
+
+	getIndentSpace_Size(item, indentSpace_Size);
+	getDepth_Size(item, depth_Size);
+	getIcon_Size(item, icon_Size);
+
+	getFrame_Bounds(item, p0, p1);
+	p0._x = indentSpace_Size + item->getDepth() * depth_Size;
+	p1._x = p0._x + icon_Size;
+}
+
 void ToolBox::ItemDrawing::getCaption_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1)
 {
 	cx::gw::coord_t indentSpace_Size;
@@ -233,9 +291,9 @@ void ToolBox::ItemDrawing::getCaption_Bounds(ToolBox::Item* item, cx::gw::Point&
 	getDepth_Size(item, depth_Size);
 	getIcon_Size(item, icon_Size);
 	getIconSpace_Size(item, iconSpace_Size);
-	getFrame_Bounds(item, p0, p1);
 
-	p0._x = indentSpace_Size + depth_Size + item->getDepth() * depth_Size + icon_Size + iconSpace_Size;
+	getFrame_Bounds(item, p0, p1);
+	p0._x = indentSpace_Size + item->getDepth() * depth_Size + icon_Size + iconSpace_Size;
 }
 
 //===========================================================================
@@ -251,12 +309,12 @@ void ToolBox::ItemDrawing::getDepth_Size(ToolBox::Item* item, cx::gw::coord_t& s
 
 void ToolBox::ItemDrawing::getIcon_Size(ToolBox::Item* item, cx::gw::coord_t& size)
 {
-	size = 0;
+	size = 16;
 }
 
 void ToolBox::ItemDrawing::getIconSpace_Size(ToolBox::Item* item, cx::gw::coord_t& size)
 {
-	size = 0;
+	size = 4;
 }
 
 

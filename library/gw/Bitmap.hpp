@@ -100,6 +100,17 @@ public:
 using BitmapWeakPtr = std::weak_ptr<Bitmap>;
 using BitmapSharedPtr = std::shared_ptr<Bitmap>;
 
+//===========================================================================
+BitmapSharedPtr makeBitmap(
+	const void* pImageData, std::size_t imageSize, 
+	IWICImagingFactory* pWICImagingFactory = nullptr
+);
+
+BitmapSharedPtr makeBitmap(
+	const std::wstring& filePath, 
+	IWICImagingFactory* pWICImagingFactory = nullptr
+);
+
 
 
 

@@ -13,12 +13,10 @@ private:
 	ToolBox::ItemSharedPtrs _Items;
 	std::size_t _LastMadeID{ 0 };
 	cx::gw::Point _ItemViewSize;
-
-private:
+	cx::gw::BitmapList _BitmapList;
 	ToolBox::ItemDrawingSharedPtrs _ItemDrawings;
 	ToolBox::ItemDrawingSharedPtr _GroupItemDrawing;
 	ToolBox::ItemDrawingSharedPtr _SubItemDrawing;
-	cx::gw::BitmapList* _BitmapList;
 
 public:
 	explicit ItemView(ToolBox::ControlWindow* window);
@@ -62,6 +60,9 @@ public:
 public:
 	void recalcLayout(void);
 	cx::gw::coord_t recalcItemLayout(cx::gw::coord_t offset, cx::gw::coord_t size, ToolBox::ItemSharedPtr item);
+
+public:
+	cx::gw::BitmapList* getBitmapList(void);
 
 public:
 	ToolBox::ItemDrawingSharedPtr getItemDrawing(ToolBox::ItemSharedPtr item);

@@ -168,8 +168,8 @@ bool ToolBox::GroupItem::isCollapseSubItems(void) const
 ToolBox::GroupItemSharedPtr makeGroupItem(
 	std::size_t id,
 	std::wstring caption, 
-	std::wstring description, 
 	std::wstring icon, 
+	std::wstring description,
 	cx::gw::coord_t size
 )
 {
@@ -187,8 +187,8 @@ ToolBox::GroupItemSharedPtr makeGroupItem(
 ToolBox::SubItemSharedPtr makeSubItem(
 	std::size_t id,
 	std::wstring caption,
-	std::wstring description,
 	std::wstring icon,
+	std::wstring description,
 	cx::gw::coord_t size
 )
 {

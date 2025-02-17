@@ -123,16 +123,16 @@ public:
 ToolBox::GroupItemSharedPtr makeGroupItem(
 	std::size_t id,
 	std::wstring caption,
-	std::wstring description = std::wstring(),
 	std::wstring icon = std::wstring(),
+	std::wstring description = std::wstring(),
 	cx::gw::coord_t size = 24.0f
 );
 
 ToolBox::SubItemSharedPtr makeSubItem(
 	std::size_t id,
 	std::wstring caption,
-	std::wstring description = std::wstring(),
 	std::wstring icon = std::wstring(),
+	std::wstring description = std::wstring(),
 	cx::gw::coord_t size = 24.0f
 );
 

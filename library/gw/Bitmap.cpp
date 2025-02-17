@@ -297,6 +297,49 @@ void Bitmap::destroyDeviceResources(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+BitmapSharedPtr makeBitmap(
+	const void* pImageData, std::size_t imageSize,
+	IWICImagingFactory* pWICImagingFactory
+)
+{
+	auto bitmap = std::make_shared<Bitmap>();
+	if (!bitmap)
+	{
+		return nullptr;
+	}
+	if (!bitmap->getBitmapSource()->loadFromMemory(
+		static_cast<const BYTE*>(pImageData), 
+		static_cast<UINT>(imageSize), 
+		pWICImagingFactory))
+	{
+		return nullptr;
+	}
+	return bitmap;
+}
+
+BitmapSharedPtr makeBitmap(
+	const std::wstring& filePath,
+	IWICImagingFactory* pWICImagingFactory
+)
+{
+	auto bitmap = std::make_shared<Bitmap>();
+	if (!bitmap)
+	{
+		return nullptr;
+	}
+	if (!bitmap->getBitmapSource()->loadFromFile(filePath, pWICImagingFactory))
+	{
+		return nullptr;
+	}
+	return bitmap;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 BitmapList::~BitmapList()
 {
 	clearBitmaps();
