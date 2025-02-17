@@ -15,6 +15,7 @@
 
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
+#include "ToolBox_WindowMessageHandler.hpp"
 #include "ToolBox_ItemView.hpp"
 #include "ToolBox_ControlWindow.hpp"
 
@@ -624,3 +625,23 @@ void ToolBox::ItemView::onItemStatusChanged(ToolBox::Item* item)
 {
 	getWindow()->render();
 }
+
+void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::MouseEventParam& param)
+{
+
+}
+
+void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param)
+{
+
+}
+
+ToolBox::ItemSharedPtr ToolBox::ItemView::hitTest(cx::gw::Point pt)
+{
+	return nullptr;
+}
+
+
+
+
+

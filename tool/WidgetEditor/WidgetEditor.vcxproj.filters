@@ -237,6 +237,9 @@
     <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp">
       <Filter>library_cx\gw</Filter>
     </ClInclude>
+    <ClInclude Include="src\Window\ToolBox_WindowMessageHandler.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -379,6 +382,9 @@
     </ClCompile>
     <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp">
       <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\ToolBox_WindowMessageHandler.cpp">
+      <Filter>src\Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

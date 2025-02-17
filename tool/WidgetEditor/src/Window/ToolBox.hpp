@@ -16,15 +16,17 @@ public:
 	class GroupItem;
 	class SubItem;
 	class ItemView;
+	
 	class ControlWindow;
+
 	class ItemViewDrawing;
 	class ItemDrawing;
 	class GroupItemDrawing;
 	class SubItemDrawing;
 
-public:
-	//class RecalcLayout;
-	//class Notify;
+	enum class EventType;
+	class MouseEventParam;
+	class WindowMessageHandler;
 
 public:
 	using ItemWeakPtr = std::weak_ptr<Item>;

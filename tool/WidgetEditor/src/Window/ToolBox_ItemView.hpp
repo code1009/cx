@@ -74,5 +74,8 @@ public:
 
 public:
 	void onItemStatusChanged(ToolBox::Item* item);
+	void onMouseEvent(ToolBox::EventType eventType, ToolBox::MouseEventParam& param);
+	void onMouseEvent(ToolBox::EventType eventType, ToolBox::ItemSharedPtr item, ToolBox::MouseEventParam& param);
+	ToolBox::ItemSharedPtr hitTest(cx::gw::Point pt);
 };
 
