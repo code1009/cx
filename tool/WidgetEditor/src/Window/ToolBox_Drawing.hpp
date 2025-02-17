@@ -123,7 +123,7 @@ public:
 	virtual void getCaption_TextFontBold(bool& bold) override;
 
 public:
-	virtual void drawSubItems(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawBorder(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 };
 
 

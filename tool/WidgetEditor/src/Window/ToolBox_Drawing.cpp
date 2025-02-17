@@ -751,7 +751,7 @@ void ToolBox::GroupItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView
 {
 	//drawFrame(ctx, itemView, item);
 
-	drawSubItems(ctx, itemView, item);
+	drawBorder(ctx, itemView, item);
 
 	drawFace(ctx, itemView, item);
 	drawFaceButton(ctx, itemView, item);
@@ -770,7 +770,7 @@ void ToolBox::GroupItemDrawing::getCaption_TextFontBold(bool& bold)
 	bold = true;
 }
 
-void ToolBox::GroupItemDrawing::drawSubItems(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
+void ToolBox::GroupItemDrawing::drawBorder(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
 	cx::gw::Point p0;
 	cx::gw::Point p1;
