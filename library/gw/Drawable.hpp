@@ -48,15 +48,15 @@ public:
 	Drawable& operator=(Drawable&&) = delete;
 
 public:
+	virtual bool createDeviceResources(Context* ctx) = 0;
+	virtual void destroyDeviceResources(void) = 0;
+	virtual void draw(Context* ctx) = 0;
+
+public:
 	virtual bool getVisible(void) const;
 	virtual bool setVisible(bool value);
 	virtual void setVisibleChanged(void);
 	virtual void setVisibleChangedHandler(VisibleChangedHandler handler);
-
-public:
-	virtual bool createDeviceResources(Context* ctx) = 0;
-	virtual void destroyDeviceResources(void) = 0;
-	virtual void draw(Context* ctx) = 0;
 };
 
 
