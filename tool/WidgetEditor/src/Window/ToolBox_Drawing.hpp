@@ -36,6 +36,7 @@ public:
 	virtual void getFrame_LineColor(cx::gw::Color& color);
 	virtual void getFrame_LineSize(cx::gw::coord_t& size);
 	virtual void getCaption_TextColor(cx::gw::Color& color);
+	virtual void getCaption_TextFontBold(bool& bold);
 
 public:
 	virtual void getFrame_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
@@ -62,6 +63,10 @@ public:
 	virtual ~GroupItemDrawing(void) = default;
 
 public:
+	virtual void getCaption_TextFontBold(bool& bold) override
+	{
+		bold = true;
+	}
 };
 
 
@@ -76,7 +81,8 @@ public:
 	SubItemDrawing(void) = default;
 	virtual ~SubItemDrawing(void) = default;
 
-	virtual void getFrame_FillColor(cx::gw::Color& color)
+public:
+	virtual void getFrame_FillColor(cx::gw::Color& color) override
 	{
 		color = cx::gw::Color(1.00f, 1.00f, 1.00f, 1.0f);
 	}

@@ -71,6 +71,7 @@ public:
 	cx::gw::Point getP0(void) const;
 	cx::gw::Point getP1(void) const;
 
+public:
 	virtual cx::gw::coord_t calcHeight(void);
 	virtual cx::gw::coord_t calcWidth(void);
 };

@@ -138,7 +138,7 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	ToolBox::ItemDrawingSharedPtr itemDrawing;
 	
 
-	_GroupItemDrawing = std::make_shared<ToolBox::ItemDrawing>();
+	_GroupItemDrawing = std::make_shared<ToolBox::GroupItemDrawing>();
 	_ItemDrawings.push_back(_GroupItemDrawing);
 	_SubItemDrawing = std::make_shared<ToolBox::SubItemDrawing>();
 	_ItemDrawings.push_back(_SubItemDrawing);
