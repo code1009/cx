@@ -39,6 +39,7 @@
     <ClInclude Include="..\..\library\gw\Bitmap.hpp" />
     <ClInclude Include="..\..\library\gw\Color.hpp" />
     <ClInclude Include="..\..\library\gw\Context.hpp" />
+    <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp" />
     <ClInclude Include="..\..\library\gw\Drawable.hpp" />
     <ClInclude Include="..\..\library\gw\gw.hpp" />
     <ClInclude Include="..\..\library\gw\pch.hpp" />
@@ -103,6 +104,7 @@
     <ClCompile Include="..\..\library\gw\Bitmap.cpp" />
     <ClCompile Include="..\..\library\gw\Color.cpp" />
     <ClCompile Include="..\..\library\gw\Context.cpp" />
+    <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp" />
     <ClCompile Include="..\..\library\gw\Drawable.cpp" />
     <ClCompile Include="..\..\library\gw\Point.cpp" />
     <ClCompile Include="..\..\library\gw\Viewport.cpp" />

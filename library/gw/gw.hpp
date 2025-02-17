@@ -2,7 +2,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include "DirectX2DGraphic.hpp"
+#include "DirectX2dGraphic.hpp"
 #include "Context.hpp"
 
 #include "Viewport.hpp"

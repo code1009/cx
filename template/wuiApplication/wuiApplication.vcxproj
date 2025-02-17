@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp" />
     <ClCompile Include="..\..\library\gw\Context.cpp" />
+    <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp" />
     <ClCompile Include="..\..\library\gw\Drawable.cpp" />
     <ClCompile Include="..\..\library\gw\Viewport.cpp" />
     <ClCompile Include="..\..\library\gw\Window.cpp" />
@@ -59,6 +60,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp" />
     <ClInclude Include="..\..\library\gw\Context.hpp" />
+    <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp" />
     <ClInclude Include="..\..\library\gw\Drawable.hpp" />
     <ClInclude Include="..\..\library\gw\gw.hpp" />
     <ClInclude Include="..\..\library\gw\pch.hpp" />

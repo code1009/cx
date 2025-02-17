@@ -166,6 +166,9 @@
     <ClInclude Include="..\..\library\gw\Context.hpp">
       <Filter>library_cx\gw</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp">
+      <Filter>library_cx\gw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -253,6 +256,9 @@
       <Filter>library_cx\gw</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Context.cpp">
+      <Filter>library_cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp">
       <Filter>library_cx\gw</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,7 +6,7 @@
 #include "runtime.hpp"
 
 //===========================================================================
-#include "../gw/DirectX2DGraphic.hpp"
+#include "../gw/DirectX2dGraphic.hpp"
 
 
 
@@ -37,7 +37,7 @@ bool WindowApplication::initialize(void)
 
 
 	//-----------------------------------------------------------------------
-	if (gw::DirectX2DGraphic::createFactory() == false)
+	if (gw::DirectX2dGraphic::createFactory() == false)
 	{
 		::OleUninitialize();
 
@@ -60,7 +60,7 @@ void WindowApplication::terminate(void)
 
 
 	//-----------------------------------------------------------------------
-	gw::DirectX2DGraphic::destroyFactory();
+	gw::DirectX2dGraphic::destroyFactory();
 
 
 	//-----------------------------------------------------------------------

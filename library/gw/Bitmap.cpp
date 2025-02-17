@@ -71,7 +71,7 @@ bool BitmapSource::loadFromMemory(const BYTE* pImageData, UINT imageSize, IWICIm
 {
 	if (nullptr == pWICImagingFactory)
 	{
-		pWICImagingFactory = DirectX2DGraphic::getWICImagingFactory();
+		pWICImagingFactory = DirectX2dGraphic::getWICImagingFactory();
 	}
 	if (nullptr == pWICImagingFactory)
 	{
@@ -142,7 +142,7 @@ bool BitmapSource::loadFromFile(const std::wstring& filePath, IWICImagingFactory
 {
 	if (nullptr == pWICImagingFactory)
 	{
-		pWICImagingFactory = DirectX2DGraphic::getWICImagingFactory();
+		pWICImagingFactory = DirectX2dGraphic::getWICImagingFactory();
 	}
 	if (nullptr == pWICImagingFactory)
 	{

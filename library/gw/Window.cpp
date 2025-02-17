@@ -69,9 +69,9 @@ Window::Window(HWND hwnd, bool center):
 
 
 	//-----------------------------------------------------------------------
-	getContext()->setD2dFactory(DirectX2DGraphic::getD2dFactory());
-	getContext()->setDWriteFactory(DirectX2DGraphic::getDWriteFactory());
-	getContext()->setWICImagingFactory(DirectX2DGraphic::getWICImagingFactory());
+	getContext()->setD2dFactory(DirectX2dGraphic::getD2dFactory());
+	getContext()->setDWriteFactory(DirectX2dGraphic::getDWriteFactory());
+	getContext()->setWICImagingFactory(DirectX2dGraphic::getWICImagingFactory());
 	getContext()->setD2dRenderTarget(nullptr);
 	getContext()->setD2dHwndRenderTarget(nullptr);
 }
