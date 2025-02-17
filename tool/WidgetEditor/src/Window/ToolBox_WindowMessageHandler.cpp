@@ -54,12 +54,12 @@ bool ToolBox::WindowMessageHandler::isIn(ToolBox::Item* test)
 
 void ToolBox::WindowMessageHandler::reset(void)
 {
-	if (false==isIn(_MousePressedItem  )){_MousePressedItem  =nullptr;}
-	if (false==isIn(_MouseReleasedItem )){_MouseReleasedItem =nullptr;}
-	if (false==isIn(_MouseClickedItem  )){_MouseClickedItem  =nullptr;}
-	if (false==isIn(_MouseDbclickedItem)){_MouseDbclickedItem=nullptr;}
-	if (false==isIn(_MouseOverItem     )){_MouseOverItem     =nullptr;}
-	if (false==isIn(_MouseDraggingItem )){_MouseDraggingItem =nullptr;}
+	if (false==isIn(_Item_MousePressed  )){_Item_MousePressed  =nullptr;}
+	if (false==isIn(_Item_MouseReleased )){_Item_MouseReleased =nullptr;}
+	if (false==isIn(_Item_MouseClicked  )){_Item_MouseClicked  =nullptr;}
+	if (false==isIn(_Item_MouseDbClicked)){_Item_MouseDbClicked=nullptr;}
+	if (false==isIn(_Item_MouseOver     )){_Item_MouseOver     =nullptr;}
+	if (false==isIn(_Item_MouseDragging )){_Item_MouseDragging =nullptr;}
 }
 
 ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point)
@@ -296,36 +296,36 @@ void ToolBox::WindowMessageHandler::onMouseMove (ToolBox::MouseEventParam& param
 	
 
 	//-----------------------------------------------------------------------
-	if (_MousePressedItem)
+	if (_Item_MousePressed)
 	{
-		if (_MouseDraggingItem == _MousePressedItem)
+		if (_Item_MouseDragging == _Item_MousePressed)
 		{
-			notifyMouseDragging(_MouseDraggingItem, param);
+			notifyMouseDragging(_Item_MouseDragging, param);
 		}
 		else
 		{
-			_MouseDraggingItem = nullptr;
+			_Item_MouseDragging = nullptr;
 		}
 	}
 	else
 	{
-		_MouseDraggingItem = nullptr;
+		_Item_MouseDragging = nullptr;
 	}
 
 
 	//-----------------------------------------------------------------------
-	if (_MouseOverItem != item)
+	if (_Item_MouseOver != item)
 	{
-		if (_MouseOverItem)
+		if (_Item_MouseOver)
 		{
-			notifyMouseLeave(_MouseOverItem, param);
+			notifyMouseLeave(_Item_MouseOver, param);
 		}
 
-		_MouseOverItem = item;
+		_Item_MouseOver = item;
 
-		if (_MouseOverItem)
+		if (_Item_MouseOver)
 		{
-			notifyMouseOver(_MouseOverItem, param);
+			notifyMouseOver(_Item_MouseOver, param);
 		}
 	}
 }
@@ -343,22 +343,22 @@ void ToolBox::WindowMessageHandler::onMouseLButtonDown (ToolBox::MouseEventParam
 
 	
 	//-----------------------------------------------------------------------
-	_MousePressedItem = item;
+	_Item_MousePressed = item;
 
 
-	if (_MousePressedItem)
+	if (_Item_MousePressed)
 	{
-		notifyMousePressed(_MousePressedItem, param);
+		notifyMousePressed(_Item_MousePressed, param);
 	}
 
 
-	_MouseDraggingItem = _MousePressedItem;
+	_Item_MouseDragging = _Item_MousePressed;
 }
 
 void ToolBox::WindowMessageHandler::onMouseLButtonUp (ToolBox::MouseEventParam& param)
 {
 	//-----------------------------------------------------------------------
-	_MouseDraggingItem = nullptr;
+	_Item_MouseDragging = nullptr;
 
 
 	//-----------------------------------------------------------------------
@@ -369,57 +369,57 @@ void ToolBox::WindowMessageHandler::onMouseLButtonUp (ToolBox::MouseEventParam& 
 	
 
 	//-----------------------------------------------------------------------
-	_MouseReleasedItem = item;
+	_Item_MouseReleased = item;
 
 	
-	if (_MousePressedItem)
+	if (_Item_MousePressed)
 	{
-		notifyMouseReleased(_MousePressedItem, param);
+		notifyMouseReleased(_Item_MousePressed, param);
 	}
 
 
 	/*
-	if (_MousePressedItem != _MouseReleasedItem)
+	if (_Item_MousePressed != _Item_MouseReleased)
 	{
-		if (_MouseReleasedItem)
+		if (_Item_MouseReleased)
 		{
 			{
-				notify_widget_mouse_context(_MouseReleasedItem, param);
+				notify_widget_mouse_context(_Item_MouseReleased, param);
 			}
 		}
 	}
 	*/
 
 
-	if (_MousePressedItem == _MouseReleasedItem)
+	if (_Item_MousePressed == _Item_MouseReleased)
 	{
-		_MouseClickedItem = _MouseReleasedItem;
-		if (_MouseClickedItem)
+		_Item_MouseClicked = _Item_MouseReleased;
+		if (_Item_MouseClicked)
 		{
-			notifyMouseClicked(_MouseClickedItem, param);
+			notifyMouseClicked(_Item_MouseClicked, param);
 		}
 	}
 
 
-	if (_MouseDbclickedItem==_MouseClickedItem)
+	if (_Item_MouseDbClicked==_Item_MouseClicked)
 	{
-		if (_MouseDbclickedItem)
+		if (_Item_MouseDbClicked)
 		{
 			if (GetTickCount64() < _MouseClickedTime + _MouseDbClickTime)
 			{
-				notifyMouseDbClicked(_MouseDbclickedItem, param);
+				notifyMouseDbClicked(_Item_MouseDbClicked, param);
 			}
 		}
 	}
 
 
-	if (nullptr!=_MouseClickedItem)
+	if (nullptr!=_Item_MouseClicked)
 	{
 		_MouseClickedTime = GetTickCount64();
 	}
 
 
-	_MouseDbclickedItem = _MouseClickedItem;
+	_Item_MouseDbClicked = _Item_MouseClicked;
 
 
 	//-----------------------------------------------------------------------

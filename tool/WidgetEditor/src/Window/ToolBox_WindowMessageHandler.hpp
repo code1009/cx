@@ -53,12 +53,12 @@ private:
 	ToolBox::ItemView* _ItemView{ nullptr };
 
 private:
-	ToolBox::Item* _MousePressedItem  { nullptr };
-	ToolBox::Item* _MouseReleasedItem { nullptr };
-	ToolBox::Item* _MouseClickedItem  { nullptr };
-	ToolBox::Item* _MouseDbclickedItem{ nullptr };
-	ToolBox::Item* _MouseOverItem     { nullptr };
-	ToolBox::Item* _MouseDraggingItem { nullptr };
+	ToolBox::Item* _Item_MousePressed   { nullptr };
+	ToolBox::Item* _Item_MouseReleased  { nullptr };
+	ToolBox::Item* _Item_MouseClicked   { nullptr };
+	ToolBox::Item* _Item_MouseDbClicked { nullptr };
+	ToolBox::Item* _Item_MouseOver      { nullptr };
+	ToolBox::Item* _Item_MouseDragging  { nullptr };
 
 private:
 	bool _WindowMouseCaptureEnabled{ true };
