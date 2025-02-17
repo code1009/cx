@@ -204,7 +204,7 @@ void ToolBox::ItemDrawing::drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* ite
 		bitmapSharedPtr->getDBitmap(),
 		D2D1::RectF(bitmapP0._x, bitmapP0._y, bitmapP1._x, bitmapP1._y),
 		1.0f,
-		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR
+		D2D1_BITMAP_INTERPOLATION_MODE_LINEAR // D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR
 	);
 }
 
