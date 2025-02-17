@@ -211,6 +211,7 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 
 
 	//-----------------------------------------------------------------------
+#if 0
 	ToolBox::GroupItemSharedPtr groupItem;
 	ToolBox::GroupItemSharedPtr subGroupItem;
 	ToolBox::SubItemSharedPtr subItem;
@@ -247,6 +248,56 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	addItem(subGroupItem, subItem);
 	subItem = makeSubItem(makeID(), L"SubItem8", L"item.png");
 	addItem(subGroupItem, subItem);
+#else
+	ToolBox::GroupItemSharedPtr rootGroupItem;
+	ToolBox::GroupItemSharedPtr groupItem;
+	ToolBox::GroupItemSharedPtr subGroupItem;
+	ToolBox::SubItemSharedPtr subItem;
+
+	rootGroupItem = makeGroupItem(makeID(), L"명령", L"expand.png");
+	addItem(nullptr, rootGroupItem);
+
+	groupItem = makeGroupItem(makeID(), L"파일", L"expand.png");
+	addItem(rootGroupItem, groupItem);
+
+	subItem = makeSubItem(makeID(), L"새 파일", L"item.png");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"파일 저장", L"item.png");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"파일 열기", L"item.png");
+	addItem(groupItem, subItem);
+
+	groupItem = makeGroupItem(makeID(), L"편집", L"expand.png");
+	addItem(rootGroupItem, groupItem);
+
+	subItem = makeSubItem(makeID(), L"잘라내기", L"item.png");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"복사", L"item.png");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"붙여넣기", L"item.png");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"삭제", L"item.png");
+	addItem(groupItem, subItem);
+
+	groupItem = makeGroupItem(makeID(), L"위젯", L"expand.png");
+	addItem(nullptr, groupItem);
+
+	subItem = makeSubItem(makeID(), L"선", L"item.png");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"네모", L"item.png");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"원", L"item.png");
+	addItem(groupItem, subItem);
+
+
+#endif
 
 
 	_BitmapList.addBitmap(L"expand.png", cx::gw::makeBitmap(bitmap_expand_png, sizeof(bitmap_expand_png)));

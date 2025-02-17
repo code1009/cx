@@ -130,14 +130,17 @@ void ToolBox::ItemViewDrawing::getFrame_LineSize(cx::gw::coord_t& size)
 //===========================================================================
 void ToolBox::ItemViewDrawing::getFrame_Bounds(ToolBox::ItemView* itemView, cx::gw::Point& p0, cx::gw::Point& p1)
 {
-	std::int64_t cx;
-	std::int64_t cy;
+	double cx;
+	double cy;
+	double x;
+	double y;
 
 
-	itemView->getWindow()->getViewport()->getWindowSize(cx, cy);
+	itemView->getWindow()->getViewport()->getDocumentViewportPoint(x, y);
+	itemView->getWindow()->getViewport()->getDocumentViewportSize(cx, cy);
 
-	p0 = cx::gw::Point(0, 0);
-	p1 = cx::gw::Point(static_cast<cx::gw::coord_t>(cx), static_cast<cx::gw::coord_t>(cy));
+	p0 = cx::gw::Point(static_cast<cx::gw::coord_t>(x), static_cast<cx::gw::coord_t>(y));
+	p1 = cx::gw::Point(static_cast<cx::gw::coord_t>(x+cx), static_cast<cx::gw::coord_t>(y+cy));
 }
 
 
@@ -395,18 +398,6 @@ void ToolBox::ItemDrawing::drawFace(cx::gw::Context* ctx, ToolBox::ItemView* ite
 		lp1._x -= lineSize;
 		lp1._y -= lineSize;
 
-		ctx->getD2dRenderTarget()->DrawLine(
-			D2D1_POINT_2F{ lp0._x, lp0._y },
-			D2D1_POINT_2F{ lp1._x, lp0._y },
-			_pFace_ButtonS_LineBrush,
-			lineSize
-		);
-		ctx->getD2dRenderTarget()->DrawLine(
-			D2D1_POINT_2F{ lp0._x, lp0._y },
-			D2D1_POINT_2F{ lp0._x, lp1._y },
-			_pFace_ButtonS_LineBrush,
-			lineSize
-		);
 
 		ctx->getD2dRenderTarget()->DrawLine(
 			D2D1_POINT_2F{ lp1._x, lp1._y },
@@ -418,6 +409,19 @@ void ToolBox::ItemDrawing::drawFace(cx::gw::Context* ctx, ToolBox::ItemView* ite
 			D2D1_POINT_2F{ lp1._x, lp1._y },
 			D2D1_POINT_2F{ lp0._x, lp1._y },
 			_pFace_ButtonS_LineBrush,
+			lineSize
+		);
+
+		ctx->getD2dRenderTarget()->DrawLine(
+			D2D1_POINT_2F{ lp0._x, lp0._y },
+			D2D1_POINT_2F{ lp1._x, lp0._y },
+			_pFace_ButtonH_LineBrush,
+			lineSize
+		);
+		ctx->getD2dRenderTarget()->DrawLine(
+			D2D1_POINT_2F{ lp0._x, lp0._y },
+			D2D1_POINT_2F{ lp0._x, lp1._y },
+			_pFace_ButtonH_LineBrush,
 			lineSize
 		);
 #endif
@@ -504,6 +508,7 @@ void ToolBox::ItemDrawing::getFrame_LineSize(cx::gw::coord_t& size)
 	size = 0;
 }
 
+//===========================================================================
 void ToolBox::ItemDrawing::getFace_FillColor(cx::gw::Color& color)
 {
 	color = cx::gw::Color(0.90f, 0.90f, 0.90f, 1.0f);
@@ -516,7 +521,7 @@ void ToolBox::ItemDrawing::getFace_LineColor(cx::gw::Color& color)
 
 void ToolBox::ItemDrawing::getFace_ButtonH_LineColor(cx::gw::Color& color)
 {
-	color = cx::gw::Color(0.75f, 0.75f, 0.75f, 1.0f);
+	color = cx::gw::Color(0.95f, 0.95f, 0.95f, 1.0f);
 }
 
 void ToolBox::ItemDrawing::getFace_ButtonS_LineColor(cx::gw::Color& color)
@@ -529,6 +534,7 @@ void ToolBox::ItemDrawing::getFace_LineSize(cx::gw::coord_t& size)
 	size = 0.5f;
 }
 
+//===========================================================================
 void ToolBox::ItemDrawing::getCaption_TextColor(cx::gw::Color& color)
 {
 	color = cx::gw::Color(0.0f, 0.0f, 0.0f, 1.0f);
@@ -630,6 +636,11 @@ void ToolBox::GroupItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView
 	drawCaption(ctx, itemView, item);
 }
 
+void ToolBox::GroupItemDrawing::getFace_FillColor(cx::gw::Color& color)
+{
+	color = cx::gw::Color(0.95f, 0.95f, 0.95f, 1.0f);
+}
+
 void ToolBox::GroupItemDrawing::getCaption_TextFontBold(bool& bold)
 {
 	bold = true;
@@ -670,18 +681,6 @@ void ToolBox::GroupItemDrawing::drawSubItems(cx::gw::Context* ctx, ToolBox::Item
 		lp1._x -= lineSize;
 		lp1._y -= lineSize;
 
-		ctx->getD2dRenderTarget()->DrawLine(
-			D2D1_POINT_2F{ lp0._x, lp0._y },
-			D2D1_POINT_2F{ lp1._x, lp0._y },
-			_pFace_ButtonS_LineBrush,
-			lineSize
-		);
-		ctx->getD2dRenderTarget()->DrawLine(
-			D2D1_POINT_2F{ lp0._x, lp0._y },
-			D2D1_POINT_2F{ lp0._x, lp1._y },
-			_pFace_ButtonS_LineBrush,
-			lineSize
-		);
 
 		ctx->getD2dRenderTarget()->DrawLine(
 			D2D1_POINT_2F{ lp1._x, lp1._y },
@@ -693,6 +692,20 @@ void ToolBox::GroupItemDrawing::drawSubItems(cx::gw::Context* ctx, ToolBox::Item
 			D2D1_POINT_2F{ lp1._x, lp1._y },
 			D2D1_POINT_2F{ lp0._x, lp1._y },
 			_pFace_ButtonS_LineBrush,
+			lineSize
+		);
+
+
+		ctx->getD2dRenderTarget()->DrawLine(
+			D2D1_POINT_2F{ lp0._x, lp0._y },
+			D2D1_POINT_2F{ lp1._x, lp0._y },
+			_pFace_ButtonH_LineBrush,
+			lineSize
+		);
+		ctx->getD2dRenderTarget()->DrawLine(
+			D2D1_POINT_2F{ lp0._x, lp0._y },
+			D2D1_POINT_2F{ lp0._x, lp1._y },
+			_pFace_ButtonH_LineBrush,
 			lineSize
 		);
 #endif
@@ -715,6 +728,7 @@ void ToolBox::SubItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* 
 	drawCaption(ctx, itemView, item);
 }
 
+//===========================================================================
 void ToolBox::SubItemDrawing::getFace_FillColor(cx::gw::Color& color)
 {
 	color = cx::gw::Color(1.00f, 1.00f, 1.00f, 1.0f);

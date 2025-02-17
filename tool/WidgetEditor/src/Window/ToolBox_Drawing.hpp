@@ -112,6 +112,7 @@ public:
 
 public:
 	virtual void drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item) override;
+	virtual void getFace_FillColor(cx::gw::Color& color) override;
 	virtual void getCaption_TextFontBold(bool& bold) override;
 
 public:
