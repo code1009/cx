@@ -104,8 +104,8 @@ ToolBox::GroupItemWeakPtr ToolBox::Item::getRootItem(void) const
 }
 
 //===========================================================================
-cx::gw::coord_t ToolBox::Item::calcHeight(void) { return getCX(); }
-cx::gw::coord_t ToolBox::Item::calcWidth(void)  { return getCY(); }
+cx::gw::coord_t ToolBox::Item::calcHeight(void) { return getCY(); }
+cx::gw::coord_t ToolBox::Item::calcWidth(void)  { return getCX(); }
 
 
 

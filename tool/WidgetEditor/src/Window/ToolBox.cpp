@@ -91,7 +91,7 @@ HWND ToolBox::createToolBox(HWND parentWindowHandle)
 
 	window_x = 0;
 	window_y = 0;
-	window_client_cx = 160;
+	window_client_cx = 200;
 	window_client_cy = 400;
 
 

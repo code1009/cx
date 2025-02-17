@@ -111,10 +111,11 @@ public:
 	virtual ~GroupItemDrawing(void) = default;
 
 public:
-	virtual void getCaption_TextFontBold(bool& bold) override
-	{
-		bold = true;
-	}
+	virtual void drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item) override;
+	virtual void getCaption_TextFontBold(bool& bold) override;
+
+public:
+	virtual void drawSubItems(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 };
 
 
@@ -130,8 +131,7 @@ public:
 	virtual ~SubItemDrawing(void) = default;
 
 public:
-	virtual void getFace_FillColor(cx::gw::Color& color) override
-	{
-		color = cx::gw::Color(1.00f, 1.00f, 1.00f, 1.0f);
-	}
+	virtual void drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item) override;
+	virtual void getFace_FillColor(cx::gw::Color& color) override;
+	virtual void getFace_LineSize(cx::gw::coord_t& size) override;
 };

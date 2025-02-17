@@ -215,10 +215,16 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	ToolBox::GroupItemSharedPtr subGroupItem;
 	ToolBox::SubItemSharedPtr subItem;
 
+	groupItem = makeGroupItem(makeID(), L"GroupItem0", L"collapse.png");
+	addItem(nullptr, groupItem);
+
 	groupItem = makeGroupItem(makeID(), L"GroupItem1", L"expand.png");
 	addItem(nullptr, groupItem);
 
-	subItem = makeSubItem(makeID(), L"SubItem1", L"collapse.png");
+	subItem = makeSubItem(makeID(), L"SubItem0", L"item.png");
+	addItem(nullptr, subItem);
+
+	subItem = makeSubItem(makeID(), L"SubItem1", L"item.png");
 	addItem(nullptr, subItem);
 
 	subItem = makeSubItem(makeID(), L"SubItem2", L"item.png");
@@ -227,16 +233,13 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	subItem = makeSubItem(makeID(), L"SubItem3", L"item.png");
 	addItem(nullptr, subItem);
 
-	subItem = makeSubItem(makeID(), L"SubItem4", L"item.png");
+	subItem = makeSubItem(makeID(), L"SubItem4");
 	addItem(nullptr, subItem);
 
 	subItem = makeSubItem(makeID(), L"SubItem5");
-	addItem(nullptr, subItem);
-
-	subItem = makeSubItem(makeID(), L"SubItem0");
 	addItem(groupItem, subItem);
 
-	subGroupItem = makeGroupItem(makeID(), L"GroupItem1", L"item.png");
+	subGroupItem = makeGroupItem(makeID(), L"GroupItem1", L"expand.png");
 	addItem(groupItem, subGroupItem);
 	subItem = makeSubItem(makeID(), L"SubItem6", L"item.png");
 	addItem(subGroupItem, subItem);
