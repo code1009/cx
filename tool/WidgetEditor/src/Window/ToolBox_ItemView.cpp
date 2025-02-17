@@ -284,6 +284,27 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	subItem = makeSubItem(makeID(), L"삭제");
 	addItem(groupItem, subItem);
 
+	groupItem = makeGroupItem(makeID(), L"선택", L"expand.png");
+	addItem(rootGroupItem, groupItem);
+
+	subItem = makeSubItem(makeID(), L"선택 취소");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"전체 선택");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"앞으로");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"뒤로");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"맨 앞으로");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"맨 뒤로");
+	addItem(groupItem, subItem);
+
 	groupItem = makeGroupItem(makeID(), L"위젯", L"expand.png");
 	addItem(nullptr, groupItem);
 
@@ -475,6 +496,10 @@ ToolBox::ItemSharedPtr ToolBox::ItemView::findItem(ToolBox::ItemSharedPtrs& item
 //===========================================================================
 void ToolBox::ItemView::recalcLayout(void)
 {
+	cx::gw::Point itemViewSize;
+	itemViewSize = _ItemViewSize;
+
+
 	std::int64_t window_cx;
 	std::int64_t window_cy;
 	getWindow()->getViewport()->getWindowSize(window_cx, window_cy);
@@ -493,6 +518,10 @@ void ToolBox::ItemView::recalcLayout(void)
 
 
 	_ItemViewSize = cx::gw::Point{ size, offset };
+	if (_ItemViewSize._y != itemViewSize._y)
+	{
+		getWindow()->getViewport()->setDocumentSize(_ItemViewSize._x, _ItemViewSize._y);
+	}
 }
 
 cx::gw::coord_t ToolBox::ItemView::recalcItemLayout(cx::gw::coord_t offset, cx::gw::coord_t size, ToolBox::ItemSharedPtr item)

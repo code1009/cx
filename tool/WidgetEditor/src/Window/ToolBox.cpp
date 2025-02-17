@@ -92,7 +92,7 @@ HWND ToolBox::createToolBox(HWND parentWindowHandle)
 
 	window_x = 0;
 	window_y = 0;
-	window_client_cx = 200;
+	window_client_cx = 300;
 	window_client_cy = 400;
 
 
@@ -234,6 +234,7 @@ void ToolBox::onSize(cx::wui::WindowMessage& windowMessage)
 	if (_ControlWindow.get())
 	{
 		_ControlWindow->getViewport()->setWindowSize(cx, cy);
+		_ControlWindow->getItemView()->recalcLayout();
 	}
 }
 
@@ -243,6 +244,10 @@ void ToolBox::onHScroll(cx::wui::WindowMessage& windowMessage)
 
 
 	_ControlWindow->getViewport()->handleHScrollbar(wm.nSBCode());
+	if (_ControlWindow.get())
+	{
+		_ControlWindow->getItemView()->recalcLayout();
+	}
 }
 
 void ToolBox::onVScroll(cx::wui::WindowMessage& windowMessage)
@@ -251,6 +256,10 @@ void ToolBox::onVScroll(cx::wui::WindowMessage& windowMessage)
 
 
 	_ControlWindow->getViewport()->handleVScrollbar(wm.nSBCode());
+	if (_ControlWindow.get())
+	{
+		_ControlWindow->getItemView()->recalcLayout();
+	}
 }
 
 void ToolBox::onMouseWheel(cx::wui::WindowMessage& windowMessage)
@@ -312,6 +321,11 @@ void ToolBox::onMouseWheel(cx::wui::WindowMessage& windowMessage)
 		{
 			_ControlWindow->getViewport()->handleVScrollbar(SB_LINEDOWN);
 		}
+	}
+
+	if (_ControlWindow.get())
+	{
+		_ControlWindow->getItemView()->recalcLayout();
 	}
 }
 
@@ -384,15 +398,6 @@ void ToolBox::onPaint(cx::wui::WindowMessage& windowMessage)
 {
 	if(_ControlWindow)
 	{
-		cx::gw::Point itemViewSize = _ControlWindow->getItemView()->getItemViewSize();
-
-		_ControlWindow->getItemView()->recalcLayout();
-
-		if (itemViewSize != _ControlWindow->getItemView()->getItemViewSize())
-		{
-			_ControlWindow->getViewport()->setDocumentSize(itemViewSize._x, itemViewSize._y);
-		}
-
 		_ControlWindow->render();
 	}
 
