@@ -105,9 +105,6 @@
     <ClCompile Include="..\..\library\runtime\WindowApplication.cpp">
       <Filter>library_cx\runtime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp">
-      <Filter>library_cx\gw</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\library\gw\Viewport.cpp">
       <Filter>library_cx\gw</Filter>
     </ClCompile>
@@ -258,9 +255,6 @@
       <Filter>library_cx\gw</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\gw\pch.hpp">
-      <Filter>library_cx\gw</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp">
       <Filter>library_cx\gw</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\gw\Viewport.hpp">

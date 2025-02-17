@@ -180,9 +180,6 @@
     <ClInclude Include="..\..\library\gw\pch.hpp">
       <Filter>library_cx\gw</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\gw\DirectX2DGraphic.hpp">
-      <Filter>library_cx\gw</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\library\gw\Viewport.hpp">
       <Filter>library_cx\gw</Filter>
     </ClInclude>
@@ -325,9 +322,6 @@
     </ClCompile>
     <ClCompile Include="src\Window\ToolBox.cpp">
       <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\DirectX2DGraphic.cpp">
-      <Filter>library_cx\gw</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Viewport.cpp">
       <Filter>library_cx\gw</Filter>
