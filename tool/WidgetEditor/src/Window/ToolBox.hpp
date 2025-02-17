@@ -12,9 +12,11 @@ class ToolBox :
 public:
 	enum class ItemStyle;
 	class ItemStatus;
+
 	class Item;
 	class GroupItem;
 	class SubItem;
+
 	class ItemView;
 	
 	class ControlWindow;
