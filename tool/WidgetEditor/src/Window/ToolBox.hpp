@@ -10,6 +10,8 @@ class ToolBox :
 	public cx::wui::MessageMapWindowT<ToolBox, cx::wui::BaseWindow>
 {
 public:
+	enum class ItemStyle;
+	class ItemStatus;
 	class Item;
 	class GroupItem;
 	class SubItem;

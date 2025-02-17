@@ -6,14 +6,71 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+enum class ToolBox::ItemStyle
+{
+	Flat,
+	Button
+};
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class ToolBox::ItemStatus
+{
+public:
+	using StatusChangedHandler = std::function<void(void)>;
+
+private:
+	StatusChangedHandler _StatusChangedHandler;
+
+private:
+	bool _Hover{ false };
+	bool _Pressed{ false };
+	bool _Disabled{ false };
+
+public:
+	ItemStatus(void) = default;
+	virtual ~ItemStatus(void) = default;
+
+public:
+	ItemStatus(const ItemStatus&) = delete;
+	ItemStatus& operator=(const ItemStatus&) = delete;
+	ItemStatus(ItemStatus&&) = delete;
+	ItemStatus& operator=(ItemStatus&&) = delete;
+
+public:
+	void setStatusChanged(void);
+	void setStatusChangedHandler(StatusChangedHandler handler);
+
+public:
+	bool getHover(void) const;
+	void setHover(bool hover);
+	bool getPressed(void) const;
+	void setPressed(bool pressed);
+	bool getDisabled(void) const;
+	void setDisabled(bool disabled);
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class ToolBox::Item
 {
 private:
 	std::size_t _ID{ 0 };
 	std::wstring _Caption{ };
-	std::wstring _Description{ };
 	std::wstring _Icon{ };
+	ToolBox::ItemStyle _Style{ ToolBox::ItemStyle::Flat };
 	cx::gw::coord_t _Size{ 0 };
+	std::wstring _Description{ };
+
+private:
+	ToolBox::ItemStatus _Status{ };
 
 private:
 	ToolBox::GroupItemWeakPtr _ParentItem{ };
@@ -37,15 +94,20 @@ public:
 public:
 	std::size_t getID(void) const;
 	std::wstring getCaption(void) const;
-	std::wstring getDescription(void) const;
 	std::wstring getIcon(void) const;
+	ToolBox::ItemStyle getStyle(void) const;
 	cx::gw::coord_t getSize(void) const;
+	std::wstring getDescription(void) const;
 
 	void setID(std::size_t id);
 	void setCaption(const std::wstring& caption);
-	void setDescription(const std::wstring& description);
 	void setIcon(const std::wstring& icon);
 	void setSize(const cx::gw::coord_t size);
+	void setStyle(ToolBox::ItemStyle style);
+	void setDescription(const std::wstring& description);
+
+public:
+	ToolBox::ItemStatus* getStatus(void);
 
 public:
 	ToolBox::GroupItemWeakPtr getParentItem(void) const;
@@ -125,16 +187,18 @@ ToolBox::GroupItemSharedPtr makeGroupItem(
 	std::size_t id,
 	std::wstring caption,
 	std::wstring icon = std::wstring(),
-	std::wstring description = std::wstring(),
-	cx::gw::coord_t size = 28.0f
+	ToolBox::ItemStyle style = ToolBox::ItemStyle::Flat,
+	cx::gw::coord_t size = 28.0f,
+	std::wstring description = std::wstring()
 );
 
 ToolBox::SubItemSharedPtr makeSubItem(
 	std::size_t id,
 	std::wstring caption,
 	std::wstring icon = std::wstring(),
-	std::wstring description = std::wstring(),
-	cx::gw::coord_t size = 28.0f
+	ToolBox::ItemStyle style = ToolBox::ItemStyle::Flat,
+	cx::gw::coord_t size = 28.0f,
+	std::wstring description = std::wstring()
 );
 
 

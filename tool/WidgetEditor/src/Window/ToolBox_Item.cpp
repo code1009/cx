@@ -24,20 +24,98 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+void ToolBox::ItemStatus::setStatusChanged(void)
+{
+	if (_StatusChangedHandler)
+	{
+		_StatusChangedHandler();
+	}
+}
+
+void ToolBox::ItemStatus::setStatusChangedHandler(StatusChangedHandler handler)
+{
+	_StatusChangedHandler = handler;
+	setStatusChanged();
+}
+
+bool ToolBox::ItemStatus::getHover(void) const
+{
+	return _Hover;
+}
+
+void ToolBox::ItemStatus::setHover(bool hover)
+{
+	if (_Hover != hover)
+	{
+		_Hover = hover;
+		setStatusChanged();
+	}
+}
+
+bool ToolBox::ItemStatus::getPressed(void) const
+{
+	return _Pressed;
+}
+
+void ToolBox::ItemStatus::setPressed(bool pressed)
+{
+	if (_Pressed = pressed)
+	{
+		_Pressed = pressed;
+		setStatusChanged();
+	}
+}
+
+bool ToolBox::ItemStatus::getDisabled(void) const
+{
+	return _Disabled;
+}
+
+void ToolBox::ItemStatus::setDisabled(bool disabled)
+{
+	if (_Disabled = disabled)
+	{
+		_Disabled = disabled;
+		setStatusChanged();
+	}
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 std::size_t   ToolBox::Item::getID(void) const       { return _ID; }
 void          ToolBox::Item::setID(std::size_t id) { _ID = id; }
 
 std::wstring  ToolBox::Item::getCaption(void) const                 { return _Caption; }
 void          ToolBox::Item::setCaption(const std::wstring& caption){ _Caption = caption; }
 
-std::wstring  ToolBox::Item::getDescription(void) const                      { return _Description; }
-void          ToolBox::Item::setDescription(const std::wstring& description) { _Description = description; }
-
 std::wstring  ToolBox::Item::getIcon(void) const               { return _Icon; }
 void          ToolBox::Item::setIcon(const std::wstring& icon) { _Icon = icon; }
 
+ToolBox::ItemStyle ToolBox::Item::getStyle(void) const                     { return _Style; }
+void               ToolBox::Item::setStyle(const ToolBox::ItemStyle style) { _Style = style; }
+
 cx::gw::coord_t ToolBox::Item::getSize(void) const               { return _Size; }
 void            ToolBox::Item::setSize(const cx::gw::coord_t size) { _Size = size; }
+
+std::wstring  ToolBox::Item::getDescription(void) const
+{
+	return _Description;
+}
+
+void ToolBox::Item::setDescription(const std::wstring& description)
+{
+	_Description = description;
+}
+
+//===========================================================================
+ToolBox::ItemStatus* ToolBox::Item::getStatus(void)
+{
+	return &_Status;
+}
 
 //===========================================================================
 ToolBox::GroupItemWeakPtr ToolBox::Item::getParentItem(void) const
@@ -169,17 +247,19 @@ ToolBox::GroupItemSharedPtr makeGroupItem(
 	std::size_t id,
 	std::wstring caption, 
 	std::wstring icon, 
-	std::wstring description,
-	cx::gw::coord_t size
-)
+	ToolBox::ItemStyle style,
+	cx::gw::coord_t size,
+	std::wstring description
+	)
 {
 	auto item = std::make_shared<ToolBox::GroupItem>();
 
 	item->setID(id);
 	item->setCaption(caption);
-	item->setDescription(description);
 	item->setIcon(icon);
+	item->setStyle(style);
 	item->setSize(size);
+	item->setDescription(description);
 
 	return item;
 }
@@ -188,17 +268,19 @@ ToolBox::SubItemSharedPtr makeSubItem(
 	std::size_t id,
 	std::wstring caption,
 	std::wstring icon,
-	std::wstring description,
-	cx::gw::coord_t size
-)
+	ToolBox::ItemStyle style,
+	cx::gw::coord_t size,
+	std::wstring description
+	)
 {
 	auto item = std::make_shared<ToolBox::SubItem>();
 
 	item->setID(id);
 	item->setCaption(caption);
-	item->setDescription(description);
 	item->setIcon(icon);
+	item->setStyle(style);
 	item->setSize(size);
+	item->setDescription(description);
 
 	return item;
 }

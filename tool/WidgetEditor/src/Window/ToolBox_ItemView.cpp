@@ -260,43 +260,43 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	groupItem = makeGroupItem(makeID(), L"편집", L"expand.png");
 	addItem(rootGroupItem, groupItem);
 
-	subItem = makeSubItem(makeID(), L"실행 취소");
+	subItem = makeSubItem(makeID(), L"실행 취소", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"다시 실행");
+	subItem = makeSubItem(makeID(), L"다시 실행", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"잘라내기");
+	subItem = makeSubItem(makeID(), L"잘라내기", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"복사");
+	subItem = makeSubItem(makeID(), L"복사", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"붙여넣기");
+	subItem = makeSubItem(makeID(), L"붙여넣기", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"삭제");
+	subItem = makeSubItem(makeID(), L"삭제", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"선택 취소");
+	subItem = makeSubItem(makeID(), L"선택 취소", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"전체 선택");
+	subItem = makeSubItem(makeID(), L"전체 선택", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
 	groupItem = makeGroupItem(makeID(), L"이동", L"expand.png");
 	addItem(rootGroupItem, groupItem);
 
-	subItem = makeSubItem(makeID(), L"앞으로");
+	subItem = makeSubItem(makeID(), L"앞으로", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"뒤로");
+	subItem = makeSubItem(makeID(), L"뒤로", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"맨 앞으로");
+	subItem = makeSubItem(makeID(), L"맨 앞으로", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	subItem = makeSubItem(makeID(), L"맨 뒤로");
+	subItem = makeSubItem(makeID(), L"맨 뒤로", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
 	groupItem = makeGroupItem(makeID(), L"위젯", L"expand.png");

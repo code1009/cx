@@ -475,7 +475,7 @@ void ToolBox::ItemDrawing::drawFaceButton(cx::gw::Context* ctx, ToolBox::ItemVie
 	bool pressed;
 
 
-	pressed = false;
+	pressed = item->getStatus()->getPressed();
 	if (pressed)
 	{
 		ltBrush = _pFace_Button_S_LineBrush;
@@ -847,8 +847,10 @@ void ToolBox::SubItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* 
 	//drawFrame(ctx, itemView, item);
 
 	drawFace(ctx, itemView, item);
-	
-	//drawFaceButton(ctx, itemView, item);
+	if (item->getStyle() == ToolBox::ItemStyle::Button)
+	{
+		drawFaceButton(ctx, itemView, item);
+	}
 
 	drawIcon(ctx, itemView, item);
 	drawCaption(ctx, itemView, item);
