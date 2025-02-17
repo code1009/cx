@@ -257,20 +257,14 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	rootGroupItem = makeGroupItem(makeID(), L"명령", L"expand.png");
 	addItem(nullptr, rootGroupItem);
 
-	groupItem = makeGroupItem(makeID(), L"파일", L"expand.png");
-	addItem(rootGroupItem, groupItem);
-
-	subItem = makeSubItem(makeID(), L"새 파일");
-	addItem(groupItem, subItem);
-
-	subItem = makeSubItem(makeID(), L"파일 저장");
-	addItem(groupItem, subItem);
-
-	subItem = makeSubItem(makeID(), L"파일 열기");
-	addItem(groupItem, subItem);
-
 	groupItem = makeGroupItem(makeID(), L"편집", L"expand.png");
 	addItem(rootGroupItem, groupItem);
+
+	subItem = makeSubItem(makeID(), L"실행 취소");
+	addItem(groupItem, subItem);
+
+	subItem = makeSubItem(makeID(), L"다시 실행");
+	addItem(groupItem, subItem);
 
 	subItem = makeSubItem(makeID(), L"잘라내기");
 	addItem(groupItem, subItem);
@@ -284,14 +278,14 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	subItem = makeSubItem(makeID(), L"삭제");
 	addItem(groupItem, subItem);
 
-	groupItem = makeGroupItem(makeID(), L"선택", L"expand.png");
-	addItem(rootGroupItem, groupItem);
-
 	subItem = makeSubItem(makeID(), L"선택 취소");
 	addItem(groupItem, subItem);
 
 	subItem = makeSubItem(makeID(), L"전체 선택");
 	addItem(groupItem, subItem);
+
+	groupItem = makeGroupItem(makeID(), L"이동", L"expand.png");
+	addItem(rootGroupItem, groupItem);
 
 	subItem = makeSubItem(makeID(), L"앞으로");
 	addItem(groupItem, subItem);
