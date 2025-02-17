@@ -652,15 +652,44 @@ void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::Item
 		item->getStatus()->setPressed(false);
 		break;
 	case ToolBox::EventType::MouseClicked:
-		if (dynamic_cast<ToolBox::GroupItem*>(item))
-		{
-			onGroupItemMouseEvent(eventType, item, param);
-		}
-		if (dynamic_cast<ToolBox::SubItem*>(item))
-		{
-			onSubItemMouseEvent(eventType, item, param);
-		}
+
 		break;
+	case ToolBox::EventType::MouseDbClicked:
+		break;
+	case ToolBox::EventType::MouseOver:
+		break;
+	case ToolBox::EventType::MouseLeave:
+		break;
+	case ToolBox::EventType::MouseDragging:
+		break;
+
+	default:
+		break;
+	}
+
+
+	ToolBox::GroupItem* groupItem = dynamic_cast<ToolBox::GroupItem*>(item);
+	if (groupItem)
+	{
+		onGroupItemMouseEvent(eventType, groupItem, param);
+	}
+
+
+	ToolBox::SubItem* subItem = dynamic_cast<ToolBox::SubItem*>(item);
+	if (subItem)
+	{
+		onSubItemMouseEvent(eventType, subItem, param);
+	}
+}
+
+void ToolBox::ItemView::onGroupItemMouseEvent(ToolBox::EventType eventType, ToolBox::GroupItem* item, ToolBox::MouseEventParam& param)
+{
+	switch (eventType)
+	{
+	case ToolBox::EventType::MouseClicked:
+		onGroupItemClicked(item);
+		break;
+
 	case ToolBox::EventType::MouseDbClicked:
 		break;
 	case ToolBox::EventType::MouseOver:
@@ -675,7 +704,7 @@ void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::Item
 	}
 }
 
-void ToolBox::ItemView::onGroupItemMouseEvent(ToolBox::EventType eventType, ToolBox::Item* item, ToolBox::MouseEventParam& param)
+void ToolBox::ItemView::onGroupItemClicked(ToolBox::GroupItem* item)
 {
 	auto groupItem = dynamic_cast<ToolBox::GroupItem*>(item);
 	if (!groupItem)
@@ -692,15 +721,31 @@ void ToolBox::ItemView::onGroupItemMouseEvent(ToolBox::EventType eventType, Tool
 	}
 
 	recalcLayout();
-
 }
 
-void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBox::Item* item, ToolBox::MouseEventParam& param)
+void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBox::SubItem* item, ToolBox::MouseEventParam& param)
 {
-	auto subItem = dynamic_cast<ToolBox::SubItem*>(item);
-	if (!subItem)
+	switch (eventType)
 	{
-		return;
+	case ToolBox::EventType::MouseClicked:
+		onSubItemClicked(item);
+		break;
+
+	case ToolBox::EventType::MouseDbClicked:
+		break;
+	case ToolBox::EventType::MouseOver:
+		break;
+	case ToolBox::EventType::MouseLeave:
+		break;
+	case ToolBox::EventType::MouseDragging:
+		break;
+
+	default:
+		break;
 	}
 }
 
+void ToolBox::ItemView::onSubItemClicked(ToolBox::SubItem* item)
+{
+
+}
