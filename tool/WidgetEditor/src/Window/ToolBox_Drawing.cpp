@@ -23,11 +23,8 @@
 //===========================================================================
 bool ToolBox::ItemViewDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
-	//-----------------------------------------------------------------------
 	HRESULT hr;
 
-
-	//-----------------------------------------------------------------------
 	if (!_pFrame_FillBrush)
 	{
 		cx::gw::Color Frame_FillColor;
@@ -60,7 +57,6 @@ bool ToolBox::ItemViewDrawing::createDeviceResources(cx::gw::Context* ctx)
 
 void ToolBox::ItemViewDrawing::destroyDeviceResources(void)
 {
-	//-----------------------------------------------------------------------
 	if (_pFrame_FillBrush)
 	{
 		_pFrame_FillBrush->Release();
@@ -132,9 +128,7 @@ void ToolBox::ItemViewDrawing::getFrame_Bounds(ToolBox::ItemView* itemView, cx::
 //===========================================================================
 bool ToolBox::ItemDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
-	//-----------------------------------------------------------------------
 	HRESULT hr;
-
 
 	//-----------------------------------------------------------------------
 	if (!_pFrame_FillBrush)
@@ -420,7 +414,6 @@ void ToolBox::ItemDrawing::getFace_Bounds(ToolBox::Item* item, cx::gw::Point& p0
 {
 	cx::gw::coord_t indentSpace_Size;
 	cx::gw::coord_t depth_Size;
-
 	getIndentSpace_Size(item, indentSpace_Size);
 	getDepth_Size(item, depth_Size);
 
@@ -432,7 +425,6 @@ void ToolBox::ItemDrawing::getIcon_Bounds(ToolBox::Item* item, cx::gw::Point& p0
 {
 	cx::gw::coord_t icon_Size;
 	cx::gw::coord_t iconSpace_Size;
-
 	getIcon_Size(item, icon_Size);
 	getIconSpace_Size(item, iconSpace_Size);
 
@@ -445,7 +437,6 @@ void ToolBox::ItemDrawing::getCaption_Bounds(ToolBox::Item* item, cx::gw::Point&
 {
 	cx::gw::coord_t icon_Size;
 	cx::gw::coord_t iconSpace_Size;
-
 	getIcon_Size(item, icon_Size);
 	getIconSpace_Size(item, iconSpace_Size);
 
@@ -488,8 +479,6 @@ void ToolBox::ItemDrawing::getIconSpace_Size(ToolBox::Item* item, cx::gw::coord_
 //===========================================================================
 void ToolBox::GroupItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
-	//drawFrame(ctx, itemView, item);
-
 	drawBorder(ctx, itemView, item);
 
 	drawFace(ctx, itemView, item);
@@ -541,6 +530,7 @@ void ToolBox::GroupItemDrawing::drawBorder(cx::gw::Context* ctx, ToolBox::ItemVi
 //===========================================================================
 bool ToolBox::GroupItemButtonDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
+	//-----------------------------------------------------------------------
 	bool rv;
 	rv = ToolBox::GroupItemDrawing::createDeviceResources(ctx);
 	if (!rv)
@@ -551,9 +541,6 @@ bool ToolBox::GroupItemButtonDrawing::createDeviceResources(cx::gw::Context* ctx
 
 	//-----------------------------------------------------------------------
 	HRESULT hr;
-
-
-	//-----------------------------------------------------------------------
 	if (!_pFace_Button_FillBrush)
 	{
 		cx::gw::Color Face_Button_FillColor;
@@ -623,21 +610,13 @@ void ToolBox::GroupItemButtonDrawing::destroyDeviceResources(void)
 
 void ToolBox::GroupItemButtonDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
-	//drawFrame(ctx, itemView, item);
-
 	drawFace(ctx, itemView, item);
 
-
-	//if (item->getStatus()->getHover())
-	{
-		drawFace_Button(ctx, itemView, item);
-	}
-
+	drawFace_Button(ctx, itemView, item);
 
 	cx::gw::BitmapSharedPtr bitmapSharedPtr;
 	bitmapSharedPtr = itemView->getBitmapList()->findBitmap(item->getIcon());
 	drawIcon(ctx, itemView, item, bitmapSharedPtr);
-
 
 	drawCaption(ctx, itemView, item);
 }
@@ -655,16 +634,15 @@ void ToolBox::GroupItemButtonDrawing::drawFace_Button(cx::gw::Context* ctx, Tool
 
 
 	D2D1_RECT_F rect;
-	rect.left = p0._x;
-	rect.top = p0._y;
-	rect.right = p1._x;
+	rect.left   = p0._x;
+	rect.top    = p0._y;
+	rect.right  = p1._x;
 	rect.bottom = p1._y;
+
 
 	ID2D1SolidColorBrush* ltBrush;
 	ID2D1SolidColorBrush* rbBrush;
 	bool pressed;
-
-
 	pressed = item->getStatus()->getPressed();
 	if (pressed)
 	{
@@ -702,6 +680,7 @@ void ToolBox::GroupItemButtonDrawing::drawFace_Button(cx::gw::Context* ctx, Tool
 			lineSize
 		);
 
+
 		ctx->getD2dRenderTarget()->DrawLine(
 			D2D1_POINT_2F{ lp0._x, lp0._y },
 			D2D1_POINT_2F{ lp1._x, lp0._y },
@@ -720,7 +699,6 @@ void ToolBox::GroupItemButtonDrawing::drawFace_Button(cx::gw::Context* ctx, Tool
 void ToolBox::GroupItemButtonDrawing::getFace_Button_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1)
 {
 	cx::gw::coord_t line_Size;
-
 	getFace_LineSize(line_Size);
 
 	getFace_Bounds(item, p0, p1);
@@ -738,6 +716,7 @@ void ToolBox::GroupItemButtonDrawing::getFace_Button_Bounds(ToolBox::Item* item,
 //===========================================================================
 bool ToolBox::GroupItemHoverDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
+	//-----------------------------------------------------------------------
 	bool rv;
 	rv = ToolBox::GroupItemDrawing::createDeviceResources(ctx);
 	if (!rv)
@@ -748,9 +727,6 @@ bool ToolBox::GroupItemHoverDrawing::createDeviceResources(cx::gw::Context* ctx)
 
 	//-----------------------------------------------------------------------
 	HRESULT hr;
-
-
-	//-----------------------------------------------------------------------
 	if (!_pFace_Hover_FillBrush)
 	{
 		cx::gw::Color Face_Hover_FillColor;
@@ -802,8 +778,6 @@ void ToolBox::GroupItemHoverDrawing::destroyDeviceResources(void)
 
 void ToolBox::GroupItemHoverDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
-	//drawFrame(ctx, itemView, item);
-
 	drawBorder(ctx, itemView, item);
 
 	drawFace(ctx, itemView, item);
@@ -832,9 +806,9 @@ void ToolBox::GroupItemHoverDrawing::drawFace_Hover(cx::gw::Context* ctx, ToolBo
 
 
 	D2D1_RECT_F rect;
-	rect.left = p0._x;
-	rect.top = p0._y;
-	rect.right = p1._x;
+	rect.left   = p0._x;
+	rect.top    = p0._y;
+	rect.right  = p1._x;
 	rect.bottom = p1._y;
 
 
@@ -842,9 +816,9 @@ void ToolBox::GroupItemHoverDrawing::drawFace_Hover(cx::gw::Context* ctx, ToolBo
 	if (lineSize > 0)
 	{
 #if 1
-		rect.left += lineSize;
-		rect.top += lineSize;
-		rect.right -= lineSize;
+		rect.left   += lineSize;
+		rect.top    += lineSize;
+		rect.right  -= lineSize;
 		rect.bottom -= lineSize;
 		ctx->getD2dRenderTarget()->DrawRectangle(&rect, _pFace_Hover_LineBrush, lineSize);
 #else
@@ -869,6 +843,7 @@ void ToolBox::GroupItemHoverDrawing::drawFace_Hover(cx::gw::Context* ctx, ToolBo
 			lineSize
 		);
 
+
 		ctx->getD2dRenderTarget()->DrawLine(
 			D2D1_POINT_2F{ lp0._x, lp0._y },
 			D2D1_POINT_2F{ lp1._x, lp0._y },
@@ -888,7 +863,6 @@ void ToolBox::GroupItemHoverDrawing::drawFace_Hover(cx::gw::Context* ctx, ToolBo
 void ToolBox::GroupItemHoverDrawing::getFace_Hover_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1)
 {
 	cx::gw::coord_t line_Size;
-
 	getFace_LineSize(line_Size);
 
 	getFace_Bounds(item, p0, p1);
@@ -906,8 +880,6 @@ void ToolBox::GroupItemHoverDrawing::getFace_Hover_Bounds(ToolBox::Item* item, c
 //===========================================================================
 void ToolBox::SubItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
-	//drawFrame(ctx, itemView, item);
-
 	drawFace(ctx, itemView, item);
 
 	cx::gw::BitmapSharedPtr bitmapSharedPtr;
@@ -925,6 +897,7 @@ void ToolBox::SubItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* 
 //===========================================================================
 bool ToolBox::SubItemButtonDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
+	//-----------------------------------------------------------------------
 	bool rv;
 	rv = ToolBox::SubItemDrawing::createDeviceResources(ctx);
 	if (!rv)
@@ -935,9 +908,6 @@ bool ToolBox::SubItemButtonDrawing::createDeviceResources(cx::gw::Context* ctx)
 
 	//-----------------------------------------------------------------------
 	HRESULT hr;
-
-
-	//-----------------------------------------------------------------------
 	if (!_pFace_Button_FillBrush)
 	{
 		cx::gw::Color Face_Button_FillColor;
@@ -1007,21 +977,16 @@ void ToolBox::SubItemButtonDrawing::destroyDeviceResources(void)
 
 void ToolBox::SubItemButtonDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
-	//drawFrame(ctx, itemView, item);
-
 	drawFace(ctx, itemView, item);
-
 
 	if (item->getStatus()->getHover())
 	{
 		drawFace_Button(ctx, itemView, item);
 	}
 
-
 	cx::gw::BitmapSharedPtr bitmapSharedPtr;
 	bitmapSharedPtr = itemView->getBitmapList()->findBitmap(item->getIcon());
 	drawIcon(ctx, itemView, item, bitmapSharedPtr);
-
 
 	drawCaption(ctx, itemView, item);
 }
@@ -1039,16 +1004,15 @@ void ToolBox::SubItemButtonDrawing::drawFace_Button(cx::gw::Context* ctx, ToolBo
 
 
 	D2D1_RECT_F rect;
-	rect.left = p0._x;
-	rect.top = p0._y;
-	rect.right = p1._x;
+	rect.left   = p0._x;
+	rect.top    = p0._y;
+	rect.right  = p1._x;
 	rect.bottom = p1._y;
+
 
 	ID2D1SolidColorBrush* ltBrush;
 	ID2D1SolidColorBrush* rbBrush;
 	bool pressed;
-
-
 	pressed = item->getStatus()->getPressed();
 	if (pressed)
 	{
@@ -1086,6 +1050,7 @@ void ToolBox::SubItemButtonDrawing::drawFace_Button(cx::gw::Context* ctx, ToolBo
 			lineSize
 		);
 
+
 		ctx->getD2dRenderTarget()->DrawLine(
 			D2D1_POINT_2F{ lp0._x, lp0._y },
 			D2D1_POINT_2F{ lp1._x, lp0._y },
@@ -1104,7 +1069,6 @@ void ToolBox::SubItemButtonDrawing::drawFace_Button(cx::gw::Context* ctx, ToolBo
 void ToolBox::SubItemButtonDrawing::getFace_Button_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1)
 {
 	cx::gw::coord_t line_Size;
-
 	getFace_LineSize(line_Size);
 
 	getFace_Bounds(item, p0, p1);
@@ -1122,6 +1086,7 @@ void ToolBox::SubItemButtonDrawing::getFace_Button_Bounds(ToolBox::Item* item, c
 //===========================================================================
 bool ToolBox::SubItemHoverDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
+	//-----------------------------------------------------------------------
 	bool rv;
 	rv = ToolBox::SubItemDrawing::createDeviceResources(ctx);
 	if (!rv)
@@ -1132,9 +1097,6 @@ bool ToolBox::SubItemHoverDrawing::createDeviceResources(cx::gw::Context* ctx)
 
 	//-----------------------------------------------------------------------
 	HRESULT hr;
-
-
-	//-----------------------------------------------------------------------
 	if (!_pFace_Hover_FillBrush)
 	{
 		cx::gw::Color Face_Hover_FillColor;
@@ -1186,8 +1148,6 @@ void ToolBox::SubItemHoverDrawing::destroyDeviceResources(void)
 
 void ToolBox::SubItemHoverDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
-	//drawFrame(ctx, itemView, item);
-
 	drawFace(ctx, itemView, item);
 
 	drawFace_Hover(ctx, itemView, item);
@@ -1211,9 +1171,9 @@ void ToolBox::SubItemHoverDrawing::drawFace_Hover(cx::gw::Context* ctx, ToolBox:
 
 
 	D2D1_RECT_F rect;
-	rect.left = p0._x;
-	rect.top = p0._y;
-	rect.right = p1._x;
+	rect.left   = p0._x;
+	rect.top    = p0._y;
+	rect.right  = p1._x;
 	rect.bottom = p1._y;
 
 
@@ -1248,6 +1208,7 @@ void ToolBox::SubItemHoverDrawing::drawFace_Hover(cx::gw::Context* ctx, ToolBox:
 			lineSize
 		);
 
+
 		ctx->getD2dRenderTarget()->DrawLine(
 			D2D1_POINT_2F{ lp0._x, lp0._y },
 			D2D1_POINT_2F{ lp1._x, lp0._y },
@@ -1267,7 +1228,6 @@ void ToolBox::SubItemHoverDrawing::drawFace_Hover(cx::gw::Context* ctx, ToolBox:
 void ToolBox::SubItemHoverDrawing::getFace_Hover_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1)
 {
 	cx::gw::coord_t line_Size;
-
 	getFace_LineSize(line_Size);
 
 	getFace_Bounds(item, p0, p1);
