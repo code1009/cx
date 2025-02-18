@@ -617,7 +617,10 @@ void ToolBox::GroupItemButtonDrawing::drawItem(cx::gw::Context* ctx, ToolBox::It
 	drawFace_Button(ctx, itemView, item);
 
 	cx::gw::BitmapSharedPtr bitmapSharedPtr;
-	bitmapSharedPtr = itemView->getBitmapList()->findBitmap(item->getIcon());
+	bitmapSharedPtr =
+		dynamic_cast<ToolBox::GroupItem*>(item)->isCollapseSubItems()
+		? itemView->getGroupItemCollapseBitmap()
+		: itemView->getGroupItemExpandBitmap();
 	drawIcon(ctx, itemView, item, bitmapSharedPtr);
 
 	drawCaption(ctx, itemView, item);
