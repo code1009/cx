@@ -212,6 +212,33 @@ bool ToolBox::ItemDrawing::createDeviceResources(cx::gw::Context* ctx)
 		}
 	}
 	//-----------------------------------------------------------------------
+	if (!_pFace_Hover_FillBrush)
+	{
+		cx::gw::Color Face_Hover_FillColor;
+		getFace_Hover_FillColor(Face_Hover_FillColor);
+		hr = ctx->getD2dRenderTarget()->CreateSolidColorBrush(
+			D2D1::ColorF(Face_Hover_FillColor._r, Face_Hover_FillColor._g, Face_Hover_FillColor._b, Face_Hover_FillColor._a),
+			&_pFace_Hover_FillBrush
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+	if (!_pFace_Hover_LineBrush)
+	{
+		cx::gw::Color Face_Hover_LineColor;
+		getFace_Hover_LineColor(Face_Hover_LineColor);
+		hr = ctx->getD2dRenderTarget()->CreateSolidColorBrush(
+			D2D1::ColorF(Face_Hover_LineColor._r, Face_Hover_LineColor._g, Face_Hover_LineColor._b, Face_Hover_LineColor._a),
+			&_pFace_Hover_LineBrush
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+	//-----------------------------------------------------------------------
 	if (!_pFace_Button_FillBrush)
 	{
 		cx::gw::Color Face_Button_FillColor;
@@ -320,6 +347,17 @@ void ToolBox::ItemDrawing::destroyDeviceResources(void)
 		_pFace_LineBrush = nullptr;
 	}
 	//-----------------------------------------------------------------------
+	if (_pFace_Hover_LineBrush)
+	{
+		_pFace_Hover_LineBrush->Release();
+		_pFace_Hover_LineBrush = nullptr;
+	}
+	if (_pFace_Hover_LineBrush)
+	{
+		_pFace_Hover_LineBrush->Release();
+		_pFace_Hover_LineBrush = nullptr;
+	}
+	//-----------------------------------------------------------------------
 	if (_pFace_Button_FillBrush)
 	{
 		_pFace_Button_FillBrush->Release();
@@ -356,7 +394,10 @@ void ToolBox::ItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* ite
 
 	drawFace(ctx, itemView, item);
 
-	drawIcon(ctx, itemView, item);
+	cx::gw::BitmapSharedPtr bitmapSharedPtr;
+	bitmapSharedPtr = itemView->getBitmapList()->findBitmap(item->getIcon());
+	drawIcon(ctx, itemView, item, bitmapSharedPtr);
+
 	drawCaption(ctx, itemView, item);
 }
 
@@ -454,7 +495,72 @@ void ToolBox::ItemDrawing::drawFace(cx::gw::Context* ctx, ToolBox::ItemView* ite
 	}
 }
 
-void ToolBox::ItemDrawing::drawFaceButton(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
+void ToolBox::ItemDrawing::drawFace_Hover(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
+{
+	cx::gw::Point p0;
+	cx::gw::Point p1;
+	getFace_Hover_Bounds(item, p0, p1);
+
+
+	cx::gw::coord_t lineSize;
+	getFace_Hover_LineSize(lineSize);
+
+
+	D2D1_RECT_F rect;
+	rect.left = p0._x;
+	rect.top = p0._y;
+	rect.right = p1._x;
+	rect.bottom = p1._y;
+
+
+	ctx->getD2dRenderTarget()->FillRectangle(&rect, _pFace_Hover_FillBrush);
+	if (lineSize > 0)
+	{
+#if 1
+		rect.left += lineSize;
+		rect.top += lineSize;
+		rect.right -= lineSize;
+		rect.bottom -= lineSize;
+		ctx->getD2dRenderTarget()->DrawRectangle(&rect, _pFace_Hover_LineBrush, lineSize);
+#else
+		cx::gw::Point lp0 = p0;
+		cx::gw::Point lp1 = p1;
+		lp0._x += lineSize;
+		lp0._y += lineSize;
+		lp1._x -= lineSize;
+		lp1._y -= lineSize;
+
+
+		ctx->getD2dRenderTarget()->DrawLine(
+			D2D1_POINT_2F{ lp1._x, lp1._y },
+			D2D1_POINT_2F{ lp1._x, lp0._y },
+			_pFace_Hover_Button_S_LineBrush,
+			lineSize
+		);
+		ctx->getD2dRenderTarget()->DrawLine(
+			D2D1_POINT_2F{ lp1._x, lp1._y },
+			D2D1_POINT_2F{ lp0._x, lp1._y },
+			_pFace_Hover_Button_S_LineBrush,
+			lineSize
+		);
+
+		ctx->getD2dRenderTarget()->DrawLine(
+			D2D1_POINT_2F{ lp0._x, lp0._y },
+			D2D1_POINT_2F{ lp1._x, lp0._y },
+			_pFace_Hover_Button_H_LineBrush,
+			lineSize
+		);
+		ctx->getD2dRenderTarget()->DrawLine(
+			D2D1_POINT_2F{ lp0._x, lp0._y },
+			D2D1_POINT_2F{ lp0._x, lp1._y },
+			_pFace_Hover_Button_H_LineBrush,
+			lineSize
+		);
+#endif
+	}
+}
+
+void ToolBox::ItemDrawing::drawFace_Button(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
 	cx::gw::Point p0;
 	cx::gw::Point p1;
@@ -528,10 +634,8 @@ void ToolBox::ItemDrawing::drawFaceButton(cx::gw::Context* ctx, ToolBox::ItemVie
 	}
 }
 
-void ToolBox::ItemDrawing::drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
+void ToolBox::ItemDrawing::drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item, cx::gw::BitmapSharedPtr bitmapSharedPtr)
 {
-	cx::gw::BitmapSharedPtr bitmapSharedPtr;
-	bitmapSharedPtr = itemView->getBitmapList()->findBitmap(item->getIcon());
 	if (!bitmapSharedPtr)
 	{
 		return;
@@ -625,6 +729,22 @@ void ToolBox::ItemDrawing::getFace_LineSize(cx::gw::coord_t& size)
 }
 
 //===========================================================================
+void ToolBox::ItemDrawing::getFace_Hover_FillColor(cx::gw::Color& color)
+{
+	color = cx::gw::Color(0.90f, 0.90f, 1.00f, 1.0f);
+}
+
+void ToolBox::ItemDrawing::getFace_Hover_LineColor(cx::gw::Color& color)
+{
+	color = cx::gw::Color(0.25f, 0.25f, 0.75f, 1.0f);
+}
+
+void ToolBox::ItemDrawing::getFace_Hover_LineSize(cx::gw::coord_t& size)
+{
+	size = 0.5f;
+}
+
+//===========================================================================
 void ToolBox::ItemDrawing::getFace_Button_FillColor(cx::gw::Color& color)
 {
 	color = cx::gw::Color(0.95f, 0.95f, 0.95f, 1.0f);
@@ -675,6 +795,19 @@ void ToolBox::ItemDrawing::getFace_Bounds(ToolBox::Item* item, cx::gw::Point& p0
 
 	getFrame_Bounds(item, p0, p1);
 	p0._x = p0._x + indentSpace_Size + item->getDepth() * depth_Size;
+}
+
+void ToolBox::ItemDrawing::getFace_Hover_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1)
+{
+	cx::gw::coord_t line_Size;
+
+	getFace_LineSize(line_Size);
+
+	getFace_Bounds(item, p0, p1);
+	p0._x = p0._x + line_Size;
+	p0._y = p0._y + line_Size;
+	p1._x = p1._x - line_Size;
+	p1._y = p1._y - line_Size;
 }
 
 void ToolBox::ItemDrawing::getFace_Button_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1)
@@ -755,9 +888,26 @@ void ToolBox::GroupItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView
 	drawBorder(ctx, itemView, item);
 
 	drawFace(ctx, itemView, item);
-	drawFaceButton(ctx, itemView, item);
 
-	drawIcon(ctx, itemView, item);
+	if (item->getStatus()->getHover())
+	{
+		drawFace_Hover(ctx, itemView, item);
+	}
+	else
+	{
+		if (item->getStyle() == ToolBox::ItemStyle::Button)
+		{
+			drawFace_Button(ctx, itemView, item);
+		}
+	}
+
+	cx::gw::BitmapSharedPtr bitmapSharedPtr;
+	bitmapSharedPtr =
+		dynamic_cast<ToolBox::GroupItem*>(item)->isCollapseSubItems()
+		? itemView->getGroupItemCollapseBitmap()
+		: itemView->getGroupItemExpandBitmap();
+
+	drawIcon(ctx, itemView, item, bitmapSharedPtr);
 	drawCaption(ctx, itemView, item);
 }
 
@@ -848,12 +998,24 @@ void ToolBox::SubItemDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* 
 	//drawFrame(ctx, itemView, item);
 
 	drawFace(ctx, itemView, item);
-	if (item->getStyle() == ToolBox::ItemStyle::Button)
+
+	if (item->getStatus()->getHover())
 	{
-		drawFaceButton(ctx, itemView, item);
+		drawFace_Hover(ctx, itemView, item);
+	}
+	else
+	{
+		if (item->getStyle() == ToolBox::ItemStyle::Button)
+		{
+			drawFace_Button(ctx, itemView, item);
+		}
 	}
 
-	drawIcon(ctx, itemView, item);
+	cx::gw::BitmapSharedPtr bitmapSharedPtr;
+	bitmapSharedPtr = itemView->getBitmapList()->findBitmap(item->getIcon());
+	drawIcon(ctx, itemView, item, bitmapSharedPtr);
+
+
 	drawCaption(ctx, itemView, item);
 }
 

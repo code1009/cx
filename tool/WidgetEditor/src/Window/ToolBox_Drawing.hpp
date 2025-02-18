@@ -49,6 +49,9 @@ public:
 	ID2D1SolidColorBrush* _pFace_FillBrush{ nullptr };
 	ID2D1SolidColorBrush* _pFace_LineBrush{ nullptr };
 
+	ID2D1SolidColorBrush* _pFace_Hover_FillBrush{ nullptr };
+	ID2D1SolidColorBrush* _pFace_Hover_LineBrush{ nullptr };
+
 	ID2D1SolidColorBrush* _pFace_Button_FillBrush{ nullptr };
 	ID2D1SolidColorBrush* _pFace_Button_H_LineBrush{ nullptr };
 	ID2D1SolidColorBrush* _pFace_Button_S_LineBrush{ nullptr };
@@ -70,8 +73,9 @@ public:
 public:
 	virtual void drawFrame(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 	virtual void drawFace(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
-	virtual void drawFaceButton(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
-	virtual void drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawFace_Button(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawFace_Hover(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
+	virtual void drawIcon(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item, cx::gw::BitmapSharedPtr bitmapSharedPtr);
 	virtual void drawCaption(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);
 
 public:
@@ -82,6 +86,10 @@ public:
 	virtual void getFace_FillColor(cx::gw::Color& color);
 	virtual void getFace_LineColor(cx::gw::Color& color);
 	virtual void getFace_LineSize(cx::gw::coord_t& size);
+
+	virtual void getFace_Hover_FillColor(cx::gw::Color& color);
+	virtual void getFace_Hover_LineColor(cx::gw::Color& color);
+	virtual void getFace_Hover_LineSize(cx::gw::coord_t& size);
 
 	virtual void getFace_Button_FillColor(cx::gw::Color& color);
 	virtual void getFace_Button_H_LineColor(cx::gw::Color& color);
@@ -94,6 +102,7 @@ public:
 public:
 	virtual void getFrame_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 	virtual void getFace_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
+	virtual void getFace_Hover_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 	virtual void getFace_Button_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 	virtual void getIcon_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);
 	virtual void getCaption_Bounds(ToolBox::Item* item, cx::gw::Point& p0, cx::gw::Point& p1);

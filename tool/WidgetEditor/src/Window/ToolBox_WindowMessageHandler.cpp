@@ -90,8 +90,10 @@ ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point
 
 ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtr& item)
 {
-	cx::gw::Point p0 = item->getP0();
-	cx::gw::Point p1 = item->getP1();
+	cx::gw::Point p0;
+	cx::gw::Point p1;
+	auto itemDrawing = _ItemView->getItemDrawing(item);
+	itemDrawing->getFace_Bounds(item.get(), p0, p1);
 
 
 	auto rv = cx::gw::isPointInBounds(p0, p1, point);

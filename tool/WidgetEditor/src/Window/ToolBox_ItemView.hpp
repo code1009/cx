@@ -12,8 +12,13 @@ private:
 	ToolBox::ControlWindow* _Window{ nullptr };
 	ToolBox::ItemSharedPtrs _Items;
 	std::size_t _LastMadeID{ 0 };
+	
 	cx::gw::Point _ItemViewSize;
+
 	cx::gw::BitmapList _BitmapList;
+	cx::gw::BitmapSharedPtr _GroupItemExpandBitmap;
+	cx::gw::BitmapSharedPtr _GroupItemCollapseBitmap;
+
 	ToolBox::ItemViewDrawingSharedPtr _ItemViewDrawing;
 	ToolBox::ItemDrawingSharedPtrs _ItemDrawings;
 	ToolBox::ItemDrawingSharedPtr _GroupItemDrawing;
@@ -64,6 +69,8 @@ public:
 
 public:
 	cx::gw::BitmapList* getBitmapList(void);
+	cx::gw::BitmapSharedPtr getGroupItemExpandBitmap(void);
+	cx::gw::BitmapSharedPtr getGroupItemCollapseBitmap(void);
 
 public:
 	ToolBox::ItemDrawingSharedPtr getItemDrawing(ToolBox::ItemSharedPtr item);

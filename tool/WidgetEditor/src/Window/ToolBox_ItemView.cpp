@@ -19,7 +19,13 @@
 #include "ToolBox_ItemView.hpp"
 #include "ToolBox_ControlWindow.hpp"
 
-unsigned char bitmap_expand_png[558] = {
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+static unsigned char _bitmap_expand_png[558] = {
 	0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
 	0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10,
 	0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0xF3, 0xFF, 0x61, 0x00, 0x00, 0x01,
@@ -69,7 +75,7 @@ unsigned char bitmap_expand_png[558] = {
 	0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
 };
 
-unsigned char bitmap_collapse_png[557] = {
+static unsigned char _bitmap_collapse_png[557] = {
 	0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
 	0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10,
 	0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0xF3, 0xFF, 0x61, 0x00, 0x00, 0x01,
@@ -119,7 +125,7 @@ unsigned char bitmap_collapse_png[557] = {
 	0x44, 0xAE, 0x42, 0x60, 0x82
 };
 
-unsigned char bitmap_item_png[712] = {
+static unsigned char _bitmap_item_png[712] = {
 	0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
 	0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x10,
 	0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0xF3, 0xFF, 0x61, 0x00, 0x00, 0x01,
@@ -210,6 +216,9 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	_SubItemDrawing = std::make_shared<ToolBox::SubItemDrawing>();
 	_ItemDrawings.push_back(_SubItemDrawing);
 
+	_GroupItemExpandBitmap   = cx::gw::makeBitmap(_bitmap_expand_png, sizeof(_bitmap_expand_png));
+	_GroupItemCollapseBitmap = cx::gw::makeBitmap(_bitmap_collapse_png, sizeof(_bitmap_collapse_png));
+
 
 	//-----------------------------------------------------------------------
 #if 0
@@ -255,10 +264,10 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	ToolBox::GroupItemSharedPtr subGroupItem;
 	ToolBox::SubItemSharedPtr subItem;
 
-	rootGroupItem = makeGroupItem(makeID(), L"명령", L"expand.png");
+	rootGroupItem = makeGroupItem(makeID(), L"명령");
 	addItem(nullptr, rootGroupItem);
 
-	groupItem = makeGroupItem(makeID(), L"편집", L"expand.png");
+	groupItem = makeGroupItem(makeID(), L"편집");
 	addItem(rootGroupItem, groupItem);
 
 	subItem = makeSubItem(makeID(), L"실행 취소", std::wstring(), ToolBox::ItemStyle::Button);
@@ -285,7 +294,7 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	subItem = makeSubItem(makeID(), L"전체 선택", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	groupItem = makeGroupItem(makeID(), L"이동", L"expand.png");
+	groupItem = makeGroupItem(makeID(), L"이동");
 	addItem(rootGroupItem, groupItem);
 
 	subItem = makeSubItem(makeID(), L"앞으로", std::wstring(), ToolBox::ItemStyle::Button);
@@ -300,7 +309,7 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	subItem = makeSubItem(makeID(), L"맨 뒤로", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	groupItem = makeGroupItem(makeID(), L"위젯", L"expand.png");
+	groupItem = makeGroupItem(makeID(), L"위젯");
 	addItem(nullptr, groupItem);
 
 	subItem = makeSubItem(makeID(), L"선", L"item.png");
@@ -313,10 +322,7 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	addItem(groupItem, subItem);
 #endif
 
-
-	_BitmapList.addBitmap(L"expand.png", cx::gw::makeBitmap(bitmap_expand_png, sizeof(bitmap_expand_png)));
-	_BitmapList.addBitmap(L"collapse.png", cx::gw::makeBitmap(bitmap_collapse_png, sizeof(bitmap_collapse_png)));
-	_BitmapList.addBitmap(L"item.png", cx::gw::makeBitmap(bitmap_item_png, sizeof(bitmap_item_png)));
+	_BitmapList.addBitmap(L"item.png", cx::gw::makeBitmap(_bitmap_item_png, sizeof(_bitmap_item_png)));
 
 	recalcLayout();
 }
@@ -360,6 +366,18 @@ bool ToolBox::ItemView::createDeviceResources(cx::gw::Context* ctx)
 		}
 	}
 
+	rv = _GroupItemExpandBitmap->createDeviceResources(ctx);
+	if (!rv)
+	{
+		return false;
+	}
+
+	rv = _GroupItemCollapseBitmap->createDeviceResources(ctx);
+	if (!rv)
+	{
+		return false;
+	}
+
 	rv = _BitmapList.createDeviceResources(ctx);
 	if (!rv)
 	{
@@ -373,6 +391,8 @@ void ToolBox::ItemView::destroyDeviceResources(void)
 {
 	_BitmapList.destroyDeviceResources();
 
+	_GroupItemExpandBitmap->destroyDeviceResources();
+	_GroupItemCollapseBitmap->destroyDeviceResources();
 
 	for (auto& itemDrawing : _ItemDrawings)
 	{
@@ -568,6 +588,16 @@ cx::gw::coord_t ToolBox::ItemView::recalcItemLayout(cx::gw::coord_t offset, cx::
 }
 
 //===========================================================================
+cx::gw::BitmapSharedPtr ToolBox::ItemView::getGroupItemExpandBitmap(void)
+{
+	return _GroupItemExpandBitmap;
+}
+
+cx::gw::BitmapSharedPtr ToolBox::ItemView::getGroupItemCollapseBitmap(void)
+{
+	return _GroupItemCollapseBitmap;
+}
+
 cx::gw::BitmapList* ToolBox::ItemView::getBitmapList(void)
 {
 	return &_BitmapList;
