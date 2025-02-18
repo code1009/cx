@@ -8,11 +8,7 @@
 #include <runtime/runtime.hpp>
 
 //===========================================================================
-#include "../../res/resource.h"
-
-//===========================================================================
 #include "ToolBox.hpp"
-
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
 #include "ToolBox_WindowMessageHandler.hpp"
@@ -31,19 +27,6 @@ void ToolBox::WindowMessageHandler::setItemView(ToolBox::ItemView* itemView)
 }
 
 //===========================================================================
-bool ToolBox::WindowMessageHandler::isIn(ToolBox::Item* test)
-{
-	for(auto& item : _ItemView->getItems())
-	{
-		if (item.get() == test)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
 void ToolBox::WindowMessageHandler::reset(void)
 {
 	if (false==isIn(_Item_MousePressed  )){_Item_MousePressed  =nullptr;}
@@ -54,6 +37,20 @@ void ToolBox::WindowMessageHandler::reset(void)
 	if (false==isIn(_Item_MouseDragging )){_Item_MouseDragging =nullptr;}
 }
 
+bool ToolBox::WindowMessageHandler::isIn(ToolBox::Item* test)
+{
+	for (auto& item : _ItemView->getItems())
+	{
+		if (item.get() == test)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+//===========================================================================
 ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point)
 {
 	return hitTest(point, _ItemView->getItems());
@@ -150,7 +147,7 @@ void ToolBox::WindowMessageHandler::releaseWindowMouseCapture(void)
 	}		
 }
 
-void ToolBox::WindowMessageHandler::onWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+bool ToolBox::WindowMessageHandler::onWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	bool handled = false;
 
@@ -158,8 +155,10 @@ void ToolBox::WindowMessageHandler::onWindowMessage(HWND hWnd, UINT uMsg, WPARAM
 	onWindowMouseMessage(hWnd, uMsg, wParam, lParam, handled);
 	if(handled)
 	{
-		return;
+		return true;
 	}
+
+	return false;
 }
 
 void ToolBox::WindowMessageHandler::onWindowMouseMessage (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool& handled)

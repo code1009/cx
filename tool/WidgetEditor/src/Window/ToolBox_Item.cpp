@@ -12,7 +12,6 @@
 
 //===========================================================================
 #include "ToolBox.hpp"
-
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
 #include "ToolBox_WindowMessageHandler.hpp"

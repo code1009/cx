@@ -8,11 +8,7 @@
 #include <runtime/runtime.hpp>
 
 //===========================================================================
-#include "../../res/resource.h"
-
-//===========================================================================
 #include "ToolBox.hpp"
-
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
 #include "ToolBox_WindowMessageHandler.hpp"
@@ -213,58 +209,35 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 
 	_GroupItemDrawing = std::make_shared<ToolBox::GroupItemDrawing>();
 	_ItemDrawings.push_back(_GroupItemDrawing);
+	_GroupItemButtonDrawing = std::make_shared<ToolBox::GroupItemButtonDrawing>();
+	_ItemDrawings.push_back(_GroupItemButtonDrawing);
+	_GroupItemHoverDrawing = std::make_shared<ToolBox::GroupItemHoverDrawing>();
+	_ItemDrawings.push_back(_GroupItemHoverDrawing);
+
 	_SubItemDrawing = std::make_shared<ToolBox::SubItemDrawing>();
 	_ItemDrawings.push_back(_SubItemDrawing);
+	_SubItemButtonDrawing = std::make_shared<ToolBox::SubItemButtonDrawing>();
+	_ItemDrawings.push_back(_SubItemButtonDrawing);
+	_SubItemHoverDrawing = std::make_shared<ToolBox::SubItemHoverDrawing>();
+	_ItemDrawings.push_back(_SubItemHoverDrawing);
 
+
+	//-----------------------------------------------------------------------
 	_GroupItemExpandBitmap   = cx::gw::makeBitmap(_bitmap_expand_png, sizeof(_bitmap_expand_png));
 	_GroupItemCollapseBitmap = cx::gw::makeBitmap(_bitmap_collapse_png, sizeof(_bitmap_collapse_png));
 
 
 	//-----------------------------------------------------------------------
-#if 0
-	ToolBox::GroupItemSharedPtr groupItem;
-	ToolBox::GroupItemSharedPtr subGroupItem;
-	ToolBox::SubItemSharedPtr subItem;
+	_BitmapList.addBitmap(L"item.png", cx::gw::makeBitmap(_bitmap_item_png, sizeof(_bitmap_item_png)));
 
-	groupItem = makeGroupItem(makeID(), L"GroupItem0", L"collapse.png");
-	addItem(nullptr, groupItem);
 
-	groupItem = makeGroupItem(makeID(), L"GroupItem1", L"expand.png");
-	addItem(nullptr, groupItem);
-
-	subItem = makeSubItem(makeID(), L"SubItem0", L"item.png");
-	addItem(nullptr, subItem);
-
-	subItem = makeSubItem(makeID(), L"SubItem1", L"item.png");
-	addItem(nullptr, subItem);
-
-	subItem = makeSubItem(makeID(), L"SubItem2", L"item.png");
-	addItem(nullptr, subItem);
-
-	subItem = makeSubItem(makeID(), L"SubItem3", L"item.png");
-	addItem(nullptr, subItem);
-
-	subItem = makeSubItem(makeID(), L"SubItem4");
-	addItem(nullptr, subItem);
-
-	subItem = makeSubItem(makeID(), L"SubItem5");
-	addItem(groupItem, subItem);
-
-	subGroupItem = makeGroupItem(makeID(), L"GroupItem1", L"expand.png");
-	addItem(groupItem, subGroupItem);
-	subItem = makeSubItem(makeID(), L"SubItem6", L"item.png");
-	addItem(subGroupItem, subItem);
-	subItem = makeSubItem(makeID(), L"SubItem7", L"item.png");
-	addItem(subGroupItem, subItem);
-	subItem = makeSubItem(makeID(), L"SubItem8", L"item.png");
-	addItem(subGroupItem, subItem);
-#else
+	//-----------------------------------------------------------------------
 	ToolBox::GroupItemSharedPtr rootGroupItem;
 	ToolBox::GroupItemSharedPtr groupItem;
 	ToolBox::GroupItemSharedPtr subGroupItem;
 	ToolBox::SubItemSharedPtr subItem;
 
-	rootGroupItem = makeGroupItem(makeID(), L"명령");
+	rootGroupItem = makeGroupItem(makeID(), L"명령", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(nullptr, rootGroupItem);
 
 	groupItem = makeGroupItem(makeID(), L"편집");
@@ -309,7 +282,7 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 	subItem = makeSubItem(makeID(), L"맨 뒤로", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(groupItem, subItem);
 
-	groupItem = makeGroupItem(makeID(), L"위젯");
+	groupItem = makeGroupItem(makeID(), L"위젯", std::wstring(), ToolBox::ItemStyle::Button);
 	addItem(nullptr, groupItem);
 
 	subItem = makeSubItem(makeID(), L"선", L"item.png");
@@ -320,9 +293,10 @@ ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
 
 	subItem = makeSubItem(makeID(), L"원", L"item.png");
 	addItem(groupItem, subItem);
-#endif
 
-	_BitmapList.addBitmap(L"item.png", cx::gw::makeBitmap(_bitmap_item_png, sizeof(_bitmap_item_png)));
+	subItem = makeSubItem(makeID(), L"도움말", L"item.png");
+	addItem(nullptr, subItem);
+
 
 	recalcLayout();
 }
@@ -346,11 +320,9 @@ cx::gw::Point ToolBox::ItemView::getItemViewSize(void)
 //===========================================================================
 bool ToolBox::ItemView::createDeviceResources(cx::gw::Context* ctx)
 {
-	//-----------------------------------------------------------------------
 	bool rv;
 
 
-	//-----------------------------------------------------------------------
 	rv = _ItemViewDrawing->createDeviceResources(ctx);
 	if (!rv)
 	{
@@ -608,10 +580,28 @@ ToolBox::ItemDrawingSharedPtr ToolBox::ItemView::getItemDrawing(ToolBox::ItemSha
 {
 	if (auto groupItem = std::dynamic_pointer_cast<ToolBox::GroupItem>(item))
 	{
+		if (groupItem->getStyle() == ToolBox::ItemStyle::Button)
+		{
+			return _GroupItemButtonDrawing;
+		}
+		if (groupItem->getStatus()->getHover())
+		{
+			return _GroupItemHoverDrawing;
+		}
+
 		return _GroupItemDrawing;
 	}
 	if (auto subItem = std::dynamic_pointer_cast<ToolBox::SubItem>(item))
 	{
+		if (subItem->getStyle() == ToolBox::ItemStyle::Button)
+		{
+			return _SubItemButtonDrawing;
+		}
+		if (subItem->getStatus()->getHover())
+		{
+			return _SubItemHoverDrawing;
+		}
+
 		return _SubItemDrawing;
 	}
 

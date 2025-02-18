@@ -10,6 +10,7 @@ class ToolBox::ItemView
 {
 private:
 	ToolBox::ControlWindow* _Window{ nullptr };
+
 	ToolBox::ItemSharedPtrs _Items;
 	std::size_t _LastMadeID{ 0 };
 	
@@ -21,8 +22,14 @@ private:
 
 	ToolBox::ItemViewDrawingSharedPtr _ItemViewDrawing;
 	ToolBox::ItemDrawingSharedPtrs _ItemDrawings;
+
 	ToolBox::ItemDrawingSharedPtr _GroupItemDrawing;
+	ToolBox::ItemDrawingSharedPtr _GroupItemButtonDrawing;
+	ToolBox::ItemDrawingSharedPtr _GroupItemHoverDrawing;
+	
 	ToolBox::ItemDrawingSharedPtr _SubItemDrawing;
+	ToolBox::ItemDrawingSharedPtr _SubItemButtonDrawing;
+	ToolBox::ItemDrawingSharedPtr _SubItemHoverDrawing;
 
 public:
 	explicit ItemView(ToolBox::ControlWindow* window);

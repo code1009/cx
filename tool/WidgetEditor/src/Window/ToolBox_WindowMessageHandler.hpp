@@ -86,33 +86,31 @@ public:
 
 public:
 	void reset(void);
-
-public:
 	bool isIn(ToolBox::Item* test);
 
 public:
-	ToolBox::Item* hitTest(const cx::gw::Point& point);
-	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtrs& items);
-	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtr& item);
+	ToolBox::Item* hitTest (const cx::gw::Point& point);
+	ToolBox::Item* hitTest (const cx::gw::Point& point, ToolBox::ItemSharedPtrs& items);
+	ToolBox::Item* hitTest (const cx::gw::Point& point, ToolBox::ItemSharedPtr& item);
 
 public:
-	void getMouseDbClickTime(std::uint64_t& time);
-	void setMouseDbClickTime(std::uint64_t time);
+	void getMouseDbClickTime (std::uint64_t& time);
+	void setMouseDbClickTime (std::uint64_t time);
 
 public:
 	bool getWindowMouseCaptureEnabled (void);
 	void setWindowMouseCaptureEnabled (bool enabled);
 
 public:
-	void setWindowMouseCapture(HWND hwnd);
-	void releaseWindowMouseCapture(void);
+	void setWindowMouseCapture     (HWND hwnd);
+	void releaseWindowMouseCapture (void);
 
 public:
-	void onWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	void onWindowMouseMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool& handled);
+	bool onWindowMessage      (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	void onWindowMouseMessage (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool& handled);
 
 public:
-	void onMouse(ToolBox::EventType eventType, ToolBox::MouseEventParam& param);
+	void onMouse (ToolBox::EventType eventType, ToolBox::MouseEventParam& param);
 
 public:
 	void onMouseMove        (ToolBox::MouseEventParam& param);
@@ -124,13 +122,13 @@ public:
 	void notifyMouseLButtonDown (ToolBox::MouseEventParam& param);
 	void notifyMouseLButtonUp   (ToolBox::MouseEventParam& param);
 
-	void notifyMousePressed  (ToolBox::Item* item, ToolBox::MouseEventParam& param);
-	void notifyMouseReleased (ToolBox::Item* item, ToolBox::MouseEventParam& param);
-	void notifyMouseClicked  (ToolBox::Item* item, ToolBox::MouseEventParam& param);
-	void notifyMouseDbClicked(ToolBox::Item* item, ToolBox::MouseEventParam& param);
-	void notifyMouseOver     (ToolBox::Item* item, ToolBox::MouseEventParam& param);
-	void notifyMouseLeave    (ToolBox::Item* item, ToolBox::MouseEventParam& param);
-	void notifyMouseDragging (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMousePressed   (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseReleased  (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseClicked   (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseDbClicked (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseOver      (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseLeave     (ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	void notifyMouseDragging  (ToolBox::Item* item, ToolBox::MouseEventParam& param);
 };
 
 

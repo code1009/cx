@@ -8,11 +8,7 @@
 #include <runtime/runtime.hpp>
 
 //===========================================================================
-#include "../../res/resource.h"
-
-//===========================================================================
 #include "ToolBox.hpp"
-
 #include "ToolBox_Item.hpp"
 #include "ToolBox_Drawing.hpp"
 #include "ToolBox_WindowMessageHandler.hpp"
@@ -30,7 +26,6 @@ ToolBox::ControlWindow::ControlWindow(HWND hwnd) :
 	_WindowHandle(hwnd)
 {
 	_ItemView = std::make_unique<ToolBox::ItemView>(this);
-
 	_WindowMessageHandler.setItemView(_ItemView.get());
 }
 

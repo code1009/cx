@@ -23,8 +23,14 @@ public:
 
 	class ItemViewDrawing;
 	class ItemDrawing;
+	
 	class GroupItemDrawing;
+	class GroupItemButtonDrawing;
+	class GroupItemHoverDrawing;
+
 	class SubItemDrawing;
+	class SubItemButtonDrawing;
+	class SubItemHoverDrawing;
 
 	enum class EventType;
 	class MouseEventParam;
