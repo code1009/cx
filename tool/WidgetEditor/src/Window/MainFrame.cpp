@@ -331,29 +331,29 @@ void MainFrame::createToolBox(void)
 	ToolBox::GroupItemSharedPtr subGroupItem;
 	ToolBox::SubItemSharedPtr subItem;
 
-	rootGroupItem = _ToolBox->createGroupItem(nullptr, L"명령", std::wstring(), ToolBox::ItemStyle::Button);
+	rootGroupItem = _ToolBox->addGroupItem(nullptr, L"명령", std::wstring(), ToolBox::ItemStyle::Button);
 	
-	groupItem = _ToolBox->createGroupItem(rootGroupItem, L"편집");
-	subItem = _ToolBox->createSubItem(groupItem, L"실행 취소", std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"다시 실행", std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"잘라내기" , std::wstring(), ToolBox::ItemStyle::Button);;
-	subItem = _ToolBox->createSubItem(groupItem, L"복사"     , std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"붙여넣기" , std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"삭제"     , std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"선택 취소", std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"전체 선택", std::wstring(), ToolBox::ItemStyle::Button);
+	groupItem = _ToolBox->addGroupItem(rootGroupItem, L"편집");
+	subItem = _ToolBox->addSubItem(groupItem, L"실행 취소", std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"다시 실행", std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"잘라내기" , std::wstring(), ToolBox::ItemStyle::Button);;
+	subItem = _ToolBox->addSubItem(groupItem, L"복사"     , std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"붙여넣기" , std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"삭제"     , std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"선택 취소", std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"전체 선택", std::wstring(), ToolBox::ItemStyle::Button);
 	
-	groupItem = _ToolBox->createGroupItem(rootGroupItem, L"이동");
-	subItem = _ToolBox->createSubItem(groupItem, L"앞으로"   , std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"뒤로"     , std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"맨 앞으로", std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"맨 뒤로"  , std::wstring(), ToolBox::ItemStyle::Button);
+	groupItem = _ToolBox->addGroupItem(rootGroupItem, L"이동");
+	subItem = _ToolBox->addSubItem(groupItem, L"앞으로"   , std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"뒤로"     , std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"맨 앞으로", std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"맨 뒤로"  , std::wstring(), ToolBox::ItemStyle::Button);
 
-	groupItem = _ToolBox->createGroupItem(nullptr, L"위젯", std::wstring(), ToolBox::ItemStyle::Button);
-	subItem = _ToolBox->createSubItem(groupItem, L"선");
-	subItem = _ToolBox->createSubItem(groupItem, L"네모");
-	subItem = _ToolBox->createSubItem(groupItem, L"원");
+	groupItem = _ToolBox->addGroupItem(nullptr, L"위젯", std::wstring(), ToolBox::ItemStyle::Button);
+	subItem = _ToolBox->addSubItem(groupItem, L"선");
+	subItem = _ToolBox->addSubItem(groupItem, L"네모");
+	subItem = _ToolBox->addSubItem(groupItem, L"원");
 
-	subItem = _ToolBox->createSubItem(nullptr, L"도움말", L"item.png");
+	subItem = _ToolBox->addSubItem(nullptr, L"도움말", L"item.png");
 }
 

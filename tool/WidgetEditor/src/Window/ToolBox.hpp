@@ -99,7 +99,7 @@ public:
 	void addIconBitmap(std::wstring name, const void* pImageData, std::size_t imageSize);
 
 public:
-	GroupItemSharedPtr createGroupItem(
+	GroupItemSharedPtr addGroupItem(
 		GroupItemSharedPtr parentItem,
 		std::wstring caption, 
 		std::wstring icon = std::wstring(), 
@@ -107,7 +107,7 @@ public:
 		cx::gw::coord_t size = 28.0f, 
 		std::wstring description = std::wstring()
 	);
-	SubItemSharedPtr createSubItem(
+	SubItemSharedPtr addSubItem(
 		GroupItemSharedPtr parentItem,
 		std::wstring caption,
 		std::wstring icon = std::wstring(),

@@ -445,7 +445,7 @@ void ToolBox::addIconBitmap(std::wstring name, const void* pImageData, std::size
 }
 
 //===========================================================================
-ToolBox::GroupItemSharedPtr ToolBox::createGroupItem(
+ToolBox::GroupItemSharedPtr ToolBox::addGroupItem(
 	ToolBox::GroupItemSharedPtr parentItem,
 	std::wstring caption,
 	std::wstring icon,
@@ -471,7 +471,7 @@ ToolBox::GroupItemSharedPtr ToolBox::createGroupItem(
 	return groupItem;
 }
 
-ToolBox::SubItemSharedPtr ToolBox::createSubItem(
+ToolBox::SubItemSharedPtr ToolBox::addSubItem(
 	ToolBox::GroupItemSharedPtr parentItem,
 	std::wstring caption,
 	std::wstring icon,
