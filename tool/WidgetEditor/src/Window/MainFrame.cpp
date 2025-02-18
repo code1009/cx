@@ -330,6 +330,11 @@ void MainFrame::createToolBox(void)
 	ToolBox::GroupItemSharedPtr parent;
 	ToolBox::SubItemSharedPtr   item;
 
+	parent = _ToolBox->addGroupItem(nullptr, L"위젯", std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(parent, L"선");
+	item = _ToolBox->addSubItem(parent, L"네모");
+	item = _ToolBox->addSubItem(parent, L"원");
+
 	root = _ToolBox->addGroupItem(nullptr, L"명령", std::wstring(), ToolBox::ItemStyle::Button);
 	
 	parent = _ToolBox->addGroupItem(root, L"편집");
@@ -347,11 +352,6 @@ void MainFrame::createToolBox(void)
 	item = _ToolBox->addSubItem(parent, L"뒤로"     , std::wstring(), ToolBox::ItemStyle::Button);
 	item = _ToolBox->addSubItem(parent, L"맨 앞으로", std::wstring(), ToolBox::ItemStyle::Button);
 	item = _ToolBox->addSubItem(parent, L"맨 뒤로"  , std::wstring(), ToolBox::ItemStyle::Button);
-
-	parent = _ToolBox->addGroupItem(nullptr, L"위젯", std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(parent, L"선");
-	item = _ToolBox->addSubItem(parent, L"네모");
-	item = _ToolBox->addSubItem(parent, L"원");
 
 	item = _ToolBox->addSubItem(nullptr, L"도움말", L"item.png");
 }
