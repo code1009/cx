@@ -16,7 +16,8 @@
 #include "Drawable.hpp"
 #include "BaseEditWindow.hpp"
 
-#include "Widget.hpp"
+#include "Widget/Widget.hpp"
+#include "Widget/WidgetDrawingStyle.hpp"
 
 //===========================================================================
 #include "../component/std_wstring_utility.hpp"

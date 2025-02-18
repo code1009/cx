@@ -94,9 +94,11 @@ std::wstring to_std_wstring(const Point& v)
 	std::wstring s;
 
 
-	s = cx::to_std_wstring(v._x);
+	s = L"{";
+	s += cx::to_std_wstring(v._x);
 	s += L",";
 	s += cx::to_std_wstring(v._y);
+	s = L"}";
 
 	return s;
 }

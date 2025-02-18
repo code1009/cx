@@ -25,6 +25,29 @@ namespace cx
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+std::wstring std_wstring_truncate(std::wstring str, size_t width, bool ellipsis)
+{
+	if (str.length() > width)
+	{
+		if (ellipsis)
+		{
+			return str.substr(0, width - 3U) + L"...";
+		}
+		else
+		{
+			return str.substr(0, width);
+		}
+	}
+
+	return str;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 wchar_t to_uppercase_wchar_t(const wchar_t ch)
 {
 	return static_cast<wchar_t>(towupper(ch));

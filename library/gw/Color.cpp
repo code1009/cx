@@ -54,13 +54,15 @@ std::wstring to_std_wstring(const Color& v)
 	std::wstring s;
 
 
-	s = cx::to_std_wstring(v._r);
+	s = L"{";
+	s += cx::to_std_wstring(v._r);
 	s += L",";
 	s += cx::to_std_wstring(v._g);
 	s += L",";
 	s += cx::to_std_wstring(v._b);
 	s += L",";
 	s += cx::to_std_wstring(v._a);
+	s += L"}";
 
 	return s;
 }
