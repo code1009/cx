@@ -610,6 +610,8 @@ void ToolBox::GroupItemButtonDrawing::destroyDeviceResources(void)
 
 void ToolBox::GroupItemButtonDrawing::drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item)
 {
+	drawBorder(ctx, itemView, item);
+
 	drawFace(ctx, itemView, item);
 
 	drawFace_Button(ctx, itemView, item);

@@ -33,4 +33,7 @@ public:
 
 public:
 	void onIdle(void);
+
+public:
+	void createToolBox(void);
 };

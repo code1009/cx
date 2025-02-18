@@ -151,6 +151,7 @@ HWND ToolBox::createToolBox(HWND parentWindowHandle)
 	dwExStyle = 0
 		//| WS_EX_TOOLWINDOW
 		//| WS_EX_WINDOWEDGE
+		| WS_EX_CLIENTEDGE
 		//| WS_EX_APPWINDOW
 		;
 
@@ -431,7 +432,68 @@ void ToolBox::onIdle(void)
 }
 
 //===========================================================================
+void ToolBox::addIconBitmap(std::wstring name, std::wstring filePath)
+{
+	auto bitmap = cx::gw::makeBitmap(filePath);
+	_ControlWindow->getItemView()->getBitmapList()->addBitmap(name, bitmap);
+}
 
+void ToolBox::addIconBitmap(std::wstring name, const void* pImageData, std::size_t imageSize)
+{
+	auto bitmap = cx::gw::makeBitmap(pImageData, imageSize);
+	_ControlWindow->getItemView()->getBitmapList()->addBitmap(name, bitmap);
+}
 
+//===========================================================================
+ToolBox::GroupItemSharedPtr ToolBox::createGroupItem(
+	ToolBox::GroupItemSharedPtr parentItem,
+	std::wstring caption,
+	std::wstring icon,
+	ToolBox::ItemStyle style,
+	cx::gw::coord_t size,
+	std::wstring description
+)
+{
+	ToolBox::GroupItemSharedPtr groupItem;
 
+	groupItem = makeGroupItem(
+		_ControlWindow->getItemView()->makeID(), 
+		caption,
+		icon,
+		style,
+		size,
+		description
+	);
+	_ControlWindow->getItemView()->addItem(parentItem, groupItem);
+
+	_ControlWindow->getItemView()->recalcLayout();
+
+	return groupItem;
+}
+
+ToolBox::SubItemSharedPtr ToolBox::createSubItem(
+	ToolBox::GroupItemSharedPtr parentItem,
+	std::wstring caption,
+	std::wstring icon,
+	ToolBox::ItemStyle style,
+	cx::gw::coord_t size,
+	std::wstring description
+)
+{
+	ToolBox::SubItemSharedPtr subItem;
+
+	subItem = makeSubItem(
+		_ControlWindow->getItemView()->makeID(),
+		caption,
+		icon,
+		style,
+		size,
+		description
+	);
+	_ControlWindow->getItemView()->addItem(parentItem, subItem);
+
+	_ControlWindow->getItemView()->recalcLayout();
+
+	return subItem;
+}
 

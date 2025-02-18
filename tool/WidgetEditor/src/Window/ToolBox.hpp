@@ -10,7 +10,13 @@ class ToolBox :
 	public cx::wui::MessageMapWindowT<ToolBox, cx::wui::BaseWindow>
 {
 public:
-	enum class ItemStyle;
+	enum class ItemStyle
+	{
+		Flat,
+		Button
+	};
+
+public:
 	class ItemStatus;
 
 	class Item;
@@ -87,4 +93,26 @@ public:
 
 public:
 	void onIdle(void);
+
+public:
+	void addIconBitmap(std::wstring name, std::wstring filePath);
+	void addIconBitmap(std::wstring name, const void* pImageData, std::size_t imageSize);
+
+public:
+	GroupItemSharedPtr createGroupItem(
+		GroupItemSharedPtr parentItem,
+		std::wstring caption, 
+		std::wstring icon = std::wstring(), 
+		ItemStyle style = ItemStyle::Flat, 
+		cx::gw::coord_t size = 28.0f, 
+		std::wstring description = std::wstring()
+	);
+	SubItemSharedPtr createSubItem(
+		GroupItemSharedPtr parentItem,
+		std::wstring caption,
+		std::wstring icon = std::wstring(),
+		ItemStyle style = ItemStyle::Flat,
+		cx::gw::coord_t size = 28.0f,
+		std::wstring description = std::wstring()
+	);
 };
