@@ -252,6 +252,18 @@
     <ClInclude Include="..\..\library\gw\Widget\WidgetResource.hpp">
       <Filter>library_cx\gw\Widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetFactory.hpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEvent.hpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetDocument.hpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventWindowMessageHandler.hpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -405,6 +417,15 @@
       <Filter>library_cx\gw\Widget</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Widget\WidgetResource.cpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetFactory.cpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetDocument.cpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventWindowMessageHandler.cpp">
       <Filter>library_cx\gw\Widget</Filter>
     </ClCompile>
   </ItemGroup>

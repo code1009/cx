@@ -122,7 +122,6 @@ bool ToolBox::WindowMessageHandler::getWindowMouseCaptureEnabled (void)
 void ToolBox::WindowMessageHandler::setWindowMouseCaptureEnabled (bool enabled)
 {
 	_WindowMouseCaptureEnabled = enabled;
-
 	if (false==enabled)
 	{
 		releaseWindowMouseCapture();
@@ -150,8 +149,6 @@ void ToolBox::WindowMessageHandler::releaseWindowMouseCapture(void)
 bool ToolBox::WindowMessageHandler::onWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	bool handled = false;
-
-
 	onWindowMouseMessage(hWnd, uMsg, wParam, lParam, handled);
 	if(handled)
 	{
@@ -218,8 +215,8 @@ void ToolBox::WindowMessageHandler::onWindowMouseMessage (HWND hWnd, UINT uMsg, 
 	param._MousePosition._y    = static_cast<cx::gw::coord_t>(_document_mouse_y);
 	param._MouseLButtonPressed = fwKeys & MK_LBUTTON ? true : false;
 	param._MouseRButtonPressed = fwKeys & MK_RBUTTON ? true : false;
-	param._KeyShiftPressed     = fwKeys & MK_SHIFT   ? true : false;
-	param._KeyCtrlPressed      = fwKeys & MK_CONTROL ? true : false;
+	param._ShiftKeyPressed     = fwKeys & MK_SHIFT   ? true : false;
+	param._CtrlKeyPressed      = fwKeys & MK_CONTROL ? true : false;
 
 
 	// 메세지 발생순서
@@ -294,8 +291,6 @@ void ToolBox::WindowMessageHandler::onMouseMove (ToolBox::MouseEventParam& param
 
 	//-----------------------------------------------------------------------
 	ToolBox::Item* item;
-	
-
 	item = hitTest(param._MousePosition);
 	
 
@@ -342,7 +337,6 @@ void ToolBox::WindowMessageHandler::onMouseLButtonDown (ToolBox::MouseEventParam
 
 	//-----------------------------------------------------------------------
 	ToolBox::Item* item;
-
 	item = hitTest(param._MousePosition);
 
 	
@@ -367,8 +361,6 @@ void ToolBox::WindowMessageHandler::onMouseLButtonUp (ToolBox::MouseEventParam& 
 
 	//-----------------------------------------------------------------------
 	ToolBox::Item* item;
-
-
 	item = hitTest(param._MousePosition);
 	
 
@@ -388,7 +380,7 @@ void ToolBox::WindowMessageHandler::onMouseLButtonUp (ToolBox::MouseEventParam& 
 		if (_Item_MouseReleased)
 		{
 			{
-				notify_widget_mouse_context(_Item_MouseReleased, param);
+				notifyMouseContext(_Item_MouseReleased, param);
 			}
 		}
 	}

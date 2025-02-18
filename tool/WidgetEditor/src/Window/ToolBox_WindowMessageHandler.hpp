@@ -37,8 +37,8 @@ public:
 	cx::gw::Point _MousePosition      {};
 	bool          _MouseLButtonPressed{ false };
 	bool          _MouseRButtonPressed{ false };
-	bool          _KeyShiftPressed    { false };
-	bool          _KeyCtrlPressed     { false };
+	bool          _ShiftKeyPressed    { false };
+	bool          _CtrlKeyPressed     { false };
 };
 
 

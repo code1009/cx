@@ -21,6 +21,11 @@
 #include "Widget/WidgetResource.hpp"
 
 #include "Widget/Widget.hpp"
+#include "Widget/WidgetFactory.hpp"
+#include "Widget/WidgetEvent.hpp"
+#include "Widget/WidgetDocument.hpp"
+
+#include "Widget/WidgetEventWindowMessageHandler.hpp"
 
 //===========================================================================
 #include "../component/std_wstring_utility.hpp"

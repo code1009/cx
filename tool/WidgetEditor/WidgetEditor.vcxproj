@@ -46,7 +46,11 @@
     <ClInclude Include="..\..\library\gw\Point.hpp" />
     <ClInclude Include="..\..\library\gw\Viewport.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Widget.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\WidgetDocument.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\WidgetDrawingStyle.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEvent.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventWindowMessageHandler.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\WidgetFactory.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\WidgetResource.hpp" />
     <ClInclude Include="..\..\library\gw\Window.hpp" />
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
@@ -113,7 +117,10 @@
     <ClCompile Include="..\..\library\gw\Point.cpp" />
     <ClCompile Include="..\..\library\gw\Viewport.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Widget.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\WidgetDocument.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\WidgetDrawingStyle.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventWindowMessageHandler.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\WidgetFactory.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\WidgetResource.cpp" />
     <ClCompile Include="..\..\library\gw\Window.cpp" />
     <ClCompile Include="..\..\library\runtime\Assert.cpp" />
