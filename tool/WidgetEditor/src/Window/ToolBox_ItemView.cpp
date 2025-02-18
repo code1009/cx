@@ -628,11 +628,6 @@ void ToolBox::ItemView::onItemStatusChanged(ToolBox::Item* item)
 
 void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::MouseEventParam& param)
 {
-
-}
-
-void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::Item* item, ToolBox::MouseEventParam& param)
-{
 	switch (eventType)
 	{
 	case ToolBox::EventType::Unknown:
@@ -645,21 +640,37 @@ void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::Item
 	case ToolBox::EventType::MouseLButtonUp:
 		break;
 
+	default:
+		break;
+	}
+}
+
+void ToolBox::ItemView::onMouseEvent(ToolBox::EventType eventType, ToolBox::Item* item, ToolBox::MouseEventParam& param)
+{
+	switch (eventType)
+	{
+	case ToolBox::EventType::Unknown:
+		break;
+
 	case ToolBox::EventType::MousePressed:
 		item->getStatus()->setPressed(true);
 		break;
 	case ToolBox::EventType::MouseReleased:
 		item->getStatus()->setPressed(false);
 		break;
-	case ToolBox::EventType::MouseClicked:
 
+	case ToolBox::EventType::MouseClicked:
 		break;
 	case ToolBox::EventType::MouseDbClicked:
 		break;
+
 	case ToolBox::EventType::MouseOver:
+		item->getStatus()->setHover(true);
 		break;
 	case ToolBox::EventType::MouseLeave:
+		item->getStatus()->setHover(false);
 		break;
+
 	case ToolBox::EventType::MouseDragging:
 		break;
 
@@ -687,16 +698,15 @@ void ToolBox::ItemView::onGroupItemMouseEvent(ToolBox::EventType eventType, Tool
 	switch (eventType)
 	{
 	case ToolBox::EventType::MouseClicked:
-		onGroupItemClicked(item);
+		onGroupItemMouseClicked(item);
 		break;
 
 	case ToolBox::EventType::MouseDbClicked:
+		onGroupItemMouseDbClicked(item);
 		break;
-	case ToolBox::EventType::MouseOver:
-		break;
-	case ToolBox::EventType::MouseLeave:
-		break;
+
 	case ToolBox::EventType::MouseDragging:
+		onGroupItemMouseDragging(item);
 		break;
 
 	default:
@@ -704,23 +714,28 @@ void ToolBox::ItemView::onGroupItemMouseEvent(ToolBox::EventType eventType, Tool
 	}
 }
 
-void ToolBox::ItemView::onGroupItemClicked(ToolBox::GroupItem* item)
+void ToolBox::ItemView::onGroupItemMouseClicked(ToolBox::GroupItem* item)
 {
-	auto groupItem = dynamic_cast<ToolBox::GroupItem*>(item);
-	if (!groupItem)
+	if (item->isCollapseSubItems())
 	{
-		return;
-	}
-	if (groupItem->isCollapseSubItems())
-	{
-		groupItem->CollapseSubItems(false);
+		item->CollapseSubItems(false);
 	}
 	else
 	{
-		groupItem->CollapseSubItems(true);
+		item->CollapseSubItems(true);
 	}
 
 	recalcLayout();
+}
+
+void ToolBox::ItemView::onGroupItemMouseDbClicked(ToolBox::GroupItem* item)
+{
+
+}
+
+void ToolBox::ItemView::onGroupItemMouseDragging(ToolBox::GroupItem* item)
+{
+
 }
 
 void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBox::SubItem* item, ToolBox::MouseEventParam& param)
@@ -728,16 +743,15 @@ void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBo
 	switch (eventType)
 	{
 	case ToolBox::EventType::MouseClicked:
-		onSubItemClicked(item);
+		onSubItemMouseClicked(item);
 		break;
 
 	case ToolBox::EventType::MouseDbClicked:
+		onSubItemMouseDbClicked(item);
 		break;
-	case ToolBox::EventType::MouseOver:
-		break;
-	case ToolBox::EventType::MouseLeave:
-		break;
+
 	case ToolBox::EventType::MouseDragging:
+		onSubItemMouseDragging(item);
 		break;
 
 	default:
@@ -745,7 +759,17 @@ void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBo
 	}
 }
 
-void ToolBox::ItemView::onSubItemClicked(ToolBox::SubItem* item)
+void ToolBox::ItemView::onSubItemMouseClicked(ToolBox::SubItem* item)
+{
+
+}
+
+void ToolBox::ItemView::onSubItemMouseDbClicked(ToolBox::SubItem* item)
+{
+
+}
+
+void ToolBox::ItemView::onSubItemMouseDragging(ToolBox::SubItem* item)
 {
 
 }

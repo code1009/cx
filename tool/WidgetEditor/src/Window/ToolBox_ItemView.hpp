@@ -74,11 +74,18 @@ public:
 
 public:
 	void onItemStatusChanged(ToolBox::Item* item);
+
 	void onMouseEvent(ToolBox::EventType eventType, ToolBox::MouseEventParam& param);
 	void onMouseEvent(ToolBox::EventType eventType, ToolBox::Item* item, ToolBox::MouseEventParam& param);
+	
 	void onGroupItemMouseEvent(ToolBox::EventType eventType, ToolBox::GroupItem* item, ToolBox::MouseEventParam& param);
-	void onGroupItemClicked(ToolBox::GroupItem* item);
+	void onGroupItemMouseClicked(ToolBox::GroupItem* item);
+	void onGroupItemMouseDbClicked(ToolBox::GroupItem* item);
+	void onGroupItemMouseDragging(ToolBox::GroupItem* item);
+
 	void onSubItemMouseEvent(ToolBox::EventType eventType, ToolBox::SubItem* item, ToolBox::MouseEventParam& param);
-	void onSubItemClicked(ToolBox::SubItem* item);
+	void onSubItemMouseClicked(ToolBox::SubItem* item);
+	void onSubItemMouseDbClicked(ToolBox::SubItem* item);
+	void onSubItemMouseDragging(ToolBox::SubItem* item);
 };
 
