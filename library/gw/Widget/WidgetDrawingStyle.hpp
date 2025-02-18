@@ -52,7 +52,7 @@ public:
 //===========================================================================
 class WidgetFillStyle : public WidgetDrawingStyle
 {
-private:
+public:
 	Color _Color { 1.0f, 1.0f, 1.0f, 1.0f };
 
 public:
@@ -77,7 +77,7 @@ public:
 //===========================================================================
 class WidgetLineStyle : public WidgetDrawingStyle
 {
-private:
+public:
 	Color         _Color{ };
 	float         _Width{ 1.0f };
 	std::uint64_t _Attr { 0 };
@@ -119,7 +119,7 @@ public:
 //===========================================================================
 class WidgetTextStyle : public WidgetDrawingStyle
 {
-private:
+public:
 	Color         _Color   { };
 	float         _FontSize{ 12.0f };
 	std::wstring  _FontFace{ L"굴림" };

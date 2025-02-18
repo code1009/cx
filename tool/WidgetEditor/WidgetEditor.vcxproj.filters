@@ -249,6 +249,9 @@
     <ClInclude Include="..\..\library\gw\Widget\WidgetDrawingStyle.hpp">
       <Filter>library_cx\gw\Widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetResource.hpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -399,6 +402,9 @@
       <Filter>library_cx\gw\Widget</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Widget\WidgetDrawingStyle.cpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetResource.cpp">
       <Filter>library_cx\gw\Widget</Filter>
     </ClCompile>
   </ItemGroup>
