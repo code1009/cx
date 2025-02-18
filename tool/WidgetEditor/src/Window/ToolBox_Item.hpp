@@ -84,46 +84,46 @@ public:
 	Item& operator=(Item&&) = delete;
 
 public:
-	std::size_t getID(void) const;
-	std::wstring getCaption(void) const;
-	std::wstring getIcon(void) const;
-	ToolBox::ItemStyle getStyle(void) const;
-	cx::gw::coord_t getSize(void) const;
-	std::wstring getDescription(void) const;
+	virtual std::size_t getID(void) const;
+	virtual std::wstring getCaption(void) const;
+	virtual std::wstring getIcon(void) const;
+	virtual ToolBox::ItemStyle getStyle(void) const;
+	virtual cx::gw::coord_t getSize(void) const;
+	virtual std::wstring getDescription(void) const;
 
-	void setID(std::size_t id);
-	void setCaption(const std::wstring& caption);
-	void setIcon(const std::wstring& icon);
-	void setSize(const cx::gw::coord_t size);
-	void setStyle(ToolBox::ItemStyle style);
-	void setDescription(const std::wstring& description);
-
-public:
-	ToolBox::ItemStatus* getStatus(void);
+	virtual void setID(std::size_t id);
+	virtual void setCaption(const std::wstring& caption);
+	virtual void setIcon(const std::wstring& icon);
+	virtual void setSize(const cx::gw::coord_t size);
+	virtual void setStyle(ToolBox::ItemStyle style);
+	virtual void setDescription(const std::wstring& description);
 
 public:
-	ToolBox::GroupItemWeakPtr getParentItem(void) const;
-	void setParentItem(ToolBox::GroupItemWeakPtr parentItem);
-
-	std::size_t getDepth(void) const;
-	void setDepth(const std::size_t depth);
-
-	ToolBox::GroupItemWeakPtr getRootItem(void) const;
+	virtual ToolBox::ItemStatus* getStatus(void);
 
 public:
-	cx::gw::coord_t getCX(void) const;
-	cx::gw::coord_t getCY(void) const;
-	cx::gw::coord_t getX(void) const;
-	cx::gw::coord_t getY(void) const;
-	void setCX(cx::gw::coord_t cx);
-	void setCY(cx::gw::coord_t cy);
-	void setX(cx::gw::coord_t x);
-	void setY(cx::gw::coord_t y);
+	virtual ToolBox::GroupItemWeakPtr getParentItem(void) const;
+	virtual void setParentItem(ToolBox::GroupItemWeakPtr parentItem);
 
-	void setP0(const cx::gw::Point& p0);
-	void setP1(const cx::gw::Point& p1);
-	cx::gw::Point getP0(void) const;
-	cx::gw::Point getP1(void) const;
+	virtual std::size_t getDepth(void) const;
+	virtual void setDepth(const std::size_t depth);
+
+	virtual ToolBox::GroupItemWeakPtr getRootItem(void) const;
+
+public:
+	virtual cx::gw::coord_t getCX(void) const;
+	virtual cx::gw::coord_t getCY(void) const;
+	virtual cx::gw::coord_t getX(void) const;
+	virtual cx::gw::coord_t getY(void) const;
+	virtual void setCX(cx::gw::coord_t cx);
+	virtual void setCY(cx::gw::coord_t cy);
+	virtual void setX(cx::gw::coord_t x);
+	virtual void setY(cx::gw::coord_t y);
+
+	virtual void setP0(const cx::gw::Point& p0);
+	virtual void setP1(const cx::gw::Point& p1);
+	virtual cx::gw::Point getP0(void) const;
+	virtual cx::gw::Point getP1(void) const;
 
 public:
 	virtual cx::gw::coord_t calcHeight(void);
@@ -139,7 +139,7 @@ public:
 class ToolBox::GroupItem : public ToolBox::Item
 {
 private:
-	bool _CollapseSubItems { false };
+	bool _CollapseSubItems { true };
 	ToolBox::ItemSharedPtrs _SubItems;
 
 public:
@@ -167,6 +167,17 @@ class ToolBox::SubItem : public ToolBox::Item
 public:
 	SubItem(void) = default;
 	virtual ~SubItem(void) = default;
+
+public:
+	virtual std::size_t getDepth(void) const override
+	{
+		if (ToolBox::Item::getDepth()>0)
+		{
+			return ToolBox::Item::getDepth() - 1;
+		}
+
+		return 0;
+	}
 };
 
 
