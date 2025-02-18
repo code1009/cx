@@ -298,11 +298,13 @@ void writeLogString(
 //===========================================================================
 void Logger::setOutputHandler(OutputHandler handler)
 {
+	const std::lock_guard<std::mutex> lock(_Mutex);
 	_OutputHandler = handler;
 }
 
 void Logger::output(std::wstringstream& output, LogInfomation& info)
 {
+	const std::lock_guard<std::mutex> lock(_Mutex);
 	if (_OutputHandler)
 	{
 		_OutputHandler(output, info);

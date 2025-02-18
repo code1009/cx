@@ -97,6 +97,9 @@ public:
 	using OutputHandler = std::function<void(std::wstringstream&, LogInfomation&)>;
 
 private:
+	std::mutex _Mutex;
+
+private:
 	OutputHandler _OutputHandler;
 
 public:
