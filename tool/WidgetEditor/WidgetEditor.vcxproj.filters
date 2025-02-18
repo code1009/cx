@@ -25,6 +25,9 @@
     <Filter Include="library_cx\component">
       <UniqueIdentifier>{8f0762f0-b953-4809-bcd7-7467e4d5e3db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="library_cx\gw\Widget">
+      <UniqueIdentifier>{f4c06c71-9dca-4d74-8e0b-bd7256af8121}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps">
@@ -240,6 +243,9 @@
     <ClInclude Include="src\Window\ToolBox_WindowMessageHandler.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Widget.hpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -385,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="src\Window\ToolBox_WindowMessageHandler.cpp">
       <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Widget.cpp">
+      <Filter>library_cx\gw\Widget</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

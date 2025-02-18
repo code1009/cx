@@ -45,6 +45,7 @@
     <ClInclude Include="..\..\library\gw\pch.hpp" />
     <ClInclude Include="..\..\library\gw\Point.hpp" />
     <ClInclude Include="..\..\library\gw\Viewport.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\Widget.hpp" />
     <ClInclude Include="..\..\library\gw\Window.hpp" />
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
     <ClInclude Include="..\..\library\pch.hpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="..\..\library\gw\Drawable.cpp" />
     <ClCompile Include="..\..\library\gw\Point.cpp" />
     <ClCompile Include="..\..\library\gw\Viewport.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\Widget.cpp" />
     <ClCompile Include="..\..\library\gw\Window.cpp" />
     <ClCompile Include="..\..\library\runtime\Assert.cpp" />
     <ClCompile Include="..\..\library\runtime\DebugMemory.cpp" />
