@@ -29,6 +29,7 @@ private:
 	bool _Hover{ false };
 	bool _Pressed{ false };
 	bool _Disabled{ false };
+	bool _Selected{ false };
 
 public:
 	ItemStatus(void) = default;
@@ -51,6 +52,8 @@ public:
 	void setPressed(bool pressed);
 	bool getDisabled(void) const;
 	void setDisabled(bool disabled);
+	bool getSelected(void) const;
+	void setSelected(bool selected);
 };
 
 
@@ -62,12 +65,12 @@ public:
 class ToolBox::Item
 {
 private:
-	std::size_t _ID{ 0 };
-	std::wstring _Caption{ };
-	std::wstring _Icon{ };
-	ToolBox::ItemStyle _Style{ ToolBox::ItemStyle::Flat };
-	cx::gw::coord_t _Size{ 0 };
-	std::wstring _Description{ };
+	std::size_t        _ID         { 0 };
+	std::wstring       _Caption    { };
+	std::wstring       _Icon       { };
+	ToolBox::ItemStyle _Style      { ToolBox::ItemStyle::Flat };
+	cx::gw::coord_t    _Size       { 0 };
+	std::wstring       _Description{ };
 
 private:
 	ToolBox::ItemStatus _Status{ };

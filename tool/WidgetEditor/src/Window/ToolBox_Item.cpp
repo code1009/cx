@@ -80,6 +80,20 @@ void ToolBox::ItemStatus::setDisabled(bool disabled)
 	}
 }
 
+bool ToolBox::ItemStatus::getSelected(void) const
+{
+	return _Selected;
+}
+
+void ToolBox::ItemStatus::setSelected(bool selected)
+{
+	if (_Selected != selected)
+	{
+		_Selected = selected;
+		setStatusChanged();
+	}
+}
+
 
 
 
