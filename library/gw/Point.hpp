@@ -62,6 +62,15 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+std::wstring to_std_wstring(const Point& v);
+Point to_Point(const std::wstring& v);
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 void calculateBounds(const std::vector<Point>& _Points, Point& p0, Point& p1);
 void calculateBounds(const Point& _p0, const Point& _p1, Point& p0, Point& p1);
 
