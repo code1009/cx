@@ -48,12 +48,6 @@ WidgetDesignerModel::WidgetDesignerModel(Window* window):
 
 	_WidgetEventDragDropHandler =
 		std::make_unique<WidgetEventDragDropHandler>(_WidgetDocument.get(), _Window->getViewport());
-
-
-	//-----------------------------------------------------------------------
-	getWindow()->getViewport()->setWindowSize(0, 0);
-	getWindow()->getViewport()->setDocumentSize(1920, 1080);
-	getWindow()->getViewport()->enableScrollbar(true);
 }
 
 //===========================================================================

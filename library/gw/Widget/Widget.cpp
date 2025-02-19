@@ -160,6 +160,17 @@ void Widget::registerEventHandler(WidgetDocument* doc)
 {
 }
 
+bool Widget::loadResources(WidgetResourceMap* widgetResourceMap)
+{
+	return true;
+}
+
+void Widget::draw(Context* ctx)
+{
+
+}
+
+
 
 
 

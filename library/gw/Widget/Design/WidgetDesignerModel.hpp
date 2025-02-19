@@ -49,11 +49,11 @@ public:
 	[[nodiscard]] constexpr DesigeWidgetContext* getDesigeWidgetContext(void) const { return _DesigeWidgetContext.get(); }
 //	[[nodiscard]] constexpr WidgetDesigner*      getWidgetDesigner     (void) const { return _WidgetDesigner.get(); }
 
-protected:
+public:
 	virtual bool createDeviceResources(Context* ctx);
 	virtual void destroyDeviceResources(void);
 
-protected:
+public:
 	virtual void draw(Context* ctx);
 
 protected:

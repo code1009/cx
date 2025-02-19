@@ -52,11 +52,9 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_Window = std::make_unique<cx::gw::BaseEditWindow>(*this);
+	_Window = std::make_unique<cx::gw::WidgetDesignerWindow>(*this);
 	_Window->getStatusOverayPanel()->setVisible(true);
 	_Window->getDocumentGrid()->setVisible(true);
-
-	_WidgetDesignerModel = std::make_unique<cx::gw::WidgetDesignerModel>(_Window.get());
 
 
 	//-----------------------------------------------------------------------

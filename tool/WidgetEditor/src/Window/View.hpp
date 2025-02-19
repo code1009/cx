@@ -10,8 +10,7 @@ class View :
 	public cx::wui::MessageMapWindowT<View, cx::wui::BaseWindow>
 {
 private:
-	std::unique_ptr<cx::gw::BaseEditWindow> _Window;
-	std::unique_ptr<cx::gw::WidgetDesignerModel> _WidgetDesignerModel;
+	std::unique_ptr<cx::gw::WidgetDesignerWindow> _Window;
 
 public:
 	explicit View(HWND parentWindowHandle);
