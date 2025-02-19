@@ -41,6 +41,7 @@ public:
 	virtual void moveMarker(const ShapeDesignMarker s, const Point& p) override;
 
 	//-----------------------------------------------------------------------
+public:
 	virtual void onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param);
 };
 
