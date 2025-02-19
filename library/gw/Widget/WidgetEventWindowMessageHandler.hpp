@@ -32,12 +32,16 @@ private:
 	Widget* _Widget_MouseDragging  { nullptr };
 
 private:
-	bool _MouseCaptureEnabled{ true };
-	bool _MouseCaptured      { false };
+	std::uint64_t _MouseClickedTime { 0   };
+	std::uint64_t _MouseDbClickTime { 300 };
 
 private:
-	std::uint64_t _MouseClickedTime{ 0   };
-	std::uint64_t _MouseDbClickTime{ 300 };
+	bool _MouseCaptureEnabled { true  };
+	bool _MouseCaptured       { false };
+
+private:
+	bool _MouseTrackEnabled { true  };
+	bool _MouseTracked      { false };
 
 public:
 	WidgetEventWindowMessageHandler() = default;
@@ -58,8 +62,8 @@ public:
 	bool isWidgetDocumentIn(Widget* test);
 
 public:
-	void reset(void);
 	Widget* hitTest (const cx::gw::Point& point);
+	void update(void);
 
 public:
 	void getMouseDbClickTime (std::uint64_t& time);
@@ -72,6 +76,12 @@ public:
 	void releaseMouseCapture    (void);
 
 public:
+	bool getMouseTrackEnabled (void);
+	void setMouseTrackEnabled (bool enabled);
+	void setMouseTrack        (HWND hwnd);
+	void releaseMouseTrack    (void);
+
+public:
 	bool onWindowMessage      (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	void onWindowMouseMessage (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bool& handled);
 
@@ -82,6 +92,9 @@ public:
 	void onMouseMove        (WidgetMouseEventParam& param);
 	void onMouseLButtonDown (WidgetMouseEventParam& param);
 	void onMouseLButtonUp   (WidgetMouseEventParam& param);
+
+	void onMouseHover       (WidgetMouseEventParam& param);
+	void onMouseLeave       (WidgetMouseEventParam& param);
 
 public:
 	void notifyMouseMove        (WidgetMouseEventParam& param);

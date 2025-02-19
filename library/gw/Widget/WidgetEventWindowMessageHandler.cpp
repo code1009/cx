@@ -45,7 +45,14 @@ bool WidgetEventWindowMessageHandler::isWidgetDocumentIn(Widget* test)
 }
 
 //===========================================================================
-void WidgetEventWindowMessageHandler::reset(void)
+Widget* WidgetEventWindowMessageHandler::hitTest(const Point& point)
+{
+	WidgetSharedPtr widget;
+	widget = _WidgetDocument->find(point);
+	return widget.get();
+}
+
+void WidgetEventWindowMessageHandler::update(void)
 {
 	if (false==isWidgetDocumentIn(_Widget_MousePressed  )){_Widget_MousePressed  =nullptr;}
 	if (false==isWidgetDocumentIn(_Widget_MouseReleased )){_Widget_MouseReleased =nullptr;}
@@ -53,13 +60,6 @@ void WidgetEventWindowMessageHandler::reset(void)
 	if (false==isWidgetDocumentIn(_Widget_MouseDbClicked)){_Widget_MouseDbClicked=nullptr;}
 	if (false==isWidgetDocumentIn(_Widget_MouseOver     )){_Widget_MouseOver     =nullptr;}
 	if (false==isWidgetDocumentIn(_Widget_MouseDragging )){_Widget_MouseDragging =nullptr;}
-}
-
-Widget* WidgetEventWindowMessageHandler::hitTest(const Point& point)
-{
-	WidgetSharedPtr widget;
-	widget = _WidgetDocument->find(point);
-	return widget.get();
 }
 
 //===========================================================================
@@ -104,6 +104,49 @@ void WidgetEventWindowMessageHandler::releaseMouseCapture(void)
 		::ReleaseCapture();
 		_MouseCaptured = false;
 	}		
+}
+
+//===========================================================================
+bool WidgetEventWindowMessageHandler::getMouseTrackEnabled(void)
+{
+	return _MouseTrackEnabled;
+}
+
+void WidgetEventWindowMessageHandler::setMouseTrackEnabled(bool enabled)
+{
+	_MouseTrackEnabled = enabled;
+	if (false == enabled)
+	{
+		releaseMouseTrack();
+	}
+}
+
+void WidgetEventWindowMessageHandler::setMouseTrack(HWND hwnd)
+{
+	if (getMouseTrackEnabled())
+	{
+		if (false == _MouseTracked)
+		{
+			TRACKMOUSEEVENT tme;
+			tme.cbSize = sizeof(TRACKMOUSEEVENT);
+			tme.dwFlags = TME_HOVER | TME_LEAVE;
+			tme.hwndTrack = hwnd;
+			tme.dwHoverTime = 1;
+
+			if (TrackMouseEvent(&tme))
+			{
+				_MouseTracked = true;
+			}
+		}
+	}
+}
+
+void WidgetEventWindowMessageHandler::releaseMouseTrack(void)
+{
+	if (_MouseTracked)
+	{
+		_MouseTracked = false;
+	}
 }
 
 //===========================================================================
@@ -185,13 +228,19 @@ void WidgetEventWindowMessageHandler::onWindowMouseMessage (HWND hWnd, UINT uMsg
 	switch (uMsg)
 	{
 	case WM_MOUSEMOVE:
+		setMouseTrack(hWnd);
 		eventType = WidgetEventType::MouseMove;
 		break;
 
 	case WM_MOUSEHOVER:
+		//OutputDebugStringW(L"WM_MOUSEHOVER\n");
+		eventType = WidgetEventType::MouseOver;
 		break;
 
 	case WM_MOUSELEAVE:
+		//OutputDebugStringW(L"WM_MOUSELEAVE\n");
+		releaseMouseTrack();
+		eventType = WidgetEventType::MouseLeave;
 		break;
 
 	case WM_LBUTTONDBLCLK:
@@ -240,6 +289,9 @@ void WidgetEventWindowMessageHandler::onMouse(WidgetEventType eventType, WidgetM
 	case WidgetEventType::MouseMove:        onMouseMove       ( param ); break;
 	case WidgetEventType::MouseLButtonDown: onMouseLButtonDown( param ); break;
 	case WidgetEventType::MouseLButtonUp:   onMouseLButtonUp  ( param ); break;
+
+	case WidgetEventType::MouseOver:  onMouseHover(param); break;
+	case WidgetEventType::MouseLeave: onMouseLeave(param); break;
 
 	default:
 		break;
@@ -384,6 +436,45 @@ void WidgetEventWindowMessageHandler::onMouseLButtonUp (WidgetMouseEventParam& p
 
 	//-----------------------------------------------------------------------
 	notifyMouseLButtonUp(param);
+}
+
+void WidgetEventWindowMessageHandler::onMouseHover(WidgetMouseEventParam& param)
+{
+	//-----------------------------------------------------------------------
+	Widget* widget;
+	widget = hitTest(param._MousePosition);
+
+
+	//-----------------------------------------------------------------------
+	if (_Widget_MouseOver)
+	{
+		notifyMouseLeave(_Widget_MouseOver, param);
+	}
+
+	_Widget_MouseOver = widget;
+
+	if (_Widget_MouseOver)
+	{
+		notifyMouseOver(_Widget_MouseOver, param);
+	}
+	else
+	{
+		//notifyMouseMove(param);
+	}
+}
+
+void WidgetEventWindowMessageHandler::onMouseLeave(WidgetMouseEventParam& param)
+{
+	//-----------------------------------------------------------------------
+	if (_Widget_MouseOver)
+	{
+		notifyMouseLeave(_Widget_MouseOver, param);
+		_Widget_MouseOver = nullptr;
+	}
+	else
+	{
+		//notifyMouseMove(param);
+	}
 }
 
 //===========================================================================

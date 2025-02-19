@@ -86,7 +86,12 @@ ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point
 }
 
 //===========================================================================
-void ToolBox::WindowMessageHandler::reset(void)
+ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point)
+{
+	return hitTest(point, _ItemView->getItems());
+}
+
+void ToolBox::WindowMessageHandler::update(void)
 {
 	if (false==isItemViewIn(_Item_MousePressed  )){_Item_MousePressed  =nullptr;}
 	if (false==isItemViewIn(_Item_MouseReleased )){_Item_MouseReleased =nullptr;}
@@ -94,11 +99,6 @@ void ToolBox::WindowMessageHandler::reset(void)
 	if (false==isItemViewIn(_Item_MouseDbClicked)){_Item_MouseDbClicked=nullptr;}
 	if (false==isItemViewIn(_Item_MouseOver     )){_Item_MouseOver     =nullptr;}
 	if (false==isItemViewIn(_Item_MouseDragging )){_Item_MouseDragging =nullptr;}
-}
-
-ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point)
-{
-	return hitTest(point, _ItemView->getItems());
 }
 
 //===========================================================================

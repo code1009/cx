@@ -64,17 +64,16 @@ private:
 	ToolBox::Item* _Item_MouseDragging  { nullptr };
 
 private:
-	bool _MouseCaptureEnabled{ true };
-	bool _MouseCaptured      { false };
-
-
-private:
-	bool _MouseTrackEnabled{ true };
-	bool _MouseTracked     { false };
+	std::uint64_t _MouseClickedTime { 0   };
+	std::uint64_t _MouseDbClickTime { 300 };
 
 private:
-	std::uint64_t _MouseClickedTime{ 0   };
-	std::uint64_t _MouseDbClickTime{ 300 };
+	bool _MouseCaptureEnabled { true  };
+	bool _MouseCaptured       { false };
+
+private:
+	bool _MouseTrackEnabled { true  };
+	bool _MouseTracked      { false };
 
 public:
 	WindowMessageHandler() = default;
@@ -96,8 +95,8 @@ public:
 	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtr& item);
 
 public:
-	void reset(void);
 	ToolBox::Item* hitTest (const cx::gw::Point& point);
+	void update(void);
 
 public:
 	void getMouseDbClickTime (std::uint64_t& time);
@@ -126,6 +125,7 @@ public:
 	void onMouseMove        (ToolBox::MouseEventParam& param);
 	void onMouseLButtonDown (ToolBox::MouseEventParam& param);
 	void onMouseLButtonUp   (ToolBox::MouseEventParam& param);
+
 	void onMouseHover       (ToolBox::MouseEventParam& param);
 	void onMouseLeave       (ToolBox::MouseEventParam& param);
 
