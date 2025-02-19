@@ -102,7 +102,9 @@ ShapeDesignMarker ShapeDesign::findMarker(const Point& test)
 
 void ShapeDesign::onMousePressed(const WidgetMouseEventParam& param)
 {
-	Point _MousePoint = getWidgetDesinger()->toSnappedPoint(param._MousePosition);
+	// toSnappedPoint() 사용하면 안됨.
+	//Point _MousePoint = getWidgetDesinger()->toSnappedPoint(param._MousePosition);
+	Point _MousePoint = param._MousePosition;
 	_PressedPoint = _MousePoint;
 
 

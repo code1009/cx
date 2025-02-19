@@ -20,6 +20,9 @@ public:
 	virtual LRESULT onWindowMessage(cx::wui::WindowMessage& windowMessage) override;
 
 public:
+	cx::gw::WidgetDesignerWindow* getWidgetDesignerWindow(void) { return _Window.get(); }
+
+public:
 	virtual HWND createView(HWND parentWindowHandle);
 
 public:

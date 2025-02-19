@@ -339,20 +339,29 @@ void MainFrame::createToolBox(void)
 	root = _ToolBox->addGroupItem(++id, nullptr, L"명령", std::wstring(), ToolBox::ItemStyle::Button);
 	
 	parent = _ToolBox->addGroupItem(++id, root, L"편집");
+	item = _ToolBox->addSubItem(++id, parent, L"삭제", std::wstring(), ToolBox::ItemStyle::Button);
+
+	parent = _ToolBox->addGroupItem(++id, root, L"실행");
 	item = _ToolBox->addSubItem(++id, parent, L"실행 취소", std::wstring(), ToolBox::ItemStyle::Button);
 	item = _ToolBox->addSubItem(++id, parent, L"다시 실행", std::wstring(), ToolBox::ItemStyle::Button);
+
+	parent = _ToolBox->addGroupItem(++id, root, L"복사 및 붙여넣기");
 	item = _ToolBox->addSubItem(++id, parent, L"잘라내기" , std::wstring(), ToolBox::ItemStyle::Button);;
 	item = _ToolBox->addSubItem(++id, parent, L"복사"     , std::wstring(), ToolBox::ItemStyle::Button);
 	item = _ToolBox->addSubItem(++id, parent, L"붙여넣기" , std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"삭제"     , std::wstring(), ToolBox::ItemStyle::Button);
+
+	parent = _ToolBox->addGroupItem(++id, root, L"선택");
 	item = _ToolBox->addSubItem(++id, parent, L"선택 취소", std::wstring(), ToolBox::ItemStyle::Button);
 	item = _ToolBox->addSubItem(++id, parent, L"전체 선택", std::wstring(), ToolBox::ItemStyle::Button);
 	
-	parent = _ToolBox->addGroupItem(++id, root, L"이동");
+	parent = _ToolBox->addGroupItem(++id, root, L"순서");
 	item = _ToolBox->addSubItem(++id, parent, L"앞으로"   , std::wstring(), ToolBox::ItemStyle::Button);
 	item = _ToolBox->addSubItem(++id, parent, L"뒤로"     , std::wstring(), ToolBox::ItemStyle::Button);
 	item = _ToolBox->addSubItem(++id, parent, L"맨 앞으로", std::wstring(), ToolBox::ItemStyle::Button);
 	item = _ToolBox->addSubItem(++id, parent, L"맨 뒤로"  , std::wstring(), ToolBox::ItemStyle::Button);
+
+	parent = _ToolBox->addGroupItem(++id, root, L"맞춤");
+	item = _ToolBox->addSubItem(++id, parent, L"격자 맞춤", std::wstring(), ToolBox::ItemStyle::Button);
 
 	item = _ToolBox->addSubItem(++id, nullptr, L"도움말", L"item.png");
 
@@ -381,6 +390,29 @@ void MainFrame::onToolBoxGroupItemMouseDragging(ToolBox::EventParam* param)
 
 void MainFrame::onToolBoxSubItemMouseClicked(ToolBox::EventParam* param)
 {
+	bool snapToGrid;
+	switch (param->_Id)
+	{
+	case 7:
+		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->deleteSelection();
+		break;
+
+	case 16:
+		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->unselectAll();
+		break;
+
+	case 17:
+		//_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->selectAll();
+		break;
+
+	case 24:
+		snapToGrid = _View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->getSnapToGrid();
+		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->setSnapToGrid(!snapToGrid);
+		break;
+
+	default:
+		break;
+	}
 }
 
 void MainFrame::onToolBoxSubItemMouseDbClicked(ToolBox::EventParam* param)
