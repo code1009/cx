@@ -85,7 +85,7 @@ void RectangleShape::draw(Context* ctx)
 //===========================================================================
 void RectangleShape::onWidgetDrawingStyleChanged(WidgetDrawingStyle::StyleChangedParam* param)
 {
-
+	setPropertyChanged(0x80000000);
 }
 
 

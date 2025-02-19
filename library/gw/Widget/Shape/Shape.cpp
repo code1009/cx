@@ -23,6 +23,15 @@ namespace cx::gw
 Shape::Shape(std::wstring className) :
 	Widget{ std::move(className) }
 {
+	_FillStyle.setStyleChangedHandler(
+		std::bind(&Shape::onWidgetDrawingStyleChanged, this, std::placeholders::_1)
+	);
+	_LineStyle.setStyleChangedHandler(
+		std::bind(&Shape::onWidgetDrawingStyleChanged, this, std::placeholders::_1)
+	);
+	_TextStyle.setStyleChangedHandler(
+		std::bind(&Shape::onWidgetDrawingStyleChanged, this, std::placeholders::_1)
+	);
 }
 
 //===========================================================================
@@ -66,6 +75,12 @@ bool Shape::loadResources(WidgetResourceMap* widgetResourceMap)
 void Shape::setWidgetDocument(WidgetDocument* doc)
 {
 	_WidgetDocument = doc;
+}
+
+//===========================================================================
+void Shape::onWidgetDrawingStyleChanged(WidgetDrawingStyle::StyleChangedParam* param)
+{
+	setPropertyChanged(0x80000000);
 }
 
 

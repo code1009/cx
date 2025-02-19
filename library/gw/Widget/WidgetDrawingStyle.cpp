@@ -136,7 +136,7 @@ void WidgetLineStyle::setDash(std::uint64_t dash)
 	if (_Dash != dash)
 	{
 		_Dash = dash;
-		setStyleChanged(0x80000000);
+		setStyleChanged();
 	}
 }
 

@@ -48,6 +48,9 @@ public:
 	//-----------------------------------------------------------------------
 public:
 	virtual void setWidgetDocument(WidgetDocument* doc);
+
+public:
+	virtual void onWidgetDrawingStyleChanged(WidgetDrawingStyle::StyleChangedParam* param);
 };
 
 

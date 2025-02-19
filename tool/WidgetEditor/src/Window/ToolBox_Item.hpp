@@ -54,7 +54,7 @@ public:
 class ToolBox::Item
 {
 private:
-	std::size_t        _ID         { 0 };
+	std::size_t        _Id         { 0 };
 	std::wstring       _Caption    { };
 	std::wstring       _Icon       { };
 	ToolBox::ItemStyle _Style      { ToolBox::ItemStyle::Flat };
@@ -84,14 +84,14 @@ public:
 	Item& operator=(Item&&) = delete;
 
 public:
-	virtual std::size_t getID(void) const;
+	virtual std::size_t getId(void) const;
 	virtual std::wstring getCaption(void) const;
 	virtual std::wstring getIcon(void) const;
 	virtual ToolBox::ItemStyle getStyle(void) const;
 	virtual cx::gw::coord_t getSize(void) const;
 	virtual std::wstring getDescription(void) const;
 
-	virtual void setID(std::size_t id);
+	virtual void setId(std::size_t id);
 	virtual void setCaption(const std::wstring& caption);
 	virtual void setIcon(const std::wstring& icon);
 	virtual void setSize(const cx::gw::coord_t size);

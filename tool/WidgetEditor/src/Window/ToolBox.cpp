@@ -446,6 +446,7 @@ void ToolBox::addIconBitmap(std::wstring name, const void* pImageData, std::size
 
 //===========================================================================
 ToolBox::GroupItemSharedPtr ToolBox::addGroupItem(
+	std::size_t id,
 	ToolBox::GroupItemSharedPtr parentItem,
 	std::wstring caption,
 	std::wstring icon,
@@ -457,7 +458,7 @@ ToolBox::GroupItemSharedPtr ToolBox::addGroupItem(
 	ToolBox::GroupItemSharedPtr groupItem;
 
 	groupItem = makeGroupItem(
-		_ControlWindow->getItemView()->makeID(), 
+		id, 
 		caption,
 		icon,
 		style,
@@ -472,6 +473,7 @@ ToolBox::GroupItemSharedPtr ToolBox::addGroupItem(
 }
 
 ToolBox::SubItemSharedPtr ToolBox::addSubItem(
+	std::size_t id,
 	ToolBox::GroupItemSharedPtr parentItem,
 	std::wstring caption,
 	std::wstring icon,
@@ -483,7 +485,7 @@ ToolBox::SubItemSharedPtr ToolBox::addSubItem(
 	ToolBox::SubItemSharedPtr subItem;
 
 	subItem = makeSubItem(
-		_ControlWindow->getItemView()->makeID(),
+		id,
 		caption,
 		icon,
 		style,
@@ -496,4 +498,17 @@ ToolBox::SubItemSharedPtr ToolBox::addSubItem(
 
 	return subItem;
 }
+
+//===========================================================================
+void ToolBox::releaseWindowMouseCapture(void)
+{
+	_ControlWindow->getWindowMessageHandler()->releaseWindowMouseCapture();
+	
+	//todo
+	//_ControlWindow->getWindowMessageHandler()->_
+	//_ControlWindow->getWindowMessageHandler()->onMouseLButtonUp()
+}
+
+
+
 

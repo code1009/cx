@@ -100,8 +100,8 @@ void ToolBox::ItemStatus::setSelected(bool selected)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-std::size_t   ToolBox::Item::getID(void) const       { return _ID; }
-void          ToolBox::Item::setID(std::size_t id) { _ID = id; }
+std::size_t   ToolBox::Item::getId(void) const     { return _Id; }
+void          ToolBox::Item::setId(std::size_t id) { _Id = id; }
 
 std::wstring  ToolBox::Item::getCaption(void) const                 { return _Caption; }
 void          ToolBox::Item::setCaption(const std::wstring& caption){ _Caption = caption; }
@@ -268,7 +268,7 @@ ToolBox::GroupItemSharedPtr makeGroupItem(
 {
 	auto item = std::make_shared<ToolBox::GroupItem>();
 
-	item->setID(id);
+	item->setId(id);
 	item->setCaption(caption);
 	item->setIcon(icon);
 	item->setStyle(style);
@@ -289,7 +289,7 @@ ToolBox::SubItemSharedPtr makeSubItem(
 {
 	auto item = std::make_shared<ToolBox::SubItem>();
 
-	item->setID(id);
+	item->setId(id);
 	item->setCaption(caption);
 	item->setIcon(icon);
 	item->setStyle(style);

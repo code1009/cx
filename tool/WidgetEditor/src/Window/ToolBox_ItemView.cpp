@@ -244,11 +244,6 @@ void ToolBox::ItemView::draw(cx::gw::Context* ctx)
 }
 
 //===========================================================================
-std::size_t ToolBox::ItemView::makeID(void)
-{
-	return ++_LastMadeID;
-}
-
 ToolBox::ItemSharedPtrs& ToolBox::ItemView::getItems(void)
 {
 	return _Items;
@@ -341,7 +336,7 @@ ToolBox::ItemSharedPtr ToolBox::ItemView::findItem(ToolBox::ItemSharedPtrs& item
 {
 	for (auto& item : items)
 	{
-		if (item->getID() == id)
+		if (item->getId() == id)
 		{
 			return item;
 		}
@@ -609,17 +604,17 @@ void ToolBox::ItemView::onGroupItemMouseClicked(ToolBox::GroupItem* item)
 
 	recalcLayout();
 
-	getWindow()->getToolBox()->setGroupItemMouseClicked();
+	getWindow()->getToolBox()->setGroupItemMouseClicked(item->getId());
 }
 
 void ToolBox::ItemView::onGroupItemMouseDbClicked(ToolBox::GroupItem* item)
 {
-	getWindow()->getToolBox()->setGroupItemMouseDbClicked();
+	getWindow()->getToolBox()->setGroupItemMouseDbClicked(item->getId());
 }
 
 void ToolBox::ItemView::onGroupItemMouseDragging(ToolBox::GroupItem* item)
 {
-	getWindow()->getToolBox()->setGroupItemMouseDragging();
+	getWindow()->getToolBox()->setGroupItemMouseDragging(item->getId());
 }
 
 void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBox::SubItem* item, ToolBox::MouseEventParam& param)
@@ -645,15 +640,15 @@ void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBo
 
 void ToolBox::ItemView::onSubItemMouseClicked(ToolBox::SubItem* item)
 {
-	getWindow()->getToolBox()->setSubItemMouseClicked();
+	getWindow()->getToolBox()->setSubItemMouseClicked(item->getId());
 }
 
 void ToolBox::ItemView::onSubItemMouseDbClicked(ToolBox::SubItem* item)
 {
-	getWindow()->getToolBox()->setSubItemMouseDbClicked();
+	getWindow()->getToolBox()->setSubItemMouseDbClicked(item->getId());
 }
 
 void ToolBox::ItemView::onSubItemMouseDragging(ToolBox::SubItem* item)
 {
-	getWindow()->getToolBox()->setSubItemMouseDragging();
+	getWindow()->getToolBox()->setSubItemMouseDragging(item->getId());
 }

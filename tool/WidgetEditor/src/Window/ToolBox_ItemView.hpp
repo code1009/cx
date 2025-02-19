@@ -12,7 +12,6 @@ private:
 	ToolBox::ControlWindow* _Window{ nullptr };
 
 	ToolBox::ItemSharedPtrs _Items;
-	std::size_t _LastMadeID{ 0 };
 	
 	cx::gw::Point _ItemViewSize;
 
@@ -52,9 +51,6 @@ public:
 	bool createDeviceResources(cx::gw::Context* ctx);
 	void destroyDeviceResources(void);
 	void draw(cx::gw::Context* ctx);
-
-public:
-	std::size_t makeID(void);
 
 public:
 	ToolBox::ItemSharedPtrs& getItems(void);
