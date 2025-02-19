@@ -20,10 +20,10 @@ namespace cx::gw
 class DesigeWidgetContext final
 {
 public:
-	WidgetFillStyle _Marker_Fill_Style { Color{0.5f, 0.5f, 1.0f, 0.5f} };
-	WidgetLineStyle _Marker_Line_Style { Color{0.5f, 0.5f, 1.0f, 1.0f} };
-	WidgetTextStyle _Marker_Text_Style;
-	WidgetLineStyle _Guide_Line_Style  { Color{1.0f, 0.5f, 0.5f, 0.5f} };
+	WidgetFillStyle _Marker_FillStyle { Color{0.5f, 0.5f, 1.0f, 0.5f} };
+	WidgetLineStyle _Marker_LineStyle { Color{0.5f, 0.5f, 1.0f, 1.0f} };
+	WidgetTextStyle _Marker_TextStyle;
+	WidgetLineStyle _Guide_LineStyle  { Color{1.0f, 0.5f, 0.5f, 0.5f} };
 
 private:
 	WidgetResource* _Marker_Fill_Brush     { nullptr };// ID2D1SolidColorBrush* 

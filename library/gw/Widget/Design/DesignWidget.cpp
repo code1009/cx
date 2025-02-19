@@ -79,6 +79,11 @@ DesigeWidgetContext* DesignWidget::getDesigeWidgetContext(void) const
 	return _WidgetDesignerModel->getDesigeWidgetContext();
 }
 
+WidgetDesigner* DesignWidget::getWidgetDesinger(void) const
+{
+	return _WidgetDesignerModel->getWidgetDesigner();
+}
+
 void DesignWidget::setMarkerVisible(bool visible)
 {
 	if (_MarkerVisible != visible)
@@ -167,7 +172,7 @@ void DesignWidget::drawMarker(Context* ctx, Point marker)
 	ctx->getD2dRenderTarget()->DrawRectangle(
 		&rect,
 		_Marker_Line_Brush->getSolidColorBrush(),
-		getDesigeWidgetContext()->_Marker_Line_Style.getWidth()
+		getDesigeWidgetContext()->_Marker_LineStyle.getWidth()
 	);
 #else
 	D2D1_ELLIPSE ellipse = D2D1::Ellipse(
@@ -182,7 +187,7 @@ void DesignWidget::drawMarker(Context* ctx, Point marker)
 	ctx->getD2dRenderTarget()->DrawEllipse(
 		&ellipse,
 		_Marker_Line_Brush->getSolidColorBrush(),
-		1.0f // getDesigeWidgetContext()->_Marker_Line_Style.getWidth()
+		1.0f // getDesigeWidgetContext()->_Marker_LineStyle.getWidth()
 	);
 #endif
 }

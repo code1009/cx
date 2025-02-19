@@ -29,6 +29,7 @@
 #include "Widget/WidgetEventWindowMessageHandler.hpp"
 #include "Widget/WidgetEventDragDrop.hpp"
 
+//===========================================================================
 #include "Widget/Design/DesigeWidgetContext.hpp"
 #include "Widget/Design/DesignWidget.hpp"
 
@@ -37,6 +38,10 @@
 
 #include "Widget/Design/WidgetDesignerModel.hpp"
 #include "Widget/Design/WidgetDesignerWindow.hpp"
+
+//===========================================================================
+#include "Widget/Shape/Shape.hpp"
+#include "Widget/Shape/ShapeDesign.hpp"
 
 //===========================================================================
 #include "../component/std_wstring_utility.hpp"
