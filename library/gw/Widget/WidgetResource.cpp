@@ -221,7 +221,7 @@ WidgetResourceSharedPtr WidgetResourceMap::registerWidgetResource(std::wstring i
 
 
 //===========================================================================
-WidgetResource* WidgetResourceMap::getWidgetFillStyle_SolidColorBrush(WidgetFillStyle* style)
+WidgetResource* WidgetResourceMap::getFill_SolidColorBrush(WidgetFillStyle* style)
 {
 	//--------------------------------------------------------------------------
 	std::wstring id = id_WidgetFillStyle_SolidColorBrush(style);
@@ -252,7 +252,7 @@ WidgetResource* WidgetResourceMap::getWidgetFillStyle_SolidColorBrush(WidgetFill
 }
 
 //===========================================================================
-WidgetResource* WidgetResourceMap::getWidgetLineStyle_SolidColorBrush(WidgetLineStyle* style)
+WidgetResource* WidgetResourceMap::getLine_SolidColorBrush(WidgetLineStyle* style)
 {
 	//--------------------------------------------------------------------------
 	std::wstring id = id_WidgetLineStyle_SolidColorBrush(style);
@@ -284,7 +284,7 @@ WidgetResource* WidgetResourceMap::getWidgetLineStyle_SolidColorBrush(WidgetLine
 	return widgetResource.get();
 }
 
-WidgetResource* WidgetResourceMap::getWidgetLineStyle_StrokeStyle(WidgetLineStyle* style) 
+WidgetResource* WidgetResourceMap::getLine_StrokeStyle(WidgetLineStyle* style) 
 {
 	//--------------------------------------------------------------------------
 	std::wstring id = id_WidgetLineStyle_StrokeStyle(style);
@@ -332,7 +332,7 @@ WidgetResource* WidgetResourceMap::getWidgetLineStyle_StrokeStyle(WidgetLineStyl
 }
 
 //===========================================================================
-WidgetResource* WidgetResourceMap::getWidgetTextStyle_SolidColorBrush(WidgetTextStyle* style)
+WidgetResource* WidgetResourceMap::getText_SolidColorBrush(WidgetTextStyle* style)
 {
 	//--------------------------------------------------------------------------
 	std::wstring id = id_WidgetTextStyle_SolidColorBrush(style);
@@ -362,7 +362,7 @@ WidgetResource* WidgetResourceMap::getWidgetTextStyle_SolidColorBrush(WidgetText
 	return widgetResource.get();
 }
 
-WidgetResource* WidgetResourceMap::getWidgetTextStyle_TextFormat(WidgetTextStyle* style)
+WidgetResource* WidgetResourceMap::getText_TextFormat(WidgetTextStyle* style)
 {
 	//--------------------------------------------------------------------------
 	std::wstring id = id_WidgetTextStyle_TextFormat(style);

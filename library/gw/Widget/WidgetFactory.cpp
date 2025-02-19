@@ -83,14 +83,14 @@ WidgetSharedPtr WidgetFactory::find(std::wstring class_name)
 }
 
 //===========================================================================
-bool WidgetFactory::loadResources(Context* ctx)
+bool WidgetFactory::loadResources(WidgetResourceMap* widgetResourceMap)
 {
 	WidgetSharedPtr widget;
 
 
 	for (auto& pair : _WidgetSharedPtrMap)
 	{
-		if (!pair.second->loadResources(ctx))
+		if (!pair.second->loadResources(widgetResourceMap))
 		{
 			return false;
 		}

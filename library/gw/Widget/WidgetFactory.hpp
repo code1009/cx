@@ -47,7 +47,7 @@ public:
 	WidgetSharedPtr find(std::wstring className);
 
 public:
-	bool loadResources(Context* ctx);
+	bool loadResources(WidgetResourceMap* widgetResourceMap);
 };
 
 

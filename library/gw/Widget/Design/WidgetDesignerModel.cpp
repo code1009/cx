@@ -26,7 +26,7 @@ WidgetDesignerModel::WidgetDesignerModel(Window* window):
 	//-----------------------------------------------------------------------
 	_WidgetResourceMap = std::make_unique<WidgetResourceMap>(_Window->getContext());
 
-	//_DesigeWidgetContext = std::make_unique<DesigeWidgetContext>();
+	_DesigeWidgetContext = std::make_unique<DesigeWidgetContext>();
 
 
 	//-----------------------------------------------------------------------
@@ -71,17 +71,17 @@ bool WidgetDesignerModel::createDeviceResources(Context* ctx)
 	//-----------------------------------------------------------------------
 	if (_DiscardedWidgetResource)
 	{
-		//rv = getDesigeWidgetContext()->loadResources(ctx);
-		//if (!rv)
-		//{
-		//	return false;
-		//}
-		rv = getWidgetDocument()->loadResources(ctx);
+		rv = getDesigeWidgetContext()->loadResources(_WidgetResourceMap.get());
 		if (!rv)
 		{
 			return false;
 		}
-		//rv = getWidgetDesigner()->loadResources(ctx);
+		rv = getWidgetDocument()->loadResources(_WidgetResourceMap.get());
+		if (!rv)
+		{
+			return false;
+		}
+		//rv = getWidgetDesigner()->loadResources(_WidgetResourceMap.get());
 		//if (!rv)
 		//{
 		//	return false;

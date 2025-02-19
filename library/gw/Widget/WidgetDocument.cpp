@@ -106,14 +106,14 @@ void WidgetDocument::setWidgetPropertyChanged(
 }
 
 //===========================================================================
-bool WidgetDocument::loadResources(Context* ctx)
+bool WidgetDocument::loadResources(WidgetResourceMap* widgetResourceMap)
 {
-	_WidgetFactory.loadResources(ctx);
+	_WidgetFactory.loadResources(widgetResourceMap);
 
 
 	for (auto& widget : _Widgets)
 	{
-		if (!widget->loadResources(ctx))
+		if (!widget->loadResources(widgetResourceMap))
 		{
 			return false;
 		}

@@ -102,11 +102,11 @@ protected:
 	virtual WidgetResourceSharedPtr registerWidgetResource(std::wstring id, WidgetResource::Type type);
 
 public:
-	WidgetResource* getWidgetFillStyle_SolidColorBrush(WidgetFillStyle* style);
-	WidgetResource* getWidgetLineStyle_SolidColorBrush(WidgetLineStyle* style);
-	WidgetResource* getWidgetLineStyle_StrokeStyle    (WidgetLineStyle* style);
-	WidgetResource* getWidgetTextStyle_SolidColorBrush(WidgetTextStyle* style);
-	WidgetResource* getWidgetTextStyle_TextFormat     (WidgetTextStyle* style);
+	WidgetResource* getFill_SolidColorBrush(WidgetFillStyle* style);
+	WidgetResource* getLine_SolidColorBrush(WidgetLineStyle* style);
+	WidgetResource* getLine_StrokeStyle    (WidgetLineStyle* style);
+	WidgetResource* getText_SolidColorBrush(WidgetTextStyle* style);
+	WidgetResource* getText_TextFormat     (WidgetTextStyle* style);
 };
 
 

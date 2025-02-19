@@ -63,7 +63,7 @@ public:
 	);
 
 public:
-	virtual bool loadResources(Context* ctx);
+	virtual bool loadResources(WidgetResourceMap* widgetResourceMap);
 	virtual void draw(Context* ctx);
 };
 

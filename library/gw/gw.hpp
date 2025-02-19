@@ -28,6 +28,7 @@
 #include "Widget/WidgetEventWindowMessageHandler.hpp"
 #include "Widget/WidgetEventDragDrop.hpp"
 
+#include "Widget/Design/DesigeWidgetContext.hpp"
 #include "Widget/Design/WidgetDesignerModel.hpp"
 
 //===========================================================================

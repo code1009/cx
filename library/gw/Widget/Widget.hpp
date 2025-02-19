@@ -104,7 +104,7 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	virtual bool loadResources(Context* ctx) = 0;
+	virtual bool loadResources(WidgetResourceMap* widgetResourceMap) = 0;
 	virtual void draw(Context* ctx) = 0;
 };
 

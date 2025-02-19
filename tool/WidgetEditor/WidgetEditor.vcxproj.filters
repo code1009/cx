@@ -31,6 +31,9 @@
     <Filter Include="library_cx\gw\Widget\Design">
       <UniqueIdentifier>{0934c8bd-b485-4557-b03b-f93d5914a567}</UniqueIdentifier>
     </Filter>
+    <Filter Include="library_cx\gw\Widget\Shape">
+      <UniqueIdentifier>{9717bfd3-a7e3-4020-81c7-6bd4213adf19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps">
@@ -288,6 +291,9 @@
     <ClInclude Include="..\..\library\gw\Widget\pch.hpp">
       <Filter>library_cx\gw\Widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\DesigeWidgetContext.hpp">
+      <Filter>library_cx\gw\Widget\Design</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -465,6 +471,9 @@
       <Filter>library_cx\gw\Widget</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.cpp">
+      <Filter>library_cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\DesigeWidgetContext.cpp">
       <Filter>library_cx\gw\Widget\Design</Filter>
     </ClCompile>
   </ItemGroup>

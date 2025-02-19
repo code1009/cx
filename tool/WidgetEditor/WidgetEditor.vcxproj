@@ -45,6 +45,7 @@
     <ClInclude Include="..\..\library\gw\pch.hpp" />
     <ClInclude Include="..\..\library\gw\Point.hpp" />
     <ClInclude Include="..\..\library\gw\Viewport.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\Design\DesigeWidgetContext.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Design\pch.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\pch.hpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="..\..\library\gw\Drawable.cpp" />
     <ClCompile Include="..\..\library\gw\Point.cpp" />
     <ClCompile Include="..\..\library\gw\Viewport.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\Design\DesigeWidgetContext.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Widget.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\WidgetDocument.cpp" />
