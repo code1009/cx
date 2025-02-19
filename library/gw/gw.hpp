@@ -45,6 +45,10 @@
 #include "Widget/Shape/RectangleShape.hpp"
 #include "Widget/Shape/RectangleShapeDesign.hpp"
 
+#include "Widget/Shape/ShapeTemplate.hpp"
+#include "Widget/Shape/ShapeDesignTemplate.hpp"
+#include "Widget/Shape/Shape_Classes.hpp"
+
 //===========================================================================
 #include "../component/std_wstring_utility.hpp"
 #include "../component/to_std_wstring.hpp"

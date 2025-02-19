@@ -37,6 +37,10 @@ void WidgetFactory::load(void)
 
 	widget = std::make_shared<RectangleShapeDesign>(); 
 	addWidget(widget);
+
+
+	widget = std::make_shared<EllipseShapeDesign>();
+	addWidget(widget);
 }
 
 //===========================================================================
