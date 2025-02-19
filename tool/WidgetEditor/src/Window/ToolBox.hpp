@@ -125,8 +125,9 @@ public:
 	class EventParam
 	{
 	public:
-		ToolBox* _Sender;
-		std::size_t _Id;
+		ToolBox*    _Sender   { nullptr };
+		std::size_t _Id       { 0       };
+		bool        _DragDrop { false   };
 	};
 	using EventHandler = std::function<void(EventParam*)>;
 
@@ -147,10 +148,12 @@ public:
 	void setSubItemMouseDraggingHandler   (EventHandler handler) { _SubItemMouseDragging   =handler; };
 	
 public:
-	void setGroupItemMouseClicked  (std::size_t id){ if (_GroupItemMouseClicked  ){ EventParam param; param._Sender=this; param._Id=id; _GroupItemMouseClicked  (&param); } }
-	void setGroupItemMouseDbClicked(std::size_t id){ if (_GroupItemMouseDbClicked){ EventParam param; param._Sender=this; param._Id=id; _GroupItemMouseDbClicked(&param); } }
-	void setGroupItemMouseDragging (std::size_t id){ if (_GroupItemMouseDragging ){ EventParam param; param._Sender=this; param._Id=id; _GroupItemMouseDragging (&param); } }
-	void setSubItemMouseClicked    (std::size_t id){ if (_SubItemMouseClicked    ){ EventParam param; param._Sender=this; param._Id=id; _SubItemMouseClicked    (&param); } }
-	void setSubItemMouseDbClicked  (std::size_t id){ if (_SubItemMouseDbClicked  ){ EventParam param; param._Sender=this; param._Id=id; _SubItemMouseDbClicked  (&param); } }
-	void setSubItemMouseDragging   (std::size_t id){ if (_SubItemMouseDragging   ){ EventParam param; param._Sender=this; param._Id=id; _SubItemMouseDragging   (&param); } }
+	void notifyMouseEvent(EventHandler handler, std::size_t id, MouseEventParam& param);
+
+	void setGroupItemMouseClicked  (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_GroupItemMouseClicked  , id, param); }
+	void setGroupItemMouseDbClicked(std::size_t id, MouseEventParam& param){ notifyMouseEvent(_GroupItemMouseDbClicked, id, param); }
+	void setGroupItemMouseDragging (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_GroupItemMouseDragging , id, param); }
+	void setSubItemMouseClicked    (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_SubItemMouseClicked    , id, param); }
+	void setSubItemMouseDbClicked  (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_SubItemMouseDbClicked  , id, param); }
+	void setSubItemMouseDragging   (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_SubItemMouseDragging   , id, param); }
 };

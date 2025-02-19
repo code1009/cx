@@ -296,26 +296,26 @@ enum class WidgetEventType
 class WidgetMouseEventParam
 {
 public:
-	Point _MousePosition{};
+	Point _MousePosition      {};
 	bool  _MouseLButtonPressed{ false };
 	bool  _MouseRButtonPressed{ false };
-	bool  _ShiftKeyPressed{ false };
-	bool  _CtrlKeyPressed{ false };
+	bool  _ShiftKeyPressed    { false };
+	bool  _CtrlKeyPressed     { false };
 };
 
 class WidgetMouseDragEnterEventParam
 {
 public:
-	std::uint32_t _DataSeq{ 0 };
-	Point _MousePosition{};
-	std::wstring _String{};
+	std::uint32_t _DataSeq       { 0 };
+	Point         _MousePosition { };
+	std::wstring  _String        { };
 };
 
 class WidgetMouseDragOverEventParam
 {
 public:
-	std::uint32_t _DataSeq{ 0 };
-	Point _MousePosition{};
+	std::uint32_t _DataSeq      { 0 };
+	Point         _MousePosition{ };
 };
 
 class WidgetMouseDragLeaveEventParam
@@ -327,8 +327,8 @@ public:
 class WidgetMouseDropEventParam
 {
 public:
-	std::uint32_t _DataSeq{ 0 };
-	Point _MousePosition{};
+	std::uint32_t _DataSeq      { 0 };
+	Point         _MousePosition{ };
 };
 
 

@@ -107,6 +107,7 @@ void WidgetEventWindowMessageHandler::releaseWindowMouseCapture(void)
 	}		
 }
 
+//===========================================================================
 bool WidgetEventWindowMessageHandler::onWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	bool handled = false;

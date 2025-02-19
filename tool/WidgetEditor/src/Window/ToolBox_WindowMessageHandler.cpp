@@ -146,6 +146,7 @@ void ToolBox::WindowMessageHandler::releaseWindowMouseCapture(void)
 	}		
 }
 
+//===========================================================================
 bool ToolBox::WindowMessageHandler::onWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	bool handled = false;
@@ -509,4 +510,9 @@ void ToolBox::WindowMessageHandler::notifyMouseDragging (ToolBox::Item* item, To
 		item,
 		param
 	);
+
+	if (param._DragDrop)
+	{
+		onMouseLButtonUp(param);
+	}
 }

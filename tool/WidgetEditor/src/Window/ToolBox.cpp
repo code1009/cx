@@ -503,12 +503,21 @@ ToolBox::SubItemSharedPtr ToolBox::addSubItem(
 void ToolBox::releaseWindowMouseCapture(void)
 {
 	_ControlWindow->getWindowMessageHandler()->releaseWindowMouseCapture();
-	
-	//todo
-	//_ControlWindow->getWindowMessageHandler()->_
-	//_ControlWindow->getWindowMessageHandler()->onMouseLButtonUp()
 }
 
+void ToolBox::notifyMouseEvent(EventHandler handler, std::size_t id, MouseEventParam& param)
+{
+	if (handler)
+	{
+		EventParam eventParam;
 
+		eventParam._Sender = this;
+		eventParam._Id = id;
+
+		handler(&eventParam);
+
+		param._DragDrop = eventParam._DragDrop;
+	}
+}
 
 

@@ -34,11 +34,14 @@ enum class ToolBox::EventType
 class ToolBox::MouseEventParam
 {
 public:
-	cx::gw::Point _MousePosition      {};
+	cx::gw::Point _MousePosition      { };
 	bool          _MouseLButtonPressed{ false };
 	bool          _MouseRButtonPressed{ false };
 	bool          _ShiftKeyPressed    { false };
 	bool          _CtrlKeyPressed     { false };
+
+public:
+	bool _DragDrop{ false };
 };
 
 
