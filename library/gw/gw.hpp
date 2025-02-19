@@ -32,6 +32,9 @@
 #include "Widget/Design/DesigeWidgetContext.hpp"
 #include "Widget/Design/DesignWidget.hpp"
 
+#include "Widget/Design/WidgetDesignerTool.hpp"
+#include "Widget/Design/WidgetDesigner.hpp"
+
 #include "Widget/Design/WidgetDesignerModel.hpp"
 #include "Widget/Design/WidgetDesignerWindow.hpp"
 

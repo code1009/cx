@@ -22,6 +22,17 @@ class WidgetDesignerModel;
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class DesignWidget;
+using DesignWidgetWeakPtr = std::weak_ptr<DesignWidget>;
+using DesignWidgetSharedPtr = std::shared_ptr<DesignWidget>;
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class DesignWidget : public Widget

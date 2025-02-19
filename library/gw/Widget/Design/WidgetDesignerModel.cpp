@@ -37,7 +37,7 @@ WidgetDesignerModel::WidgetDesignerModel(Window* window):
 
 
 	//-----------------------------------------------------------------------
-	//_WidgetDesigner = std::make_unique<WidgetDesigner>(_WidgetDocument.get());
+	_WidgetDesigner = std::make_unique<WidgetDesigner>(this);
 
 
 	//-----------------------------------------------------------------------
@@ -75,11 +75,11 @@ bool WidgetDesignerModel::createDeviceResources(Context* ctx)
 		{
 			return false;
 		}
-		//rv = getWidgetDesigner()->loadResources(_WidgetResourceMap.get());
-		//if (!rv)
-		//{
-		//	return false;
-		//}
+		rv = getWidgetDesigner()->loadResources(_WidgetResourceMap.get());
+		if (!rv)
+		{
+			return false;
+		}
 
 		_DiscardedWidgetResource = true;
 	}
@@ -103,7 +103,7 @@ void WidgetDesignerModel::draw(Context* ctx)
 void WidgetDesignerModel::drawWidgetDocument(Context* ctx)
 {
 	_WidgetDocument->draw(ctx);
-	//_WidgetDesigner->draw(ctx);
+	_WidgetDesigner->draw(ctx);
 }
 
 //===========================================================================

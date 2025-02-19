@@ -28,7 +28,7 @@ private:
 	
 	std::unique_ptr<WidgetResourceMap>   _WidgetResourceMap;
 	std::unique_ptr<DesigeWidgetContext> _DesigeWidgetContext;	
-//	std::unique_ptr<WidgetDesigner>      _WidgetDesigner;
+	std::unique_ptr<WidgetDesigner>      _WidgetDesigner;
 	
 	bool _DiscardedWidgetResource{ true };
 
@@ -47,7 +47,7 @@ public:
 
 	[[nodiscard]] constexpr WidgetResourceMap*   getWidgetResourceMap  (void) const { return _WidgetResourceMap.get(); }
 	[[nodiscard]] constexpr DesigeWidgetContext* getDesigeWidgetContext(void) const { return _DesigeWidgetContext.get(); }
-//	[[nodiscard]] constexpr WidgetDesigner*      getWidgetDesigner     (void) const { return _WidgetDesigner.get(); }
+	[[nodiscard]] constexpr WidgetDesigner*      getWidgetDesigner     (void) const { return _WidgetDesigner.get(); }
 
 public:
 	virtual bool createDeviceResources(Context* ctx);

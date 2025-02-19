@@ -22,7 +22,6 @@ class WidgetDocument;
 
 using WidgetWeakPtr = std::weak_ptr<Widget>;
 using WidgetSharedPtr = std::shared_ptr<Widget>;
-using WidgetSharedPtrs = std::vector<WidgetSharedPtr>;
 
 
 
