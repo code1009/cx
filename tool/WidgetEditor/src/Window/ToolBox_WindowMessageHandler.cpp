@@ -485,7 +485,13 @@ void ToolBox::WindowMessageHandler::onMouseHover(ToolBox::MouseEventParam& param
 
 
 	//-----------------------------------------------------------------------
+	if (_Item_MouseOver)
+	{
+		notifyMouseLeave(_Item_MouseOver, param);
+	}
+
 	_Item_MouseOver = item;
+	
 	if (_Item_MouseOver)
 	{
 		notifyMouseOver(_Item_MouseOver, param);
