@@ -346,6 +346,7 @@ public:
 	void onDrop(DWORD grfKeyState, POINTL pt);
 };
 
+/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 WidgetEventDragDropHandler::Impl::Impl(WidgetDocument* doc, Viewport* viewport) :
 	_WidgetDocument{ doc },
@@ -558,6 +559,7 @@ WidgetEventDragDropHandler::~WidgetEventDragDropHandler()
 {
 }
 
+/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 void WidgetEventDragDropHandler::registerDragDrop(void)
 {
