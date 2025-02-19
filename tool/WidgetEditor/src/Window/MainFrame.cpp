@@ -391,7 +391,7 @@ void MainFrame::onToolBoxSubItemMouseDragging(ToolBox::EventParam* param)
 {
 	switch (param->_Id)
 	{
-//	case 2:
+	case 2:
 	case 3:
 	case 4:
 		_ToolBox->releaseWindowMouseCapture();
@@ -409,6 +409,12 @@ void MainFrame::doToolBoxWidgetDragDrop(std::size_t id)
 	cx::gw::WidgetEventDragDropData dragDropData;
 	switch (id)
 	{
+	case 0:
+		dragDropData._String = L"Shape.Line.Design";
+		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
+		_WidgetEventDragDropNotifier.doDragDrop();
+		break;
+
 	case 1:
 		dragDropData._String = L"Shape.Rectangle.Design";
 		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);

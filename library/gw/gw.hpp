@@ -42,8 +42,12 @@
 //===========================================================================
 #include "Widget/Shape/Shape.hpp"
 #include "Widget/Shape/ShapeDesign.hpp"
+
 #include "Widget/Shape/RectangleShape.hpp"
 #include "Widget/Shape/RectangleShapeDesign.hpp"
+
+#include "Widget/Shape/LineShape.hpp"
+#include "Widget/Shape/LineShapeDesign.hpp"
 
 #include "Widget/Shape/ShapeTemplate.hpp"
 #include "Widget/Shape/ShapeDesignTemplate.hpp"

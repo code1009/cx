@@ -208,7 +208,37 @@ bool setShapeDesignMarkerPoint(
 	return true;
 }
 
+bool setLineShapeDesignMarkerPoint(
+	Point& lt,
+	Point& rb,
+	const ShapeDesignMarker s,
+	const Point& p
+)
+{
+	switch (s)
+	{
+	case ShapeDesignMarker::LT:
+		if (p == rb) { return false; }
+		if (rb._x < p._x) { return false; }
+		if (rb._y < p._y) { return false; }
 
+		lt = p;
+		break;
+
+	case ShapeDesignMarker::RB:
+		if (p == lt) { return false; }
+		if (lt._x > p._x) { return false; }
+		if (lt._y > p._y) { return false; }
+
+		rb = p;
+		break;
+
+	default:
+		return false;
+	}
+
+	return true;
+}
 
 
 

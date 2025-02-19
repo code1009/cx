@@ -53,6 +53,8 @@
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerTool.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerWindow.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\pch.hpp" />
+    <ClInclude Include="..\..\library\gw\widget\Shape\LineShape.hpp" />
+    <ClInclude Include="..\..\library\gw\widget\Shape\LineShapeDesign.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Shape\pch.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Shape\RectangleShape.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Shape\RectangleShapeDesign.hpp" />
@@ -142,6 +144,8 @@
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerTool.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerWindow.cpp" />
+    <ClCompile Include="..\..\library\gw\widget\Shape\LineShape.cpp" />
+    <ClCompile Include="..\..\library\gw\widget\Shape\LineShapeDesign.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Shape\RectangleShape.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Shape\RectangleShapeDesign.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Shape\Shape.cpp" />

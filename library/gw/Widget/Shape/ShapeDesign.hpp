@@ -72,6 +72,13 @@ bool setShapeDesignMarkerPoint(
 	const Point& p
 );
 
+bool setLineShapeDesignMarkerPoint(
+	Point& lt,
+	Point& rb,
+	const ShapeDesignMarker s,
+	const Point& p
+);
+
 
 
 
