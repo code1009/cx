@@ -11,6 +11,7 @@ class View :
 {
 private:
 	std::unique_ptr<cx::gw::BaseEditWindow> _Window;
+	std::unique_ptr<cx::gw::WidgetDesignerModel> _WidgetDesignerModel;
 
 public:
 	explicit View(HWND parentWindowHandle);

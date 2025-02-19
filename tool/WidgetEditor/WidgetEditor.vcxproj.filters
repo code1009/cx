@@ -28,6 +28,9 @@
     <Filter Include="library_cx\gw\Widget">
       <UniqueIdentifier>{f4c06c71-9dca-4d74-8e0b-bd7256af8121}</UniqueIdentifier>
     </Filter>
+    <Filter Include="library_cx\gw\Widget\Design">
+      <UniqueIdentifier>{0934c8bd-b485-4557-b03b-f93d5914a567}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps">
@@ -276,6 +279,15 @@
     <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop_HGlobal.hpp">
       <Filter>library_cx\gw\Widget</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.hpp">
+      <Filter>library_cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\pch.hpp">
+      <Filter>library_cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\pch.hpp">
+      <Filter>library_cx\gw\Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -451,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop_HGlobal.cpp">
       <Filter>library_cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.cpp">
+      <Filter>library_cx\gw\Widget\Design</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

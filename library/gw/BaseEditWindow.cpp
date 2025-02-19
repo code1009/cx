@@ -38,9 +38,11 @@ BaseEditWindow::BaseEditWindow(HWND hwnd, bool center) :
 
 
 	//-----------------------------------------------------------------------
+	/*
 	getViewport()->setWindowSize(0, 0);
 	getViewport()->setDocumentSize(1920, 1080);
 	getViewport()->enableScrollbar(true);
+	*/
 }
 
 //===========================================================================

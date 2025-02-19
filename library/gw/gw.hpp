@@ -28,6 +28,8 @@
 #include "Widget/WidgetEventWindowMessageHandler.hpp"
 #include "Widget/WidgetEventDragDrop.hpp"
 
+#include "Widget/Design/WidgetDesignerModel.hpp"
+
 //===========================================================================
 #include "../component/std_wstring_utility.hpp"
 #include "../component/to_std_wstring.hpp"

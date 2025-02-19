@@ -56,6 +56,8 @@ View::View(HWND parentWindowHandle)
 	_Window->getStatusOverayPanel()->setVisible(true);
 	_Window->getDocumentGrid()->setVisible(true);
 
+	_WidgetDesignerModel = std::make_unique<cx::gw::WidgetDesignerModel>(_Window.get());
+
 
 	//-----------------------------------------------------------------------
 	::ShowWindow(*this, SW_SHOW);

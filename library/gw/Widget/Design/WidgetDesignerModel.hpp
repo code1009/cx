@@ -1,0 +1,76 @@
+﻿/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+#pragma once
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+namespace cx::gw
+{
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class WidgetDesignerModel
+{
+private:
+	Window* _Window{ nullptr };
+
+	std::unique_ptr<WidgetDocument>                  _WidgetDocument;
+	std::unique_ptr<WidgetEventWindowMessageHandler> _WidgetEventWindowMessageHandler;
+	std::unique_ptr<WidgetEventDragDropHandler>      _WidgetEventDragDropHandler;
+	
+	std::unique_ptr<WidgetResourceMap>   _WidgetResourceMap;
+//	std::unique_ptr<DesigeWidgetContext> _DesigeWidgetContext;	
+//	std::unique_ptr<WidgetDesigner>      _WidgetDesigner;
+	
+	bool _DiscardedWidgetResource{ true };
+
+public:
+	explicit WidgetDesignerModel(Window* window);
+
+public:
+	virtual ~WidgetDesignerModel();
+
+public:
+	[[nodiscard]] constexpr Window* getWindow(void) const { return _Window; }
+
+	[[nodiscard]] constexpr WidgetDocument*                  getWidgetDocument                 (void) const { return _WidgetDocument.get(); }
+	[[nodiscard]] constexpr WidgetEventWindowMessageHandler* getWidgetEventWindowMessageHandler(void) const { return _WidgetEventWindowMessageHandler.get(); }
+	[[nodiscard]] constexpr WidgetEventDragDropHandler*      getWidgetEventDragDropHandler     (void) const { return _WidgetEventDragDropHandler.get(); }
+
+	[[nodiscard]] constexpr WidgetResourceMap*   getWidgetResourceMap    (void) const { return _WidgetResourceMap.get(); }
+//	[[nodiscard]] constexpr DesigeWidgetContext* getDesigeWidgetResources(void) const { return _DesigeWidgetResources.get(); }
+//	[[nodiscard]] constexpr WidgetDesigner*      getWidgetDesigner       (void) const { return _WidgetDesigner.get(); }
+
+protected:
+	virtual bool createDeviceResources(Context* ctx);
+	virtual void destroyDeviceResources(void);
+
+protected:
+	virtual void draw(Context* ctx);
+
+protected:
+	virtual void drawWidgetDocument(Context* ctx);
+
+protected:
+	virtual void onWidgetPropertyChanged(Widget::PropertyChangedParam* param);
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+}
+
+
+
+
