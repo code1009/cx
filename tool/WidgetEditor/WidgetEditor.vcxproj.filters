@@ -315,6 +315,12 @@
     <ClInclude Include="..\..\library\gw\Widget\Shape\ShapeDesign.hpp">
       <Filter>library_cx\gw\Widget\Shape</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Shape\RectangleShape.hpp">
+      <Filter>library_cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Shape\RectangleShapeDesign.hpp">
+      <Filter>library_cx\gw\Widget\Shape</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -513,6 +519,12 @@
       <Filter>library_cx\gw\Widget\Shape</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Widget\Shape\ShapeDesign.cpp">
+      <Filter>library_cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Shape\RectangleShape.cpp">
+      <Filter>library_cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Shape\RectangleShapeDesign.cpp">
       <Filter>library_cx\gw\Widget\Shape</Filter>
     </ClCompile>
   </ItemGroup>

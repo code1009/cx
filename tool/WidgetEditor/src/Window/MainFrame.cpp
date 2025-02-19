@@ -387,7 +387,7 @@ void MainFrame::onToolBoxSubItemMouseDbClicked(ToolBox::EventParam* param)
 void MainFrame::onToolBoxSubItemMouseDragging(ToolBox::EventParam* param)
 {
 	cx::gw::WidgetEventDragDropData dragDropData;
-	dragDropData._String = L"RectangleShapeDesign";
+	dragDropData._String = L"Shape.Rectangle.Design";
 	_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
 	_WidgetEventDragDropNotifier.doDragDrop();
 }

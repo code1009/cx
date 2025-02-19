@@ -35,7 +35,7 @@ void WidgetFactory::load(void)
 	WidgetSharedPtr widget;
 
 
-	//widget = std::make_shared<RectangleShapeDesignWidget>(); 
+	widget = std::make_shared<RectangleShapeDesign>(); 
 	addWidget(widget);
 }
 
