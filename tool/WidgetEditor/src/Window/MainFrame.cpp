@@ -354,5 +354,42 @@ void MainFrame::createToolBox(void)
 	item = _ToolBox->addSubItem(parent, L"맨 뒤로"  , std::wstring(), ToolBox::ItemStyle::Button);
 
 	item = _ToolBox->addSubItem(nullptr, L"도움말", L"item.png");
+
+	_ToolBox->setGroupItemMouseClickedHandler  (std::bind(&MainFrame::onToolBoxGroupItemMouseClicked  , this, std::placeholders::_1));
+	_ToolBox->setGroupItemMouseClickedHandler  (std::bind(&MainFrame::onToolBoxGroupItemMouseDbClicked, this, std::placeholders::_1));
+	_ToolBox->setGroupItemMouseDbClickedHandler(std::bind(&MainFrame::onToolBoxGroupItemMouseDbClicked, this, std::placeholders::_1));
+	_ToolBox->setGroupItemMouseDraggingHandler (std::bind(&MainFrame::onToolBoxGroupItemMouseDragging , this, std::placeholders::_1));
+	_ToolBox->setSubItemMouseClickedHandler    (std::bind(&MainFrame::onToolBoxSubItemMouseClicked    , this, std::placeholders::_1));
+	_ToolBox->setSubItemMouseDbClickedHandler  (std::bind(&MainFrame::onToolBoxSubItemMouseDbClicked  , this, std::placeholders::_1));
+	_ToolBox->setSubItemMouseDraggingHandler   (std::bind(&MainFrame::onToolBoxSubItemMouseDragging   , this, std::placeholders::_1));
 }
+
+void MainFrame::onToolBoxGroupItemMouseClicked(ToolBox::EventParam* param)
+{
+}
+
+void MainFrame::onToolBoxGroupItemMouseDbClicked(ToolBox::EventParam* param)
+{
+}
+
+void MainFrame::onToolBoxGroupItemMouseDragging(ToolBox::EventParam* param)
+{
+}
+
+void MainFrame::onToolBoxSubItemMouseClicked(ToolBox::EventParam* param)
+{
+}
+
+void MainFrame::onToolBoxSubItemMouseDbClicked(ToolBox::EventParam* param)
+{
+}
+
+void MainFrame::onToolBoxSubItemMouseDragging(ToolBox::EventParam* param)
+{
+	cx::gw::WidgetEventDragDropData dragDropData;
+	dragDropData._String = L"RectangleShapeDesign";
+	_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
+	_WidgetEventDragDropNotifier.doDragDrop();
+}
+
 

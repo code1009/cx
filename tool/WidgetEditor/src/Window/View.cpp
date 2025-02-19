@@ -53,13 +53,39 @@ View::View(HWND parentWindowHandle)
 
 	//-----------------------------------------------------------------------
 	_Window = std::make_unique<cx::gw::WidgetDesignerWindow>(*this);
+
 	_Window->getStatusOverayPanel()->setVisible(true);
 	_Window->getDocumentGrid()->setVisible(true);
+
+	_Window->getWidgetDesignerModel()->getWidgetEventDragDropHandler()->registerDragDrop();
 
 
 	//-----------------------------------------------------------------------
 	::ShowWindow(*this, SW_SHOW);
 	::UpdateWindow(*this);
+}
+
+//===========================================================================
+View::~View()
+{
+}
+
+//===========================================================================
+LRESULT View::onWindowMessage(cx::wui::WindowMessage& windowMessage)
+{
+	auto result = cx::wui::MessageMapWindowT<View, cx::wui::BaseWindow>::onWindowMessage(windowMessage);
+
+	if (_Window)
+	{
+		_Window->getWidgetDesignerModel()->getWidgetEventWindowMessageHandler()->onWindowMessage(
+			windowMessage.hWnd,
+			windowMessage.uMsg,
+			windowMessage.wParam,
+			windowMessage.lParam
+		);
+	}
+
+	return result;
 }
 
 //===========================================================================
@@ -117,6 +143,8 @@ void View::onCreate(cx::wui::WindowMessage& windowMessage)
 
 void View::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
+	// 성공해야 메모리릭이 없음!
+	_Window->getWidgetDesignerModel()->getWidgetEventDragDropHandler()->unregisterDragDrop();
 }
 
 void View::onClose(cx::wui::WindowMessage& windowMessage)

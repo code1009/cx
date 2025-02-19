@@ -12,6 +12,7 @@ class MainFrame :
 private:
 	std::unique_ptr<View> _View;
 	std::unique_ptr<ToolBox> _ToolBox;
+	cx::gw::WidgetEventDragDropNotifier _WidgetEventDragDropNotifier;
 
 public:
 	MainFrame();
@@ -36,4 +37,10 @@ public:
 
 public:
 	void createToolBox(void);
+	void onToolBoxGroupItemMouseClicked(ToolBox::EventParam* param);
+	void onToolBoxGroupItemMouseDbClicked(ToolBox::EventParam* param);
+	void onToolBoxGroupItemMouseDragging(ToolBox::EventParam* param);
+	void onToolBoxSubItemMouseClicked(ToolBox::EventParam* param);
+	void onToolBoxSubItemMouseDbClicked(ToolBox::EventParam* param);
+	void onToolBoxSubItemMouseDragging(ToolBox::EventParam* param);
 };

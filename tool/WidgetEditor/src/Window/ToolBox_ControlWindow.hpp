@@ -9,12 +9,12 @@
 class ToolBox::ControlWindow : public cx::gw::Window
 {
 private:
-	HWND _WindowHandle{ nullptr };
+	ToolBox* _ToolBox{ nullptr };
 	std::unique_ptr<ToolBox::ItemView> _ItemView;
 	ToolBox::WindowMessageHandler _WindowMessageHandler;
 
 public:
-	explicit ControlWindow(HWND hwnd);
+	explicit ControlWindow(ToolBox* toolBox);
 	virtual ~ControlWindow(void) = default;
 
 public:
@@ -32,7 +32,8 @@ public:
 	virtual void draw(void) override;
 
 	//-----------------------------------------------------------------------
-	ToolBox::ItemView* getItemView(void);
-	ToolBox::WindowMessageHandler* getWindowMessageHandler(void);
+	ToolBox* getToolBox(void) { return _ToolBox; }
+	ToolBox::ItemView* getItemView(void) { return _ItemView.get(); }
+	ToolBox::WindowMessageHandler* getWindowMessageHandler(void) { return &_WindowMessageHandler; }
 };
 

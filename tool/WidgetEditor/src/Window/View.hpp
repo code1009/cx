@@ -14,6 +14,10 @@ private:
 
 public:
 	explicit View(HWND parentWindowHandle);
+	virtual ~View();
+
+public:
+	virtual LRESULT onWindowMessage(cx::wui::WindowMessage& windowMessage) override;
 
 public:
 	virtual HWND createView(HWND parentWindowHandle);

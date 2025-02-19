@@ -21,9 +21,9 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-ToolBox::ControlWindow::ControlWindow(HWND hwnd) :
-	cx::gw::Window(hwnd, false),
-	_WindowHandle(hwnd)
+ToolBox::ControlWindow::ControlWindow(ToolBox* toolBox) :
+	cx::gw::Window(toolBox->getWindowHandle(), false),
+	_ToolBox(toolBox)
 {
 	_ItemView = std::make_unique<ToolBox::ItemView>(this);
 	_WindowMessageHandler.setItemView(_ItemView.get());
@@ -82,18 +82,4 @@ void ToolBox::ControlWindow::draw(void)
 		getItemView()->draw(getContext());
 	}
 }
-
-//===========================================================================
-ToolBox::ItemView* ToolBox::ControlWindow::getItemView(void)
-{
-	return _ItemView.get();
-}
-
-ToolBox::WindowMessageHandler* ToolBox::ControlWindow::getWindowMessageHandler(void)
-{
-	return &_WindowMessageHandler;
-}
-
-
-
 

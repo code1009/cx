@@ -115,4 +115,36 @@ public:
 		cx::gw::coord_t size = 28.0f,
 		std::wstring description = std::wstring()
 	);
+
+public:
+	class EventParam
+	{
+	public:
+		ToolBox* _Sender;
+	};
+	using EventHandler = std::function<void(EventParam*)>;
+
+private:
+	EventHandler _GroupItemMouseClicked  {};
+	EventHandler _GroupItemMouseDbClicked{};
+	EventHandler _GroupItemMouseDragging {};
+	EventHandler _SubItemMouseClicked    {};
+	EventHandler _SubItemMouseDbClicked  {};
+	EventHandler _SubItemMouseDragging   {};
+
+public:
+	void setGroupItemMouseClickedHandler  (EventHandler handler) { _GroupItemMouseClicked  =handler; };
+	void setGroupItemMouseDbClickedHandler(EventHandler handler) { _GroupItemMouseDbClicked=handler; };
+	void setGroupItemMouseDraggingHandler (EventHandler handler) { _GroupItemMouseDragging =handler; };
+	void setSubItemMouseClickedHandler    (EventHandler handler) { _SubItemMouseClicked    =handler; };
+	void setSubItemMouseDbClickedHandler  (EventHandler handler) { _SubItemMouseDbClicked  =handler; };
+	void setSubItemMouseDraggingHandler   (EventHandler handler) { _SubItemMouseDragging   =handler; };
+	
+public:
+	void setGroupItemMouseClicked  (void){ if (_GroupItemMouseClicked  ){ EventParam param; param._Sender=this; _GroupItemMouseClicked  (&param); } }
+	void setGroupItemMouseDbClicked(void){ if (_GroupItemMouseDbClicked){ EventParam param; param._Sender=this; _GroupItemMouseDbClicked(&param); } }
+	void setGroupItemMouseDragging (void){ if (_GroupItemMouseDragging ){ EventParam param; param._Sender=this; _GroupItemMouseDragging (&param); } }
+	void setSubItemMouseClicked    (void){ if (_SubItemMouseClicked    ){ EventParam param; param._Sender=this; _SubItemMouseClicked    (&param); } }
+	void setSubItemMouseDbClicked  (void){ if (_SubItemMouseDbClicked  ){ EventParam param; param._Sender=this; _SubItemMouseDbClicked  (&param); } }
+	void setSubItemMouseDragging   (void){ if (_SubItemMouseDragging   ){ EventParam param; param._Sender=this; _SubItemMouseDragging   (&param); } }
 };

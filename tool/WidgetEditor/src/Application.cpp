@@ -36,6 +36,13 @@ bool Application::initialize(void)
 		return false;
 	}
 
+	rv = cx::gw::initializeWidgetEventDragDrop();
+	if (false == rv)
+	{
+		terminate();
+		return false;
+	}
+
 	return true;
 }
 

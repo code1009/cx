@@ -64,7 +64,7 @@ ToolBox::ToolBox(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_ControlWindow = std::make_unique<ControlWindow>(*this);
+	_ControlWindow = std::make_unique<ControlWindow>(this);
 
 
 	//-----------------------------------------------------------------------

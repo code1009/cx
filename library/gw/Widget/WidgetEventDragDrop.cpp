@@ -557,6 +557,7 @@ WidgetEventDragDropHandler::WidgetEventDragDropHandler(WidgetDocument* doc, View
 
 WidgetEventDragDropHandler::~WidgetEventDragDropHandler()
 {
+	unregisterDragDrop();
 }
 
 /////////////////////////////////////////////////////////////////////////////

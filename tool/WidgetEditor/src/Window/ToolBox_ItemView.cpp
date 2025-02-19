@@ -608,16 +608,18 @@ void ToolBox::ItemView::onGroupItemMouseClicked(ToolBox::GroupItem* item)
 	}
 
 	recalcLayout();
+
+	getWindow()->getToolBox()->setGroupItemMouseClicked();
 }
 
 void ToolBox::ItemView::onGroupItemMouseDbClicked(ToolBox::GroupItem* item)
 {
-
+	getWindow()->getToolBox()->setGroupItemMouseDbClicked();
 }
 
 void ToolBox::ItemView::onGroupItemMouseDragging(ToolBox::GroupItem* item)
 {
-
+	getWindow()->getToolBox()->setGroupItemMouseDragging();
 }
 
 void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBox::SubItem* item, ToolBox::MouseEventParam& param)
@@ -643,15 +645,15 @@ void ToolBox::ItemView::onSubItemMouseEvent(ToolBox::EventType eventType, ToolBo
 
 void ToolBox::ItemView::onSubItemMouseClicked(ToolBox::SubItem* item)
 {
-
+	getWindow()->getToolBox()->setSubItemMouseClicked();
 }
 
 void ToolBox::ItemView::onSubItemMouseDbClicked(ToolBox::SubItem* item)
 {
-
+	getWindow()->getToolBox()->setSubItemMouseDbClicked();
 }
 
 void ToolBox::ItemView::onSubItemMouseDragging(ToolBox::SubItem* item)
 {
-
+	getWindow()->getToolBox()->setSubItemMouseDragging();
 }

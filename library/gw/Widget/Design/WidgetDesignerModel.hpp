@@ -44,7 +44,6 @@ public:
 	[[nodiscard]] constexpr WidgetDocument*                  getWidgetDocument                 (void) const { return _WidgetDocument.get(); }
 	[[nodiscard]] constexpr WidgetEventWindowMessageHandler* getWidgetEventWindowMessageHandler(void) const { return _WidgetEventWindowMessageHandler.get(); }
 	[[nodiscard]] constexpr WidgetEventDragDropHandler*      getWidgetEventDragDropHandler     (void) const { return _WidgetEventDragDropHandler.get(); }
-
 	[[nodiscard]] constexpr WidgetResourceMap*   getWidgetResourceMap  (void) const { return _WidgetResourceMap.get(); }
 	[[nodiscard]] constexpr DesigeWidgetContext* getDesigeWidgetContext(void) const { return _DesigeWidgetContext.get(); }
 	[[nodiscard]] constexpr WidgetDesigner*      getWidgetDesigner     (void) const { return _WidgetDesigner.get(); }
