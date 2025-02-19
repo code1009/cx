@@ -272,12 +272,12 @@ void ToolBox::WindowMessageHandler::onWindowMouseMessage (HWND hWnd, UINT uMsg, 
 		break;
 
 	case WM_MOUSEHOVER:
-		OutputDebugStringW(L"WM_MOUSEHOVER\n");
+		//OutputDebugStringW(L"WM_MOUSEHOVER\n");
 		eventType = ToolBox::EventType::MouseOver;
 		break;
 
 	case WM_MOUSELEAVE:
-		OutputDebugStringW(L"WM_MOUSELEAVE\n");
+		//OutputDebugStringW(L"WM_MOUSELEAVE\n");
 		releaseMouseTrack();
 		eventType = ToolBox::EventType::MouseLeave;
 		break;
