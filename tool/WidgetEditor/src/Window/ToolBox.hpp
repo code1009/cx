@@ -148,12 +148,13 @@ public:
 	void setSubItemMouseDraggingHandler   (EventHandler handler) { _SubItemMouseDragging   =handler; };
 	
 public:
-	void notifyMouseEvent(EventHandler handler, std::size_t id, MouseEventParam& param);
-
 	void setGroupItemMouseClicked  (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_GroupItemMouseClicked  , id, param); }
 	void setGroupItemMouseDbClicked(std::size_t id, MouseEventParam& param){ notifyMouseEvent(_GroupItemMouseDbClicked, id, param); }
 	void setGroupItemMouseDragging (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_GroupItemMouseDragging , id, param); }
 	void setSubItemMouseClicked    (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_SubItemMouseClicked    , id, param); }
 	void setSubItemMouseDbClicked  (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_SubItemMouseDbClicked  , id, param); }
 	void setSubItemMouseDragging   (std::size_t id, MouseEventParam& param){ notifyMouseEvent(_SubItemMouseDragging   , id, param); }
+
+public:
+	void notifyMouseEvent(EventHandler handler, std::size_t id, MouseEventParam& param);
 };
