@@ -45,9 +45,9 @@ protected:
 	WidgetSharedPtr _NewWidget;
 
 protected:
-	WidgetFillStyle _Select_Fill_Style{ Color{0.5f, 0.5f, 1.0f, 0.2f} };
-	WidgetLineStyle _Select_Line_Style{ Color{0.5f, 0.5f, 1.0f, 1.0f} };
-	WidgetTextStyle _Select_Text_Style;
+	WidgetFillStyle _Select_FillStyle{ Color{0.5f, 0.5f, 1.0f, 0.2f} };
+	WidgetLineStyle _Select_LineStyle{ Color{0.5f, 0.5f, 1.0f, 1.0f} };
+	WidgetTextStyle _Select_TextStyle;
 
 protected:
 	WidgetResource* _Select_Fill_Brush{ nullptr };

@@ -284,22 +284,22 @@ void WidgetDesignerTool::onMouseDrop(const WidgetMouseDropEventParam& param)
 //===========================================================================
 bool WidgetDesignerTool::loadResources(WidgetResourceMap* widgetResourceMap)
 {
-	_Select_Fill_Brush = widgetResourceMap->getFill_SolidColorBrush(&_Select_Fill_Style);
+	_Select_Fill_Brush = widgetResourceMap->getFill_SolidColorBrush(&_Select_FillStyle);
 	if (nullptr == _Select_Fill_Brush)
 	{
 		return false;
 	}
-	_Select_Line_Brush = widgetResourceMap->getLine_SolidColorBrush(&_Select_Line_Style);
+	_Select_Line_Brush = widgetResourceMap->getLine_SolidColorBrush(&_Select_LineStyle);
 	if (nullptr == _Select_Line_Brush)
 	{
 		return false;
 	}
-	_Select_Text_Brush = widgetResourceMap->getText_SolidColorBrush(&_Select_Text_Style);
+	_Select_Text_Brush = widgetResourceMap->getText_SolidColorBrush(&_Select_TextStyle);
 	if (nullptr == _Select_Text_Brush)
 	{
 		return false;
 	}
-	_Select_Text_TextFormat = widgetResourceMap->getText_TextFormat(&_Select_Text_Style);
+	_Select_Text_TextFormat = widgetResourceMap->getText_TextFormat(&_Select_TextStyle);
 	if (nullptr == _Select_Text_TextFormat)
 	{
 		return false;
@@ -345,7 +345,7 @@ void WidgetDesignerTool::drawSelectBounds(Context* ctx)
 	ctx->getD2dRenderTarget()->DrawRectangle(
 		&rect,
 		_Select_Line_Brush->getSolidColorBrush(),
-		_Select_Line_Style.getWidth()
+		_Select_LineStyle.getWidth()
 	);
 }
 

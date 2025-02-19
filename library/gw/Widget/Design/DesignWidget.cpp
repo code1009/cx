@@ -152,7 +152,7 @@ void DesignWidget::drawMarker(Context* ctx, Point marker)
 	WidgetResource* _Marker_Text_Brush      = getDesigeWidgetContext()->getMarker_Text_Brush     ();
 	WidgetResource* _Marker_Text_TextFormat = getDesigeWidgetContext()->getMarker_Text_TextFormat();
 
-#if 1
+#if 0
 	Point p0;
 	Point p1;
 
@@ -215,7 +215,7 @@ void DesignWidget::drawBounds(Context* ctx, const Point& p0, const Point& p1)
 	ctx->getD2dRenderTarget()->DrawRectangle(
 		&rect,
 		_Guide_Line_Brush->getSolidColorBrush(),
-		2.0f, //  getDesigeWidgetContext()->_Guide_Line_Style.get_width(),
+		2.0f, //  getDesigeWidgetContext()->_Guide_LineStyle.get_width(),
 		_Guide_Line_StrokeStyle->getStrokeStyle()
 	);
 }
