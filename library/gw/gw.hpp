@@ -26,6 +26,7 @@
 #include "Widget/WidgetDocument.hpp"
 
 #include "Widget/WidgetEventWindowMessageHandler.hpp"
+#include "Widget/WidgetEventDragDrop.hpp"
 
 //===========================================================================
 #include "../component/std_wstring_utility.hpp"

@@ -49,6 +49,10 @@
     <ClInclude Include="..\..\library\gw\Widget\WidgetDocument.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\WidgetDrawingStyle.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\WidgetEvent.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop_ClipboardFormat.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop_HGlobal.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop_WindowDragDropComObject.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\WidgetEventWindowMessageHandler.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\WidgetFactory.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\WidgetResource.hpp" />
@@ -119,6 +123,10 @@
     <ClCompile Include="..\..\library\gw\Widget\Widget.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\WidgetDocument.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\WidgetDrawingStyle.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop_ClipboardFormat.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop_HGlobal.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop_WindowDragDropComObject.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\WidgetEventWindowMessageHandler.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\WidgetFactory.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\WidgetResource.cpp" />

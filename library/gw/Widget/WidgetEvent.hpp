@@ -315,7 +315,7 @@ class WidgetMouseDragOverEventParam
 {
 public:
 	std::uint32_t _DataSeq{ 0 };
-	Point _mouse_po_MousePositionsition{};
+	Point _MousePosition{};
 };
 
 class WidgetMouseDragLeaveEventParam
