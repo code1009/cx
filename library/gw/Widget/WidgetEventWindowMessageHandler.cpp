@@ -31,18 +31,7 @@ void WidgetEventWindowMessageHandler::setViewport(Viewport* viewport)
 	_Viewport = viewport;
 }
 
-//===========================================================================
-void WidgetEventWindowMessageHandler::reset(void)
-{
-	if (false==isIn(_Widget_MousePressed  )){_Widget_MousePressed  =nullptr;}
-	if (false==isIn(_Widget_MouseReleased )){_Widget_MouseReleased =nullptr;}
-	if (false==isIn(_Widget_MouseClicked  )){_Widget_MouseClicked  =nullptr;}
-	if (false==isIn(_Widget_MouseDbClicked)){_Widget_MouseDbClicked=nullptr;}
-	if (false==isIn(_Widget_MouseOver     )){_Widget_MouseOver     =nullptr;}
-	if (false==isIn(_Widget_MouseDragging )){_Widget_MouseDragging =nullptr;}
-}
-
-bool WidgetEventWindowMessageHandler::isIn(Widget* test)
+bool WidgetEventWindowMessageHandler::isWidgetDocumentIn(Widget* test)
 {
 	for (auto& widget: _WidgetDocument->_Widgets)
 	{
@@ -56,6 +45,16 @@ bool WidgetEventWindowMessageHandler::isIn(Widget* test)
 }
 
 //===========================================================================
+void WidgetEventWindowMessageHandler::reset(void)
+{
+	if (false==isWidgetDocumentIn(_Widget_MousePressed  )){_Widget_MousePressed  =nullptr;}
+	if (false==isWidgetDocumentIn(_Widget_MouseReleased )){_Widget_MouseReleased =nullptr;}
+	if (false==isWidgetDocumentIn(_Widget_MouseClicked  )){_Widget_MouseClicked  =nullptr;}
+	if (false==isWidgetDocumentIn(_Widget_MouseDbClicked)){_Widget_MouseDbClicked=nullptr;}
+	if (false==isWidgetDocumentIn(_Widget_MouseOver     )){_Widget_MouseOver     =nullptr;}
+	if (false==isWidgetDocumentIn(_Widget_MouseDragging )){_Widget_MouseDragging =nullptr;}
+}
+
 Widget* WidgetEventWindowMessageHandler::hitTest(const Point& point)
 {
 	WidgetSharedPtr widget;
@@ -75,35 +74,35 @@ void WidgetEventWindowMessageHandler::setMouseDbClickTime(std::uint64_t time)
 }
 
 //===========================================================================
-bool WidgetEventWindowMessageHandler::getWindowMouseCaptureEnabled (void)
+bool WidgetEventWindowMessageHandler::getMouseCaptureEnabled (void)
 {
-	return _WindowMouseCaptureEnabled;
+	return _MouseCaptureEnabled;
 }
 
-void WidgetEventWindowMessageHandler::setWindowMouseCaptureEnabled (bool enabled)
+void WidgetEventWindowMessageHandler::setMouseCaptureEnabled (bool enabled)
 {
-	_WindowMouseCaptureEnabled = enabled;
+	_MouseCaptureEnabled = enabled;
 	if (false==enabled)
 	{
-		releaseWindowMouseCapture();
+		releaseMouseCapture();
 	}
 }
 
-void WidgetEventWindowMessageHandler::setWindowMouseCapture(HWND hwnd)
+void WidgetEventWindowMessageHandler::setMouseCapture(HWND hwnd)
 {
-	if ( getWindowMouseCaptureEnabled() )
+	if ( getMouseCaptureEnabled() )
 	{
-		_WindowMouseCaptured = true;
+		_MouseCaptured = true;
 		::SetCapture(hwnd);
 	}
 }
 
-void WidgetEventWindowMessageHandler::releaseWindowMouseCapture(void)
+void WidgetEventWindowMessageHandler::releaseMouseCapture(void)
 {
-	if (_WindowMouseCaptured)
+	if (_MouseCaptured)
 	{
 		::ReleaseCapture();
-		_WindowMouseCaptured = false;
+		_MouseCaptured = false;
 	}		
 }
 
@@ -189,6 +188,9 @@ void WidgetEventWindowMessageHandler::onWindowMouseMessage (HWND hWnd, UINT uMsg
 		eventType = WidgetEventType::MouseMove;
 		break;
 
+	case WM_MOUSEHOVER:
+		break;
+
 	case WM_MOUSELEAVE:
 		break;
 
@@ -196,12 +198,12 @@ void WidgetEventWindowMessageHandler::onWindowMouseMessage (HWND hWnd, UINT uMsg
 		break;
 
 	case WM_LBUTTONDOWN:
-		setWindowMouseCapture(hWnd);
+		setMouseCapture(hWnd);
 		eventType = WidgetEventType::MouseLButtonDown;
 		break;
 
 	case WM_LBUTTONUP:
-		releaseWindowMouseCapture();
+		releaseMouseCapture();
 		eventType = WidgetEventType::MouseLButtonUp;
 		break;
 

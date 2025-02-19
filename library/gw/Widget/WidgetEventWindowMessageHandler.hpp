@@ -21,7 +21,7 @@ class WidgetEventWindowMessageHandler
 {
 private:
 	WidgetDocument* _WidgetDocument{ nullptr };
-	Viewport* _Viewport{ nullptr };
+	Viewport*       _Viewport      { nullptr };
 
 private:
 	Widget* _Widget_MousePressed   { nullptr };
@@ -32,8 +32,8 @@ private:
 	Widget* _Widget_MouseDragging  { nullptr };
 
 private:
-	bool _WindowMouseCaptureEnabled{ true };
-	bool _WindowMouseCaptured      { false };
+	bool _MouseCaptureEnabled{ true };
+	bool _MouseCaptured      { false };
 
 private:
 	std::uint64_t _MouseClickedTime{ 0   };
@@ -55,12 +55,10 @@ public:
 public:
 	void setWidgetDocument(WidgetDocument* doc);
 	void setViewport(Viewport* viewport);
+	bool isWidgetDocumentIn(Widget* test);
 
 public:
 	void reset(void);
-	bool isIn(Widget* test);
-
-public:
 	Widget* hitTest (const cx::gw::Point& point);
 
 public:
@@ -68,12 +66,10 @@ public:
 	void setMouseDbClickTime (std::uint64_t time);
 
 public:
-	bool getWindowMouseCaptureEnabled (void);
-	void setWindowMouseCaptureEnabled (bool enabled);
-
-public:
-	void setWindowMouseCapture     (HWND hwnd);
-	void releaseWindowMouseCapture (void);
+	bool getMouseCaptureEnabled (void);
+	void setMouseCaptureEnabled (bool enabled);
+	void setMouseCapture        (HWND hwnd);
+	void releaseMouseCapture    (void);
 
 public:
 	bool onWindowMessage      (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

@@ -119,7 +119,7 @@ public:
 	);
 
 public:
-	void releaseWindowMouseCapture(void);
+	void releaseMouseCapture(void);
 
 public:
 	class EventParam

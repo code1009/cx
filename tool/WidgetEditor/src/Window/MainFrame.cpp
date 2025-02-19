@@ -394,7 +394,7 @@ void MainFrame::onToolBoxSubItemMouseDragging(ToolBox::EventParam* param)
 	case 2:
 	case 3:
 	case 4:
-		_ToolBox->releaseWindowMouseCapture();
+		_ToolBox->releaseMouseCapture();
 		param->_DragDrop = true;
 		doToolBoxWidgetDragDrop(param->_Id - 2);
 		break;

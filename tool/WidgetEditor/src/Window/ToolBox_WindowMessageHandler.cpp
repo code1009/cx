@@ -26,18 +26,7 @@ void ToolBox::WindowMessageHandler::setItemView(ToolBox::ItemView* itemView)
 	_ItemView = itemView;
 }
 
-//===========================================================================
-void ToolBox::WindowMessageHandler::reset(void)
-{
-	if (false==isIn(_Item_MousePressed  )){_Item_MousePressed  =nullptr;}
-	if (false==isIn(_Item_MouseReleased )){_Item_MouseReleased =nullptr;}
-	if (false==isIn(_Item_MouseClicked  )){_Item_MouseClicked  =nullptr;}
-	if (false==isIn(_Item_MouseDbClicked)){_Item_MouseDbClicked=nullptr;}
-	if (false==isIn(_Item_MouseOver     )){_Item_MouseOver     =nullptr;}
-	if (false==isIn(_Item_MouseDragging )){_Item_MouseDragging =nullptr;}
-}
-
-bool ToolBox::WindowMessageHandler::isIn(ToolBox::Item* test)
+bool ToolBox::WindowMessageHandler::isItemViewIn(ToolBox::Item* test)
 {
 	for (auto& item : _ItemView->getItems())
 	{
@@ -48,12 +37,6 @@ bool ToolBox::WindowMessageHandler::isIn(ToolBox::Item* test)
 	}
 
 	return false;
-}
-
-//===========================================================================
-ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point)
-{
-	return hitTest(point, _ItemView->getItems());
 }
 
 ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtrs& items)
@@ -103,6 +86,22 @@ ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point
 }
 
 //===========================================================================
+void ToolBox::WindowMessageHandler::reset(void)
+{
+	if (false==isItemViewIn(_Item_MousePressed  )){_Item_MousePressed  =nullptr;}
+	if (false==isItemViewIn(_Item_MouseReleased )){_Item_MouseReleased =nullptr;}
+	if (false==isItemViewIn(_Item_MouseClicked  )){_Item_MouseClicked  =nullptr;}
+	if (false==isItemViewIn(_Item_MouseDbClicked)){_Item_MouseDbClicked=nullptr;}
+	if (false==isItemViewIn(_Item_MouseOver     )){_Item_MouseOver     =nullptr;}
+	if (false==isItemViewIn(_Item_MouseDragging )){_Item_MouseDragging =nullptr;}
+}
+
+ToolBox::Item* ToolBox::WindowMessageHandler::hitTest(const cx::gw::Point& point)
+{
+	return hitTest(point, _ItemView->getItems());
+}
+
+//===========================================================================
 void ToolBox::WindowMessageHandler::getMouseDbClickTime(std::uint64_t& time)
 {
 	time = _MouseDbClickTime;
@@ -114,36 +113,79 @@ void ToolBox::WindowMessageHandler::setMouseDbClickTime(std::uint64_t time)
 }
 
 //===========================================================================
-bool ToolBox::WindowMessageHandler::getWindowMouseCaptureEnabled (void)
+bool ToolBox::WindowMessageHandler::getMouseCaptureEnabled (void)
 {
-	return _WindowMouseCaptureEnabled;
+	return _MouseCaptureEnabled;
 }
 
-void ToolBox::WindowMessageHandler::setWindowMouseCaptureEnabled (bool enabled)
+void ToolBox::WindowMessageHandler::setMouseCaptureEnabled (bool enabled)
 {
-	_WindowMouseCaptureEnabled = enabled;
+	_MouseCaptureEnabled = enabled;
 	if (false==enabled)
 	{
-		releaseWindowMouseCapture();
+		releaseMouseCapture();
 	}
 }
 
-void ToolBox::WindowMessageHandler::setWindowMouseCapture(HWND hwnd)
+void ToolBox::WindowMessageHandler::setMouseCapture(HWND hwnd)
 {
-	if ( getWindowMouseCaptureEnabled() )
+	if ( getMouseCaptureEnabled() )
 	{
-		_WindowMouseCaptured = true;
+		_MouseCaptured = true;
 		::SetCapture(hwnd);
 	}
 }
 
-void ToolBox::WindowMessageHandler::releaseWindowMouseCapture(void)
+void ToolBox::WindowMessageHandler::releaseMouseCapture(void)
 {
-	if (_WindowMouseCaptured)
+	if (_MouseCaptured)
 	{
 		::ReleaseCapture();
-		_WindowMouseCaptured = false;
-	}		
+		_MouseCaptured = false;
+	}
+}
+
+//===========================================================================
+bool ToolBox::WindowMessageHandler::getMouseTrackEnabled(void)
+{
+	return _MouseTrackEnabled;
+}
+
+void ToolBox::WindowMessageHandler::setMouseTrackEnabled(bool enabled)
+{
+	_MouseTrackEnabled = enabled;
+	if (false == enabled)
+	{
+		releaseMouseTrack();
+	}
+}
+
+void ToolBox::WindowMessageHandler::setMouseTrack(HWND hwnd)
+{
+	if (getMouseTrackEnabled())
+	{
+		if (false==_MouseTracked)
+		{
+			TRACKMOUSEEVENT tme;
+			tme.cbSize = sizeof(TRACKMOUSEEVENT);
+			tme.dwFlags = TME_HOVER | TME_LEAVE;
+			tme.hwndTrack = hwnd;
+			tme.dwHoverTime = 1;
+
+			if (TrackMouseEvent(&tme))
+			{
+				_MouseTracked = true;
+			}
+		}
+	}
+}
+
+void ToolBox::WindowMessageHandler::releaseMouseTrack(void)
+{
+	if (_MouseTracked)
+	{
+		_MouseTracked = false;
+	}
 }
 
 //===========================================================================
@@ -225,22 +267,31 @@ void ToolBox::WindowMessageHandler::onWindowMouseMessage (HWND hWnd, UINT uMsg, 
 	switch (uMsg)
 	{
 	case WM_MOUSEMOVE:
+		setMouseTrack(hWnd);
 		eventType = ToolBox::EventType::MouseMove;
 		break;
 
+	case WM_MOUSEHOVER:
+		OutputDebugStringW(L"WM_MOUSEHOVER\n");
+		eventType = ToolBox::EventType::MouseOver;
+		break;
+
 	case WM_MOUSELEAVE:
+		OutputDebugStringW(L"WM_MOUSELEAVE\n");
+		releaseMouseTrack();
+		eventType = ToolBox::EventType::MouseLeave;
 		break;
 
 	case WM_LBUTTONDBLCLK:
 		break;
 
 	case WM_LBUTTONDOWN:
-		setWindowMouseCapture(hWnd);
+		setMouseCapture(hWnd);
 		eventType = ToolBox::EventType::MouseLButtonDown;
 		break;
 
 	case WM_LBUTTONUP:
-		releaseWindowMouseCapture();
+		releaseMouseCapture();
 		eventType = ToolBox::EventType::MouseLButtonUp;
 		break;
 
@@ -277,6 +328,9 @@ void ToolBox::WindowMessageHandler::onMouse(ToolBox::EventType eventType, ToolBo
 	case ToolBox::EventType::MouseMove:        onMouseMove       ( param ); break;
 	case ToolBox::EventType::MouseLButtonDown: onMouseLButtonDown( param ); break;
 	case ToolBox::EventType::MouseLButtonUp:   onMouseLButtonUp  ( param ); break;
+
+	case ToolBox::EventType::MouseOver:  onMouseHover(param); break;
+	case ToolBox::EventType::MouseLeave: onMouseLeave(param); break;
 
 	default:
 		break;
@@ -421,6 +475,39 @@ void ToolBox::WindowMessageHandler::onMouseLButtonUp (ToolBox::MouseEventParam& 
 
 	//-----------------------------------------------------------------------
 	notifyMouseLButtonUp(param);
+}
+
+void ToolBox::WindowMessageHandler::onMouseHover(ToolBox::MouseEventParam& param)
+{
+	//-----------------------------------------------------------------------
+	ToolBox::Item* item;
+	item = hitTest(param._MousePosition);
+
+
+	//-----------------------------------------------------------------------
+	_Item_MouseOver = item;
+	if (_Item_MouseOver)
+	{
+		notifyMouseOver(_Item_MouseOver, param);
+	}
+	else
+	{
+		//notifyMouseMove(param);
+	}
+}
+
+void ToolBox::WindowMessageHandler::onMouseLeave(ToolBox::MouseEventParam& param)
+{
+	//-----------------------------------------------------------------------
+	if (_Item_MouseOver)
+	{
+		notifyMouseLeave(_Item_MouseOver, param);
+		_Item_MouseOver = nullptr;
+	}
+	else
+	{
+		//notifyMouseMove(param);
+	}
 }
 
 //===========================================================================

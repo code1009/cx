@@ -64,8 +64,13 @@ private:
 	ToolBox::Item* _Item_MouseDragging  { nullptr };
 
 private:
-	bool _WindowMouseCaptureEnabled{ true };
-	bool _WindowMouseCaptured      { false };
+	bool _MouseCaptureEnabled{ true };
+	bool _MouseCaptured      { false };
+
+
+private:
+	bool _MouseTrackEnabled{ true };
+	bool _MouseTracked     { false };
 
 private:
 	std::uint64_t _MouseClickedTime{ 0   };
@@ -86,27 +91,29 @@ public:
 
 public:
 	void setItemView(ToolBox::ItemView* itemView);
+	bool isItemViewIn(ToolBox::Item* test);
+	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtrs& items);
+	ToolBox::Item* hitTest(const cx::gw::Point& point, ToolBox::ItemSharedPtr& item);
 
 public:
 	void reset(void);
-	bool isIn(ToolBox::Item* test);
-
-public:
 	ToolBox::Item* hitTest (const cx::gw::Point& point);
-	ToolBox::Item* hitTest (const cx::gw::Point& point, ToolBox::ItemSharedPtrs& items);
-	ToolBox::Item* hitTest (const cx::gw::Point& point, ToolBox::ItemSharedPtr& item);
 
 public:
 	void getMouseDbClickTime (std::uint64_t& time);
 	void setMouseDbClickTime (std::uint64_t time);
 
 public:
-	bool getWindowMouseCaptureEnabled (void);
-	void setWindowMouseCaptureEnabled (bool enabled);
+	bool getMouseCaptureEnabled (void);
+	void setMouseCaptureEnabled (bool enabled);
+	void setMouseCapture        (HWND hwnd);
+	void releaseMouseCapture    (void);
 
 public:
-	void setWindowMouseCapture     (HWND hwnd);
-	void releaseWindowMouseCapture (void);
+	bool getMouseTrackEnabled (void);
+	void setMouseTrackEnabled (bool enabled);
+	void setMouseTrack        (HWND hwnd);
+	void releaseMouseTrack    (void);
 
 public:
 	bool onWindowMessage      (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -119,6 +126,8 @@ public:
 	void onMouseMove        (ToolBox::MouseEventParam& param);
 	void onMouseLButtonDown (ToolBox::MouseEventParam& param);
 	void onMouseLButtonUp   (ToolBox::MouseEventParam& param);
+	void onMouseHover       (ToolBox::MouseEventParam& param);
+	void onMouseLeave       (ToolBox::MouseEventParam& param);
 
 public:
 	void notifyMouseMove        (ToolBox::MouseEventParam& param);
