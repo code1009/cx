@@ -182,14 +182,14 @@ void writeLogSourceLineString(std::wstringstream& ss, int line)
 
 void writeLogSourceFileLineString(std::wstringstream& ss, const wchar_t* file, int line)
 {
-	const std::size_t width = 16U;
+	const std::size_t width = 25U;
 	ss.width(width);
 	ss.fill(L' ');
 	ss.setf(std::ios::dec | std::ios::left, std::ios::basefield | std::ios::adjustfield);
 
 	ss <<
 		wstring_truncate(
-			wstring_truncate(get_file_of_file_path(file), 10, false)
+			wstring_truncate(get_file_of_file_path(file), 20, false)
 			+ L":"
 			+ std::to_wstring(line),
 			width,
@@ -199,7 +199,7 @@ void writeLogSourceFileLineString(std::wstringstream& ss, const wchar_t* file, i
 
 void writeLogSourceFuncString(std::wstringstream& ss, const wchar_t* func)
 {
-	const std::size_t width = 12U;
+	const std::size_t width = 25U;
 	ss.width(width);
 	ss.fill(L' ');
 	ss.setf(std::ios::dec | std::ios::left, std::ios::basefield | std::ios::adjustfield);
