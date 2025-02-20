@@ -470,12 +470,6 @@ public:
 		return ::DrawAnimatedRects(static_cast<TBase*>(this)->getWindowHandle(), 
 			idAni, &rcFrom, &rcTo)!= FALSE;
 	}
-	template< class T >
-	T* getWindowLong(int id)
-	{
-		return reinterpret_cast<T>(GetWindowLongW(static_cast<TBase*>(this)->getWindowHandle(), 
-			id));
-	}
 };
 
 
