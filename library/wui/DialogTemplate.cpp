@@ -23,7 +23,10 @@ namespace cx::wui
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// https://github.com/Win32-WTL/WTL/blob/main/Include/atldlgs.h :3194
+/*
+From:
+https://github.com/Win32-WTL/WTL/blob/main/Include/atldlgs.h :3194
+*/
 
 
 

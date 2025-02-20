@@ -21,6 +21,7 @@ namespace cx::gw
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #if  0
+From:
 https://www.codeproject.com/Articles/1042516/Custom-Controls-in-Win-API-Scrolling
 
 typedef struct tagSCROLLINFO {
@@ -34,7 +35,7 @@ typedef struct tagSCROLLINFO {
 } SCROLLINFO, * LPSCROLLINFO;
 
 
-
+From:
 https://www.catch22.net/tuts/win32/64bit-scrollbars/
 
 void example(HWND hwnd)

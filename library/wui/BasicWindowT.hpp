@@ -15,7 +15,17 @@ namespace cx::wui
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// From: https://github.com/DavidNash2024/Win32xx/blob/master/include/wxx_wincore.h
+/*
+From: 
+https://github.com/DavidNash2024/Win32xx/blob/master/include/wxx_wincore.h
+*/
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 template <typename TBase>
 class BasicWindowT : public TBase
 {
