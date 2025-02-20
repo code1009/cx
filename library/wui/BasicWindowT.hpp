@@ -15,460 +15,714 @@ namespace cx::wui
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+// From: https://github.com/DavidNash2024/Win32xx/blob/master/include/wxx_wincore.h
 template <typename TBase>
 class BasicWindowT : public TBase
 {
 public:
-	bool showWindow(int nCmdShow = SW_SHOWNORMAL) const
+	HDC beginPaint(PAINTSTRUCT& ps) const
 	{
-		return ::ShowWindow(static_cast<TBase*>(this)->getWindowHandle(), 
-			nCmdShow)!= FALSE;
+		assert(isWindow());
+		return ::BeginPaint(static_cast<TBase*>(this)->getWindowHandle(), &ps);
 	}
-	bool showWindowAsync(int nCmdShow = SW_SHOWNORMAL) const
+	BOOL bringWindowToTop() const
 	{
-		return ::ShowWindowAsync(static_cast<TBase*>(this)->getWindowHandle(), 
-			nCmdShow)!= FALSE;
+		assert(isWindow());
+		return ::BringWindowToTop(static_cast<TBase*>(this)->getWindowHandle());
 	}
-	bool updateWindow(void) const
+	LRESULT callWindowProc(WNDPROC pPrevWndFunc, UINT uMsg, WPARAM wParam, LPARAM lParam) const
 	{
-		return ::UpdateWindow(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
+		assert(isWindow());
+		return ::CallWindowProc(pPrevWndFunc, static_cast<TBase*>(this)->getWindowHandle(), uMsg, wParam, lParam);
 	}
-	bool redrawWindow(UINT flags = RDW_INVALIDATE) const
+	BOOL checkDlgButton(UINT buttonID, UINT check) const
 	{
-		return ::RedrawWindow(static_cast<TBase*>(this)->getWindowHandle(), 
-			0, 0, flags)!= FALSE;
+		assert(isWindow());
+		return ::CheckDlgButton(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(buttonID), check);
 	}
-	bool redrawWindow(const RECT& rcUpdate, UINT flags = RDW_INVALIDATE) const
+	BOOL checkRadioButton(UINT firstButtonID, UINT lastButtonID, UINT checkButtonID) const
 	{
-		return ::RedrawWindow(static_cast<TBase*>(this)->getWindowHandle(), 
-			&rcUpdate, 0, flags)!= FALSE;
+		assert(isWindow());
+		return ::CheckRadioButton(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(firstButtonID),
+			static_cast<int>(lastButtonID), static_cast<int>(checkButtonID));
 	}
-	bool redrawWindow(HRGN hrgnUpdate, UINT flags = RDW_INVALIDATE) const
+	HWND childWindowFromPoint(POINT point) const
 	{
-		return ::RedrawWindow(static_cast<TBase*>(this)->getWindowHandle(), 
-			0, hrgnUpdate, flags)!= FALSE;
+		assert(isWindow());
+		return ::ChildWindowFromPoint(static_cast<TBase*>(this)->getWindowHandle(), point);
 	}
-	bool invalidate(bool bErase = true) const
+	BOOL clientToScreen(POINT& point) const
 	{
-		return ::InvalidateRect(static_cast<TBase*>(this)->getWindowHandle(), 
-			0, bErase)!= FALSE;
+		assert(isWindow());
+		return ::ClientToScreen(static_cast<TBase*>(this)->getWindowHandle(), &point);
 	}
-	bool invalidateRect(const RECT& rc, bool bErase = true) const
+	BOOL clientToScreen(RECT& rect) const
 	{
-		return ::InvalidateRect(static_cast<TBase*>(this)->getWindowHandle(), 
-			&rc, bErase)!= FALSE;
+		assert(isWindow());
+		return 
+			static_cast<BOOL>(
+				::MapWindowPoints(
+					static_cast<TBase*>(this)->getWindowHandle(), 
+					HWND_DESKTOP,
+					reinterpret_cast<LPPOINT>(&rect), 
+					2
+				)
+			);
 	}
-	bool invalidateRgn(HRGN hrgn, bool bErase = true) const
+	void close() const
 	{
-		return ::InvalidateRgn(static_cast<TBase*>(this)->getWindowHandle(), 
-			hrgn, bErase)!= FALSE;
+		assert(isWindow());
+		postMessage(WM_CLOSE);
 	}
-	bool validateRect(const RECT& rc) const
+	BOOL closeWindow() const
 	{
-		return ::ValidateRect(static_cast<TBase*>(this)->getWindowHandle(), 
-			&rc)!= FALSE;
+		assert(isWindow());
+		return ::CloseWindow(static_cast<TBase*>(this)->getWindowHandle());
 	}
-	bool validateRgn(HRGN hrgn) const
+	HDWP deferWindowPos(HDWP winPosInfo, HWND insertAfter, int x, int y, int cx, int cy, UINT flags) const
 	{
-		return ::ValidateRgn(static_cast<TBase*>(this)->getWindowHandle(), 
-			hrgn)!= FALSE;
+		assert(isWindow());
+		return ::DeferWindowPos(winPosInfo, static_cast<TBase*>(this)->getWindowHandle(), insertAfter, x, y, cx, cy, flags);
 	}
-	bool bringWindowToTop(void) const
+	HDWP deferWindowPos(HDWP winPosInfo, HWND insertAfter, RECT rect, UINT flags) const
 	{
-		return ::BringWindowToTop(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
+		assert(isWindow());
+		return ::DeferWindowPos(winPosInfo, static_cast<TBase*>(this)->getWindowHandle(), insertAfter, rect.left,
+			rect.top, rect.right - rect.left, rect.bottom - rect.top, flags);
 	}
-	bool setForegroundWindow(void) const
+	LRESULT defWindowProc(UINT uMsg, WPARAM wParam, LPARAM lParam) const
 	{
-		return ::SetForegroundWindow(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
+		assert(isWindow());
+		return ::DefWindowProc(static_cast<TBase*>(this)->getWindowHandle(), uMsg, wParam, lParam);
 	}
-	HWND childWindowFromPoint(const POINT& pt, UINT uFlags = CWP_ALL) const
+	int dlgDirList(LPTSTR pathSpec, UINT listBoxID, UINT staticPathID, UINT fileType) const
 	{
-		return ::ChildWindowFromPointEx(static_cast<TBase*>(this)->getWindowHandle(), 
-			pt, uFlags);
+		assert(isWindow());
+		return ::DlgDirList(static_cast<TBase*>(this)->getWindowHandle(), pathSpec, static_cast<int>(listBoxID),
+			static_cast<int>(staticPathID), fileType);
 	}
-	HWND getLastActivePopup(void) const
+	int dlgDirListComboBox(LPTSTR pathSpec, UINT comboBoxID, UINT staticPathID, UINT fileType) const
 	{
+		assert(isWindow());
+		return ::DlgDirListComboBox(static_cast<TBase*>(this)->getWindowHandle(), pathSpec, static_cast<int>(comboBoxID),
+			static_cast<int>(staticPathID), fileType);
+	}
+	BOOL dlgDirSelectEx(LPTSTR string, int count, UINT listBoxID) const
+	{
+		assert(isWindow());
+		return ::DlgDirSelectEx(static_cast<TBase*>(this)->getWindowHandle(), string, count, static_cast<int>(listBoxID));
+	}
+	BOOL dlgDirSelectComboBoxEx(LPTSTR string, int count, UINT comboBoxID) const
+	{
+		assert(isWindow());
+		return ::DlgDirSelectComboBoxEx(static_cast<TBase*>(this)->getWindowHandle(), string, count, static_cast<int>(comboBoxID));
+	}
+	BOOL drawAnimatedRects(UINT aniID, RECT from, RECT to) const
+	{
+		assert(isWindow());
+		return ::DrawAnimatedRects(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(aniID), &from, &to);
+	}
+	BOOL drawCaption(HDC dc, RECT rect, UINT flags) const
+	{
+		assert(isWindow());
+		return ::DrawCaption(static_cast<TBase*>(this)->getWindowHandle(), dc, &rect, flags);
+	}
+	BOOL drawMenuBar() const
+	{
+		assert(isWindow());
+		return ::DrawMenuBar(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL enableScrollBar(UINT flags, UINT arrows) const
+	{
+		assert(isWindow());
+		return ::EnableScrollBar(static_cast<TBase*>(this)->getWindowHandle(), flags, arrows);
+	}
+	BOOL enableWindow(BOOL enable = TRUE) const
+	{
+		assert(isWindow());
+		return ::EnableWindow(static_cast<TBase*>(this)->getWindowHandle(), enable);
+	}
+	BOOL endPaint(PAINTSTRUCT& ps) const
+	{
+		assert(isWindow());
+		return ::EndPaint(static_cast<TBase*>(this)->getWindowHandle(), &ps);
+	}
+	HWND getActiveWindow() const
+	{
+		return ::GetActiveWindow();
+	}
+	HWND getCapture() const
+	{
+		return ::GetCapture();
+	}
+	ULONG_PTR getClassLongPtr(int index) const
+	{
+		assert(isWindow());
+		return ::GetClassLongPtr(static_cast<TBase*>(this)->getWindowHandle(), index);
+	}
+	CoordRect getClientRect() const
+	{
+		assert(isWindow());
+		CoordRect rc;
+		::GetClientRect(static_cast<TBase*>(this)->getWindowHandle(), &rc);
+		return rc;
+	}
+	HWND getDesktopWindow() const
+	{
+		return HWND(::GetDesktopWindow());
+	}
+	UINT getDlgCtrlID() const
+	{
+		assert(isWindow());
+		return static_cast<UINT>(::GetDlgCtrlID(static_cast<TBase*>(this)->getWindowHandle()));
+	}
+	HWND getDlgItem(UINT dlgItemID) const
+	{
+		assert(isWindow());
+		return ::GetDlgItem(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(dlgItemID));
+	}
+	UINT getDlgItemInt(UINT dlgItemID, BOOL& isTranslated, BOOL isSigned) const
+	{
+		assert(isWindow());
+		return ::GetDlgItemInt(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(dlgItemID), &isTranslated, isSigned);
+	}
+	UINT getDlgItemInt(UINT dlgItemID, BOOL isSigned) const
+	{
+		assert(isWindow());
+		return ::GetDlgItemInt(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(dlgItemID), nullptr, isSigned);
+	}
+	DWORD getExStyle() const
+	{
+		assert(isWindow());
+		return static_cast<DWORD>(getWindowLongPtr(GWL_EXSTYLE));
+	}
+	HWND getFocus() const
+	{
+		return HWND(::GetFocus());
+	}
+	HFONT getFont() const
+	{
+		assert(isWindow());
+		return reinterpret_cast<HFONT>(sendMessage(WM_GETFONT, 0, 0));
+	}
+	HICON getIcon(BOOL isBigIcon) const
+	{
+		assert(isWindow());
+		WPARAM wParam = static_cast<WPARAM>(isBigIcon);
+		return reinterpret_cast<HICON>(sendMessage(WM_GETICON, wParam, 0));
+	}
+	HWND getLastActivePopup() const
+	{
+		assert(isWindow());
 		return ::GetLastActivePopup(static_cast<TBase*>(this)->getWindowHandle());
 	}
-	HWND getNextWindow(void) const
+	HMENU getMenu() const
 	{
-		return ::GetWindow(static_cast<TBase*>(this)->getWindowHandle(), GW_HWNDNEXT);
-	}
-	HWND getPrevWindow(void) const
-	{
-		return ::GetWindow(static_cast<TBase*>(this)->getWindowHandle(), GW_HWNDPREV);
-	}
-	HWND getFirstWindow(void) const
-	{
-		return ::GetWindow(static_cast<TBase*>(this)->getWindowHandle(), GW_HWNDFIRST);
-	}
-	HWND getLastWindow(void) const
-	{
-		return ::GetWindow(static_cast<TBase*>(this)->getWindowHandle(), GW_HWNDLAST);
-	}
-	HWND getChildWindow(void) const
-	{
-		return ::GetWindow(static_cast<TBase*>(this)->getWindowHandle(), GW_CHILD);
-	}
-	HWND getTopWindow(void) const
-	{
-		return ::GetTopWindow(static_cast<TBase*>(this)->getWindowHandle());
-	}
-	HWND getParentWindow(void) const
-	{
-		return ::GetParent(static_cast<TBase*>(this)->getWindowHandle());
-	}
-	HWND setParentWindow(HWND hwndNewParent) const
-	{
-		return ::SetParent(static_cast<TBase*>(this)->getWindowHandle(), 
-			hwndNewParent);
-	}
-	bool closeWindow(void) const
-	{
-		return ::CloseWindow(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
-	}
-	bool isIconic(void) const
-	{
-		return ::IsIconic(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
-	}
-	bool openIcon(void) const
-	{
-		return ::OpenIcon(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
-	}
-	bool enableWindow(bool bEnable = true) const
-	{
-		return ::EnableWindow(static_cast<TBase*>(this)->getWindowHandle(), 
-			bEnable)!= FALSE;
-	}
-	bool isWindowEnabled(void) const
-	{
-		return ::IsWindowEnabled(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
-	}
-	bool showOwnedPopups(bool bShow = true) const
-	{
-		return ::ShowOwnedPopups(static_cast<TBase*>(this)->getWindowHandle(), 
-			bShow)!= FALSE;
-	}
-	bool getClientRect(RECT* lpRect) const
-	{
-		return ::GetClientRect(static_cast<TBase*>(this)->getWindowHandle(), 
-			lpRect)!= FALSE;
-	}
-	CoordRect getClientRect(void) const
-	{
-		CoordRect rc(0, 0, 0, 0); 
-		::GetClientRect(&rc); 
-		return rc;
-	}
-	bool getWindowRect(RECT* lpRect) const
-	{
-		return ::GetWindowRect(static_cast<TBase*>(this)->getWindowHandle(), 
-			lpRect)!= FALSE;
-	}
-	CoordRect getWindowRect(void) const
-	{
-		CoordRect rc(0, 0, 0, 0);
-		::GetWindowRect(&rc); 
-		return rc;
-	}
-	bool isChildWindow(HWND hwndParent) const
-	{
-		return ::IsChild(hwndParent, static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
-	}
-	bool isWindow(void) const
-	{
-		return 
-			static_cast<TBase*>(this)->getWindowHandle()!= NULL
-			&& ::IsWindow(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
-	}
-	bool isWindowVisible(void) const
-	{
-		return ::IsWindowVisible(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
-	}
-	bool isZoomed(void) const
-	{
-		return ::IsZoomed(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
-	}
-	bool getWindowPlacement(WINDOWPLACEMENT* lpwndpl) const
-	{
-		return ::GetWindowPlacement(static_cast<TBase*>(this)->getWindowHandle(), 
-			lpwndpl)!= FALSE;
-	}
-	bool setWindowPlacement(const WINDOWPLACEMENT* lpwndpl) const
-	{
-		return ::SetWindowPlacement(static_cast<TBase*>(this)->getWindowHandle(), 
-			lpwndpl)!= FALSE;
-	}
-	int getWindowTextLength(void) const
-	{
-		return ::GetWindowTextLength(static_cast<TBase*>(this)->getWindowHandle());
-	}
-	bool getWindowText(LPCTSTR lpString) const
-	{
-		return ::SetWindowText(static_cast<TBase*>(this)->getWindowHandle(), lpString)!= FALSE;
-	}
-	bool moveWindow(const POINT& pt, int width, int height, bool bRepaint = true) const
-	{
-		return ::MoveWindow(static_cast<TBase*>(this)->getWindowHandle(), 
-			pt.x, pt.y, width, height, 
-			bRepaint)!= FALSE;
-	}
-	bool moveWindow(const RECT& rc, bool bRepaint = true) const
-	{
-		return ::MoveWindow(static_cast<TBase*>(this)->getWindowHandle(), 
-			rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, 
-			bRepaint)!= FALSE;
-	}
-	bool setWindowPos(const POINT& pt) const
-	{
-		return ::SetWindowPos(static_cast<TBase*>(this)->getWindowHandle(), 
-			0, 
-			pt.x, pt.y, 0, 0, 
-			SWP_ASYNCWINDOWPOS | SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOSIZE | SWP_NOZORDER)!= FALSE;
-	}
-	bool setWindowPos(int width, int height) const
-	{
-		return ::SetWindowPos(static_cast<TBase*>(this)->getWindowHandle(), 
-			0, 
-			0, 0, width, height, 
-			SWP_ASYNCWINDOWPOS | SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER)!= FALSE;
-	}
-	bool setWindowPos(const RECT& rc) const
-	{
-		return ::SetWindowPos(static_cast<TBase*>(this)->getWindowHandle(), 
-			0, 
-			rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, 
-			SWP_ASYNCWINDOWPOS | SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOZORDER)!= FALSE;
-	}
-	bool setWindowPos(HWND hwndAfter) const
-	{
-		return ::SetWindowPos(static_cast<TBase*>(this)->getWindowHandle(), 
-			hwndAfter, 
-			0, 0, 0, 0, 
-			SWP_ASYNCWINDOWPOS | SWP_NOMOVE | SWP_NOSIZE)!= FALSE;
-	}
-	bool setWindowPos(HWND hwndAfter, const RECT& rc, UINT uFlags) const
-	{
-		return ::SetWindowPos(static_cast<TBase*>(this)->getWindowHandle(), 
-			hwndAfter, 
-			rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, 
-			uFlags)!= FALSE;
-	}
-	bool postMessage(UINT uMsg, WPARAM wParam = 0, LPARAM lParam = 0) const
-	{
-		return ::PostMessage(static_cast<TBase*>(this)->getWindowHandle(), 
-			uMsg, wParam, lParam)!= FALSE;
-	}
-	int sendMessage(UINT uMsg, WPARAM wParam = 0, LPARAM lParam = 0) const
-	{
-		return static_cast<int>(::SendMessage(static_cast<TBase*>(this)->getWindowHandle(), 
-			uMsg, wParam, lParam));
-	}
-	bool sendMessageTimeout(UINT uMsg, WPARAM wParam, LPARAM lParam, UINT uFlags, UINT uTimeout, LPDWORD lpdwResult) const
-	{
-		return ::SendMessageTimeout(static_cast<TBase*>(this)->getWindowHandle(), 
-			uMsg, wParam, lParam, 
-			uFlags, uTimeout, lpdwResult)!= FALSE;
-	}
-	int messageBox(LPCTSTR lpText, LPCTSTR lpCaption, UINT uType = MB_OK | MB_ICONASTERISK) const
-	{
-		return ::MessageBox(static_cast<TBase*>(this)->getWindowHandle(), 
-			lpText, lpCaption, uType);
-	}
-	int sendDlgItemMessage(int nIDDlgItem, UINT uMsg, WPARAM wParam, LPARAM lParam) const
-	{
-		return static_cast<int>(
-			::SendDlgItemMessage(static_cast<TBase*>(this)->getWindowHandle(), 
-				nIDDlgItem, 
-				uMsg, wParam, lParam));
-	}
-	int getDlgCtrlID(void) const
-	{
-		return ::GetDlgCtrlID(static_cast<TBase*>(this)->getWindowHandle());
-	}
-	HWND getDlgItem(int nIDDlgItem) const
-	{
-		return ::GetDlgItem(static_cast<TBase*>(this)->getWindowHandle(), 
-			nIDDlgItem);
-	}
-	HWND getNextDlgGroupItem(HWND hCtl) const
-	{
-		return ::GetNextDlgGroupItem(static_cast<TBase*>(this)->getWindowHandle(), 
-			hCtl, FALSE);
-	}
-	HWND getPrevDlgGroupItem(HWND hCtl) const
-	{
-		return ::GetNextDlgGroupItem(static_cast<TBase*>(this)->getWindowHandle(), 
-			hCtl, TRUE);
-	}
-	HWND getNextDlgTabItem(HWND hCtl) const
-	{
-		return ::GetNextDlgTabItem(static_cast<TBase*>(this)->getWindowHandle(), 
-			hCtl, FALSE);
-	}
-	HWND getPrevDlgTabItem(HWND hCtl) const
-	{
-		return ::GetNextDlgTabItem(static_cast<TBase*>(this)->getWindowHandle(), 
-			hCtl, TRUE);
-	}
-	int getDlgItemInt(int nIDDlgItem, bool* pbTranslated = 0) const
-	{
-		BOOL bTranslated = FALSE;
-		int ret = ::GetDlgItemInt(static_cast<TBase*>(this)->getWindowHandle(), nIDDlgItem, &bTranslated, TRUE);
-		if (pbTranslated != 0)
-			*pbTranslated = bTranslated != FALSE;
-		return ret;
-	}
-	unsigned getDlgItemUInt(int nIDDlgItem, bool* pbTranslated = 0) const
-	{
-		BOOL bTranslated = FALSE;
-		unsigned ret = ::GetDlgItemInt(static_cast<TBase*>(this)->getWindowHandle(), nIDDlgItem, &bTranslated, FALSE);
-		if (pbTranslated != 0)
-			*pbTranslated = bTranslated != FALSE;
-		return ret;
-	}
-	bool setDlgItemInt(int nIDDlgItem, int value) const
-	{
-		return ::SetDlgItemInt(static_cast<TBase*>(this)->getWindowHandle(), 
-			nIDDlgItem, value, TRUE)!= FALSE;
-	}
-	bool setDlgItemInt(int nIDDlgItem, unsigned value) const
-	{
-		return ::SetDlgItemInt(static_cast<TBase*>(this)->getWindowHandle(), 
-			nIDDlgItem, value, FALSE)!= FALSE;
-	}
-	int getDlgItemText(int nIDDlgItem, LPTSTR lpString, int nMaxCount) const
-	{
-		return ::GetDlgItemText(static_cast<TBase*>(this)->getWindowHandle(), 
-			nIDDlgItem, lpString, nMaxCount);
-	}
-	bool getDlgItemText(int nIDDlgItem, LPCTSTR lpString) const
-	{
-		return ::SetDlgItemText(static_cast<TBase*>(this)->getWindowHandle(), 
-			nIDDlgItem, lpString)!= FALSE;
-	}
-	bool mapDialogRect(RECT* lpRect) const
-	{
-		return ::MapDialogRect(static_cast<TBase*>(this)->getWindowHandle(), 
-			lpRect)!= FALSE;
-	}
-	bool checkDlgButton(int nIDButton, UINT uCheck = BST_CHECKED) const
-	{
-		return ::CheckDlgButton(static_cast<TBase*>(this)->getWindowHandle(), 
-			nIDButton, uCheck)!= FALSE;
-	}
-	bool checkRadioButton(int nIDFirst, int nIDLast, int nIDCheck) const
-	{
-		return ::CheckRadioButton(static_cast<TBase*>(this)->getWindowHandle(), 
-			nIDFirst, nIDLast, nIDCheck)!= FALSE;
-	}
-	int isDlgButtonChecked(int nIDButton) const
-	{
-		return ::IsDlgButtonChecked(static_cast<TBase*>(this)->getWindowHandle(), 
-			nIDButton);
-	}
-	bool enableScrollBar(UINT wSBFlags, UINT wArrows) const
-	{
-		return ::EnableScrollBar(static_cast<TBase*>(this)->getWindowHandle(), 
-			wSBFlags, wArrows = ESB_ENABLE_BOTH)!= FALSE;
-	}
-	bool getScrollInfo(int fnBar, LPSCROLLINFO lpsi) const
-	{
-		return ::GetScrollInfo(static_cast<TBase*>(this)->getWindowHandle(), 
-			fnBar, lpsi)!= FALSE;
-	}
-	int setScrollInfo(int fnBar, LPSCROLLINFO lpsi, bool bRedraw = true) const
-	{
-		return ::SetScrollInfo(static_cast<TBase*>(this)->getWindowHandle(), 
-			fnBar, lpsi, bRedraw);
-	}
-	bool showScrollBar(int wBar, bool bShow = true) const
-	{
-		return ::ShowScrollBar(static_cast<TBase*>(this)->getWindowHandle(), 
-			wBar, bShow)!= FALSE;
-	}
-	bool scrollWindow(int dx, int dy, UINT uFlags, LPCRECT rcScroll = 0, LPCRECT rcClip = 0, HRGN hrgnUpdate = 0, LPRECT rcUpdate = 0) const
-	{
-		return ::ScrollWindowEx(static_cast<TBase*>(this)->getWindowHandle(), 
-			dx, dy, rcScroll, rcClip, 
-			hrgnUpdate, rcUpdate, uFlags)!= FALSE;
-	}
-	void setFont(HFONT hFont, bool bRedraw = true) const
-	{
-		sendMessage(WM_SETFONT, reinterpret_cast<WPARAM>(hFont), bRedraw);
-	}
-	HFONT getFont(void) const
-	{
-		return reinterpret_cast<HFONT>(sendMessage(WM_GETFONT));
-	}
-	HICON setIcon(HICON hIcon, WPARAM type = ICON_BIG) const
-	{
-		return reinterpret_cast<HICON>(sendMessage(WM_SETICON, type, reinterpret_cast<LPARAM>(hIcon)));
-	}
-	HICON getIcon(WPARAM type = ICON_BIG) const
-	{
-		return reinterpret_cast<HICON>(sendMessage(WM_GETICON, type));
-	}
-	bool screenToClient(POINT& pt) const
-	{
-		return ::ScreenToClient(static_cast<TBase*>(this)->getWindowHandle(), &pt)!= FALSE;
-	}
-	bool clientToScreen(POINT& pt) const
-	{
-		return ::ClientToScreen(static_cast<TBase*>(this)->getWindowHandle(), &pt)!= FALSE;
-	}
-	bool screenToClient(RECT& rc) const
-	{
-		return screenToClient(*reinterpret_cast<POINT*>(&rc.left))
-			&& screenToClient(*reinterpret_cast<POINT*>(&rc.right));
-	}
-	bool clientToScreen(RECT& rc) const
-	{
-		return clientToScreen(*reinterpret_cast<POINT*>(&rc.left))
-			&& clientToScreen(*reinterpret_cast<POINT*>(&rc.right));
-	}
-	HWND setFocus(void) const
-	{
-		return ::SetFocus(static_cast<TBase*>(this)->getWindowHandle());
-	}
-	HWND setActiveWindow(void) const
-	{
-		return ::SetActiveWindow(static_cast<TBase*>(this)->getWindowHandle());
-	}
-	HWND setCapture(void) const
-	{
-		return ::SetCapture(static_cast<TBase*>(this)->getWindowHandle());
-	}
-	CoordRect getWindowRectOnParentWindow(void) const
-	{
-		CoordRect rc = getWindowRect();
-		HWND parent = getParentWindow();
-		::ScreenToClient(parent, &rc[0]);
-		::ScreenToClient(parent, &rc[1]);
-		return rc;
-	}
-	HMENU getMenu(void) const
-	{
+		assert(isWindow());
 		return ::GetMenu(static_cast<TBase*>(this)->getWindowHandle());
 	}
-	bool drawMenuBar(void) const
+	HWND getNextDlgGroupItem(HWND control, BOOL isPrevious) const
 	{
-		return ::DrawMenuBar(static_cast<TBase*>(this)->getWindowHandle())!= FALSE;
+		assert(isWindow());
+		return ::GetNextDlgGroupItem(static_cast<TBase*>(this)->getWindowHandle(), control, isPrevious);
 	}
-	HMENU getSystemMenu(bool b_revert = false) const
+	HWND getNextDlgTabItem(HWND control, BOOL isPrevious) const
 	{
-		return ::GetSystemMenu(static_cast<TBase*>(this)->getWindowHandle(), 
-			b_revert);
+		assert(isWindow());
+		return ::GetNextDlgTabItem(static_cast<TBase*>(this)->getWindowHandle(), control, isPrevious);
 	}
-	bool setMenu(HMENU hMenu) const
+	HWND getParent() const
 	{
-		return ::SetMenu(static_cast<TBase*>(this)->getWindowHandle(), 
-			hMenu)!= FALSE;
+		assert(isWindow());
+		return ::GetParent(static_cast<TBase*>(this)->getWindowHandle());
 	}
-	bool drawAnimatedRects(int idAni, const RECT& rcFrom, const RECT& rcTo) const
+	BOOL getScrollInfo(int barType, SCROLLINFO& si) const
 	{
-		return ::DrawAnimatedRects(static_cast<TBase*>(this)->getWindowHandle(), 
-			idAni, &rcFrom, &rcTo)!= FALSE;
+		assert(isWindow());
+		return ::GetScrollInfo(static_cast<TBase*>(this)->getWindowHandle(), barType, &si);
+	}
+	int getScrollPos(int bar) const
+	{
+		assert(isWindow());
+		return ::GetScrollPos(static_cast<TBase*>(this)->getWindowHandle(), bar);
+	}
+	BOOL getScrollRange(int bar, int& minPos, int& maxPos) const
+	{
+		assert(isWindow());
+		return ::GetScrollRange(static_cast<TBase*>(this)->getWindowHandle(), bar, &minPos, &maxPos);
+	}
+	DWORD getStyle() const
+	{
+		assert(isWindow());
+		return static_cast<DWORD>(getWindowLongPtr(GWL_STYLE));
+	}
+	HMENU getSystemMenu(BOOL revert) const
+	{
+		assert(isWindow());
+		return ::GetSystemMenu(static_cast<TBase*>(this)->getWindowHandle(), revert);
+	}
+	HWND getTopWindow() const
+	{
+		assert(isWindow());
+		return ::GetTopWindow(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL getWindowPlacement(WINDOWPLACEMENT& wp) const
+	{
+		assert(isWindow());
+		return ::GetWindowPlacement(static_cast<TBase*>(this)->getWindowHandle(), &wp);
+	}
+	CoordRect getUpdateRect(BOOL erase) const
+	{
+		assert(isWindow());
+		CoordRect rc;
+		::GetUpdateRect(static_cast<TBase*>(this)->getWindowHandle(), &rc, erase);
+		return rc;
+	}
+	int getUpdateRgn(HRGN rgn, BOOL erase) const
+	{
+		assert(isWindow());
+		return ::GetUpdateRgn(static_cast<TBase*>(this)->getWindowHandle(), rgn, erase);
+	}
+	HWND getWindow(UINT cmd) const
+	{
+		assert(isWindow());
+		return ::GetWindow(static_cast<TBase*>(this)->getWindowHandle(), cmd);
+	}
+	LONG_PTR getWindowLongPtr(int index) const
+	{
+		assert(isWindow());
+		return ::GetWindowLongPtr(static_cast<TBase*>(this)->getWindowHandle(), index);
+	}
+	CoordRect getWindowRect() const
+	{
+		assert(isWindow());
+		CoordRect rc;
+		::GetWindowRect(static_cast<TBase*>(this)->getWindowHandle(), &rc);
+		return rc;
+	}
+	int getWindowTextLength() const
+	{
+		assert(isWindow());
+		return ::GetWindowTextLength(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL hiliteMenuItem(HMENU menu, UINT itemID, UINT hilite) const
+	{
+		assert(isWindow());
+		return ::HiliteMenuItem(static_cast<TBase*>(this)->getWindowHandle(), menu, itemID, hilite);
+	}
+	void invalidate(BOOL erase = TRUE) const
+	{
+		assert(isWindow());
+		::InvalidateRect(static_cast<TBase*>(this)->getWindowHandle(), nullptr, erase);
+	}
+	BOOL invalidateRect(RECT rect, BOOL erase = TRUE) const
+	{
+		assert(isWindow());
+		return ::InvalidateRect(static_cast<TBase*>(this)->getWindowHandle(), &rect, erase);
+	}
+	BOOL invalidateRect(BOOL erase = TRUE) const
+	{
+		assert(isWindow());
+		return ::InvalidateRect(static_cast<TBase*>(this)->getWindowHandle(), nullptr, erase);
+	}
+	BOOL invalidateRgn(HRGN rgn, BOOL erase = TRUE) const
+	{
+		assert(isWindow());
+		return ::InvalidateRgn(static_cast<TBase*>(this)->getWindowHandle(), rgn, erase);
+	}
+	BOOL isChild(HWND child) const
+	{
+		assert(isWindow());
+		return ::IsChild(static_cast<TBase*>(this)->getWindowHandle(), child);
+	}
+	BOOL isDialogMessage(MSG& uMsg) const
+	{
+		assert(isWindow());
+		return ::IsDialogMessage(static_cast<TBase*>(this)->getWindowHandle(), &uMsg);
+	}
+	UINT isDlgButtonChecked(UINT buttonID) const
+	{
+		assert(isWindow());
+		return ::IsDlgButtonChecked(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(buttonID));
+	}
+	BOOL isWindowEnabled() const
+	{
+		assert(isWindow());
+		return ::IsWindowEnabled(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL isIconic() const
+	{
+		assert(isWindow());
+		return ::IsIconic(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL isWindow() const
+	{
+		return ::IsWindow(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL isWindowVisible() const
+	{
+		assert(isWindow());
+		return (getStyle() & WS_VISIBLE) != 0;
+	}
+	BOOL isZoomed() const
+	{
+		assert(isWindow());
+		return ::IsZoomed(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL killTimer(UINT_PTR eventID) const
+	{
+		assert(isWindow());
+		return ::KillTimer(static_cast<TBase*>(this)->getWindowHandle(), eventID);
+	}
+	BOOL lockWindowUpdate() const
+	{
+		assert(isWindow());
+		return ::LockWindowUpdate(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	int mapWindowPoints(HWND to, POINT& point) const
+	{
+		assert(isWindow());
+		return ::MapWindowPoints(static_cast<TBase*>(this)->getWindowHandle(), to, &point, 1);
+	}
+	int mapWindowPoints(HWND to, RECT& rect) const
+	{
+		assert(isWindow());
+		return ::MapWindowPoints(static_cast<TBase*>(this)->getWindowHandle(), to, reinterpret_cast<LPPOINT>(&rect), 2);
+	}
+	int mapWindowPoints(HWND to, LPPOINT pointsArray, UINT count) const
+	{
+		assert(isWindow());
+		return ::MapWindowPoints(static_cast<TBase*>(this)->getWindowHandle(), to, reinterpret_cast<LPPOINT>(pointsArray), count);
+	}
+	int messageBox(LPCTSTR text, LPCTSTR caption, UINT type = MB_OK | MB_ICONASTERISK) const
+	{
+		assert(isWindow());
+		return ::MessageBox(static_cast<TBase*>(this)->getWindowHandle(), text, caption, type);
+	}
+	BOOL moveWindow(int x, int y, int width, int height, BOOL repaint = TRUE) const
+	{
+		assert(isWindow());
+		return ::MoveWindow(static_cast<TBase*>(this)->getWindowHandle(), x, y, width, height, repaint = TRUE);
+	}
+	BOOL moveWindow(RECT rect, BOOL repaint = TRUE) const
+	{
+		assert(isWindow());
+		return ::MoveWindow(static_cast<TBase*>(this)->getWindowHandle(), rect.left, rect.top, rect.right - rect.left,
+			rect.bottom - rect.top, repaint);
+	}
+	BOOL postMessage(UINT uMsg, WPARAM wParam = 0, LPARAM lParam = 0) const
+	{
+		assert(isWindow());
+		return ::PostMessage(static_cast<TBase*>(this)->getWindowHandle(), uMsg, wParam, lParam);
+	}
+	BOOL openIcon() const
+	{
+		assert(isWindow());
+		return ::OpenIcon(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL postMessage(HWND wnd, UINT uMsg, WPARAM wParam, LPARAM lParam) const
+	{
+		assert(isWindow());
+		return ::PostMessage(wnd, uMsg, wParam, lParam);
+	}
+	void print(HDC dc, DWORD flags) const
+	{
+		assert(isWindow());
+		WPARAM wParam = reinterpret_cast<WPARAM>(dc);
+		LPARAM lParam = static_cast<LPARAM>(flags);
+		SendMessage(static_cast<TBase*>(this)->getWindowHandle(), WM_PRINT, wParam, lParam);
+	}
+	BOOL redrawWindow(RECT updateRect, UINT flags) const
+	{
+		assert(isWindow());
+		return ::RedrawWindow(static_cast<TBase*>(this)->getWindowHandle(), &updateRect, nullptr, flags);
+	}
+	BOOL redrawWindow(HRGN rgn, UINT flags) const
+	{
+		assert(isWindow());
+		return ::RedrawWindow(static_cast<TBase*>(this)->getWindowHandle(), nullptr, rgn, flags);
+	}
+	BOOL redrawWindow(UINT flags) const
+	{
+		assert(isWindow());
+		return ::RedrawWindow(static_cast<TBase*>(this)->getWindowHandle(), nullptr, nullptr, flags);
+	}
+	int releaseDC(HDC dc) const
+	{
+		assert(isWindow());
+		return ::ReleaseDC(static_cast<TBase*>(this)->getWindowHandle(), dc);
+	}
+	BOOL screenToClient(POINT& point) const
+	{
+		assert(isWindow());
+		return ::ScreenToClient(static_cast<TBase*>(this)->getWindowHandle(), &point);
+	}
+	BOOL screenToClient(RECT& rect) const
+	{
+		assert(isWindow());
+		return 
+			static_cast<BOOL>(
+				::MapWindowPoints(
+					HWND_DESKTOP, 
+					static_cast<TBase*>(this)->getWindowHandle(),
+					reinterpret_cast<LPPOINT>(&rect), 
+					2
+				)
+			);
+	}
+	BOOL scrollWindow(int xAmount, int yAmount, RECT scrollRect, LPCRECT pClipRect) const
+	{
+		assert(isWindow());
+		return ::ScrollWindow(static_cast<TBase*>(this)->getWindowHandle(), xAmount, yAmount, &scrollRect, pClipRect);
+	}
+	BOOL scrollWindow(int xAmount, int yAmount, LPCRECT pClipRect) const
+	{
+		assert(isWindow());
+		return ::ScrollWindow(static_cast<TBase*>(this)->getWindowHandle(), xAmount, yAmount, nullptr, pClipRect);
+	}
+	int scrollWindowEx(int dx, int dy, LPCRECT pScrollRect, LPCRECT pClipRect,
+		HRGN update, LPRECT pUpdateRect, UINT flags) const
+	{
+		assert(isWindow());
+		return ::ScrollWindowEx(static_cast<TBase*>(this)->getWindowHandle(), dx, dy, pScrollRect, pClipRect, update, pUpdateRect, flags);
+	}
+	LRESULT sendDlgItemMessage(UINT dlgItemID, UINT uMsg, WPARAM wParam, LPARAM lParam) const
+	{
+		assert(isWindow());
+		return ::SendDlgItemMessage(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(dlgItemID), uMsg, wParam, lParam);
+	}
+	LRESULT sendMessage(UINT uMsg, WPARAM wParam = 0, LPARAM lParam = 0) const
+	{
+		assert(isWindow());
+		return ::SendMessage(static_cast<TBase*>(this)->getWindowHandle(), uMsg, wParam, lParam);
+	}
+	LRESULT sendMessage(HWND wnd, UINT uMsg, WPARAM wParam, LPARAM lParam) const
+	{
+		assert(isWindow());
+		return ::SendMessage(wnd, uMsg, wParam, lParam);
+	}
+	BOOL sendNotifyMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) const
+	{
+		assert(isWindow());
+		return ::SendNotifyMessage(static_cast<TBase*>(this)->getWindowHandle(), uMsg, wParam, lParam);
+	}
+	HWND setActiveWindow() const
+	{
+		assert(isWindow());
+		return ::SetActiveWindow(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	HWND setCapture() const
+	{
+		assert(isWindow());
+		return ::SetCapture(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	ULONG_PTR setClassLongPtr(int index, LONG_PTR newLong) const
+	{
+		assert(isWindow());
+		return ::SetClassLongPtr(static_cast<TBase*>(this)->getWindowHandle(), index, newLong);
+	}
+	LONG_PTR setDlgCtrlID(UINT id) const
+	{
+		assert(isWindow());
+		return setWindowLongPtr(GWLP_ID, id);
+	}
+	BOOL setDlgItemInt(UINT dlgItemID, UINT value, BOOL isSigned) const
+	{
+		assert(isWindow());
+		return ::SetDlgItemInt(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(dlgItemID), value, isSigned);
+	}
+	BOOL setDlgItemText(UINT dlgItemID, LPCTSTR string) const
+	{
+		assert(isWindow());
+		return ::SetDlgItemText(static_cast<TBase*>(this)->getWindowHandle(), static_cast<int>(dlgItemID), string);
+	}
+	void setExStyle(DWORD exStyle) const
+	{
+		assert(isWindow());
+		::SetWindowLongPtr(static_cast<TBase*>(this)->getWindowHandle(), GWL_EXSTYLE, static_cast<LONG_PTR>(exStyle));
+	}
+	HWND setFocus() const
+	{
+		assert(isWindow());
+		return ::SetFocus(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	void setFont(HFONT font, BOOL redraw = TRUE) const
+	{
+		assert(isWindow());
+		WPARAM wParam = reinterpret_cast<WPARAM>(font);
+		LPARAM lParam = static_cast<LPARAM>(redraw);
+		sendMessage(WM_SETFONT, wParam, lParam);
+	}
+	BOOL setForegroundWindow() const
+	{
+		assert(isWindow());
+		return ::SetForegroundWindow(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	HICON setIcon(HICON icon, BOOL isBigIcon) const
+	{
+		assert(isWindow());
+		WPARAM wParam = static_cast<WPARAM>(isBigIcon);
+		LPARAM lParam = reinterpret_cast<LPARAM>(icon);
+		return reinterpret_cast<HICON>(sendMessage(WM_SETICON, wParam, lParam));
+	}
+	BOOL setMenu(HMENU menu) const
+	{
+		assert(isWindow());
+		return ::SetMenu(static_cast<TBase*>(this)->getWindowHandle(), menu);
+	}
+	HWND setParent(HWND parent) const
+	{
+		assert(isWindow());
+		return ::SetParent(static_cast<TBase*>(this)->getWindowHandle(), parent);
+	}
+	BOOL setRedraw(BOOL redraw = TRUE) const
+	{
+		assert(isWindow());
+		WPARAM wParam = static_cast<WPARAM>(redraw);
+		return static_cast<BOOL>(::SendMessage(static_cast<TBase*>(this)->getWindowHandle(), WM_SETREDRAW, wParam, 0));
+	}
+	int setScrollInfo(int barType, const SCROLLINFO& si, BOOL redraw) const
+	{
+		assert(isWindow());
+		return ::SetScrollInfo(static_cast<TBase*>(this)->getWindowHandle(), barType, &si, redraw);
+	}
+	int setScrollPos(int barType, int pos, BOOL redraw) const
+	{
+		assert(isWindow());
+		return ::SetScrollPos(static_cast<TBase*>(this)->getWindowHandle(), barType, pos, redraw);
+	}
+	BOOL setScrollRange(int barType, int minPos, int maxPos, BOOL redraw) const
+	{
+		assert(isWindow());
+		return ::SetScrollRange(static_cast<TBase*>(this)->getWindowHandle(), barType, minPos, maxPos, redraw);
+	}
+	void setStyle(DWORD style) const
+	{
+		assert(isWindow());
+		::SetWindowLongPtr(static_cast<TBase*>(this)->getWindowHandle(), GWL_STYLE, static_cast<LONG_PTR>(style));
+	}
+	UINT_PTR setTimer(UINT_PTR eventID, UINT elapse, TIMERPROC pTimerFunc) const
+	{
+		assert(isWindow());
+		return ::SetTimer(static_cast<TBase*>(this)->getWindowHandle(), eventID, elapse, pTimerFunc);
+	}
+	LONG_PTR setWindowLongPtr(int index, LONG_PTR newLong) const
+	{
+		assert(isWindow());
+		return ::SetWindowLongPtr(static_cast<TBase*>(this)->getWindowHandle(), index, newLong);
+	}
+	BOOL setWindowPlacement(const WINDOWPLACEMENT& wndpl) const
+	{
+		assert(isWindow());
+		return ::SetWindowPlacement(static_cast<TBase*>(this)->getWindowHandle(), &wndpl);
+	}
+	BOOL setWindowPos(HWND insertAfter, int x, int y, int cx, int cy, UINT flags) const
+	{
+		assert(isWindow());
+		return ::SetWindowPos(static_cast<TBase*>(this)->getWindowHandle(), insertAfter, x, y, cx, cy, flags);
+	}
+	BOOL setWindowPos(HWND insertAfter, RECT rect, UINT flags) const
+	{
+		assert(isWindow());
+		return ::SetWindowPos(static_cast<TBase*>(this)->getWindowHandle(), insertAfter, rect.left, rect.top, rect.right - rect.left,
+			rect.bottom - rect.top, flags);
+	}
+	int setWindowRgn(HRGN rgn, BOOL redraw = TRUE) const
+	{
+		assert(isWindow());
+		int iResult = ::SetWindowRgn(static_cast<TBase*>(this)->getWindowHandle(), rgn, redraw);
+		return iResult;
+	}
+	BOOL setWindowText(LPCTSTR text) const
+	{
+		assert(isWindow());
+		return ::SetWindowText(static_cast<TBase*>(this)->getWindowHandle(), text);
+	}
+	HRESULT setWindowTheme(LPCWSTR subAppName, LPCWSTR subIdList) const
+	{
+		HRESULT result = E_NOTIMPL;
+		HMODULE dll = ::GetModuleHandle(_T("uxtheme.dll"));
+		if (dll != nullptr)
+		{
+			using pfnSetWindowTheme = HRESULT(WINAPI*)(HWND, LPCWSTR, LPCWSTR);
+			pfnSetWindowTheme pfn = reinterpret_cast<pfnSetWindowTheme>(
+				reinterpret_cast<void*>(::GetProcAddress(dll, "SetWindowTheme")));
+
+			result = pfn(static_cast<TBase*>(this)->getWindowHandle(), subAppName, subIdList);
+		}
+
+		return result;
+	}
+	BOOL showOwnedPopups(BOOL show) const
+	{
+		assert(isWindow());
+		return ::ShowOwnedPopups(static_cast<TBase*>(this)->getWindowHandle(), show);
+	}
+	BOOL showScrollBar(int bar, BOOL show) const
+	{
+		assert(isWindow());
+		return ::ShowScrollBar(static_cast<TBase*>(this)->getWindowHandle(), bar, show);
+	}
+	BOOL showWindow(int showCmd = SW_SHOWNORMAL) const
+	{
+		assert(isWindow());
+		return ::ShowWindow(static_cast<TBase*>(this)->getWindowHandle(), showCmd);
+	}
+	BOOL showWindowAsync(int showCmd) const
+	{
+		assert(isWindow());
+		return ::ShowWindowAsync(static_cast<TBase*>(this)->getWindowHandle(), showCmd);
+	}
+	BOOL updateWindow() const
+	{
+		assert(isWindow());
+		return ::UpdateWindow(static_cast<TBase*>(this)->getWindowHandle());
+	}
+	BOOL unlockWindowUpdate() const
+	{
+		assert(isWindow());
+		return ::LockWindowUpdate(0);
+	}
+	BOOL validateRect(RECT rect) const
+	{
+		assert(isWindow());
+		return ::ValidateRect(static_cast<TBase*>(this)->getWindowHandle(), &rect);
+	}
+	BOOL validateRect() const
+	{
+		assert(isWindow());
+		return ::ValidateRect(static_cast<TBase*>(this)->getWindowHandle(), nullptr);
+	}
+	BOOL validateRgn(HRGN rgn) const
+	{
+		assert(isWindow());
+		return ::ValidateRgn(static_cast<TBase*>(this)->getWindowHandle(), rgn);
+	}
+
+	BOOL dragAcceptFiles(BOOL fAccept) const
+	{
+		HMODULE dll = ::GetModuleHandle(_T("Shell32.dll"));
+		if (dll != nullptr)
+		{
+			using pfnDragAcceptFiles = void(WINAPI*)(HWND, BOOL);
+			pfnDragAcceptFiles pfn = reinterpret_cast<pfnDragAcceptFiles>(
+				reinterpret_cast<void*>(::GetProcAddress(dll, "DragAcceptFiles"))
+			);
+
+			if (pfn)
+			{
+				pfn(static_cast<TBase*>(this)->getWindowHandle(), fAccept);
+				return TRUE;
+			}
+		}
+
+		return FALSE;
+	}
+	BOOL postRedraw(BOOL redraw = TRUE) const
+	{
+		assert(isWindow());
+		WPARAM wParam = static_cast<WPARAM>(redraw);
+		return static_cast<BOOL>(::PostMessage(static_cast<TBase*>(this)->getWindowHandle(), WM_SETREDRAW, wParam, 0));
 	}
 };
 
