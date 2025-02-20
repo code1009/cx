@@ -52,18 +52,6 @@ WidgetSharedPtr LineShape::clone(void) const
 void LineShape::draw(Context* ctx)
 {
 	//-----------------------------------------------------------------------
-	//std::wstring text = getName();
-	//text = L"아름다운 한글";
-
-
-	//-----------------------------------------------------------------------
-	//D2D1_RECT_F rect = D2D1::RectF(
-	//	_Points[0]._x, _Points[0]._y,
-	//	_Points[1]._x, _Points[1]._y
-	//);
-
-
-	//-----------------------------------------------------------------------
 	ctx->getD2dRenderTarget()->DrawLine(
 		D2D1::Point2F(_Points[0]._x, _Points[0]._y),
 		D2D1::Point2F(_Points[1]._x, _Points[1]._y),
@@ -71,13 +59,23 @@ void LineShape::draw(Context* ctx)
 		_LineStyle.getWidth()
 	);
 
-	//ctx->getD2dRenderTarget()->DrawTextW(
-	//	text.c_str(),
-	//	static_cast<UINT32>(text.length()),
-	//	_Text_TextFormat->getTextFormat(),
-	//	rect,
-	//	_Text_Brush->getSolidColorBrush()
-	//);
+
+	//-----------------------------------------------------------------------
+	D2D1_RECT_F rect = D2D1::RectF(
+		_Points[0]._x, _Points[0]._y,
+		_Points[1]._x, _Points[1]._y
+	);
+	std::wstring text = getText();
+	if (text.empty() == false)
+	{
+		ctx->getD2dRenderTarget()->DrawTextW(
+			text.c_str(),
+			static_cast<UINT32>(text.length()),
+			_Text_TextFormat->getTextFormat(),
+			rect,
+			_Text_Brush->getSolidColorBrush()
+		);
+	}
 }
 
 //===========================================================================

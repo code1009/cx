@@ -72,6 +72,20 @@ bool Shape::loadResources(WidgetResourceMap* widgetResourceMap)
 }
 
 //===========================================================================
+std::wstring Shape::getText(void) const
+{
+	return _Text;
+}
+
+void Shape::setText(std::wstring text)
+{
+	if (_Text != text)
+	{
+		_Text = text;
+		setPropertyChanged();
+	}
+}
+
 void Shape::setWidgetDocument(WidgetDocument* doc)
 {
 	_WidgetDocument = doc;

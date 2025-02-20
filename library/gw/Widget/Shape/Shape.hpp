@@ -33,6 +33,9 @@ protected:
 	WidgetResource* _Text_TextFormat{ nullptr };
 	WidgetResource* _Text_Brush     { nullptr };
 
+protected:
+	std::wstring _Text{ L"아름다운 한글" };
+
 public:
 	explicit Shape(std::wstring className);
 
@@ -47,6 +50,8 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
+	virtual std::wstring getText(void) const;
+	virtual void setText(std::wstring text);
 	virtual void setWidgetDocument(WidgetDocument* doc);
 
 public:

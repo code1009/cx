@@ -22,6 +22,7 @@ namespace cx::gw
 //===========================================================================
 void drawEllipseShape(Context* ctx, ShapeTemplate* shapeTemplate)
 {
+	//-----------------------------------------------------------------------
 	coord_t radiusX = (shapeTemplate->getPoints()[1]._x - shapeTemplate->getPoints()[0]._x) / 2;
 	coord_t radiusY = (shapeTemplate->getPoints()[1]._y - shapeTemplate->getPoints()[0]._y) / 2;
 	Point center
@@ -39,6 +40,24 @@ void drawEllipseShape(Context* ctx, ShapeTemplate* shapeTemplate)
 		shapeTemplate->getLine_Brush()->getSolidColorBrush(),
 		shapeTemplate->getLineStyle()->getWidth()
 	);
+
+
+	//-----------------------------------------------------------------------
+	D2D1_RECT_F rect = D2D1::RectF(
+		shapeTemplate->getPoints()[0]._x, shapeTemplate->getPoints()[0]._y,
+		shapeTemplate->getPoints()[1]._x, shapeTemplate->getPoints()[1]._y
+	);
+	std::wstring text = shapeTemplate->getText();
+	if (text.empty() == false)
+	{
+		ctx->getD2dRenderTarget()->DrawTextW(
+			text.c_str(),
+			static_cast<UINT32>(text.length()),
+			shapeTemplate->getText_TextFormat()->getTextFormat(),
+			rect,
+			shapeTemplate->getText_Brush()->getSolidColorBrush()
+		);
+	}
 }
 
 WidgetSharedPtr makeEllipseShape(void)

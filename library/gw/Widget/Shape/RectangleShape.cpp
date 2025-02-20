@@ -52,18 +52,10 @@ WidgetSharedPtr RectangleShape::clone(void) const
 void RectangleShape::draw(Context* ctx)
 {
 	//-----------------------------------------------------------------------
-	std::wstring text = getName();
-	text = L"아름다운 한글";
-
-
-	//-----------------------------------------------------------------------
 	D2D1_RECT_F rect = D2D1::RectF(
 		_Points[0]._x, _Points[0]._y,
 		_Points[1]._x, _Points[1]._y
 	);
-
-
-	//-----------------------------------------------------------------------
 	ctx->getD2dRenderTarget()->FillRectangle(
 		&rect,
 		_Fill_Brush->getSolidColorBrush()
@@ -73,13 +65,20 @@ void RectangleShape::draw(Context* ctx)
 		_Line_Brush->getSolidColorBrush(),
 		_LineStyle.getWidth()
 	);
-	ctx->getD2dRenderTarget()->DrawTextW(
-		text.c_str(),
-		static_cast<UINT32>(text.length()),
-		_Text_TextFormat->getTextFormat(),
-		rect,
-		_Text_Brush->getSolidColorBrush()
-	);
+
+
+	//-----------------------------------------------------------------------
+	std::wstring text = getText();
+	if (text.empty() == false)
+	{
+		ctx->getD2dRenderTarget()->DrawTextW(
+			text.c_str(),
+			static_cast<UINT32>(text.length()),
+			_Text_TextFormat->getTextFormat(),
+			rect,
+			_Text_Brush->getSolidColorBrush()
+		);
+	}
 }
 
 //===========================================================================
