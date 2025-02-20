@@ -28,6 +28,10 @@
 #include "WindowMessageLoop.hpp"
 
 //===========================================================================
+// # 좌표
+#include "Coord.hpp"
+
+//===========================================================================
 // # Window
 #include "WindowClass.hpp"
 #include "WindowProc.hpp"
@@ -36,6 +40,7 @@
 //#  Window 확장
 #include "WindowStyle.hpp"
 #include "BaseWindow.hpp"
+#include "BasicWindowT.hpp"
 
 // # Window 메시지
 // WinProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -51,10 +56,6 @@
 
 // # Window 함수들
 #include "Window_Functions.hpp"
-
-//===========================================================================
-// # 좌표
-#include "Coord.hpp"
 
 //===========================================================================
 // # DeviceContext

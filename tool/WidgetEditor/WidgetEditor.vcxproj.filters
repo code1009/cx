@@ -336,6 +336,9 @@
     <ClInclude Include="..\..\library\gw\widget\Shape\LineShapeDesign.hpp">
       <Filter>library_cx\gw\Widget\Shape</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\BasicWindowT.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">

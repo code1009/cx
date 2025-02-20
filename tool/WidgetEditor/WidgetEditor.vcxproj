@@ -87,6 +87,7 @@
     <ClInclude Include="..\..\library\runtime\WindowApplication.hpp" />
     <ClInclude Include="..\..\library\wui\AppModule.hpp" />
     <ClInclude Include="..\..\library\wui\BaseWindow.hpp" />
+    <ClInclude Include="..\..\library\wui\BasicWindowT.hpp" />
     <ClInclude Include="..\..\library\wui\Coord.hpp" />
     <ClInclude Include="..\..\library\wui\DC.hpp" />
     <ClInclude Include="..\..\library\wui\DC_Classes.hpp" />

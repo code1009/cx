@@ -7,7 +7,10 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class MainFrame : 
-	public cx::wui::MessageMapWindowT<MainFrame, cx::wui::BaseWindow>
+	public cx::wui::MessageMapWindowT<
+		MainFrame, 
+		cx::wui::BasicWindowT<cx::wui::BaseWindow> 
+	>
 {
 private:
 	std::unique_ptr<View> _View;
