@@ -331,7 +331,8 @@ void MainFrame::createToolBox(void)
 	ToolBox::SubItemSharedPtr   item;
 	std::size_t id=0;
 
-	parent = _ToolBox->addGroupItem(++id, nullptr, L"위젯", std::wstring(), ToolBox::ItemStyle::Button);
+	parent = _ToolBox->addGroupItem(++id, nullptr, L"도형", std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(++id, parent, L"글자");
 	item = _ToolBox->addSubItem(++id, parent, L"선");
 	item = _ToolBox->addSubItem(++id, parent, L"네모");
 	item = _ToolBox->addSubItem(++id, parent, L"원");
@@ -393,19 +394,19 @@ void MainFrame::onToolBoxSubItemMouseClicked(ToolBox::EventParam* param)
 	bool snapToGrid;
 	switch (param->_Id)
 	{
-	case 7:
+	case 8:
 		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->deleteSelection();
 		break;
 
-	case 16:
+	case 17:
 		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->unselectAll();
 		break;
 
-	case 17:
+	case 18:
 		//_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->selectAll();
 		break;
 
-	case 24:
+	case 25:
 		snapToGrid = _View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->getSnapToGrid();
 		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->setSnapToGrid(!snapToGrid);
 		break;
@@ -426,6 +427,7 @@ void MainFrame::onToolBoxSubItemMouseDragging(ToolBox::EventParam* param)
 	case 2:
 	case 3:
 	case 4:
+	case 5:
 		_ToolBox->releaseMouseCapture();
 		param->_DragDrop = true;
 		doToolBoxWidgetDragDrop(param->_Id - 2);
@@ -442,18 +444,24 @@ void MainFrame::doToolBoxWidgetDragDrop(std::size_t id)
 	switch (id)
 	{
 	case 0:
-		dragDropData._String = L"Shape.Line.Design";
+		dragDropData._String = L"Shape.Text.Design";
 		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
 		_WidgetEventDragDropNotifier.doDragDrop();
 		break;
 
 	case 1:
-		dragDropData._String = L"Shape.Rectangle.Design";
+		dragDropData._String = L"Shape.Line.Design";
 		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
 		_WidgetEventDragDropNotifier.doDragDrop();
 		break;
 
 	case 2:
+		dragDropData._String = L"Shape.Rectangle.Design";
+		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
+		_WidgetEventDragDropNotifier.doDragDrop();
+		break;
+
+	case 3:
 		dragDropData._String = L"Shape.Ellipse.Design";
 		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
 		_WidgetEventDragDropNotifier.doDragDrop();

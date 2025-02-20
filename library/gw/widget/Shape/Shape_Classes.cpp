@@ -69,6 +69,36 @@ WidgetSharedPtr makeEllipseShape(void)
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+void drawTextShape(Context* ctx, ShapeTemplate* shapeTemplate)
+{
+	D2D1_RECT_F rect = D2D1::RectF(
+		shapeTemplate->getPoints()[0]._x, shapeTemplate->getPoints()[0]._y,
+		shapeTemplate->getPoints()[1]._x, shapeTemplate->getPoints()[1]._y
+	);
+	std::wstring text = shapeTemplate->getText();
+	if (text.empty() == false)
+	{
+		ctx->getD2dRenderTarget()->DrawTextW(
+			text.c_str(),
+			static_cast<UINT32>(text.length()),
+			shapeTemplate->getText_TextFormat()->getTextFormat(),
+			rect,
+			shapeTemplate->getText_Brush()->getSolidColorBrush()
+		);
+	}
+}
+
+WidgetSharedPtr makeTextShape(void)
+{
+	auto o = std::make_shared<TextShape>();
+	return o;
+}
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }

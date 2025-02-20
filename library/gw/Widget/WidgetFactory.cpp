@@ -45,6 +45,10 @@ void WidgetFactory::load(void)
 
 	widget = std::make_shared<LineShapeDesign>();
 	addWidget(widget);
+
+
+	widget = std::make_shared<TextShapeDesign>();
+	addWidget(widget);
 }
 
 //===========================================================================
