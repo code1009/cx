@@ -170,7 +170,7 @@ void ToolBox::WindowMessageHandler::setMouseTrack(HWND hwnd)
 			tme.cbSize = sizeof(TRACKMOUSEEVENT);
 			tme.dwFlags = TME_HOVER | TME_LEAVE;
 			tme.hwndTrack = hwnd;
-			tme.dwHoverTime = 1;
+			tme.dwHoverTime = 1000;
 
 			if (TrackMouseEvent(&tme))
 			{
