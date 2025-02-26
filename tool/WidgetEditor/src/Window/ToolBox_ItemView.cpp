@@ -127,7 +127,7 @@ static unsigned char _bitmap_collapse_png[557] = {
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 ToolBox::ItemView::ItemView(ToolBox::ControlWindow* window) :
-	_Window(window)
+	_Window{window}
 {
 	//-----------------------------------------------------------------------
 	getWindow()->getViewport()->setWindowSize(0, 0);
