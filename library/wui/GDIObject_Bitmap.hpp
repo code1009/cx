@@ -15,41 +15,39 @@ namespace cx::wui
 
 //////////////////////////////////////////////////////////////////////////////
 //============================================================================
-class Font final
+class Bitmap final
 {
 private:
-	HFONT _FontHandle{ nullptr };
+	HBITMAP _BitmapHandle{ nullptr };
 
 public:
-	explicit Font(
-		const std::wstring& faceName, 
-		int pointSize
+	explicit Bitmap(
+		const std::wstring& filePath
 	);
 
 public:
-	~Font();
+	~Bitmap();
 
 public:
-	Font(const Font&) = delete;
-	Font& operator=(const Font&) = delete;
+	Bitmap(const Bitmap&) = delete;
+	Bitmap& operator=(const Bitmap&) = delete;
 
-	Font(Font&&) = delete;
-	Font& operator=(Font&&) = delete;
+	Bitmap(Bitmap&&) = delete;
+	Bitmap& operator=(Bitmap&&) = delete;
 
 public:
-	[[nodiscard]] constexpr operator HFONT(void) const
+	[[nodiscard]] constexpr operator HBITMAP(void) const
 	{
-		return _FontHandle;
+		return _BitmapHandle;
 	}
 
 private:
-	HFONT createFont(
-		const std::wstring& faceName,
-		int pointSize
+	HBITMAP loadBitmap(
+		const std::wstring& filePath
 	);
 
 public:
-	HFONT select(HDC hdc);
+	HBITMAP select(HDC hdc);
 };
 
 

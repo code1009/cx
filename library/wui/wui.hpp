@@ -65,7 +65,10 @@
 #include "DC_Functions.hpp"
 
 // # GDI 객체
+#include "GDIObject_Pen.hpp"
+#include "GDIObject_Brush.hpp"
 #include "GDIObject_Font.hpp"
+#include "GDIObject_Bitmap.hpp"
 
 //===========================================================================
 // # .rc 리소스

@@ -15,41 +15,39 @@ namespace cx::wui
 
 //////////////////////////////////////////////////////////////////////////////
 //============================================================================
-class Font final
+class Pen final
 {
 private:
-	HFONT _FontHandle{ nullptr };
+	HPEN _PenHandle{ nullptr };
 
 public:
-	explicit Font(
-		const std::wstring& faceName, 
-		int pointSize
+	explicit Pen(
+		int style, int width, COLORREF color
 	);
 
 public:
-	~Font();
+	~Pen();
 
 public:
-	Font(const Font&) = delete;
-	Font& operator=(const Font&) = delete;
+	Pen(const Pen&) = delete;
+	Pen& operator=(const Pen&) = delete;
 
-	Font(Font&&) = delete;
-	Font& operator=(Font&&) = delete;
+	Pen(Pen&&) = delete;
+	Pen& operator=(Pen&&) = delete;
 
 public:
-	[[nodiscard]] constexpr operator HFONT(void) const
+	[[nodiscard]] constexpr operator HPEN(void) const
 	{
-		return _FontHandle;
+		return _PenHandle;
 	}
 
 private:
-	HFONT createFont(
-		const std::wstring& faceName,
-		int pointSize
+	HPEN createPen(
+		int style, int width, COLORREF color
 	);
 
 public:
-	HFONT select(HDC hdc);
+	HPEN select(HDC hdc);
 };
 
 

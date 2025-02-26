@@ -342,6 +342,15 @@
     <ClInclude Include="..\..\library\wui\BasicDCT.hpp">
       <Filter>library_cx\wui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\GDIObject_Pen.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\GDIObject_Brush.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\GDIObject_Bitmap.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -562,6 +571,15 @@
     </ClCompile>
     <ClCompile Include="..\..\library\gw\widget\Shape\LineShapeDesign.cpp">
       <Filter>library_cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\GDIObject_Pen.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\GDIObject_Brush.cpp">
+      <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\GDIObject_Bitmap.cpp">
+      <Filter>library_cx\wui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

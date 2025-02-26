@@ -15,41 +15,39 @@ namespace cx::wui
 
 //////////////////////////////////////////////////////////////////////////////
 //============================================================================
-class Font final
+class Brush final
 {
 private:
-	HFONT _FontHandle{ nullptr };
+	HBRUSH _BrushHandle{ nullptr };
 
 public:
-	explicit Font(
-		const std::wstring& faceName, 
-		int pointSize
+	explicit Brush(
+		COLORREF color
 	);
 
 public:
-	~Font();
+	~Brush();
 
 public:
-	Font(const Font&) = delete;
-	Font& operator=(const Font&) = delete;
+	Brush(const Brush&) = delete;
+	Brush& operator=(const Brush&) = delete;
 
-	Font(Font&&) = delete;
-	Font& operator=(Font&&) = delete;
+	Brush(Brush&&) = delete;
+	Brush& operator=(Brush&&) = delete;
 
 public:
-	[[nodiscard]] constexpr operator HFONT(void) const
+	[[nodiscard]] constexpr operator HBRUSH(void) const
 	{
-		return _FontHandle;
+		return _BrushHandle;
 	}
 
-private:
-	HFONT createFont(
-		const std::wstring& faceName,
-		int pointSize
+public:
+	HBRUSH createBrush(
+		COLORREF color
 	);
 
 public:
-	HFONT select(HDC hdc);
+	HBRUSH select(HDC hdc);
 };
 
 
