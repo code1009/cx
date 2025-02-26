@@ -46,6 +46,10 @@ public:
 	virtual void render(void);
 
 protected:
+	virtual bool createDeviceIndependentResources(void);
+	virtual void destroyDeviceIndependentResources(void);
+
+protected:
 	virtual bool createDeviceResources(void);
 	virtual void destroyDeviceResources(void);
 

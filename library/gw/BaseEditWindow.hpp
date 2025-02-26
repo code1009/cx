@@ -29,6 +29,8 @@ public:
 	//-----------------------------------------------------------------------
 	// Window
 protected:
+	virtual bool createDeviceIndependentResources(void) override;
+	virtual void destroyDeviceIndependentResources(void) override;
 	virtual bool createDeviceResources(void) override;
 	virtual void destroyDeviceResources(void) override;
 	virtual void draw(void) override;

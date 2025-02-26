@@ -20,10 +20,32 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WidgetResource::WidgetResource(std::wstring id, Type type, IUnknown* pointer):
-	_Id     {std::move(id)}, 
-	_Type   {type         }, 
-	_Pointer{pointer      } 
+bool isDeviceResource(WidgetResource::Type type)
+{
+	switch (type)
+	{
+	case WidgetResource::Type::StrokeStyle:
+	case WidgetResource::Type::SolidColorBrush:
+		return true;
+	}
+
+	return false;
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+WidgetResource::WidgetResource(
+	std::wstring id, 
+	Type type, 
+	IUnknown* pointer
+):
+	_IsDeviceResource{ isDeviceResource(type) },
+	_Id              { std::move(id)          }, 
+	_Type            { type                   }, 
+	_Pointer         { pointer                } 
 {
 }
 
@@ -43,6 +65,11 @@ void WidgetResource::release()
 }
 
 //===========================================================================
+bool WidgetResource::IsDeviceResource(void)
+{
+	return _IsDeviceResource;
+}
+
 std::wstring WidgetResource::getId(void)
 {
 	return _Id;
@@ -193,6 +220,17 @@ void WidgetResourceMap::clear(void)
 	discard();
 
 	_WidgetResourceSharedPtrMap.clear();
+}
+
+void WidgetResourceMap::discardDeviceResources(void)
+{
+	for (auto& pair : _WidgetResourceSharedPtrMap)
+	{
+		if (pair.second->IsDeviceResource())
+		{
+			pair.second->release();
+		}
+	}
 }
 
 WidgetResourceSharedPtr WidgetResourceMap::registerWidgetResource(std::wstring id, WidgetResource::Type type)

@@ -24,10 +24,19 @@ BaseEditWindow::BaseEditWindow(HWND hwnd, bool center) :
 	Window{ hwnd, center }
 {
 	//-----------------------------------------------------------------------
+	bool rv;
+
+
+	//-----------------------------------------------------------------------
 	_DocumentGrid = std::make_unique<DocumentGrid>(getViewport());
 	_DocumentGrid->setVisibleChangedHandler(
 		std::bind(&BaseEditWindow::render, this)
 	);
+	rv = _DocumentGrid->createDeviceIndependentResources(getContext());
+	if (!rv)
+	{
+		throw std::runtime_error("BaseEditWindow::BaseEditWindow(): _DocumentGrid->createDeviceIndependentResources() failed");
+	}
 
 
 	//-----------------------------------------------------------------------
@@ -35,6 +44,11 @@ BaseEditWindow::BaseEditWindow(HWND hwnd, bool center) :
 	_StatusOverayPanel->setVisibleChangedHandler(
 		std::bind(&BaseEditWindow::render, this)
 	);
+	rv = _StatusOverayPanel->createDeviceIndependentResources(getContext());
+	if (!rv)
+	{
+		throw std::runtime_error("BaseEditWindow::BaseEditWindow(): _StatusOverayPanel->createDeviceIndependentResources() failed");
+	}
 
 
 	//-----------------------------------------------------------------------
@@ -43,6 +57,28 @@ BaseEditWindow::BaseEditWindow(HWND hwnd, bool center) :
 	getViewport()->setDocumentSize(1920, 1080);
 	getViewport()->enableScrollbar(true);
 	*/
+}
+
+//===========================================================================
+bool BaseEditWindow::createDeviceIndependentResources(void)
+{
+	bool rv;
+
+	rv = Window::createDeviceIndependentResources();
+	if (!rv)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void BaseEditWindow::destroyDeviceIndependentResources(void)
+{
+	_DocumentGrid->destroyDeviceIndependentResources();
+	_StatusOverayPanel->destroyDeviceIndependentResources();
+
+	Window::destroyDeviceIndependentResources();
 }
 
 //===========================================================================

@@ -48,6 +48,8 @@ public:
 	cx::gw::Point getItemViewSize(void);
 
 public:
+	bool createDeviceIndependentResources(cx::gw::Context* ctx);
+	void destroyDeviceIndependentResources(void);
 	bool createDeviceResources(cx::gw::Context* ctx);
 	void destroyDeviceResources(void);
 	void draw(cx::gw::Context* ctx);

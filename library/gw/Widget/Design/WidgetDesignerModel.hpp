@@ -30,7 +30,7 @@ private:
 	std::unique_ptr<DesigeWidgetContext> _DesigeWidgetContext;	
 	std::unique_ptr<WidgetDesigner>      _WidgetDesigner;
 	
-	bool _DiscardedWidgetResource{ true };
+	bool _DiscardedWidgetDeviceResources{ true };
 
 public:
 	explicit WidgetDesignerModel(Window* window);
@@ -49,6 +49,8 @@ public:
 	[[nodiscard]] constexpr WidgetDesigner*      getWidgetDesigner     (void) const { return _WidgetDesigner.get(); }
 
 public:
+	virtual bool createDeviceIndependentResources(Context* ctx);
+	virtual void destroyDeviceIndependentResources(void);
 	virtual bool createDeviceResources(Context* ctx);
 	virtual void destroyDeviceResources(void);
 

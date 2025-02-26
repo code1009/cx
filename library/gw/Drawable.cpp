@@ -67,12 +67,50 @@ DocumentGrid::DocumentGrid(Viewport* viewport) :
 DocumentGrid::~DocumentGrid()
 {
 	destroyDeviceResources();
+	destroyDeviceIndependentResources();
+}
+
+//===========================================================================
+bool DocumentGrid::createDeviceIndependentResources(Context* ctx)
+{
+	HRESULT hr;
+
+
+	if (!_pCoord_TextFormat)
+	{
+		hr = ctx->getDWriteFactory()->CreateTextFormat(
+			L"Arial",
+			nullptr,
+			DWRITE_FONT_WEIGHT_THIN,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_ULTRA_CONDENSED,
+			9.0f,
+			L"ko-kr",
+			&_pCoord_TextFormat
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+		_pCoord_TextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		_pCoord_TextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+	}
+
+	return true;
+}
+
+void DocumentGrid::destroyDeviceIndependentResources(void)
+{
+	if (_pCoord_TextFormat)
+	{
+		_pCoord_TextFormat->Release();
+		_pCoord_TextFormat = nullptr;
+	}
 }
 
 //===========================================================================
 bool DocumentGrid::createDeviceResources(Context* ctx)
 {
-	//-----------------------------------------------------------------------
 	HRESULT hr; 
 	
 	
@@ -123,25 +161,6 @@ bool DocumentGrid::createDeviceResources(Context* ctx)
 			return false;
 		}
 	}
-	if (!_pCoord_TextFormat)
-	{
-		hr = ctx->getDWriteFactory()->CreateTextFormat(
-			L"Arial",
-			nullptr,
-			DWRITE_FONT_WEIGHT_THIN,
-			DWRITE_FONT_STYLE_NORMAL,
-			DWRITE_FONT_STRETCH_ULTRA_CONDENSED,
-			9.0f,
-			L"ko-kr",
-			&_pCoord_TextFormat
-		);
-		if (FAILED(hr))
-		{
-			return false;
-		}
-		_pCoord_TextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
-		_pCoord_TextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
-	}
 
 	return true;
 }
@@ -170,11 +189,6 @@ void DocumentGrid::destroyDeviceResources(void)
 	{
 		_pCoord_TextBrush->Release();
 		_pCoord_TextBrush = nullptr;
-	}
-	if (_pCoord_TextFormat)
-	{
-		_pCoord_TextFormat->Release();
-		_pCoord_TextFormat = nullptr;
 	}
 }
 
@@ -387,6 +401,51 @@ StatusOverayPanel::StatusOverayPanel(Viewport* viewport) :
 StatusOverayPanel::~StatusOverayPanel()
 {
 	destroyDeviceResources();
+	destroyDeviceIndependentResources();
+}
+
+//===========================================================================
+bool StatusOverayPanel::createDeviceIndependentResources(Context* ctx)
+{
+	//-----------------------------------------------------------------------
+	HRESULT hr;
+
+
+	//-----------------------------------------------------------------------
+	if (!_pStatus_TextFormat)
+	{
+		hr = ctx->getDWriteFactory()->CreateTextFormat(
+			//L"Arial",
+			L"돋움",
+			//L"FixedSys",
+			nullptr,
+			DWRITE_FONT_WEIGHT_ULTRA_BLACK, // DWRITE_FONT_WEIGHT_NORMAL,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_NORMAL,
+			12.0f,
+			//L"en-us",
+			L"ko-kr",
+			&_pStatus_TextFormat
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+		//_pStatus_TextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // hcenter
+		//_pStatus_TextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
+	}
+
+	return true;
+}
+
+void StatusOverayPanel::destroyDeviceIndependentResources(void)
+{
+	//-----------------------------------------------------------------------
+	if (_pStatus_TextFormat)
+	{
+		_pStatus_TextFormat->Release();
+		_pStatus_TextFormat = nullptr;
+	}
 }
 
 //===========================================================================
@@ -432,28 +491,6 @@ bool StatusOverayPanel::createDeviceResources(Context* ctx)
 			return false;
 		}
 	}
-	if (!_pStatus_TextFormat)
-	{
-		hr = ctx->getDWriteFactory()->CreateTextFormat(
-			//L"Arial",
-			L"돋움",
-			//L"FixedSys",
-			nullptr,
-			DWRITE_FONT_WEIGHT_ULTRA_BLACK, // DWRITE_FONT_WEIGHT_NORMAL,
-			DWRITE_FONT_STYLE_NORMAL,
-			DWRITE_FONT_STRETCH_NORMAL,
-			12.0f,
-			//L"en-us",
-			L"ko-kr",
-			&_pStatus_TextFormat
-		);
-		if (FAILED(hr))
-		{
-			return false;
-		}
-		//_pStatus_TextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // hcenter
-		//_pStatus_TextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
-	}
 
 	return true;
 }
@@ -477,11 +514,6 @@ void StatusOverayPanel::destroyDeviceResources(void)
 	{
 		_pStatus_TextBrush->Release();
 		_pStatus_TextBrush = nullptr;
-	}
-	if (_pStatus_TextFormat)
-	{
-		_pStatus_TextFormat->Release();
-		_pStatus_TextFormat = nullptr;
 	}
 }
 

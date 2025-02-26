@@ -34,6 +34,33 @@ WidgetDesignerWindow::WidgetDesignerWindow(HWND hwnd, bool center) :
 }
 
 //===========================================================================
+bool WidgetDesignerWindow::createDeviceIndependentResources(void)
+{
+	bool rv;
+
+	rv = BaseEditWindow::createDeviceIndependentResources();
+	if (!rv)
+	{
+		return false;
+	}
+
+	rv = _WidgetDesignerModel->createDeviceIndependentResources(getContext());
+	if (!rv)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void WidgetDesignerWindow::destroyDeviceIndependentResources(void)
+{
+	_WidgetDesignerModel->destroyDeviceIndependentResources();
+
+	BaseEditWindow::destroyDeviceIndependentResources();
+}
+
+//===========================================================================
 bool WidgetDesignerWindow::createDeviceResources(void)
 {
 	bool rv;

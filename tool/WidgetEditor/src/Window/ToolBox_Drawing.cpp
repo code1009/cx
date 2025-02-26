@@ -21,6 +21,15 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+bool ToolBox::ItemViewDrawing::createDeviceIndependentResources(cx::gw::Context* ctx)
+{
+	return true;
+}
+
+void ToolBox::ItemViewDrawing::destroyDeviceIndependentResources(void)
+{
+}
+
 bool ToolBox::ItemViewDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
 	HRESULT hr;
@@ -126,6 +135,50 @@ void ToolBox::ItemViewDrawing::getFrame_Bounds(ToolBox::ItemView* itemView, cx::
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+bool ToolBox::ItemDrawing::createDeviceIndependentResources(cx::gw::Context* ctx)
+{
+	HRESULT hr;
+
+
+	if (!_pCaption_TextFormat)
+	{
+		bool Caption_TextFontBold;
+		getCaption_TextFontBold(Caption_TextFontBold);
+		hr = ctx->getDWriteFactory()->CreateTextFormat(
+			//L"Arial",
+			//L"돋움",
+			//L"FixedSys",
+			L"맑은 고딕",
+			nullptr,
+			Caption_TextFontBold ? DWRITE_FONT_WEIGHT_BOLD : DWRITE_FONT_WEIGHT_NORMAL, // DWRITE_FONT_WEIGHT_ULTRA_BLACK 
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_NORMAL,
+			12.0f,
+			L"ko-kr",
+			&_pCaption_TextFormat
+		);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+		//_pCaption_TextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // hcenter
+		_pCaption_TextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
+	}
+
+
+	return true;
+}
+
+void ToolBox::ItemDrawing::destroyDeviceIndependentResources(void)
+{
+	if (_pCaption_TextFormat)
+	{
+		_pCaption_TextFormat->Release();
+		_pCaption_TextFormat = nullptr;
+	}
+}
+
+//===========================================================================
 bool ToolBox::ItemDrawing::createDeviceResources(cx::gw::Context* ctx)
 {
 	HRESULT hr;
@@ -200,30 +253,6 @@ bool ToolBox::ItemDrawing::createDeviceResources(cx::gw::Context* ctx)
 			return false;
 		}
 	}
-	if (!_pCaption_TextFormat)
-	{
-		bool Caption_TextFontBold;
-		getCaption_TextFontBold(Caption_TextFontBold);
-		hr = ctx->getDWriteFactory()->CreateTextFormat(
-			//L"Arial",
-			//L"돋움",
-			//L"FixedSys",
-			L"맑은 고딕",
-			nullptr,
-			Caption_TextFontBold ? DWRITE_FONT_WEIGHT_BOLD: DWRITE_FONT_WEIGHT_NORMAL, // DWRITE_FONT_WEIGHT_ULTRA_BLACK 
-			DWRITE_FONT_STYLE_NORMAL,
-			DWRITE_FONT_STRETCH_NORMAL,
-			12.0f,
-			L"ko-kr",
-			&_pCaption_TextFormat
-		);
-		if (FAILED(hr))
-		{
-			return false;
-		}
-		//_pCaption_TextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER); // hcenter
-		_pCaption_TextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER); // vcenter
-	}
 
 	return true;
 }
@@ -259,11 +288,6 @@ void ToolBox::ItemDrawing::destroyDeviceResources(void)
 	{
 		_pCaption_TextBrush->Release();
 		_pCaption_TextBrush = nullptr;
-	}
-	if (_pCaption_TextFormat)
-	{
-		_pCaption_TextFormat->Release();
-		_pCaption_TextFormat = nullptr;
 	}
 }
 

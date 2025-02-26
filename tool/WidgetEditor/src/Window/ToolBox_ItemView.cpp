@@ -179,6 +179,41 @@ cx::gw::Point ToolBox::ItemView::getItemViewSize(void)
 	return _ItemViewSize;
 }
 
+
+//===========================================================================
+bool ToolBox::ItemView::createDeviceIndependentResources(cx::gw::Context* ctx)
+{
+	bool rv;
+
+
+	rv = _ItemViewDrawing->createDeviceIndependentResources(ctx);
+	if (!rv)
+	{
+		return false;
+	}
+
+	for (auto& itemDrawing : _ItemDrawings)
+	{
+		rv = itemDrawing->createDeviceIndependentResources(ctx);
+		if (!rv)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void ToolBox::ItemView::destroyDeviceIndependentResources(void)
+{
+	for (auto& itemDrawing : _ItemDrawings)
+	{
+		itemDrawing->destroyDeviceIndependentResources();
+	}
+
+	_ItemViewDrawing->destroyDeviceIndependentResources();
+}
+
 //===========================================================================
 bool ToolBox::ItemView::createDeviceResources(cx::gw::Context* ctx)
 {

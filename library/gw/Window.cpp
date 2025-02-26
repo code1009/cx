@@ -80,6 +80,7 @@ Window::Window(HWND hwnd, bool center):
 Window::~Window()
 {
 	destroyDeviceResources();
+	destroyDeviceIndependentResources();
 }
 
 //===========================================================================
@@ -131,6 +132,16 @@ void Window::render(void)
 	{
 		destroyDeviceResources();
 	}
+}
+
+//===========================================================================
+bool Window::createDeviceIndependentResources(void)
+{
+	return true;
+}
+
+void Window::destroyDeviceIndependentResources(void)
+{
 }
 
 //===========================================================================

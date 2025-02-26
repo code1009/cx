@@ -27,6 +27,7 @@ public:
 	
 	class ControlWindow;
 
+	class Drawing;
 	class ItemViewDrawing;
 	class ItemDrawing;
 	

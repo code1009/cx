@@ -27,12 +27,43 @@ ToolBox::ControlWindow::ControlWindow(ToolBox* toolBox) :
 {
 	_ItemView = std::make_unique<ToolBox::ItemView>(this);
 	_WindowMessageHandler.setItemView(_ItemView.get());
+
+	createDeviceIndependentResources();
+}
+
+//===========================================================================
+bool ToolBox::ControlWindow::createDeviceIndependentResources(void)
+{
+	bool rv;
+
+
+	rv = cx::gw::Window::createDeviceIndependentResources();
+	if (!rv)
+	{
+		return false;
+	}
+
+
+	rv = getItemView()->createDeviceIndependentResources(getContext());
+	if (!rv)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void ToolBox::ControlWindow::destroyDeviceIndependentResources(void)
+{
+	getItemView()->destroyDeviceIndependentResources();
+
+
+	cx::gw::Window::destroyDeviceIndependentResources();
 }
 
 //===========================================================================
 bool ToolBox::ControlWindow::createDeviceResources(void)
 {
-	//-----------------------------------------------------------------------
 	bool rv;
 
 
@@ -43,7 +74,6 @@ bool ToolBox::ControlWindow::createDeviceResources(void)
 	}
 
 
-	//-----------------------------------------------------------------------
 	if (getItemView())
 	{
 		rv = getItemView()->createDeviceResources(getContext());
@@ -59,24 +89,20 @@ bool ToolBox::ControlWindow::createDeviceResources(void)
 
 void ToolBox::ControlWindow::destroyDeviceResources(void)
 {
-	//-----------------------------------------------------------------------
 	if (getItemView())
 	{
 		getItemView()->destroyDeviceResources();
 	}
 
 
-	//-----------------------------------------------------------------------
 	cx::gw::Window::destroyDeviceResources();
 }
 
 void ToolBox::ControlWindow::draw(void)
 {
-	//-----------------------------------------------------------------------
 	cx::gw::Window::draw();
 
 
-	//-----------------------------------------------------------------------
 	if (getItemView())
 	{
 		getItemView()->draw(getContext());

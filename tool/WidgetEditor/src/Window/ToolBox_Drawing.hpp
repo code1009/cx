@@ -6,7 +6,22 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class ToolBox::ItemViewDrawing
+class ToolBox::Drawing
+{
+public:
+	virtual bool createDeviceIndependentResources(cx::gw::Context* ctx) = 0;
+	virtual void destroyDeviceIndependentResources(void) = 0;
+	virtual bool createDeviceResources(cx::gw::Context* ctx) = 0;
+	virtual void destroyDeviceResources(void) = 0;
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class ToolBox::ItemViewDrawing : public ToolBox::Drawing
 {
 public:
 	ID2D1SolidColorBrush* _pFrame_FillBrush{ nullptr };
@@ -17,8 +32,10 @@ public:
 	virtual ~ItemViewDrawing(void) = default;
 
 public:
-	virtual bool createDeviceResources(cx::gw::Context* ctx);
-	virtual void destroyDeviceResources(void);
+	virtual bool createDeviceIndependentResources(cx::gw::Context* ctx) override;
+	virtual void destroyDeviceIndependentResources(void) override;
+	virtual bool createDeviceResources(cx::gw::Context* ctx) override;
+	virtual void destroyDeviceResources(void) override;
 
 public:
 	virtual void drawItemView(cx::gw::Context* ctx, ToolBox::ItemView* itemView);
@@ -40,7 +57,7 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class ToolBox::ItemDrawing
+class ToolBox::ItemDrawing : public ToolBox::Drawing
 {
 public:
 	ID2D1SolidColorBrush* _pFrame_FillBrush{ nullptr };
@@ -57,8 +74,10 @@ public:
 	virtual ~ItemDrawing(void) = default;
 
 public:
-	virtual bool createDeviceResources(cx::gw::Context* ctx);
-	virtual void destroyDeviceResources(void);
+	virtual bool createDeviceIndependentResources(cx::gw::Context* ctx) override;
+	virtual void destroyDeviceIndependentResources(void) override;
+	virtual bool createDeviceResources(cx::gw::Context* ctx) override;
+	virtual void destroyDeviceResources(void) override;
 
 public:
 	virtual void drawItem(cx::gw::Context* ctx, ToolBox::ItemView* itemView, ToolBox::Item* item);

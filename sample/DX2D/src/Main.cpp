@@ -87,7 +87,10 @@ void Application::launch(void)
 	if (initialize())
 	{
 		run();
+
+		// Memory-leak
 		_DebugMemory.testMemoryLeak();
+
 		terminate();
 	}
 }

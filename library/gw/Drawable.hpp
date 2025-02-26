@@ -48,6 +48,8 @@ public:
 	Drawable& operator=(Drawable&&) = delete;
 
 public:
+	virtual bool createDeviceIndependentResources(Context* ctx) = 0;
+	virtual void destroyDeviceIndependentResources(void) = 0;
 	virtual bool createDeviceResources(Context* ctx) = 0;
 	virtual void destroyDeviceResources(void) = 0;
 	virtual void draw(Context* ctx) = 0;
@@ -89,6 +91,8 @@ public:
 	//-----------------------------------------------------------------------
 	// Drawable
 public:
+	virtual bool createDeviceIndependentResources(Context* ctx) override;
+	virtual void destroyDeviceIndependentResources(void) override;
 	virtual bool createDeviceResources(Context* ctx) override;
 	virtual void destroyDeviceResources(void) override;
 	virtual void draw(Context* ctx) override;
@@ -136,6 +140,8 @@ public:
 	//-----------------------------------------------------------------------
 	// Drawable
 public:
+	virtual bool createDeviceIndependentResources(Context* ctx) override;
+	virtual void destroyDeviceIndependentResources(void) override;
 	virtual bool createDeviceResources(Context* ctx) override;
 	virtual void destroyDeviceResources(void) override;
 	virtual void draw(Context* ctx) override;

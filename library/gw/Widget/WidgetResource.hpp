@@ -29,12 +29,17 @@ public:
 	};
 
 private:
-	std::wstring _Id     { };
-	Type         _Type   { Type::UNKNOWN };
-	IUnknown*    _Pointer{ nullptr };
+	bool         _IsDeviceResource { false };
+	std::wstring _Id               { };
+	Type         _Type             { Type::UNKNOWN };
+	IUnknown*    _Pointer          { nullptr };
 
 public:
-	explicit WidgetResource(std::wstring id, Type type, IUnknown* pointer=nullptr);
+	explicit WidgetResource(
+		std::wstring id, 
+		Type type, 
+		IUnknown* pointer=nullptr
+	);
 
 public:
 	virtual ~WidgetResource();
@@ -50,6 +55,7 @@ public:
 	void release(void);
 
 public:
+	bool         IsDeviceResource (void);
 	std::wstring getId(void);
 	Type         getType(void);
 	IUnknown*    getPointer(void);
@@ -60,6 +66,14 @@ public:
 	ID2D1SolidColorBrush* getSolidColorBrush(void);
 	ID2D1StrokeStyle*     getStrokeStyle(void);
 };
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+bool isDeviceResource(WidgetResource::Type type);
 
 
 
@@ -97,6 +111,7 @@ public:
 public:
 	virtual void discard(void);
 	virtual void clear(void);
+	virtual void discardDeviceResources(void);
 
 protected:
 	virtual WidgetResourceSharedPtr registerWidgetResource(std::wstring id, WidgetResource::Type type);
