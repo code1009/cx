@@ -73,9 +73,6 @@
     <ClInclude Include="..\..\library\wui\DialogTemplate.hpp">
       <Filter>library_cx\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\GDIObject.hpp">
-      <Filter>library_cx\wui</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\library\wui\MessageMapWindow.hpp">
       <Filter>library_cx\wui</Filter>
     </ClInclude>
@@ -196,9 +193,6 @@
       <Filter>library_cx\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\DialogTemplate.cpp">
-      <Filter>library_cx\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\GDIObject.cpp">
       <Filter>library_cx\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Resource.cpp">

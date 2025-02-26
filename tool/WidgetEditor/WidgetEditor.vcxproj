@@ -94,7 +94,7 @@
     <ClInclude Include="..\..\library\wui\DC_Classes.hpp" />
     <ClInclude Include="..\..\library\wui\DC_Functions.hpp" />
     <ClInclude Include="..\..\library\wui\DialogTemplate.hpp" />
-    <ClInclude Include="..\..\library\wui\GDIObject.hpp" />
+    <ClInclude Include="..\..\library\wui\GDIObject_Font.hpp" />
     <ClInclude Include="..\..\library\wui\MessageMapWindow.hpp" />
     <ClInclude Include="..\..\library\wui\pch.hpp" />
     <ClInclude Include="..\..\library\wui\Resource.hpp" />
@@ -178,7 +178,7 @@
     <ClCompile Include="..\..\library\wui\DC_Classes.cpp" />
     <ClCompile Include="..\..\library\wui\DC_Functions.cpp" />
     <ClCompile Include="..\..\library\wui\DialogTemplate.cpp" />
-    <ClCompile Include="..\..\library\wui\GDIObject.cpp" />
+    <ClCompile Include="..\..\library\wui\GDIObject_Font.cpp" />
     <ClCompile Include="..\..\library\wui\Resource.cpp" />
     <ClCompile Include="..\..\library\wui\Resource_Functions.cpp" />
     <ClCompile Include="..\..\library\wui\Window.cpp" />

@@ -108,7 +108,7 @@
     <ClInclude Include="..\..\library\wui\DialogTemplate.hpp">
       <Filter>library_cx\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\GDIObject.hpp">
+    <ClInclude Include="..\..\library\wui\GDIObject_Font.hpp">
       <Filter>library_cx\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\MessageMapWindow.hpp">
@@ -383,7 +383,7 @@
     <ClCompile Include="..\..\library\wui\DialogTemplate.cpp">
       <Filter>library_cx\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\GDIObject.cpp">
+    <ClCompile Include="..\..\library\wui\GDIObject_Font.cpp">
       <Filter>library_cx\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Resource.cpp">

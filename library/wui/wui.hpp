@@ -65,7 +65,7 @@
 #include "DC_Functions.hpp"
 
 // # GDI 객체
-#include "GDIObject.hpp"
+#include "GDIObject_Font.hpp"
 
 //===========================================================================
 // # .rc 리소스
