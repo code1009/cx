@@ -53,7 +53,7 @@ WidgetDesignerModel::WidgetDesignerModel(Window* window):
 //===========================================================================
 WidgetDesignerModel::~WidgetDesignerModel()
 {
-	_WidgetResourceMap->discard();
+	_WidgetResourceMap->clear();
 
 	destroyDeviceResources();
 	destroyDeviceIndependentResources();
@@ -77,7 +77,7 @@ bool WidgetDesignerModel::createDeviceResources(Context* ctx)
 
 
 	//-----------------------------------------------------------------------
-	if (_DiscardedWidgetDeviceResources)
+	if (_DiscardedWidgetResources)
 	{
 		rv = getDesigeWidgetContext()->loadResources(_WidgetResourceMap.get());
 		if (!rv)
@@ -95,7 +95,7 @@ bool WidgetDesignerModel::createDeviceResources(Context* ctx)
 			return false;
 		}
 
-		_DiscardedWidgetDeviceResources = true;
+		_DiscardedWidgetResources = false;
 	}
 
 
@@ -105,7 +105,7 @@ bool WidgetDesignerModel::createDeviceResources(Context* ctx)
 void WidgetDesignerModel::destroyDeviceResources(void)
 {
 	_WidgetResourceMap->discardDeviceResources();
-	_DiscardedWidgetDeviceResources = true;
+	_DiscardedWidgetResources = true;
 }
 
 //===========================================================================
@@ -125,8 +125,8 @@ void WidgetDesignerModel::onWidgetPropertyChanged(Widget::PropertyChangedParam* 
 {
 	if (param->_Code == 0x80000000)
 	{
-		_WidgetResourceMap->discardDeviceResources();
-		_DiscardedWidgetDeviceResources = true;
+		_WidgetResourceMap->clear();
+		_DiscardedWidgetResources = true;
 	}
 
 	_Window->render();
