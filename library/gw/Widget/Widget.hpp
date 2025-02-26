@@ -45,8 +45,8 @@ public:
 protected:
 	std::wstring       _ClassName {};
 	std::wstring       _Name      {};
-	std::vector<Point> _Points    {};
 	bool               _Visible   { true };
+	std::vector<Point> _Points    {};
 
 protected:
 	PropertyChangedHandler _PropertyChangedHandler{};
@@ -72,25 +72,18 @@ public:
 	//-----------------------------------------------------------------------
 public:
 	virtual std::wstring getClassName(void) const;
-
-public:
 	virtual std::wstring getName(void) const;
 	virtual void setName(std::wstring name);
-
 	virtual bool getVisible(void) const;
 	virtual void setVisible(bool visible);
 
+public:
 	virtual std::vector<Point>& getPoints(void);
 	virtual void setPoints(std::vector<Point> points);
-
 	virtual void setPoint(std::size_t n, Point p);
-
-public:
 	virtual void getBounds(Point& p0, Point& p1);
 	virtual void setBounds(const Point& p0, const Point& p1);
-
 	virtual bool isPointIn(const Point& test) const;
-
 	virtual void moveOffset(const Point& offset);
 
 	//-----------------------------------------------------------------------
