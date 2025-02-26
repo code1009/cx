@@ -72,13 +72,16 @@ public:
 	//-----------------------------------------------------------------------
 public:
 	virtual std::wstring getClassName(void) const;
+
 	virtual std::wstring getName(void) const;
 	virtual void setName(std::wstring name);
+
 	virtual bool getVisible(void) const;
 	virtual void setVisible(bool visible);
 
 public:
 	virtual std::vector<Point>& getPoints(void);
+
 	virtual void setPoints(std::vector<Point> points);
 	virtual void setPoint(std::size_t n, Point p);
 	virtual void getBounds(Point& p0, Point& p1);
