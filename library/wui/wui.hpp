@@ -60,6 +60,7 @@
 //===========================================================================
 // # DeviceContext
 #include "DC.hpp"
+#include "BasicDCT.hpp"
 #include "DC_Classes.hpp"
 #include "DC_Functions.hpp"
 

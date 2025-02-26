@@ -339,6 +339,9 @@
     <ClInclude Include="..\..\library\wui\BasicWindowT.hpp">
       <Filter>library_cx\wui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\BasicDCT.hpp">
+      <Filter>library_cx\wui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
