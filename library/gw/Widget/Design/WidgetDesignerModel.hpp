@@ -30,7 +30,7 @@ private:
 	std::unique_ptr<DesigeWidgetContext> _DesigeWidgetContext;	
 	std::unique_ptr<WidgetDesigner>      _WidgetDesigner;
 	
-	bool _UpdateWidgetResourceMap{ false };
+	bool _UpdateWidgetResourceMap{ true };
 
 public:
 	explicit WidgetDesignerModel(Window* window);

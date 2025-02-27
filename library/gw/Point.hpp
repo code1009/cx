@@ -81,8 +81,14 @@ bool isPointsInBounds(const Point& _p0, const Point& _p1, const std::vector<Poin
 
 std::vector<Point> getBoundsPoints(const Point& _p0, const Point& _p1);
 
+bool isPointOnLine(Point p, Point p0, Point p1, coord_t t);
+Point getLineOffsetPoint(Point p0, Point p1, coord_t d);
+Point getLineCenterPoint(Point p0, Point p1);
+float getLineAngle(Point p0, Point p1);
 
+bool isPointOnPolygon(Point p, std::vector<Point>& polygon);
 
+Point rotatePoint(Point p0, Point p, float angle);
 
 
 /////////////////////////////////////////////////////////////////////////////

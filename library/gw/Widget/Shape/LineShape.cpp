@@ -23,6 +23,10 @@ namespace cx::gw
 LineShape::LineShape():
 	Shape{ L"Shape.Line" }
 {
+	_LineStyle.setWidth(40.0f);
+	_LineStyle.setColor(Color{ 1.0f, 1.0f, 0.0f, 0.5f });
+	
+
 	_FillStyle.setStyleChangedHandler(
 		std::bind(&LineShape::onWidgetDrawingStyleChanged, this, std::placeholders::_1)
 	);
@@ -47,6 +51,11 @@ WidgetSharedPtr LineShape::clone(void) const
 	auto o = std::make_shared<LineShape>();
 	copyTo(o);
 	return o;
+}
+
+bool LineShape::isPointIn(const Point& test) const
+{
+	return isPointOnLine(test, _Points[0], _Points[1], _LineStyle.getWidth() + 10.0f);
 }
 
 void LineShape::draw(Context* ctx)

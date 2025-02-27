@@ -29,6 +29,7 @@ public:
 	// Widget
 public:
 	virtual WidgetSharedPtr clone(void) const override;
+	virtual bool isPointIn(const Point& test) const;
 	virtual void draw(Context* ctx) override;
 
 	//-----------------------------------------------------------------------
