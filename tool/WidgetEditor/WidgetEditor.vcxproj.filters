@@ -291,7 +291,7 @@
     <ClInclude Include="..\..\library\gw\Widget\pch.hpp">
       <Filter>library_cx\gw\Widget</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\gw\Widget\Design\DesigeWidgetContext.hpp">
+    <ClInclude Include="..\..\library\gw\Widget\Design\DesignWidgetContext.hpp">
       <Filter>library_cx\gw\Widget\Design</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\gw\Widget\Design\DesignWidget.hpp">
@@ -530,7 +530,7 @@
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.cpp">
       <Filter>library_cx\gw\Widget\Design</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\gw\Widget\Design\DesigeWidgetContext.cpp">
+    <ClCompile Include="..\..\library\gw\Widget\Design\DesignWidgetContext.cpp">
       <Filter>library_cx\gw\Widget\Design</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Widget\Design\DesignWidget.cpp">

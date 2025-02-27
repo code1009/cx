@@ -20,7 +20,7 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bool DesigeWidgetContext::loadResources(WidgetResourceMap* widgetResourceMap)
+bool DesignWidgetContext::loadResources(WidgetResourceMap* widgetResourceMap)
 {
 	//--------------------------------------------------------------------------
 	_Marker_Fill_Brush = widgetResourceMap->getFill_SolidColorBrush(&_Marker_FillStyle);

@@ -30,7 +30,7 @@
 #include "Widget/WidgetEventDragDrop.hpp"
 
 //===========================================================================
-#include "Widget/Design/DesigeWidgetContext.hpp"
+#include "Widget/Design/DesignWidgetContext.hpp"
 #include "Widget/Design/DesignWidget.hpp"
 
 #include "Widget/Design/WidgetDesignerTool.hpp"

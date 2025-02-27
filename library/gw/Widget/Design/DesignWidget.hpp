@@ -18,7 +18,7 @@ namespace cx::gw
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class WidgetDesignerModel;
-class DesigeWidgetContext;
+class DesignWidgetContext;
 class WidgetDesigner;
 
 
@@ -61,7 +61,7 @@ public:
 	//-----------------------------------------------------------------------
 public:
 	virtual void setWidgetDesignerModel(WidgetDesignerModel* widgetDesignerModel);
-	virtual DesigeWidgetContext* getDesigeWidgetContext(void) const;
+	virtual DesignWidgetContext* getDesignWidgetContext(void) const;
 	virtual WidgetDesigner* getWidgetDesinger(void) const;
 	virtual void setMarkerVisible(bool visible);
 	virtual bool getMarkerVisible(void) const;

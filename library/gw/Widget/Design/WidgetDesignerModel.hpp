@@ -27,7 +27,7 @@ private:
 	std::unique_ptr<WidgetEventDragDropHandler>      _WidgetEventDragDropHandler;
 	
 	std::unique_ptr<WidgetResourceMap>   _WidgetResourceMap;
-	std::unique_ptr<DesigeWidgetContext> _DesigeWidgetContext;	
+	std::unique_ptr<DesignWidgetContext> _DesignWidgetContext;	
 	std::unique_ptr<WidgetDesigner>      _WidgetDesigner;
 	
 	bool _UpdateWidgetResourceMap{ true };
@@ -45,7 +45,7 @@ public:
 	[[nodiscard]] constexpr WidgetEventWindowMessageHandler* getWidgetEventWindowMessageHandler(void) const { return _WidgetEventWindowMessageHandler.get(); }
 	[[nodiscard]] constexpr WidgetEventDragDropHandler*      getWidgetEventDragDropHandler     (void) const { return _WidgetEventDragDropHandler.get(); }
 	[[nodiscard]] constexpr WidgetResourceMap*   getWidgetResourceMap  (void) const { return _WidgetResourceMap.get(); }
-	[[nodiscard]] constexpr DesigeWidgetContext* getDesigeWidgetContext(void) const { return _DesigeWidgetContext.get(); }
+	[[nodiscard]] constexpr DesignWidgetContext* getDesignWidgetContext(void) const { return _DesignWidgetContext.get(); }
 	[[nodiscard]] constexpr WidgetDesigner*      getWidgetDesigner     (void) const { return _WidgetDesigner.get(); }
 
 public:

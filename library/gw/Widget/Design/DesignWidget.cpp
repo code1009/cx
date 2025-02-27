@@ -74,9 +74,9 @@ void DesignWidget::setWidgetDesignerModel(WidgetDesignerModel* widgetDesignerMod
 	_WidgetDesignerModel = widgetDesignerModel;
 }
 
-DesigeWidgetContext* DesignWidget::getDesigeWidgetContext(void) const
+DesignWidgetContext* DesignWidget::getDesignWidgetContext(void) const
 {
-	return _WidgetDesignerModel->getDesigeWidgetContext();
+	return _WidgetDesignerModel->getDesignWidgetContext();
 }
 
 WidgetDesigner* DesignWidget::getWidgetDesinger(void) const
@@ -147,10 +147,10 @@ bool DesignWidget::isPointInMarkers(const Point& test) const
 
 void DesignWidget::drawMarker(Context* ctx, Point marker)
 {
-	WidgetResource* _Marker_Fill_Brush      = getDesigeWidgetContext()->getMarker_Fill_Brush     ();
-	WidgetResource* _Marker_Line_Brush      = getDesigeWidgetContext()->getMarker_Line_Brush     ();
-	WidgetResource* _Marker_Text_Brush      = getDesigeWidgetContext()->getMarker_Text_Brush     ();
-	WidgetResource* _Marker_Text_TextFormat = getDesigeWidgetContext()->getMarker_Text_TextFormat();
+	WidgetResource* _Marker_Fill_Brush      = getDesignWidgetContext()->getMarker_Fill_Brush     ();
+	WidgetResource* _Marker_Line_Brush      = getDesignWidgetContext()->getMarker_Line_Brush     ();
+	WidgetResource* _Marker_Text_Brush      = getDesignWidgetContext()->getMarker_Text_Brush     ();
+	WidgetResource* _Marker_Text_TextFormat = getDesignWidgetContext()->getMarker_Text_TextFormat();
 
 #if 0
 	Point p0;
@@ -172,7 +172,7 @@ void DesignWidget::drawMarker(Context* ctx, Point marker)
 	ctx->getD2dRenderTarget()->DrawRectangle(
 		&rect,
 		_Marker_Line_Brush->getSolidColorBrush(),
-		getDesigeWidgetContext()->_Marker_LineStyle.getWidth()
+		getDesignWidgetContext()->_Marker_LineStyle.getWidth()
 	);
 #else
 	D2D1_ELLIPSE ellipse = D2D1::Ellipse(
@@ -187,7 +187,7 @@ void DesignWidget::drawMarker(Context* ctx, Point marker)
 	ctx->getD2dRenderTarget()->DrawEllipse(
 		&ellipse,
 		_Marker_Line_Brush->getSolidColorBrush(),
-		1.0f // getDesigeWidgetContext()->_Marker_LineStyle.getWidth()
+		1.0f // getDesignWidgetContext()->_Marker_LineStyle.getWidth()
 	);
 #endif
 }
@@ -203,8 +203,8 @@ void DesignWidget::drawMarkers(Context* ctx)
 //===========================================================================
 void DesignWidget::drawBounds(Context* ctx, const Point& p0, const Point& p1)
 {
-	WidgetResource* _Guide_Line_Brush       = getDesigeWidgetContext()->getGuide_Line_Brush      ();
-	WidgetResource* _Guide_Line_StrokeStyle = getDesigeWidgetContext()->getGuide_Line_StrokeStyle();
+	WidgetResource* _Guide_Line_Brush       = getDesignWidgetContext()->getGuide_Line_Brush      ();
+	WidgetResource* _Guide_Line_StrokeStyle = getDesignWidgetContext()->getGuide_Line_StrokeStyle();
 
 
 	D2D1_RECT_F rect = D2D1::RectF(
@@ -215,7 +215,7 @@ void DesignWidget::drawBounds(Context* ctx, const Point& p0, const Point& p1)
 	ctx->getD2dRenderTarget()->DrawRectangle(
 		&rect,
 		_Guide_Line_Brush->getSolidColorBrush(),
-		2.0f, //  getDesigeWidgetContext()->_Guide_LineStyle.get_width(),
+		2.0f, //  getDesignWidgetContext()->_Guide_LineStyle.get_width(),
 		_Guide_Line_StrokeStyle->getStrokeStyle()
 	);
 }

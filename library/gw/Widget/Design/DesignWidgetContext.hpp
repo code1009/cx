@@ -17,7 +17,7 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class DesigeWidgetContext final
+class DesignWidgetContext final
 {
 public:
 	WidgetFillStyle _Marker_FillStyle { Color{0.5f, 0.5f, 1.0f, 0.5f} };
@@ -34,15 +34,15 @@ private:
 	WidgetResource* _Guide_Line_StrokeStyle{ nullptr };// ID2D1StrokeStyle* 
 
 public:
-	DesigeWidgetContext() = default;
-	virtual ~DesigeWidgetContext() = default;
+	DesignWidgetContext() = default;
+	virtual ~DesignWidgetContext() = default;
 
 public:
-	DesigeWidgetContext(const DesigeWidgetContext&) = delete;
-	DesigeWidgetContext& operator=(const DesigeWidgetContext&) = delete;
+	DesignWidgetContext(const DesignWidgetContext&) = delete;
+	DesignWidgetContext& operator=(const DesignWidgetContext&) = delete;
 
-	DesigeWidgetContext(DesigeWidgetContext&&) = delete;
-	DesigeWidgetContext& operator=(DesigeWidgetContext&&) = delete;
+	DesignWidgetContext(DesignWidgetContext&&) = delete;
+	DesignWidgetContext& operator=(DesignWidgetContext&&) = delete;
 
 public:
 	WidgetResource* getMarker_Fill_Brush     (void) { return _Marker_Fill_Brush;      }
