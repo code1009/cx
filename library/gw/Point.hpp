@@ -91,6 +91,9 @@ bool isPointOnPolygon(Point p, std::vector<Point>& polygon);
 Point rotatePoint(Point p0, Point p, float angle);
 
 
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
