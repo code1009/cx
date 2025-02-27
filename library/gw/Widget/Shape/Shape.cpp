@@ -94,7 +94,7 @@ void Shape::setWidgetDocument(WidgetDocument* doc)
 //===========================================================================
 void Shape::onWidgetDrawingStyleChanged(WidgetDrawingStyle::StyleChangedParam* param)
 {
-	setPropertyChanged(0x80000000);
+	setPropertyChanged(static_cast<std::uint32_t>(Widget::PropertyChangedParam::Code::ReloadResources));
 }
 
 

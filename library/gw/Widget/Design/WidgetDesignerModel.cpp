@@ -123,7 +123,7 @@ void WidgetDesignerModel::drawWidgetDocument(Context* ctx)
 //===========================================================================
 void WidgetDesignerModel::onWidgetPropertyChanged(Widget::PropertyChangedParam* param)
 {
-	if (param->_Code == 0x80000000)
+	if (param->_Code & static_cast<std::uint32_t>(Widget::PropertyChangedParam::Code::ReloadResources))
 	{
 		bool rv;
 		rv = param->_Sender->loadResources(_WidgetResourceMap.get());

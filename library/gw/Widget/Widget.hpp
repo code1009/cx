@@ -35,6 +35,12 @@ public:
 	class PropertyChangedParam
 	{
 	public:
+		enum class Code : std::uint32_t
+		{
+			ReloadResources = 0x80000000,
+		};
+
+	public:
 		Widget*       _Sender;
 		std::uint32_t _Code;
 		void*         _Data;
