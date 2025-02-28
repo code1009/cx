@@ -24,7 +24,7 @@ class WidgetDesigner;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class WidgetDesignerTool
+class WidgetDesignerMouseTool
 {
 protected:
 	WidgetDesigner* _WidgetDesigner{ nullptr };
@@ -56,17 +56,17 @@ protected:
 	WidgetResource* _Select_Text_TextFormat{ nullptr };
 
 public:
-	explicit WidgetDesignerTool(WidgetDesigner* widgetDesigner);
+	explicit WidgetDesignerMouseTool(WidgetDesigner* widgetDesigner);
 
 public:
-	virtual ~WidgetDesignerTool() = default;
+	virtual ~WidgetDesignerMouseTool() = default;
 
 public:
-	WidgetDesignerTool(const WidgetDesignerTool&) = delete;
-	WidgetDesignerTool& operator=(const WidgetDesignerTool&) = delete;
+	WidgetDesignerMouseTool(const WidgetDesignerMouseTool&) = delete;
+	WidgetDesignerMouseTool& operator=(const WidgetDesignerMouseTool&) = delete;
 
-	WidgetDesignerTool(WidgetDesignerTool&&) = delete;
-	WidgetDesignerTool& operator=(WidgetDesignerTool&&) = delete;
+	WidgetDesignerMouseTool(WidgetDesignerMouseTool&&) = delete;
+	WidgetDesignerMouseTool& operator=(WidgetDesignerMouseTool&&) = delete;
 
 public:
 	void getSelectBounds(Point& p0, Point& p1);

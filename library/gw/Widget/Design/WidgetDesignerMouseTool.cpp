@@ -20,21 +20,21 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WidgetDesignerTool::WidgetDesignerTool(WidgetDesigner* widgetDesigner):
+WidgetDesignerMouseTool::WidgetDesignerMouseTool(WidgetDesigner* widgetDesigner):
 	_WidgetDesigner{ widgetDesigner }
 {
 	registerEventHandler();
 }
 
 //===========================================================================
-void WidgetDesignerTool::getSelectBounds(Point& p0, Point& p1)
+void WidgetDesignerMouseTool::getSelectBounds(Point& p0, Point& p1)
 {
 	p0 = _p0;
 	p1 = _p1;
 }
 
 //===========================================================================
-void WidgetDesignerTool::registerEventHandler(void)
+void WidgetDesignerMouseTool::registerEventHandler(void)
 {
 	//-----------------------------------------------------------------------
 	WidgetEventDispatcher* widgetEventDispatcher;
@@ -48,17 +48,17 @@ void WidgetDesignerTool::registerEventHandler(void)
 	widgetEventDispatcher->registerEventHandler<const WidgetMouseEventParam&>(
 		WidgetEventType::MouseMove,
 		nullptr,
-		std::bind(&WidgetDesignerTool::onMouseMove, this,std::placeholders::_1)
+		std::bind(&WidgetDesignerMouseTool::onMouseMove, this,std::placeholders::_1)
 	);
 	widgetEventDispatcher->registerEventHandler<const WidgetMouseEventParam&>(
 		WidgetEventType::MouseLButtonDown,
 		nullptr,
-		std::bind(&WidgetDesignerTool::onMouseLButtonDown, this, std::placeholders::_1)
+		std::bind(&WidgetDesignerMouseTool::onMouseLButtonDown, this, std::placeholders::_1)
 	);
 	widgetEventDispatcher->registerEventHandler<const WidgetMouseEventParam&>(
 		WidgetEventType::MouseLButtonUp,
 		nullptr,
-		std::bind(&WidgetDesignerTool::onMouseLButtonUp, this, std::placeholders::_1)
+		std::bind(&WidgetDesignerMouseTool::onMouseLButtonUp, this, std::placeholders::_1)
 	);
 
 
@@ -66,27 +66,27 @@ void WidgetDesignerTool::registerEventHandler(void)
 	widgetEventDispatcher->registerEventHandler<const WidgetMouseDragEnterEventParam&>(
 		WidgetEventType::MouseDragEnter,
 		nullptr,
-		std::bind(&WidgetDesignerTool::onMouseDragEnter, this, std::placeholders::_1)
+		std::bind(&WidgetDesignerMouseTool::onMouseDragEnter, this, std::placeholders::_1)
 	);
 	widgetEventDispatcher->registerEventHandler<const WidgetMouseDragOverEventParam&>(
 		WidgetEventType::MouseDragOver,
 		nullptr,
-		std::bind(&WidgetDesignerTool::onMouseDragOver, this, std::placeholders::_1)
+		std::bind(&WidgetDesignerMouseTool::onMouseDragOver, this, std::placeholders::_1)
 	);
 	widgetEventDispatcher->registerEventHandler<const WidgetMouseDragLeaveEventParam&>(
 		WidgetEventType::MouseDragLeave,
 		nullptr,
-		std::bind(&WidgetDesignerTool::onMouseDragLeave, this, std::placeholders::_1)
+		std::bind(&WidgetDesignerMouseTool::onMouseDragLeave, this, std::placeholders::_1)
 	);
 	widgetEventDispatcher->registerEventHandler<const WidgetMouseDropEventParam&>(
 		WidgetEventType::MouseDrop,
 		nullptr,
-		std::bind(&WidgetDesignerTool::onMouseDrop, this, std::placeholders::_1)
+		std::bind(&WidgetDesignerMouseTool::onMouseDrop, this, std::placeholders::_1)
 	);
 }
 
 //===========================================================================
-void WidgetDesignerTool::onMouseMove(const WidgetMouseEventParam& param)
+void WidgetDesignerMouseTool::onMouseMove(const WidgetMouseEventParam& param)
 {
 	_p1 = param._MousePosition;
 
@@ -106,7 +106,7 @@ void WidgetDesignerTool::onMouseMove(const WidgetMouseEventParam& param)
 	}
 }
 
-void WidgetDesignerTool::onMouseLButtonDown(const WidgetMouseEventParam& param)
+void WidgetDesignerMouseTool::onMouseLButtonDown(const WidgetMouseEventParam& param)
 {
 	_p0 = param._MousePosition;
 	_p1 = param._MousePosition;
@@ -181,7 +181,7 @@ void WidgetDesignerTool::onMouseLButtonDown(const WidgetMouseEventParam& param)
 	}
 }
 
-void WidgetDesignerTool::onMouseLButtonUp(const WidgetMouseEventParam& param)
+void WidgetDesignerMouseTool::onMouseLButtonUp(const WidgetMouseEventParam& param)
 {
 	_p1 = param._MousePosition;
 
@@ -217,7 +217,7 @@ void WidgetDesignerTool::onMouseLButtonUp(const WidgetMouseEventParam& param)
 }
 
 //===========================================================================
-void WidgetDesignerTool::onMouseDragEnter(const WidgetMouseDragEnterEventParam& param)
+void WidgetDesignerMouseTool::onMouseDragEnter(const WidgetMouseDragEnterEventParam& param)
 {
 	Point _MousePoint = _WidgetDesigner->toSnappedPoint(param._MousePosition);
 	_NewWidget_Point = _MousePoint;
@@ -248,7 +248,7 @@ void WidgetDesignerTool::onMouseDragEnter(const WidgetMouseDragEnterEventParam& 
 	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
-void WidgetDesignerTool::onMouseDragOver(const WidgetMouseDragOverEventParam& param)
+void WidgetDesignerMouseTool::onMouseDragOver(const WidgetMouseDragOverEventParam& param)
 {
 	Point _MousePoint = _WidgetDesigner->toSnappedPoint(param._MousePosition);
 	Point offset = _MousePoint - _NewWidget_Point;
@@ -265,7 +265,7 @@ void WidgetDesignerTool::onMouseDragOver(const WidgetMouseDragOverEventParam& pa
 	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
-void WidgetDesignerTool::onMouseDragLeave(const WidgetMouseDragLeaveEventParam& param)
+void WidgetDesignerMouseTool::onMouseDragLeave(const WidgetMouseDragLeaveEventParam& param)
 {
 	if (nullptr == _NewWidget)
 	{
@@ -277,7 +277,7 @@ void WidgetDesignerTool::onMouseDragLeave(const WidgetMouseDragLeaveEventParam& 
 	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
-void WidgetDesignerTool::onMouseDrop(const WidgetMouseDropEventParam& param)
+void WidgetDesignerMouseTool::onMouseDrop(const WidgetMouseDropEventParam& param)
 {
 	Point _MousePoint = _WidgetDesigner->toSnappedPoint(param._MousePosition);
 	Point offset = _MousePoint - _NewWidget_Point;
@@ -300,7 +300,7 @@ void WidgetDesignerTool::onMouseDrop(const WidgetMouseDropEventParam& param)
 }
 
 //===========================================================================
-bool WidgetDesignerTool::loadResources(WidgetResourceMap* widgetResourceMap)
+bool WidgetDesignerMouseTool::loadResources(WidgetResourceMap* widgetResourceMap)
 {
 	_Select_Fill_Brush = widgetResourceMap->getFill_SolidColorBrush(&_Select_FillStyle);
 	if (nullptr == _Select_Fill_Brush)
@@ -327,7 +327,7 @@ bool WidgetDesignerTool::loadResources(WidgetResourceMap* widgetResourceMap)
 }
 
 //===========================================================================
-void WidgetDesignerTool::draw(Context* ctx)
+void WidgetDesignerMouseTool::draw(Context* ctx)
 {
 	if (_Action_SelectMultiple)
 	{
@@ -340,7 +340,7 @@ void WidgetDesignerTool::draw(Context* ctx)
 	}
 }
 
-void WidgetDesignerTool::drawSelectBounds(Context* ctx)
+void WidgetDesignerMouseTool::drawSelectBounds(Context* ctx)
 {
 	//-----------------------------------------------------------------------
 	Point p0;

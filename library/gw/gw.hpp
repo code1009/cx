@@ -33,7 +33,7 @@
 #include "Widget/Design/DesignWidgetContext.hpp"
 #include "Widget/Design/DesignWidget.hpp"
 
-#include "Widget/Design/WidgetDesignerTool.hpp"
+#include "Widget/Design/WidgetDesignerMouseTool.hpp"
 #include "Widget/Design/WidgetDesigner.hpp"
 
 #include "Widget/Design/WidgetDesignerModel.hpp"

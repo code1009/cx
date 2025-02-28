@@ -23,10 +23,22 @@ namespace cx::gw
 WidgetDesigner::WidgetDesigner(WidgetDesignerModel* model):
 	_WidgetDesignerModel{ model }
 {
-	_WidgetDesignerTool = std::make_unique<WidgetDesignerTool>(this);
+	_WidgetDesignerMouseTool = std::make_unique<WidgetDesignerMouseTool>(this);
 }
 
 //===========================================================================
+void WidgetDesigner::setGridSize(std::uint64_t x, std::uint64_t y)
+{
+	_GridXSize = x;
+	_GridYSize = y;
+}
+
+void WidgetDesigner::getGridSize(std::uint64_t& x, std::uint64_t& y) const
+{
+	x = _GridXSize;
+	y = _GridYSize;
+}
+
 bool WidgetDesigner::getSnapToGrid(void) const
 {
 	return _SnapToGrid;
@@ -168,7 +180,7 @@ void WidgetDesigner::selectWidgetsInBounds(void)
 
 	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
 	{
-		_WidgetDesignerTool->getSelectBounds(p0, p1);
+		_WidgetDesignerMouseTool->getSelectBounds(p0, p1);
 
 		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
 		if (designWidget)
@@ -233,12 +245,12 @@ void WidgetDesigner::moveSelectedWidgets(Point offset)
 //===========================================================================
 bool WidgetDesigner::loadResources(WidgetResourceMap* widgetResourceMap)
 {
-	return _WidgetDesignerTool->loadResources(widgetResourceMap);
+	return _WidgetDesignerMouseTool->loadResources(widgetResourceMap);
 }
 
 void WidgetDesigner::draw(Context* ctx)
 {
-	_WidgetDesignerTool->draw(ctx);
+	_WidgetDesignerMouseTool->draw(ctx);
 }
 
 

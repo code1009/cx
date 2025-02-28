@@ -30,7 +30,7 @@ protected:
 	WidgetDesignerModel* _WidgetDesignerModel{ nullptr };
 
 protected:
-	std::unique_ptr<WidgetDesignerTool> _WidgetDesignerTool;
+	std::unique_ptr<WidgetDesignerMouseTool> _WidgetDesignerMouseTool;
 
 protected:
 	std::uint64_t _GridXSize { 20 };
@@ -54,6 +54,8 @@ public:
 	WidgetDesigner& operator=(WidgetDesigner&&) = delete;
 
 public:
+	void setGridSize(std::uint64_t x, std::uint64_t y);
+	void getGridSize(std::uint64_t& x, std::uint64_t& y) const;
 	bool getSnapToGrid(void) const;
 	void setSnapToGrid(bool snapToGrid);
 	Point toGridPoint(Point p) const;

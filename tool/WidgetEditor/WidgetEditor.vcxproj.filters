@@ -303,7 +303,7 @@
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesigner.hpp">
       <Filter>library_cx\gw\Widget\Design</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerTool.hpp">
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerMouseTool.hpp">
       <Filter>library_cx\gw\Widget\Design</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\gw\Widget\Shape\Shape.hpp">
@@ -539,7 +539,7 @@
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerWindow.cpp">
       <Filter>library_cx\gw\Widget\Design</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerTool.cpp">
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerMouseTool.cpp">
       <Filter>library_cx\gw\Widget\Design</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesigner.cpp">
