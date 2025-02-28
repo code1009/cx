@@ -198,7 +198,6 @@ void WebUIWindow::onDPIChanged(cx::wui::WindowMessage& windowMessage)
 int WebUIWindow::getDPIAwareBound(int bound) const
 {
 	constexpr int DEFAULT_DPI = 96;
-
 	return (bound * GetDpiForWindow(getWindowHandle()) / DEFAULT_DPI);
 }
 
