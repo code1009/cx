@@ -351,6 +351,9 @@
     <ClInclude Include="..\..\library\wui\GDIObject_Bitmap.hpp">
       <Filter>library_cx\wui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerFacility.hpp">
+      <Filter>library_cx\gw\Widget\Design</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -580,6 +583,9 @@
     </ClCompile>
     <ClCompile Include="..\..\library\wui\GDIObject_Bitmap.cpp">
       <Filter>library_cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerFacility.cpp">
+      <Filter>library_cx\gw\Widget\Design</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

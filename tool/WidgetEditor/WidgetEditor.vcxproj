@@ -49,6 +49,7 @@
     <ClInclude Include="..\..\library\gw\Widget\Design\DesignWidget.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Design\pch.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesigner.hpp" />
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerFacility.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerMouseTool.hpp" />
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerWindow.hpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="..\..\library\gw\Widget\Design\DesignWidgetContext.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Design\DesignWidget.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesigner.cpp" />
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerFacility.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerMouseTool.cpp" />
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerWindow.cpp" />

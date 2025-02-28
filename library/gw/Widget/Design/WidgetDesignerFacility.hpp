@@ -17,39 +17,35 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class WidgetDesignerModel;
+class WidgetDesigner;
 
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class WidgetDesigner
+class WidgetDesignerFacility
 {
 protected:
-	WidgetDesignerModel* _WidgetDesignerModel{ nullptr };
+	WidgetDesigner* _WidgetDesigner{ nullptr };
 
 protected:
-	std::unique_ptr<WidgetDesignerMouseTool> _WidgetDesignerMouseTool;
-	std::unique_ptr<WidgetDesignerFacility>  _WidgetDesignerFacility;
+	std::uint64_t _GridXSize { 20 };
+	std::uint64_t _GridYSize { 20 };
+	bool _SnapToGrid { true };
 
 public:
-	explicit WidgetDesigner(WidgetDesignerModel* widgetDesignerModel);
+	explicit WidgetDesignerFacility(WidgetDesigner* widgetDesigner);
 
 public:
-	virtual ~WidgetDesigner() = default;
+	virtual ~WidgetDesignerFacility() = default;
 
 public:
-	WidgetDesignerModel*     getWidgetDesignerModel    (void) const { return _WidgetDesignerModel;           }
-	WidgetDesignerMouseTool* getWidgetDesignerMouseTool(void) const { return _WidgetDesignerMouseTool.get(); }
-	WidgetDesignerFacility*  getWidgetDesignerFacility (void) const { return _WidgetDesignerFacility.get();  }
+	WidgetDesignerFacility(const WidgetDesignerFacility&) = delete;
+	WidgetDesignerFacility& operator=(const WidgetDesignerFacility&) = delete;
 
-public:
-	WidgetDesigner(const WidgetDesigner&) = delete;
-	WidgetDesigner& operator=(const WidgetDesigner&) = delete;
-
-	WidgetDesigner(WidgetDesigner&&) = delete;
-	WidgetDesigner& operator=(WidgetDesigner&&) = delete;
+	WidgetDesignerFacility(WidgetDesignerFacility&&) = delete;
+	WidgetDesignerFacility& operator=(WidgetDesignerFacility&&) = delete;
 
 public:
 	void setGridSize(std::uint64_t x, std::uint64_t y);
@@ -69,10 +65,6 @@ public:
 	void selectWidgetsInBounds(void);
 	void deleteSelectedWidgets(void);
 	void moveSelectedWidgets(Point offset);
-
-public:
-	bool loadResources(WidgetResourceMap* widgetResourceMap);
-	void draw(Context* ctx);
 };
 
 
