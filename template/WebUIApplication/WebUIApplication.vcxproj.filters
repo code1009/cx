@@ -31,6 +31,9 @@
     <Filter Include="src\Window">
       <UniqueIdentifier>{3303fd9b-3de7-43b8-a4af-92c5c92f46a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\WebUI">
+      <UniqueIdentifier>{06e81f3c-9235-4f0c-93ed-e3e186e81283}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
@@ -207,6 +210,24 @@
     <ClInclude Include="src\Window\View.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
+    <ClInclude Include="src\WebUI\pch.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebUI\WebUIContents.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebUI\WebUIManager.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebUI\WebUIMessageService.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebUI\WebUIWindow.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebUI\WebUI.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\runtime\Assert.cpp">
@@ -320,11 +341,24 @@
     <ClCompile Include="src\Window\View.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
+    <ClCompile Include="src\WebUI\WebUIContents.cpp">
+      <Filter>src\WebUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebUI\WebUIManager.cpp">
+      <Filter>src\WebUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebUI\WebUIMessageService.cpp">
+      <Filter>src\WebUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebUI\WebUIWindow.cpp">
+      <Filter>src\WebUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps">
       <Filter>res</Filter>
     </None>
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Application.ico">

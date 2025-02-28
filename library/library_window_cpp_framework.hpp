@@ -68,23 +68,34 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 // C++ 런타임 헤더 파일입니다.
+#include <cinttypes>
 #include <cstdint>
 #include <cstddef>
 #include <stdexcept>
 
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 #include <string>
+#include <string_view>
+
 #include <vector>
 #include <stack>
+#include <deque>
+#include <list>
 #include <map>
 #include <unordered_map>
 
 #include <algorithm>
+#include <utility>
+
 #include <memory>
 #include <functional>
 #include <chrono>
 
+#include <atomic>
 #include <thread>
 #include <mutex>
 
+#include <filesystem>

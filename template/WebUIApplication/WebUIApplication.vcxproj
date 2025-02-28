@@ -73,6 +73,12 @@
     <ClInclude Include="src\framework.hpp" />
     <ClInclude Include="src\pch.hpp" />
     <ClInclude Include="src\targetver.h" />
+    <ClInclude Include="src\WebUI\pch.hpp" />
+    <ClInclude Include="src\WebUI\WebUI.hpp" />
+    <ClInclude Include="src\WebUI\WebUIContents.hpp" />
+    <ClInclude Include="src\WebUI\WebUIManager.hpp" />
+    <ClInclude Include="src\WebUI\WebUIMessageService.hpp" />
+    <ClInclude Include="src\WebUI\WebUIWindow.hpp" />
     <ClInclude Include="src\Window\AboutBox.hpp" />
     <ClInclude Include="src\Window\MainFrame.hpp" />
     <ClInclude Include="src\Window\pch.hpp" />
@@ -116,12 +122,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\WebUI\WebUIContents.cpp" />
+    <ClCompile Include="src\WebUI\WebUIManager.cpp" />
+    <ClCompile Include="src\WebUI\WebUIMessageService.cpp" />
+    <ClCompile Include="src\WebUI\WebUIWindow.cpp" />
     <ClCompile Include="src\Window\AboutBox.cpp" />
     <ClCompile Include="src\Window\MainFrame.cpp" />
     <ClCompile Include="src\Window\View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps" />
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Application.ico" />
