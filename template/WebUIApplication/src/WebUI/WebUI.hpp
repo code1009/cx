@@ -4,6 +4,7 @@
 //===========================================================================
 #include "WebUIMessageService.hpp"
 #include "WebUIContents.hpp"
-#include "WebUIWindow.hpp"
 #include "WebUIManager.hpp"
+#include "WebUIView.hpp"
+#include "WebUIWindow.hpp"
 

@@ -79,6 +79,7 @@
     <ClInclude Include="src\WebUI\WebUIManager.hpp" />
     <ClInclude Include="src\WebUI\WebUIMessageService.hpp" />
     <ClInclude Include="src\WebUI\WebUIWindow.hpp" />
+    <ClInclude Include="src\WebUI\WebUIView.hpp" />
     <ClInclude Include="src\Window\AboutBox.hpp" />
     <ClInclude Include="src\Window\MainFrame.hpp" />
     <ClInclude Include="src\Window\pch.hpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="src\WebUI\WebUIManager.cpp" />
     <ClCompile Include="src\WebUI\WebUIMessageService.cpp" />
     <ClCompile Include="src\WebUI\WebUIWindow.cpp" />
+    <ClCompile Include="src\WebUI\WebUIView.cpp" />
     <ClCompile Include="src\Window\AboutBox.cpp" />
     <ClCompile Include="src\Window\MainFrame.cpp" />
     <ClCompile Include="src\Window\View.cpp" />

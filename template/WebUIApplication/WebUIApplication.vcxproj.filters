@@ -228,6 +228,9 @@
     <ClInclude Include="src\WebUI\WebUI.hpp">
       <Filter>src\WebUI</Filter>
     </ClInclude>
+    <ClInclude Include="src\WebUI\WebUIView.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\runtime\Assert.cpp">
@@ -351,6 +354,9 @@
       <Filter>src\WebUI</Filter>
     </ClCompile>
     <ClCompile Include="src\WebUI\WebUIWindow.cpp">
+      <Filter>src\WebUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebUI\WebUIView.cpp">
       <Filter>src\WebUI</Filter>
     </ClCompile>
   </ItemGroup>
