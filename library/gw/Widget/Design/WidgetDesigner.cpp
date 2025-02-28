@@ -23,8 +23,9 @@ namespace cx::gw
 WidgetDesigner::WidgetDesigner(WidgetDesignerModel* model):
 	_WidgetDesignerModel{ model }
 {
-	_WidgetDesignerMouseTool = std::make_unique<WidgetDesignerMouseTool>(this);
-	_WidgetDesignerFacility  = std::make_unique<WidgetDesignerFacility>(this);
+	_WidgetDesignerMouseTool      = std::make_unique<WidgetDesignerMouseTool>(this);
+	_WidgetDesignerFacility       = std::make_unique<WidgetDesignerFacility>(this);
+	_WidgetDesignerCommandManager = std::make_unique<WidgetDesignerCommandManager>();
 }
 
 //===========================================================================
@@ -98,6 +99,17 @@ void WidgetDesigner::deleteSelectedWidgets(void)
 void WidgetDesigner::moveSelectedWidgets(Point offset)
 {
 	_WidgetDesignerFacility->moveSelectedWidgets(offset);
+}
+
+//===========================================================================
+void WidgetDesigner::undo(void)
+{
+	_WidgetDesignerCommandManager->undo();
+}
+
+void WidgetDesigner::redo(void)
+{
+	_WidgetDesignerCommandManager->redo();
 }
 
 //===========================================================================

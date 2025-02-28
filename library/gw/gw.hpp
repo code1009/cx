@@ -35,6 +35,8 @@
 
 #include "Widget/Design/WidgetDesignerMouseTool.hpp"
 #include "Widget/Design/WidgetDesignerFacility.hpp"
+#include "Widget/Design/WidgetDesignerCommand.hpp"
+#include "Widget/Design/WidgetDesignerConcreteCommand.hpp"
 #include "Widget/Design/WidgetDesigner.hpp"
 
 #include "Widget/Design/WidgetDesignerModel.hpp"

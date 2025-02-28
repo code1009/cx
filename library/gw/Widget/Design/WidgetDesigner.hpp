@@ -30,8 +30,9 @@ protected:
 	WidgetDesignerModel* _WidgetDesignerModel{ nullptr };
 
 protected:
-	std::unique_ptr<WidgetDesignerMouseTool> _WidgetDesignerMouseTool;
-	std::unique_ptr<WidgetDesignerFacility>  _WidgetDesignerFacility;
+	std::unique_ptr<WidgetDesignerMouseTool>       _WidgetDesignerMouseTool;
+	std::unique_ptr<WidgetDesignerFacility>        _WidgetDesignerFacility;
+	std::unique_ptr<WidgetDesignerCommandManager>  _WidgetDesignerCommandManager;
 
 public:
 	explicit WidgetDesigner(WidgetDesignerModel* widgetDesignerModel);
@@ -40,9 +41,10 @@ public:
 	virtual ~WidgetDesigner() = default;
 
 public:
-	WidgetDesignerModel*     getWidgetDesignerModel    (void) const { return _WidgetDesignerModel;           }
-	WidgetDesignerMouseTool* getWidgetDesignerMouseTool(void) const { return _WidgetDesignerMouseTool.get(); }
-	WidgetDesignerFacility*  getWidgetDesignerFacility (void) const { return _WidgetDesignerFacility.get();  }
+	WidgetDesignerModel*          getWidgetDesignerModel         (void) const { return _WidgetDesignerModel;           }
+	WidgetDesignerMouseTool*      getWidgetDesignerMouseTool     (void) const { return _WidgetDesignerMouseTool.get(); }
+	WidgetDesignerFacility*       getWidgetDesignerFacility      (void) const { return _WidgetDesignerFacility.get();  }
+	WidgetDesignerCommandManager* getWidgetDesignerCommandManager(void) const { return _WidgetDesignerCommandManager.get(); }
 
 public:
 	WidgetDesigner(const WidgetDesigner&) = delete;
@@ -69,6 +71,10 @@ public:
 	void selectWidgetsInBounds(void);
 	void deleteSelectedWidgets(void);
 	void moveSelectedWidgets(Point offset);
+
+public:
+	void undo(void);
+	void redo(void);
 
 public:
 	bool loadResources(WidgetResourceMap* widgetResourceMap);
