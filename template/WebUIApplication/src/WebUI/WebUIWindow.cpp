@@ -7,6 +7,7 @@
 
 //===========================================================================
 #include <wui/wui.hpp>
+#include <runtime/runtime.hpp>
 
 //===========================================================================
 #include "WebUI.hpp"
@@ -34,36 +35,83 @@ namespace app
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND hParentWindow, bool popupWindowStyle):
-	_Manager{ manager },
-	_URI{ uri },
-	_PopupWindowStyle{ popupWindowStyle }
+constexpr LPCWSTR WebUI_WindowClassName = L"View";
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+void regsiterWebUIWindowClass(void)
 {
 	//-----------------------------------------------------------------------
 	cx::wui::WindowClass windowClass;
 
 
 	windowClass.registerWindowClass(
-		View_WindowClassName
+		WebUI_WindowClassName
 	);
+}
 
 
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWindowHandle, bool popupWindowStyle):
+	_Manager{ manager },
+	_URI{ uri },
+	_PopupWindowStyle{ popupWindowStyle }
+{
 	//-----------------------------------------------------------------------
 	registerWindowMessageMap();
 
 
 	//-----------------------------------------------------------------------
-	RECT rect;
-	std::wstring windowText;
-	DWORD style;
-	DWORD styleEx;
 	HWND hwnd;
+	hwnd = createWebUIWindow(
+		parentWindowHandle,
+		popupWindowStyle
+	);
+	if (!hwnd)
+	{
+		throw std::wstring(L"WebUIWindow::WebView(): createWindow() failed");
+	}
 
 
 	//-----------------------------------------------------------------------
-	if (hParentWindow)
+	createWebView();
+
+
+	//-----------------------------------------------------------------------
+	::ShowWindow(getWindowHandle(), SW_SHOW);
+	::UpdateWindow(getWindowHandle());
+}
+
+//===========================================================================
+WebUIWindow::~WebUIWindow()
+{
+}
+
+//===========================================================================
+HWND WebUIWindow::createWebUIWindow(HWND parentWindowHandle, bool popupWindowStyle)
+{
+	//-----------------------------------------------------------------------
+	HWND hWnd;
+	LPCWSTR lpszClassName = WebUI_WindowClassName;
+	LPCWSTR lpWindowName = L"WebUIWindow";
+	HWND hWndParent = parentWindowHandle;
+	DWORD dwStyle;
+	DWORD dwExStyle;
+	RECT rect;
+
+
+	//-----------------------------------------------------------------------
+	if (parentWindowHandle)
 	{
-		GetClientRect(hParentWindow, &rect);
+		GetClientRect(parentWindowHandle, &rect);
 	}
 	else
 	{
@@ -75,74 +123,32 @@ WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND hParentWi
 
 
 	//-----------------------------------------------------------------------
-	windowText = L"WebUIWindow";
-
-
-	//-----------------------------------------------------------------------
 	if (popupWindowStyle)
 	{
-		style = wui::FrameWindowStyle;
-		styleEx = wui::FrameWindowStyleEx;
+		dwStyle = cx::wui::FrameWindowStyle;
+		dwExStyle = cx::wui::FrameWindowStyleEx;
 	}
 	else
 	{
-		style = WS_CHILD | WS_VISIBLE; // | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
-		styleEx = 0; // WS_EX_CLIENTEDGE;
+		dwStyle = WS_CHILD | WS_VISIBLE; // | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
+		dwExStyle = 0; // WS_EX_CLIENTEDGE;
 	}
+
+	//dwStyle |= WS_VSCROLL;
+	//dwStyle |= WS_HSCROLL;
+	//dwExStyle |= WS_EX_CLIENTEDGE;
 
 
 	//-----------------------------------------------------------------------
-	hwnd = createWebUIWindow(
-		hParentWindow,
-		rect,
-		windowText.c_str(),
-		static_cast<DWORD>(style),
-		static_cast<DWORD>(styleEx)
+	hWnd = createWindow(
+		lpszClassName,
+		hWndParent,
+		lpWindowName,
+		dwStyle,
+		dwExStyle
 	);
-	if (!hwnd)
-	{
-		throw std::wstring(L"WebUIWindow::WebView(): createWindow() failed");
-	}
 
-
-	//-----------------------------------------------------------------------
-	WUI_TRACE(L"createWebView-begin");
-	createWebView();
-	WUI_TRACE(L"createWebView-end");
-
-
-	//-----------------------------------------------------------------------
-	::ShowWindow(getHandle(), SW_SHOW);
-	::UpdateWindow(getHandle());
-}
-
-WebUIWindow::~WebUIWindow()
-{
-#ifdef _DEBUG
-	//-------------------------------------------------------------------------
-	std::wostringstream oss;
-
-
-	oss << L"getHandle() = ";
-	oss << getHandle();
-
-
-	WUI_TRACE(oss.str().c_str());
-#endif
-}
-
-void WebUIWindow::registerWindowMessageHandler(void)
-{
-	getWindowMessageHandler(WM_CREATE) = [this](wui::WindowMessage& windowMessage) { onCreate(windowMessage); };
-	getWindowMessageHandler(WM_DESTROY) = [this](wui::WindowMessage& windowMessage) { onDestory(windowMessage); };
-	getWindowMessageHandler(WM_CLOSE) = [this](wui::WindowMessage& windowMessage) { onClose(windowMessage); };
-	getWindowMessageHandler(WM_NCDESTROY) = [this](wui::WindowMessage& windowMessage) { onNcDestory(windowMessage); };
-
-	getWindowMessageHandler(WM_SIZE) = [this](wui::WindowMessage& windowMessage) { onSize(windowMessage); };
-	getWindowMessageHandler(WM_DPICHANGED) = [this](wui::WindowMessage& windowMessage) { onDPIChanged(windowMessage); };
-	getWindowMessageHandler(WM_COMMAND) = [this](wui::WindowMessage& windowMessage) { onCommand(windowMessage); };
-
-	getWindowMessageHandler(WM_USER+1) = [this](wui::WindowMessage& windowMessage) { onUser1(windowMessage); };	
+	return hWnd;
 }
 
 //===========================================================================
@@ -152,102 +158,40 @@ void WebUIWindow::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_DESTROY   ) = &WebUIWindow::onDestroy;
 	_WindowMessageMap.handle(WM_CLOSE     ) = &WebUIWindow::onClose;
 	_WindowMessageMap.handle(WM_SIZE      ) = &WebUIWindow::onSize;
-	_WindowMessageMap.handle(WM_COMMAND   ) = &WebUIWindow::onCommand;
+	_WindowMessageMap.handle(WM_DPICHANGED) = &WebUIWindow::onDPIChanged;
+	_WindowMessageMap.handle(WM_USER+1    ) = &WebUIWindow::onUser1;
 }
 
-void WebUIWindow::onCreate(wui::WindowMessage& windowMessage)
+void WebUIWindow::onCreate(cx::wui::WindowMessage& windowMessage)
 {
-	//-----------------------------------------------------------------------
 	//SetWindowTextW(windowMessage.hWnd, L"WebUIWindow");
-
-
-	defaultWindowMessageHandler(windowMessage);
 }
 
-void WebUIWindow::onDestroy(wui::WindowMessage& windowMessage)
+void WebUIWindow::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
-	//-----------------------------------------------------------------------
-	WUI_TRACE(L"begin");
-
-
-	//-----------------------------------------------------------------------
-	WUI_TRACE(L"destroyWebView-begin");
 	destroyWebView();
-	WUI_TRACE(L"destroyWebView-end");
-
-
-	//-----------------------------------------------------------------------
-	_Manager->onDestroyWindow(getHandle());
-
-
-	//-----------------------------------------------------------------------
-	WUI_TRACE(L"end");
+	_Manager->onDestroyWindow(getWindowHandle());
 }
 
-void WebUIWindow::onClose(wui::WindowMessage& windowMessage)
+void WebUIWindow::onClose(cx::wui::WindowMessage& windowMessage)
 {
-	//-----------------------------------------------------------------------
-	WUI_TRACE(L"begin");
-	
-	
-	//-----------------------------------------------------------------------
 	destroyWindow();
-
-
-	//-----------------------------------------------------------------------
-	WUI_TRACE(L"end");
 }
 
-void WebUIWindow::onSize(wui::WindowMessage& windowMessage)
+void WebUIWindow::onSize(cx::wui::WindowMessage& windowMessage)
 {
-	//-----------------------------------------------------------------------
-	wui::WM_SIZE_WindowMessageManipulator windowMessageManipulator(&windowMessage);
-
-
-	//-----------------------------------------------------------------------
 	RECT rect;
-
-
 	if (_WebView_Controller != nullptr)
 	{
-		::GetClientRect(getHandle(), &rect);
-
+		::GetClientRect(getWindowHandle(), &rect);
 		_WebView_Controller->put_Bounds(rect);
 	}
 }
 
-void WebUIWindow::onDPIChanged(wui::WindowMessage& windowMessage)
+void WebUIWindow::onDPIChanged(cx::wui::WindowMessage& windowMessage)
 {
 	RECT* pWindowRect = reinterpret_cast<RECT*>(windowMessage.lParam);
-
-
-	wui::setWindowPos(getHandle(), HWND_TOP, *pWindowRect, SWP_SHOWWINDOW);
-}
-
-void WebUIWindow::onCommand(wui::WindowMessage& windowMessage)
-{
-	wui::WM_COMMAND_WindowMessageManipulator windowMessageManipulator(&windowMessage);
-
-
-/*
-	switch (windowMessageManipulator.nID())
-	{
-	case IDM_TEST1:
-		onTest1(windowMessage);
-		return;
-		break;
-
-	case IDM_TEST2:
-		onTest2(windowMessage);
-		return;
-		break;
-
-	default:
-		break;
-	}
-*/
-
-	defaultWindowMessageHandler(windowMessage);
+	cx::wui::setWindowPos(getWindowHandle(), HWND_TOP, *pWindowRect, SWP_SHOWWINDOW);
 }
 
 //===========================================================================
@@ -255,7 +199,7 @@ int WebUIWindow::getDPIAwareBound(int bound) const
 {
 	constexpr int DEFAULT_DPI = 96;
 
-	return (bound * GetDpiForWindow(getHandle()) / DEFAULT_DPI);
+	return (bound * GetDpiForWindow(getWindowHandle()) / DEFAULT_DPI);
 }
 
 bool WebUIWindow::isPopupWindow(void)
@@ -269,7 +213,6 @@ bool WebUIWindow::isPopupWindow(void)
 //===========================================================================
 void WebUIWindow::createWebView(void)
 {	
-	//-----------------------------------------------------------------------
 	HRESULT hr;
 
 
@@ -322,7 +265,7 @@ HRESULT WebUIWindow::createWebView_Controller(void)
 
 
 	hr = _WebView_Environment->CreateCoreWebView2Controller(
-		getHandle(),
+		getWindowHandle(),
 		Microsoft::WRL::Callback<ICoreWebView2CreateCoreWebView2ControllerCompletedHandler>
 			(this, &WebUIWindow::onWebView_Controller_Completed).Get()
 	);
@@ -378,8 +321,6 @@ HRESULT WebUIWindow::setupWebView_Controller(void)
 	//-----------------------------------------------------------------------
 	wil::com_ptr<ICoreWebView2Controller4> controller4 = 
 		_WebView_Controller.try_query<ICoreWebView2Controller4>();
-
-
 	if (controller4)
 	{
 		hr = controller4->put_AllowExternalDrop(FALSE);
@@ -398,11 +339,7 @@ HRESULT WebUIWindow::resizeWebView_Controller(void)
 
 	//-----------------------------------------------------------------------
 	RECT rect;
-
-
-	::GetClientRect(getHandle(), &rect);
-
-
+	::GetClientRect(getWindowHandle(), &rect);
 	hr = _WebView_Controller->put_Bounds(rect);
 	RETURN_IF_FAILED(hr);
 
@@ -457,8 +394,6 @@ HRESULT WebUIWindow::setupWebView_Settings(void)
 	//-----------------------------------------------------------------------
 #if 0
 	std::wstring script;
-
-
 	script = L"window.addEventListener(\"contextmenu\", window => {window.preventDefault();});";
 	hr = _WebView->AddScriptToExecuteOnDocumentCreated(script.c_str(), nullptr);
 	RETURN_IF_FAILED(hr);
@@ -502,9 +437,11 @@ HRESULT WebUIWindow::setupWebView(void)
 	hr = setupWebView_NewWindowRequested();
 	RETURN_IF_FAILED(hr);
 
+
 	//-----------------------------------------------------------------------
 	hr = setupWebView_ContextMenuRequested();
 	RETURN_IF_FAILED(hr);
+
 
 	//-----------------------------------------------------------------------
 	hr = setupWebView_DevToolsProtocol_Security_securityStateChanged();
@@ -562,8 +499,6 @@ HRESULT WebUIWindow::onWebView_WebResourceRequested(ICoreWebView2* sender,ICoreW
 
 	//-----------------------------------------------------------------------
 	COREWEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext;
-
-
 	hr = args->get_ResourceContext(&resourceContext);
 	RETURN_IF_FAILED(hr);
 
@@ -578,32 +513,24 @@ HRESULT WebUIWindow::onWebView_WebResourceRequested(ICoreWebView2* sender,ICoreW
 
 	//-----------------------------------------------------------------------
 	wil::com_ptr<ICoreWebView2WebResourceRequest> webResourceRequest;
-
-
 	hr = args->get_Request(&webResourceRequest);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsUri;
-
-
 	hr = webResourceRequest->get_Uri(&ucsUri);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring uri(ucsUri.get());
-
-
 	uri = web::uri::decode(uri);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring urn = _Manager->parseContentsURN(uri);
-
-
-	WUI_TRACE(urn);
+	CX_RUNTIME_LOG(LDbug) << urn;
 
 
 	//-----------------------------------------------------------------------
@@ -677,8 +604,6 @@ HRESULT WebUIWindow::onWebView_WebMessageReceived(ICoreWebView2* sender, ICoreWe
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsUri;
-
-
 	hr = args->get_Source(&ucsUri);
 	RETURN_IF_FAILED(hr);
 
@@ -686,8 +611,6 @@ HRESULT WebUIWindow::onWebView_WebMessageReceived(ICoreWebView2* sender, ICoreWe
 	//-----------------------------------------------------------------------
 	std::wstring uri(ucsUri.get());
 	std::wstring urn = _Manager->parseContentsURN(uri);
-
-
 	if (urn.empty())
 	{
 		return S_OK;
@@ -697,17 +620,11 @@ HRESULT WebUIWindow::onWebView_WebMessageReceived(ICoreWebView2* sender, ICoreWe
 #if 1
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsWebMessage;
-
-
 	hr = args->TryGetWebMessageAsString(&ucsWebMessage);
 	RETURN_IF_FAILED(hr);
 #else
-
-
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsWebMessage;
-
-
 	hr = args->get_WebMessageAsJson(&ucsWebMessage);
 	RETURN_IF_FAILED(hr);
 #endif
@@ -752,30 +669,26 @@ HRESULT WebUIWindow::onWebView_DocumentTitleChanged(ICoreWebView2* sender, IUnkn
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsTitle;
-
-
 	hr = sender->get_DocumentTitle(&ucsTitle);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring title(ucsTitle.get());
+	CX_RUNTIME_LOG(LDbug) << title;
 
-
-	WUI_TRACE(title);
 
 
 	//-----------------------------------------------------------------------
 	if (isPopupWindow())
 	{
-		wui::setWindowText(*this, title);
+		cx::wui::setWindowText(*this, title);
 	}
 	else
 	{
 		HWND hParent;
-
 		hParent = GetParent(*this);
-		wui::setWindowText(hParent, title);
+		cx::wui::setWindowText(hParent, title);
 	}
 
 
@@ -808,17 +721,13 @@ HRESULT WebUIWindow::onWebView_HistoryChanged(ICoreWebView2* sender, IUnknown* a
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsSource;
-
-
 	hr = sender->get_Source(&ucsSource);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring source(ucsSource.get());
-
-
-	WUI_TRACE(source);
+	CX_RUNTIME_LOG(LDbug) << source;
 
 
 	//-----------------------------------------------------------------------
@@ -860,7 +769,7 @@ HRESULT WebUIWindow::onWebView_SourceChanged(ICoreWebView2* sender, ICoreWebView
 
 	//-----------------------------------------------------------------------
 	std::wstring source(ucsSource.get());
-	WUI_TRACE(source);
+	CX_RUNTIME_LOG(LDbug) << source;
 
 
 	return S_OK;
@@ -892,15 +801,13 @@ HRESULT WebUIWindow::onWebView_NavigationStarting(ICoreWebView2* sender, ICoreWe
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsUri;
-
-
 	hr = args->get_Uri(&ucsUri);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring uri(ucsUri.get());
-	WUI_TRACE(uri);
+	CX_RUNTIME_LOG(LDbug) << uri;
 
 
 	//-----------------------------------------------------------------------
@@ -949,14 +856,12 @@ HRESULT WebUIWindow::onWebView_NavigationCompleted(ICoreWebView2* sender, ICoreW
 	hr = args->get_IsSuccess(&navigationSucceeded);
 	if (SUCCEEDED(hr))
 	{
-		WUI_TRACE(L"navigationSucceeded");
-
-
-		//executeScript(L"alert(\"navigationSucceeded\"); var win = window.open(\"/page1/list0.json\", \"PopupWin\", \"width=500,height=600\");");
+		CX_RUNTIME_LOG(LDbug) << L"navigationSucceeded";
+		//executeScript(L"alert(\"navigationSucceeded\"); var win = window.open(\"/page1/data.json\", \"PopupWin\", \"width=500,height=600\");");
 	}
 	else
 	{
-		WUI_TRACE(L"navigationFailed");
+		CX_RUNTIME_LOG(LDbug) << L"navigationFailed";
 	}
 
 
@@ -1045,33 +950,26 @@ HRESULT WebUIWindow::onWebView_NewWindowRequested(ICoreWebView2* sender, ICoreWe
 
 	//-----------------------------------------------------------------------
 	RECT frameRect;
-
-
-	GetClientRect(getHandle(), &frameRect);
-	ClientToScreen(getHandle(), reinterpret_cast<POINT*>(&frameRect.left));
+	GetClientRect(getWindowHandle(), &frameRect);
+	ClientToScreen(getWindowHandle(), reinterpret_cast<POINT*>(&frameRect.left));
 
 
 	//-----------------------------------------------------------------------
-	RECT windowRect = { 0 };
-
-
+	RECT windowRect;
 	windowRect.left   = frameRect.left + left;
 	windowRect.top    = frameRect.top  + top;
-
 	windowRect.right  = frameRect.left + left + width;
 	windowRect.bottom = frameRect.top  + top  + height;
 
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsUri;
-
-
 	hr = args->get_Uri(&ucsUri);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
-	std::shared_ptr<WebUIWindow> newWindow = _Manager->newPopupWindow(getHandle(), ucsUri.get(), windowRect);
+	std::shared_ptr<WebUIWindow> newWindow = _Manager->newPopupWindow(getWindowHandle(), ucsUri.get(), windowRect);
 
 
 	//-----------------------------------------------------------------------
@@ -1098,7 +996,7 @@ HRESULT WebUIWindow::onWebView_NewWindowRequested(ICoreWebView2* sender, ICoreWe
 
 	//-----------------------------------------------------------------------
 	hr = environment->CreateCoreWebView2Controller(
-		getHandle(), // 새 창을 호스팅할 부모 윈도우 핸들
+		getWindowHandle(), // 새 창을 호스팅할 부모 윈도우 핸들
 		Microsoft::WRL::Callback<ICoreWebView2CreateCoreWebView2ControllerCompletedHandler>(
 			[this](HRESULT errorCode, ICoreWebView2Controller* createdController) -> HRESULT
 			{
@@ -1171,26 +1069,20 @@ HRESULT WebUIWindow::onWebView_ContextMenuRequested(ICoreWebView2* sender, ICore
 
 
 		//-------------------------------------------------------------------
-		HMENU hPopupMenu = CreatePopupMenu();
-
-
+		HMENU hPopupMenu;
+		hPopupMenu = CreatePopupMenu();
 		hr = AddContextMenuItems(hPopupMenu, items);
 		RETURN_IF_FAILED(hr);
 
 
 		//-------------------------------------------------------------------
 		POINT locationInControlCoordinates;
-
-
 		hr = args->get_Location(&locationInControlCoordinates);
 		RETURN_IF_FAILED(hr);
 
 
 		//-------------------------------------------------------------------
 		HWND hWnd;
-		POINT locationInScreenCoordinates;
-
-
 		_WebView_Controller->get_ParentWindow(&hWnd);
 		SetForegroundWindow(hWnd);
 
@@ -1198,8 +1090,6 @@ HRESULT WebUIWindow::onWebView_ContextMenuRequested(ICoreWebView2* sender, ICore
 		//-------------------------------------------------------------------
 		RECT rect;
 		POINT topLeft;
-
-
 		GetClientRect(hWnd, &rect);
 		topLeft.x = rect.left;
 		topLeft.y = rect.top;
@@ -1208,8 +1098,6 @@ HRESULT WebUIWindow::onWebView_ContextMenuRequested(ICoreWebView2* sender, ICore
 		
 		//-------------------------------------------------------------------
 		RECT bounds;
-
-
 		hr = _WebView_Controller->get_Bounds(&bounds);
 		RETURN_IF_FAILED(hr);
 
@@ -1224,17 +1112,17 @@ HRESULT WebUIWindow::onWebView_ContextMenuRequested(ICoreWebView2* sender, ICore
 
 		//-------------------------------------------------------------------
 		double scale;
-
-
 		_WebView_Controller3->get_RasterizationScale(&scale);
 
 
 		//-------------------------------------------------------------------
+		POINT locationInScreenCoordinates;
 		locationInScreenCoordinates.x = bounds.left + topLeft.x + ((int)(locationInControlCoordinates.x * scale));
 		locationInScreenCoordinates.y = bounds.top  + topLeft.y + ((int)(locationInControlCoordinates.y * scale));
 
 
-		UINT32 selectedCommandId = TrackPopupMenu(
+		UINT32 selectedCommandId;
+		selectedCommandId = TrackPopupMenu(
 			hPopupMenu,
 			TPM_TOPALIGN | TPM_LEFTALIGN | TPM_RETURNCMD,
 			locationInScreenCoordinates.x,
@@ -1242,7 +1130,6 @@ HRESULT WebUIWindow::onWebView_ContextMenuRequested(ICoreWebView2* sender, ICore
 			0,
 			hWnd,
 			NULL);
-
 		if (selectedCommandId != 0) 
 		{
 			hr = args->put_SelectedCommandId(selectedCommandId);
@@ -1304,27 +1191,20 @@ HRESULT WebUIWindow::AddContextMenuItems(HMENU hPopupMenu, wil::com_ptr<ICoreWeb
 
 		//-----------------------------------------------------------------------
 		COREWEBVIEW2_CONTEXT_MENU_ITEM_KIND kind;
-
-
 		hr = current->get_Kind(&kind);
 		RETURN_IF_FAILED(hr);
 
 
 		//-----------------------------------------------------------------------
 		wil::unique_cotaskmem_string label;
-
-
 		hr = current->get_Label(&label);
 		RETURN_IF_FAILED(hr);
-
 		std::wstring labelString = label.get();
 
 
 		//-----------------------------------------------------------------------
 #if 0
 		wil::unique_cotaskmem_string shortcut;
-
-
 		hr = current->get_ShortcutKeyDescription(&shortcut);
 		RETURN_IF_FAILED(hr);
 
@@ -1356,8 +1236,6 @@ HRESULT WebUIWindow::AddContextMenuItems(HMENU hPopupMenu, wil::com_ptr<ICoreWeb
 
 		//-----------------------------------------------------------------------
 		bool skip;
-
-
 		skip = false;
 		switch (commandId)
 		{
@@ -1374,8 +1252,6 @@ HRESULT WebUIWindow::AddContextMenuItems(HMENU hPopupMenu, wil::com_ptr<ICoreWeb
 			skip = true;
 			break;
 		}
-
-
 		if (skip)
 		{
 			continue;
@@ -1448,10 +1324,10 @@ void WebUIWindow::runAsync(std::function<void()> callback)
 {
 	auto* task = new std::function<void()>(std::move(callback));
 
-	PostMessage(getHandle(), WM_USER + 1, reinterpret_cast<WPARAM>(task), 0);
+	PostMessage(getWindowHandle(), WM_USER + 1, reinterpret_cast<WPARAM>(task), 0);
 }
 
-void WebUIWindow::onUser1(wui::WindowMessage& windowMessage)
+void WebUIWindow::onUser1(cx::wui::WindowMessage& windowMessage)
 {
 	onExecuteTask(reinterpret_cast<void*>(windowMessage.wParam));
 }
@@ -1459,10 +1335,7 @@ void WebUIWindow::onUser1(wui::WindowMessage& windowMessage)
 void WebUIWindow::onExecuteTask(void* ptr)
 {
 	auto* task = reinterpret_cast<std::function<void()>*>(ptr);
-
-
 	(*task)();
-
 	delete task;
 }
 
@@ -1503,15 +1376,13 @@ HRESULT WebUIWindow::onWebView_DevToolsProtocol_Security_securityStateChanged(IC
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsJsonArgs;
-
-
 	hr = args->get_ParameterObjectAsJson(&ucsJsonArgs);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	WUI_TRACE(jsonArgs);
+	CX_RUNTIME_LOG(LDbug) << jsonArgs;
 
 
 	return S_OK;
@@ -1553,17 +1424,13 @@ HRESULT WebUIWindow::onWebView_DevToolsProtocol_Log_entryAdded(ICoreWebView2* se
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsJsonArgs;
-
-
 	hr = args->get_ParameterObjectAsJson(&ucsJsonArgs);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	//WUI_TRACE(jsonArgs);
-	wui::debugPrintln(L"Log.entryAdded: ");
-	wui::debugPrintln(jsonArgs);
+	CX_RUNTIME_LOG(LDbug) << L"Log.entryAdded: " << jsonArgs;
 
 
 	return S_OK;
@@ -1605,17 +1472,13 @@ HRESULT WebUIWindow::onWebView_DevToolsProtocol_Runtime_consoleAPICalled(ICoreWe
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsJsonArgs;
-
-
 	hr = args->get_ParameterObjectAsJson(&ucsJsonArgs);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	//WUI_TRACE(jsonArgs);
-	wui::debugPrintln(L"Runtime.consoleAPICalled: ");
-	wui::debugPrintln(jsonArgs);
+	CX_RUNTIME_LOG(LDbug) << L"Runtime.consoleAPICalled: " << jsonArgs;
 
 
 	return S_OK;
@@ -1652,17 +1515,13 @@ HRESULT WebUIWindow::onWebView_DevToolsProtocol_Runtime_exceptionThrown(ICoreWeb
 
 	//-----------------------------------------------------------------------
 	wil::unique_cotaskmem_string ucsJsonArgs;
-
-
 	hr = args->get_ParameterObjectAsJson(&ucsJsonArgs);
 	RETURN_IF_FAILED(hr);
 
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	//WUI_TRACE(jsonArgs);
-	wui::debugPrintln(L"Runtime.exceptionThrown: ");
-	wui::debugPrintln(jsonArgs);
+	CX_RUNTIME_LOG(LDbug) << L"Runtime.exceptionThrown: " << jsonArgs;
 
 
 	//-----------------------------------------------------------------------
@@ -1687,7 +1546,7 @@ void WebUIWindow::postWebMessageAsJson(const std::wstring& msg)
 	hr = _WebView->PostWebMessageAsJson(msg.c_str());
 	if (FAILED(hr))
 	{
-		WUI_TRACE(L"failed");
+		CX_RUNTIME_LOG(LDbug) << L"failed";
 	}
 }
 
@@ -1713,12 +1572,11 @@ void WebUIWindow::onWebMessage(const std::wstring& urn, const std::wstring& webM
 
 
 	//------------------------------------------------------------------------
-	WUI_TRACE(urn);
-	WUI_TRACE(webMessage);
+	CX_RUNTIME_LOG(LDbug) << urn << L" : " << webMessage;
 
 
 	//------------------------------------------------------------------------
-	_Manager->getMessageService()->onWebMessage(this, webMessage);
+	_Manager->getMessageService()->onReceiveWebMessage(this, webMessage);
 }
 
 //===========================================================================
@@ -1730,14 +1588,14 @@ void WebUIWindow::navigate(const std::wstring& uri)
 	hr = _WebView->Navigate(uri.c_str());
 	if (FAILED(hr))
 	{
-		WUI_TRACE(L"failed");
+		CX_RUNTIME_LOG(LDbug) << L"failed";
 	}
 }
 
 void WebUIWindow::navigateContents(const std::wstring& urn)
 {
 	std::wstring uri;
-
+	
 
 	uri = _Manager->getContentsHost() + urn;
 	navigate(uri);
@@ -1751,7 +1609,7 @@ void WebUIWindow::executeScript(const std::wstring& script)
 			{
 				if (FAILED(errorCode))
 				{
-					WUI_TRACE(L"failed");
+					CX_RUNTIME_LOG(LDbug) << L"failed";
 				}
 
 				return S_OK;

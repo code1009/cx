@@ -287,12 +287,12 @@ bool WebUIMessageService::onReceiveCommand(WebUIWindow* window, web::json::value
 	return false;
 }
 
-bool WebUIMessageService::onWebMessage_Command_Empty(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onReceiveCommand_Empty(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	return true;
 }
 
-bool WebUIMessageService::onWebMessage_Command_Navigate(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onReceiveCommand_Navigate(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	//------------------------------------------------------------------------
 	web::json::value jsonTargetPage;
@@ -313,6 +313,16 @@ bool WebUIMessageService::onWebMessage_Command_Navigate(WebUIWindow* window, web
 	if (targetPage == L"페이지2") { getView()->navigateContents(L"/page/page2.html"); }
 	if (targetPage == L"페이지3") { getView()->navigateContents(L"/page/page3.html"); }
 
+	return true;
+}
+
+bool WebUIMessageService::onReceiveCommand_Message(WebUIWindow* window, web::json::value& jsonMessage)
+{
+	return true;
+}
+
+bool WebUIMessageService::onReceiveCommand_FileUpdate(WebUIWindow* window, web::json::value& jsonMessage)
+{
 	return true;
 }
 
@@ -343,6 +353,7 @@ std::wstring WebUIMessageService::getFile_Json(void)
 
 	return json;
 }
+
 
 
 

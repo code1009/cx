@@ -23,6 +23,14 @@ class WebUIManager;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+void regsiterWebUIWindowClass(void);
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class WebUIWindow :
 	public cx::wui::MessageMapWindowT<WebUIWindow, cx::wui::BaseWindow>
 {
@@ -66,13 +74,13 @@ public:
 
 	//-------------------------------------------------------------------------
 public:
-	explicit WebUIWindow(WebUIManager* manager, std::wstring uri, HWND hParentWindow, bool popupWindowStyle);
+	explicit WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWindowHandle, bool popupWindowStyle);
 	virtual ~WebUIWindow();
 
 
 	//-------------------------------------------------------------------------
-public:
-	virtual HWND createWebUIWindow(HWND parentWindowHandle);
+protected:
+	virtual HWND createWebUIWindow(HWND parentWindowHandle, bool popupWindowStyle);
 
 
 	//-------------------------------------------------------------------------
@@ -83,7 +91,6 @@ public:
 	void onClose(cx::wui::WindowMessage& windowMessage);
 	void onSize(cx::wui::WindowMessage& windowMessage);
 	void onDPIChanged(cx::wui::WindowMessage& windowMessage);
-	void onCommand(cx::wui::WindowMessage& windowMessage);
 	
 public:
 	int getDPIAwareBound(int bound) const;
