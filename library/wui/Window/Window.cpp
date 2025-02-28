@@ -1,12 +1,9 @@
-/////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "pch.hpp"
 
 //===========================================================================
-#include "wui.hpp"
-
-//===========================================================================
-#include <assert.h>
+#include "../wui.hpp"
 
 
 
@@ -23,12 +20,30 @@ namespace cx::wui
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-ResourceName::ResourceName(LPCWSTR lpString) : _Name(lpString)
+HWND Window::getWindowHandle(void) const
 {
+	return _WindowHandle;
 }
 
-ResourceName::ResourceName(UINT nID) : _Name(MAKEINTRESOURCEW(nID)) 
+HWND Window::setWindowHandle(HWND handle)
 {
+	HWND old;
+
+
+	old = _WindowHandle;
+	_WindowHandle = handle;
+
+	return old;
+}
+
+LRESULT Window::onMessage(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
+{
+	return defaultWindowProc(hwnd, umsg, wparam, lparam);
+}
+
+LRESULT Window::defaultWindowProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
+{
+	return ::DefWindowProcW(hwnd, umsg, wparam, lparam);
 }
 
 
@@ -38,5 +53,7 @@ ResourceName::ResourceName(UINT nID) : _Name(MAKEINTRESOURCEW(nID))
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
+
+
 
 

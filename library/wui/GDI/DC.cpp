@@ -3,7 +3,7 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include "wui.hpp"
+#include "../wui.hpp"
 
 
 
@@ -20,37 +20,20 @@ namespace cx::wui
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-Bitmap::Bitmap(
-	const std::wstring& filePath
-)
+HDC DC::getDCHandle(void) const
 {
-	_BitmapHandle = loadBitmap(
-		filePath
-	);
-	if (_BitmapHandle == nullptr)
-	{
-		throw std::runtime_error("Bitmap::Bitmap(): loadBitmap() failed");
-	}
+	return _DCHandle;
 }
 
-//===========================================================================
-Bitmap::~Bitmap()
+HDC DC::setDCHandle(HDC handle)
 {
-	::DeleteObject(_BitmapHandle);
-}
+	HDC old;
 
-//===========================================================================
-HBITMAP Bitmap::loadBitmap(
-	const std::wstring& filePath
-)
-{
-	return (HBITMAP)::LoadImageW(NULL, filePath.c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-}
 
-//===========================================================================
-HBITMAP Bitmap::select(HDC hdc)
-{
-	return reinterpret_cast<HBITMAP>(::SelectObject(hdc, *this));
+	old = _DCHandle;
+	_DCHandle = handle;
+
+	return old;
 }
 
 

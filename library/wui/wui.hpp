@@ -36,58 +36,60 @@
 #include "AppModule.hpp"
 
 //===========================================================================
-// # MessageLoop
-//   - GetMessage()
-#include "WindowMessageLoop.hpp"
-
-//===========================================================================
-// # 좌표
+// # Coordinates
 #include "Coord.hpp"
 
 //===========================================================================
 // # Window
-#include "WindowClass.hpp"
-#include "WindowProc.hpp"
-#include "Window.hpp"
+#include "Window/WindowClass.hpp"
+#include "Window/WindowProc.hpp"
+#include "Window/Window.hpp"
 
-//#  Window 확장
-#include "WindowStyle.hpp"
-#include "BaseWindow.hpp"
-#include "BasicWindowT.hpp"
+//#  WindowBase
+#include "Window/WindowStyle.hpp"
+#include "Window/BaseWindow.hpp"
 
-// # Window 메시지
+//===========================================================================
+// # WindowMessageLoop
+//   - GetMessage()
+#include "WindowMessage/WindowMessageLoop.hpp"
+
+//===========================================================================
+// # WindowMessage
 // WinProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-#include "WindowMessage.hpp"
+#include "WindowMessage/WindowMessage.hpp"
 
-// # Window 메시지 맵
-#include "WindowMessageHandler.hpp"
-#include "WindowMessageMap.hpp"
-#include "MessageMapWindow.hpp"
+//===========================================================================
+// # Window Function
+#include "Window/BasicWindowT.hpp"
+#include "Window/Window_Functions.hpp"
 
-// # WPARAM LPARAM 추출, LRESULT 반환
-#include "WindowMessageCrack.hpp"
+// # WindowMessageMap
+#include "Window/WindowMessageHandler.hpp"
+#include "Window/WindowMessageMap.hpp"
+#include "Window/MessageMapWindow.hpp"
 
-// # Window 함수들
-#include "Window_Functions.hpp"
+// # Window Message : WPARAM LPARAM, LRESULT
+#include "WindowMessage/WindowMessageCrack.hpp"
 
 //===========================================================================
 // # DeviceContext
-#include "DC.hpp"
-#include "BasicDCT.hpp"
-#include "DC_Classes.hpp"
-#include "DC_Functions.hpp"
+#include "GDI/DC.hpp"
+#include "GDI/BasicDCT.hpp"
+#include "GDI/DC_Classes.hpp"
+#include "GDI/DC_Functions.hpp"
 
-// # GDI 객체
-#include "GDIObject_Pen.hpp"
-#include "GDIObject_Brush.hpp"
-#include "GDIObject_Font.hpp"
-#include "GDIObject_Bitmap.hpp"
+// # GDIObject
+#include "GDI/GDIObject_Pen.hpp"
+#include "GDI/GDIObject_Brush.hpp"
+#include "GDI/GDIObject_Font.hpp"
+#include "GDI/GDIObject_Bitmap.hpp"
 
 //===========================================================================
-// # .rc 리소스
-#include "Resource.hpp"
-#include "Resource_Functions.hpp"
-#include "DialogTemplate.hpp"
+// # .rc Resource
+#include "Resource/Resource.hpp"
+#include "Resource/Resource_Functions.hpp"
+#include "Resource/DialogTemplate.hpp"
 
 
 
