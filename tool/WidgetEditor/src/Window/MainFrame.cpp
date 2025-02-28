@@ -395,15 +395,15 @@ void MainFrame::onToolBoxSubItemMouseClicked(ToolBox::EventParam* param)
 	switch (param->_Id)
 	{
 	case 8:
-		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->deleteSelection();
+		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->deleteSelectedWidgets();
 		break;
 
 	case 17:
-		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->unselectAll();
+		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->deselectAllWidgets();
 		break;
 
 	case 18:
-		//_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->selectAll();
+		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->selectAllWidgets();
 		break;
 
 	case 25:

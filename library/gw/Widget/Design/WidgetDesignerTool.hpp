@@ -34,10 +34,10 @@ protected:
 	Point _p0{};
 	Point _p1{};
 	Point _MousePressedPoint{};
-	bool _Action_MultipleSelection{ false };
-	bool _Action_SingleSelection{ false };
+	bool _Action_SelectMultiple{ false };
+	bool _Action_SelectSingle{ false };
 	bool _Action_ToggleSelection{ false };
-	bool _Action_Move{ false };
+	bool _Action_MoveSelection{ false };
 
 protected:
 	// add

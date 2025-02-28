@@ -60,13 +60,15 @@ public:
 	Point toSnappedPoint(Point p) const;
 
 public:
-	bool isSelected(WidgetSharedPtr widget);
-	void unselectAll(void);
-	void selectBounds(void);
-	void selectSingle(WidgetSharedPtr target);
-	void toggleSelection(WidgetSharedPtr widget);
-	void moveSelection(Point offset);
-	void deleteSelection(void);
+	bool isSelectedWidget(WidgetSharedPtr widget);
+	void selectWidget(WidgetSharedPtr target);
+	void toggleWidgetSelection(WidgetSharedPtr widget);
+
+	void selectAllWidgets(void);
+	void deselectAllWidgets(void);
+	void selectWidgetsInBounds(void);
+	void deleteSelectedWidgets(void);
+	void moveSelectedWidgets(Point offset);
 
 public:
 	bool loadResources(WidgetResourceMap* widgetResourceMap);

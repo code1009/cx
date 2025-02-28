@@ -89,7 +89,7 @@ Point WidgetDesigner::toSnappedPoint(Point p) const
 }
 
 //===========================================================================
-bool WidgetDesigner::isSelected(WidgetSharedPtr widget)
+bool WidgetDesigner::isSelectedWidget(WidgetSharedPtr widget)
 {
 	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
 	if (designWidget)
@@ -100,7 +100,55 @@ bool WidgetDesigner::isSelected(WidgetSharedPtr widget)
 	return false;
 }
 
-void WidgetDesigner::unselectAll(void)
+void WidgetDesigner::selectWidget(WidgetSharedPtr target)
+{
+	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			if (widget == target)
+			{
+				designWidget->setMarkerVisible(true);
+			}
+			else
+			{
+				designWidget->setMarkerVisible(false);
+			}
+		}
+	}
+}
+
+void WidgetDesigner::toggleWidgetSelection(WidgetSharedPtr widget)
+{
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+	if (designWidget)
+	{
+		if (designWidget->getMarkerVisible())
+		{
+			designWidget->setMarkerVisible(false);
+		}
+		else
+		{
+			designWidget->setMarkerVisible(true);
+		}
+	}
+}
+
+//===========================================================================
+void WidgetDesigner::selectAllWidgets(void)
+{
+	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			designWidget->setMarkerVisible(true);
+		}
+	}
+}
+
+void WidgetDesigner::deselectAllWidgets(void)
 {
 	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
 	{
@@ -112,7 +160,7 @@ void WidgetDesigner::unselectAll(void)
 	}
 }
 
-void WidgetDesigner::selectBounds(void)
+void WidgetDesigner::selectWidgetsInBounds(void)
 {
 	Point p0;
 	Point p1;
@@ -137,57 +185,7 @@ void WidgetDesigner::selectBounds(void)
 	}
 }
 
-void WidgetDesigner::selectSingle(WidgetSharedPtr target)
-{
-	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
-	{
-		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
-		if (designWidget)
-		{
-			if (widget == target)
-			{
-				designWidget->setMarkerVisible(true);
-			}
-			else
-			{
-				designWidget->setMarkerVisible(false);
-			}
-		}
-	}
-}
-
-void WidgetDesigner::toggleSelection(WidgetSharedPtr widget)
-{
-	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
-	if (designWidget)
-	{
-		if (designWidget->getMarkerVisible())
-		{
-			designWidget->setMarkerVisible(false);
-		}
-		else
-		{
-			designWidget->setMarkerVisible(true);
-		}
-	}
-}
-
-void WidgetDesigner::moveSelection(Point offset)
-{
-	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
-	{
-		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
-		if (designWidget)
-		{
-			if (designWidget->getMarkerVisible())
-			{
-				designWidget->moveOffset(offset);
-			}
-		}
-	}
-}
-
-void WidgetDesigner::deleteSelection(void)
+void WidgetDesigner::deleteSelectedWidgets(void)
 {
 	std::vector<WidgetSharedPtr> widgets;
 
@@ -208,6 +206,27 @@ void WidgetDesigner::deleteSelection(void)
 	for (auto& widget : widgets)
 	{
 		_WidgetDesignerModel->getWidgetDocument()->removeWidget(widget);
+	}
+}
+
+void WidgetDesigner::moveSelectedWidgets(Point offset)
+{
+	if (offset.is_zero())
+	{
+		return;
+	}
+
+
+	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			if (designWidget->getMarkerVisible())
+			{
+				designWidget->moveOffset(offset);
+			}
+		}
 	}
 }
 

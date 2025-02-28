@@ -96,13 +96,13 @@ void WidgetDesignerTool::onMouseMove(const WidgetMouseEventParam& param)
 	_MousePressedPoint = _MousePoint;
 
 
-	if (_Action_SingleSelection)
+	if (_Action_SelectSingle)
 	{
-		_WidgetDesigner->moveSelection(offset);
+		_WidgetDesigner->moveSelectedWidgets(offset);
 	}
-	if (_Action_Move)
+	if (_Action_MoveSelection)
 	{
-		_WidgetDesigner->moveSelection(offset);
+		_WidgetDesigner->moveSelectedWidgets(offset);
 	}
 }
 
@@ -116,25 +116,25 @@ void WidgetDesignerTool::onMouseLButtonDown(const WidgetMouseEventParam& param)
 	_MousePressedPoint = _MousePoint;
 
 
-	_Action_MultipleSelection = false;
-	_Action_SingleSelection = false;
+	_Action_SelectMultiple = false;
+	_Action_SelectSingle = false;
 	_Action_ToggleSelection = false;
-	_Action_Move = false;
+	_Action_MoveSelection = false;
 
 
 	auto widget = _WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->find(param._MousePosition);
 	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
 
 
-	bool anchor_marker_pressed = false;
+	bool designMarkerPressed = false;
 	if (designWidget)
 	{
 		if (designWidget->isPointInMarkers(param._MousePosition))
 		{
-			anchor_marker_pressed = true;
+			designMarkerPressed = true;
 		}
 	}
-	if (anchor_marker_pressed)
+	if (designMarkerPressed)
 	{
 		return;
 	}
@@ -144,23 +144,23 @@ void WidgetDesignerTool::onMouseLButtonDown(const WidgetMouseEventParam& param)
 	{
 		if (nullptr == designWidget)
 		{
-			_Action_MultipleSelection = true;
+			_Action_SelectMultiple = true;
 		}
 		else
 		{
-			if (_WidgetDesigner->isSelected(widget))
+			if (_WidgetDesigner->isSelectedWidget(widget))
 			{
-				_Action_Move = true;
+				_Action_MoveSelection = true;
 			}
 			else
 			{
-				_Action_SingleSelection = true;
+				_Action_SelectSingle = true;
 			}
 		}
 	}
 	else if ((param._ShiftKeyPressed) && (!param._CtrlKeyPressed))
 	{
-		_Action_MultipleSelection = true;
+		_Action_SelectMultiple = true;
 	}
 	else if ((!param._ShiftKeyPressed) && (param._CtrlKeyPressed))
 	{
@@ -171,13 +171,13 @@ void WidgetDesignerTool::onMouseLButtonDown(const WidgetMouseEventParam& param)
 	}
 
 
-	if (_Action_SingleSelection)
+	if (_Action_SelectSingle)
 	{
-		_WidgetDesigner->selectSingle(widget);
+		_WidgetDesigner->selectWidget(widget);
 	}
 	if (_Action_ToggleSelection)
 	{
-		_WidgetDesigner->toggleSelection(widget);
+		_WidgetDesigner->toggleWidgetSelection(widget);
 	}
 }
 
@@ -191,24 +191,24 @@ void WidgetDesignerTool::onMouseLButtonUp(const WidgetMouseEventParam& param)
 	_MousePressedPoint = _MousePoint;
 
 
-	if (_Action_MultipleSelection)
+	if (_Action_SelectMultiple)
 	{
-		_WidgetDesigner->selectBounds();
+		_WidgetDesigner->selectWidgetsInBounds();
 	}
-	if (_Action_SingleSelection)
+	if (_Action_SelectSingle)
 	{
-		_WidgetDesigner->moveSelection(offset);
+		_WidgetDesigner->moveSelectedWidgets(offset);
 	}
-	if (_Action_Move)
+	if (_Action_MoveSelection)
 	{
-		_WidgetDesigner->moveSelection(offset);
+		_WidgetDesigner->moveSelectedWidgets(offset);
 	}
 
 
-	_Action_MultipleSelection = false;
-	_Action_SingleSelection = false;
+	_Action_SelectMultiple = false;
+	_Action_SelectSingle = false;
 	_Action_ToggleSelection = false;
-	_Action_Move = false;
+	_Action_MoveSelection = false;
 
 
 	_MousePressedPoint.zero();
@@ -245,7 +245,6 @@ void WidgetDesignerTool::onMouseDragEnter(const WidgetMouseDragEnterEventParam& 
 
 
 	_NewWidget->moveOffset(_NewWidget_Point);
-
 	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
@@ -263,7 +262,6 @@ void WidgetDesignerTool::onMouseDragOver(const WidgetMouseDragOverEventParam& pa
 
 
 	_NewWidget->moveOffset(offset);
-
 	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
@@ -276,7 +274,6 @@ void WidgetDesignerTool::onMouseDragLeave(const WidgetMouseDragLeaveEventParam& 
 
 
 	_NewWidget = nullptr;
-
 	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
@@ -294,14 +291,11 @@ void WidgetDesignerTool::onMouseDrop(const WidgetMouseDropEventParam& param)
 
 
 	_NewWidget->moveOffset(offset);
-
 	_WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->addWidget(_NewWidget);
-
-	_WidgetDesigner->selectSingle(_NewWidget);
+	_WidgetDesigner->selectWidget(_NewWidget);
 
 
 	_NewWidget = nullptr;
-
 	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
@@ -335,7 +329,7 @@ bool WidgetDesignerTool::loadResources(WidgetResourceMap* widgetResourceMap)
 //===========================================================================
 void WidgetDesignerTool::draw(Context* ctx)
 {
-	if (_Action_MultipleSelection)
+	if (_Action_SelectMultiple)
 	{
 		drawSelectBounds(ctx);
 	}
