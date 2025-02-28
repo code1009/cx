@@ -17,19 +17,16 @@
       <UniqueIdentifier>{06b41572-4328-4617-96a5-99d3dd83bb4e}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\wui">
-      <UniqueIdentifier>{e4ede187-d28d-4643-968e-039b3f7a03d5}</UniqueIdentifier>
+      <UniqueIdentifier>{46b6dd9e-55c8-4486-b790-75699ecba000}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\wui\Window">
-      <UniqueIdentifier>{59649564-1e62-4481-989b-686af0fb2060}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cx\wui\WindowMessage">
-      <UniqueIdentifier>{3e8eb6e9-6ac2-4d60-8313-cef2f9e66ebc}</UniqueIdentifier>
+      <UniqueIdentifier>{4b01ad21-f7ca-4ca2-850f-6bd8b0b2fd9f}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\wui\GDI">
-      <UniqueIdentifier>{2bdb0b29-86f8-4af7-a141-a194780947a3}</UniqueIdentifier>
+      <UniqueIdentifier>{bc77115f-8cc8-4d0e-a603-cd6a6e35cc24}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\wui\Resource">
-      <UniqueIdentifier>{a768b809-3703-465f-8d12-aa9de6862272}</UniqueIdentifier>
+      <UniqueIdentifier>{5a6e9436-59d0-4ee4-878c-ad4a1d637293}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,13 +112,13 @@
     <ClInclude Include="..\..\library\wui\wui.hpp">
       <Filter>cx\wui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\pch.hpp">
+      <Filter>cx\wui</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\wui\AppModule.hpp">
       <Filter>cx\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Coord.hpp">
-      <Filter>cx\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\pch.hpp">
       <Filter>cx\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\BaseWindow.hpp">
@@ -145,7 +142,16 @@
     <ClInclude Include="..\..\library\wui\Window\WindowClass.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessage.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessageCrack.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\WindowMessageHandler.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessageLoop.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\WindowMessageMap.hpp">
@@ -156,18 +162,6 @@
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\WindowStyle.hpp">
       <Filter>cx\wui\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessageLoop.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\pch.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessage.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessageCrack.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\GDI\DC.hpp">
       <Filter>cx\wui\GDI</Filter>
@@ -267,17 +261,17 @@
     <ClCompile Include="..\..\library\wui\Window\WindowClass.cpp">
       <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\Window\WindowProc.cpp">
+    <ClCompile Include="..\..\library\wui\Window\WindowMessage.cpp">
       <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessage.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClCompile Include="..\..\library\wui\Window\WindowMessageCrack.cpp">
+      <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessageCrack.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClCompile Include="..\..\library\wui\Window\WindowMessageLoop.cpp">
+      <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessageLoop.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClCompile Include="..\..\library\wui\Window\WindowProc.cpp">
+      <Filter>cx\wui\Window</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\GDI\DC.cpp">
       <Filter>cx\wui\GDI</Filter>

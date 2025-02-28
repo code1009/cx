@@ -19,9 +19,6 @@
     <Filter Include="cx\wui\Window">
       <UniqueIdentifier>{eb7a7865-4158-4537-b417-3df56fdbad6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cx\wui\WindowMessage">
-      <UniqueIdentifier>{dcb070fa-43c9-4d87-8966-7075c9cc7e19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cx\wui\GDI">
       <UniqueIdentifier>{100b43c6-61cb-4dc8-87fd-9b0e91eb32cd}</UniqueIdentifier>
     </Filter>
@@ -291,12 +288,6 @@
     <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerConcreteCommand.hpp">
       <Filter>cx\gw\Widget\Design</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\AppModule.hpp">
-      <Filter>cx\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\Coord.hpp">
-      <Filter>cx\wui</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\library\wui\pch.hpp">
       <Filter>cx\wui</Filter>
     </ClInclude>
@@ -336,6 +327,9 @@
     <ClInclude Include="..\..\library\wui\GDI\pch.hpp">
       <Filter>cx\wui\GDI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\GDI\BasicDCT.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\BaseWindow.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
@@ -357,7 +351,16 @@
     <ClInclude Include="..\..\library\wui\Window\WindowClass.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessage.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessageCrack.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\WindowMessageHandler.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessageLoop.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\WindowMessageMap.hpp">
@@ -369,20 +372,11 @@
     <ClInclude Include="..\..\library\wui\Window\WindowStyle.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessageLoop.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClInclude Include="..\..\library\wui\AppModule.hpp">
+      <Filter>cx\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\pch.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessage.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessageCrack.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\GDI\BasicDCT.hpp">
-      <Filter>cx\wui\GDI</Filter>
+    <ClInclude Include="..\..\library\wui\Coord.hpp">
+      <Filter>cx\wui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -563,12 +557,6 @@
     <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerConcreteCommand.cpp">
       <Filter>cx\gw\Widget\Design</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\AppModule.cpp">
-      <Filter>cx\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\Coord.cpp">
-      <Filter>cx\wui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\library\wui\Resource\DialogTemplate.cpp">
       <Filter>cx\wui\Resource</Filter>
     </ClCompile>
@@ -611,17 +599,23 @@
     <ClCompile Include="..\..\library\wui\Window\WindowClass.cpp">
       <Filter>cx\wui\Window</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\library\wui\Window\WindowMessage.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\Window\WindowMessageCrack.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\Window\WindowMessageLoop.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\library\wui\Window\WindowProc.cpp">
       <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessage.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClCompile Include="..\..\library\wui\AppModule.cpp">
+      <Filter>cx\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessageCrack.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessageLoop.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClCompile Include="..\..\library\wui\Coord.cpp">
+      <Filter>cx\wui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

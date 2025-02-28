@@ -20,10 +20,10 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 // # TODO
+// - Resource
 // - GDIObject
 // - Common Control
 // - Common Dialog
-// - Resource
 // - Menu
 // - Toolbar
 
@@ -32,61 +32,47 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// # HINSTANCE
 #include "AppModule.hpp"
 
 //===========================================================================
-// # Coordinates
-#include "Coord.hpp"
-
-//===========================================================================
-// # Window
 #include "Window/WindowClass.hpp"
 #include "Window/WindowProc.hpp"
 #include "Window/Window.hpp"
 
-//#  WindowBase
 #include "Window/WindowStyle.hpp"
 #include "Window/BaseWindow.hpp"
 
 //===========================================================================
-// # WindowMessageLoop
-//   - GetMessage()
-#include "WindowMessage/WindowMessageLoop.hpp"
+#include "Window/WindowMessageLoop.hpp"
 
 //===========================================================================
-// # WindowMessage
-// WinProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-#include "WindowMessage/WindowMessage.hpp"
+#include "Window/WindowMessage.hpp"
 
 //===========================================================================
-// # Window Function
-#include "Window/BasicWindowT.hpp"
-#include "Window/Window_Functions.hpp"
-
-// # WindowMessageMap
 #include "Window/WindowMessageHandler.hpp"
 #include "Window/WindowMessageMap.hpp"
 #include "Window/MessageMapWindow.hpp"
 
-// # Window Message : WPARAM LPARAM, LRESULT
-#include "WindowMessage/WindowMessageCrack.hpp"
+//===========================================================================
+#include "Coord.hpp"
 
 //===========================================================================
-// # DeviceContext
+#include "Window/WindowMessageCrack.hpp"
+#include "Window/BasicWindowT.hpp"
+#include "Window/Window_Functions.hpp"
+
+//===========================================================================
 #include "GDI/DC.hpp"
 #include "GDI/BasicDCT.hpp"
 #include "GDI/DC_Classes.hpp"
 #include "GDI/DC_Functions.hpp"
 
-// # GDIObject
 #include "GDI/GDIObject_Pen.hpp"
 #include "GDI/GDIObject_Brush.hpp"
 #include "GDI/GDIObject_Font.hpp"
 #include "GDI/GDIObject_Bitmap.hpp"
 
 //===========================================================================
-// # .rc Resource
 #include "Resource/Resource.hpp"
 #include "Resource/Resource_Functions.hpp"
 #include "Resource/DialogTemplate.hpp"

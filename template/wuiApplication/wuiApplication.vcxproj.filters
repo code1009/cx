@@ -20,19 +20,16 @@
       <UniqueIdentifier>{f218ab38-7313-4bfd-9f1e-a8725760101a}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\wui">
-      <UniqueIdentifier>{8daf0022-36d5-45a1-a88f-bcb4a4ae933f}</UniqueIdentifier>
+      <UniqueIdentifier>{80e829f7-14c6-4d22-b439-f2a86d08ed87}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\wui\Window">
-      <UniqueIdentifier>{83f692df-8be5-45a3-b2df-4ccdbc2dd4ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cx\wui\WindowMessage">
-      <UniqueIdentifier>{89ac5f9d-799e-4064-9c45-4b5d26dc83d5}</UniqueIdentifier>
+      <UniqueIdentifier>{b4db3923-8912-4cf4-b834-2ced1b095cf6}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\wui\GDI">
-      <UniqueIdentifier>{1c471588-fe98-4e2a-ba21-75003a8f05c5}</UniqueIdentifier>
+      <UniqueIdentifier>{f948e6a4-ef46-4028-bed4-3b79925ddb00}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\wui\Resource">
-      <UniqueIdentifier>{ccd9337f-00f7-43a4-a792-8ee992a5f446}</UniqueIdentifier>
+      <UniqueIdentifier>{d5547c2b-f7ae-47f8-b34b-cc9d6d2e857a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,17 +102,17 @@
     <ClCompile Include="..\..\library\wui\Window\WindowClass.cpp">
       <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\Window\WindowProc.cpp">
+    <ClCompile Include="..\..\library\wui\Window\WindowMessage.cpp">
       <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessage.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClCompile Include="..\..\library\wui\Window\WindowMessageCrack.cpp">
+      <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessageCrack.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClCompile Include="..\..\library\wui\Window\WindowMessageLoop.cpp">
+      <Filter>cx\wui\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\WindowMessage\WindowMessageLoop.cpp">
-      <Filter>cx\wui\WindowMessage</Filter>
+    <ClCompile Include="..\..\library\wui\Window\WindowProc.cpp">
+      <Filter>cx\wui\Window</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\GDI\DC.cpp">
       <Filter>cx\wui\GDI</Filter>
@@ -233,13 +230,13 @@
     <ClInclude Include="..\..\library\wui\wui.hpp">
       <Filter>cx\wui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\pch.hpp">
+      <Filter>cx\wui</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\wui\AppModule.hpp">
       <Filter>cx\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Coord.hpp">
-      <Filter>cx\wui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\pch.hpp">
       <Filter>cx\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\BaseWindow.hpp">
@@ -263,7 +260,16 @@
     <ClInclude Include="..\..\library\wui\Window\WindowClass.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessage.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessageCrack.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\WindowMessageHandler.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\WindowMessageLoop.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\WindowMessageMap.hpp">
@@ -274,18 +280,6 @@
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\WindowStyle.hpp">
       <Filter>cx\wui\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessageLoop.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\pch.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessage.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\WindowMessage\WindowMessageCrack.hpp">
-      <Filter>cx\wui\WindowMessage</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\GDI\DC.hpp">
       <Filter>cx\wui\GDI</Filter>
