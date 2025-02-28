@@ -85,6 +85,7 @@ void WidgetDesignerTool::registerEventHandler(void)
 	);
 }
 
+//===========================================================================
 void WidgetDesignerTool::onMouseMove(const WidgetMouseEventParam& param)
 {
 	_p1 = param._MousePosition;
@@ -215,6 +216,7 @@ void WidgetDesignerTool::onMouseLButtonUp(const WidgetMouseEventParam& param)
 	_p1.zero();
 }
 
+//===========================================================================
 void WidgetDesignerTool::onMouseDragEnter(const WidgetMouseDragEnterEventParam& param)
 {
 	Point _MousePoint = _WidgetDesigner->toSnappedPoint(param._MousePosition);
@@ -228,19 +230,23 @@ void WidgetDesignerTool::onMouseDragEnter(const WidgetMouseDragEnterEventParam& 
 		return;
 	}
 
-
 	_NewWidget = widget->clone();
-	if (_NewWidget)
+	if (nullptr == _NewWidget)
 	{
-		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_NewWidget);
-		if (designWidget)
-		{
-			designWidget->setWidgetDesignerModel(_WidgetDesigner->getWidgetDesignerModel());
-		}
-
-
-		_NewWidget->moveOffset(_NewWidget_Point);
+		return;
 	}
+
+
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_NewWidget);
+	if (designWidget)
+	{
+		designWidget->setWidgetDesignerModel(_WidgetDesigner->getWidgetDesignerModel());
+	}
+
+
+	_NewWidget->moveOffset(_NewWidget_Point);
+
+	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
 void WidgetDesignerTool::onMouseDragOver(const WidgetMouseDragOverEventParam& param)
@@ -250,15 +256,28 @@ void WidgetDesignerTool::onMouseDragOver(const WidgetMouseDragOverEventParam& pa
 	_NewWidget_Point = _MousePoint;
 
 	
-	if (_NewWidget)
+	if (nullptr == _NewWidget)
 	{
-		_NewWidget->moveOffset(offset);
+		return;
 	}
+
+
+	_NewWidget->moveOffset(offset);
+
+	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
 void WidgetDesignerTool::onMouseDragLeave(const WidgetMouseDragLeaveEventParam& param)
 {
+	if (nullptr == _NewWidget)
+	{
+		return;
+	}
+
+
 	_NewWidget = nullptr;
+
+	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
 void WidgetDesignerTool::onMouseDrop(const WidgetMouseDropEventParam& param)
@@ -268,17 +287,22 @@ void WidgetDesignerTool::onMouseDrop(const WidgetMouseDropEventParam& param)
 	_NewWidget_Point = _MousePoint;
 
 
-	if (_NewWidget)
+	if (nullptr == _NewWidget)
 	{
-		_NewWidget->moveOffset(offset);
-
-		_WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->addWidget(_NewWidget);
-
-		_WidgetDesigner->selectSingle(_NewWidget);
+		return;
 	}
 
 
+	_NewWidget->moveOffset(offset);
+
+	_WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->addWidget(_NewWidget);
+
+	_WidgetDesigner->selectSingle(_NewWidget);
+
+
 	_NewWidget = nullptr;
+
+	_WidgetDesigner->getWidgetDesignerModel()->getWindow()->render();
 }
 
 //===========================================================================
