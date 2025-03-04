@@ -84,6 +84,7 @@ WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWin
 	//-----------------------------------------------------------------------
 	_View = std::make_unique<WebUIView>(manager, _URI);
 
+
 	//-----------------------------------------------------------------------
 	_View->createWebView();
 
