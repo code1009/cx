@@ -35,8 +35,9 @@ namespace app
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WebUIView::WebUIView(WebUIManager* manager, std::wstring uri):
+WebUIView::WebUIView(WebUIManager* manager, WebUIWindow* window, std::wstring uri):
 	_Manager{ manager },
+	_Window { window },
 	_URI{ uri }
 {
 	createWebView();

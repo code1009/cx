@@ -82,7 +82,7 @@ WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWin
 
 
 	//-----------------------------------------------------------------------
-	_View = std::make_unique<WebUIView>(manager, _URI);
+	_View = std::make_unique<WebUIView>(manager, this, _URI);
 
 
 	//-----------------------------------------------------------------------
@@ -185,10 +185,13 @@ void WebUIWindow::onClose(cx::wui::WindowMessage& windowMessage)
 void WebUIWindow::onSize(cx::wui::WindowMessage& windowMessage)
 {
 	RECT rect;
-	if (_View->_WebView_Controller != nullptr)
+	if (_View)
 	{
-		::GetClientRect(getWindowHandle(), &rect);
-		_View->_WebView_Controller->put_Bounds(rect);
+		if (_View->_WebView_Controller != nullptr)
+		{
+			::GetClientRect(getWindowHandle(), &rect);
+			_View->_WebView_Controller->put_Bounds(rect);
+		}
 	}
 }
 

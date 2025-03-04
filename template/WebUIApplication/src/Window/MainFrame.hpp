@@ -6,11 +6,24 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+namespace app
+{
+
+class WebUIManager;
+
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class MainFrame : 
 	public cx::wui::MessageMapWindowT<MainFrame, cx::wui::BaseWindow>
 {
 private:
-	std::unique_ptr<View> _View;
+	std::shared_ptr<app::WebUIManager> _WebUIManager;
 
 public:
 	MainFrame();
@@ -27,6 +40,9 @@ public:
 	void onMenuCommand(cx::wui::WindowMessage& windowMessage);
 	void onAppAbout(cx::wui::WindowMessage& windowMessage);
 	void onCtlCommand(cx::wui::WindowMessage& windowMessage);
+
+	void onUser0(cx::wui::WindowMessage& windowMessage);
+	void onUser1(cx::wui::WindowMessage& windowMessage);
 
 public:
 	void onIdle(void);

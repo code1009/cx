@@ -11,6 +11,7 @@
 #include "../../res/resource.h"
 
 //===========================================================================
+#include "../WebUI/WebUI.hpp"
 #include "View.hpp"
 #include "MainFrame.hpp"
 #include "AboutBox.hpp"
@@ -60,7 +61,14 @@ MainFrame::MainFrame()
 
 
 	//-----------------------------------------------------------------------
-	_View = std::make_unique<View>(*this);
+	_WebUIManager = std::make_shared<app::WebUIManager>(getWindowHandle());
+
+
+	//-----------------------------------------------------------------------
+	std::shared_ptr<app::WebUIWindow> window;
+	app::regsiterWebUIWindowClass();
+	window = _WebUIManager->newChildWindow(getWindowHandle(), _WebUIManager->getContentsURI(L"/page/home.html"));
+	_WebUIManager->getMessageService()->setWindow(window->getWindowHandle());
 
 
 	//-----------------------------------------------------------------------
@@ -82,6 +90,9 @@ void MainFrame::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_ERASEBKGND) = &MainFrame::onEraseBkgnd;
 	_WindowMessageMap.handle(WM_KEYDOWN)    = &MainFrame::onKeyDown;
 	_WindowMessageMap.handle(WM_COMMAND)    = &MainFrame::onCommand;
+
+	_WindowMessageMap.handle(WM_USER+0) = &MainFrame::onUser0;
+	_WindowMessageMap.handle(WM_USER+1) = &MainFrame::onUser1;
 }
 
 void MainFrame::onCreate(cx::wui::WindowMessage& windowMessage)
@@ -95,39 +106,25 @@ void MainFrame::onDestroy(cx::wui::WindowMessage& windowMessage)
 
 void MainFrame::onClose(cx::wui::WindowMessage& windowMessage)
 {
+	//-----------------------------------------------------------------------
+	_WebUIManager->deleteAndDestroyAllWindows();
+	_WebUIManager.reset();
+
+
+	//-----------------------------------------------------------------------
 	destroyWindow();
 }
 
 void MainFrame::onSize(cx::wui::WindowMessage& windowMessage)
 {
-	//-----------------------------------------------------------------------
 	RECT rect;
-
-
-	::GetClientRect(*this, &rect);
-
-
-	//-----------------------------------------------------------------------
-	UINT cx;
-	UINT cy;
-
-
-	cx = static_cast<UINT>(rect.right - rect.left);
-	cy = static_cast<UINT>(rect.bottom - rect.top);
-
-
-	//-----------------------------------------------------------------------
-	if (_View.get())
-	{
-		::MoveWindow(*_View, 0, 0, cx, cy, TRUE);
-	}
+	GetClientRect(getWindowHandle(), &rect);
+	_WebUIManager->moveWindow(getWindowHandle(), rect);
 }
 
 void MainFrame::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 {
 	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
-
-
 	wm.Result(TRUE);
 }
 
@@ -140,10 +137,6 @@ void MainFrame::onKeyDown(cx::wui::WindowMessage& windowMessage)
 	{
 	case VK_F7:
 	case VK_F8:
-		if (_View.get())
-		{
-			_View->onKeyDown(windowMessage);
-		}
 		break;
 
 	default:
@@ -191,8 +184,6 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 void MainFrame::onAppAbout(cx::wui::WindowMessage& windowMessage)
 {
 	AboutBox aboutBox;
-
-
 	aboutBox.doModal(*this);
 }
 
@@ -212,13 +203,18 @@ void MainFrame::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 	}
 }
 
+void MainFrame::onUser0(cx::wui::WindowMessage& windowMessage)
+{
+	_WebUIManager->deleteWindow((HWND)windowMessage.wParam);
+}
+
+void MainFrame::onUser1(cx::wui::WindowMessage& windowMessage)
+{
+}
+
 //===========================================================================
 void MainFrame::onIdle(void)
 {
-	if (_View.get())
-	{
-		_View->onIdle();
-	}
 }
 
 

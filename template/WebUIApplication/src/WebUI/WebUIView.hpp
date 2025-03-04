@@ -66,7 +66,7 @@ public:
 
 	//-------------------------------------------------------------------------
 public:
-	explicit WebUIView(WebUIManager* manager, std::wstring uri);
+	explicit WebUIView(WebUIManager* manager, WebUIWindow* window, std::wstring uri);
 	virtual ~WebUIView();
 
 
