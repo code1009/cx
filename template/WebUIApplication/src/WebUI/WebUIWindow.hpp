@@ -42,6 +42,8 @@ private:
 
 public:
 	explicit WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWindowHandle, bool popupWindowStyle);
+
+public:
 	virtual ~WebUIWindow();
 
 public:

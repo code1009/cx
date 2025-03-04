@@ -30,6 +30,8 @@ private:
 
 public:
 	explicit WebUIMessageService(WebUIManager* manager);
+
+public:
 	virtual ~WebUIMessageService();
 
 public:
