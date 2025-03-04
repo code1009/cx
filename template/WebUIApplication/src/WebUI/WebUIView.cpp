@@ -526,18 +526,16 @@ HRESULT WebUIView::onWebView_DocumentTitleChanged(ICoreWebView2* sender, IUnknow
 
 
 	//-----------------------------------------------------------------------
-	/*
-	if (isPopupWindow())
+	if (_Window->isPopupWindow())
 	{
-		cx::wui::setWindowText(*this, title);
+		cx::wui::setWindowText(_Window->getWindowHandle(), title);
 	}
 	else
 	{
 		HWND hParent;
-		hParent = GetParent(*this);
+		hParent = GetParent(_Window->getWindowHandle());
 		cx::wui::setWindowText(hParent, title);
 	}
-	*/
 
 	return S_OK;
 }
@@ -576,8 +574,6 @@ HRESULT WebUIView::onWebView_HistoryChanged(ICoreWebView2* sender, IUnknown* arg
 	std::wstring source(ucsSource.get());
 	CX_RUNTIME_LOG(LDbug) << source;
 
-
-	//-----------------------------------------------------------------------
 
 	return S_OK;
 }
@@ -659,12 +655,11 @@ HRESULT WebUIView::onWebView_NavigationStarting(ICoreWebView2* sender, ICoreWebV
 
 	//-----------------------------------------------------------------------
 	BOOL cancel = FALSE;
-
-
 	hr = args->get_Cancel(&cancel);
 	RETURN_IF_FAILED(hr);
 
 
+	//-----------------------------------------------------------------------
 	//hr = args->put_Cancel(cancel);
 	//RETURN_IF_FAILED(hr);
 
