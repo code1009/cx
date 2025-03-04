@@ -361,7 +361,7 @@ std::wstring WebUIMessageService::getFile_Json(void)
 
 	//------------------------------------------------------------------------
 	std::wstring currentDateTime;
-	currentDateTime = std::format(L"%04d-%02d-%02d %02d:%02d:%02d",
+	currentDateTime = std::format(L"{:04}-{:02}-{:02} {:02}:{:02}:{:02}",
 		st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 
 
