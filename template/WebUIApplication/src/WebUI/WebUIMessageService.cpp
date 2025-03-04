@@ -315,6 +315,30 @@ bool WebUIMessageService::onCommand_MessageString(WebUIWindow* window, web::json
 
 bool WebUIMessageService::onCommand_FileUpdate(WebUIWindow* window, web::json::value& jsonMessage)
 {
+	//------------------------------------------------------------------------
+	std::wstring json = getFile_Json();
+
+
+	//------------------------------------------------------------------------
+	getManager()->getContentsMap()->registerContents(
+		L"/file.json",
+		std::make_shared<WebUIContentsUTF8StringStream>(json)
+	);
+
+
+	//-----------------------------------------------------------------------
+	std::string data;
+
+
+	std::wstring uri;
+	std::wstring urn;
+
+
+	urn = L"/page_2/page.html";
+	uri = getManager()->getContentsHost() + urn;
+
+	auto e = getManager()->newPopupWindow(getWindow()->getWindowHandle(), uri, { 0,0,1000,1000 });
+
 	return true;
 }
 
@@ -335,9 +359,35 @@ void WebUIMessageService::postWebMessage_MessageString(void)
 
 std::wstring WebUIMessageService::getFile_Json(void)
 {
-	std::wstring json;
+	//------------------------------------------------------------------------
+	std::vector<std::vector<std::wstring>> dataView;
+	dataView.push_back({ L"1", L"2021-01-01 00:00:00", L"INFO", L"안녕하세요?" });
+	dataView.push_back({ L"2", L"2021-01-01 00:00:00", L"INFO", L"안녕하세요?" });
 
-	return json;
+
+	//------------------------------------------------------------------------
+	std::vector<web::json::value> collection;
+	for (auto& e : dataView)
+	{
+		web::json::value rec;
+		rec = web::json::value::array(4);
+		rec[0] = web::json::value::string(e[0]);
+		rec[1] = web::json::value::string(e[1]);
+		rec[2] = web::json::value::string(e[2]);
+		rec[3] = web::json::value::string(e[3]);
+		collection.push_back(rec);
+	}
+
+
+	//------------------------------------------------------------------------
+	web::json::value jsonMessage;
+	jsonMessage = web::json::value::array(collection);
+
+
+	//------------------------------------------------------------------------
+	utility::stringstream_t stream;
+	jsonMessage.serialize(stream);
+	return stream.str();
 }
 
 
