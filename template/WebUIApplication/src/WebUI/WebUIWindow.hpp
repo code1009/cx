@@ -16,6 +16,7 @@ namespace app
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class WebUIManager;
+class WebUIView;
 
 
 
@@ -34,10 +35,9 @@ void regsiterWebUIWindowClass(void);
 class WebUIWindow :
 	public cx::wui::MessageMapWindowT<WebUIWindow, cx::wui::BaseWindow>
 {
-public:
-	WebUIManager* _Manager{ nullptr };
-	std::wstring  _URI{ };
-	bool          _PopupWindowStyle{ false };
+private:
+	WebUIManager*              _Manager{ nullptr };
+	bool                       _PopupWindowStyle{ false };
 	std::unique_ptr<WebUIView> _View{ nullptr };
 
 public:
@@ -45,7 +45,8 @@ public:
 	virtual ~WebUIWindow();
 
 public:
-	WebUIView* getView(void) const { return _View.get(); }
+	WebUIManager* getManager(void) const { return _Manager; }
+	WebUIView*    getView   (void) const { return _View.get(); }
 
 protected:
 	virtual HWND createWebUIWindow(HWND parentWindowHandle, bool popupWindowStyle);

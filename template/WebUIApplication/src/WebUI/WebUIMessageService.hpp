@@ -33,13 +33,9 @@ public:
 	virtual ~WebUIMessageService();
 
 public:
-	void setWindow(HWND hViewWindow)
-	{
-		_hWindow = hViewWindow;
-	}
-
 	WebUIManager* getManager(void);
 	WebUIWindow* getWindow(void);
+	void setWindow(HWND hWindow);
 
 public:
 	void onRuntimeExceptionThrown(WebUIWindow* window, const std::wstring& message);

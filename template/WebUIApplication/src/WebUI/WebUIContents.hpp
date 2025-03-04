@@ -18,8 +18,10 @@ namespace app
 class WebUIContentsStream
 {
 public:
-	WebUIContentsStream();
-	virtual ~WebUIContentsStream();
+	WebUIContentsStream() = default;
+
+public:
+	virtual ~WebUIContentsStream() = default;
 
 public:
 	virtual IStream* getStream(void) const = 0;
@@ -44,6 +46,8 @@ private:
 
 public:
 	explicit WebUIContentsFileStream(const std::wstring& filePath);
+
+public:
 	virtual ~WebUIContentsFileStream();
 
 public:
@@ -81,6 +85,8 @@ private:
 
 public:
 	explicit WebUIContentsResourceStream(const std::wstring& resourceName);
+
+public:
 	virtual ~WebUIContentsResourceStream();
 
 public:
@@ -118,6 +124,8 @@ private:
 public:
 	explicit WebUIContentsUTF8StringStream(const std::wstring& s);
 	explicit WebUIContentsUTF8StringStream(const std::string& s);
+
+public:
 	virtual ~WebUIContentsUTF8StringStream();
 
 public:
@@ -129,12 +137,6 @@ public:
 
 public:
 	virtual IStream* getStream(void) const override;
-
-public:
-	std::wstring mbcs_to_wcs(std::string input, UINT codepage);
-	std::string  wcs_to_mbcs(std::wstring input, UINT codepage);
-	std::string  utf8_to_mbcs(std::string /*input*/utf8, UINT codepage);
-	std::string  mbcs_to_utf8(std::string /*input*/mbcs, UINT codepage);
 
 private:
 	bool load(void);
@@ -156,7 +158,9 @@ private:
 
 public:
 	explicit WebUIContents(const std::wstring& URN, const std::wstring& headers, std::shared_ptr<WebUIContentsStream> stream);
-	~WebUIContents();
+
+public:
+	~WebUIContents() = default;
 
 public:
 	WebUIContents(const WebUIContents& other);
@@ -182,14 +186,12 @@ class WebUIExtensionMIMETypeMap final
 private:
 	std::map<std::wstring, std::pair<std::wstring, std::wstring>> _Container{};
 
-
-	//-------------------------------------------------------------------------
 public:
 	WebUIExtensionMIMETypeMap();
-	~WebUIExtensionMIMETypeMap();
 
+public:
+	~WebUIExtensionMIMETypeMap() = default;
 
-	//-------------------------------------------------------------------------
 public:
 	WebUIExtensionMIMETypeMap(const WebUIExtensionMIMETypeMap& other);
 	WebUIExtensionMIMETypeMap& operator=(const WebUIExtensionMIMETypeMap& other);
@@ -197,8 +199,6 @@ public:
 	WebUIExtensionMIMETypeMap(WebUIExtensionMIMETypeMap&& other) noexcept;
 	WebUIExtensionMIMETypeMap& operator=(WebUIExtensionMIMETypeMap&& other) noexcept;
 
-
-	//-------------------------------------------------------------------------
 private:
 	void registerDefault(void);
 
@@ -211,8 +211,6 @@ public:
 	std::wstring getExtensionMIMEType(const std::wstring& extension);
 	std::wstring getExtensionDescription(const std::wstring& extension);
 
-
-	//-------------------------------------------------------------------------
 public:
 	std::wstring getExtension(const std::wstring& urn) const;
 };
@@ -229,14 +227,12 @@ private:
 	WebUIExtensionMIMETypeMap _ExtensionMIMETypeMap{};
 	std::map< std::wstring, std::shared_ptr<WebUIContents>> _Container{};
 
-
-	//-------------------------------------------------------------------------
 public:
-	WebUIContentsMap();
-	~WebUIContentsMap();
+	WebUIContentsMap() = default;
 
+public:
+	~WebUIContentsMap() = default;
 
-	//-------------------------------------------------------------------------
 public:
 	WebUIContentsMap(const WebUIContentsMap& other);
 	WebUIContentsMap& operator=(const WebUIContentsMap& other);
@@ -244,8 +240,6 @@ public:
 	WebUIContentsMap(WebUIContentsMap&& other) noexcept;
 	WebUIContentsMap& operator=(WebUIContentsMap&& other) noexcept;
 
-
-	//-------------------------------------------------------------------------
 public:
 	void registerContents(const std::wstring& urn, const std::wstring& headers, std::shared_ptr<WebUIContentsStream> stream);
 	void registerContents(const std::wstring& urn, std::shared_ptr<WebUIContentsStream> stream);

@@ -40,6 +40,7 @@ WebUIManager::WebUIManager(HWND hMainWindow):
 	registerContentsMap();
 }
 
+//===========================================================================
 WebUIManager::~WebUIManager()
 {
 	CX_RUNTIME_LOG(LDbug)
@@ -122,7 +123,7 @@ std::wstring WebUIManager::parseContentsURN(const std::wstring& uri) const
 }
 
 //===========================================================================
-std::wstring replaceBackslashesWithSlashes(const std::wstring& input) 
+static std::wstring replaceBackslashesWithSlashes(const std::wstring& input) 
 {
 	std::wstring result = input;
 	std::wstring::size_type pos = 0;
@@ -137,7 +138,7 @@ std::wstring replaceBackslashesWithSlashes(const std::wstring& input)
 	return result;
 }
 
-std::vector<std::wstring> getFileList(const std::wstring& directoryPath) 
+static std::vector<std::wstring> getFileList(const std::wstring& directoryPath)
 {
 	std::vector<std::wstring> fileList;
 
@@ -159,7 +160,7 @@ std::vector<std::wstring> getFileList(const std::wstring& directoryPath)
 	return fileList;
 }
 
-void loadWebUIContentsMapFromFile(WebUIContentsMap& _ContentsMap)
+static void loadWebUIContentsMapFromFile(WebUIContentsMap& _ContentsMap)
 {
 	std::vector<std::wstring> fileList;
 	std::wstring baseDirectory;
@@ -181,7 +182,7 @@ void loadWebUIContentsMapFromFile(WebUIContentsMap& _ContentsMap)
 	}
 }
 
-void loadWebUIContentsMapFromResource(WebUIContentsMap& _ContentsMap)
+static void loadWebUIContentsMapFromResource(WebUIContentsMap& _ContentsMap)
 {
 	//------------------------------------------------------------------------
 	std::vector<std::wstring> resourceCollection
@@ -214,10 +215,7 @@ void WebUIManager::registerContentsMap(void)
 
 	//------------------------------------------------------------------------
 	std::wstring json;
-
-
 	json = _MessageService->getFile_Json();
-
 	_ContentsMap.registerContents(L"/file.json", std::make_shared<WebUIContentsUTF8StringStream>(json));
 }
 

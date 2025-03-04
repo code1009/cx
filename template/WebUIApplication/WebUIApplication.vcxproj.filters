@@ -34,6 +34,9 @@
     <Filter Include="src\WebUI">
       <UniqueIdentifier>{06e81f3c-9235-4f0c-93ed-e3e186e81283}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cx\component">
+      <UniqueIdentifier>{834905c7-ad44-4a4e-aa77-93a5186a5116}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
@@ -231,6 +234,24 @@
     <ClInclude Include="src\WebUI\WebUIView.hpp">
       <Filter>src\WebUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\component\charset_system.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\parse_c_string.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\pch.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\std_wstring_utility.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\to_std_wstring.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\component\xml.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\runtime\Assert.cpp">
@@ -358,6 +379,21 @@
     </ClCompile>
     <ClCompile Include="src\WebUI\WebUIView.cpp">
       <Filter>src\WebUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\charset_system.cpp">
+      <Filter>cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\parse_c_string.cpp">
+      <Filter>cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\std_wstring_utility.cpp">
+      <Filter>cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\to_std_wstring.cpp">
+      <Filter>cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\xml.cpp">
+      <Filter>cx\component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

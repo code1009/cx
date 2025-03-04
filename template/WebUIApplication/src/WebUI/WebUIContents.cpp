@@ -4,6 +4,7 @@
 
 //===========================================================================
 #include <wui/wui.hpp>
+#include <component/charset_system.hpp>
 
 //===========================================================================
 #include "WebUI.hpp"
@@ -16,22 +17,6 @@
 //===========================================================================
 namespace app
 {
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-WebUIContentsStream::WebUIContentsStream()
-{
-
-}
-
-WebUIContentsStream::~WebUIContentsStream()
-{
-
-}
 
 
 
@@ -52,11 +37,13 @@ WebUIContentsFileStream::WebUIContentsFileStream(const std::wstring& filePath) :
 	}
 }
 
+//===========================================================================
 WebUIContentsFileStream::~WebUIContentsFileStream()
 {
 	unload();
 }
 
+//===========================================================================
 IStream* WebUIContentsFileStream::getStream(void) const
 {
 	return _pStream;
@@ -158,11 +145,13 @@ WebUIContentsResourceStream::WebUIContentsResourceStream(const std::wstring& res
 	}
 }
 
+//===========================================================================
 WebUIContentsResourceStream::~WebUIContentsResourceStream()
 {
 	unload();
 }
 
+//===========================================================================
 IStream* WebUIContentsResourceStream::getStream(void) const
 { 
 	return _pStream; 
@@ -262,7 +251,7 @@ void WebUIContentsResourceStream::unload(void)
 //===========================================================================
 WebUIContentsUTF8StringStream::WebUIContentsUTF8StringStream(const std::wstring& s)
 {
-	_UTF8String = wcs_to_mbcs(s, CP_UTF8);
+	_UTF8String = cx::wcs_to_mbcs(s, CP_UTF8);
 
 
 	bool rv;
@@ -277,7 +266,7 @@ WebUIContentsUTF8StringStream::WebUIContentsUTF8StringStream(const std::wstring&
 
 WebUIContentsUTF8StringStream::WebUIContentsUTF8StringStream(const std::string& s)
 {
-	_UTF8String = mbcs_to_utf8(s, CP_ACP);
+	_UTF8String = cx::mbcs_to_utf8(s, CP_ACP);
 
 
 	bool rv;
@@ -290,79 +279,17 @@ WebUIContentsUTF8StringStream::WebUIContentsUTF8StringStream(const std::string& 
 	}
 }
 
+//===========================================================================
 WebUIContentsUTF8StringStream::~WebUIContentsUTF8StringStream()
 {
 	unload();
 }
 
+//===========================================================================
 IStream* WebUIContentsUTF8StringStream::getStream(void) const
 {
 	return _pStream;
 };
-
-std::wstring WebUIContentsUTF8StringStream::mbcs_to_wcs(std::string input, UINT codepage)
-{
-	int len = MultiByteToWideChar(codepage, 0, input.c_str(), -1, NULL, 0);
-
-
-	if (len > 0)
-	{
-		std::vector<wchar_t> buf(len);
-
-
-		MultiByteToWideChar(codepage, 0, input.c_str(), -1, &buf[0], len);
-
-		return std::wstring(&buf[0]);
-	}
-
-	return std::wstring();
-}
-
-std::string WebUIContentsUTF8StringStream::wcs_to_mbcs(std::wstring input, UINT codepage)
-{
-	int len = WideCharToMultiByte(codepage, 0, input.c_str(), -1, NULL, 0, NULL, NULL);
-
-
-	if (len > 0)
-	{
-		std::vector<char> buf(len);
-
-
-		WideCharToMultiByte(codepage, 0, input.c_str(), -1, &buf[0], len, NULL, NULL);
-
-		return std::string(&buf[0]);
-	}
-
-	return std::string();
-}
-
-std::string WebUIContentsUTF8StringStream::utf8_to_mbcs(std::string /*input*/utf8, UINT codepage)
-{
-	//	std::string  utf8 ;
-	std::wstring utf16;
-	std::string  mbcs;
-
-
-	//	utf8  = input;
-	utf16 = mbcs_to_wcs(utf8, CP_UTF8);
-	mbcs = wcs_to_mbcs(utf16, codepage);
-
-	return mbcs;
-}
-
-std::string WebUIContentsUTF8StringStream::mbcs_to_utf8(std::string /*input*/mbcs, UINT codepage)
-{
-	std::string  utf8;
-	std::wstring utf16;
-	//	std::string  mbcs ;
-
-
-	//	mbcs  = input;
-	utf16 = mbcs_to_wcs(mbcs, codepage);
-	utf8 = wcs_to_mbcs(utf16, CP_UTF8);
-
-	return utf8;
-}
 
 bool WebUIContentsUTF8StringStream::load(void)
 {
@@ -451,10 +378,7 @@ WebUIContents::WebUIContents(
 {
 }
 
-WebUIContents::~WebUIContents() 
-{
-}
-
+//===========================================================================
 WebUIContents::WebUIContents(const WebUIContents& other):
 	_URN(other._URN), 
 	_Headers(other._Headers), 
@@ -474,6 +398,7 @@ WebUIContents& WebUIContents::operator=(const WebUIContents& other)
 	return *this;
 }
 
+//===========================================================================
 WebUIContents::WebUIContents(WebUIContents&& other) noexcept :
 	_URN(std::move(other._URN)), 
 	_Headers(std::move(other._Headers)), 
@@ -493,7 +418,8 @@ WebUIContents& WebUIContents::operator=(WebUIContents&& other) noexcept
 	return *this;
 }
 
-std::wstring WebUIContents::getURN() const 
+//===========================================================================
+std::wstring WebUIContents::getURN() const
 {
 	return _URN;
 }
@@ -519,11 +445,7 @@ WebUIExtensionMIMETypeMap::WebUIExtensionMIMETypeMap()
 	registerDefault();
 }
 
-WebUIExtensionMIMETypeMap::~WebUIExtensionMIMETypeMap()
-{
-
-}
-
+//===========================================================================
 WebUIExtensionMIMETypeMap::WebUIExtensionMIMETypeMap(const WebUIExtensionMIMETypeMap& other) :
 	_Container(other._Container)
 {
@@ -539,6 +461,7 @@ WebUIExtensionMIMETypeMap& WebUIExtensionMIMETypeMap::operator=(const WebUIExten
 	return *this;
 }
 
+//===========================================================================
 WebUIExtensionMIMETypeMap::WebUIExtensionMIMETypeMap(WebUIExtensionMIMETypeMap&& other) noexcept :
 	_Container(std::move(other._Container))
 {
@@ -554,6 +477,7 @@ WebUIExtensionMIMETypeMap& WebUIExtensionMIMETypeMap::operator=(WebUIExtensionMI
 	return *this;
 }
 
+//===========================================================================
 void WebUIExtensionMIMETypeMap::registerDefault(void)
 {
 	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
@@ -682,23 +606,19 @@ std::wstring WebUIExtensionMIMETypeMap::getExtension(const std::wstring& urn) co
 	return L"";
 }
 
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WebUIContentsMap::WebUIContentsMap() 
-{
-}
-
-WebUIContentsMap::~WebUIContentsMap() 
-{
-}
-
 WebUIContentsMap::WebUIContentsMap(const WebUIContentsMap& other):
 	_ExtensionMIMETypeMap(other._ExtensionMIMETypeMap), 
 	_Container(other._Container) 
 {
 }
 
-WebUIContentsMap& WebUIContentsMap::operator=(const WebUIContentsMap& other) 
+WebUIContentsMap& WebUIContentsMap::operator=(const WebUIContentsMap& other)
 {
 	if (this != &other) 
 	{
@@ -709,6 +629,7 @@ WebUIContentsMap& WebUIContentsMap::operator=(const WebUIContentsMap& other)
 	return *this;
 }
 
+//===========================================================================
 WebUIContentsMap::WebUIContentsMap(WebUIContentsMap&& other) noexcept:
 	_ExtensionMIMETypeMap(std::move(other._ExtensionMIMETypeMap)), 
 	_Container(std::move(other._Container)) 
@@ -726,7 +647,8 @@ WebUIContentsMap& WebUIContentsMap::operator=(WebUIContentsMap&& other) noexcept
 	return *this;
 }
 
-void WebUIContentsMap::registerContents(const std::wstring& urn, const std::wstring& headers, std::shared_ptr<WebUIContentsStream> stream) 
+//===========================================================================
+void WebUIContentsMap::registerContents(const std::wstring& urn, const std::wstring& headers, std::shared_ptr<WebUIContentsStream> stream)
 {
 	_Container[urn] = std::make_shared<WebUIContents>(urn, headers, stream);
 }

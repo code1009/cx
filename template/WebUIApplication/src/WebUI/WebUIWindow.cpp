@@ -60,9 +60,8 @@ void regsiterWebUIWindowClass(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWindowHandle, bool popupWindowStyle):
+WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWindowHandle, bool popupWindowStyle) :
 	_Manager{ manager },
-	_URI{ uri },
 	_PopupWindowStyle{ popupWindowStyle }
 {
 	//-----------------------------------------------------------------------
@@ -82,10 +81,7 @@ WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWin
 
 
 	//-----------------------------------------------------------------------
-	_View = std::make_unique<WebUIView>(manager, this, _URI);
-
-
-	//-----------------------------------------------------------------------
+	_View = std::make_unique<WebUIView>(this, uri);
 	_View->createWebView();
 
 
@@ -215,7 +211,7 @@ bool WebUIWindow::isPopupWindow(void)
 
 void WebUIWindow::onUser1(cx::wui::WindowMessage& windowMessage)
 {
-	_View->onExecuteTask(reinterpret_cast<void*>(windowMessage.wParam));
+	_View->onUser1(windowMessage);
 }
 
 

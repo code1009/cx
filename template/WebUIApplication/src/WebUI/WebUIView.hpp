@@ -28,7 +28,6 @@ class WebUIView
 {
 	//-------------------------------------------------------------------------
 public:
-	WebUIManager* _Manager{ nullptr };
 	WebUIWindow*  _Window{ nullptr };
 	std::wstring  _URI{ };
 
@@ -66,7 +65,7 @@ public:
 
 	//-------------------------------------------------------------------------
 public:
-	explicit WebUIView(WebUIManager* manager, WebUIWindow* window, std::wstring uri);
+	explicit WebUIView(WebUIWindow* window, std::wstring uri);
 	virtual ~WebUIView();
 
 
@@ -95,6 +94,7 @@ public:
 public:
 	HRESULT setupWebView(void);
 	
+public:
 	HRESULT setupWebView_WebResourceRequested(void);
 	HRESULT    onWebView_WebResourceRequested(ICoreWebView2* sender, ICoreWebView2WebResourceRequestedEventArgs* args);
 	HRESULT setupWebView_WebMessageReceived  (void);
@@ -130,7 +130,7 @@ public:
 
 
 	//-------------------------------------------------------------------------
-private:
+protected:
 	void onWebMessage(const std::wstring& urn, const std::wstring& webMessage);
 
 public:

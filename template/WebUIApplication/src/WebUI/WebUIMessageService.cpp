@@ -47,12 +47,13 @@ WebUIWindow* WebUIMessageService::getWindow(void)
 
 
 	WebUIWindow* window;
-
-
 	window = _Manager->findWindow(_hWindow);
-
-
 	return window;
+}
+
+void WebUIMessageService::setWindow(HWND hWindow)
+{
+	_hWindow = hWindow;
 }
 
 //===========================================================================

@@ -35,8 +35,7 @@ namespace app
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WebUIView::WebUIView(WebUIManager* manager, WebUIWindow* window, std::wstring uri):
-	_Manager{ manager },
+WebUIView::WebUIView(WebUIWindow* window, std::wstring uri):
 	_Window { window },
 	_URI{ uri }
 {
@@ -56,7 +55,7 @@ void WebUIView::createWebView(void)
 
 	hr = CreateCoreWebView2EnvironmentWithOptions(
 		nullptr, 
-		_Manager->getContentsDataFolder().c_str(),
+		_Window->getManager()->getContentsDataFolder().c_str(),
 		nullptr,
 		Microsoft::WRL::Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>
 			(this, &WebUIView::onWebView_Environment_Completed).Get()
@@ -312,7 +311,7 @@ HRESULT WebUIView::setupWebView_WebResourceRequested(void)
 	std::wstring uri;
 
 
-	uri = _Manager->getContentsHost() + L"/*";
+	uri = _Window->getManager()->getContentsHost() + L"/*";
 	hr = _WebView->AddWebResourceRequestedFilter(uri.c_str(), COREWEBVIEW2_WEB_RESOURCE_CONTEXT_ALL);
 	RETURN_IF_FAILED(hr);
 
@@ -367,12 +366,12 @@ HRESULT WebUIView::onWebView_WebResourceRequested(ICoreWebView2* sender,ICoreWeb
 
 
 	//-----------------------------------------------------------------------
-	std::wstring urn = _Manager->parseContentsURN(uri);
+	std::wstring urn = _Window->getManager()->parseContentsURN(uri);
 	CX_RUNTIME_LOG(LDbug) << urn;
 
 
 	//-----------------------------------------------------------------------
-	WebUIContents* o = _Manager->getContentsMap()->findContents(urn);
+	WebUIContents* o = _Window->getManager()->getContentsMap()->findContents(urn);
 
 
 	//-----------------------------------------------------------------------
@@ -448,7 +447,7 @@ HRESULT WebUIView::onWebView_WebMessageReceived(ICoreWebView2* sender, ICoreWebV
 
 	//-----------------------------------------------------------------------
 	std::wstring uri(ucsUri.get());
-	std::wstring urn = _Manager->parseContentsURN(uri);
+	std::wstring urn = _Window->getManager()->parseContentsURN(uri);
 	if (urn.empty())
 	{
 		return S_OK;
@@ -808,7 +807,7 @@ HRESULT WebUIView::onWebView_NewWindowRequested(ICoreWebView2* sender, ICoreWebV
 
 
 	//-----------------------------------------------------------------------
-	std::shared_ptr<WebUIWindow> newWindow = _Manager->newPopupWindow(_Window->getWindowHandle(), ucsUri.get(), windowRect);
+	std::shared_ptr<WebUIWindow> newWindow = _Window->getManager()->newPopupWindow(_Window->getWindowHandle(), ucsUri.get(), windowRect);
 
 
 	//-----------------------------------------------------------------------
@@ -1318,7 +1317,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Runtime_exceptionThrown(ICoreWebVi
 
 
 	//-----------------------------------------------------------------------
-	_Manager->getMessageService()->onRuntimeExceptionThrown(_Window, jsonArgs);
+	_Window->getManager()->getMessageService()->onRuntimeExceptionThrown(_Window, jsonArgs);
 
 
 	return S_OK;
@@ -1369,7 +1368,7 @@ void WebUIView::onWebMessage(const std::wstring& urn, const std::wstring& webMes
 
 
 	//------------------------------------------------------------------------
-	_Manager->getMessageService()->onReceiveWebMessage(_Window, webMessage);
+	_Window->getManager()->getMessageService()->onReceiveWebMessage(_Window, webMessage);
 }
 
 //===========================================================================
@@ -1390,7 +1389,7 @@ void WebUIView::navigateContents(const std::wstring& urn)
 	std::wstring uri;
 	
 
-	uri = _Manager->getContentsHost() + urn;
+	uri = _Window->getManager()->getContentsHost() + urn;
 	navigate(uri);
 }
 
