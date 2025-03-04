@@ -48,11 +48,11 @@ WebUIView::~WebUIView()
 }
 
 //===========================================================================
-void WebUIView::resize(RECT& rect)
+void WebUIView::resizeWebView(void)
 {
 	if (_WebView_Controller != nullptr)
 	{
-		_WebView_Controller->put_Bounds(rect);
+		resizeWebView_Controller();
 	}
 }
 

@@ -180,11 +180,9 @@ void WebUIWindow::onClose(cx::wui::WindowMessage& windowMessage)
 
 void WebUIWindow::onSize(cx::wui::WindowMessage& windowMessage)
 {
-	RECT rect;
 	if (_View)
 	{
-		::GetClientRect(getWindowHandle(), &rect);
-		_View->resize(rect);
+		_View->resizeWebView();
 	}
 }
 
