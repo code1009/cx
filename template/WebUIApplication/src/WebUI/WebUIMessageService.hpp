@@ -26,20 +26,20 @@ class WebUIMessageService
 {
 private:
 	WebUIManager* _Manager{ nullptr };
-	HWND _hViewWindow{ nullptr };
+	HWND _hWindow{ nullptr };
 
 public:
 	explicit WebUIMessageService(WebUIManager* manager);
 	virtual ~WebUIMessageService();
 
 public:
-	void setViewWindow(HWND hViewWindow)
+	void setWindow(HWND hViewWindow)
 	{
-		_hViewWindow = hViewWindow;
+		_hWindow = hViewWindow;
 	}
 
 	WebUIManager* getManager(void);
-	WebUIWindow* getView(void);
+	WebUIWindow* getWindow(void);
 
 public:
 	void onRuntimeExceptionThrown(WebUIWindow* window, const std::wstring& message);

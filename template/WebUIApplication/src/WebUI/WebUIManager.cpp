@@ -333,7 +333,7 @@ void WebUIManager::postBroadcastWebMessageAsJson(const std::wstring& msg)
 {
 	for (auto& e : _WindowMap)
 	{
-		e.second->postWebMessageAsJson(msg);
+		e.second->getView()->postWebMessageAsJson(msg);
 	}
 }
 

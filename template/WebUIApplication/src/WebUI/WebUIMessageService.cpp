@@ -38,9 +38,9 @@ WebUIManager* WebUIMessageService::getManager(void)
 	return _Manager;
 }
 
-WebUIWindow* WebUIMessageService::getView(void)
+WebUIWindow* WebUIMessageService::getWindow(void)
 {
-	if (nullptr == _hViewWindow)
+	if (nullptr == _hWindow)
 	{
 		return nullptr;
 	}
@@ -49,7 +49,7 @@ WebUIWindow* WebUIMessageService::getView(void)
 	WebUIWindow* window;
 
 
-	window = _Manager->findWindow(_hViewWindow);
+	window = _Manager->findWindow(_hWindow);
 
 
 	return window;
@@ -309,9 +309,9 @@ bool WebUIMessageService::onReceiveCommand_Navigate(WebUIWindow* window, web::js
 
 
 	//------------------------------------------------------------------------
-	if (targetPage == L"페이지1") { getView()->navigateContents(L"/page/page1.html"); }
-	if (targetPage == L"페이지2") { getView()->navigateContents(L"/page/page2.html"); }
-	if (targetPage == L"페이지3") { getView()->navigateContents(L"/page/page3.html"); }
+	if (targetPage == L"페이지1") { getWindow()->getView()->navigateContents(L"/page/page1.html"); }
+	if (targetPage == L"페이지2") { getWindow()->getView()->navigateContents(L"/page/page2.html"); }
+	if (targetPage == L"페이지3") { getWindow()->getView()->navigateContents(L"/page/page3.html"); }
 
 	return true;
 }
@@ -344,7 +344,7 @@ void WebUIMessageService::postWebMessage_Message(void)
 	jsonMessage.serialize(stream);
 
 
-	getView()->postWebMessageAsJson(stream.str());
+	getWindow()->getView()->postWebMessageAsJson(stream.str());
 }
 
 std::wstring WebUIMessageService::getFile_Json(void)

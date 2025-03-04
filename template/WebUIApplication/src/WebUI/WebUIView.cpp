@@ -811,7 +811,7 @@ HRESULT WebUIView::onWebView_NewWindowRequested(ICoreWebView2* sender, ICoreWebV
 
 
 	//-----------------------------------------------------------------------
-	args->put_NewWindow(newWindow->_WebView.get());
+	args->put_NewWindow(newWindow->getView()->_WebView.get());
 
 	args->put_Handled(TRUE);
 
