@@ -76,11 +76,7 @@ void WebUIMessageService::onRuntimeExceptionThrown(WebUIWindow* window, const st
 	{
 		return;
 	}
-
-
 	web::json::value jsonExceptionDetails;
-
-
 	jsonExceptionDetails = jsonMessage.at(L"exceptionDetails");
 	if (web::json::value::Object != jsonExceptionDetails.type())
 	{
@@ -156,14 +152,8 @@ void WebUIMessageService::onRuntimeExceptionThrown(WebUIWindow* window, const st
 	{
 		return;
 	}
-
-
 	web::json::value jsonException;
-
-
 	jsonException = jsonExceptionDetails.at(L"exception");
-
-
 	if (web::json::value::Object != jsonException.type())
 	{
 		return;
@@ -175,25 +165,18 @@ void WebUIMessageService::onRuntimeExceptionThrown(WebUIWindow* window, const st
 	{
 		return;
 	}
-
 	if (!jsonException.has_field(L"description"))
 	{
 		return;
 	}
-
-
 	web::json::value jsonClassName;
 	web::json::value jsonDescription;
-
-
 	jsonClassName = jsonException.at(L"className");
 	jsonDescription = jsonException.at(L"description");
-
 	if (web::json::value::String != jsonClassName.type())
 	{
 		return;
 	}
-
 	if (web::json::value::String != jsonDescription.type())
 	{
 		return;
@@ -202,16 +185,12 @@ void WebUIMessageService::onRuntimeExceptionThrown(WebUIWindow* window, const st
 
 	std::wstring className;
 	std::wstring description;
-
-
 	className = jsonClassName.as_string();
 	description = jsonDescription.as_string();
 
 
 	//------------------------------------------------------------------------
 	std::wostringstream oss;
-
-
 	oss << L"Exception"      << std::endl;
 	oss << L"Url: "          << url          << std::endl;
 	oss << L"LineNumber: "   << lineNumber   << std::endl;
@@ -220,19 +199,11 @@ void WebUIMessageService::onRuntimeExceptionThrown(WebUIWindow* window, const st
 	oss << L"ClassName: "    << className    << std::endl;
 	oss << L"Description: "  << description  << std::endl;
 	oss << std::endl;
-
-	
 	OutputDebugStringW(oss.str().c_str());
-//	::MessageBoxW(window->getHandle(), oss.str().c_str(), L"RuntimeExceptionThrown", MB_OK);
-
-
-	//------------------------------------------------------------------------
-	oss.str(L"");
-	oss.clear();
 }
 
 //===========================================================================
-void WebUIMessageService::onReceiveWebMessage(WebUIWindow* window, const std::wstring& message)
+void WebUIMessageService::onWebMessage(WebUIWindow* window, const std::wstring& message)
 {
 	//------------------------------------------------------------------------
 	if (message == L"undefined")
@@ -246,11 +217,16 @@ void WebUIMessageService::onReceiveWebMessage(WebUIWindow* window, const std::ws
 	bool rv;
 
 
-	rv = onReceiveCommand(window, jsonMessage);
+	rv = onCommand(window, jsonMessage);
+	if (!rv)
+	{
+		CX_RUNTIME_LOG(LDbug)
+			<< L"onCommand() failed";
+	}
 }
 
 //===========================================================================
-bool WebUIMessageService::onReceiveCommand(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onCommand(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	//------------------------------------------------------------------------
 	if (!jsonMessage.has_field(L"Command"))
@@ -277,44 +253,32 @@ bool WebUIMessageService::onReceiveCommand(WebUIWindow* window, web::json::value
 
 	//------------------------------------------------------------------------
 	std::wstring command;
-
-
 	command = jsonCommand.as_string();
-
-
+	CX_RUNTIME_LOG(LDbug) << L"Command=" << command;
 	//------------------------------------------------------------------------
-	CX_RUNTIME_LOG(LDbug)
-		<< L"Command=" << command << std::endl;
-
-
-
-	if (command == L"") { return onReceiveCommand_Empty(window, jsonMessage); }
-
-	else if (command == L"페이지이동") { return onReceiveCommand_Navigate(window, jsonMessage); }
-	else if (command == L"메시지") { return onReceiveCommand_Message(window, jsonMessage); }
-	else if (command == L"파일갱신") { return onReceiveCommand_FileUpdate(window, jsonMessage); }
+	if (command == L"") { return onCommand_Empty(window, jsonMessage); }
+	//------------------------------------------------------------------------
+	else if (command == L"페이지이동") { return onCommand_Navigate(window, jsonMessage); }
+	else if (command == L"메시지")     { return onCommand_MessageString(window, jsonMessage); }
+	else if (command == L"파일갱신")   { return onCommand_FileUpdate(window, jsonMessage); }
 
 	return false;
 }
 
-bool WebUIMessageService::onReceiveCommand_Empty(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onCommand_Empty(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	return true;
 }
 
-bool WebUIMessageService::onReceiveCommand_Navigate(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onCommand_Navigate(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	//------------------------------------------------------------------------
 	web::json::value jsonTargetPage;
-
-
 	jsonTargetPage = jsonMessage.at(L"TargetPage");
 
 
 	//------------------------------------------------------------------------
 	std::wstring targetPage;
-
-
 	targetPage = jsonTargetPage.as_string();
 
 
@@ -331,34 +295,41 @@ bool WebUIMessageService::onReceiveCommand_Navigate(WebUIWindow* window, web::js
 	return true;
 }
 
-bool WebUIMessageService::onReceiveCommand_Message(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onCommand_MessageString(WebUIWindow* window, web::json::value& jsonMessage)
 {
+	//------------------------------------------------------------------------
+	web::json::value jsonMessageString;
+	jsonMessageString = jsonMessage.at(L"MessageString");
+
+
+	//------------------------------------------------------------------------
+	std::wstring messageString;
+	messageString = jsonMessageString.as_string();
+	MessageBoxW(getWindow()->getWindowHandle(), messageString.c_str(), L"메시지", MB_OK);
+
+
+	//------------------------------------------------------------------------
+	postWebMessage_MessageString();
 	return true;
 }
 
-bool WebUIMessageService::onReceiveCommand_FileUpdate(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onCommand_FileUpdate(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	return true;
 }
 
 //===========================================================================
-void WebUIMessageService::postWebMessage_Message(void)
+void WebUIMessageService::postWebMessage_MessageString(void)
 {
 	//------------------------------------------------------------------------
 	web::json::value jsonMessage;
-
-
 	jsonMessage[L"Command"] = web::json::value::string(L"메시지");
-	jsonMessage[L"Message"] = web::json::value::string(L"안녕하세요? C++입니다.");
+	jsonMessage[L"MessageString"] = web::json::value::string(L"안녕하세요? C++입니다.");
 
 
 	//------------------------------------------------------------------------
 	utility::stringstream_t stream;
-
-
 	jsonMessage.serialize(stream);
-
-
 	getWindow()->getView()->postWebMessageAsJson(stream.str());
 }
 

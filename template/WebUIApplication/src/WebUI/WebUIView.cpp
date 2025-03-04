@@ -1368,7 +1368,7 @@ void WebUIView::onWebMessage(const std::wstring& urn, const std::wstring& webMes
 
 
 	//------------------------------------------------------------------------
-	_Window->getManager()->getMessageService()->onReceiveWebMessage(_Window, webMessage);
+	_Window->getManager()->getMessageService()->onWebMessage(_Window, webMessage);
 }
 
 //===========================================================================

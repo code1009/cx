@@ -17,12 +17,13 @@ class Page {
 	}
 
 	setup() {
-		this.setupNavigateButton("페이지이동-페이지1", "집");
-		this.setupNavigateButton("페이지이동-페이지2", "페이지2");
-		this.setupNavigateButton("페이지이동-페이지3", "페이지3");
+		this.setupWebMessageHandler();
+		this.setupPostNavigateButton("페이지이동-페이지1", "집");
+		this.setupPostMessageButton("메시지1", "JS문자열");
 	}
 
-	setupNavigateButton(targetName, page) {
+	//-----------------------------------------------------------------------
+	setupPostNavigateButton(targetName, page) {
 		let targetElement;
 
 		targetElement = document.getElementById(targetName);
@@ -30,22 +31,74 @@ class Page {
 			targetElement.addEventListener(
 				"click",
 				(e) => {
-					this.navigatePage(page);
+					this.postNavigatePage(page);
 				}
 			);
 		}
 	}
 
-	navigatePage(page){
+	postNavigatePage(page){
 		let jsonMessage =
 		{
 			Command: "페이지이동",
 			TargetPage: page
 		};
-
 		_Core.contentsPostMessage(jsonMessage);
 	}
 
+	//-----------------------------------------------------------------------
+	setupPostMessageButton(targetName, messageString) {
+		let targetElement;
+
+		targetElement = document.getElementById(targetName);
+		if (targetElement != null) {
+			targetElement.addEventListener(
+				"click",
+				(e) => {
+					this.postMessageString(messageString);
+				}
+			);
+		}
+	}
+
+	postMessageString(messageString){
+		let jsonMessage =
+		{
+			Command: "메시지",
+			MessageString: messageString
+		};
+		_Core.contentsPostMessage(jsonMessage);
+	}
+	
+	//-----------------------------------------------------------------------
+	setupWebMessageHandler() {
+		window.chrome.webview.addEventListener(
+			"message",
+			arg => {
+				this.onWebMessage(arg);
+			}
+		);
+	}
+
+	onWebMessage(arg) {
+		if ("Command" in arg.data)
+		{
+			this.onCommand(arg.data);
+		}
+	}
+	
+	onCommand(argData) {
+		if ("메시지"==argData.Command) {
+			this.onMessageStringCommand(argData);
+		}
+		else {
+			
+		}
+	}
+
+	onMessageStringCommand(argData) {
+		alert(argData.MessageString);
+	}
 }
 
 

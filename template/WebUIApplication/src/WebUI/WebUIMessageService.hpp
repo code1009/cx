@@ -41,16 +41,16 @@ public:
 	void onRuntimeExceptionThrown(WebUIWindow* window, const std::wstring& message);
 
 public:
-	void onReceiveWebMessage(WebUIWindow* window, const std::wstring& message);
-	bool onReceiveCommand(WebUIWindow* window, web::json::value& jsonMessage);
-	bool onReceiveCommand_Empty(WebUIWindow* window, web::json::value& jsonMessage);
-	bool onReceiveCommand_Navigate(WebUIWindow* window, web::json::value& jsonMessage);
-	bool onReceiveCommand_Message(WebUIWindow* window, web::json::value& jsonMessage);
-	bool onReceiveCommand_FileUpdate(WebUIWindow* window, web::json::value& jsonMessage);
+	void onWebMessage(WebUIWindow* window, const std::wstring& message);
+	bool onCommand(WebUIWindow* window, web::json::value& jsonMessage);
+	bool onCommand_Empty(WebUIWindow* window, web::json::value& jsonMessage);
+	bool onCommand_Navigate(WebUIWindow* window, web::json::value& jsonMessage);
+	bool onCommand_MessageString(WebUIWindow* window, web::json::value& jsonMessage);
+	bool onCommand_FileUpdate(WebUIWindow* window, web::json::value& jsonMessage);
 
 public:
 	std::wstring getFile_Json(void);
-	void postWebMessage_Message(void);
+	void postWebMessage_MessageString(void);
 };
 
 
