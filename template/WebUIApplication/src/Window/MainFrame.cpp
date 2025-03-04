@@ -67,7 +67,7 @@ MainFrame::MainFrame()
 	//-----------------------------------------------------------------------
 	std::shared_ptr<app::WebUIWindow> window;
 	app::regsiterWebUIWindowClass();
-	window = _WebUIManager->newChildWindow(getWindowHandle(), _WebUIManager->getContentsURI(L"/page/home.html"));
+	window = _WebUIManager->newChildWindow(getWindowHandle(), _WebUIManager->getContentsURI(L"/page_home/page.html"));
 	_WebUIManager->getMessageService()->setWindow(window->getWindowHandle());
 
 

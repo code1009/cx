@@ -16,20 +16,16 @@ class Page {
 		this.setup();
 	}
 
-	navigatePage(page){
-		let jsonMessage =
-		{
-			Command: "페이지이동",
-			Page: page
-		};
-
-		_core.contentsPostMessage(jsonMessage);
+	setup() {
+		this.setupNavigateButton("페이지이동-페이지1", "페이지1");
+		this.setupNavigateButton("페이지이동-페이지2", "페이지2");
+		this.setupNavigateButton("페이지이동-페이지3", "페이지3");
 	}
-	
+
 	setupNavigateButton(targetName, page) {
 		let targetElement;
 
-		targetElement = document.getElementById(name);
+		targetElement = document.getElementById(targetName);
 		if (targetElement != null) {
 			targetElement.addEventListener(
 				"click",
@@ -39,10 +35,17 @@ class Page {
 			);
 		}
 	}
-	
-	setup() {
-		this.setupNavigateButton("", "");
+
+	navigatePage(page){
+		let jsonMessage =
+		{
+			Command: "페이지이동",
+			TargetPage: page
+		};
+
+		_Core.contentsPostMessage(jsonMessage);
 	}
+
 }
 
 

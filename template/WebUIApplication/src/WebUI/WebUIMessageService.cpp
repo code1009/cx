@@ -4,6 +4,7 @@
 
 //===========================================================================
 #include <wui/wui.hpp>
+#include <runtime/runtime.hpp>
 
 //===========================================================================
 #include "WebUI.hpp"
@@ -279,6 +280,14 @@ bool WebUIMessageService::onReceiveCommand(WebUIWindow* window, web::json::value
 
 
 	command = jsonCommand.as_string();
+
+
+	//------------------------------------------------------------------------
+	CX_RUNTIME_LOG(LDbug)
+		<< L"Command=" << command << std::endl;
+
+
+
 	if (command == L"") { return onReceiveCommand_Empty(window, jsonMessage); }
 
 	else if (command == L"페이지이동") { return onReceiveCommand_Navigate(window, jsonMessage); }
@@ -310,9 +319,14 @@ bool WebUIMessageService::onReceiveCommand_Navigate(WebUIWindow* window, web::js
 
 
 	//------------------------------------------------------------------------
-	if (targetPage == L"페이지1") { getWindow()->getView()->navigateContents(L"/page/page1.html"); }
-	if (targetPage == L"페이지2") { getWindow()->getView()->navigateContents(L"/page/page2.html"); }
-	if (targetPage == L"페이지3") { getWindow()->getView()->navigateContents(L"/page/page3.html"); }
+	if (targetPage == L"집")
+	{
+		getWindow()->getView()->navigateContents(L"/page_home/page.html");
+	}
+
+	if (targetPage == L"페이지1") { getWindow()->getView()->navigateContents(L"/page_1/page.html"); }
+	if (targetPage == L"페이지2") { getWindow()->getView()->navigateContents(L"/page_2/page.html"); }
+	if (targetPage == L"페이지3") { getWindow()->getView()->navigateContents(L"/page_3/page.html"); }
 
 	return true;
 }

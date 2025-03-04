@@ -1,0 +1,103 @@
+﻿@charset "utf-8";
+
+body {
+    margin-top     : 5px;
+    margin-bottom  : 5px;
+    margin-left    : 5px;
+    margin-right   : 5px;
+
+    padding-top    : 0px;
+    padding-bottom : 0px;
+    padding-left   : 0px;
+    padding-right  : 0px;
+
+    border-collapse: collapse;
+    border-style   : solid;
+    border-color   : #fefefe;
+    border-width   : 0px;
+/*
+    font-family    : 맑은 고딕;
+*/
+    font-family    : 돋움체;
+    font-size      : 0.9em;
+    font-weight    : normal;
+    font-style     : normal;
+
+    background     : #ffffff;
+    color          : #000000;
+
+    line-height    : 1.2em;
+
+    vertical-align : top;
+    text-align     : left;
+}
+
+/***************************************************************************/
+.제목형식 {
+    width: 1000px;
+    height: 30px;
+    
+    padding-left: 20px;
+
+    display: inline-flex;
+
+    background: #4040A0;
+    color: white;
+
+    border-radius  : 10px;
+    border-collapse: collapse;
+    border-style   : solid;
+    border-color   : #000000;
+    border-width   : 0px;
+
+    justify-content: left; 
+    align-items: center;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 1.0em;    
+    font-weight: bold;
+}
+
+#메뉴 {
+    width: 100%;
+
+    margin-top     : 5.0em;
+    margin-bottom  : 5.0em;
+
+    text-align: center;
+}
+
+.메뉴버튼형식 {
+    width: 160px;
+    height: 80px;
+    
+    display: inline-flex;
+
+    background: linear-gradient(45deg, #000080, #8080FF);
+    color: white;
+
+    padding: 10px 20px;
+    border-radius: 5px;
+
+    justify-content: center; 
+    align-items: center;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 16px;    
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-top     : 5px;
+    margin-bottom  : 5px;
+    margin-left    : 5px;
+    margin-right   : 5px;
+}
+
+.메뉴버튼형식:hover {
+    background: linear-gradient(45deg, #000080, #000080);
+}

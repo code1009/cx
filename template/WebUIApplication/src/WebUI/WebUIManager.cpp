@@ -190,9 +190,22 @@ static void loadWebUIContentsMapFromResource(WebUIContentsMap& _ContentsMap)
 		L"/basic.css",
 		L"/core.js",             
 		L"/images/logo.png"    ,
-		L"/page/home.css"          ,
-		L"/page/home.html"         ,
-		L"/page/home.js"           
+
+		L"/page_1/page.css" ,
+		L"/page_1/page.html",
+		L"/page_1/page.js"  ,
+
+		L"/page_2/page.css" ,
+		L"/page_2/page.html",
+		L"/page_2/page.js"  ,
+
+		L"/page_3/page.css" ,
+		L"/page_3/page.html",
+		L"/page_3/page.js"  ,
+
+		L"/page_home/page.css"          ,
+		L"/page_home/page.html"         ,
+		L"/page_home/page.js"           
 	};
 
 
