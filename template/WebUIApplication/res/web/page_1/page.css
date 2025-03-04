@@ -1,36 +1,67 @@
 ﻿@charset "utf-8";
 
 body {
-    margin-top     : 5px;
-    margin-bottom  : 5px;
-    margin-left    : 5px;
-    margin-right   : 5px;
+    margin-top     : 20px;
+    margin-bottom  : 20px;
+    margin-left    : 20px;
+    margin-right   : 20px;
 
-    padding-top    : 0px;
-    padding-bottom : 0px;
-    padding-left   : 0px;
-    padding-right  : 0px;
+    padding-top    : 20px;
+    padding-bottom : 20px;
+    padding-left   : 20px;
+    padding-right  : 20px;
 
     border-collapse: collapse;
     border-style   : solid;
     border-color   : #fefefe;
     border-width   : 0px;
 /*
+    font-family    : Arial Narrow;
+*/
+/*
     font-family    : 맑은 고딕;
 */
+/*
     font-family    : 돋움체;
-    font-size      : 0.9em;
+*/
+    font-family    : Segoe UI;
+    font-size      : 0.75em;
     font-weight    : normal;
     font-style     : normal;
 
     background     : #ffffff;
     color          : #000000;
 
-    line-height    : 1.2em;
+    line-height    : 1.0em;
 
     vertical-align : top;
     text-align     : left;
 }
+
+h2 {
+    margin-top     : 0px;
+    margin-bottom  : 0px;
+    margin-left    : 0px;
+    margin-right   : 0px;
+
+    padding-top    : 0px;
+    padding-bottom : 0px;
+    padding-left   : 0px;
+    padding-right  : 0px;
+
+    font-size: 1.0em;    
+    line-height: 1.0em;
+}
+
+/***************************************************************************/
+@media print {
+  @page { margin: 0.0cm; }
+  body { margin: 0.0cm; }
+}
+
+
+
+
 
 /***************************************************************************/
 .제목형식 {
@@ -100,4 +131,175 @@ body {
 
 .메뉴버튼형식:hover {
     background: linear-gradient(45deg, #000080, #000080);
+}
+
+
+
+
+
+/***************************************************************************/
+.제목형식 {
+    width: 100%;
+    height: 40px;
+
+    margin-top     : 0px;
+    margin-bottom  : 0px;
+    margin-left    : 0px;
+    margin-right   : 0px;
+
+    padding-top    : 12px;
+    padding-bottom : 0px;
+    padding-left   : 0px;
+    padding-right  : 0px;
+
+    display: inline-flex;
+
+/*
+    background: #C0C0C0;
+*/
+    background: white;
+    color: black;
+
+    border-radius  : 4px;
+    border-collapse: collapse;
+    border-style   : solid;
+    border-color   : #000000;
+    border-width   : 0px;
+
+    line-height: 1.6em;
+
+    justify-content: center; 
+    align-items: center;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+
+
+
+
+/***************************************************************************/
+#내용정보표{
+    width: 100%;
+
+    margin-top     : 0px;
+    margin-bottom  : 0px;
+    margin-left    : 0px;
+    margin-right   : 0px;
+
+    padding-top    : 0px;
+    padding-bottom : 0px;
+    padding-left   : 0px;
+    padding-right  : 0px;
+
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+}
+
+#내용정보표 th {
+    width: 120px;
+
+    margin-top     : 0px;
+    margin-bottom  : 0px;
+    margin-left    : 0px;
+    margin-right   : 0px;
+
+    padding-top    : 2px;
+    padding-bottom : 2px;
+    padding-left   : 4px;
+    padding-right  : 4px;
+
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+
+    background-color: rgb(224, 224, 224);
+
+    text-align: right;
+}
+
+#내용정보표 td {
+    margin-top     : 0px;
+    margin-bottom  : 0px;
+    margin-left    : 0px;
+    margin-right   : 0px;
+
+    padding-top    : 0px;
+    padding-bottom : 0px;
+    padding-left   : 4px;
+    padding-right  : 0px;
+
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+
+    background-color: rgb(255, 255, 255);
+    text-align: left;
+}
+
+
+
+
+
+/***************************************************************************/
+.내용항목표형식 {
+    width: 100%;
+
+    margin-top     : 0px;
+    margin-bottom  : 0px;
+    margin-left    : 0px;
+    margin-right   : 0px;
+
+    padding-top    : 0px;
+    padding-bottom : 0px;
+    padding-left   : 0px;
+    padding-right  : 0px;
+
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+}
+
+.내용항목표형식 th {
+    margin-top     : 0px;
+    margin-bottom  : 0px;
+    margin-left    : 0px;
+    margin-right   : 0px;
+
+    padding-top    : 2px;
+    padding-bottom : 2px;
+    padding-left   : 4px;
+    padding-right  : 4px;
+
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+
+    background-color: rgb(224, 224, 224);
+
+    text-align: center;
+}
+
+.내용항목표형식 td {
+    margin-top     : 0px;
+    margin-bottom  : 0px;
+    margin-left    : 0px;
+    margin-right   : 0px;
+
+    padding-top    : 0x;
+    padding-bottom : 0x;
+    padding-left   : 0x;
+    padding-right  : 0x;
+
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+
+    background-color: rgb(255, 255, 255);
+
+    text-align: center;
+}
+
+.내용항목표형식 .left-align {
+    padding-left: 4px;
+    text-align: left;
 }

@@ -328,15 +328,10 @@ bool WebUIMessageService::onCommand_FileUpdate(WebUIWindow* window, web::json::v
 
 	//-----------------------------------------------------------------------
 	std::string data;
-
-
 	std::wstring uri;
 	std::wstring urn;
-
-
 	urn = L"/page_2/page.html";
 	uri = getManager()->getContentsHost() + urn;
-
 	auto e = getManager()->newPopupWindow(getWindow()->getWindowHandle(), uri, { 0,0,1000,1000 });
 
 	return true;
@@ -360,9 +355,20 @@ void WebUIMessageService::postWebMessage_MessageString(void)
 std::wstring WebUIMessageService::getFile_Json(void)
 {
 	//------------------------------------------------------------------------
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+
+
+	//------------------------------------------------------------------------
+	std::wstring currentDateTime;
+	currentDateTime = std::format(L"%04d-%02d-%02d %02d:%02d:%02d",
+		st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
+
+
+	//------------------------------------------------------------------------
 	std::vector<std::vector<std::wstring>> dataView;
-	dataView.push_back({ L"1", L"2021-01-01 00:00:00", L"INFO", L"안녕하세요?" });
-	dataView.push_back({ L"2", L"2021-01-01 00:00:00", L"INFO", L"안녕하세요?" });
+	dataView.push_back({ L"1", currentDateTime, L"INFO", L"안녕하세요?" });
+	dataView.push_back({ L"2", currentDateTime, L"INFO", L"안녕하세요?" });
 
 
 	//------------------------------------------------------------------------
