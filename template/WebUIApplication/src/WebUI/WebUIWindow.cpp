@@ -183,11 +183,8 @@ void WebUIWindow::onSize(cx::wui::WindowMessage& windowMessage)
 	RECT rect;
 	if (_View)
 	{
-		if (_View->_WebView_Controller != nullptr)
-		{
-			::GetClientRect(getWindowHandle(), &rect);
-			_View->_WebView_Controller->put_Bounds(rect);
-		}
+		::GetClientRect(getWindowHandle(), &rect);
+		_View->resize(rect);
 	}
 }
 

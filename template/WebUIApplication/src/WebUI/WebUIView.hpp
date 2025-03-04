@@ -27,19 +27,20 @@ class WebUIWindow;
 class WebUIView
 {
 	//-------------------------------------------------------------------------
-public:
+protected:
 	WebUIWindow*  _Window{ nullptr };
 	std::wstring  _URI{ };
 
 
 	//-------------------------------------------------------------------------
-public:
+protected:
 	wil::com_ptr<ICoreWebView2Environment> _WebView_Environment;
 	wil::com_ptr<ICoreWebView2Controller>  _WebView_Controller;
 	wil::com_ptr<ICoreWebView2>            _WebView;
 
 
 	//-------------------------------------------------------------------------
+protected:
 	EventRegistrationToken _WebView_WebResourceRequested_Token{};
 	EventRegistrationToken _WebView_WebMessageReceived_Token{};
 	EventRegistrationToken _WebView_DocumentTitleChanged_Token{};
@@ -52,7 +53,6 @@ public:
 	EventRegistrationToken _WebView_ContextMenuRequested_Token{};
 
 
-	//-------------------------------------------------------------------------
 	wil::com_ptr<ICoreWebView2DevToolsProtocolEventReceiver> _WebView_DevToolsProtocol_Security_securityStateChanged_EventReceiver;
 	EventRegistrationToken                                   _WebView_DevToolsProtocol_Security_securityStateChanged_Token{};
 	wil::com_ptr<ICoreWebView2DevToolsProtocolEventReceiver> _WebView_DevToolsProtocol_Log_entryAdded_EventReceiver;
@@ -66,7 +66,14 @@ public:
 	//-------------------------------------------------------------------------
 public:
 	explicit WebUIView(WebUIWindow* window, std::wstring uri);
+
+public:
 	virtual ~WebUIView();
+
+
+	//-------------------------------------------------------------------------
+public:
+	void resize(RECT& rect);
 
 
 	//-------------------------------------------------------------------------
@@ -84,7 +91,6 @@ public:
 	HRESULT resizeWebView_Controller(void);
 	HRESULT  setupWebView_Controller(void);
 
-
 	//-------------------------------------------------------------------------
 public:
 	HRESULT setupWebView_Settings(void);
@@ -94,7 +100,7 @@ public:
 public:
 	HRESULT setupWebView(void);
 	
-public:
+protected:
 	HRESULT setupWebView_WebResourceRequested(void);
 	HRESULT    onWebView_WebResourceRequested(ICoreWebView2* sender, ICoreWebView2WebResourceRequestedEventArgs* args);
 	HRESULT setupWebView_WebMessageReceived  (void);
@@ -112,13 +118,17 @@ public:
 	HRESULT setupWebView_NewWindowRequested  (void);
 	HRESULT    onWebView_NewWindowRequested  (ICoreWebView2* sender, ICoreWebView2NewWindowRequestedEventArgs* args);
 
+protected:
 	HRESULT setupWebView_ContextMenuRequested(void);
 	HRESULT    onWebView_ContextMenuRequested(ICoreWebView2* sender, ICoreWebView2ContextMenuRequestedEventArgs* args);
 	void onExecuteTask(void* ptr);
 	void runAsync(std::function<void()> callback);
+public:
 	void onUser1(cx::wui::WindowMessage& windowMessage);
+protected:
 	HRESULT AddContextMenuItems(HMENU hPopupMenu, wil::com_ptr<ICoreWebView2ContextMenuItemCollection> items);
 
+protected:
 	HRESULT setupWebView_DevToolsProtocol_Security_securityStateChanged(void);
 	HRESULT    onWebView_DevToolsProtocol_Security_securityStateChanged(ICoreWebView2* sender, ICoreWebView2DevToolsProtocolEventReceivedEventArgs* args);
 	HRESULT setupWebView_DevToolsProtocol_Log_entryAdded               (void);

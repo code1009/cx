@@ -48,6 +48,15 @@ WebUIView::~WebUIView()
 }
 
 //===========================================================================
+void WebUIView::resize(RECT& rect)
+{
+	if (_WebView_Controller != nullptr)
+	{
+		_WebView_Controller->put_Bounds(rect);
+	}
+}
+
+//===========================================================================
 void WebUIView::createWebView(void)
 {	
 	HRESULT hr;
