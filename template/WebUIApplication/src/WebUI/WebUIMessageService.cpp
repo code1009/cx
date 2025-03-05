@@ -306,7 +306,7 @@ bool WebUIMessageService::onCommand_MessageString(WebUIWindow* window, web::json
 	std::wstring messageString;
 	messageString = jsonMessageString.as_string();
 	MessageBoxW(getWindow()->getWindowHandle(), messageString.c_str(), L"메시지", MB_OK);
-
+	// https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/threading-model#re-entrancy
 
 	//------------------------------------------------------------------------
 	postWebMessage_MessageString();

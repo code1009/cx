@@ -98,10 +98,77 @@ class JsonFileTable {
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class ConsoleMessageWindow {
+	
+	//-----------------------------------------------------------------------
+	#TargetDivElement = null;
+	#ConsoleMessageCount = null;
+
+	//-----------------------------------------------------------------------
+	constructor() {
+		this.#TargetDivElement = document.getElementById("내용콘솔메시지창");
+		this.#ConsoleMessageCount = 0;
+	}
+
+	//-----------------------------------------------------------------------
+	getDateTimeString() {
+		const now = new Date();
+		
+		const year    = now.getFullYear      ();
+		const month   = String(now.getMonth  () + 1).padStart(2, '0');
+		const date    = String(now.getDate   ()    ).padStart(2, '0');
+		const hours   = String(now.getHours  ()    ).padStart(2, '0');
+		const minutes = String(now.getMinutes()    ).padStart(2, '0');
+		const seconds = String(now.getSeconds()    ).padStart(2, '0');
+		
+		const dateString = `${year}-${month}-${date}`;
+		const timeString = `${hours}:${minutes}:${seconds}`;
+
+		let dateTimeString;
+		dateTimeString = dateString + " " + timeString;
+		return dateTimeString;
+	}
+
+	addMessage(messageString, messageTextColor = "black") {
+		let textString;
+		textString = this.getDateTimeString();
+		textString += " ";
+		textString += messageString;
+
+
+		let targetElement = this.#TargetDivElement;
+		if (targetElement == null) {
+			return;
+		}
+		
+
+		if (0==(this.#ConsoleMessageCount%10))
+		{
+			targetElement.innerHTML = "";
+		}
+
+
+		targetElement.innerHTML += `<span style="color:${messageTextColor};">${escapeHtml(textString)}</span><br/>`;
+
+
+		targetElement.scrollTop = targetElement.scrollHeight;
+		//targetElement.scrollIntoView({ behavior: "instant", block: "end" });
+
+
+		this.#ConsoleMessageCount++;
+	}
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class Page {
 
 	//-----------------------------------------------------------------------
 	#CommandHandlerMap = null;
+	#ConsoleMessageWindow = null;
 
 	//-----------------------------------------------------------------------
 	constructor() {
@@ -118,6 +185,8 @@ class Page {
 		
 		let jsonFileTable = new JsonFileTable();
 		jsonFileTable.update("/file.json");
+
+		this.#ConsoleMessageWindow = new ConsoleMessageWindow();
 	}
 
 	//-----------------------------------------------------------------------
@@ -191,58 +260,16 @@ class Page {
 		alert(argData.TargetPage);
 	}
 
-	getDateTimeString() {
-		const now = new Date();
-		
-		const year = now.getFullYear();
-		const month = String(now.getMonth() + 1).padStart(2, '0');
-		const date = String(now.getDate()).padStart(2, '0');
-		const hours = String(now.getHours()).padStart(2, '0');
-		const minutes = String(now.getMinutes()).padStart(2, '0');
-		const seconds = String(now.getSeconds()).padStart(2, '0');
-		
-		const dateString = `${year}-${month}-${date}`;
-		const timeString = `${hours}:${minutes}:${seconds}`;
-
-		let dateTimeString;
-
-		dateTimeString = dateString + " " + timeString;
-
-		return dateTimeString;
-	}
-
 	onMessageStringCommand(argData) {
-		let textString;
-		textString = this.getDateTimeString();
-		textString += " ";
-		textString += argData.MessageString;
+		const colors = ["red", "green", "blue", "orange", "purple", "brown", "pink"];
+		const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-
-		let targetElement = document.getElementById("내용콘솔창");
-		if (targetElement == null) {
-			return;
-		}
 		
-
-		//if (0==(this.#ConsoleLine%500))
-		//{
-		//	targetElement.innerHTML = "";
-		//}
-
-
 		let i;
-		for(i=0; i<10; i++)
+		for(i=0; i<3; i++)
 		{
-			targetElement.innerHTML += escapeHtml(textString);
-			targetElement.innerHTML += "<br/>"
+			this.#ConsoleMessageWindow.addMessage(argData.MessageString, randomColor);
 		}
-		
-
-		targetElement.scrollTop = targetElement.scrollHeight;
-		//targetElement.scrollIntoView({ behavior: "instant", block: "end" });
-
-
-		//this.#ConsoleLine++;
 
 
 		alert(argData.MessageString);
