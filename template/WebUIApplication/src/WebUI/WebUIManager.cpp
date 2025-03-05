@@ -223,7 +223,7 @@ void WebUIManager::registerContentsMap(void)
 
 
 	//------------------------------------------------------------------------
-	//_ContentsMap.registerWebContents(L"/favicon.ico", std::make_shared<WebContentsResourceStream>(L"favicon.ico"));
+	_ContentsMap.registerContents(L"/favicon.ico", std::make_shared<WebUIContentsResourceStream>(L"/favicon.ico"));
 
 
 	//------------------------------------------------------------------------

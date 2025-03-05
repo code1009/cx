@@ -225,10 +225,25 @@ HRESULT WebUIView::setupWebView_Settings(void)
 
 
 	//-----------------------------------------------------------------------
-	if (settings2)
+	constexpr bool _UseContextMenu = false;
+	constexpr bool _UseZoom = false;
+	constexpr bool _UseMouseSelection = false;
+
+
+	//-----------------------------------------------------------------------
+	if (_WebView_Settings)
 	{
-		//settings2->put_IsZoomControlEnabled(FALSE);
-		//settings2->put_AreDefaultContextMenusEnabled(FALSE);
+		_WebView_Settings->put_IsStatusBarEnabled(FALSE);
+
+		if (!_UseZoom)
+		{
+			_WebView_Settings->put_IsZoomControlEnabled(FALSE);
+		}
+
+		if (!_UseContextMenu)
+		{
+			_WebView_Settings->put_AreDefaultContextMenusEnabled(FALSE);
+		}
 	}
 
 	if (settings3)
@@ -238,14 +253,20 @@ HRESULT WebUIView::setupWebView_Settings(void)
 
 
 	//-----------------------------------------------------------------------
-	// todo: 컨텍스트 메뉴 사용할때는 0으로...
-#if 0
-	std::wstring script;
-	script = L"window.addEventListener(\"contextmenu\", window => {window.preventDefault();});";
-	hr = _WebView->AddScriptToExecuteOnDocumentCreated(script.c_str(), nullptr);
-	RETURN_IF_FAILED(hr);
-#endif
+	if (!_UseContextMenu)
+	{
+		std::wstring script;
+		script = L"window.addEventListener(\"contextmenu\", window => {window.preventDefault();});";
+		hr = _WebView->AddScriptToExecuteOnDocumentCreated(script.c_str(), nullptr);
+		RETURN_IF_FAILED(hr);
+	}
 
+	if (!_UseMouseSelection)
+	{
+		std::wstring script = L"document.onselectstart = function() { return false; };";
+		hr = _WebView->AddScriptToExecuteOnDocumentCreated(script.c_str(), nullptr);
+		RETURN_IF_FAILED(hr);
+	}
 
 	return S_OK;
 }
