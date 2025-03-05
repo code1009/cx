@@ -210,9 +210,6 @@
     <ClInclude Include="src\Window\pch.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\View.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
     <ClInclude Include="src\WebUI\pch.hpp">
       <Filter>src\WebUI</Filter>
     </ClInclude>
@@ -360,9 +357,6 @@
       <Filter>src\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\MainFrame.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\View.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\WebUI\WebUIContents.cpp">

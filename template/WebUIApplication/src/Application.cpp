@@ -11,7 +11,6 @@
 #include "../res/resource.h"
 	
 //===========================================================================
-#include "Window/View.hpp"
 #include "Window/MainFrame.hpp"
 
 //===========================================================================
@@ -45,10 +44,10 @@ void Application::terminate(void)
 
 void Application::run(void)
 {
-	MainFrame mainFrame;
+	app::MainFrame mainFrame;
 
 	cx::wui::WindowMessageLoop windowMessageLoop;
-	windowMessageLoop.addIdleHandler(std::bind(&MainFrame::onIdle, &mainFrame));
+	windowMessageLoop.addIdleHandler(std::bind(&app::MainFrame::onIdle, &mainFrame));
 	windowMessageLoop.run();
 }
 

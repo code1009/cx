@@ -89,7 +89,6 @@
     <ClInclude Include="src\Window\AboutBox.hpp" />
     <ClInclude Include="src\Window\MainFrame.hpp" />
     <ClInclude Include="src\Window\pch.hpp" />
-    <ClInclude Include="src\Window\View.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\component\charset_system.cpp" />
@@ -141,7 +140,6 @@
     <ClCompile Include="src\WebUI\WebUIView.cpp" />
     <ClCompile Include="src\Window\AboutBox.cpp" />
     <ClCompile Include="src\Window\MainFrame.cpp" />
-    <ClCompile Include="src\Window\View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps" />
