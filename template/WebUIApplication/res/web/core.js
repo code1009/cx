@@ -84,8 +84,8 @@ class BasePage {
 		return depth ? obj : JSON.stringify(obj);
 	}
 
-	contentsPostMessage(o) {
-		//console.log("contentsPostMessage(): "+ o.target, o);
+	postJsonMessage(o) {
+		//console.log("postJsonMessage(): "+ o.target, o);
 
 		let v = this.objectStringify(o);
 		if (v != undefined) {
@@ -95,7 +95,7 @@ class BasePage {
 			
 			s = v.replaceAll("\\\"", "\"");
 			alert(s);
-			console.log("contentsPostMessage(): objectStringify() = " + s);
+			console.log("postJsonMessage(): objectStringify() = " + s);
 			
 			
 			window.chrome.webview.postMessage(s);
@@ -103,7 +103,7 @@ class BasePage {
 			window.chrome.webview.postMessage(v);
 		}
 		else {
-			console.log("contentsPostMessage(): objectStringify() = undefined");
+			console.log("postJsonMessage(): objectStringify() = undefined");
 		}
 	}
 
@@ -128,7 +128,7 @@ class BasePage {
 			Command: "페이지이동",
 			TargetPage: page
 		};
-		this.contentsPostMessage(jsonMessage);
+		this.postJsonMessage(jsonMessage);
 	}
 
 	postMessageString(messageString){
@@ -137,7 +137,7 @@ class BasePage {
 			Command: "메시지",
 			MessageString: messageString
 		};
-		this.contentsPostMessage(jsonMessage);
+		this.postJsonMessage(jsonMessage);
 	}
 
 	//-----------------------------------------------------------------------
