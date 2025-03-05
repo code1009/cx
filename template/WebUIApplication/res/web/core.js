@@ -122,7 +122,7 @@ class BasePage {
 		}
 	}
 
-	postNavigatePage(page){
+	postPageNavigation(page){
 		let jsonMessage =
 		{
 			Command: "페이지이동",
@@ -131,11 +131,11 @@ class BasePage {
 		this.postJsonMessage(jsonMessage);
 	}
 
-	postMessageString(messageString){
+	postStringMessage(stringMessage){
 		let jsonMessage =
 		{
 			Command: "메시지",
-			MessageString: messageString
+			StringMessage: stringMessage
 		};
 		this.postJsonMessage(jsonMessage);
 	}

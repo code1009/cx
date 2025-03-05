@@ -124,11 +124,11 @@ class ConsoleMessageWindow {
 		return dateTimeString;
 	}
 
-	addMessage(messageString, messageTextColor = "black") {
+	addMessage(stringMessage, messageTextColor = "black") {
 		let textString;
 		textString = this.getDateTimeString();
 		textString += " ";
-		textString += messageString;
+		textString += stringMessage;
 
 
 		let targetElement = this.#TargetDivElement;
@@ -176,8 +176,8 @@ class Page extends BasePage {
 		this.setupWebMessageHandler();
 
 
-		this.setupClickEventListener("페이지1", "postNavigatePage", "집");
-		this.setupClickEventListener("메시지1", "postMessageString", "JS문자열");
+		this.setupClickEventListener("페이지1", "postPageNavigation", "집");
+		this.setupClickEventListener("메시지1", "postStringMessage", "JS문자열");
 		
 
 		let jsonFileTable = new JsonFileTable();
@@ -191,7 +191,7 @@ class Page extends BasePage {
 	//-----------------------------------------------------------------------
 	initializeCommandHandlerMap() {
 		this._CommandHandlerMap = new Map();
-		this._CommandHandlerMap.set("메시지", this.onMessageStringCommand.bind(this));
+		this._CommandHandlerMap.set("메시지", this.onStringMessageCommand.bind(this));
 		this._CommandHandlerMap.set("페이지이동", this.onNavigateCommand.bind(this));
 	}
 
@@ -199,7 +199,7 @@ class Page extends BasePage {
 		alert(argData.TargetPage);
 	}
 
-	onMessageStringCommand(argData) {
+	onStringMessageCommand(argData) {
 		const colors = ["red", "green", "blue", "orange", "purple", "brown", "pink"];
 		const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
@@ -207,11 +207,11 @@ class Page extends BasePage {
 		let i;
 		for(i=0; i<3; i++)
 		{
-			this._ConsoleMessageWindow.addMessage(argData.MessageString, randomColor);
+			this._ConsoleMessageWindow.addMessage(argData.StringMessage, randomColor);
 		}
 
 
-		alert(argData.MessageString);
+		alert(argData.StringMessage);
 	}
 }
 

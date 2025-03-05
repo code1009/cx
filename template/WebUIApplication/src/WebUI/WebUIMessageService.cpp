@@ -258,8 +258,8 @@ bool WebUIMessageService::onCommand(WebUIWindow* window, web::json::value& jsonM
 	//------------------------------------------------------------------------
 	if (command == L"") { return onCommand_Empty(window, jsonMessage); }
 	//------------------------------------------------------------------------
-	else if (command == L"페이지이동") { return onCommand_Navigate(window, jsonMessage); }
-	else if (command == L"메시지")     { return onCommand_MessageString(window, jsonMessage); }
+	else if (command == L"페이지이동") { return onCommand_PageNavigation(window, jsonMessage); }
+	else if (command == L"메시지")     { return onCommand_StringMessage(window, jsonMessage); }
 	else if (command == L"파일갱신")   { return onCommand_FileUpdate(window, jsonMessage); }
 
 	return false;
@@ -270,7 +270,7 @@ bool WebUIMessageService::onCommand_Empty(WebUIWindow* window, web::json::value&
 	return true;
 }
 
-bool WebUIMessageService::onCommand_Navigate(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onCommand_PageNavigation(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	//------------------------------------------------------------------------
 	web::json::value jsonTargetPage;
@@ -295,21 +295,21 @@ bool WebUIMessageService::onCommand_Navigate(WebUIWindow* window, web::json::val
 	return true;
 }
 
-bool WebUIMessageService::onCommand_MessageString(WebUIWindow* window, web::json::value& jsonMessage)
+bool WebUIMessageService::onCommand_StringMessage(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	//------------------------------------------------------------------------
-	web::json::value jsonMessageString;
-	jsonMessageString = jsonMessage.at(L"MessageString");
+	web::json::value jsonStringMessage;
+	jsonStringMessage = jsonMessage.at(L"StringMessage");
 
 
 	//------------------------------------------------------------------------
-	std::wstring messageString;
-	messageString = jsonMessageString.as_string();
-	MessageBoxW(getWindow()->getWindowHandle(), messageString.c_str(), L"메시지", MB_OK);
+	std::wstring stringMessage;
+	stringMessage = jsonStringMessage.as_string();
+	MessageBoxW(getWindow()->getWindowHandle(), stringMessage.c_str(), L"메시지", MB_OK);
 	// https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/threading-model#re-entrancy
 
 	//------------------------------------------------------------------------
-	postWebMessage_MessageString();
+	postWebMessage_StringMessage();
 	return true;
 }
 
@@ -338,12 +338,12 @@ bool WebUIMessageService::onCommand_FileUpdate(WebUIWindow* window, web::json::v
 }
 
 //===========================================================================
-void WebUIMessageService::postWebMessage_MessageString(void)
+void WebUIMessageService::postWebMessage_StringMessage(void)
 {
 	//------------------------------------------------------------------------
 	web::json::value jsonMessage;
 	jsonMessage[L"Command"] = web::json::value::string(L"메시지");
-	jsonMessage[L"MessageString"] = web::json::value::string(L"안녕하세요? C++입니다.");
+	jsonMessage[L"StringMessage"] = web::json::value::string(L"안녕하세요? C++입니다.");
 
 
 	//------------------------------------------------------------------------

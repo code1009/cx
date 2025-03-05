@@ -18,9 +18,9 @@ class Page extends BasePage {
 
 	//-----------------------------------------------------------------------
 	setup() {
-		this.setupClickEventListener("페이지1", "postNavigatePage", "페이지1");
-		this.setupClickEventListener("페이지2", "postNavigatePage", "집");
-		this.setupClickEventListener("페이지3", "postNavigatePage", "페이지3");
+		this.setupClickEventListener("페이지1", "postPageNavigation", "페이지1");
+		this.setupClickEventListener("페이지2", "postPageNavigation", "집");
+		this.setupClickEventListener("페이지3", "postPageNavigation", "페이지3");
 	}
 }
 
