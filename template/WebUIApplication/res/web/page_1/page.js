@@ -112,7 +112,7 @@ class Page {
 		this.initializeCommandHandlerMap();
 		this.setupWebMessageHandler();
 
-		this.setupClickEventListener("페이지이동-페이지1", "postNavigatePage", "집");
+		this.setupClickEventListener("페이지1", "postNavigatePage", "집");
 		this.setupClickEventListener("메시지1", "postMessageString", "JS문자열");
 		
 		let jsonFileTable = new JsonFileTable();

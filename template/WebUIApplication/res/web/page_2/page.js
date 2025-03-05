@@ -17,9 +17,9 @@ class Page {
 	}
 
 	setup() {
-		this.setupNavigateButton("페이지이동-페이지1", "집");
-		this.setupNavigateButton("페이지이동-페이지2", "페이지2");
-		this.setupNavigateButton("페이지이동-페이지3", "페이지3");
+		this.setupNavigateButton("페이지1", "집");
+		this.setupNavigateButton("페이지2", "페이지2");
+		this.setupNavigateButton("페이지3", "페이지3");
 	}
 
 	setupNavigateButton(targetName, page) {

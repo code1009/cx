@@ -446,6 +446,15 @@
     <None Include="res\web\page_3\page.html">
       <Filter>res\web\page_3</Filter>
     </None>
+    <None Include="res\web\page_home\page.js">
+      <Filter>res\web\page_home</Filter>
+    </None>
+    <None Include="res\web\page_home\page.css">
+      <Filter>res\web\page_home</Filter>
+    </None>
+    <None Include="res\web\page_home\page.html">
+      <Filter>res\web\page_home</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Application.ico">

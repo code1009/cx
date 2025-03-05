@@ -154,6 +154,9 @@
     <None Include="res\web\page_3\page.css" />
     <None Include="res\web\page_3\page.html" />
     <None Include="res\web\page_3\page.js" />
+    <None Include="res\web\page_home\page.css" />
+    <None Include="res\web\page_home\page.html" />
+    <None Include="res\web\page_home\page.js" />
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
