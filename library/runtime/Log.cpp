@@ -56,6 +56,16 @@ static std::wstring get_file_of_file_path(std::wstring file_path)
 	return result;
 }
 
+static std::wstring get_function_name(std::wstring func)
+{
+	std::wstring::size_type pos = func.rfind(L"::");
+	if (pos != std::wstring::npos)
+	{
+		return func.substr(pos + 2);
+	}
+	return func;
+}
+
 //===========================================================================
 void writeLogDateTime_YYYYMMDD_String(std::wstringstream& ss, const SYSTEMTIME* st)
 {
@@ -199,11 +209,11 @@ void writeLogSourceFileLineString(std::wstringstream& ss, const wchar_t* file, i
 
 void writeLogSourceFuncString(std::wstringstream& ss, const wchar_t* func)
 {
-	const std::size_t width = 25U;
+	const std::size_t width = 32U;
 	ss.width(width);
 	ss.fill(L' ');
 	ss.setf(std::ios::dec | std::ios::left, std::ios::basefield | std::ios::adjustfield);
-	ss << wstring_truncate(func, width, false);
+	ss << wstring_truncate(get_function_name(func), width, false);
 }
 
 

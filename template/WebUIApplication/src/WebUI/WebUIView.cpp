@@ -238,6 +238,7 @@ HRESULT WebUIView::setupWebView_Settings(void)
 
 
 	//-----------------------------------------------------------------------
+	// todo: 컨텍스트 메뉴 사용할때는 0으로...
 #if 0
 	std::wstring script;
 	script = L"window.addEventListener(\"contextmenu\", window => {window.preventDefault();});";
@@ -706,7 +707,9 @@ HRESULT WebUIView::onWebView_NavigationCompleted(ICoreWebView2* sender, ICoreWeb
 	if (SUCCEEDED(hr))
 	{
 		CX_RUNTIME_LOG(LDbug) << L"navigationSucceeded";
-		//executeScript(L"alert(\"navigationSucceeded\"); var win = window.open(\"/page1/data.json\", \"PopupWin\", \"width=500,height=600\");");
+#if 0
+		executeScript(L"alert(\"navigationSucceeded\"); var win = window.open(\"/file.json\", \"PopupWin\", \"width=500,height=600\");");
+#endif
 	}
 	else
 	{
@@ -1185,7 +1188,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Security_securityStateChanged(ICor
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	CX_RUNTIME_LOG(LDbug) << jsonArgs;
+	CX_RUNTIME_LOG(LDbug) << L"\n" << jsonArgs;
 
 
 	return S_OK;
@@ -1233,7 +1236,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Log_entryAdded(ICoreWebView2* send
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	CX_RUNTIME_LOG(LDbug) << L"Log.entryAdded: " << jsonArgs;
+	CX_RUNTIME_LOG(LDbug) << L"Log.entryAdded:\n" << jsonArgs;
 
 
 	return S_OK;
@@ -1281,7 +1284,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Runtime_consoleAPICalled(ICoreWebV
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	CX_RUNTIME_LOG(LDbug) << L"Runtime.consoleAPICalled: " << jsonArgs;
+	CX_RUNTIME_LOG(LDbug) << L"Runtime.consoleAPICalled:\n" << jsonArgs;
 
 
 	return S_OK;
@@ -1324,7 +1327,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Runtime_exceptionThrown(ICoreWebVi
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	CX_RUNTIME_LOG(LDbug) << L"Runtime.exceptionThrown: " << jsonArgs;
+	CX_RUNTIME_LOG(LDbug) << L"Runtime.exceptionThrown:\n" << jsonArgs;
 
 
 	//-----------------------------------------------------------------------
@@ -1375,7 +1378,7 @@ void WebUIView::onWebMessage(const std::wstring& urn, const std::wstring& webMes
 
 
 	//------------------------------------------------------------------------
-	CX_RUNTIME_LOG(LDbug) << urn << L" : " << webMessage;
+	CX_RUNTIME_LOG(LDbug) << urn << L":\n" << webMessage;
 
 
 	//------------------------------------------------------------------------
