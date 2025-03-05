@@ -1,5 +1,6 @@
 ﻿@charset "utf-8";
 
+/***************************************************************************/
 body {
     margin-top     : 1.0em;
     margin-bottom  : 1.0em;
@@ -17,7 +18,7 @@ body {
     padding-right  : 0px;
 
     font-family    : 맑은 고딕;
-    font-size      : 0.9em;
+    font-size      : 1.0em;
     font-weight    : normal;
     font-style     : normal;
 
@@ -28,3 +29,6 @@ body {
     vertical-align : top;
     text-align     : left;
 }
+
+
+/***************************************************************************/
