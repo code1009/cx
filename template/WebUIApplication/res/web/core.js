@@ -88,8 +88,6 @@ class BasePage {
 		//console.log("contentsPostMessage(): "+ o.target, o);
 
 		let v = this.objectStringify(o);
-
-
 		if (v != undefined) {
 			/*
 			let s;
@@ -111,7 +109,7 @@ class BasePage {
 
 	//-----------------------------------------------------------------------
 	setupClickEventListener(targetName, methodName, methodParam) {
-		let targetElement = document.getElementById(targetName);
+		const targetElement = document.getElementById(targetName);
 		if (targetElement != null) {
 			targetElement.addEventListener(
 				"click",
@@ -141,7 +139,25 @@ class BasePage {
 		};
 		this.contentsPostMessage(jsonMessage);
 	}
-	
+
+	//-----------------------------------------------------------------------
+	setBkColor(targetName, color) {
+		const targetElement = document.getElementById(targetName);
+		if (targetElement) {
+			switch(color) {
+			case 0:
+				targetElement.style.backgroundColor = "#F0F0F0";
+				break;
+			case 1:
+				targetElement.style.backgroundColor = "#FFFF00";
+				break;
+			case 2:
+				targetElement.style.backgroundColor = "#FF0000";
+				break;
+			}
+		}
+	}
+
 	//-----------------------------------------------------------------------
 	setupWebMessageHandler() {
 		window.chrome.webview.addEventListener(
