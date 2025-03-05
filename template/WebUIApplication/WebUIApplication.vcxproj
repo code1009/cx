@@ -143,6 +143,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps" />
+    <None Include="res\web\basic.css" />
+    <None Include="res\web\core.js" />
+    <None Include="res\web\page_1\page.css" />
+    <None Include="res\web\page_1\page.html" />
+    <None Include="res\web\page_1\page.js" />
+    <None Include="res\web\page_2\page.css" />
+    <None Include="res\web\page_2\page.html" />
+    <None Include="res\web\page_2\page.js" />
+    <None Include="res\web\page_3\page.css" />
+    <None Include="res\web\page_3\page.html" />
+    <None Include="res\web\page_3\page.js" />
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>

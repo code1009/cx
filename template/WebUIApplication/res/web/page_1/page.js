@@ -8,45 +8,21 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-function escapeHtml(str) {
-	const map = {
-		'&': '&amp;',
-		'<': '&lt;',
-		'>': '&gt;',
-		'"': '&quot;',
-		"'": '&#39;'
-	};
-	return str.replace(/[&<>"']/g, function (m) { return map[m]; });
-}
-
-function unescapeHtml(str) {
-	const map = {
-		'&amp;': '&',
-		'&lt;': '<',
-		'&gt;': '>',
-		'&quot;': '"',
-		'&#39;': "'"
-	};
-	return str.replace(/&(amp|lt|gt|quot|#39);/g, function (m) { return map[m]; });
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 class JsonFileTable {
 	
 	//-----------------------------------------------------------------------
+	#TargetTableElement = null;
+	#TargetTableCellCount = null;
+
+	//-----------------------------------------------------------------------
 	constructor() {
+		this.#TargetTableElement = document.getElementById("내용정보표");
+		this.#TargetTableCellCount = 4;
 	}
 	
 	//-----------------------------------------------------------------------
 	update(urn) {
 		var xmlHttpRequest = new XMLHttpRequest();
-
-
 		xmlHttpRequest.onreadystatechange =
 			function () {
 				if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
@@ -56,7 +32,6 @@ class JsonFileTable {
 					jsonFileTable.updateTable(myObj);
 				}
 			};
-
 		xmlHttpRequest.open("GET", urn, true);
 		xmlHttpRequest.setRequestHeader("Content-type", "application/json");
 		xmlHttpRequest.send();
@@ -65,7 +40,6 @@ class JsonFileTable {
 	//-----------------------------------------------------------------------
 	updateTable(data) {
 		this.clearTable();
-
 		if (0 != data.length) {
 			for (let i = 0; i < data.length; i++) {
 				this.addRow(i, data[i]);
@@ -75,29 +49,31 @@ class JsonFileTable {
 
 	clearTable() {
 		let targetElement;
-		targetElement = document.getElementById('내용정보표');
-
+		targetElement = this.#TargetTableElement;
 		while (targetElement.rows.length > 1) {
 			targetElement.deleteRow(-1);
 		}
 	}
 	
-	
-	addRow(i, data) {
+	addRow(dataRowIndex, dataCell) {
 		let targetElement;
 		let row;
-
-
-		targetElement = document.getElementById('내용정보표');
-
+		targetElement = this.#TargetTableElement;
 		row = targetElement.insertRow(-1);
 		//row = targetElement.insertRow(1);
 
-		row.insertCell(0); row.cells[0].width = "50";
-		row.insertCell(1); row.cells[1].width = "100";
-		row.insertCell(2); row.cells[2].width = "100";
-		row.insertCell(3);
-	
+
+		let i;
+		for (i=0; i<this.#TargetTableCellCount; i++)
+		{
+			row.insertCell(i);
+		}
+
+
+		row.cells[0].width = "50";
+		row.cells[1].width = "100";
+		row.cells[2].width = "100";
+			
 		/*
 		row.cells[0].className = "표형식";
 		row.cells[1].className = "표형식";
@@ -105,14 +81,14 @@ class JsonFileTable {
 		row.cells[3].className = "표형식";
 		*/
 		
-		this.setRow(i, row, data);
+		this.setRow(row, dataRowIndex, dataCell);
 	}
 	
-	setRow(i, row, data) {
-		row.cells[0].innerHTML = escapeHtml(data[0]);
-		row.cells[1].innerHTML = escapeHtml(data[1]);
-		row.cells[2].innerHTML = escapeHtml(data[2]);
-		row.cells[3].innerHTML = escapeHtml(data[3]);
+	setRow(row, dataRowIndex, dataCell) {
+		row.cells[0].innerHTML = escapeHtml(dataCell[0]);
+		row.cells[1].innerHTML = escapeHtml(dataCell[1]);
+		row.cells[2].innerHTML = escapeHtml(dataCell[2]);
+		row.cells[3].innerHTML = escapeHtml(dataCell[3]);
 	}
 }
 
@@ -124,34 +100,35 @@ class JsonFileTable {
 class Page {
 
 	//-----------------------------------------------------------------------
-	#Context = null;
+	#CommandHandlerMap = null;
 
 	//-----------------------------------------------------------------------
 	constructor() {
-		this.#Context = null;
 		this.setup();
 	}
 
 	//-----------------------------------------------------------------------
 	setup() {
+		this.initializeCommandHandlerMap();
 		this.setupWebMessageHandler();
-		this.setupPostNavigateButton("페이지이동-페이지1", "집");
-		this.setupPostMessageButton("메시지1", "JS문자열");
+
+		this.setupClickEventListener("페이지이동-페이지1", "postNavigatePage", "집");
+		this.setupClickEventListener("메시지1", "postMessageString", "JS문자열");
 		
 		let jsonFileTable = new JsonFileTable();
 		jsonFileTable.update("/file.json");
 	}
 
 	//-----------------------------------------------------------------------
-	setupPostNavigateButton(targetName, page) {
-		let targetElement;
-
-		targetElement = document.getElementById(targetName);
+	setupClickEventListener(targetName, methodName, methodParam) {
+		let targetElement = document.getElementById(targetName);
 		if (targetElement != null) {
 			targetElement.addEventListener(
 				"click",
 				(e) => {
-					this.postNavigatePage(page);
+					if (typeof this[methodName] === 'function') {
+						this[methodName](methodParam);
+					}
 				}
 			);
 		}
@@ -164,21 +141,6 @@ class Page {
 			TargetPage: page
 		};
 		_Core.contentsPostMessage(jsonMessage);
-	}
-
-	//-----------------------------------------------------------------------
-	setupPostMessageButton(targetName, messageString) {
-		let targetElement;
-
-		targetElement = document.getElementById(targetName);
-		if (targetElement != null) {
-			targetElement.addEventListener(
-				"click",
-				(e) => {
-					this.postMessageString(messageString);
-				}
-			);
-		}
 	}
 
 	postMessageString(messageString){
@@ -207,16 +169,81 @@ class Page {
 		}
 	}
 	
+	//-----------------------------------------------------------------------
+	initializeCommandHandlerMap() {
+		this.#CommandHandlerMap = new Map();
+		this.#CommandHandlerMap.set("메시지", this.onMessageStringCommand.bind(this));
+		this.#CommandHandlerMap.set("페이지이동", this.onNavigateCommand.bind(this));
+	}
+
 	onCommand(argData) {
-		if ("메시지"==argData.Command) {
-			this.onMessageStringCommand(argData);
-		}
+		const commandHandler = this.#CommandHandlerMap.get(argData.Command);
+		if (commandHandler) {
+			commandHandler(argData);
+		} 
 		else {
-			
+			console.warn(`Unknown command: ${argData.Command}`);
 		}
 	}
 
+	onNavigateCommand(argData) {
+		alert(argData.TargetPage);
+	}
+
+	getDateTimeString() {
+		const now = new Date();
+		
+		const year = now.getFullYear();
+		const month = String(now.getMonth() + 1).padStart(2, '0');
+		const date = String(now.getDate()).padStart(2, '0');
+		const hours = String(now.getHours()).padStart(2, '0');
+		const minutes = String(now.getMinutes()).padStart(2, '0');
+		const seconds = String(now.getSeconds()).padStart(2, '0');
+		
+		const dateString = `${year}-${month}-${date}`;
+		const timeString = `${hours}:${minutes}:${seconds}`;
+
+		let dateTimeString;
+
+		dateTimeString = dateString + " " + timeString;
+
+		return dateTimeString;
+	}
+
 	onMessageStringCommand(argData) {
+		let textString;
+		textString = this.getDateTimeString();
+		textString += " ";
+		textString += argData.MessageString;
+
+
+		let targetElement = document.getElementById("내용콘솔창");
+		if (targetElement == null) {
+			return;
+		}
+		
+
+		//if (0==(this.#ConsoleLine%500))
+		//{
+		//	targetElement.innerHTML = "";
+		//}
+
+
+		let i;
+		for(i=0; i<10; i++)
+		{
+			targetElement.innerHTML += escapeHtml(textString);
+			targetElement.innerHTML += "<br/>"
+		}
+		
+
+		targetElement.scrollTop = targetElement.scrollHeight;
+		//targetElement.scrollIntoView({ behavior: "instant", block: "end" });
+
+
+		//this.#ConsoleLine++;
+
+
 		alert(argData.MessageString);
 	}
 }

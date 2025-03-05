@@ -37,6 +37,24 @@
     <Filter Include="cx\component">
       <UniqueIdentifier>{834905c7-ad44-4a4e-aa77-93a5186a5116}</UniqueIdentifier>
     </Filter>
+    <Filter Include="res\web">
+      <UniqueIdentifier>{35da6a7b-8c39-407d-8bee-7f3613e99df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\web\page_home">
+      <UniqueIdentifier>{947dc3d4-9e87-43d1-b276-58791f3e00ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\web\page_1">
+      <UniqueIdentifier>{b207821e-47d8-4d3a-b262-2a876635e1bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\web\page_2">
+      <UniqueIdentifier>{e42aee32-82f5-459b-bf52-4c6029563cb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\web\page_3">
+      <UniqueIdentifier>{5226a78c-29c4-4714-8800-a4d380ece078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\web\image">
+      <UniqueIdentifier>{d432f50a-1a6c-4658-88bc-2158fafac173}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
@@ -395,6 +413,39 @@
       <Filter>res</Filter>
     </None>
     <None Include="vcpkg.json" />
+    <None Include="res\web\basic.css">
+      <Filter>res\web</Filter>
+    </None>
+    <None Include="res\web\core.js">
+      <Filter>res\web</Filter>
+    </None>
+    <None Include="res\web\page_1\page.css">
+      <Filter>res\web\page_1</Filter>
+    </None>
+    <None Include="res\web\page_1\page.html">
+      <Filter>res\web\page_1</Filter>
+    </None>
+    <None Include="res\web\page_1\page.js">
+      <Filter>res\web\page_1</Filter>
+    </None>
+    <None Include="res\web\page_2\page.js">
+      <Filter>res\web\page_2</Filter>
+    </None>
+    <None Include="res\web\page_2\page.css">
+      <Filter>res\web\page_2</Filter>
+    </None>
+    <None Include="res\web\page_2\page.html">
+      <Filter>res\web\page_2</Filter>
+    </None>
+    <None Include="res\web\page_3\page.js">
+      <Filter>res\web\page_3</Filter>
+    </None>
+    <None Include="res\web\page_3\page.css">
+      <Filter>res\web\page_3</Filter>
+    </None>
+    <None Include="res\web\page_3\page.html">
+      <Filter>res\web\page_3</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Application.ico">
