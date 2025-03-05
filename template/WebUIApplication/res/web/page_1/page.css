@@ -1,32 +1,26 @@
 ﻿@charset "utf-8";
 
-
-
-
-
 /***************************************************************************/
 body {
-    margin-top     : 10px;
-    margin-bottom  : 10px;
-    margin-left    : 10px;
-    margin-right   : 10px;
-    
-    padding-top    : 10px;
-    padding-bottom : 10px;
-    padding-left   : 10px;
-    padding-right  : 10px;
+    margin-top     : 4px;
+    margin-bottom  : 4px;
+    margin-left    : 4px;
+    margin-right   : 4px;
+
+    padding-top    : 4px;
+    padding-bottom : 4px;
+    padding-left   : 4px;
+    padding-right  : 4px;
 
     border-collapse: collapse;
     border-style   : solid;
     border-color   : #fefefe;
     border-width   : 0px;
 
-    /*font-family    : Arial Narrow;*/
     /*font-family    : 맑은 고딕;*/
     /*font-family    : 돋움체;*/
-    /*font-family    : Segoe UI;*/
     font-family    : 맑은 고딕;
-    font-size      : 1.0em;
+    font-size      : 0.75em;
     font-weight    : normal;
     font-style     : normal;
 
@@ -39,41 +33,10 @@ body {
     text-align     : left;
 }
 
-
-
-
-
 /***************************************************************************/
 h2 {
-    /*
-    margin-top     : 0px;
-    margin-bottom  : 0px;
-    margin-left    : 0px;
-    margin-right   : 0px;
-    */
-    /*
-    padding-top    : 0px;
-    padding-bottom : 0px;
-    padding-left   : 0px;
-    padding-right  : 0px;
-    */
-    font-size: 1.0em;    
-    line-height: 1.0em;
+    font-size: 1.0em;
 }
-
-
-
-
-
-/***************************************************************************/
-@media print {
-  @page { margin: 0.0cm; }
-  body { margin: 0.0cm; }
-}
-
-
-
-
 
 /***************************************************************************/
 .제목형식 {
@@ -103,30 +66,22 @@ h2 {
     font-weight: bold;
 }
 
-
-
-
-
 /***************************************************************************/
-#메뉴 {
-    width: 100%;
+.메뉴형식 {
+    padding-left: 20px;
 
-    margin-top     : 5.0em;
-    margin-bottom  : 5.0em;
-
-    text-align: center;
+    text-align: left;
 }
 
 .메뉴버튼형식 {
-    width: 160px;
-    height: 80px;
+    width: 120px;
+    height: 30px;
     
     display: inline-flex;
 
     background: linear-gradient(45deg, #000080, #8080FF);
     color: white;
 
-    padding: 10px 20px;
     border-radius: 5px;
 
     justify-content: center; 
@@ -135,130 +90,63 @@ h2 {
     text-align: center;
     text-decoration: none;
 
-    font-size: 16px;    
+    font-size: 1.0em;    
     font-weight: bold;
 
     cursor: pointer;
-
-    margin-top     : 5px;
-    margin-bottom  : 5px;
-    margin-left    : 5px;
-    margin-right   : 5px;
 }
 
 .메뉴버튼형식:hover {
     background: linear-gradient(45deg, #000080, #000080);
 }
 
-
-
-
-
 /***************************************************************************/
-#내용정보표{
-    width: 100%;
+.내용항목표형식 {
+    margin-top     : 1px;
+    margin-bottom  : 1px;
+    margin-left    : 1px;
+    margin-right   : 1px;
 
-    margin-top     : 0px;
-    margin-bottom  : 0px;
-    margin-left    : 0px;
-    margin-right   : 0px;
-
-    padding-top    : 0px;
-    padding-bottom : 0px;
-    padding-left   : 0px;
-    padding-right  : 0px;
-
-    border: 1px solid rgb(0, 0, 0);
-    border-collapse: collapse;
-}
-
-#내용정보표 th {
-    width: 120px;
-
-    margin-top     : 0px;
-    margin-bottom  : 0px;
-    margin-left    : 0px;
-    margin-right   : 0px;
-
-    padding-top    : 2px;
-    padding-bottom : 2px;
+    padding-top    : 4px;
+    padding-bottom : 4px;
     padding-left   : 4px;
     padding-right  : 4px;
 
-    border: 1px solid rgb(0, 0, 0);
-    border-collapse: collapse;
-
-    background-color: rgb(224, 224, 224);
-
-    text-align: right;
-}
-
-#내용정보표 td {
-    margin-top     : 0px;
-    margin-bottom  : 0px;
-    margin-left    : 0px;
-    margin-right   : 0px;
-
-    padding-top    : 0px;
-    padding-bottom : 0px;
-    padding-left   : 4px;
-    padding-right  : 0px;
-
-    border: 1px solid rgb(0, 0, 0);
-    border-collapse: collapse;
-
-    background-color: rgb(255, 255, 255);
-    text-align: left;
-}
-
-.내용항목표형식 {
-    width: 100%;
-
-    margin-top     : 0px;
-    margin-bottom  : 0px;
-    margin-left    : 0px;
-    margin-right   : 0px;
-
-    padding-top    : 0px;
-    padding-bottom : 0px;
-    padding-left   : 0px;
-    padding-right  : 0px;
-
-    border: 1px solid rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
     border-collapse: collapse;
 }
 
 .내용항목표형식 th {
-    margin-top     : 0px;
-    margin-bottom  : 0px;
-    margin-left    : 0px;
-    margin-right   : 0px;
+    margin-top     : 1px;
+    margin-bottom  : 1px;
+    margin-left    : 1px;
+    margin-right   : 1px;
 
-    padding-top    : 2px;
-    padding-bottom : 2px;
+    padding-top    : 4px;
+    padding-bottom : 4px;
     padding-left   : 4px;
     padding-right  : 4px;
 
-    border: 1px solid rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
     border-collapse: collapse;
 
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(185, 252, 188);
 
     text-align: center;
 }
 
 .내용항목표형식 td {
-    margin-top     : 0px;
-    margin-bottom  : 0px;
-    margin-left    : 0px;
-    margin-right   : 0px;
+    margin-top     : 1px;
+    margin-bottom  : 1px;
+    margin-left    : 1px;
+    margin-right   : 1px;
 
-    padding-top    : 0px;
-    padding-bottom : 0px;
-    padding-left   : 0px;
-    padding-right  : 0px;
+    padding-top    : 4px;
+    padding-bottom : 4px;
+    padding-left   : 4px;
+    padding-right  : 4px;
 
-    border: 1px solid rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
     border-collapse: collapse;
 
     background-color: rgb(255, 255, 255);
@@ -271,16 +159,115 @@ h2 {
     text-align: left;
 }
 
+/***************************************************************************/
+.제어버튼형식 {
+    width: 100px;
+    height: 20px;
 
+    margin-top     : 1px;
+    margin-bottom  : 1px;
+    margin-left    : 1px;
+    margin-right   : 1px;
 
+    padding-top    : 4px;
+    padding-bottom : 4px;
+    padding-left   : 4px;
+    padding-right  : 4px;
 
+    border-radius  : 4px;
+    border-collapse: collapse;
+    border-left    : 2px solid #808080;
+    border-top     : 2px solid #808080;
+    border-right   : 2px solid #808080;
+    border-bottom  : 2px solid #808080;
+
+    display: inline-flex;
+
+    background: #e0e0e0;
+    color     : #000000;
+
+    justify-content: center; 
+    align-items    : center;
+
+    text-align     : center;
+    text-decoration: none;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+.제어버튼형식:hover {
+    border-left  : 2px solid #000000;
+    border-top   : 2px solid #000000;
+    border-right : 2px solid #000000;
+    border-bottom: 2px solid #000000;
+
+    /*background: #ffff00;*/
+}
+
+.제어버튼형식:active {
+    border-right : 2px solid #ffff00;
+    border-bottom: 2px solid #ffff00;
+    border-left  : 2px solid #ffff00;
+    border-top   : 2px solid #ffff00;
+
+    /*background: #ffff00;*/
+}
+
+/***************************************************************************/
+.상태표시형식 {
+    width: 100px;
+    height: 20px;
+    
+    margin-top     : 1px;
+    margin-bottom  : 1px;
+    margin-left    : 1px;
+    margin-right   : 1px;
+
+    padding-top    : 4px;
+    padding-bottom : 4px;
+    padding-left   : 4px;
+    padding-right  : 4px;
+
+    display: inline-flex;
+
+    background: #f0f0f0;
+    color     : #000000;
+
+    border-radius  : 4px;
+    border-collapse: collapse;
+    border-left    : 2px solid #e0e0e0;
+    border-top     : 2px solid #e0e0e0;
+    border-right   : 2px solid #e0e0e0;
+    border-bottom  : 2px solid #e0e0e0;
+
+    justify-content: center; 
+    align-items    : center;
+
+    text-align     : center;
+    text-decoration: none;
+
+    font-size: 10px;
+}
 
 /***************************************************************************/
 .콘솔메시지창형식 {
-    height: 100px;
-    overflow-y: scroll;
-    border: 2px solid #333;
+    height          : 100px;
+        
+    margin-top      : 1px;
+    margin-bottom   : 1px;
+    margin-left     : 1px;
+    margin-right    : 1px;
+
+    padding-top     : 4px;
+    padding-bottom  : 4px;
+    padding-left    : 4px;
+    padding-right   : 4px;
+
+    overflow-y      : scroll;
+    border          : 2px solid #333;
     background-color: #000;
-    color: #fff;
-    font-family: 'Fixedsys', monospace;
+    color           : #fff;
+    font-family     : 'Fixedsys', monospace;
 }

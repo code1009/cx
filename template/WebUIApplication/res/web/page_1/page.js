@@ -71,16 +71,11 @@ class JsonFileTable {
 
 
 		row.cells[0].width = "50";
-		row.cells[1].width = "100";
+		row.cells[1].width = "150";
 		row.cells[2].width = "100";
 			
-		/*
-		row.cells[0].className = "표형식";
-		row.cells[1].className = "표형식";
-		row.cells[2].className = "표형식";
-		row.cells[3].className = "표형식";
-		*/
-		
+		row.cells[3].className = "left-align";
+
 		this.setRow(row, dataRowIndex, dataCell);
 	}
 	
@@ -164,14 +159,14 @@ class ConsoleMessageWindow {
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Page {
+class Page extends BasePage {
 
 	//-----------------------------------------------------------------------
-	#CommandHandlerMap = null;
-	#ConsoleMessageWindow = null;
+	_ConsoleMessageWindow = null;
 
 	//-----------------------------------------------------------------------
 	constructor() {
+		super();
 		this.setup();
 	}
 
@@ -180,80 +175,24 @@ class Page {
 		this.initializeCommandHandlerMap();
 		this.setupWebMessageHandler();
 
+
 		this.setupClickEventListener("페이지1", "postNavigatePage", "집");
 		this.setupClickEventListener("메시지1", "postMessageString", "JS문자열");
 		
+
 		let jsonFileTable = new JsonFileTable();
 		jsonFileTable.update("/file.json");
 
-		this.#ConsoleMessageWindow = new ConsoleMessageWindow();
+
+		this._ConsoleMessageWindow = new ConsoleMessageWindow();
 	}
 
-	//-----------------------------------------------------------------------
-	setupClickEventListener(targetName, methodName, methodParam) {
-		let targetElement = document.getElementById(targetName);
-		if (targetElement != null) {
-			targetElement.addEventListener(
-				"click",
-				(e) => {
-					if (typeof this[methodName] === 'function') {
-						this[methodName](methodParam);
-					}
-				}
-			);
-		}
-	}
 
-	postNavigatePage(page){
-		let jsonMessage =
-		{
-			Command: "페이지이동",
-			TargetPage: page
-		};
-		_Core.contentsPostMessage(jsonMessage);
-	}
-
-	postMessageString(messageString){
-		let jsonMessage =
-		{
-			Command: "메시지",
-			MessageString: messageString
-		};
-		_Core.contentsPostMessage(jsonMessage);
-	}
-	
-	//-----------------------------------------------------------------------
-	setupWebMessageHandler() {
-		window.chrome.webview.addEventListener(
-			"message",
-			arg => {
-				this.onWebMessage(arg);
-			}
-		);
-	}
-
-	onWebMessage(arg) {
-		if ("Command" in arg.data)
-		{
-			this.onCommand(arg.data);
-		}
-	}
-	
 	//-----------------------------------------------------------------------
 	initializeCommandHandlerMap() {
-		this.#CommandHandlerMap = new Map();
-		this.#CommandHandlerMap.set("메시지", this.onMessageStringCommand.bind(this));
-		this.#CommandHandlerMap.set("페이지이동", this.onNavigateCommand.bind(this));
-	}
-
-	onCommand(argData) {
-		const commandHandler = this.#CommandHandlerMap.get(argData.Command);
-		if (commandHandler) {
-			commandHandler(argData);
-		} 
-		else {
-			console.warn(`Unknown command: ${argData.Command}`);
-		}
+		this._CommandHandlerMap = new Map();
+		this._CommandHandlerMap.set("메시지", this.onMessageStringCommand.bind(this));
+		this._CommandHandlerMap.set("페이지이동", this.onNavigateCommand.bind(this));
 	}
 
 	onNavigateCommand(argData) {
@@ -268,7 +207,7 @@ class Page {
 		let i;
 		for(i=0; i<3; i++)
 		{
-			this.#ConsoleMessageWindow.addMessage(argData.MessageString, randomColor);
+			this._ConsoleMessageWindow.addMessage(argData.MessageString, randomColor);
 		}
 
 
@@ -291,7 +230,6 @@ var _Page = null;
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 window.onload = function () {
-	coreInitialize();
 	_Page = new Page();
 }
 

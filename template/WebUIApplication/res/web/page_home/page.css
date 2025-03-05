@@ -16,11 +16,11 @@ body {
     border-style   : solid;
     border-color   : #fefefe;
     border-width   : 0px;
-/*
+
+    /*font-family    : 맑은 고딕;*/
+    /*font-family    : 돋움체;*/
     font-family    : 맑은 고딕;
-*/
-    font-family    : 돋움체;
-    font-size      : 0.9em;
+    font-size      : 1.0em;
     font-weight    : normal;
     font-style     : normal;
 
@@ -61,7 +61,8 @@ body {
     font-weight: bold;
 }
 
-#메뉴 {
+/***************************************************************************/
+.메뉴형식 {
     width: 100%;
 
     margin-top     : 5.0em;

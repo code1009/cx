@@ -1,16 +1,56 @@
 ﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Core {
+"use strict";
 
-	#Context = null;
 
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+function escapeHtml(str) {
+	const map = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#39;'
+	};
+	return str.replace(/[&<>"']/g, function (m) { return map[m]; });
+}
+
+function unescapeHtml(str) {
+	const map = {
+		'&amp;': '&',
+		'&lt;': '<',
+		'&gt;': '>',
+		'&quot;': '"',
+		'&#39;': "'"
+	};
+	return str.replace(/&(amp|lt|gt|quot|#39);/g, function (m) { return map[m]; });
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class BasePage {
+
+	//-----------------------------------------------------------------------
+	_CommandHandlerMap = null;
+
+	//-----------------------------------------------------------------------
 	constructor() {
 	}
 
+	//-----------------------------------------------------------------------
 	navigateContents(urn) {
 		document.location.href = urn;
 	}
 
+	//-----------------------------------------------------------------------
 	objectStringify(object, depth = 0, max_depth = 2) {
 		// change max_depth to see more levels, for a touch event, 2 is good
 
@@ -68,64 +108,66 @@ class Core {
 			console.log("contentsPostMessage(): objectStringify() = undefined");
 		}
 	}
+
+	//-----------------------------------------------------------------------
+	setupClickEventListener(targetName, methodName, methodParam) {
+		let targetElement = document.getElementById(targetName);
+		if (targetElement != null) {
+			targetElement.addEventListener(
+				"click",
+				(e) => {
+					if (typeof this[methodName] === 'function') {
+						this[methodName](methodParam);
+					}
+				}
+			);
+		}
+	}
+
+	postNavigatePage(page){
+		let jsonMessage =
+		{
+			Command: "페이지이동",
+			TargetPage: page
+		};
+		this.contentsPostMessage(jsonMessage);
+	}
+
+	postMessageString(messageString){
+		let jsonMessage =
+		{
+			Command: "메시지",
+			MessageString: messageString
+		};
+		this.contentsPostMessage(jsonMessage);
+	}
+	
+	//-----------------------------------------------------------------------
+	setupWebMessageHandler() {
+		window.chrome.webview.addEventListener(
+			"message",
+			arg => {
+				this.onWebMessage(arg);
+			}
+		);
+	}
+
+	onWebMessage(arg) {
+		if ("Command" in arg.data)
+		{
+			this.onCommand(arg.data);
+		}
+	}
+
+	onCommand(argData) {
+		const commandHandler = this._CommandHandlerMap.get(argData.Command);
+		if (commandHandler) {
+			commandHandler(argData);
+		} 
+		else {
+			console.warn(`Unknown command: ${argData.Command}`);
+		}
+	}
 }
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-var _Core = null;
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-function coreInitialize() {
-	_Core = new Core();
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-function escapeHtml(str) {
-	const map = {
-		'&': '&amp;',
-		'<': '&lt;',
-		'>': '&gt;',
-		'"': '&quot;',
-		"'": '&#39;'
-	};
-	return str.replace(/[&<>"']/g, function (m) { return map[m]; });
-}
-
-function unescapeHtml(str) {
-	const map = {
-		'&amp;': '&',
-		'&lt;': '<',
-		'&gt;': '>',
-		'&quot;': '"',
-		'&#39;': "'"
-	};
-	return str.replace(/&(amp|lt|gt|quot|#39);/g, function (m) { return map[m]; });
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-//window.onload = function () {
-//	coreInitialize();
-//}
-
-
 
 
