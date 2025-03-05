@@ -78,12 +78,9 @@ public:
 
 
 	//-------------------------------------------------------------------------
-public:
-	void     createWebView                      (void);
 private:
+	void     createWebView                      (void);
 	HRESULT      onWebView_Environment_Completed(HRESULT errorCode, ICoreWebView2Environment* createdEnvironment);
-
-public:
 	void    destroyWebView (void);
 
 

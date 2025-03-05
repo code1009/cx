@@ -323,6 +323,13 @@ HRESULT WebUIView::setupWebView_WebResourceRequested(void)
 	uri = _Window->getManager()->getContentsHost() + L"/*";
 	hr = _WebView->AddWebResourceRequestedFilter(uri.c_str(), COREWEBVIEW2_WEB_RESOURCE_CONTEXT_ALL);
 	RETURN_IF_FAILED(hr);
+	/*
+	Warning: AddWebResourceRequestedFilter without SourceKind parameter is deprecated! 
+	It does not behave as expected for iframes.
+	Please use AddWebResourceRequestedFilterWithRequestSourceKinds instead. 
+	For more information, please see https://go.microsoft.com/fwlink/?linkid=2286319
+	*/
+	OutputDebugStringW(L"\n");
 
 
 	//-----------------------------------------------------------------------

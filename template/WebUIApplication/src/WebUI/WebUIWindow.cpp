@@ -79,7 +79,6 @@ WebUIWindow::WebUIWindow(WebUIManager* manager, std::wstring uri, HWND parentWin
 
 	//-----------------------------------------------------------------------
 	_View = std::make_unique<WebUIView>(this, uri);
-	_View->createWebView();
 
 
 	//-----------------------------------------------------------------------
@@ -166,7 +165,8 @@ void WebUIWindow::onCreate(cx::wui::WindowMessage& windowMessage)
 
 void WebUIWindow::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
-	_View->destroyWebView();
+	_View.reset();
+
 	_Manager->onDestroyWindow(getWindowHandle());
 }
 
