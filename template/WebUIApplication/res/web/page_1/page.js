@@ -16,7 +16,7 @@ class JsonFileTable {
 
 	//-----------------------------------------------------------------------
 	constructor() {
-		this.#TargetTableElement = document.getElementById("내용정보표");
+		this.#TargetTableElement = document.getElementById("로그표");
 		this.#TargetTableCellCount = 4;
 	}
 	

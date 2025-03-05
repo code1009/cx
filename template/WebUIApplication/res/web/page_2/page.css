@@ -101,7 +101,7 @@ h2 {
 }
 
 /***************************************************************************/
-.내용항목표형식 {
+.로그표형식 {
     margin-top     : 1px;
     margin-bottom  : 1px;
     margin-left    : 1px;
@@ -116,7 +116,7 @@ h2 {
     border-collapse: collapse;
 }
 
-.내용항목표형식 th {
+.로그표형식 th {
     margin-top     : 1px;
     margin-bottom  : 1px;
     margin-left    : 1px;
@@ -135,7 +135,7 @@ h2 {
     text-align: center;
 }
 
-.내용항목표형식 td {
+.로그표형식 td {
     margin-top     : 1px;
     margin-bottom  : 1px;
     margin-left    : 1px;
@@ -154,7 +154,68 @@ h2 {
     text-align: center;
 }
 
-.내용항목표형식 .left-align {
+.로그표형식 .left-align {
+    padding-left: 4px;
+    text-align: left;
+}
+
+/***************************************************************************/
+.내용표형식 {
+    width: 120px;
+
+    margin-top     : 1px;
+    margin-bottom  : 1px;
+    margin-left    : 1px;
+    margin-right   : 1px;
+
+    padding-top    : 4px;
+    padding-bottom : 4px;
+    padding-left   : 4px;
+    padding-right  : 4px;
+
+    border: 2px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+}
+
+.내용표형식 th {
+    margin-top     : 1px;
+    margin-bottom  : 1px;
+    margin-left    : 1px;
+    margin-right   : 1px;
+
+    padding-top    : 4px;
+    padding-bottom : 4px;
+    padding-left   : 4px;
+    padding-right  : 4px;
+
+    border: 2px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+
+    background-color: rgb(185, 252, 188);
+
+    text-align: center;
+}
+
+.내용표형식 td {
+    margin-top     : 1px;
+    margin-bottom  : 1px;
+    margin-left    : 1px;
+    margin-right   : 1px;
+
+    padding-top    : 4px;
+    padding-bottom : 4px;
+    padding-left   : 4px;
+    padding-right  : 4px;
+
+    border: 2px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+
+    background-color: rgb(255, 255, 255);
+
+    text-align: center;
+}
+
+.내용표형식 .left-align {
     padding-left: 4px;
     text-align: left;
 }
@@ -255,15 +316,15 @@ h2 {
 .콘솔메시지창형식 {
     height          : 100px;
         
-    margin-top      : 5px;
-    margin-bottom   : 5px;
-    margin-left     : 5px;
-    margin-right    : 5px;
+    margin-top      : 1px;
+    margin-bottom   : 1px;
+    margin-left     : 1px;
+    margin-right    : 1px;
 
-    padding-top     : 5px;
-    padding-bottom  : 5px;
-    padding-left    : 5px;
-    padding-right   : 5px;
+    padding-top     : 4px;
+    padding-bottom  : 4px;
+    padding-left    : 4px;
+    padding-right   : 4px;
 
     overflow-y      : scroll;
     border          : 2px solid #333;
