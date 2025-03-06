@@ -26,28 +26,6 @@ WidgetDesignerFacility::WidgetDesignerFacility(WidgetDesigner* widgetDesigner):
 }
 
 //===========================================================================
-void WidgetDesignerFacility::setGridSize(std::uint64_t x, std::uint64_t y)
-{
-	_GridXSize = x;
-	_GridYSize = y;
-}
-
-void WidgetDesignerFacility::getGridSize(std::uint64_t& x, std::uint64_t& y) const
-{
-	x = _GridXSize;
-	y = _GridYSize;
-}
-
-bool WidgetDesignerFacility::getSnapToGrid(void) const
-{
-	return _SnapToGrid;
-}
-
-void WidgetDesignerFacility::setSnapToGrid(bool snapToGrid)
-{
-	_SnapToGrid = snapToGrid;
-}
-
 Point WidgetDesignerFacility::toGridPoint(Point p) const
 {
 	Point snap;
@@ -97,6 +75,28 @@ Point WidgetDesignerFacility::toSnappedPoint(Point p) const
 	}
 
 	return p;
+}
+
+void WidgetDesignerFacility::getGridSize(std::uint64_t& x, std::uint64_t& y) const
+{
+	x = _GridXSize;
+	y = _GridYSize;
+}
+
+bool WidgetDesignerFacility::getSnapToGrid(void) const
+{
+	return _SnapToGrid;
+}
+
+void WidgetDesignerFacility::setGridSize(std::uint64_t x, std::uint64_t y)
+{
+	_GridXSize = x;
+	_GridYSize = y;
+}
+
+void WidgetDesignerFacility::setSnapToGrid(bool snapToGrid)
+{
+	_SnapToGrid = snapToGrid;
 }
 
 //===========================================================================
