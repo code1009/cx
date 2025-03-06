@@ -66,6 +66,9 @@ public:
 public:
 	void undo(void);
 	void redo(void);
+
+public:
+	std::shared_ptr<WidgetDesignerCommand> getLastExecutedCommand(void);
 };
 
 

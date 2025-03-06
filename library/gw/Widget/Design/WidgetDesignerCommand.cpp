@@ -56,6 +56,14 @@ void WidgetDesignerCommandManager::redo(void)
 	}
 }
 
+std::shared_ptr<WidgetDesignerCommand> WidgetDesignerCommandManager::getLastExecutedCommand(void)
+{
+	if (!_UndoStack.empty())
+	{
+		return _UndoStack.top();
+	}
+	return nullptr;
+}
 
 
 

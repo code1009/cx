@@ -88,22 +88,57 @@ void WidgetDesigner::deselectAllWidgets(void)
 
 void WidgetDesigner::selectWidgetsInBounds(void)
 {
-	_WidgetDesignerFacility->selectWidgetsInBounds();
+	//WidgetDesignerFacility->selectWidgetsInBounds();
+
+
+	std::vector<WidgetSharedPtr> preselectedWidgets;
+	std::vector<WidgetSharedPtr> selectedWidgets;
+
+	Point p0;
+	Point p1;
+
+
+	for (auto& widget : getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
+	{
+		getWidgetDesignerMouseTool()->getSelectBounds(p0, p1);
+
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			if (designWidget->getMarkerVisible())
+			{
+				preselectedWidgets.push_back(widget);
+			}
+
+			if (isPointsInBounds(p0, p1, designWidget->getPoints()))
+			{
+				selectedWidgets.push_back(widget);				
+			}
+		}
+	}
+
+
+	std::shared_ptr<WidgetDesignerCommand> command;
+	command = std::make_shared<WidgetDesignerCommand_selectWidgets>(
+		_WidgetDesignerModel, 
+		preselectedWidgets, 
+		selectedWidgets
+	);
+	_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 void WidgetDesigner::moveSelectedWidgets(Point offset)
 {
-	_WidgetDesignerFacility->moveSelectedWidgets(offset);
-}
-
-void WidgetDesigner::deleteSelectedWidgets(void)
-{
-	//_WidgetDesignerFacility->deleteSelectedWidgets();
+	//_WidgetDesignerFacility->moveSelectedWidgets(offset);
 
 
-	std::vector<WidgetSharedPtr> widgets;
+	if (offset.is_zero())
+	{
+		return;
+	}
 
 
+	std::vector<WidgetSharedPtr> selectedWidgets;
 	for (auto& widget : getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
 	{
 		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
@@ -111,25 +146,65 @@ void WidgetDesigner::deleteSelectedWidgets(void)
 		{
 			if (designWidget->getMarkerVisible())
 			{
-				widgets.push_back(widget);
+				selectedWidgets.push_back(widget);
 			}
 		}
 	}
 
 
 	std::shared_ptr<WidgetDesignerCommand> command;
+	command = _WidgetDesignerCommandManager->getLastExecutedCommand();
+	auto command_moveWidgets = std::dynamic_pointer_cast<WidgetDesignerCommand_moveWidgets>(command);
+	if (command_moveWidgets)
+	{
+		if (selectedWidgets==command_moveWidgets->getWidgets())
+		{
+			command_moveWidgets->moveOffset(offset);
+			return;
+		}
+	}
+	command = std::make_shared<WidgetDesignerCommand_moveWidgets>(
+		_WidgetDesignerModel,
+		selectedWidgets,
+		offset
+	);
+	_WidgetDesignerCommandManager->executeCommand(command);
+}
 
-	command = std::make_shared<WidgetDesignerCommand_deleteWidgets>(_WidgetDesignerModel, widgets);
+void WidgetDesigner::deleteSelectedWidgets(void)
+{
+	//_WidgetDesignerFacility->deleteSelectedWidgets();
 
+
+	std::vector<WidgetSharedPtr> selectedWidgets;
+	for (auto& widget : getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			if (designWidget->getMarkerVisible())
+			{
+				selectedWidgets.push_back(widget);
+			}
+		}
+	}
+
+
+	std::shared_ptr<WidgetDesignerCommand> command;
+	command = std::make_shared<WidgetDesignerCommand_deleteWidgets>(
+		_WidgetDesignerModel, 
+		selectedWidgets
+	);
 	_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 void WidgetDesigner::addWidget(WidgetSharedPtr widget)
 {
 	std::shared_ptr<WidgetDesignerCommand> command;
-
-	command = std::make_shared<WidgetDesignerCommand_addWidget>(_WidgetDesignerModel, widget);
-
+	command = std::make_shared<WidgetDesignerCommand_addWidget>(
+		_WidgetDesignerModel, 
+		widget
+	);
 	_WidgetDesignerCommandManager->executeCommand(command);
 }
 

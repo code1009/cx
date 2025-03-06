@@ -20,7 +20,10 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WidgetDesignerCommand_addWidget::WidgetDesignerCommand_addWidget(WidgetDesignerModel* widgetDesignerModel, WidgetSharedPtr widget):
+WidgetDesignerCommand_addWidget::WidgetDesignerCommand_addWidget(
+	WidgetDesignerModel* widgetDesignerModel, 
+	WidgetSharedPtr widget
+) :
 	_WidgetDesignerModel{ widgetDesignerModel },
 	_Widget { widget }
 {
@@ -42,7 +45,10 @@ void WidgetDesignerCommand_addWidget::undo(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WidgetDesignerCommand_deleteWidgets::WidgetDesignerCommand_deleteWidgets(WidgetDesignerModel* widgetDesignerModel, std::vector<WidgetSharedPtr>& widgets) :
+WidgetDesignerCommand_deleteWidgets::WidgetDesignerCommand_deleteWidgets(
+	WidgetDesignerModel* widgetDesignerModel, 
+	std::vector<WidgetSharedPtr>& widgets
+) :
 	_WidgetDesignerModel{ widgetDesignerModel },
 	_Widgets{ widgets }
 {
@@ -59,7 +65,6 @@ void WidgetDesignerCommand_deleteWidgets::execute(void)
 			_WidgetDesignerModel->getWidgetDocument()->_Widgets.begin(), 
 			_WidgetDesignerModel->getWidgetDocument()->_Widgets.end(), 
 			widget);
-
 		if (found != _WidgetDesignerModel->getWidgetDocument()->_Widgets.end())
 		{
 			auto index = found - _WidgetDesignerModel->getWidgetDocument()->_Widgets.begin();
@@ -82,6 +87,126 @@ void WidgetDesignerCommand_deleteWidgets::undo(void)
 			widget);
 	}
 }
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+WidgetDesignerCommand_moveWidgets::WidgetDesignerCommand_moveWidgets(
+	WidgetDesignerModel* widgetDesignerModel,
+	std::vector<WidgetSharedPtr>& widgets,
+	Point& offset
+) :
+	_WidgetDesignerModel{ widgetDesignerModel },
+	_Widgets{ widgets },
+	_Offset{ offset }
+{
+}
+
+void WidgetDesignerCommand_moveWidgets::execute(void)
+{
+	for (auto& widget : _Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			designWidget->moveOffset(_Offset);
+		}
+	}
+}
+
+void WidgetDesignerCommand_moveWidgets::undo(void)
+{
+	for (auto& widget : _Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			designWidget->moveOffset(-_Offset);
+		}
+	}
+}
+
+void WidgetDesignerCommand_moveWidgets::moveOffset(Point& offset)
+{
+	_Offset += offset;
+
+
+	for (auto& widget : _Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			designWidget->moveOffset(offset);
+		}
+	}
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+WidgetDesignerCommand_selectWidgets::WidgetDesignerCommand_selectWidgets(
+	WidgetDesignerModel* widgetDesignerModel,
+	std::vector<WidgetSharedPtr>& preselectedWidgets,
+	std::vector<WidgetSharedPtr>& selectedWidgets
+) :
+	_WidgetDesignerModel{ widgetDesignerModel },
+	_PreselectedWidgets{ preselectedWidgets },
+	_SelectedWidgets{ selectedWidgets }
+{
+}
+
+void WidgetDesignerCommand_selectWidgets::execute(void)
+{
+	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			auto found = std::find(
+				_SelectedWidgets.begin(),
+				_SelectedWidgets.end(),
+				widget);
+			if (found != _SelectedWidgets.end())
+			{
+				designWidget->setMarkerVisible(true);
+			}
+			else
+			{
+				designWidget->setMarkerVisible(false);
+			}
+		}
+	}
+}
+
+void WidgetDesignerCommand_selectWidgets::undo(void)
+{
+	for (auto& widget : _WidgetDesignerModel->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			auto found = std::find(
+				_PreselectedWidgets.begin(),
+				_PreselectedWidgets.end(),
+				widget);
+			if (found != _PreselectedWidgets.end())
+			{
+				designWidget->setMarkerVisible(true);
+			}
+			else
+			{
+				designWidget->setMarkerVisible(false);
+			}
+		}
+	}
+}
+
 
 
 
