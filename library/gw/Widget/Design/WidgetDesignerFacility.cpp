@@ -196,6 +196,27 @@ void WidgetDesignerFacility::selectWidgetsInBounds(void)
 	}
 }
 
+void WidgetDesignerFacility::moveSelectedWidgets(Point offset)
+{
+	if (offset.is_zero())
+	{
+		return;
+	}
+
+
+	for (auto& widget : _WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			if (designWidget->getMarkerVisible())
+			{
+				designWidget->moveOffset(offset);
+			}
+		}
+	}
+}
+
 void WidgetDesignerFacility::deleteSelectedWidgets(void)
 {
 	std::vector<WidgetSharedPtr> widgets;
@@ -220,26 +241,6 @@ void WidgetDesignerFacility::deleteSelectedWidgets(void)
 	}
 }
 
-void WidgetDesignerFacility::moveSelectedWidgets(Point offset)
-{
-	if (offset.is_zero())
-	{
-		return;
-	}
-
-
-	for (auto& widget : _WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
-	{
-		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
-		if (designWidget)
-		{
-			if (designWidget->getMarkerVisible())
-			{
-				designWidget->moveOffset(offset);
-			}
-		}
-	}
-}
 
 
 
