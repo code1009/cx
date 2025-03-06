@@ -54,7 +54,7 @@ public:
 	WidgetDesigner& operator=(WidgetDesigner&&) = delete;
 
 public:
-	bool hasWidgetDesign(void);
+	bool hasDesignWidget(void);
 
 public:
 	Point toGridPoint(Point p) const;

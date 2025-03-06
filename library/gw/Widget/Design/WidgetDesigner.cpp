@@ -29,7 +29,7 @@ WidgetDesigner::WidgetDesigner(WidgetDesignerModel* model):
 }
 
 //===========================================================================
-bool WidgetDesigner::hasWidgetDesign(void)
+bool WidgetDesigner::hasDesignWidget(void)
 {
 	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
 	{
@@ -99,7 +99,7 @@ void WidgetDesigner::selectSingleWidget(WidgetSharedPtr target)
 	//_WidgetDesignerFacility->selectSingleWidget(target);
 
 
-	if (!hasWidgetDesign())
+	if (!hasDesignWidget())
 	{
 		return;
 	}
@@ -136,7 +136,7 @@ void WidgetDesigner::toggleWidgetSelection(WidgetSharedPtr widget)
 	//_WidgetDesignerFacility->toggleWidgetSelection(widget);
 
 
-	if (!hasWidgetDesign())
+	if (!hasDesignWidget())
 	{
 		return;
 	}
@@ -156,7 +156,7 @@ void WidgetDesigner::selectAllWidgets(void)
 	//_WidgetDesignerFacility->selectAllWidgets();
 
 
-	if (!hasWidgetDesign())
+	if (!hasDesignWidget())
 	{
 		return;
 	}
@@ -194,7 +194,7 @@ void WidgetDesigner::deselectAllWidgets(void)
 	//_WidgetDesignerFacility->deselectAllWidgets();
 
 
-	if (!hasWidgetDesign())
+	if (!hasDesignWidget())
 	{
 		return;
 	}
@@ -230,7 +230,7 @@ void WidgetDesigner::selectWidgetsInBounds(void)
 	//WidgetDesignerFacility->selectWidgetsInBounds();
 
 
-	if (!hasWidgetDesign())
+	if (!hasDesignWidget())
 	{
 		return;
 	}
@@ -277,7 +277,7 @@ void WidgetDesigner::moveSelectedWidgets(Point offset)
 	//_WidgetDesignerFacility->moveSelectedWidgets(offset);
 
 
-	if (!hasWidgetDesign())
+	if (!hasDesignWidget())
 	{
 		return;
 	}
@@ -331,7 +331,7 @@ void WidgetDesigner::deleteSelectedWidgets(void)
 	//_WidgetDesignerFacility->deleteSelectedWidgets();
 
 
-	if (!hasWidgetDesign())
+	if (!hasDesignWidget())
 	{
 		return;
 	}
