@@ -55,6 +55,7 @@ public:
 
 public:
 	bool hasDesignWidget(void);
+	bool isDesignWidgetIn(WidgetSharedPtr designWidgetSharedPtr);
 
 public:
 	Point toGridPoint(Point p) const;

@@ -49,6 +49,29 @@ bool WidgetDesigner::hasDesignWidget(void)
 	return false;
 }
 
+bool WidgetDesigner::isDesignWidgetIn(WidgetSharedPtr designWidgetSharedPtr)
+{
+	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	{
+		return false;
+	}
+
+
+	for (auto widget : getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			if (designWidgetSharedPtr==widget)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 //===========================================================================
 Point WidgetDesigner::toGridPoint(Point p) const
 {
@@ -99,7 +122,7 @@ void WidgetDesigner::selectSingleWidget(WidgetSharedPtr target)
 	//_WidgetDesignerFacility->selectSingleWidget(target);
 
 
-	if (!hasDesignWidget())
+	if (!isDesignWidgetIn(target))
 	{
 		return;
 	}
@@ -136,7 +159,7 @@ void WidgetDesigner::toggleWidgetSelection(WidgetSharedPtr widget)
 	//_WidgetDesignerFacility->toggleWidgetSelection(widget);
 
 
-	if (!hasDesignWidget())
+	if (!isDesignWidgetIn(widget))
 	{
 		return;
 	}
@@ -376,7 +399,7 @@ void WidgetDesigner::addWidget(WidgetSharedPtr widget)
 //===========================================================================
 void WidgetDesigner::moveDesignWidgetMarker(WidgetSharedPtr widget, DesignWidgetMarkerId markerId, Point point)
 {
-	if (!hasDesignWidget())
+	if (!isDesignWidgetIn(widget))
 	{
 		return;
 	}
@@ -450,6 +473,7 @@ void WidgetDesigner::draw(Context* ctx)
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
+
 
 
 
