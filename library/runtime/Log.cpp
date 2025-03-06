@@ -66,6 +66,11 @@ static std::wstring get_function_name(std::wstring func)
 	return func;
 }
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 void writeLogDateTime_YYYYMMDD_String(std::wstringstream& ss, const SYSTEMTIME* st)
 {
