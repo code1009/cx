@@ -360,6 +360,7 @@ void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 		EditEnter,
 		EditCancel,
 		EditSelectAll,
+		EditDeselectAll,
 		EditMoveCursorLeft,
 		EditMoveCursorRight,
 		EditMoveCursorUp,
@@ -409,6 +410,7 @@ void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 		switch (virtualKeyCode)
 		{
 		case VK_A: shutcutCommand = ShutcutCommand::EditSelectAll; break;
+		case VK_U: shutcutCommand = ShutcutCommand::EditDeselectAll; break;
 		}
 	}
 	//--------------------------------------------------------------------------
@@ -469,6 +471,10 @@ void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 	//case ShutcutCommand::EditCancel:
 	//	break;
 	case ShutcutCommand::EditSelectAll:
+		_Window->getWidgetDesignerModel()->getWidgetDesigner()->selectAllWidgets();
+		break;
+	case ShutcutCommand::EditDeselectAll:
+		_Window->getWidgetDesignerModel()->getWidgetDesigner()->deselectAllWidgets();
 		break;
 	//case ShutcutCommand::EditMoveCursorLeft:
 	//case ShutcutCommand::EditMoveCursorRight:

@@ -173,7 +173,7 @@ void WidgetDesignerMouseTool::onMouseLButtonDown(const WidgetMouseEventParam& pa
 
 	if (_Action_SelectSingle)
 	{
-		_WidgetDesigner->selectWidget(widget);
+		_WidgetDesigner->selectSingleWidget(widget);
 	}
 	if (_Action_ToggleSelection)
 	{
@@ -292,11 +292,11 @@ void WidgetDesignerMouseTool::onMouseDrop(const WidgetMouseDropEventParam& param
 	/*
 	_NewWidget->moveOffset(offset);
 	_WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->addWidget(_NewWidget);
-	_WidgetDesigner->selectWidget(_NewWidget);
+	_WidgetDesigner->selectSingleWidget(_NewWidget);
 	*/
 	_NewWidget->moveOffset(offset);
 	_WidgetDesigner->addWidget(_NewWidget);
-	_WidgetDesigner->selectWidget(_NewWidget);
+	_WidgetDesigner->selectSingleWidget(_NewWidget);
 
 
 	_NewWidget = nullptr;

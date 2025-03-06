@@ -111,7 +111,7 @@ bool WidgetDesignerFacility::isSelectedWidget(WidgetSharedPtr widget)
 	return false;
 }
 
-void WidgetDesignerFacility::selectWidget(WidgetSharedPtr target)
+void WidgetDesignerFacility::selectSingleWidget(WidgetSharedPtr target)
 {
 	for (auto& widget : _WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
 	{

@@ -63,7 +63,7 @@ public:
 
 public:
 	bool isSelectedWidget(WidgetSharedPtr widget);
-	void selectWidget(WidgetSharedPtr target);
+	void selectSingleWidget(WidgetSharedPtr target);
 	void toggleWidgetSelection(WidgetSharedPtr widget);
 
 	void selectAllWidgets(void);
