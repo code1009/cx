@@ -31,7 +31,11 @@ WidgetDesigner::WidgetDesigner(WidgetDesignerModel* model):
 //===========================================================================
 void WidgetDesigner::setGridSize(std::uint64_t x, std::uint64_t y)
 {
-	_WidgetDesignerFacility->setGridSize(x, y);
+	//_WidgetDesignerFacility->setGridSize(x, y);
+
+
+	auto command = std::make_shared<WidgetDesignerCommand_setGridSize>(_WidgetDesignerModel, x, y);
+	_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 void WidgetDesigner::getGridSize(std::uint64_t& x, std::uint64_t& y) const
@@ -46,7 +50,11 @@ bool WidgetDesigner::getSnapToGrid(void) const
 
 void WidgetDesigner::setSnapToGrid(bool snapToGrid)
 {
-	_WidgetDesignerFacility->setSnapToGrid(snapToGrid);
+	//_WidgetDesignerFacility->setSnapToGrid(snapToGrid);
+
+
+	auto command = std::make_shared<WidgetDesignerCommand_setSnapToGrid>(_WidgetDesignerModel, snapToGrid);
+	_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 Point WidgetDesigner::toGridPoint(Point p) const
