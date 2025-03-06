@@ -98,6 +98,9 @@ void WidgetDesigner::moveSelectedWidgets(Point offset)
 
 void WidgetDesigner::deleteSelectedWidgets(void)
 {
+	//_WidgetDesignerFacility->deleteSelectedWidgets();
+
+
 	std::vector<WidgetSharedPtr> widgets;
 
 
