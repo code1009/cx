@@ -45,6 +45,7 @@ class WidgetDesignerCommand_deleteWidgets : public WidgetDesignerCommand
 private:
 	WidgetDesignerModel* _WidgetDesignerModel;
 	std::vector<WidgetSharedPtr> _Widgets;
+
 	std::map<std::size_t, WidgetSharedPtr> _WidgetMap;
 
 public:
@@ -111,6 +112,33 @@ public:
 	virtual void execute(void);
 	virtual void undo(void);
 };
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class WidgetDesignerCommand_toggleWidgetSelection : public WidgetDesignerCommand
+{
+private:
+	WidgetDesignerModel* _WidgetDesignerModel;
+	WidgetSharedPtr _Widget;
+
+private:
+	bool _IsSelected { false };
+
+public:
+	WidgetDesignerCommand_toggleWidgetSelection(
+		WidgetDesignerModel* widgetDesignerModel,
+		WidgetSharedPtr widget
+	);
+
+public:
+	virtual void execute(void);
+	virtual void undo(void);
+};
+
 
 
 

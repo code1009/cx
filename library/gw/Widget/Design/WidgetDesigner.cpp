@@ -67,12 +67,58 @@ bool WidgetDesigner::isSelectedWidget(WidgetSharedPtr widget)
 
 void WidgetDesigner::selectSingleWidget(WidgetSharedPtr target)
 {
-	_WidgetDesignerFacility->selectSingleWidget(target);
+	//_WidgetDesignerFacility->selectSingleWidget(target);
+
+
+	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	{
+		return;
+	}
+
+
+	std::vector<WidgetSharedPtr> preselectedWidgets;
+	std::vector<WidgetSharedPtr> selectedWidgets;
+
+	for (auto& widget : getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			if (designWidget->getMarkerVisible())
+			{
+				preselectedWidgets.push_back(widget);
+			}
+		}
+	}
+	selectedWidgets.push_back(target);
+
+
+	std::shared_ptr<WidgetDesignerCommand> command;
+	command = std::make_shared<WidgetDesignerCommand_selectWidgets>(
+		_WidgetDesignerModel,
+		preselectedWidgets,
+		selectedWidgets
+	);
+	_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 void WidgetDesigner::toggleWidgetSelection(WidgetSharedPtr widget)
 {
-	_WidgetDesignerFacility->toggleWidgetSelection(widget);
+	//_WidgetDesignerFacility->toggleWidgetSelection(widget);
+
+
+	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	{
+		return;
+	}
+
+
+	std::shared_ptr<WidgetDesignerCommand> command;
+	command = std::make_shared<WidgetDesignerCommand_toggleWidgetSelection>(
+		_WidgetDesignerModel,
+		widget
+	);
+	_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 //===========================================================================

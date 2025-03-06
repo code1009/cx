@@ -111,6 +111,7 @@ bool WidgetDesignerFacility::isSelectedWidget(WidgetSharedPtr widget)
 	return false;
 }
 
+#if 0
 void WidgetDesignerFacility::selectSingleWidget(WidgetSharedPtr target)
 {
 	for (auto& widget : _WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
@@ -240,6 +241,7 @@ void WidgetDesignerFacility::deleteSelectedWidgets(void)
 		_WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->removeWidget(widget);
 	}
 }
+#endif
 
 
 

@@ -57,6 +57,8 @@ public:
 
 public:
 	bool isSelectedWidget(WidgetSharedPtr widget);
+
+#if 0
 	void selectSingleWidget(WidgetSharedPtr target);
 	void toggleWidgetSelection(WidgetSharedPtr widget);
 
@@ -65,6 +67,7 @@ public:
 	void selectWidgetsInBounds(void);
 	void moveSelectedWidgets(Point offset);
 	void deleteSelectedWidgets(void);
+#endif
 };
 
 

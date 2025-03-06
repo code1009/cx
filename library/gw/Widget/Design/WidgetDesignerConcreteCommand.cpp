@@ -213,6 +213,64 @@ void WidgetDesignerCommand_selectWidgets::undo(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+WidgetDesignerCommand_toggleWidgetSelection::WidgetDesignerCommand_toggleWidgetSelection(
+	WidgetDesignerModel* widgetDesignerModel,
+	WidgetSharedPtr widget
+) :
+	_WidgetDesignerModel{ widgetDesignerModel },
+	_Widget{ widget }
+{
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_Widget);
+	if (designWidget)
+	{
+		if (designWidget->getMarkerVisible())
+		{
+			_IsSelected = true;
+		}
+		else
+		{
+			_IsSelected = false;
+		}
+	}
+}
+
+void WidgetDesignerCommand_toggleWidgetSelection::execute(void)
+{
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_Widget);
+	if (designWidget)
+	{
+		if (_IsSelected)
+		{
+			designWidget->setMarkerVisible(false);
+		}
+		else
+		{
+			designWidget->setMarkerVisible(true);
+		}
+	}
+}
+
+void WidgetDesignerCommand_toggleWidgetSelection::undo(void)
+{
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_Widget);
+	if (designWidget)
+	{
+		if (_IsSelected)
+		{
+			designWidget->setMarkerVisible(true);
+		}
+		else
+		{
+			designWidget->setMarkerVisible(false);
+		}
+	}
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 }
 
 
