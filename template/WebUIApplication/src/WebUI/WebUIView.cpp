@@ -405,7 +405,7 @@ HRESULT WebUIView::onWebView_WebResourceRequested(ICoreWebView2* sender,ICoreWeb
 
 	//-----------------------------------------------------------------------
 	std::wstring urn = _Window->getManager()->parseContentsURN(uri);
-	CX_RUNTIME_LOG(LDbug) << urn;
+	CX_RUNTIME_LOG(cxLDebug) << urn;
 
 
 	//-----------------------------------------------------------------------
@@ -550,7 +550,7 @@ HRESULT WebUIView::onWebView_DocumentTitleChanged(ICoreWebView2* sender, IUnknow
 
 	//-----------------------------------------------------------------------
 	std::wstring title(ucsTitle.get());
-	CX_RUNTIME_LOG(LDbug) << title;
+	CX_RUNTIME_LOG(cxLDebug) << title;
 
 
 
@@ -601,7 +601,7 @@ HRESULT WebUIView::onWebView_HistoryChanged(ICoreWebView2* sender, IUnknown* arg
 
 	//-----------------------------------------------------------------------
 	std::wstring source(ucsSource.get());
-	CX_RUNTIME_LOG(LDbug) << source;
+	CX_RUNTIME_LOG(cxLDebug) << source;
 
 
 	return S_OK;
@@ -641,7 +641,7 @@ HRESULT WebUIView::onWebView_SourceChanged(ICoreWebView2* sender, ICoreWebView2S
 
 	//-----------------------------------------------------------------------
 	std::wstring source(ucsSource.get());
-	CX_RUNTIME_LOG(LDbug) << source;
+	CX_RUNTIME_LOG(cxLDebug) << source;
 
 
 	return S_OK;
@@ -679,7 +679,7 @@ HRESULT WebUIView::onWebView_NavigationStarting(ICoreWebView2* sender, ICoreWebV
 
 	//-----------------------------------------------------------------------
 	std::wstring uri(ucsUri.get());
-	CX_RUNTIME_LOG(LDbug) << uri;
+	CX_RUNTIME_LOG(cxLDebug) << uri;
 
 
 	//-----------------------------------------------------------------------
@@ -727,14 +727,14 @@ HRESULT WebUIView::onWebView_NavigationCompleted(ICoreWebView2* sender, ICoreWeb
 	hr = args->get_IsSuccess(&navigationSucceeded);
 	if (SUCCEEDED(hr))
 	{
-		CX_RUNTIME_LOG(LDbug) << L"navigationSucceeded";
+		CX_RUNTIME_LOG(cxLDebug) << L"navigationSucceeded";
 #if 0
 		executeScript(L"alert(\"navigationSucceeded\"); var win = window.open(\"/file.json\", \"PopupWin\", \"width=500,height=600\");");
 #endif
 	}
 	else
 	{
-		CX_RUNTIME_LOG(LDbug) << L"navigationFailed";
+		CX_RUNTIME_LOG(cxLDebug) << L"navigationFailed";
 	}
 
 
@@ -1209,7 +1209,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Security_securityStateChanged(ICor
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	CX_RUNTIME_LOG(LDbug) << L"\n" << jsonArgs;
+	CX_RUNTIME_LOG(cxLDebug) << L"\n" << jsonArgs;
 
 
 	return S_OK;
@@ -1257,7 +1257,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Log_entryAdded(ICoreWebView2* send
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	CX_RUNTIME_LOG(LDbug) << L"Log.entryAdded:\n" << jsonArgs;
+	CX_RUNTIME_LOG(cxLDebug) << L"Log.entryAdded:\n" << jsonArgs;
 
 
 	return S_OK;
@@ -1305,7 +1305,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Runtime_consoleAPICalled(ICoreWebV
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	CX_RUNTIME_LOG(LDbug) << L"Runtime.consoleAPICalled:\n" << jsonArgs;
+	CX_RUNTIME_LOG(cxLDebug) << L"Runtime.consoleAPICalled:\n" << jsonArgs;
 
 
 	return S_OK;
@@ -1348,7 +1348,7 @@ HRESULT WebUIView::onWebView_DevToolsProtocol_Runtime_exceptionThrown(ICoreWebVi
 
 	//-----------------------------------------------------------------------
 	std::wstring jsonArgs(ucsJsonArgs.get());
-	CX_RUNTIME_LOG(LDbug) << L"Runtime.exceptionThrown:\n" << jsonArgs;
+	CX_RUNTIME_LOG(cxLDebug) << L"Runtime.exceptionThrown:\n" << jsonArgs;
 
 
 	//-----------------------------------------------------------------------
@@ -1373,7 +1373,7 @@ void WebUIView::postWebMessageAsJson(const std::wstring& msg)
 	hr = _WebView->PostWebMessageAsJson(msg.c_str());
 	if (FAILED(hr))
 	{
-		CX_RUNTIME_LOG(LDbug) << L"failed";
+		CX_RUNTIME_LOG(cxLDebug) << L"failed";
 	}
 }
 
@@ -1399,7 +1399,7 @@ void WebUIView::onWebMessage(const std::wstring& urn, const std::wstring& webMes
 
 
 	//------------------------------------------------------------------------
-	CX_RUNTIME_LOG(LDbug) << urn << L":\n" << webMessage;
+	CX_RUNTIME_LOG(cxLDebug) << urn << L":\n" << webMessage;
 
 
 	//------------------------------------------------------------------------
@@ -1415,7 +1415,7 @@ void WebUIView::navigate(const std::wstring& uri)
 	hr = _WebView->Navigate(uri.c_str());
 	if (FAILED(hr))
 	{
-		CX_RUNTIME_LOG(LDbug) << L"failed";
+		CX_RUNTIME_LOG(cxLDebug) << L"failed";
 	}
 }
 
@@ -1436,7 +1436,7 @@ void WebUIView::executeScript(const std::wstring& script)
 			{
 				if (FAILED(errorCode))
 				{
-					CX_RUNTIME_LOG(LDbug) << L"failed";
+					CX_RUNTIME_LOG(cxLDebug) << L"failed";
 				}
 
 				return S_OK;

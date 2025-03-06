@@ -43,7 +43,7 @@ WebUIManager::WebUIManager(HWND hMainWindow):
 //===========================================================================
 WebUIManager::~WebUIManager()
 {
-	CX_RUNTIME_LOG(LDbug)
+	CX_RUNTIME_LOG(cxLDebug)
 		<< L"_WindowMap.size() = " << _WindowMap.size()
 		<< std::endl;
 
@@ -177,7 +177,7 @@ static void loadWebUIContentsMapFromFile(WebUIContentsMap& _ContentsMap)
 		urn = filePath.substr(baseDirectory.size());
 		_ContentsMap.registerContents(urn, std::make_shared<WebUIContentsFileStream>(filePath));
 
-		CX_RUNTIME_LOG(LDbug)
+		CX_RUNTIME_LOG(cxLDebug)
 			<< urn << L" : " << filePath;
 	}
 }
@@ -292,7 +292,7 @@ void WebUIManager::deleteWindow(HWND hWindow)
 	}
 	else
 	{
-		CX_RUNTIME_LOG(LDbug) << L"window handle not found";
+		CX_RUNTIME_LOG(cxLDebug) << L"window handle not found";
 	}
 }
 

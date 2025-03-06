@@ -30,7 +30,7 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
-	CX_RUNTIME_LOG(LInfo)
+	CX_RUNTIME_LOG(cxLInfo)
 		<< L"START" << std::endl;
 
 
@@ -40,7 +40,7 @@ int APIENTRY wWinMain(
 	getApplication()->launch();
 
 
-	CX_RUNTIME_LOG(LInfo)
+	CX_RUNTIME_LOG(cxLInfo)
 		<< L"END" << std::endl;
 	
 	return 0;

@@ -220,7 +220,7 @@ void WebUIMessageService::onWebMessage(WebUIWindow* window, const std::wstring& 
 	rv = onCommand(window, jsonMessage);
 	if (!rv)
 	{
-		CX_RUNTIME_LOG(LDbug)
+		CX_RUNTIME_LOG(cxLDebug)
 			<< L"onCommand() failed";
 	}
 }
@@ -254,7 +254,7 @@ bool WebUIMessageService::onCommand(WebUIWindow* window, web::json::value& jsonM
 	//------------------------------------------------------------------------
 	std::wstring command;
 	command = jsonCommand.as_string();
-	CX_RUNTIME_LOG(LDbug) << L"Command=" << command;
+	CX_RUNTIME_LOG(cxLDebug) << L"Command=" << command;
 	//------------------------------------------------------------------------
 	if (command == L"") { return onCommand_Empty(window, jsonMessage); }
 	//------------------------------------------------------------------------

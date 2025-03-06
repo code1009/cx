@@ -32,7 +32,7 @@ int APIENTRY wWinMain(
 {
 	//CX_RUNTIME_ASSERT(1==0);
 
-	CX_RUNTIME_LOG(LInfo)
+	CX_RUNTIME_LOG(cxLInfo)
 		<< L"LINE" << 1 << L": -------------------------" << std::endl
 		<< L"LINE" << 2 << L": START" << std::endl
 		<< L"LINE" << 3 << L": -------------------------" << std::endl;
@@ -44,7 +44,7 @@ int APIENTRY wWinMain(
 	getApplication()->launch();
 
 
-	CX_RUNTIME_LOG(LInfo)
+	CX_RUNTIME_LOG(cxLInfo)
 		<< L"LINE" << 1 << L": -------------------------" << std::endl
 		<< L"LINE" << 2 << L": END" << std::endl
 		<< L"LINE" << 3 << L": -------------------------" << std::endl;

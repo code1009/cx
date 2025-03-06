@@ -113,7 +113,7 @@ WindowDataObject::~WindowDataObject()
 	if (_hGlobal != nullptr)
 	{
 		GlobalFree(_hGlobal); 
-		CX_RUNTIME_LOG(LDbug) << L"GlobalFree()" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
 
 		_hGlobal = nullptr;
 	}
@@ -202,7 +202,7 @@ STDMETHODIMP WindowDataObject::SetData(FORMATETC* pformatetc, STGMEDIUM* pmedium
 		if (_hGlobal != nullptr)
 		{
 			GlobalFree(_hGlobal); 
-			CX_RUNTIME_LOG(LDbug) << L"GlobalFree()" << std::endl;
+			CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
 			_hGlobal = nullptr;
 		}
 
@@ -213,7 +213,7 @@ STDMETHODIMP WindowDataObject::SetData(FORMATETC* pformatetc, STGMEDIUM* pmedium
 		if (fRelease)
 		{
 			GlobalFree(pmedium->hGlobal); 
-			CX_RUNTIME_LOG(LDbug) << L"GlobalFree()" << std::endl;
+			CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
 		}
 
 
@@ -432,7 +432,7 @@ STDMETHODIMP WindowDropTarget::DragEnter(IDataObject* pDataObj, DWORD grfKeyStat
 	//-----------------------------------------------------------------------
 	_SupportFormat = true;
 
-	CX_RUNTIME_LOG(LDbug)
+	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
@@ -444,7 +444,7 @@ STDMETHODIMP WindowDropTarget::DragEnter(IDataObject* pDataObj, DWORD grfKeyStat
 	{
 		_SupportFormat = FALSE;
 
-		CX_RUNTIME_LOG(LDbug) << L"_hGlobal is null!" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is null!" << std::endl;
 
 		*pdwEffect = DROPEFFECT_NONE;
 
@@ -480,7 +480,7 @@ STDMETHODIMP WindowDropTarget::DragOver(DWORD grfKeyState, POINTL pt, DWORD* pdw
 
 
 	//-----------------------------------------------------------------------
-	CX_RUNTIME_LOG(LDbug)
+	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
@@ -488,7 +488,7 @@ STDMETHODIMP WindowDropTarget::DragOver(DWORD grfKeyState, POINTL pt, DWORD* pdw
 
 	if (_hGlobal == nullptr)
 	{
-		CX_RUNTIME_LOG(LDbug) << L"_hGlobal is null!" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is null!" << std::endl;
 		*pdwEffect = DROPEFFECT_NONE;
 
 		_hGlobal = nullptr;
@@ -510,7 +510,7 @@ STDMETHODIMP WindowDropTarget::DragOver(DWORD grfKeyState, POINTL pt, DWORD* pdw
 STDMETHODIMP WindowDropTarget::DragLeave()
 {
 	//-----------------------------------------------------------------------
-	CX_RUNTIME_LOG(LDbug)
+	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< std::endl;
 
@@ -554,7 +554,7 @@ STDMETHODIMP WindowDropTarget::Drop(IDataObject* pDataObj, DWORD grfKeyState, PO
 
 
 	//-----------------------------------------------------------------------
-	CX_RUNTIME_LOG(LDbug)
+	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
@@ -564,7 +564,7 @@ STDMETHODIMP WindowDropTarget::Drop(IDataObject* pDataObj, DWORD grfKeyState, PO
 	//	_hGlobal = getDataObjectHGlobal(pDataObj, &formatetc);
 	if (_hGlobal == nullptr)
 	{
-		CX_RUNTIME_LOG(LDbug) << L"_hGlobal is null!" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is null!" << std::endl;
 
 		*pdwEffect = DROPEFFECT_NONE;
 

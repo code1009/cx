@@ -131,7 +131,7 @@ bool WidgetEventDragDropNotifier::Impl::setData(
 	hGlobal = createHGlobal(source_pointer, source_size);
 	if (nullptr == hGlobal)
 	{
-		CX_RUNTIME_LOG(LDbug) << L"createHGlobal() failed : "
+		CX_RUNTIME_LOG(cxLDebug) << L"createHGlobal() failed : "
 			<< L"source_pointer=" << source_pointer
 			<< L", "
 			<< L"source_size=" << source_size
@@ -163,14 +163,14 @@ bool WidgetEventDragDropNotifier::Impl::setData(
 	hr = pDataObject->SetData(&formatetc, &medium, TRUE);
 	if (hr == S_OK)
 	{
-		CX_RUNTIME_LOG(LDbug) << L"SetData() OK" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"SetData() OK" << std::endl;
 		return true;
 	}
-	CX_RUNTIME_LOG(LDbug) << L"SetData() failed" << std::endl;
+	CX_RUNTIME_LOG(cxLDebug) << L"SetData() failed" << std::endl;
 
 
 	GlobalFree(hGlobal);
-	CX_RUNTIME_LOG(LDbug) << L"GlobalFree()" << std::endl;
+	CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
 
 	return false;
 }
@@ -183,7 +183,7 @@ bool WidgetEventDragDropNotifier::Impl::doDragDrop(DWORD& dwEffect, bool& drop)
 	hr = DoDragDrop(_pDataObject, _pDropSource, DROPEFFECT_COPY, &dwEffect);
 	if (FAILED(hr))
 	{
-		CX_RUNTIME_LOG(LDbug) << L"DoDragDrop() failed : "
+		CX_RUNTIME_LOG(cxLDebug) << L"DoDragDrop() failed : "
 			<< L"hr=" << hr
 			<< std::endl;
 		return false;
@@ -214,7 +214,7 @@ bool WidgetEventDragDropNotifier::Impl::doDragDrop(DWORD& dwEffect, bool& drop)
 	}
 	else
 	{
-		CX_RUNTIME_LOG(LDbug) << L"DoDragDrop() failed : "
+		CX_RUNTIME_LOG(cxLDebug) << L"DoDragDrop() failed : "
 			<< L"hr=" << hr
 			<< std::endl;
 	}
@@ -274,25 +274,25 @@ bool WidgetEventDragDropNotifier::doDragDrop(void)
 	switch (dwEffect)
 	{
 	case DROPEFFECT_COPY:
-		CX_RUNTIME_LOG(LDbug) << L"DROPEFFECT_COPY : "
+		CX_RUNTIME_LOG(cxLDebug) << L"DROPEFFECT_COPY : "
 			<< L"dwEffect=" << dwEffect
 			<< std::endl;
 		break;
 
 	case DROPEFFECT_MOVE:
-		CX_RUNTIME_LOG(LDbug) << L"DROPEFFECT_MOVE : "
+		CX_RUNTIME_LOG(cxLDebug) << L"DROPEFFECT_MOVE : "
 			<< L"dwEffect=" << dwEffect
 			<< std::endl;
 		break;
 
 	case DROPEFFECT_NONE:
-		CX_RUNTIME_LOG(LDbug) << L"DROPEFFECT_NONE : "
+		CX_RUNTIME_LOG(cxLDebug) << L"DROPEFFECT_NONE : "
 			<< L"dwEffect=" << dwEffect
 			<< std::endl;
 		break;
 
 	default:
-		CX_RUNTIME_LOG(LDbug) << L"? : "
+		CX_RUNTIME_LOG(cxLDebug) << L"? : "
 			<< L"dwEffect=" << dwEffect
 			<< std::endl;
 		break;
@@ -369,7 +369,7 @@ WidgetEventDragDropHandler::Impl::Impl(WidgetDocument* doc, Viewport* viewport) 
 	hr = RegisterDragDrop(_Viewport->getWindowHandle(), _pDropTarget);
 	if (FAILED(hr))
 	{
-		CX_RUNTIME_LOG(LDbug) << L"RegisterDragDrop() failed : "
+		CX_RUNTIME_LOG(cxLDebug) << L"RegisterDragDrop() failed : "
 			<< L"hr=" << hr
 			<< std::endl;
 	}
@@ -383,7 +383,7 @@ WidgetEventDragDropHandler::Impl::~Impl()
 	hr = RevokeDragDrop(_Viewport->getWindowHandle());
 	if (FAILED(hr))
 	{
-		CX_RUNTIME_LOG(LDbug) << L"RevokeDragDrop() failed : "
+		CX_RUNTIME_LOG(cxLDebug) << L"RevokeDragDrop() failed : "
 			<< L"hr=" << hr
 			<< std::endl;
 	}
