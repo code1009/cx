@@ -69,8 +69,9 @@ public:
 	void selectAllWidgets(void);
 	void deselectAllWidgets(void);
 	void selectWidgetsInBounds(void);
-	void deleteSelectedWidgets(void);
 	void moveSelectedWidgets(Point offset);
+	void deleteSelectedWidgets(void);
+	void addWidget(WidgetSharedPtr widget);
 
 public:
 	void undo(void);

@@ -289,9 +289,13 @@ void WidgetDesignerMouseTool::onMouseDrop(const WidgetMouseDropEventParam& param
 		return;
 	}
 
-
+	/*
 	_NewWidget->moveOffset(offset);
 	_WidgetDesigner->getWidgetDesignerModel()->getWidgetDocument()->addWidget(_NewWidget);
+	_WidgetDesigner->selectWidget(_NewWidget);
+	*/
+	_NewWidget->moveOffset(offset);
+	_WidgetDesigner->addWidget(_NewWidget);
 	_WidgetDesigner->selectWidget(_NewWidget);
 
 

@@ -17,8 +17,15 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class WidgetDesignerNoOpCommand : public WidgetDesignerCommand
+class WidgetDesignerCommand_addWidget : public WidgetDesignerCommand
 {
+private:
+	WidgetDesignerModel* _WidgetDesignerModel;
+	WidgetSharedPtr _Widget;
+
+public:
+	WidgetDesignerCommand_addWidget(WidgetDesignerModel* widgetDesignerModel, WidgetSharedPtr widget);
+
 public:
 	virtual void execute(void);
 	virtual void undo(void);
@@ -30,14 +37,15 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class WidgetDesignerAddCommand : public WidgetDesignerCommand
+class WidgetDesignerCommand_deleteWidgets : public WidgetDesignerCommand
 {
 private:
-	WidgetDocument* _Document;
-	WidgetSharedPtr _Widget;
+	WidgetDesignerModel* _WidgetDesignerModel;
+	std::vector<WidgetSharedPtr> _Widgets;
+	std::map<std::size_t, WidgetSharedPtr> _WidgetMap;
 
 public:
-	WidgetDesignerAddCommand(WidgetDocument* document, WidgetSharedPtr widget);
+	WidgetDesignerCommand_deleteWidgets(WidgetDesignerModel* widgetDesignerModel, std::vector<WidgetSharedPtr>& widgets);
 
 public:
 	virtual void execute(void);

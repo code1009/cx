@@ -439,13 +439,21 @@ void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 	{
 	case VK_BACK: shutcutCommand = ShutcutCommand::ViewFitScroll; break;
 	}
+	switch (virtualKeyCode)
+	{
+	case VK_F7: shutcutCommand = ShutcutCommand::ViewDocumentGrid; break;
+	case VK_F8: shutcutCommand = ShutcutCommand::ViewStatusOverlay; break;
+	}
 
 
 	//--------------------------------------------------------------------------
 	switch(shutcutCommand)
 	{
 	case ShutcutCommand::EditUndo:
+		_Window->getWidgetDesignerModel()->getWidgetDesigner()->undo();
+		break;
 	case ShutcutCommand::EditRedo:
+		_Window->getWidgetDesignerModel()->getWidgetDesigner()->redo();
 		break;
 	case ShutcutCommand::EditCopy:
 	case ShutcutCommand::EditCut:
@@ -454,6 +462,7 @@ void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 	//case ShutcutCommand::EditInsert:
 	//	break;
 	case ShutcutCommand::EditDelete:
+		_Window->getWidgetDesignerModel()->getWidgetDesigner()->deleteSelectedWidgets();
 		break;
 	//case ShutcutCommand::EditEnter:
 	//	break;

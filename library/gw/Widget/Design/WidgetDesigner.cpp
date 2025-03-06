@@ -91,14 +91,43 @@ void WidgetDesigner::selectWidgetsInBounds(void)
 	_WidgetDesignerFacility->selectWidgetsInBounds();
 }
 
-void WidgetDesigner::deleteSelectedWidgets(void)
-{
-	_WidgetDesignerFacility->deleteSelectedWidgets();
-}
-
 void WidgetDesigner::moveSelectedWidgets(Point offset)
 {
 	_WidgetDesignerFacility->moveSelectedWidgets(offset);
+}
+
+void WidgetDesigner::deleteSelectedWidgets(void)
+{
+	std::vector<WidgetSharedPtr> widgets;
+
+
+	for (auto& widget : getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			if (designWidget->getMarkerVisible())
+			{
+				widgets.push_back(widget);
+			}
+		}
+	}
+
+
+	std::shared_ptr<WidgetDesignerCommand> command;
+
+	command = std::make_shared<WidgetDesignerCommand_deleteWidgets>(_WidgetDesignerModel, widgets);
+
+	_WidgetDesignerCommandManager->executeCommand(command);
+}
+
+void WidgetDesigner::addWidget(WidgetSharedPtr widget)
+{
+	std::shared_ptr<WidgetDesignerCommand> command;
+
+	command = std::make_shared<WidgetDesignerCommand_addWidget>(_WidgetDesignerModel, widget);
+
+	_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 //===========================================================================

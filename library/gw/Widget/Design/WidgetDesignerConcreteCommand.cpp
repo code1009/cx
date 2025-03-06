@@ -20,12 +20,20 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void WidgetDesignerNoOpCommand::execute(void)
+WidgetDesignerCommand_addWidget::WidgetDesignerCommand_addWidget(WidgetDesignerModel* widgetDesignerModel, WidgetSharedPtr widget):
+	_WidgetDesignerModel{ widgetDesignerModel },
+	_Widget { widget }
 {
 }
 
-void WidgetDesignerNoOpCommand::undo(void)
+void WidgetDesignerCommand_addWidget::execute(void)
 {
+	_WidgetDesignerModel->getWidgetDocument()->addWidget(_Widget);
+}
+
+void WidgetDesignerCommand_addWidget::undo(void)
+{
+	_WidgetDesignerModel->getWidgetDocument()->removeWidget(_Widget);
 }
 
 
@@ -34,22 +42,46 @@ void WidgetDesignerNoOpCommand::undo(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WidgetDesignerAddCommand::WidgetDesignerAddCommand(WidgetDocument* document, WidgetSharedPtr widget):
-	_Document {document},
-	_Widget   {widget}
+WidgetDesignerCommand_deleteWidgets::WidgetDesignerCommand_deleteWidgets(WidgetDesignerModel* widgetDesignerModel, std::vector<WidgetSharedPtr>& widgets) :
+	_WidgetDesignerModel{ widgetDesignerModel },
+	_Widgets{ widgets }
 {
 }
 
-void WidgetDesignerAddCommand::execute(void)
+void WidgetDesignerCommand_deleteWidgets::execute(void)
 {
-	_Document->addWidget(_Widget);
+	_WidgetMap.clear();
+
+
+	for (auto& widget : _Widgets)
+	{
+		auto found = std::find(
+			_WidgetDesignerModel->getWidgetDocument()->_Widgets.begin(), 
+			_WidgetDesignerModel->getWidgetDocument()->_Widgets.end(), 
+			widget);
+
+		if (found != _WidgetDesignerModel->getWidgetDocument()->_Widgets.end())
+		{
+			auto index = found - _WidgetDesignerModel->getWidgetDocument()->_Widgets.begin();
+			_WidgetMap[index] = widget;
+		}
+	}
+
+	for (auto& widget : _Widgets)
+	{
+		_WidgetDesignerModel->getWidgetDocument()->removeWidget(widget);
+	}
 }
 
-void WidgetDesignerAddCommand::undo(void)
+void WidgetDesignerCommand_deleteWidgets::undo(void)
 {
-	_Document->removeWidget(_Widget);
+	for (auto& [index, widget] : _WidgetMap)
+	{
+		_WidgetDesignerModel->getWidgetDocument()->_Widgets.insert(
+			_WidgetDesignerModel->getWidgetDocument()->_Widgets.begin() + index,
+			widget);
+	}
 }
-
 
 
 

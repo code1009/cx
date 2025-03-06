@@ -44,8 +44,8 @@ public:
 class WidgetDesignerCommandManager
 {
 private:
-	std::stack<std::unique_ptr<WidgetDesignerCommand>> _UndoStack;
-	std::stack<std::unique_ptr<WidgetDesignerCommand>> _RedoStack;
+	std::stack<std::shared_ptr<WidgetDesignerCommand>> _UndoStack;
+	std::stack<std::shared_ptr<WidgetDesignerCommand>> _RedoStack;
 
 public:
 	WidgetDesignerCommandManager() = default;
@@ -61,7 +61,7 @@ public:
 	WidgetDesignerCommandManager& operator=(WidgetDesignerCommandManager&&) = delete;
 
 public:
-	void executeCommand(std::unique_ptr<WidgetDesignerCommand> command);
+	void executeCommand(std::shared_ptr<WidgetDesignerCommand> command);
 
 public:
 	void undo(void);

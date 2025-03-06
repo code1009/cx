@@ -146,22 +146,9 @@ void MainFrame::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 
 void MainFrame::onKeyDown(cx::wui::WindowMessage& windowMessage)
 {
-	cx::wui::WM_KEYDOWN_WindowMessageCrack wm{ windowMessage };
-
-
-	switch (wm.nChar())
+	if (_View.get())
 	{
-	case VK_F7:
-	case VK_F8:
-		if (_View.get())
-		{
-			_View->onKeyDown(windowMessage);
-		}
-		break;
-
-	default:
-		defaultWindowProc(windowMessage);
-		break;
+		_View->onKeyDown(windowMessage);
 	}
 }
 
