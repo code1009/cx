@@ -104,6 +104,7 @@ public:
 	virtual void onMouseDragging(const WidgetMouseEventParam& param);
 
 public:
+	virtual WidgetSharedPtr getTargetWidget(void);
 	virtual void setTargetWidgetPropertyChanged(std::uint32_t code);
 	virtual void onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param);
 };

@@ -29,7 +29,7 @@ using WidgetSharedPtr = std::shared_ptr<Widget>;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Widget
+class Widget : std::enable_shared_from_this<Widget>
 {
 public:
 	class PropertyChangedParam

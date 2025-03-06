@@ -20,14 +20,14 @@ namespace cx::gw
 class ShapeDesignTemplate : public ShapeDesign
 {
 public:
-	using makeTarget = std::function<WidgetSharedPtr(void)>;
+	using makeTargetWidget = std::function<WidgetSharedPtr(void)>;
 
 protected:
-	makeTarget _makeTarget;
-	WidgetSharedPtr _Target;
+	makeTargetWidget _makeTargetWidget;
+	WidgetSharedPtr _TargetWidget;
 
 public:
-	ShapeDesignTemplate(std::wstring className, makeTarget make);
+	ShapeDesignTemplate(std::wstring className, makeTargetWidget make);
 
 	//-----------------------------------------------------------------------
 	// Widget
@@ -43,6 +43,7 @@ public:
 	// DesignWidget
 public:
 	virtual void moveMarker(const DesignWidgetMarkerId s, const Point& p) override;
+	virtual WidgetSharedPtr getTargetWidget(void) override;
 	virtual void onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param) override;
 };
 

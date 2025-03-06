@@ -275,7 +275,8 @@ void DesignWidget::onMouseReleased(const WidgetMouseEventParam& param)
 
 	if (static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) != _PressedState)
 	{
-		moveMarker(_PressedState, _MousePoint);
+		//moveMarker(_PressedState, _MousePoint);
+
 	}
 
 
@@ -291,11 +292,16 @@ void DesignWidget::onMouseDragging(const WidgetMouseEventParam& param)
 
 	if (static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) != _PressedState)
 	{
-		moveMarker(_PressedState, _MousePoint);
+		//moveMarker(_PressedState, _MousePoint);
 	}
 }
 
 //===========================================================================
+WidgetSharedPtr DesignWidget::getTargetWidget(void)
+{
+	return nullptr;
+}
+
 void DesignWidget::setTargetWidgetPropertyChanged(std::uint32_t code)
 {
 	setPropertyChanged(code);

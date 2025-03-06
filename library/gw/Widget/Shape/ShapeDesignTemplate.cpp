@@ -20,16 +20,16 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-ShapeDesignTemplate::ShapeDesignTemplate(std::wstring className, makeTarget make):
+ShapeDesignTemplate::ShapeDesignTemplate(std::wstring className, makeTargetWidget make):
 	ShapeDesign{ className },
-	_makeTarget{ make }
+	_makeTargetWidget{ make }
 {
 	//-----------------------------------------------------------------------
-	_Target = _makeTarget();
+	_TargetWidget = _makeTargetWidget();
 
 
 	//-----------------------------------------------------------------------
-	_Target->setPropertyChangedHandler(
+	_TargetWidget->setPropertyChangedHandler(
 		std::bind(&ShapeDesignTemplate::onTargetWidgetPropertyChanged, this, std::placeholders::_1)
 	);
 
@@ -37,7 +37,7 @@ ShapeDesignTemplate::ShapeDesignTemplate(std::wstring className, makeTarget make
 	//-----------------------------------------------------------------------
 	Point p0;
 	Point p1;
-	_Target->getBounds(p0, p1);
+	_TargetWidget->getBounds(p0, p1);
 	_Points = getBoundsPoints(p0, p1);
 }
 
@@ -54,12 +54,12 @@ void ShapeDesignTemplate::copyTo(WidgetSharedPtr widget) const
 
 
 	ShapeDesignTemplate* o = dynamic_cast<ShapeDesignTemplate*>(widget.get());
-	_Target->copyTo(o->_Target);
+	_TargetWidget->copyTo(o->_TargetWidget);
 }
 
 WidgetSharedPtr ShapeDesignTemplate::clone(void) const
 {
-	auto o = std::make_shared<ShapeDesignTemplate>(getClassName(), _makeTarget);
+	auto o = std::make_shared<ShapeDesignTemplate>(getClassName(), _makeTargetWidget);
 	copyTo(o);
 	return o;
 }
@@ -77,12 +77,12 @@ bool ShapeDesignTemplate::isPointIn(const Point& test) const
 	}
 
 
-	return _Target->isPointIn(test);
+	return _TargetWidget->isPointIn(test);
 }
 
 void ShapeDesignTemplate::moveOffset(const Point& offset)
 {
-	_Target->moveOffset(offset);
+	_TargetWidget->moveOffset(offset);
 
 	ShapeDesign::moveOffset(offset);
 }
@@ -93,7 +93,7 @@ bool ShapeDesignTemplate::loadResources(WidgetResourceMap* widgetResourceMap)
 	bool rv;
 
 
-	rv = _Target->loadResources(widgetResourceMap);
+	rv = _TargetWidget->loadResources(widgetResourceMap);
 	if (false == rv)
 	{
 		return false;
@@ -111,13 +111,13 @@ bool ShapeDesignTemplate::loadResources(WidgetResourceMap* widgetResourceMap)
 
 void ShapeDesignTemplate::draw(Context* ctx)
 {
-	_Target->draw(ctx);
+	_TargetWidget->draw(ctx);
 
 	if (getMarkerVisible())
 	{
 		Point p0;
 		Point p1;
-		_Target->getBounds(p0, p1);
+		_TargetWidget->getBounds(p0, p1);
 		drawBounds(ctx, p0, p1);
 
 		drawMarkers(ctx);
@@ -144,8 +144,8 @@ void ShapeDesignTemplate::moveMarker(const DesignWidgetMarkerId s, const Point& 
 
 
 	//-----------------------------------------------------------------------
-	_Target->getPoints()[0] = _Points[0];
-	_Target->getPoints()[1] = _Points[2];
+	_TargetWidget->getPoints()[0] = _Points[0];
+	_TargetWidget->getPoints()[1] = _Points[2];
 
 
 	//-----------------------------------------------------------------------
@@ -153,6 +153,11 @@ void ShapeDesignTemplate::moveMarker(const DesignWidgetMarkerId s, const Point& 
 }
 
 //===========================================================================
+WidgetSharedPtr ShapeDesignTemplate::getTargetWidget(void)
+{
+	return _TargetWidget;
+}
+
 void ShapeDesignTemplate::onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param)
 {
 	setTargetWidgetPropertyChanged(param->_Code);

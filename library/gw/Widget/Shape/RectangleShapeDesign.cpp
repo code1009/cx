@@ -24,11 +24,11 @@ RectangleShapeDesign::RectangleShapeDesign():
 	ShapeDesign{ L"Shape.Rectangle.Design" }
 {
 	//-----------------------------------------------------------------------
-	_Target = std::make_shared<RectangleShape>();
+	_TargetWidget = std::make_shared<RectangleShape>();
 
 
 	//-----------------------------------------------------------------------
-	_Target->setPropertyChangedHandler(
+	_TargetWidget->setPropertyChangedHandler(
 		std::bind(&RectangleShapeDesign::onTargetWidgetPropertyChanged, this, std::placeholders::_1)
 	);
 
@@ -36,7 +36,7 @@ RectangleShapeDesign::RectangleShapeDesign():
 	//-----------------------------------------------------------------------
 	Point p0;
 	Point p1;
-	_Target->getBounds(p0, p1);
+	_TargetWidget->getBounds(p0, p1);
 	_Points = getBoundsPoints(p0, p1);
 }
 
@@ -53,7 +53,7 @@ void RectangleShapeDesign::copyTo(WidgetSharedPtr widget) const
 
 
 	RectangleShapeDesign* o = dynamic_cast<RectangleShapeDesign*>(widget.get());
-	_Target->copyTo(o->_Target);
+	_TargetWidget->copyTo(o->_TargetWidget);
 }
 
 WidgetSharedPtr RectangleShapeDesign::clone(void) const
@@ -76,12 +76,12 @@ bool RectangleShapeDesign::isPointIn(const Point& test) const
 	}
 
 
-	return _Target->isPointIn(test);
+	return _TargetWidget->isPointIn(test);
 }
 
 void RectangleShapeDesign::moveOffset(const Point& offset)
 {
-	_Target->moveOffset(offset);
+	_TargetWidget->moveOffset(offset);
 
 	ShapeDesign::moveOffset(offset);
 }
@@ -92,7 +92,7 @@ bool RectangleShapeDesign::loadResources(WidgetResourceMap* widgetResourceMap)
 	bool rv;
 
 
-	rv = _Target->loadResources(widgetResourceMap);
+	rv = _TargetWidget->loadResources(widgetResourceMap);
 	if (false == rv)
 	{
 		return false;
@@ -110,13 +110,13 @@ bool RectangleShapeDesign::loadResources(WidgetResourceMap* widgetResourceMap)
 
 void RectangleShapeDesign::draw(Context* ctx)
 {
-	_Target->draw(ctx);
+	_TargetWidget->draw(ctx);
 
 	if (getMarkerVisible())
 	{
 		Point p0;
 		Point p1;
-		_Target->getBounds(p0, p1);
+		_TargetWidget->getBounds(p0, p1);
 		drawBounds(ctx, p0, p1);
 
 		drawMarkers(ctx);
@@ -143,8 +143,8 @@ void RectangleShapeDesign::moveMarker(const DesignWidgetMarkerId s, const Point&
 
 
 	//-----------------------------------------------------------------------
-	_Target->getPoints()[0] = _Points[0];
-	_Target->getPoints()[1] = _Points[2];
+	_TargetWidget->getPoints()[0] = _Points[0];
+	_TargetWidget->getPoints()[1] = _Points[2];
 
 
 	//-----------------------------------------------------------------------
@@ -152,6 +152,11 @@ void RectangleShapeDesign::moveMarker(const DesignWidgetMarkerId s, const Point&
 }
 
 //===========================================================================
+WidgetSharedPtr RectangleShapeDesign::getTargetWidget(void)
+{
+	return _TargetWidget;
+}
+
 void RectangleShapeDesign::onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param)
 {
 	setTargetWidgetPropertyChanged(param->_Code);

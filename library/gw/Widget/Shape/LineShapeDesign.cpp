@@ -24,17 +24,17 @@ LineShapeDesign::LineShapeDesign():
 	ShapeDesign{ L"Shape.Line.Design" }
 {
 	//-----------------------------------------------------------------------
-	_Target = std::make_shared<LineShape>();
+	_TargetWidget = std::make_shared<LineShape>();
 
 
 	//-----------------------------------------------------------------------
-	_Target->setPropertyChangedHandler(
+	_TargetWidget->setPropertyChangedHandler(
 		std::bind(&LineShapeDesign::onTargetWidgetPropertyChanged, this, std::placeholders::_1)
 	);
 
 
 	//-----------------------------------------------------------------------
-	_Points = _Target->getPoints();
+	_Points = _TargetWidget->getPoints();
 }
 
 //===========================================================================
@@ -50,7 +50,7 @@ void LineShapeDesign::copyTo(WidgetSharedPtr widget) const
 
 
 	LineShapeDesign* o = dynamic_cast<LineShapeDesign*>(widget.get());
-	_Target->copyTo(o->_Target);
+	_TargetWidget->copyTo(o->_TargetWidget);
 }
 
 WidgetSharedPtr LineShapeDesign::clone(void) const
@@ -73,12 +73,12 @@ bool LineShapeDesign::isPointIn(const Point& test) const
 	}
 
 
-	return _Target->isPointIn(test);
+	return _TargetWidget->isPointIn(test);
 }
 
 void LineShapeDesign::moveOffset(const Point& offset)
 {
-	_Target->moveOffset(offset);
+	_TargetWidget->moveOffset(offset);
 
 	ShapeDesign::moveOffset(offset);
 }
@@ -89,7 +89,7 @@ bool LineShapeDesign::loadResources(WidgetResourceMap* widgetResourceMap)
 	bool rv;
 
 
-	rv = _Target->loadResources(widgetResourceMap);
+	rv = _TargetWidget->loadResources(widgetResourceMap);
 	if (false == rv)
 	{
 		return false;
@@ -107,13 +107,13 @@ bool LineShapeDesign::loadResources(WidgetResourceMap* widgetResourceMap)
 
 void LineShapeDesign::draw(Context* ctx)
 {
-	_Target->draw(ctx);
+	_TargetWidget->draw(ctx);
 
 	if (getMarkerVisible())
 	{
 		Point p0;
 		Point p1;
-		_Target->getBounds(p0, p1);
+		_TargetWidget->getBounds(p0, p1);
 		drawBounds(ctx, p0, p1);
 
 		drawMarkers(ctx);
@@ -152,8 +152,8 @@ void LineShapeDesign::moveMarker(const DesignWidgetMarkerId s, const Point& p)
 
 
 	//-----------------------------------------------------------------------
-	_Target->getPoints()[0] = _Points[0];
-	_Target->getPoints()[1] = _Points[1];
+	_TargetWidget->getPoints()[0] = _Points[0];
+	_TargetWidget->getPoints()[1] = _Points[1];
 
 
 	//-----------------------------------------------------------------------
@@ -161,6 +161,11 @@ void LineShapeDesign::moveMarker(const DesignWidgetMarkerId s, const Point& p)
 }
 
 //===========================================================================
+WidgetSharedPtr LineShapeDesign::getTargetWidget(void)
+{
+	return _TargetWidget;
+}
+
 void LineShapeDesign::onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param)
 {
 	setTargetWidgetPropertyChanged(param->_Code);

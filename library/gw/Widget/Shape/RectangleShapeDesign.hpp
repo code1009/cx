@@ -20,7 +20,7 @@ namespace cx::gw
 class RectangleShapeDesign : public ShapeDesign
 {
 protected:
-	std::shared_ptr<RectangleShape> _Target;
+	std::shared_ptr<RectangleShape> _TargetWidget;
 
 public:
 	RectangleShapeDesign();
@@ -39,6 +39,7 @@ public:
 	// DesignWidget
 public:
 	virtual void moveMarker(const DesignWidgetMarkerId s, const Point& p) override;
+	virtual WidgetSharedPtr getTargetWidget(void) override;
 	virtual void onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param) override;
 };
 

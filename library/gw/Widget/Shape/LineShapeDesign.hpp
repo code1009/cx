@@ -20,7 +20,7 @@ namespace cx::gw
 class LineShapeDesign : public ShapeDesign
 {
 protected:
-	std::shared_ptr<LineShape> _Target;
+	std::shared_ptr<LineShape> _TargetWidget;
 
 public:
 	LineShapeDesign();
@@ -40,6 +40,7 @@ public:
 public:
 	virtual DesignWidgetMarkerId findMarker(const Point& test) override;
 	virtual void moveMarker(const DesignWidgetMarkerId s, const Point& p) override;
+	virtual WidgetSharedPtr getTargetWidget(void) override;
 	virtual void onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param) override;
 };
 
