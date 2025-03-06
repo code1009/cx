@@ -44,7 +44,7 @@ public:
 	WidgetDesignerModel*          getWidgetDesignerModel         (void) const { return _WidgetDesignerModel;           }
 	WidgetDesignerMouseTool*      getWidgetDesignerMouseTool     (void) const { return _WidgetDesignerMouseTool.get(); }
 	WidgetDesignerFacility*       getWidgetDesignerFacility      (void) const { return _WidgetDesignerFacility.get();  }
-	WidgetDesignerCommandManager* getWidgetDesignerCommandManager(void) const { return _WidgetDesignerCommandManager.get(); }
+	//WidgetDesignerCommandManager* getWidgetDesignerCommandManager(void) const { return _WidgetDesignerCommandManager.get(); }
 
 public:
 	WidgetDesigner(const WidgetDesigner&) = delete;
