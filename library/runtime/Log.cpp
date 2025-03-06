@@ -20,7 +20,7 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static std::wstring wstring_truncate(std::wstring str, size_t width, bool show_ellipsis = true)
+static std::wstring truncate_std_wstring(std::wstring str, size_t width, bool show_ellipsis = true)
 {
 	if (str.length() > width)
 	{
@@ -179,7 +179,7 @@ void writeLogSourceFileString(std::wstringstream& ss, const wchar_t* file)
 	ss.width(width);
 	ss.fill(L' ');
 	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << wstring_truncate(get_file_of_file_path(file), width, false);
+	ss << truncate_std_wstring(get_file_of_file_path(file), width, false);
 }
 
 void writeLogSourceLineString(std::wstringstream& ss, int line)
@@ -198,8 +198,8 @@ void writeLogSourceFileLineString(std::wstringstream& ss, const wchar_t* file, i
 	ss.setf(std::ios::dec | std::ios::left, std::ios::basefield | std::ios::adjustfield);
 
 	ss <<
-		wstring_truncate(
-			wstring_truncate(get_file_of_file_path(file), 20, false)
+		truncate_std_wstring(
+			truncate_std_wstring(get_file_of_file_path(file), 20, false)
 			+ L":"
 			+ std::to_wstring(line),
 			width,
@@ -213,7 +213,7 @@ void writeLogSourceFuncString(std::wstringstream& ss, const wchar_t* func)
 	ss.width(width);
 	ss.fill(L' ');
 	ss.setf(std::ios::dec | std::ios::left, std::ios::basefield | std::ios::adjustfield);
-	ss << wstring_truncate(get_function_name(func), width, false);
+	ss << truncate_std_wstring(get_function_name(func), width, false);
 }
 
 

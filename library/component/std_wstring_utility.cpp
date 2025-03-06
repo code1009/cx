@@ -25,7 +25,7 @@ namespace cx
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-std::wstring std_wstring_truncate(std::wstring str, size_t width, bool ellipsis)
+std::wstring truncate_std_wstring(std::wstring str, size_t width, bool ellipsis)
 {
 	if (str.length() > width)
 	{

@@ -75,6 +75,8 @@ constexpr cx::runtime::LogLevel cxLWarning  = cx::runtime::LogLevel::Warning;
 constexpr cx::runtime::LogLevel cxLError    = cx::runtime::LogLevel::Error;
 constexpr cx::runtime::LogLevel cxLCritical = cx::runtime::LogLevel::Critical;
 
+constexpr cx::runtime::LogLevel cxLDefault = cxLDebug;
+
 
 
 
