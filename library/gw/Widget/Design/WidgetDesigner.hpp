@@ -78,7 +78,7 @@ public:
 	void addWidget(WidgetSharedPtr widget);
 
 public:
-	void moveDesignWidgetMarker(WidgetSharedPtr widget);
+	void moveDesignWidgetMarker(WidgetSharedPtr widget, DesignWidgetMarkerId markerId, Point point);
 
 public:
 	void undo(void);

@@ -210,6 +210,45 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class WidgetDesignerCommand_moveDesignWidgetMarker : public WidgetDesignerCommand
+{
+private:
+	WidgetDesignerModel* _WidgetDesignerModel;
+	WidgetSharedPtr _Widget;
+	DesignWidgetMarkerId _MarkerId;
+	Point _Point;
+
+	std::vector<Point> _OldTargetWidgetPoints;
+	std::vector<Point> _OldDesignWidgetPoints;
+
+	std::vector<Point> _NewTargetWidgetPoints;
+	std::vector<Point> _NewDesignWidgetPoints;
+
+public:
+	WidgetDesignerCommand_moveDesignWidgetMarker(
+		WidgetDesignerModel* widgetDesignerModel,
+		WidgetSharedPtr widget,
+		DesignWidgetMarkerId markerId, 
+		const Point& point
+	);
+
+public:
+	virtual void execute(void);
+	virtual void undo(void);
+
+public:
+	bool moveDesignWidgetMarker(const Point& point);
+	WidgetSharedPtr getWidget(void) { return _Widget; };
+	DesignWidgetMarkerId getDesignWidgetMarkerId(void) { return _MarkerId; };
+	Point getPoint(void) { return _Point; };
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 }
 
 

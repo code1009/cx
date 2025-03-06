@@ -69,6 +69,7 @@ public:
 
 public:
 	std::shared_ptr<WidgetDesignerCommand> getLastExecutedCommand(void);
+	void deleteLastExecutedCommand(void);
 };
 
 

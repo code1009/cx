@@ -269,6 +269,83 @@ void WidgetDesignerCommand_toggleWidgetSelection::undo(void)
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+WidgetDesignerCommand_moveDesignWidgetMarker::WidgetDesignerCommand_moveDesignWidgetMarker(
+	WidgetDesignerModel* widgetDesignerModel,
+	WidgetSharedPtr widget,
+	DesignWidgetMarkerId markerId,
+	const Point& point
+) :
+	_WidgetDesignerModel{ widgetDesignerModel },
+	_Widget{ widget },
+	_MarkerId { markerId },
+	_Point { point }
+{
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_Widget);
+	if (!designWidget)
+	{
+		return;
+	}
+
+	_OldTargetWidgetPoints = designWidget->getTargetWidget()->getPoints();
+	_OldDesignWidgetPoints = designWidget->getPoints();
+}
+
+void WidgetDesignerCommand_moveDesignWidgetMarker::execute(void)
+{
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_Widget);
+	if (!designWidget)
+	{
+		return;
+	}
+
+	designWidget->moveMarker(_MarkerId, _Point);
+
+	_NewTargetWidgetPoints = designWidget->getTargetWidget()->getPoints();
+	_NewDesignWidgetPoints = designWidget->getPoints();
+}
+
+void WidgetDesignerCommand_moveDesignWidgetMarker::undo(void)
+{
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_Widget);
+	if (!designWidget)
+	{
+		return;
+	}
+
+	designWidget->getTargetWidget()->setPoints(_OldTargetWidgetPoints);
+	designWidget->setPoints(_OldDesignWidgetPoints);
+}
+
+bool WidgetDesignerCommand_moveDesignWidgetMarker::moveDesignWidgetMarker(const Point& point)
+{
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(_Widget);
+	if (!designWidget)
+	{
+		return false;
+	}
+
+	_Point = point;
+	designWidget->moveMarker(_MarkerId, _Point);
+
+	_NewTargetWidgetPoints = designWidget->getTargetWidget()->getPoints();
+	_NewDesignWidgetPoints = designWidget->getPoints();
+
+	if ( (_OldTargetWidgetPoints == _NewTargetWidgetPoints) &&
+	     (_OldDesignWidgetPoints == _NewDesignWidgetPoints) )
+	{
+		return false;
+	}
+
+	return true;
+}
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }

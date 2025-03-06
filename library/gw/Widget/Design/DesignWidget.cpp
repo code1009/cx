@@ -42,7 +42,7 @@ void DesignWidget::copyTo(WidgetSharedPtr widget) const
 	o->_MarkerVisible       = _MarkerVisible      ;
 	o->_MarkerWidth         = _MarkerWidth        ;
 
-	//o->_PressedState = _PressedState;
+	//o->_PressedMarkerId = _PressedMarkerId;
 	//o->_PressedPoint = _PressedPoint;
 }
 
@@ -263,7 +263,7 @@ void DesignWidget::onMousePressed(const WidgetMouseEventParam& param)
 	_PressedPoint = _MousePoint;
 
 
-	_PressedState = findMarker(_MousePoint);
+	_PressedMarkerId = findMarker(_MousePoint);
 }
 
 void DesignWidget::onMouseReleased(const WidgetMouseEventParam& param)
@@ -273,14 +273,14 @@ void DesignWidget::onMouseReleased(const WidgetMouseEventParam& param)
 	_PressedPoint = _MousePoint;
 
 
-	if (static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) != _PressedState)
+	if (static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) != _PressedMarkerId)
 	{
-		//moveMarker(_PressedState, _MousePoint);
-
+		//moveMarker(_PressedMarkerId, _MousePoint);
+		getWidgetDesinger()->moveDesignWidgetMarker(shared_from_this(), _PressedMarkerId, _MousePoint);
 	}
 
 
-	_PressedState = static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE);
+	_PressedMarkerId = static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE);
 }
 
 void DesignWidget::onMouseDragging(const WidgetMouseEventParam& param)
@@ -290,9 +290,10 @@ void DesignWidget::onMouseDragging(const WidgetMouseEventParam& param)
 	_PressedPoint = _MousePoint;
 
 
-	if (static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) != _PressedState)
+	if (static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) != _PressedMarkerId)
 	{
-		//moveMarker(_PressedState, _MousePoint);
+		//moveMarker(_PressedMarkerId, _MousePoint);
+		getWidgetDesinger()->moveDesignWidgetMarker(shared_from_this(), _PressedMarkerId, _MousePoint);
 	}
 }
 

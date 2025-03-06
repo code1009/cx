@@ -374,6 +374,54 @@ void WidgetDesigner::addWidget(WidgetSharedPtr widget)
 }
 
 //===========================================================================
+void WidgetDesigner::moveDesignWidgetMarker(WidgetSharedPtr widget, DesignWidgetMarkerId markerId, Point point)
+{
+	if (!hasDesignWidget())
+	{
+		return;
+	}
+
+
+	DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+	if (!designWidget)
+	{
+		return;
+	}
+
+
+	std::shared_ptr<WidgetDesignerCommand> command;
+	command = _WidgetDesignerCommandManager->getLastExecutedCommand();
+	auto command_moveDesignWidgetMarker = std::dynamic_pointer_cast<WidgetDesignerCommand_moveDesignWidgetMarker>(command);
+	if (command_moveDesignWidgetMarker)
+	{
+		if ((widget == command_moveDesignWidgetMarker->getWidget()) &&
+			(markerId == command_moveDesignWidgetMarker->getDesignWidgetMarkerId())
+			)
+		{
+			if (point == command_moveDesignWidgetMarker->getPoint())
+			{
+				return;
+			}
+
+			bool rv;
+			rv = command_moveDesignWidgetMarker->moveDesignWidgetMarker(point);
+			if (!rv)
+			{
+				_WidgetDesignerCommandManager->deleteLastExecutedCommand();
+			}
+			return;
+		}
+	}
+	command = std::make_shared<WidgetDesignerCommand_moveDesignWidgetMarker>(
+		_WidgetDesignerModel,
+		widget,
+		markerId,
+		point
+	);
+	_WidgetDesignerCommandManager->executeCommand(command);
+}
+
+//===========================================================================
 void WidgetDesigner::undo(void)
 {
 	_WidgetDesignerCommandManager->undo();

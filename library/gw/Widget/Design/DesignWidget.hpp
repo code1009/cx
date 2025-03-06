@@ -62,7 +62,7 @@ protected:
 	coord_t _MarkerWidth  { 10.0f };
 
 protected:
-	DesignWidgetMarkerId _PressedState{ static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) };
+	DesignWidgetMarkerId _PressedMarkerId{ static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) };
 	Point                _PressedPoint;
 
 public:

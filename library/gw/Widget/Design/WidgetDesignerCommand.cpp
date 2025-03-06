@@ -65,6 +65,12 @@ std::shared_ptr<WidgetDesignerCommand> WidgetDesignerCommandManager::getLastExec
 	return nullptr;
 }
 
+void WidgetDesignerCommandManager::deleteLastExecutedCommand(void)
+{
+	_UndoStack.pop();
+}
+
+
 
 
 
