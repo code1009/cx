@@ -56,14 +56,14 @@
 	)
 
 //===========================================================================
-constexpr cx::runtime::LogLevel cxLVerbose     = cx::runtime::LogLevel::Verbose;
-constexpr cx::runtime::LogLevel cxLDebug       = cx::runtime::LogLevel::Debug;
-constexpr cx::runtime::LogLevel cxLNormal      = cx::runtime::LogLevel::Normal;
-constexpr cx::runtime::LogLevel cxLDump        = cx::runtime::LogLevel::Dump;
-constexpr cx::runtime::LogLevel cxLInfo        = cx::runtime::LogLevel::Information;
-constexpr cx::runtime::LogLevel cxLWarning     = cx::runtime::LogLevel::Warning;
-constexpr cx::runtime::LogLevel cxLError       = cx::runtime::LogLevel::Error;
-constexpr cx::runtime::LogLevel cxLCritical    = cx::runtime::LogLevel::Critical;
+constexpr cx::runtime::LogLevel cxLVerbose  = cx::runtime::LogLevel::Verbose;
+constexpr cx::runtime::LogLevel cxLDebug    = cx::runtime::LogLevel::Debug;
+constexpr cx::runtime::LogLevel cxLNormal   = cx::runtime::LogLevel::Normal;
+constexpr cx::runtime::LogLevel cxLDump     = cx::runtime::LogLevel::Dump;
+constexpr cx::runtime::LogLevel cxLInfo     = cx::runtime::LogLevel::Information;
+constexpr cx::runtime::LogLevel cxLWarning  = cx::runtime::LogLevel::Warning;
+constexpr cx::runtime::LogLevel cxLError    = cx::runtime::LogLevel::Error;
+constexpr cx::runtime::LogLevel cxLCritical = cx::runtime::LogLevel::Critical;
 
 
 
