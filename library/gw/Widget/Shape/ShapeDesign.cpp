@@ -38,107 +38,36 @@ void ShapeDesign::copyTo(WidgetSharedPtr widget) const
 
 
 	ShapeDesign* o = dynamic_cast<ShapeDesign*>(widget.get());
-
-
-	//o->_PressedState = _PressedState;
-	//o->_PressedPoint = _PressedPoint;
-}
-
-void ShapeDesign::registerEventHandler(WidgetDocument* doc)
-{
-	doc->getWidgetEventDispatcher()->registerEventHandler<const WidgetMouseEventParam&>(
-		WidgetEventType::MousePressed,
-		this,
-		std::bind(&ShapeDesign::onMousePressed, this, std::placeholders::_1)
-	);
-
-	doc->getWidgetEventDispatcher()->registerEventHandler<const WidgetMouseEventParam&>(
-		WidgetEventType::MouseReleased,
-		this,
-		std::bind(&ShapeDesign::onMouseReleased, this, std::placeholders::_1)
-	);
-
-	doc->getWidgetEventDispatcher()->registerEventHandler<const WidgetMouseEventParam&>(
-		WidgetEventType::MouseDragging,
-		this,
-		std::bind(&ShapeDesign::onMouseDragging, this, std::placeholders::_1)
-	);
 }
 
 //===========================================================================
-void ShapeDesign::setTargetWidgetPropertyChanged(
-	std::uint32_t code
-)
-{
-	setPropertyChanged(code);
-}
-
-void ShapeDesign::moveMarker(const ShapeDesignMarker s, const Point& p)
+void ShapeDesign::moveMarker(const DesignWidgetMarkerId s, const Point& p)
 {
 
 }
 
-ShapeDesignMarker ShapeDesign::findMarker(const Point& test)
+DesignWidgetMarkerId ShapeDesign::findMarker(const Point& test)
 {
 	if (isPointInMarker(_Points[0], test))
 	{
-		return ShapeDesignMarker::LT;
+		return static_cast<DesignWidgetMarkerId>(ShapeDesignMarker::LT);
 	}
 	if (isPointInMarker(_Points[1], test))
 	{
-		return ShapeDesignMarker::LB;
+		return static_cast<DesignWidgetMarkerId>(ShapeDesignMarker::LB);
 	}
 	if (isPointInMarker(_Points[2], test))
 	{
-		return ShapeDesignMarker::RB;
+		return static_cast<DesignWidgetMarkerId>(ShapeDesignMarker::RB);
 	}
 	if (isPointInMarker(_Points[3], test))
 	{
-		return ShapeDesignMarker::RT;
+		return static_cast<DesignWidgetMarkerId>(ShapeDesignMarker::RT);
 	}
 
-	return ShapeDesignMarker::NONE;
+	return static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE);
 }
 
-void ShapeDesign::onMousePressed(const WidgetMouseEventParam& param)
-{
-	// toSnappedPoint() 사용하면 안됨.
-	//Point _MousePoint = getWidgetDesinger()->toSnappedPoint(param._MousePosition);
-	Point _MousePoint = param._MousePosition;
-	_PressedPoint = _MousePoint;
-
-
-	_PressedState = findMarker(_MousePoint);
-}
-
-void ShapeDesign::onMouseReleased(const WidgetMouseEventParam& param)
-{
-	Point _MousePoint = getWidgetDesinger()->toSnappedPoint(param._MousePosition);
-	Point offset = _MousePoint - _PressedPoint;
-	_PressedPoint = _MousePoint;
-
-
-	if (ShapeDesignMarker::NONE != _PressedState)
-	{
-		moveMarker(_PressedState, _MousePoint);
-	}
-
-
-	_PressedState = ShapeDesignMarker::NONE;
-}
-
-void ShapeDesign::onMouseDragging(const WidgetMouseEventParam& param)
-{
-	Point _MousePoint = getWidgetDesinger()->toSnappedPoint(param._MousePosition);
-	Point offset = _MousePoint - _PressedPoint;
-	_PressedPoint = _MousePoint;
-
-
-	if (ShapeDesignMarker::NONE != _PressedState)
-	{
-		moveMarker(_PressedState, _MousePoint);
-	}
-}
 
 
 
@@ -241,6 +170,8 @@ bool setLineShapeDesignMarkerPoint(
 
 	return true;
 }
+
+
 
 
 

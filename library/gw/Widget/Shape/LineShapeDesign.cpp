@@ -121,28 +121,28 @@ void LineShapeDesign::draw(Context* ctx)
 }
 
 //===========================================================================
-ShapeDesignMarker LineShapeDesign::findMarker(const Point& test)
+DesignWidgetMarkerId LineShapeDesign::findMarker(const Point& test)
 {
 	if (isPointInMarker(_Points[0], test))
 	{
-		return ShapeDesignMarker::LT;
+		return static_cast<DesignWidgetMarkerId>(ShapeDesignMarker::LT);
 	}
 	if (isPointInMarker(_Points[1], test))
 	{
-		return ShapeDesignMarker::RB;
+		return static_cast<DesignWidgetMarkerId>(ShapeDesignMarker::RB);
 	}
 
-	return ShapeDesignMarker::NONE;
+	return static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE);
 }
 
-void LineShapeDesign::moveMarker(const ShapeDesignMarker s, const Point& p)
+void LineShapeDesign::moveMarker(const DesignWidgetMarkerId s, const Point& p)
 {
 	//-----------------------------------------------------------------------
 	bool rv;
 	rv = setLineShapeDesignMarkerPoint(
 		_Points[0],
 		_Points[1],
-		s,
+		static_cast<ShapeDesignMarker>(s),
 		p
 	);
 	if (false == rv)

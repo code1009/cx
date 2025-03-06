@@ -36,14 +36,11 @@ public:
 	virtual void draw(Context* ctx) override;
 
 	//-----------------------------------------------------------------------
-	// ShapeDesign
+	// DesignWidget
 public:
-	virtual ShapeDesignMarker findMarker(const Point& test) override;
-	virtual void moveMarker(const ShapeDesignMarker s, const Point& p) override;
-
-	//-----------------------------------------------------------------------
-public:
-	virtual void onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param);
+	virtual DesignWidgetMarkerId findMarker(const Point& test) override;
+	virtual void moveMarker(const DesignWidgetMarkerId s, const Point& p) override;
+	virtual void onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param) override;
 };
 
 

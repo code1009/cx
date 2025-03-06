@@ -41,6 +41,9 @@ void DesignWidget::copyTo(WidgetSharedPtr widget) const
 	o->_WidgetDesignerModel = _WidgetDesignerModel;
 	o->_MarkerVisible       = _MarkerVisible      ;
 	o->_MarkerWidth         = _MarkerWidth        ;
+
+	//o->_PressedState = _PressedState;
+	//o->_PressedPoint = _PressedPoint;
 }
 
 bool DesignWidget::isPointIn(const Point& test) const
@@ -66,6 +69,27 @@ bool DesignWidget::isPointIn(const Point& test) const
 	}
 
 	return false;
+}
+
+void DesignWidget::registerEventHandler(WidgetDocument* doc)
+{
+	doc->getWidgetEventDispatcher()->registerEventHandler<const WidgetMouseEventParam&>(
+		WidgetEventType::MousePressed,
+		this,
+		std::bind(&DesignWidget::onMousePressed, this, std::placeholders::_1)
+	);
+
+	doc->getWidgetEventDispatcher()->registerEventHandler<const WidgetMouseEventParam&>(
+		WidgetEventType::MouseReleased,
+		this,
+		std::bind(&DesignWidget::onMouseReleased, this, std::placeholders::_1)
+	);
+
+	doc->getWidgetEventDispatcher()->registerEventHandler<const WidgetMouseEventParam&>(
+		WidgetEventType::MouseDragging,
+		this,
+		std::bind(&DesignWidget::onMouseDragging, this, std::placeholders::_1)
+	);
 }
 
 //===========================================================================
@@ -218,6 +242,68 @@ void DesignWidget::drawBounds(Context* ctx, const Point& p0, const Point& p1)
 		2.0f, //  getDesignWidgetContext()->_Guide_LineStyle.get_width(),
 		_Guide_Line_StrokeStyle->getStrokeStyle()
 	);
+}
+
+//===========================================================================
+void DesignWidget::moveMarker(const DesignWidgetMarkerId s, const Point& p)
+{
+
+}
+
+DesignWidgetMarkerId DesignWidget::findMarker(const Point& test)
+{
+	return static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE);
+}
+
+void DesignWidget::onMousePressed(const WidgetMouseEventParam& param)
+{
+	// toSnappedPoint() 사용하면 안됨.
+	//Point _MousePoint = getWidgetDesinger()->toSnappedPoint(param._MousePosition);
+	Point _MousePoint = param._MousePosition;
+	_PressedPoint = _MousePoint;
+
+
+	_PressedState = findMarker(_MousePoint);
+}
+
+void DesignWidget::onMouseReleased(const WidgetMouseEventParam& param)
+{
+	Point _MousePoint = getWidgetDesinger()->toSnappedPoint(param._MousePosition);
+	Point offset = _MousePoint - _PressedPoint;
+	_PressedPoint = _MousePoint;
+
+
+	if (static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) != _PressedState)
+	{
+		moveMarker(_PressedState, _MousePoint);
+	}
+
+
+	_PressedState = static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE);
+}
+
+void DesignWidget::onMouseDragging(const WidgetMouseEventParam& param)
+{
+	Point _MousePoint = getWidgetDesinger()->toSnappedPoint(param._MousePosition);
+	Point offset = _MousePoint - _PressedPoint;
+	_PressedPoint = _MousePoint;
+
+
+	if (static_cast<DesignWidgetMarkerId>(DesignWidgetMarker::NONE) != _PressedState)
+	{
+		moveMarker(_PressedState, _MousePoint);
+	}
+}
+
+//===========================================================================
+void DesignWidget::setTargetWidgetPropertyChanged(std::uint32_t code)
+{
+	setPropertyChanged(code);
+}
+
+void DesignWidget::onTargetWidgetPropertyChanged(Widget::PropertyChangedParam* param)
+{
+	setTargetWidgetPropertyChanged(param->_Code);
 }
 
 

@@ -17,13 +17,13 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-enum class ShapeDesignMarker : std::uint32_t
+enum class ShapeDesignMarker : DesignWidgetMarkerId
 {
-	NONE = static_cast<std::uint32_t>(DesignWidgetMarker::Next),
-	LT,
+	LT = static_cast<std::uint32_t>(DesignWidgetMarker::Next),
 	LB,
 	RB,
 	RT,
+	Next
 };
 
 
@@ -34,10 +34,6 @@ enum class ShapeDesignMarker : std::uint32_t
 //===========================================================================
 class ShapeDesign : public DesignWidget
 {
-protected:
-	ShapeDesignMarker _PressedState{ ShapeDesignMarker::NONE };
-	Point             _PressedPoint;
-
 public:
 	explicit ShapeDesign(std::wstring className);
 
@@ -45,16 +41,12 @@ public:
 	// Widget
 public:
 	virtual void copyTo(WidgetSharedPtr widget) const override;
-	virtual void registerEventHandler(WidgetDocument* doc) override;
 
 	//-----------------------------------------------------------------------
+	// DesignWidget
 public:
-	virtual void setTargetWidgetPropertyChanged(std::uint32_t code);
-	virtual ShapeDesignMarker findMarker(const Point& test);
-	virtual void moveMarker(const ShapeDesignMarker s, const Point& p);
-	virtual void onMousePressed(const WidgetMouseEventParam& param);
-	virtual void onMouseReleased(const WidgetMouseEventParam& param);
-	virtual void onMouseDragging(const WidgetMouseEventParam& param);
+	virtual DesignWidgetMarkerId findMarker(const Point& test) override;
+	virtual void moveMarker(const DesignWidgetMarkerId s, const Point& p) override;
 };
 
 

@@ -124,7 +124,7 @@ void RectangleShapeDesign::draw(Context* ctx)
 }
 
 //===========================================================================
-void RectangleShapeDesign::moveMarker(const ShapeDesignMarker s, const Point& p)
+void RectangleShapeDesign::moveMarker(const DesignWidgetMarkerId s, const Point& p)
 {
 	//-----------------------------------------------------------------------
 	bool rv;
@@ -133,7 +133,7 @@ void RectangleShapeDesign::moveMarker(const ShapeDesignMarker s, const Point& p)
 		_Points[1],
 		_Points[2],
 		_Points[3],
-		s,
+		static_cast<ShapeDesignMarker>(s),
 		p
 	);
 	if (false == rv)
