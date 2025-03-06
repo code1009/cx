@@ -27,6 +27,25 @@ class WidgetDesigner;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+using DesignWidgetMarkerId = std::uint32_t;
+
+//===========================================================================
+enum class DesignWidgetMarker : DesignWidgetMarkerId
+{
+	NONE = 0,
+	LT  ,
+	LB  ,
+	RB  ,
+	RT  ,
+	Next
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class DesignWidget;
 using DesignWidgetWeakPtr = std::weak_ptr<DesignWidget>;
 using DesignWidgetSharedPtr = std::shared_ptr<DesignWidget>;

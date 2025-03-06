@@ -17,9 +17,9 @@ namespace cx::gw
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-enum class ShapeDesignMarker
+enum class ShapeDesignMarker : std::uint32_t
 {
-	NONE,
+	NONE = static_cast<std::uint32_t>(DesignWidgetMarker::Next),
 	LT,
 	LB,
 	RB,
