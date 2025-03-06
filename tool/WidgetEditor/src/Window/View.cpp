@@ -265,19 +265,226 @@ void View::onMouseMove(cx::wui::WindowMessage& windowMessage)
 
 void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 {
+	//--------------------------------------------------------------------------
 	cx::wui::WM_KEYDOWN_WindowMessageCrack wm{ windowMessage };
 
 
-	switch (wm.nChar())
-	{
-	case VK_F7:
-		_Window->getStatusOverayPanel()->setVisible(!_Window->getStatusOverayPanel()->getVisible());
-		break;
+	//--------------------------------------------------------------------------
+	UINT virtualKeyCode;
+	int  repeatCount;
+	int  oemScanCode;
+	int  extendedKey;
+	int  contextCode;
+	int  reserved;
+	int  previousKeyState;
+	int  transitionState;
 
-	case VK_F8:
+
+	//--------------------------------------------------------------------------
+	virtualKeyCode   =  wm.nChar();
+	repeatCount      =  wm.nRepCnt();
+	oemScanCode      = (wm.nFlags() >> (16-16)) & 0xff;
+	extendedKey      = (wm.nFlags() >> (24-16)) & 1;    // The value is 1 if it is an extended key; otherwise, it is 0.
+	reserved         = (wm.nFlags() >> (25-16)) & 0xf;  // 25~28 Reserved; do not use.
+	contextCode      = (wm.nFlags() >> (29-16)) & 1;    // The value is always 0 for a WM_KEYDOWN message.
+	previousKeyState = (wm.nFlags() >> (30-16)) & 1;    // The value is 1 if the key is down before the message is sent, or it is zero if the key is up.
+	transitionState  = (wm.nFlags() >> (31-16)) & 1;    // The value is always 0 for a WM_KEYDOWN message.
+
+	//--------------------------------------------------------------------------
+	constexpr int VK_A = 0x41;
+	constexpr int VK_B = 0x42;
+	constexpr int VK_C = 0x43;
+	constexpr int VK_D = 0x44;
+	constexpr int VK_E = 0x45;
+	constexpr int VK_F = 0x46;
+	constexpr int VK_G = 0x47;
+	constexpr int VK_H = 0x48;
+	constexpr int VK_I = 0x49;
+	constexpr int VK_J = 0x4A;
+	constexpr int VK_K = 0x4B;
+	constexpr int VK_L = 0x4C;
+	constexpr int VK_M = 0x4D;
+	constexpr int VK_N = 0x4E;
+	constexpr int VK_O = 0x4F;
+	constexpr int VK_P = 0x50;
+	constexpr int VK_Q = 0x51;
+	constexpr int VK_R = 0x52;
+	constexpr int VK_S = 0x53;
+	constexpr int VK_T = 0x54;
+	constexpr int VK_U = 0x55;
+	constexpr int VK_V = 0x56;
+	constexpr int VK_W = 0x57;
+	constexpr int VK_X = 0x58;
+	constexpr int VK_Y = 0x59;
+	constexpr int VK_Z = 0x5A;
+	constexpr int VK_0 = 0x30;
+	constexpr int VK_1 = 0x31;
+	constexpr int VK_2 = 0x32;
+	constexpr int VK_3 = 0x33;
+	constexpr int VK_4 = 0x34;
+	constexpr int VK_5 = 0x35;
+	constexpr int VK_6 = 0x36;
+	constexpr int VK_7 = 0x37;
+	constexpr int VK_8 = 0x38;
+	constexpr int VK_9 = 0x39;
+
+
+	//--------------------------------------------------------------------------
+	SHORT asyncKeyState;
+	bool ctrlPressed;
+	bool ctrlPrevPressed;	
+	bool shiftPressed;
+	bool shiftPrevPressed;
+
+
+	asyncKeyState    = GetAsyncKeyState(VK_CONTROL);
+	ctrlPressed      = (asyncKeyState & 0x8000) ? true : false;
+	ctrlPrevPressed  = (asyncKeyState & 0x0001) ? true : false;
+
+	asyncKeyState    = GetAsyncKeyState(VK_SHIFT);
+	shiftPressed     = (asyncKeyState & 0x8000) ? true : false;
+	shiftPrevPressed = (asyncKeyState & 0x0001) ? true : false;
+
+
+	//--------------------------------------------------------------------------
+	enum class ShutcutCommand
+	{
+		Unknown,
+		EditUndo,
+		EditRedo,
+		EditCopy,
+		EditCut,
+		EditPaste,
+		EditInsert,
+		EditDelete,
+		EditEnter,
+		EditCancel,
+		EditSelectAll,
+		EditMoveCursorLeft,
+		EditMoveCursorRight,
+		EditMoveCursorUp,
+		EditMoveCursorDown,
+		EditHomeCursorFirst,
+		EditHomeCursorLast,
+		ViewPageUp,
+		ViewPageDown,
+		ViewPageTop,
+		ViewPageBottom,
+		ViewFitScroll,
+
+		ViewDocumentGrid,
+		ViewStatusOverlay,
+	};
+
+
+	//--------------------------------------------------------------------------
+	ShutcutCommand shutcutCommand = ShutcutCommand::Unknown;
+
+
+	//--------------------------------------------------------------------------
+	switch (virtualKeyCode)
+	{
+	case VK_INSERT: shutcutCommand = ShutcutCommand::EditInsert; break;
+	case VK_DELETE: shutcutCommand = ShutcutCommand::EditDelete; break;
+	}
+	//--------------------------------------------------------------------------
+	if (ctrlPressed)
+	{
+		switch (virtualKeyCode)
+		{
+		case VK_Z: shutcutCommand = ShutcutCommand::EditUndo ; break;
+		case VK_Y: shutcutCommand = ShutcutCommand::EditRedo ; break;
+		case VK_C: shutcutCommand = ShutcutCommand::EditCopy ; break;
+		case VK_X: shutcutCommand = ShutcutCommand::EditCut  ; break;
+		case VK_V: shutcutCommand = ShutcutCommand::EditPaste; break;
+		}
+	}
+	switch (virtualKeyCode)
+	{
+	case VK_RETURN: shutcutCommand = ShutcutCommand::EditEnter; break;
+	case VK_ESCAPE: shutcutCommand = ShutcutCommand::EditCancel; break;
+	}
+	if (ctrlPressed)
+	{
+		switch (virtualKeyCode)
+		{
+		case VK_A: shutcutCommand = ShutcutCommand::EditSelectAll; break;
+		}
+	}
+	//--------------------------------------------------------------------------
+	switch (virtualKeyCode)
+	{
+	case VK_LEFT : shutcutCommand = ShutcutCommand::EditMoveCursorLeft ; break;
+	case VK_RIGHT: shutcutCommand = ShutcutCommand::EditMoveCursorRight; break;
+	case VK_UP   : shutcutCommand = ShutcutCommand::EditMoveCursorUp   ; break;
+	case VK_DOWN : shutcutCommand = ShutcutCommand::EditMoveCursorDown ; break;
+	case VK_HOME : shutcutCommand = ShutcutCommand::EditHomeCursorFirst; break;
+	case VK_END  : shutcutCommand = ShutcutCommand::EditHomeCursorLast ; break;
+	}
+	//--------------------------------------------------------------------------
+	switch (virtualKeyCode)
+	{
+	case VK_PRIOR: shutcutCommand = ShutcutCommand::ViewPageUp  ; break;
+	case VK_NEXT : shutcutCommand = ShutcutCommand::ViewPageDown; break;
+	}
+	if (ctrlPressed)
+	{
+		switch (virtualKeyCode)
+		{
+		case VK_PRIOR: shutcutCommand = ShutcutCommand::ViewPageTop ; break;
+		case VK_NEXT : shutcutCommand = ShutcutCommand::ViewPageDown; break;
+		}
+	}
+	switch (virtualKeyCode)
+	{
+	case VK_BACK: shutcutCommand = ShutcutCommand::ViewFitScroll; break;
+	}
+
+
+	//--------------------------------------------------------------------------
+	switch(shutcutCommand)
+	{
+	case ShutcutCommand::EditUndo:
+	case ShutcutCommand::EditRedo:
+		break;
+	case ShutcutCommand::EditCopy:
+	case ShutcutCommand::EditCut:
+	case ShutcutCommand::EditPaste:
+		break;
+	//case ShutcutCommand::EditInsert:
+	//	break;
+	case ShutcutCommand::EditDelete:
+		break;
+	//case ShutcutCommand::EditEnter:
+	//	break;
+	//case ShutcutCommand::EditCancel:
+	//	break;
+	case ShutcutCommand::EditSelectAll:
+		break;
+	//case ShutcutCommand::EditMoveCursorLeft:
+	//case ShutcutCommand::EditMoveCursorRight:
+	//case ShutcutCommand::EditMoveCursorUp:
+	//case ShutcutCommand::EditMoveCursorDown:
+	//case ShutcutCommand::EditHomeCursorFirst:
+	//case ShutcutCommand::EditHomeCursorLast:
+	//	break;
+	//case ShutcutCommand::ViewPageUp:
+	//case ShutcutCommand::ViewPageDown:
+	//case ShutcutCommand::ViewPageTop:
+	//case ShutcutCommand::ViewPageBottom:
+	//	break;
+	//case ShutcutCommand::ViewFitScroll:
+	//	break;
+
+	case ShutcutCommand::ViewDocumentGrid:
 		_Window->getDocumentGrid()->setVisible(!_Window->getDocumentGrid()->getVisible());
 		break;
 
+	case ShutcutCommand::ViewStatusOverlay:
+		_Window->getStatusOverayPanel()->setVisible(!_Window->getStatusOverayPanel()->getVisible());
+		break;
+
+	case ShutcutCommand::Unknown:
 	default:
 		defaultWindowProc(windowMessage);
 		break;

@@ -20,6 +20,7 @@ namespace cx::gw
 class WidgetDesignerCommand
 {
 public:
+	WidgetDesignerCommand() = default;
 	virtual ~WidgetDesignerCommand() = default;
 
 public:

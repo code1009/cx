@@ -34,6 +34,28 @@ void WidgetDesignerNoOpCommand::undo(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+WidgetDesignerAddCommand::WidgetDesignerAddCommand(WidgetDocument* document, WidgetSharedPtr widget):
+	_Document {document},
+	_Widget   {widget}
+{
+}
+
+void WidgetDesignerAddCommand::execute(void)
+{
+	_Document->addWidget(_Widget);
+}
+
+void WidgetDesignerAddCommand::undo(void)
+{
+	_Document->removeWidget(_Widget);
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 }
 
 

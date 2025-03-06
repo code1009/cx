@@ -30,6 +30,26 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class WidgetDesignerAddCommand : public WidgetDesignerCommand
+{
+private:
+	WidgetDocument* _Document;
+	WidgetSharedPtr _Widget;
+
+public:
+	WidgetDesignerAddCommand(WidgetDocument* document, WidgetSharedPtr widget);
+
+public:
+	virtual void execute(void);
+	virtual void undo(void);
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 }
 
 
