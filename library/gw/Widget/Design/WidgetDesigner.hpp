@@ -54,6 +54,9 @@ public:
 	WidgetDesigner& operator=(WidgetDesigner&&) = delete;
 
 public:
+	bool hasWidgetDesign(void);
+
+public:
 	Point toGridPoint(Point p) const;
 	Point toSnappedPoint(Point p) const;
 	void getGridSize(std::uint64_t& x, std::uint64_t& y) const;

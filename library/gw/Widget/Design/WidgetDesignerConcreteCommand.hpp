@@ -142,6 +142,71 @@ public:
 
 
 
+#if 0
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class WidgetDesignerCommand_setGridSize : public WidgetDesignerCommand
+{
+private:
+	WidgetDesignerModel* _WidgetDesignerModel;
+	std::uint64_t _OldX, _OldY;
+	std::uint64_t _NewX, _NewY;
+
+public:
+	WidgetDesignerCommand_setGridSize(WidgetDesignerModel* model, std::uint64_t x, std::uint64_t y)
+		: _WidgetDesignerModel(model), _NewX(x), _NewY(y)
+	{
+		_WidgetDesignerModel->getWidgetDesigner()->getGridSize(_OldX, _OldY);
+	}
+
+	void execute() override
+	{
+		_WidgetDesignerModel->getWidgetDesigner()->setGridSize(_NewX, _NewY);
+	}
+
+	void undo() override
+	{
+		_WidgetDesignerModel->getWidgetDesigner()->setGridSize(_OldX, _OldY);
+	}
+};
+#endif
+
+
+
+
+
+#if 0
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class WidgetDesignerCommand_setSnapToGrid : public WidgetDesignerCommand
+{
+private:
+	WidgetDesignerModel* _WidgetDesignerModel;
+	bool _OldSnapToGrid;
+	bool _NewSnapToGrid;
+
+public:
+	WidgetDesignerCommand_setSnapToGrid(WidgetDesignerModel* model, bool snapToGrid)
+		: _WidgetDesignerModel(model), _NewSnapToGrid(snapToGrid)
+	{
+		_OldSnapToGrid = _WidgetDesignerModel->getWidgetDesigner()->getSnapToGrid();
+	}
+
+	void execute() override
+	{
+		_WidgetDesignerModel->getWidgetDesigner()->setSnapToGrid(_NewSnapToGrid);
+	}
+
+	void undo() override
+	{
+		_WidgetDesignerModel->getWidgetDesigner()->setSnapToGrid(_OldSnapToGrid);
+	}
+};
+#endif
+
+
+
+
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================

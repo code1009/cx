@@ -29,6 +29,27 @@ WidgetDesigner::WidgetDesigner(WidgetDesignerModel* model):
 }
 
 //===========================================================================
+bool WidgetDesigner::hasWidgetDesign(void)
+{
+	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	{
+		return false;
+	}
+
+
+	for (auto widget : getWidgetDesignerModel()->getWidgetDocument()->_Widgets)
+	{
+		DesignWidgetSharedPtr designWidget = std::dynamic_pointer_cast<DesignWidget>(widget);
+		if (designWidget)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+//===========================================================================
 Point WidgetDesigner::toGridPoint(Point p) const
 {
 	return _WidgetDesignerFacility->toGridPoint(p);
@@ -51,20 +72,20 @@ bool WidgetDesigner::getSnapToGrid(void) const
 
 void WidgetDesigner::setGridSize(std::uint64_t x, std::uint64_t y)
 {
-	//_WidgetDesignerFacility->setGridSize(x, y);
+	_WidgetDesignerFacility->setGridSize(x, y);
 
 
-	auto command = std::make_shared<WidgetDesignerCommand_setGridSize>(_WidgetDesignerModel, x, y);
-	_WidgetDesignerCommandManager->executeCommand(command);
+	//auto command = std::make_shared<WidgetDesignerCommand_setGridSize>(_WidgetDesignerModel, x, y);
+	//_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 void WidgetDesigner::setSnapToGrid(bool snapToGrid)
 {
-	//_WidgetDesignerFacility->setSnapToGrid(snapToGrid);
+	_WidgetDesignerFacility->setSnapToGrid(snapToGrid);
 
 
-	auto command = std::make_shared<WidgetDesignerCommand_setSnapToGrid>(_WidgetDesignerModel, snapToGrid);
-	_WidgetDesignerCommandManager->executeCommand(command);
+	//auto command = std::make_shared<WidgetDesignerCommand_setSnapToGrid>(_WidgetDesignerModel, snapToGrid);
+	//_WidgetDesignerCommandManager->executeCommand(command);
 }
 
 //===========================================================================
@@ -78,7 +99,7 @@ void WidgetDesigner::selectSingleWidget(WidgetSharedPtr target)
 	//_WidgetDesignerFacility->selectSingleWidget(target);
 
 
-	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	if (!hasWidgetDesign())
 	{
 		return;
 	}
@@ -115,7 +136,7 @@ void WidgetDesigner::toggleWidgetSelection(WidgetSharedPtr widget)
 	//_WidgetDesignerFacility->toggleWidgetSelection(widget);
 
 
-	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	if (!hasWidgetDesign())
 	{
 		return;
 	}
@@ -135,7 +156,7 @@ void WidgetDesigner::selectAllWidgets(void)
 	//_WidgetDesignerFacility->selectAllWidgets();
 
 
-	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	if (!hasWidgetDesign())
 	{
 		return;
 	}
@@ -173,7 +194,7 @@ void WidgetDesigner::deselectAllWidgets(void)
 	//_WidgetDesignerFacility->deselectAllWidgets();
 
 
-	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	if (!hasWidgetDesign())
 	{
 		return;
 	}
@@ -209,7 +230,7 @@ void WidgetDesigner::selectWidgetsInBounds(void)
 	//WidgetDesignerFacility->selectWidgetsInBounds();
 
 
-	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	if (!hasWidgetDesign())
 	{
 		return;
 	}
@@ -256,7 +277,7 @@ void WidgetDesigner::moveSelectedWidgets(Point offset)
 	//_WidgetDesignerFacility->moveSelectedWidgets(offset);
 
 
-	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	if (!hasWidgetDesign())
 	{
 		return;
 	}
@@ -279,6 +300,10 @@ void WidgetDesigner::moveSelectedWidgets(Point offset)
 				selectedWidgets.push_back(widget);
 			}
 		}
+	}
+	if (selectedWidgets.empty())
+	{
+		return;
 	}
 
 
@@ -306,7 +331,7 @@ void WidgetDesigner::deleteSelectedWidgets(void)
 	//_WidgetDesignerFacility->deleteSelectedWidgets();
 
 
-	if (getWidgetDesignerModel()->getWidgetDocument()->_Widgets.empty())
+	if (!hasWidgetDesign())
 	{
 		return;
 	}
@@ -323,6 +348,10 @@ void WidgetDesigner::deleteSelectedWidgets(void)
 				selectedWidgets.push_back(widget);
 			}
 		}
+	}
+	if (selectedWidgets.empty())
+	{
+		return;
 	}
 
 
