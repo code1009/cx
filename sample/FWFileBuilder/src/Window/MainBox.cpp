@@ -71,6 +71,7 @@ void MainBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT2), filePath2);
 	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT3), filePath3);
 
+	
 	//-----------------------------------------------------------------------
 	windowMessage.setResult(TRUE);
 }
