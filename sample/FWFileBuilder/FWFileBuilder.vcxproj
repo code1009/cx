@@ -19,21 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\Application.ico" />
-    <Image Include="res\small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="res\Application.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp" />
-    <ClInclude Include="..\..\library\gw\Context.hpp" />
+    <ClInclude Include="..\..\library\component\charset_system.hpp" />
+    <ClInclude Include="..\..\library\component\parse_c_string.hpp" />
+    <ClInclude Include="..\..\library\component\pch.hpp" />
+    <ClInclude Include="..\..\library\component\std_wstring_utility.hpp" />
+    <ClInclude Include="..\..\library\component\to_std_wstring.hpp" />
+    <ClInclude Include="..\..\library\component\xml.hpp" />
     <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp" />
-    <ClInclude Include="..\..\library\gw\Drawable.hpp" />
-    <ClInclude Include="..\..\library\gw\gw.hpp" />
-    <ClInclude Include="..\..\library\gw\pch.hpp" />
-    <ClInclude Include="..\..\library\gw\Viewport.hpp" />
-    <ClInclude Include="..\..\library\gw\Window.hpp" />
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
     <ClInclude Include="..\..\library\pch.hpp" />
     <ClInclude Include="..\..\library\runtime\Assert.hpp" />
@@ -76,17 +68,22 @@
     <ClInclude Include="..\..\library\wui\Window\Window_Functions.hpp" />
     <ClInclude Include="..\..\library\wui\wui.hpp" />
     <ClInclude Include="res\Resource.h" />
+    <ClInclude Include="src\Application.hpp" />
     <ClInclude Include="src\framework.hpp" />
     <ClInclude Include="src\pch.hpp" />
     <ClInclude Include="src\targetver.h" />
+    <ClInclude Include="src\Window\AboutBox.hpp" />
+    <ClInclude Include="src\Window\MainFrame.hpp" />
+    <ClInclude Include="src\Window\pch.hpp" />
+    <ClInclude Include="src\Window\View.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp" />
-    <ClCompile Include="..\..\library\gw\Context.cpp" />
+    <ClCompile Include="..\..\library\component\charset_system.cpp" />
+    <ClCompile Include="..\..\library\component\parse_c_string.cpp" />
+    <ClCompile Include="..\..\library\component\std_wstring_utility.cpp" />
+    <ClCompile Include="..\..\library\component\to_std_wstring.cpp" />
+    <ClCompile Include="..\..\library\component\xml.cpp" />
     <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp" />
-    <ClCompile Include="..\..\library\gw\Drawable.cpp" />
-    <ClCompile Include="..\..\library\gw\Viewport.cpp" />
-    <ClCompile Include="..\..\library\gw\Window.cpp" />
     <ClCompile Include="..\..\library\runtime\Assert.cpp" />
     <ClCompile Include="..\..\library\runtime\DebugMemory.cpp" />
     <ClCompile Include="..\..\library\runtime\LastError.cpp" />
@@ -112,17 +109,31 @@
     <ClCompile Include="..\..\library\wui\Window\WindowMessageLoop.cpp" />
     <ClCompile Include="..\..\library\wui\Window\WindowProc.cpp" />
     <ClCompile Include="..\..\library\wui\Window\Window_Functions.cpp" />
+    <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Window\AboutBox.cpp" />
+    <ClCompile Include="src\Window\MainFrame.cpp" />
+    <ClCompile Include="src\Window\View.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Application.aps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Application.ico" />
+    <Image Include="res\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\Application.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{2e28f682-4e72-4c6e-9fe1-7296f3e7d0ef}</ProjectGuid>
-    <RootNamespace>wuiHelloWorld</RootNamespace>
+    <ProjectGuid>{58861549-e03e-4df1-a103-b65dbddc8bb7}</ProjectGuid>
+    <RootNamespace>FWFileBuilder</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -185,8 +196,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -201,8 +210,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -217,11 +224,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdclatest</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(SolutionDir)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <ObjectFileName>$(IntDir)Output/Root/%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
@@ -237,11 +244,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdclatest</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(SolutionDir)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <ObjectFileName>$(IntDir)Output/Root/%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
