@@ -57,6 +57,8 @@ View::View(HWND parentWindowHandle)
 	_Window->getStatusOverayPanel()->setVisible(true);
 	_Window->getDocumentGrid()->setVisible(true);
 
+
+	//-----------------------------------------------------------------------
 	_Window->getWidgetDesignerModel()->getWidgetEventDragDropHandler()->registerDragDrop();
 
 
@@ -232,23 +234,22 @@ void View::onMouseWheel(cx::wui::WindowMessage& windowMessage)
 	{
 		if (wm.zDelta() > 0)
 		{
-			_Window->getViewport()->zoom(true);
+			viewZoomIn();
 		}
 		else
 		{
-
-			_Window->getViewport()->zoom(false);
+			viewZoomOut();
 		}
 	}
 	else
 	{
 		if (wm.zDelta() > 0)
 		{
-			_Window->getViewport()->handleVScrollbar(SB_LINEUP);
+			viewVScrollUp();
 		}
 		else
 		{
-			_Window->getViewport()->handleVScrollbar(SB_LINEDOWN);
+			viewVScrollDown();
 		}
 	}
 }
@@ -750,12 +751,36 @@ void View::editSendToBottom(void)
 
 }
 
+void View::viewZoomIn(void)
+{
+	_Window->getViewport()->zoom(true);
+}
+
+void View::viewZoomOut(void)
+{
+	_Window->getViewport()->zoom(false);
+}
+
+void View::viewVScrollUp(void)
+{
+	_Window->getViewport()->handleVScrollbar(SB_LINEUP);
+}
+
+void View::viewVScrollDown(void)
+{
+	_Window->getViewport()->handleVScrollbar(SB_LINEDOWN);
+}
+
 void View::viewDocumentGrid(void)
 {
-	_Window->getDocumentGrid()->setVisible(!_Window->getDocumentGrid()->getVisible());
+	bool visible;
+	visible = _Window->getDocumentGrid()->getVisible();
+	_Window->getDocumentGrid()->setVisible(!visible);
 }
 
 void View::viewStatusOverlay(void)
 {
-	_Window->getStatusOverayPanel()->setVisible(!_Window->getStatusOverayPanel()->getVisible());
+	bool visible;
+	visible = _Window->getStatusOverayPanel()->getVisible();
+	_Window->getStatusOverayPanel()->setVisible(!visible);
 }

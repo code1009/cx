@@ -66,6 +66,10 @@ public:
 	void editSnapToGrid(void);
 	void editBringToTop(void);
 	void editSendToBottom(void);
+	void viewZoomIn(void);
+	void viewZoomOut(void);
+	void viewVScrollUp(void);
+	void viewVScrollDown(void);
 	void viewDocumentGrid(void);
 	void viewStatusOverlay(void);
 };
