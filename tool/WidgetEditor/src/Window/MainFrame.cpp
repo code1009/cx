@@ -325,40 +325,48 @@ void MainFrame::createToolBox(void)
 	ToolBox::SubItemSharedPtr   item;
 	std::size_t id=0;
 
-	parent = _ToolBox->addGroupItem(++id, nullptr, L"도형", std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"글자");
-	item = _ToolBox->addSubItem(++id, parent, L"선");
-	item = _ToolBox->addSubItem(++id, parent, L"네모");
-	item = _ToolBox->addSubItem(++id, parent, L"원");
-	
-	root = _ToolBox->addGroupItem(++id, nullptr, L"명령", std::wstring(), ToolBox::ItemStyle::Button);
-	
-	parent = _ToolBox->addGroupItem(++id, root, L"편집");
-	item = _ToolBox->addSubItem(++id, parent, L"삭제", std::wstring(), ToolBox::ItemStyle::Button);
+	//ToolBox::ItemStyle itemStyle = ToolBox::ItemStyle::Flat;
+	//std::wstring       itemIcon  = L"item.png";
+	ToolBox::ItemStyle itemStyle = ToolBox::ItemStyle::Button;
+	std::wstring       itemIcon;
 
-	parent = _ToolBox->addGroupItem(++id, root, L"실행");
-	item = _ToolBox->addSubItem(++id, parent, L"실행 취소", std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"다시 실행", std::wstring(), ToolBox::ItemStyle::Button);
-
-	parent = _ToolBox->addGroupItem(++id, root, L"복사 및 붙여넣기");
-	item = _ToolBox->addSubItem(++id, parent, L"잘라내기" , std::wstring(), ToolBox::ItemStyle::Button);;
-	item = _ToolBox->addSubItem(++id, parent, L"복사"     , std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"붙여넣기" , std::wstring(), ToolBox::ItemStyle::Button);
-
-	parent = _ToolBox->addGroupItem(++id, root, L"선택");
-	item = _ToolBox->addSubItem(++id, parent, L"모두 선택", std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"모두 선택 해제", std::wstring(), ToolBox::ItemStyle::Button);
-	
-	parent = _ToolBox->addGroupItem(++id, root, L"순서");
-	item = _ToolBox->addSubItem(++id, parent, L"앞으로 가져오기"   , std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"뒤로 보내기"       , std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"맨 앞으로 가져오기", std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"맨 뒤로 보내기  "  , std::wstring(), ToolBox::ItemStyle::Button);
-
-	parent = _ToolBox->addGroupItem(++id, root, L"맞춤");
-	item = _ToolBox->addSubItem(++id, parent, L"격자에 맞춤", std::wstring(), ToolBox::ItemStyle::Button);
-
-	item = _ToolBox->addSubItem(++id, nullptr, L"정보", L"item.png");
+	//-----------------------------------------------------------------------
+	parent = _ToolBox->addGroupItem(++id                   , nullptr, L"도형", itemIcon, itemStyle);
+	item   = _ToolBox->addSubItem  (++id                   , parent , L"글자");
+	item   = _ToolBox->addSubItem  (++id                   , parent , L"선");
+	item   = _ToolBox->addSubItem  (++id                   , parent , L"네모");
+	item   = _ToolBox->addSubItem  (++id                   , parent , L"원");
+	//-----------------------------------------------------------------------
+	root   = _ToolBox->addGroupItem(++id                   , nullptr, L"명령", itemIcon, itemStyle);
+	//-----------------------------------------------------------------------
+	parent = root;
+	//-----------------------------------------------------------------------
+	//parent = _ToolBox->addGroupItem(++id                   , root   , L"편집");
+	item   = _ToolBox->addSubItem  (IDM_EDIT_DELETE        , parent , L"삭제", itemIcon, itemStyle);
+	//-----------------------------------------------------------------------
+	//parent = _ToolBox->addGroupItem(++id                   , root   , L"실행");
+	item   = _ToolBox->addSubItem  (IDM_EDIT_UNDO          , parent , L"실행 취소", itemIcon, itemStyle);
+	item   = _ToolBox->addSubItem  (IDM_EDIT_REDO          , parent , L"다시 실행", itemIcon, itemStyle);
+	//-----------------------------------------------------------------------
+	//parent = _ToolBox->addGroupItem(++id                   , root   , L"복사 및 붙여넣기");
+	//item   = _ToolBox->addSubItem  (IDM_EDIT_CUT           , parent , L"잘라내기" , itemIcon, itemStyle);
+	//item   = _ToolBox->addSubItem  (IDM_EDIT_COPY          , parent , L"복사"     , itemIcon, itemStyle);
+	//item   = _ToolBox->addSubItem  (IDM_EDIT_PASTE         , parent , L"붙여넣기" , itemIcon, itemStyle);
+	//-----------------------------------------------------------------------
+	//parent = _ToolBox->addGroupItem(++id                   , root   , L"선택");
+	item   = _ToolBox->addSubItem  (IDM_EDIT_SELECT_ALL    , parent , L"모두 선택"     , itemIcon, itemStyle);
+	item   = _ToolBox->addSubItem  (IDM_EDIT_DESELECT_ALL  , parent , L"모두 선택 해제", itemIcon, itemStyle);
+	//-----------------------------------------------------------------------
+	//parent = _ToolBox->addGroupItem(++id                   , root   , L"순서");
+	//item   = _ToolBox->addSubItem  (++id                   , parent , L"앞으로 가져오기"   , itemIcon, itemStyle);
+	//item   = _ToolBox->addSubItem  (++id                   , parent , L"뒤로 보내기"       , itemIcon, itemStyle);
+	item   = _ToolBox->addSubItem  (IDM_EDIT_BRING_TO_TOP  , parent , L"맨 앞으로 가져오기", itemIcon, itemStyle);
+	item   = _ToolBox->addSubItem  (IDM_EDIT_SEND_TO_BOTTOM, parent , L"맨 뒤로 보내기  "  , itemIcon, itemStyle);
+	//-----------------------------------------------------------------------
+	//parent = _ToolBox->addGroupItem(++id                   , root   , L"맞춤");
+	item   = _ToolBox->addSubItem  (IDM_EDIT_SNAP_TO_GRID  , parent , L"격자에 맞춤", itemIcon, itemStyle);
+	//-----------------------------------------------------------------------
+	//item   = _ToolBox->addSubItem  (IDM_HELP_ABOUT         , nullptr, L"정보", L"item.png");
 
 
 	//-----------------------------------------------------------------------
@@ -389,26 +397,7 @@ void MainFrame::onToolBoxGroupItemMouseDragging(ToolBox::EventParam* param)
 
 void MainFrame::onToolBoxSubItemMouseClicked(ToolBox::EventParam* param)
 {
-	switch (param->_Id)
-	{
-	case 8:
-		_View->editDelete();
-		break;
-
-	case 17:
-		_View->editSelectAll();
-		break;
-
-	case 18:
-		_View->editDeselectAll();
-		break;
-
-	case 25:
-		_View->editSnapToGrid();
-		break;
-	default:
-		break;
-	}
+	_View->executeMenuCommand(static_cast<std::uint32_t>(param->_Id));
 }
 
 void MainFrame::onToolBoxSubItemMouseDbClicked(ToolBox::EventParam* param)
@@ -435,7 +424,6 @@ void MainFrame::onToolBoxSubItemMouseDragging(ToolBox::EventParam* param)
 
 void MainFrame::doToolBoxDragDrop(std::size_t id)
 {
-	cx::gw::WidgetEventDragDropData dragDropData;
 	switch (id)
 	{
 	case 0: _View->doDragDrop(L"Shape.Text.Design"); break;

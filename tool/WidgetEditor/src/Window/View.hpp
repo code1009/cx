@@ -50,6 +50,7 @@ public:
 	void doDragDrop(std::wstring dragDropData);
 
 public:
+	bool executeMenuCommand(std::uint32_t menuCommandId);
 	void fileNew(void);
 	void fileOpen(void);
 	void fileSave(void);

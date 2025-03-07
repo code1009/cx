@@ -567,31 +567,16 @@ void View::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
-	windowMessage.setResult(1);
-	switch (wm.nID())
+	bool rv;
+	rv = executeMenuCommand(wm.nID());
+	if (rv)
 	{
-	case IDM_FILE_NEW           : fileNew();           break;
-	case IDM_FILE_OPEN          : fileOpen();          break;
-	case IDM_FILE_SAVE          : fileSave();          break;
-	case IDM_FILE_SAVEAS        : fileSaveAs();        break;
-	case IDM_FILE_PRINT         : filePrint();         break;
-	case IDM_EDIT_UNDO          : editUndo();          break;
-	case IDM_EDIT_REDO          : editRedo();          break;
-	case IDM_EDIT_CUT           : editCopy();          break;
-	case IDM_EDIT_COPY          : editCut();           break;
-	case IDM_EDIT_PASTE         : editPaste();         break;
-	case IDM_EDIT_DELETE        : editDelete();        break;
-	case IDM_EDIT_SELECT_ALL    : editSelectAll();     break;
-	case IDM_EDIT_DESELECT_ALL  : editDeselectAll();   break;
-	case IDM_EDIT_SNAP_TO_GRID  : editSnapToGrid();    break;
-	case IDM_EDIT_BRING_TO_TOP  : editBringToTop();    break;
-	case IDM_EDIT_SEND_TO_BOTTOM: editSendToBottom();  break;
-	case IDM_VIEW_DOCUMENTGRID  : viewDocumentGrid();  break;
-	case IDM_VIEW_STATUSOVERLAY : viewStatusOverlay(); break;
-	default:
+		windowMessage.setResult(1);
+	}
+	else
+	{
 		windowMessage.setResult(0);
 		//defaultWindowProc(windowMessage);
-		break;
 	}
 }
 
@@ -669,6 +654,35 @@ END
 #endif 
 
 //===========================================================================
+bool View::executeMenuCommand(std::uint32_t menuCommandId)
+{
+	switch (menuCommandId)
+	{
+	case IDM_FILE_NEW           : fileNew();           return true;;
+	case IDM_FILE_OPEN          : fileOpen();          return true;;
+	case IDM_FILE_SAVE          : fileSave();          return true;;
+	case IDM_FILE_SAVEAS        : fileSaveAs();        return true;;
+	case IDM_FILE_PRINT         : filePrint();         return true;;
+	case IDM_EDIT_UNDO          : editUndo();          return true;;
+	case IDM_EDIT_REDO          : editRedo();          return true;;
+	case IDM_EDIT_CUT           : editCopy();          return true;;
+	case IDM_EDIT_COPY          : editCut();           return true;;
+	case IDM_EDIT_PASTE         : editPaste();         return true;;
+	case IDM_EDIT_DELETE        : editDelete();        return true;;
+	case IDM_EDIT_SELECT_ALL    : editSelectAll();     return true;;
+	case IDM_EDIT_DESELECT_ALL  : editDeselectAll();   return true;;
+	case IDM_EDIT_SNAP_TO_GRID  : editSnapToGrid();    return true;;
+	case IDM_EDIT_BRING_TO_TOP  : editBringToTop();    return true;;
+	case IDM_EDIT_SEND_TO_BOTTOM: editSendToBottom();  return true;;
+	case IDM_VIEW_DOCUMENTGRID  : viewDocumentGrid();  return true;;
+	case IDM_VIEW_STATUSOVERLAY : viewStatusOverlay(); return true;;
+	default:
+		break;
+	}
+
+	return false;
+}
+
 void View::fileNew(void)
 {
 
