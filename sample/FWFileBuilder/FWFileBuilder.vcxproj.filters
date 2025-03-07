@@ -210,6 +210,9 @@
     <ClInclude Include="src\Window\FileDialog.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
+    <ClInclude Include="src\Config.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\wui\AppModule.cpp">
@@ -326,6 +329,9 @@
     <ClCompile Include="src\Window\FileDialog.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
+    <ClCompile Include="src\Config.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Application.ico">
@@ -339,6 +345,7 @@
     <None Include="res\Application.aps">
       <Filter>res</Filter>
     </None>
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\Application.rc">

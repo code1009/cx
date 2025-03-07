@@ -70,6 +70,7 @@
     <ClInclude Include="..\..\library\wui\wui.hpp" />
     <ClInclude Include="res\Resource.h" />
     <ClInclude Include="src\Application.hpp" />
+    <ClInclude Include="src\Config.hpp" />
     <ClInclude Include="src\framework.hpp" />
     <ClInclude Include="src\FWFileBuilder.hpp" />
     <ClInclude Include="src\pch.hpp" />
@@ -112,6 +113,7 @@
     <ClCompile Include="..\..\library\wui\Window\WindowProc.cpp" />
     <ClCompile Include="..\..\library\wui\Window\Window_Functions.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\FWFileBuilder.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\pch.cpp">
@@ -123,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps" />
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Application.ico" />

@@ -29,4 +29,8 @@ public:
 		);
 
 	bool saveImageFile(std::wstring file_path);
+
+public:
+	bool saveFile(std::wstring filePath, std::vector<std::uint8_t>& fileData);
+	bool loadFile(std::wstring filePath, std::vector<std::uint8_t>& fileData);
 };

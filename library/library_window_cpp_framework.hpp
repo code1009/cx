@@ -73,6 +73,7 @@
 #include <cstddef>
 #include <stdexcept>
 
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
