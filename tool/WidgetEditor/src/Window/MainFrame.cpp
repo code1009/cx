@@ -342,11 +342,11 @@ void MainFrame::createToolBox(void)
 	parent = root;
 	//-----------------------------------------------------------------------
 	//parent = _ToolBox->addGroupItem(++id                   , root   , L"편집");
-	item   = _ToolBox->addSubItem  (IDM_EDIT_DELETE        , parent , L"삭제", itemIcon, itemStyle);
+	//item   = _ToolBox->addSubItem  (IDM_EDIT_DELETE        , parent , L"삭제", itemIcon, itemStyle);
 	//-----------------------------------------------------------------------
 	//parent = _ToolBox->addGroupItem(++id                   , root   , L"실행");
-	item   = _ToolBox->addSubItem  (IDM_EDIT_UNDO          , parent , L"실행 취소", itemIcon, itemStyle);
-	item   = _ToolBox->addSubItem  (IDM_EDIT_REDO          , parent , L"다시 실행", itemIcon, itemStyle);
+	//item   = _ToolBox->addSubItem  (IDM_EDIT_UNDO          , parent , L"실행 취소", itemIcon, itemStyle);
+	//item   = _ToolBox->addSubItem  (IDM_EDIT_REDO          , parent , L"다시 실행", itemIcon, itemStyle);
 	//-----------------------------------------------------------------------
 	//parent = _ToolBox->addGroupItem(++id                   , root   , L"복사 및 붙여넣기");
 	//item   = _ToolBox->addSubItem  (IDM_EDIT_CUT           , parent , L"잘라내기" , itemIcon, itemStyle);

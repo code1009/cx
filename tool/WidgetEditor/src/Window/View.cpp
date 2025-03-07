@@ -102,7 +102,7 @@ HWND View::createView(HWND parentWindowHandle)
 
 	//dwStyle |= WS_VSCROLL;
 	//dwStyle |= WS_HSCROLL;
-	//dwExStyle |= WS_EX_CLIENTEDGE;
+	dwExStyle |= WS_EX_CLIENTEDGE;
 
 
 	HWND hwnd;
