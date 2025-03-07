@@ -131,7 +131,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{b916c1dd-b567-42d1-b448-a51d8fa0589c}</ProjectGuid>
-    <RootNamespace>DX2D</RootNamespace>
+    <RootNamespace>D2dSample</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

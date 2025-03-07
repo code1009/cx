@@ -361,11 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/template/wuiApplication/vcpkg_installed/x64-windows
-/tool/WidgetEditor/vcpkg_installed/x64-windows
-/sample/wuiHelloWorld/vcpkg_installed/x64-windows
 /template/WebUIApplication/vcpkg_installed/x64-windows
-/sample/FWFileBuilder/vcpkg_installed/x64-windows
-/sample/HelloWorld/vcpkg_installed/x64-windows
 /template/Application/vcpkg_installed/x64-windows
 /template/D2dApplication/vcpkg_installed/x64-windows
+/tool/WidgetEditor/vcpkg_installed/x64-windows
+/sample/FWFileBuilder/vcpkg_installed/x64-windows
+/sample/HelloWorld/vcpkg_installed/x64-windows
