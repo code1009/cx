@@ -350,27 +350,36 @@ void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 	enum class ShutcutCommand
 	{
 		Unknown,
+		
 		EditUndo,
 		EditRedo,
+		
 		EditCopy,
 		EditCut,
 		EditPaste,
+		
 		EditInsert,
 		EditDelete,
+		
 		EditEnter,
 		EditCancel,
+		
 		EditSelectAll,
 		EditDeselectAll,
+		
 		EditMoveCursorLeft,
 		EditMoveCursorRight,
 		EditMoveCursorUp,
 		EditMoveCursorDown,
+		
 		EditHomeCursorFirst,
 		EditHomeCursorLast,
+		
 		ViewPageUp,
 		ViewPageDown,
 		ViewPageTop,
 		ViewPageBottom,
+
 		ViewFitScroll,
 
 		ViewDocumentGrid,
