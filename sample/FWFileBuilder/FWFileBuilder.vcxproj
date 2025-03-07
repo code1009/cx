@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\component\charset_system.hpp" />
+    <ClInclude Include="..\..\library\component\fs_std_wstring.hpp" />
     <ClInclude Include="..\..\library\component\parse_c_string.hpp" />
     <ClInclude Include="..\..\library\component\pch.hpp" />
     <ClInclude Include="..\..\library\component\std_wstring_utility.hpp" />
@@ -73,11 +74,13 @@
     <ClInclude Include="src\FWFileBuilder.hpp" />
     <ClInclude Include="src\pch.hpp" />
     <ClInclude Include="src\targetver.h" />
+    <ClInclude Include="src\Window\FileDialog.hpp" />
     <ClInclude Include="src\Window\MainBox.hpp" />
     <ClInclude Include="src\Window\pch.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\component\charset_system.cpp" />
+    <ClCompile Include="..\..\library\component\fs_std_wstring.cpp" />
     <ClCompile Include="..\..\library\component\parse_c_string.cpp" />
     <ClCompile Include="..\..\library\component\std_wstring_utility.cpp" />
     <ClCompile Include="..\..\library\component\to_std_wstring.cpp" />
@@ -115,6 +118,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Window\FileDialog.cpp" />
     <ClCompile Include="src\Window\MainBox.cpp" />
   </ItemGroup>
   <ItemGroup>

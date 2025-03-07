@@ -23,3 +23,20 @@ bool FWFileBuilder::initialize(void)
 void FWFileBuilder::terminate(void)
 {
 }
+
+//===========================================================================
+bool FWFileBuilder::makeImage(
+	std::wstring bl, 
+	std::wstring sa, 
+	std::wstring ma
+	)
+{
+	return true;
+}
+
+bool FWFileBuilder::saveImageFile(std::wstring file_path)
+{
+	return false;
+}
+
+

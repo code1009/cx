@@ -204,6 +204,12 @@
     <ClInclude Include="src\FWFileBuilder.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\component\fs_std_wstring.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\FileDialog.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\wui\AppModule.cpp">
@@ -313,6 +319,12 @@
     </ClCompile>
     <ClCompile Include="src\FWFileBuilder.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\component\fs_std_wstring.cpp">
+      <Filter>cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\FileDialog.cpp">
+      <Filter>src\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -21,5 +21,9 @@ public:
 public:
 	void registerWindowMessageMap(void);
 	void onInitDialog(cx::wui::WindowMessage& windowMessage);
-	void onCommand(cx::wui::WindowMessage& windowMessage);
+	void onCommand(cx::wui::WindowMessage& windowMessage);	
+	void onButton1(cx::wui::WindowMessage& windowMessage);
+	void onButton2(cx::wui::WindowMessage& windowMessage);
+	void onButton3(cx::wui::WindowMessage& windowMessage);
+	void onButton4(cx::wui::WindowMessage& windowMessage);
 };
