@@ -15,7 +15,6 @@ class MainFrame :
 private:
 	std::unique_ptr<View> _View;
 	std::unique_ptr<ToolBox> _ToolBox;
-	cx::gw::WidgetEventDragDropNotifier _WidgetEventDragDropNotifier;
 
 public:
 	MainFrame();

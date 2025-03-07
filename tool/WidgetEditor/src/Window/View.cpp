@@ -452,51 +452,62 @@ void View::onKeyDown(cx::wui::WindowMessage& windowMessage)
 	switch(shutcutCommand)
 	{
 	case ShutcutCommand::EditUndo:
-		_Window->getWidgetDesignerModel()->getWidgetDesigner()->undo();
+		editUndo();
 		break;
 	case ShutcutCommand::EditRedo:
-		_Window->getWidgetDesignerModel()->getWidgetDesigner()->redo();
+		editRedo();
 		break;
+
 	case ShutcutCommand::EditCopy:
 	case ShutcutCommand::EditCut:
 	case ShutcutCommand::EditPaste:
 		break;
+
 	//case ShutcutCommand::EditInsert:
 	//	break;
 	case ShutcutCommand::EditDelete:
-		_Window->getWidgetDesignerModel()->getWidgetDesigner()->deleteSelectedWidgets();
+		editDelete();
 		break;
+
 	//case ShutcutCommand::EditEnter:
 	//	break;
 	//case ShutcutCommand::EditCancel:
 	//	break;
+
 	case ShutcutCommand::EditSelectAll:
-		_Window->getWidgetDesignerModel()->getWidgetDesigner()->selectAllWidgets();
+		editSelectAll();
 		break;
 	case ShutcutCommand::EditDeselectAll:
-		_Window->getWidgetDesignerModel()->getWidgetDesigner()->deselectAllWidgets();
+		editDeselectAll();
 		break;
+
 	//case ShutcutCommand::EditMoveCursorLeft:
 	//case ShutcutCommand::EditMoveCursorRight:
 	//case ShutcutCommand::EditMoveCursorUp:
 	//case ShutcutCommand::EditMoveCursorDown:
+	//	break;
+
 	//case ShutcutCommand::EditHomeCursorFirst:
 	//case ShutcutCommand::EditHomeCursorLast:
 	//	break;
+	
 	//case ShutcutCommand::ViewPageUp:
 	//case ShutcutCommand::ViewPageDown:
-	//case ShutcutCommand::ViewPageTop:
-	//case ShutcutCommand::ViewPageBottom:
-	//	break;
+	case ShutcutCommand::ViewPageTop:
+		editBringToTop();
+		break;
+	case ShutcutCommand::ViewPageBottom:
+		editSendToBottom();
+		break;
+
 	//case ShutcutCommand::ViewFitScroll:
 	//	break;
 
 	case ShutcutCommand::ViewDocumentGrid:
-		_Window->getDocumentGrid()->setVisible(!_Window->getDocumentGrid()->getVisible());
+		viewDocumentGrid();
 		break;
-
 	case ShutcutCommand::ViewStatusOverlay:
-		_Window->getStatusOverayPanel()->setVisible(!_Window->getStatusOverayPanel()->getVisible());
+		viewStatusOverlay();
 		break;
 
 	case ShutcutCommand::Unknown:
@@ -575,6 +586,105 @@ void View::onIdle(void)
 	_Window->render();
 }
 
+//===========================================================================
+void View::doDragDrop(std::wstring data)
+{
+	cx::gw::WidgetEventDragDropData dragDropData;
 
+	dragDropData._String = data;
+	_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
+	_WidgetEventDragDropNotifier.doDragDrop();
+}
 
+//===========================================================================
+void View::fileNew(void)
+{
 
+}
+
+void View::fileOpen(void)
+{
+
+}
+
+void View::fileSave(void)
+{
+
+}
+
+void View::fileSaveAs(void)
+{
+
+}
+
+void View::filePrint(void)
+{
+
+}
+
+void View::editUndo(void)
+{
+	_Window->getWidgetDesignerModel()->getWidgetDesigner()->undo();
+}
+
+void View::editRedo(void)
+{
+	_Window->getWidgetDesignerModel()->getWidgetDesigner()->redo();
+}
+
+void View::editCopy(void)
+{
+
+}
+
+void View::editCut(void)
+{
+
+}
+
+void View::editPaste(void)
+{
+
+}
+
+void View::editDelete(void)
+{
+	_Window->getWidgetDesignerModel()->getWidgetDesigner()->deleteSelectedWidgets();
+}
+
+void View::editSelectAll(void)
+{
+	_Window->getWidgetDesignerModel()->getWidgetDesigner()->selectAllWidgets();
+}
+
+void View::editDeselectAll(void)
+{
+	_Window->getWidgetDesignerModel()->getWidgetDesigner()->deselectAllWidgets();
+}
+
+void View::editSnapToGrid(void)
+{
+	bool snapToGrid;
+	snapToGrid = _Window->getWidgetDesignerModel()->getWidgetDesigner()->getSnapToGrid();
+	_Window->getWidgetDesignerModel()->getWidgetDesigner()->setSnapToGrid(!snapToGrid);
+}
+
+void View::editBringToTop(void)
+{
+
+}
+
+void View::editSendToBottom(void)
+{
+
+}
+
+void View::viewDocumentGrid(void)
+{
+	_Window->getDocumentGrid()->setVisible(!_Window->getDocumentGrid()->getVisible());
+}
+
+void View::viewStatusOverlay(void)
+{
+	_Window->getStatusOverayPanel()->setVisible(!_Window->getStatusOverayPanel()->getVisible());
+}

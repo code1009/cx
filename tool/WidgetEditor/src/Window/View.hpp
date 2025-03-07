@@ -11,6 +11,7 @@ class View :
 {
 private:
 	std::unique_ptr<cx::gw::WidgetDesignerWindow> _Window;
+	cx::gw::WidgetEventDragDropNotifier _WidgetEventDragDropNotifier;
 
 public:
 	explicit View(HWND parentWindowHandle);
@@ -19,8 +20,8 @@ public:
 public:
 	virtual LRESULT onWindowMessage(cx::wui::WindowMessage& windowMessage) override;
 
-public:
-	cx::gw::WidgetDesignerWindow* getWidgetDesignerWindow(void) { return _Window.get(); }
+//public:
+	//cx::gw::WidgetDesignerWindow* getWidgetDesignerWindow(void) { return _Window.get(); }
 
 public:
 	virtual HWND createView(HWND parentWindowHandle);
@@ -44,4 +45,27 @@ public:
 
 public:
 	void onIdle(void);
+
+public:
+	void doDragDrop(std::wstring dragDropData);
+
+public:
+	void fileNew(void);
+	void fileOpen(void);
+	void fileSave(void);
+	void fileSaveAs(void);
+	void filePrint(void);
+	void editUndo(void);
+	void editRedo(void);
+	void editCopy(void);
+	void editCut(void);
+	void editPaste(void);
+	void editDelete(void);
+	void editSelectAll(void);
+	void editDeselectAll(void);
+	void editSnapToGrid(void);
+	void editBringToTop(void);
+	void editSendToBottom(void);
+	void viewDocumentGrid(void);
+	void viewStatusOverlay(void);
 };

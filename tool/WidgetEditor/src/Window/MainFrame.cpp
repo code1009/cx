@@ -378,26 +378,23 @@ void MainFrame::onToolBoxGroupItemMouseDragging(ToolBox::EventParam* param)
 
 void MainFrame::onToolBoxSubItemMouseClicked(ToolBox::EventParam* param)
 {
-	bool snapToGrid;
 	switch (param->_Id)
 	{
 	case 8:
-		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->deleteSelectedWidgets();
+		_View->editDelete();
 		break;
 
 	case 17:
-		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->deselectAllWidgets();
+		_View->editDeselectAll();
 		break;
 
 	case 18:
-		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->selectAllWidgets();
+		_View->editSelectAll();
 		break;
 
 	case 25:
-		snapToGrid = _View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->getSnapToGrid();
-		_View->getWidgetDesignerWindow()->getWidgetDesignerModel()->getWidgetDesigner()->setSnapToGrid(!snapToGrid);
+		_View->editSnapToGrid();
 		break;
-
 	default:
 		break;
 	}
@@ -430,29 +427,10 @@ void MainFrame::doToolBoxWidgetDragDrop(std::size_t id)
 	cx::gw::WidgetEventDragDropData dragDropData;
 	switch (id)
 	{
-	case 0:
-		dragDropData._String = L"Shape.Text.Design";
-		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
-		_WidgetEventDragDropNotifier.doDragDrop();
-		break;
-
-	case 1:
-		dragDropData._String = L"Shape.Line.Design";
-		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
-		_WidgetEventDragDropNotifier.doDragDrop();
-		break;
-
-	case 2:
-		dragDropData._String = L"Shape.Rectangle.Design";
-		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
-		_WidgetEventDragDropNotifier.doDragDrop();
-		break;
-
-	case 3:
-		dragDropData._String = L"Shape.Ellipse.Design";
-		_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
-		_WidgetEventDragDropNotifier.doDragDrop();
-		break;
+	case 0: _View->doDragDrop(L"Shape.Text.Design"); break;
+	case 1: _View->doDragDrop(L"Shape.Line.Design"); break;
+	case 2: _View->doDragDrop(L"Shape.Rectangle.Design"); break;
+	case 3: _View->doDragDrop(L"Shape.Ellipse.Design"); break;
 
 	default:
 		break;
