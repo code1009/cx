@@ -369,6 +369,10 @@ void MainFrame::createToolBox(void)
 	_ToolBox->setSubItemMouseClickedHandler    (std::bind(&MainFrame::onToolBoxSubItemMouseClicked    , this, std::placeholders::_1));
 	_ToolBox->setSubItemMouseDbClickedHandler  (std::bind(&MainFrame::onToolBoxSubItemMouseDbClicked  , this, std::placeholders::_1));
 	_ToolBox->setSubItemMouseDraggingHandler   (std::bind(&MainFrame::onToolBoxSubItemMouseDragging   , this, std::placeholders::_1));
+
+
+	//-----------------------------------------------------------------------
+	_ToolBox->redraw();
 }
 
 void MainFrame::onToolBoxGroupItemMouseClicked(ToolBox::EventParam* param)

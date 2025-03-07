@@ -35,7 +35,6 @@ void ToolBox::ItemStatus::setStatusChanged(void)
 void ToolBox::ItemStatus::setStatusChangedHandler(StatusChangedHandler handler)
 {
 	_StatusChangedHandler = handler;
-	setStatusChanged();
 }
 
 bool ToolBox::ItemStatus::getHover(void) const

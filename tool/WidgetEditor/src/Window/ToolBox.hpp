@@ -120,6 +120,9 @@ public:
 	);
 
 public:
+	void redraw(void);
+
+public:
 	void releaseMouseCapture(void);
 
 public:

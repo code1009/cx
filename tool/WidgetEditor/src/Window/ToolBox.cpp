@@ -112,7 +112,7 @@ HWND ToolBox::createToolBox(HWND parentWindowHandle)
 	window_x = 0;
 	window_y = 0;
 	window_client_cx = 300;
-	window_client_cy = 800;
+	window_client_cy = 600;
 
 
 	//-----------------------------------------------------------------------
@@ -467,7 +467,7 @@ ToolBox::GroupItemSharedPtr ToolBox::addGroupItem(
 	);
 	_ControlWindow->getItemView()->addItem(parentItem, groupItem);
 
-	_ControlWindow->getItemView()->recalcLayout();
+	//_ControlWindow->getItemView()->recalcLayout();
 
 	return groupItem;
 }
@@ -494,9 +494,14 @@ ToolBox::SubItemSharedPtr ToolBox::addSubItem(
 	);
 	_ControlWindow->getItemView()->addItem(parentItem, subItem);
 
-	_ControlWindow->getItemView()->recalcLayout();
+	//_ControlWindow->getItemView()->recalcLayout();
 
 	return subItem;
+}
+
+void ToolBox::redraw(void)
+{
+	_ControlWindow->getItemView()->recalcLayout();
 }
 
 //===========================================================================
