@@ -77,5 +77,7 @@
 #include "Resource/Resource_Functions.hpp"
 #include "Resource/DialogTemplate.hpp"
 
+//===========================================================================
+#include "CommonDialog/FileDialog.hpp"
 
 

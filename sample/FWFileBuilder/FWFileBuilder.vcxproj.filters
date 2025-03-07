@@ -34,6 +34,9 @@
     <Filter Include="src\Window">
       <UniqueIdentifier>{b790d818-4930-4a2b-ab4d-bed8686c7ee1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cx\wui\CommonDialog">
+      <UniqueIdentifier>{5dc47355-10e2-4c5d-b624-ee0e27258764}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
@@ -207,11 +210,11 @@
     <ClInclude Include="..\..\library\component\fs_std_wstring.hpp">
       <Filter>cx\component</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\FileDialog.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
     <ClInclude Include="src\Config.hpp">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\CommonDialog\FileDialog.hpp">
+      <Filter>cx\wui\CommonDialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -326,11 +329,11 @@
     <ClCompile Include="..\..\library\component\fs_std_wstring.cpp">
       <Filter>cx\component</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window\FileDialog.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
     <ClCompile Include="src\Config.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\CommonDialog\FileDialog.cpp">
+      <Filter>cx\wui\CommonDialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

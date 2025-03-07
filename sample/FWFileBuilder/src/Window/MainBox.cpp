@@ -19,7 +19,15 @@
 
 //===========================================================================
 #include "MainBox.hpp"
-#include "FileDialog.hpp"
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+static const wchar_t _FileDialog_himage_Filter[] { L"himage File(*.himage)\0*.himage\0All Files(*.*)\0*.*\0"  };
+static const wchar_t _FileDialog_bin_Filter   [] { L"bin File(*.bin)\0*.bin\0All Files(*.*)\0*.*\0"  };
 
 
 
@@ -96,12 +104,6 @@ void MainBox::onCommand(cx::wui::WindowMessage& windowMessage)
 }
 
 //===========================================================================
-wchar_t      _himage_Filter[] = { L"himage File(*.himage)\0*.himage\0All Files(*.*)\0*.*\0"  };
-std::wstring _himage_DefExt    { L"himage" };
-std::wstring _himage_InitialDir{ L"C:\\" };
-//std::wstring _himage_Title     { L"File Open" };
-std::wstring _himage_Title     { L"" };
-
 void MainBox::onButton1(cx::wui::WindowMessage& windowMessage)
 {
 	CX_RUNTIME_LOG(cxLDebug)
@@ -110,15 +112,19 @@ void MainBox::onButton1(cx::wui::WindowMessage& windowMessage)
 	
 	//-----------------------------------------------------------------------
 	std::wstring filePath1 = getConfig()._BL_FilePath   ;
-	std::wstring filePath2 = getConfig()._SA_FilePath   ;
-	std::wstring filePath3 = getConfig()._MA_FilePath   ;
-	std::wstring filePath4 = getConfig()._Image_FilePath;
 
 
 	//-----------------------------------------------------------------------
-	_himage_InitialDir = cx::wfs::get_directory_of_current_process();
-	bool rv;		
-	OpenFileDialog openFileDialog(filePath1, L"",_himage_Filter, _himage_DefExt, _himage_InitialDir, _himage_Title);
+	bool rv;
+
+	_FileDialog_himage_InitialDir = cx::wfs::get_directory_of_current_process();
+	cx::wui::OpenFileDialog openFileDialog(
+		filePath1, L"",
+		_FileDialog_himage_Filter, 
+		_FileDialog_himage_DefExt, 
+		_FileDialog_himage_InitialDir, 
+		_FileDialog_himage_Title
+	);
 	std::wstring filePath;
 	rv = openFileDialog.doModal(*this, filePath);
 	OutputDebugStringW(L"\n");
@@ -137,16 +143,20 @@ void MainBox::onButton2(cx::wui::WindowMessage& windowMessage)
 	
 
 	//-----------------------------------------------------------------------
-	std::wstring filePath1 = getConfig()._BL_FilePath   ;
 	std::wstring filePath2 = getConfig()._SA_FilePath   ;
-	std::wstring filePath3 = getConfig()._MA_FilePath   ;
-	std::wstring filePath4 = getConfig()._Image_FilePath;
 
 
 	//-----------------------------------------------------------------------
-	_himage_InitialDir = cx::wfs::get_directory_of_current_process();
-	bool rv;		
-	OpenFileDialog openFileDialog(filePath2, L"",_himage_Filter, _himage_DefExt, _himage_InitialDir, _himage_Title);
+	bool rv;
+
+	_FileDialog_himage_InitialDir = cx::wfs::get_directory_of_current_process();
+	cx::wui::OpenFileDialog openFileDialog(
+		filePath2, L"",
+		_FileDialog_himage_Filter, 
+		_FileDialog_himage_DefExt, 
+		_FileDialog_himage_InitialDir, 
+		_FileDialog_himage_Title
+	);
 	std::wstring filePath;
 	rv = openFileDialog.doModal(*this, filePath);
 	OutputDebugStringW(L"\n");
@@ -165,16 +175,20 @@ void MainBox::onButton3(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	std::wstring filePath1 = getConfig()._BL_FilePath   ;
-	std::wstring filePath2 = getConfig()._SA_FilePath   ;
-	std::wstring filePath3 = getConfig()._MA_FilePath   ;
-	std::wstring filePath4 = getConfig()._Image_FilePath;
+	std::wstring filePath3 = getConfig()._MA_FilePath;
 
 
 	//-----------------------------------------------------------------------
-	_himage_InitialDir = cx::wfs::get_directory_of_current_process();
-	bool rv;		
-	OpenFileDialog openFileDialog(filePath3, L"",_himage_Filter, _himage_DefExt, _himage_InitialDir, _himage_Title);
+	bool rv;
+
+	_FileDialog_himage_InitialDir = cx::wfs::get_directory_of_current_process();
+	cx::wui::OpenFileDialog openFileDialog(
+		filePath3, L"",
+		_FileDialog_himage_Filter, 
+		_FileDialog_himage_DefExt, 
+		_FileDialog_himage_InitialDir, 
+		_FileDialog_himage_Title
+	);
 	std::wstring filePath;
 	rv = openFileDialog.doModal(*this, filePath);
 	OutputDebugStringW(L"\n");
@@ -187,12 +201,6 @@ void MainBox::onButton3(cx::wui::WindowMessage& windowMessage)
 }
 
 //===========================================================================
-wchar_t      _bin_Filter[] = { L"bin File(*.bin)\0*.bin\0All Files(*.*)\0*.*\0"  };
-std::wstring _bin_DefExt    { L"bin" };
-std::wstring _bin_InitialDir{ L"C:\\" };
-//std::wstring _bin_Title     { L"File Save" };
-std::wstring _bin_Title     { L"" };
-
 void MainBox::onButton4(cx::wui::WindowMessage& windowMessage)
 {
 	CX_RUNTIME_LOG(cxLDebug)
@@ -200,9 +208,6 @@ void MainBox::onButton4(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	std::wstring filePath1 = getConfig()._BL_FilePath   ;
-	std::wstring filePath2 = getConfig()._SA_FilePath   ;
-	std::wstring filePath3 = getConfig()._MA_FilePath   ;
 	std::wstring filePath4 = getConfig()._Image_FilePath;
 
 
@@ -232,8 +237,14 @@ void MainBox::onButton4(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	_himage_InitialDir = cx::wfs::get_directory_of_current_process();
-	SaveFileDialog saveFileDialog(filePath4, L"",_himage_Filter, _himage_DefExt, _himage_InitialDir, _himage_Title);
+	_FileDialog_himage_InitialDir = cx::wfs::get_directory_of_current_process();
+	cx::wui::SaveFileDialog saveFileDialog(
+		filePath4, L"",
+		_FileDialog_bin_Filter, 
+		_FileDialog_bin_DefExt, 
+		_FileDialog_bin_InitialDir, 
+		_FileDialog_bin_Title
+	);
 	std::wstring filePath;
 	rv = saveFileDialog.doModal(*this, filePath);
 	OutputDebugStringW(L"\n");

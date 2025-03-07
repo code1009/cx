@@ -8,8 +8,14 @@
 //===========================================================================
 #include <wui/wui.hpp>
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include "FileDialog.hpp"
+namespace cx::wui
+{
 
 
 
@@ -18,12 +24,12 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 OpenFileDialog::OpenFileDialog(
-	std::wstring file,
-	std::wstring fileTitle,
-	const wchar_t* filter,
-	std::wstring defExt,
-	std::wstring initialDir,
-	std::wstring title
+	std::wstring   file      , // std::wstring   file      ;
+	std::wstring   fileTitle , // std::wstring   fileTitle ;
+	const wchar_t* filter    , // wchar_t        filter[]= { L"bin File(*.bin)\0*.bin\0All Files(*.*)\0*.*\0" };
+	std::wstring   defExt    , // std::wstring   defExt    { L".bin" };
+	std::wstring   initialDir, // std::wstring   initialDir{ L"C:\\" };
+	std::wstring   title       // std::wstring   title     { L"File Open" };
 ):
 	_File(file),
 	_FileTitle(fileTitle),
@@ -41,16 +47,15 @@ bool OpenFileDialog::doModal (HWND hWnd, std::wstring& openFilePath)
 	wchar_t _ofn_open_szFile      [MAX_PATH];
 	wchar_t _ofn_open_szFileTitle [MAX_PATH];
 
-	//wchar_t _ofn_open_szFilter    [MAX_PATH]; // { L"bin File(*.bin)\0*.bin\0All Files(*.*)\0*.*\0" };
-	wchar_t _ofn_open_szDefExt    [MAX_PATH]; // { L".bin" };
-	wchar_t _ofn_open_szInitialDir[MAX_PATH]; // { L"C:\\" };
-	wchar_t _ofn_open_szTitle     [MAX_PATH]; // { L"File Open" };
+	wchar_t _ofn_open_szDefExt    [MAX_PATH];
+	wchar_t _ofn_open_szInitialDir[MAX_PATH];
+	wchar_t _ofn_open_szTitle     [MAX_PATH];
 
 
 	//-----------------------------------------------------------------------
 	ZeroMemory(_ofn_open_szFile      , sizeof(_ofn_open_szFile      ));
 	ZeroMemory(_ofn_open_szFileTitle , sizeof(_ofn_open_szFileTitle ));
-	//ZeroMemory(_ofn_open_szFilter    , sizeof(_ofn_open_szFilter    ));
+
 	ZeroMemory(_ofn_open_szDefExt    , sizeof(_ofn_open_szDefExt    ));
 	ZeroMemory(_ofn_open_szInitialDir, sizeof(_ofn_open_szInitialDir));
 	ZeroMemory(_ofn_open_szTitle     , sizeof(_ofn_open_szTitle     ));
@@ -97,10 +102,8 @@ bool OpenFileDialog::doModal (HWND hWnd, std::wstring& openFilePath)
 		//| OFN_ENABLEHOOK
 		;
 
-	//if (0!=_ofn_open_szFilter[0])
 	if (_Filter)
 	{
-		//ofn.lpstrFilter = &_ofn_open_szFilter[0]; 
 		ofn.lpstrFilter = _Filter;
 		ofn.nFilterIndex = 0;
 	}
@@ -161,12 +164,12 @@ bool OpenFileDialog::doModal (HWND hWnd, std::wstring& openFilePath)
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 SaveFileDialog::SaveFileDialog(
-	std::wstring file,
-	std::wstring fileTitle,
-	const wchar_t* filter,
-	std::wstring defExt,
-	std::wstring initialDir,
-	std::wstring title
+	std::wstring   file      , // std::wstring   file      ;
+	std::wstring   fileTitle , // std::wstring   fileTitle ;
+	const wchar_t* filter    , // wchar_t        filter[]= { L"bin File(*.bin)\0*.bin\0All Files(*.*)\0*.*\0" };
+	std::wstring   defExt    , // std::wstring   defExt    { L".bin" };
+	std::wstring   initialDir, // std::wstring   initialDir{ L"C:\\" };
+	std::wstring   title       // std::wstring   title     { L"File Save" };
 ):
 	_File(file),
 	_FileTitle(fileTitle),
@@ -184,16 +187,16 @@ bool SaveFileDialog::doModal(HWND hWnd, std::wstring& saveFilePath)
 	wchar_t _ofn_save_szFile      [MAX_PATH];
 	wchar_t _ofn_save_szFileTitle [MAX_PATH];
 
-	wchar_t _ofn_save_szFilter    [MAX_PATH]; // { L"bin File(*.bin)\0*.bin\0All Files(*.*)\0*.*\0" };
-	wchar_t _ofn_save_szDefExt    [MAX_PATH]; // { L".bin" };
-	wchar_t _ofn_save_szInitialDir[MAX_PATH]; // { L"C:\\" };
-	wchar_t _ofn_save_szTitle     [MAX_PATH]; // { L"File Save" };
+	//wchar_t _ofn_save_szFilter    [MAX_PATH]; 
+	wchar_t _ofn_save_szDefExt    [MAX_PATH];   
+	wchar_t _ofn_save_szInitialDir[MAX_PATH];   
+	wchar_t _ofn_save_szTitle     [MAX_PATH];   
 
 
 	//-----------------------------------------------------------------------
 	ZeroMemory(_ofn_save_szFile      , sizeof(_ofn_save_szFile      ));
 	ZeroMemory(_ofn_save_szFileTitle , sizeof(_ofn_save_szFileTitle ));
-	ZeroMemory(_ofn_save_szFilter    , sizeof(_ofn_save_szFilter    ));
+
 	ZeroMemory(_ofn_save_szDefExt    , sizeof(_ofn_save_szDefExt    ));
 	ZeroMemory(_ofn_save_szInitialDir, sizeof(_ofn_save_szInitialDir));
 	ZeroMemory(_ofn_save_szTitle     , sizeof(_ofn_save_szTitle     ));
@@ -202,8 +205,6 @@ bool SaveFileDialog::doModal(HWND hWnd, std::wstring& saveFilePath)
 	//-----------------------------------------------------------------------
 	if (!_File      .empty()) { lstrcpyW(_ofn_save_szFile      , _File      .c_str()); };
 	if (!_FileTitle .empty()) { lstrcpyW(_ofn_save_szFileTitle , _FileTitle .c_str()); };
-
-	//if (!_Filter    .empty()) { memcpy(_ofn_save_szFilter, _Filter.c_str(), _Filter.size()*sizeof(wchar_t)); };
 
 	if (!_DefExt    .empty()) { lstrcpyW(_ofn_save_szDefExt    , _DefExt    .c_str()); };
 	if (!_InitialDir.empty()) { lstrcpyW(_ofn_save_szInitialDir, _InitialDir.c_str()); };
@@ -243,10 +244,8 @@ bool SaveFileDialog::doModal(HWND hWnd, std::wstring& saveFilePath)
 		//| OFN_ENABLEHOOK
 		;
 
-	//if (0!=_ofn_save_szFilter[0])
 	if (_Filter)
 	{
-		//ofn.lpstrFilter = &_ofn_save_szFilter[0]; 
 		ofn.lpstrFilter = _Filter;
 		ofn.nFilterIndex = 0;
 	}
@@ -299,3 +298,16 @@ bool SaveFileDialog::doModal(HWND hWnd, std::wstring& saveFilePath)
 
 	return true;
 }
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+}
+
+
+
+
+
