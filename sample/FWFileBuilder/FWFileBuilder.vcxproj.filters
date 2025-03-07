@@ -195,16 +195,10 @@
     <ClInclude Include="src\targetver.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\AboutBox.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\MainFrame.hpp">
+    <ClInclude Include="src\Window\MainBox.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\pch.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\View.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>
@@ -311,13 +305,7 @@
     <ClCompile Include="src\pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window\AboutBox.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\MainFrame.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\View.cpp">
+    <ClCompile Include="src\Window\MainBox.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
   </ItemGroup>

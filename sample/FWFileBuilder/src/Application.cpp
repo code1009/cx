@@ -11,8 +11,7 @@
 #include "../res/resource.h"
 	
 //===========================================================================
-#include "Window/View.hpp"
-#include "Window/MainFrame.hpp"
+#include "Window/MainBox.hpp"
 
 //===========================================================================
 #include "Application.hpp"
@@ -45,11 +44,10 @@ void Application::terminate(void)
 
 void Application::run(void)
 {
-	MainFrame mainFrame;
+	MainBox mainBox;
 
-	cx::wui::WindowMessageLoop windowMessageLoop;
-	//windowMessageLoop.addIdleHandler(std::bind(&MainFrame::onIdle, &mainFrame));
-	windowMessageLoop.run();
+
+	mainBox.doModal(nullptr);
 }
 
 void Application::launch(void)

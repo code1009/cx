@@ -6,17 +6,11 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class AboutBox : 
-	public cx::wui::MessageMapWindowT<AboutBox, cx::wui::ModalIndirectBaseDialog>
+class MainBox : 
+	public cx::wui::MessageMapWindowT<MainBox, cx::wui::ModalTemplateBaseDialog>
 {
-private:
-	cx::wui::MemoryDialogTemplate _DialogTemplate;
-
 public:
-	AboutBox();
-
-public:
-	void initializeDialogTemplate(void);
+	MainBox();
 
 public:
 	void registerWindowMessageMap(void);
