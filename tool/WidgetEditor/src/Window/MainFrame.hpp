@@ -45,5 +45,5 @@ public:
 	void onToolBoxSubItemMouseClicked(ToolBox::EventParam* param);
 	void onToolBoxSubItemMouseDbClicked(ToolBox::EventParam* param);
 	void onToolBoxSubItemMouseDragging(ToolBox::EventParam* param);
-	void doToolBoxWidgetDragDrop(std::size_t id);
+	void doToolBoxDragDrop(std::size_t id);
 };

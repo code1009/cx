@@ -330,7 +330,7 @@ void MainFrame::createToolBox(void)
 	item = _ToolBox->addSubItem(++id, parent, L"선");
 	item = _ToolBox->addSubItem(++id, parent, L"네모");
 	item = _ToolBox->addSubItem(++id, parent, L"원");
-
+	
 	root = _ToolBox->addGroupItem(++id, nullptr, L"명령", std::wstring(), ToolBox::ItemStyle::Button);
 	
 	parent = _ToolBox->addGroupItem(++id, root, L"편집");
@@ -346,19 +346,19 @@ void MainFrame::createToolBox(void)
 	item = _ToolBox->addSubItem(++id, parent, L"붙여넣기" , std::wstring(), ToolBox::ItemStyle::Button);
 
 	parent = _ToolBox->addGroupItem(++id, root, L"선택");
-	item = _ToolBox->addSubItem(++id, parent, L"선택 취소", std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"전체 선택", std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(++id, parent, L"모두 선택", std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(++id, parent, L"모두 선택 해제", std::wstring(), ToolBox::ItemStyle::Button);
 	
 	parent = _ToolBox->addGroupItem(++id, root, L"순서");
-	item = _ToolBox->addSubItem(++id, parent, L"앞으로"   , std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"뒤로"     , std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"맨 앞으로", std::wstring(), ToolBox::ItemStyle::Button);
-	item = _ToolBox->addSubItem(++id, parent, L"맨 뒤로"  , std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(++id, parent, L"앞으로 가져오기"   , std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(++id, parent, L"뒤로 보내기"       , std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(++id, parent, L"맨 앞으로 가져오기", std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(++id, parent, L"맨 뒤로 보내기  "  , std::wstring(), ToolBox::ItemStyle::Button);
 
 	parent = _ToolBox->addGroupItem(++id, root, L"맞춤");
-	item = _ToolBox->addSubItem(++id, parent, L"격자 맞춤", std::wstring(), ToolBox::ItemStyle::Button);
+	item = _ToolBox->addSubItem(++id, parent, L"격자에 맞춤", std::wstring(), ToolBox::ItemStyle::Button);
 
-	item = _ToolBox->addSubItem(++id, nullptr, L"도움말", L"item.png");
+	item = _ToolBox->addSubItem(++id, nullptr, L"정보", L"item.png");
 
 
 	//-----------------------------------------------------------------------
@@ -392,11 +392,11 @@ void MainFrame::onToolBoxSubItemMouseClicked(ToolBox::EventParam* param)
 		break;
 
 	case 17:
-		_View->editDeselectAll();
+		_View->editSelectAll();
 		break;
 
 	case 18:
-		_View->editSelectAll();
+		_View->editDeselectAll();
 		break;
 
 	case 25:
@@ -421,7 +421,7 @@ void MainFrame::onToolBoxSubItemMouseDragging(ToolBox::EventParam* param)
 	case 5:
 		_ToolBox->releaseMouseCapture();
 		param->_DragDrop = true;
-		doToolBoxWidgetDragDrop(param->_Id - 2);
+		doToolBoxDragDrop(param->_Id - 2);
 		break;
 
 	default:
@@ -429,7 +429,7 @@ void MainFrame::onToolBoxSubItemMouseDragging(ToolBox::EventParam* param)
 	}
 }
 
-void MainFrame::doToolBoxWidgetDragDrop(std::size_t id)
+void MainFrame::doToolBoxDragDrop(std::size_t id)
 {
 	cx::gw::WidgetEventDragDropData dragDropData;
 	switch (id)

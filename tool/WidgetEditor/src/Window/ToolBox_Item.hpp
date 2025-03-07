@@ -139,7 +139,7 @@ public:
 class ToolBox::GroupItem : public ToolBox::Item
 {
 private:
-	bool _CollapseSubItems { true };
+	bool _CollapseSubItems { false };
 	ToolBox::ItemSharedPtrs _SubItems;
 
 public:
