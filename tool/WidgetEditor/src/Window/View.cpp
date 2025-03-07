@@ -566,11 +566,30 @@ void View::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
+	windowMessage.setResult(1);
 	switch (wm.nID())
 	{
-	case 0:
+	case IDM_FILE_NEW           : fileNew();           break;
+	case IDM_FILE_OPEN          : fileOpen();          break;
+	case IDM_FILE_SAVE          : fileSave();          break;
+	case IDM_FILE_SAVEAS        : fileSaveAs();        break;
+	case IDM_FILE_PRINT         : filePrint();         break;
+	case IDM_EDIT_UNDO          : editUndo();          break;
+	case IDM_EDIT_REDO          : editRedo();          break;
+	case IDM_EDIT_CUT           : editCopy();          break;
+	case IDM_EDIT_COPY          : editCut();           break;
+	case IDM_EDIT_PASTE         : editPaste();         break;
+	case IDM_EDIT_DELETE        : editDelete();        break;
+	case IDM_EDIT_SELECT_ALL    : editSelectAll();     break;
+	case IDM_EDIT_DESELECT_ALL  : editDeselectAll();   break;
+	case IDM_EDIT_SNAP_TO_GRID  : editSnapToGrid();    break;
+	case IDM_EDIT_BRING_TO_TOP  : editBringToTop();    break;
+	case IDM_EDIT_SEND_TO_BOTTOM: editSendToBottom();  break;
+	case IDM_VIEW_DOCUMENTGRID  : viewDocumentGrid();  break;
+	case IDM_VIEW_STATUSOVERLAY : viewStatusOverlay(); break;
 	default:
-		defaultWindowProc(windowMessage);
+		windowMessage.setResult(0);
+		//defaultWindowProc(windowMessage);
 		break;
 	}
 }
@@ -604,6 +623,49 @@ void View::doDragDrop(std::wstring data)
 	_WidgetEventDragDropNotifier.setDragDropData(dragDropData);
 	_WidgetEventDragDropNotifier.doDragDrop();
 }
+
+//===========================================================================
+#if 0
+IDC_MAIN MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New",                        IDM_FILE_NEW
+        MENUITEM SEPARATOR
+        MENUITEM "&Open",                       IDM_FILE_OPEN
+        MENUITEM "&Save",                       IDM_FILE_SAVE
+        MENUITEM "&Save As",                    IDM_FILE_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Undo\tCtrl+Z",                IDM_EDIT_UNDO, GRAYED
+        MENUITEM "Redo\tCtrl+Y",                IDM_EDIT_REDO, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Cut\tCtrl+X",                 IDM_EDIT_CUT, GRAYED
+        MENUITEM "Copy\tCtrl+C",                IDM_EDIT_COPY, GRAYED
+        MENUITEM "Paste\tCtrl+V",               IDM_EDIT_PASTE, GRAYED
+        MENUITEM "Delete\tDel",                 IDM_EDIT_DELETE, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Select All\tCtrl+A",          IDM_EDIT_SELECT_ALL, GRAYED
+        MENUITEM "Deselect All\tCtrl+U",        IDM_EDIT_DESELECT_ALL, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Snap To Grid",                IDM_EDIT_SNAP_TO_GRID, GRAYED
+        MENUITEM "Bring to Top\tCtrl+PgUp",     IDM_EDIT_BRING_TO_TOP, GRAYED
+        MENUITEM "Send to Bottom\tCtrl+PgDn",   IDM_EDIT_SEND_TO_BOTTOM, GRAYED
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Grid",                       IDM_VIEW_DOCUMENTGRID, CHECKED
+        MENUITEM "&Status",                     IDM_VIEW_STATUSOVERLAY, CHECKED
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",                      IDM_HELP_ABOUT
+    END
+END
+#endif 
 
 //===========================================================================
 void View::fileNew(void)

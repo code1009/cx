@@ -171,14 +171,21 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 {
 	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
-
+	
+	_View->onMenuCommand(windowMessage);
+	if (1 == windowMessage.lResult)
+	{
+		windowMessage.lResult = 0;
+		return;
+	}
+	
 	switch (wm.nID())
 	{
-	case IDM_ABOUT:
+	case IDM_HELP_ABOUT:
 		onAppAbout(windowMessage);
 		break;
 
-	case IDM_EXIT:
+	case IDM_FILE_EXIT:
 		destroyWindow();
 		break;
 
