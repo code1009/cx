@@ -70,6 +70,7 @@
     <ClInclude Include="res\Resource.h" />
     <ClInclude Include="src\Application.hpp" />
     <ClInclude Include="src\framework.hpp" />
+    <ClInclude Include="src\FWFileBuilder.hpp" />
     <ClInclude Include="src\pch.hpp" />
     <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\Window\MainBox.hpp" />
@@ -108,6 +109,7 @@
     <ClCompile Include="..\..\library\wui\Window\WindowProc.cpp" />
     <ClCompile Include="..\..\library\wui\Window\Window_Functions.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\FWFileBuilder.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

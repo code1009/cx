@@ -4,32 +4,16 @@
 
 //===========================================================================
 #include <wui/wui.hpp>
-#include <gw/gw.hpp>
 #include <runtime/runtime.hpp>
 
 //===========================================================================
 #include "../../res/resource.h"
 
 //===========================================================================
+#include "../FWFileBuilder.hpp"
+
+//===========================================================================
 #include "MainBox.hpp"
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-#pragma comment (lib, "Version.lib")
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-#define IDC_ABOUTBOX_APP_VERSION 1001
-#define IDC_ABOUTBOX_APP_NAME    1002
-#define IDC_ABOUTBOX_APP_NOTE    1003
 
 
 
@@ -44,6 +28,12 @@ MainBox::MainBox()
 }
 
 //===========================================================================
+MainBox::~MainBox()
+{
+	_FWFileBuilder->terminate();
+}
+
+//===========================================================================
 void MainBox::registerWindowMessageMap(void)
 {
 	_WindowMessageMap.handle(WM_INITDIALOG) = &MainBox::onInitDialog;
@@ -53,7 +43,8 @@ void MainBox::registerWindowMessageMap(void)
 void MainBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
-
+	_FWFileBuilder->initialize();
+	
 
 	//-----------------------------------------------------------------------
 	windowMessage.setResult(TRUE);
