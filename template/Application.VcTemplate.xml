@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VcTemplate>
+
+	<Settings
+		SourceDirectory="Application/"
+		ClCompile_PrecompiledHeader="src\pch.cpp"
+		/>
+
+	<ItemFiles>
+		<Item File="cx.VcItem.xml"/>
+		<Item File="Application.VcItem.xml"/>
+	</ItemFiles>
+	
+	<ConfigurationFiles>
+		<Item Name="$(VcConfiguration.Release.x64)"   File="Application.VcConfiguration.Release.x64.txt"/>
+		<Item Name="$(VcConfiguration.Debug.x64)"     File="Application.VcConfiguration.Debug.x64.txt"/>
+		<Item Name="$(VcConfiguration.Release.Win32)" File="Application.VcConfiguration.Release.Win32.txt"/>
+		<Item Name="$(VcConfiguration.Debug.Win32)"   File="Application.VcConfiguration.Debug.Win32.txt"/>
+	</ConfigurationFiles>
+	
+</VcTemplate>

@@ -85,6 +85,7 @@
     <ClInclude Include="src\VcFileGenerator\VcFile\pch.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\String.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\Guid.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcTemplate.hpp" />
     <ClInclude Include="src\Window\MainBox.hpp" />
     <ClInclude Include="src\Window\pch.hpp" />
   </ItemGroup>
@@ -138,6 +139,7 @@
     <ClCompile Include="src\VcFileGenerator\VcFile\Parameter.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\String.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\Guid.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcTemplate.cpp" />
     <ClCompile Include="src\Window\MainBox.cpp" />
   </ItemGroup>
   <ItemGroup>

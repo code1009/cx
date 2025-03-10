@@ -146,7 +146,7 @@ public:
 public:
 	explicit VcItem_XML_IO(VcItemData* doc) :
 		_Document{ doc },
-		_Loader{ L"VcItems" }
+		_Loader{ L"VcItem" }
 	{
 		_Loader.get_xml_context()->set_read_xml_root_tag_handler(
 			std::bind(&VcItem_XML_IO::readTag_Root, this, std::placeholders::_1)
