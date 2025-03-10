@@ -99,6 +99,12 @@ void MainBox::onButton1(cx::wui::WindowMessage& windowMessage)
 	//-----------------------------------------------------------------------
 	std::wstring sourceDirectory = getConfig()._Source_Directory;
 
+	cx::wui::FolderDialog folderDialog(L"Source Directory");
+	if (folderDialog.doModal(*this, sourceDirectory) == false)
+	{
+		return;
+	}
+
 	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT1), sourceDirectory);
 }
 
@@ -111,7 +117,13 @@ void MainBox::onButton2(cx::wui::WindowMessage& windowMessage)
 	//-----------------------------------------------------------------------
 	std::wstring targetDirectory;
 
-	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT1), targetDirectory);
+	cx::wui::FolderDialog folderDialog(L"Target Directory");
+	if (folderDialog.doModal(*this, targetDirectory) == false)
+	{
+		return;
+	}
+
+	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT2), targetDirectory);
 }
 
 //===========================================================================
@@ -135,7 +147,7 @@ void MainBox::onButton3(cx::wui::WindowMessage& windowMessage)
 
 	//-----------------------------------------------------------------------
 	bool rv;
-	rv = true; // _VcFileGenerator->generate(sourceDirectory, targetDirectory);
+	rv = _VcFileGenerator->generate(sourceDirectory, targetDirectory);
 	if (false == rv)
 	{
 		MessageBox(*this, L"파일 생성 실패", L"에러", MB_OK);

@@ -219,6 +219,9 @@
     <ClInclude Include="src\VcFileGenerator\Config.hpp">
       <Filter>src\VcFileGenerator</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\CommonDialog\FolderDialog.hpp">
+      <Filter>cx\wui\CommonDialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\wui\AppModule.cpp">
@@ -337,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="src\VcFileGenerator\VcFileGenerator.cpp">
       <Filter>src\VcFileGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\CommonDialog\FolderDialog.cpp">
+      <Filter>cx\wui\CommonDialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,5 @@ public:
 	void terminate(void);
 
 public:
-	bool saveFile(std::wstring filePath, std::vector<std::uint8_t>& fileData);
-	bool loadFile(std::wstring filePath, std::vector<std::uint8_t>& fileData);
+	bool generate(std::wstring sourceDirectory, std::wstring targetDirectory);
 };

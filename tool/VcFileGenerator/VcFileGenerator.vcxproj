@@ -39,6 +39,7 @@
     <ClInclude Include="..\..\library\runtime\WindowApplication.hpp" />
     <ClInclude Include="..\..\library\wui\AppModule.hpp" />
     <ClInclude Include="..\..\library\wui\CommonDialog\FileDialog.hpp" />
+    <ClInclude Include="..\..\library\wui\CommonDialog\FolderDialog.hpp" />
     <ClInclude Include="..\..\library\wui\Coord.hpp" />
     <ClInclude Include="..\..\library\wui\GDI\BasicDCT.hpp" />
     <ClInclude Include="..\..\library\wui\GDI\DC.hpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="..\..\library\runtime\WindowApplication.cpp" />
     <ClCompile Include="..\..\library\wui\AppModule.cpp" />
     <ClCompile Include="..\..\library\wui\CommonDialog\FileDialog.cpp" />
+    <ClCompile Include="..\..\library\wui\CommonDialog\FolderDialog.cpp" />
     <ClCompile Include="..\..\library\wui\Coord.cpp" />
     <ClCompile Include="..\..\library\wui\GDI\DC.cpp" />
     <ClCompile Include="..\..\library\wui\GDI\DC_Classes.cpp" />

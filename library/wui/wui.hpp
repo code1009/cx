@@ -79,5 +79,6 @@
 
 //===========================================================================
 #include "CommonDialog/FileDialog.hpp"
+#include "CommonDialog/FolderDialog.hpp"
 
 

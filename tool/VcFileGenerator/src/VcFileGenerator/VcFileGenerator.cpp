@@ -16,17 +16,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bool VcFileGenerator::initialize(void)
-{
-	loadConfig();
-	return true;
-}
-
-void VcFileGenerator::terminate(void)
-{
-}
-
-bool VcFileGenerator::saveFile(std::wstring filePath, std::vector<std::uint8_t>& fileData)
+bool saveFile(std::wstring filePath, std::vector<std::uint8_t>& fileData)
 {
 	std::ofstream file(filePath, std::ios::binary);
 	if (!file)
@@ -42,7 +32,7 @@ bool VcFileGenerator::saveFile(std::wstring filePath, std::vector<std::uint8_t>&
 	return true;
 }
 
-bool VcFileGenerator::loadFile(std::wstring filePath, std::vector<std::uint8_t>& fileData)
+bool loadFile(std::wstring filePath, std::vector<std::uint8_t>& fileData)
 {
 	std::ifstream file(filePath, std::ios::binary);
 	if (!file)
@@ -63,5 +53,28 @@ bool VcFileGenerator::loadFile(std::wstring filePath, std::vector<std::uint8_t>&
 		return false;
 	}
 
+	return true;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+bool VcFileGenerator::initialize(void)
+{
+	loadConfig();
+	return true;
+}
+
+void VcFileGenerator::terminate(void)
+{
+}
+
+bool VcFileGenerator::generate(std::wstring sourceDirectory, std::wstring targetDirectory)
+{
+	getConfig()._Source_Directory = sourceDirectory;
+	saveConfig();
 	return true;
 }
