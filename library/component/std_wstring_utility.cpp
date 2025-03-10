@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "pch.hpp"
 
@@ -239,6 +239,39 @@ std::vector<std::wstring> tokenizeObject_std_wstring(const std::wstring& s, std:
 
 	return tokens;
 }
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+std::wstring replace_std_wstring(const std::wstring& input, const std::wstring& findwhat, const std::wstring& replacewith)
+{
+	std::wstring::size_type findwhat_len    = findwhat.length();
+	std::wstring::size_type replacewith_len = replacewith.length();
+	std::wstring::size_type found;
+	std::wstring            result;
+
+
+	if (findwhat_len==0) 
+	{
+		return input;
+	}
+
+	result = input;
+	found  = result.find(findwhat, 0);
+
+	while (found != std::wstring::npos)
+	{
+		result.replace (found, findwhat.length(), replacewith);
+
+		found = result.find (findwhat, found + replacewith_len);
+	}
+
+	return result;
+}
+
 
 
 

@@ -77,6 +77,14 @@
     <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\VcFileGenerator\Config.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFileGenerator.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\File.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\Copy.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\Generator.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcItem.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\Parameter.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\pch.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\String.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\Guid.hpp" />
     <ClInclude Include="src\Window\MainBox.hpp" />
     <ClInclude Include="src\Window\pch.hpp" />
   </ItemGroup>
@@ -123,6 +131,13 @@
     </ClCompile>
     <ClCompile Include="src\VcFileGenerator\Config.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFileGenerator.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\File.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\Copy.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\Generator.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcItem.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\Parameter.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\String.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\Guid.cpp" />
     <ClCompile Include="src\Window\MainBox.cpp" />
   </ItemGroup>
   <ItemGroup>

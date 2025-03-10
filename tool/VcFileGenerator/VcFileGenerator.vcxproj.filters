@@ -40,6 +40,9 @@
     <Filter Include="src\VcFileGenerator">
       <UniqueIdentifier>{36f9e339-fe1a-4ae8-ba04-6717de854c74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\VcFileGenerator\VcFile">
+      <UniqueIdentifier>{347f74f9-a127-4578-8eff-4fce9b8d911a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
@@ -222,6 +225,30 @@
     <ClInclude Include="..\..\library\wui\CommonDialog\FolderDialog.hpp">
       <Filter>cx\wui\CommonDialog</Filter>
     </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcItem.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\pch.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\Generator.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\File.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\String.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\Guid.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\Parameter.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\Copy.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\wui\AppModule.cpp">
@@ -343,6 +370,27 @@
     </ClCompile>
     <ClCompile Include="..\..\library\wui\CommonDialog\FolderDialog.cpp">
       <Filter>cx\wui\CommonDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcItem.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\Generator.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\File.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\String.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\Guid.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\Parameter.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\Copy.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
