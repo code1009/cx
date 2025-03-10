@@ -80,6 +80,9 @@
     <ClInclude Include="src\VcFileGenerator\VcFile\File.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\Copy.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\Generator.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_sln.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\VcItem.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\Parameter.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\pch.hpp" />
@@ -135,6 +138,9 @@
     <ClCompile Include="src\VcFileGenerator\VcFile\File.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\Copy.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\Generator.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_sln.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\VcItem.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\Parameter.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\String.cpp" />

@@ -38,14 +38,14 @@ void VcTemplateData::setSettings(const VcTemplateData::Settings& settings)
 	_Settings = settings;
 }
 
-void VcTemplateData::addVcItemFile(const std::wstring& file)
+void VcTemplateData::addItemFile(const std::wstring& file)
 {
-	_VcItemFiles.push_back(file);
+	_ItemFiles.push_back(file);
 }
 
-void VcTemplateData::addVcConfigurationFile(const std::wstring& name, const std::wstring& file)
+void VcTemplateData::addConfigurationFile(const std::wstring& name, const std::wstring& file)
 {
-	_VcConfigurationFiles[name] = file;
+	_ConfigurationFiles[name] = file;
 }
 
 
@@ -159,7 +159,7 @@ public:
 			return false;
 		}
 
-		_Document->addVcItemFile(file);
+		_Document->addItemFile(file);
 
 		return true;
 	}
@@ -199,7 +199,7 @@ public:
 			return false;
 		}
 
-		_Document->addVcConfigurationFile(name, file);
+		_Document->addConfigurationFile(name, file);
 
 		return true;
 	}
