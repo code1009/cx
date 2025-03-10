@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+Ôªø/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "pch.hpp"
 
@@ -121,10 +121,10 @@ void MainBox::onButton1(cx::wui::WindowMessage& windowMessage)
 	_FileDialog_himage_InitialDir = cx::wfs::get_directory_of_current_process();
 	cx::wui::OpenFileDialog openFileDialog(
 		filePath1, L"",
-		_FileDialog_himage_Filter, 
-		_FileDialog_himage_DefExt, 
-		_FileDialog_himage_InitialDir, 
-		_FileDialog_himage_Title
+		_FileDialog_bin_Filter, 
+		_FileDialog_bin_DefExt, 
+		_FileDialog_bin_InitialDir, 
+		_FileDialog_bin_Title
 	);
 	std::wstring filePath;
 	rv = openFileDialog.doModal(*this, filePath);
@@ -222,9 +222,9 @@ void MainBox::onButton4(cx::wui::WindowMessage& windowMessage)
 		<< L"edit2=" << edit2 << std::endl
 		<< L"edit3=" << edit3;
 
-	if(edit1.empty()) { MessageBox(*this, L"∆ƒ¿œ¿ª º±≈√«œΩ Ω√ø¿.", L"ø°∑Ø", MB_OK); return; }
-	if(edit2.empty()) { MessageBox(*this, L"∆ƒ¿œ¿ª º±≈√«œΩ Ω√ø¿.", L"ø°∑Ø", MB_OK); return; }
-	if(edit3.empty()) { MessageBox(*this, L"∆ƒ¿œ¿ª º±≈√«œΩ Ω√ø¿.", L"ø°∑Ø", MB_OK); return; }
+	if(edit1.empty()) { MessageBox(*this, L"ÌååÏùºÏùÑ ÏÑ†ÌÉùÌïòÏã≠ÏãúÏò§.", L"ÏóêÎü¨", MB_OK); return; }
+	if(edit2.empty()) { MessageBox(*this, L"ÌååÏùºÏùÑ ÏÑ†ÌÉùÌïòÏã≠ÏãúÏò§.", L"ÏóêÎü¨", MB_OK); return; }
+	if(edit3.empty()) { MessageBox(*this, L"ÌååÏùºÏùÑ ÏÑ†ÌÉùÌïòÏã≠ÏãúÏò§.", L"ÏóêÎü¨", MB_OK); return; }
 
 
 	//-----------------------------------------------------------------------
@@ -232,7 +232,7 @@ void MainBox::onButton4(cx::wui::WindowMessage& windowMessage)
 	rv = _FWFileBuilder->makeImage(edit1, edit2, edit3);
 	if (false == rv)
 	{
-		MessageBox(*this, L"¿ÃπÃ¡ˆ ª˝º∫ Ω«∆–", L"ø°∑Ø", MB_OK);
+		MessageBox(*this, L"Ïù¥ÎØ∏ÏßÄ ÏÉùÏÑ± Ïã§Ìå®", L"ÏóêÎü¨", MB_OK);
 		return;
 	}
 
@@ -259,7 +259,7 @@ void MainBox::onButton4(cx::wui::WindowMessage& windowMessage)
 	rv = _FWFileBuilder->saveImageFile(filePath);
 	if (false == rv)
 	{
-		MessageBox(*this, L"¿ÃπÃ¡ˆ ¿˙¿Â Ω«∆–", L"ø°∑Ø", MB_OK);
+		MessageBox(*this, L"Ïù¥ÎØ∏ÏßÄ Ï†ÄÏû• Ïã§Ìå®", L"ÏóêÎü¨", MB_OK);
 		return;
 	}
 }
