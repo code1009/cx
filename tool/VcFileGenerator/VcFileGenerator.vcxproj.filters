@@ -249,6 +249,18 @@
     <ClInclude Include="src\VcFileGenerator\VcFile\Copy.hpp">
       <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_sln.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcTemplate.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\wui\AppModule.cpp">
@@ -390,6 +402,18 @@
       <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClCompile>
     <ClCompile Include="src\VcFileGenerator\VcFile\Copy.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_sln.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcTemplate.cpp">
       <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClCompile>
   </ItemGroup>

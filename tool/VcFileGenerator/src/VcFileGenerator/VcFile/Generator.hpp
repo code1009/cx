@@ -17,15 +17,11 @@ namespace VcFile
 //===========================================================================
 class Generator
 {
-private:
-	std::wstring _SourceDirectory;
-	std::wstring _TargetDirectory;
+public:
+	Generator();
 
 public:
-	Generator(std::wstring sourceDirectory, std::wstring targetDirectory);
-
-public:
-	bool generate(void);
+	bool generate(Parameter& param);
 };
 
 

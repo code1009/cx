@@ -24,8 +24,7 @@ namespace VcFile
 //===========================================================================
 std::wstring Parameter::get(std::wstring name)
 {
-	std::map<std::wstring, std::wstring>::iterator it;
-	it = _Map.find(name);
+	auto it = _Map.find(name);
 	if (it == _Map.end())
 	{
 		return L"";
@@ -33,6 +32,10 @@ std::wstring Parameter::get(std::wstring name)
 	return it->second;
 }
 
+void Parameter::set(std::wstring name, std::wstring value)
+{
+	_Map[name] = value;
+}
 
 
 

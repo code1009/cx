@@ -88,7 +88,7 @@ public:
 		bool rv;
 
 		std::wstring v;
-		rv = cx::xml::read_xml_attr_wstring(reader, L"Directory", _Document->_Source_Directory);
+		rv = cx::xml::read_xml_attr_wstring(reader, L"TemplateFilePath", _Document->_TemplateFilePath);
 		if (true != rv)
 		{
 			return false;
@@ -140,9 +140,9 @@ public:
 		}
 
 
-		if (!_Document->_Source_Directory.empty())
+		if (!_Document->_TemplateFilePath.empty())
 		{
-			rv = cx::xml::write_xml_attr_wstring(writer, L"Directory", _Document->_Source_Directory);
+			rv = cx::xml::write_xml_attr_wstring(writer, L"TemplateFilePath", _Document->_TemplateFilePath);
 			if (true != rv)
 			{
 				return false;

@@ -19,5 +19,5 @@ public:
 	void terminate(void);
 
 public:
-	bool generate(std::wstring sourceDirectory, std::wstring targetDirectory);
+	bool generate(std::wstring sourceDirectory, std::wstring targetDirectory, std::wstring projectName);
 };

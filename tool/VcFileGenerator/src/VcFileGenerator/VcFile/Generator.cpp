@@ -6,6 +6,7 @@
 #include <runtime/runtime.hpp>
 
 //===========================================================================
+#include "Parameter.hpp"
 #include "Generator.hpp"
 
 
@@ -22,14 +23,12 @@ namespace VcFile
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-Generator::Generator(std::wstring sourceDirectory, std::wstring targetDirectory)
-	: _SourceDirectory(sourceDirectory)
-	, _TargetDirectory(targetDirectory)
+Generator::Generator()
 {
 }
 
 //===========================================================================
-bool Generator::generate(void)
+bool Generator::generate(Parameter& param)
 {
 	return true;
 }

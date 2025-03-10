@@ -22,6 +22,7 @@ private:
 
 public:
 	std::wstring get(std::wstring name);
+	void set(std::wstring name, std::wstring value);
 };
 
 

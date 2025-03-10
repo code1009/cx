@@ -9,7 +9,7 @@
 class Config
 {
 public:
-	std::wstring _Source_Directory   { L"" };
+	std::wstring _TemplateFilePath { L"" };
 
 public:
 	Config() = default;
