@@ -5,7 +5,8 @@
 //===========================================================================
 #include <runtime/runtime.hpp>
 
-#include <component\std_wstring_utility.hpp>
+#include <component/std_wstring_utility.hpp>
+#include <component/fs_std_wstring.hpp>
 
 //===========================================================================
 #include "Parameter.hpp"
@@ -52,6 +53,10 @@ bool Copy(Parameter& param)
 	//-----------------------------------------------------------------------
 	std::wstring source;
 	std::wstring target;
+
+
+	source = cx::wfs::get_directory_name_of_directory( source_directory );
+	target = cx::wfs::get_directory_name_of_directory( target_directory );
 
 	source.push_back(0); // FOF_MULTIDESTFILES \0\0
 	target.push_back(0); // FOF_MULTIDESTFILES \0\0
