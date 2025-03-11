@@ -74,6 +74,8 @@ public:
 
 
 		readHandlerMap[L"Template"] = std::bind(&Config_XML_IO::readTag_Template, this, std::placeholders::_1);
+		readHandlerMap[L"Project"] = std::bind(&Config_XML_IO::readTag_Project, this, std::placeholders::_1);
+		readHandlerMap[L"Solution"] = std::bind(&Config_XML_IO::readTag_Solution, this, std::placeholders::_1);
 
 		return cx::xml::read_xml_child_tag(
 			reader,
@@ -97,6 +99,34 @@ public:
 		return true;
 	}
 
+	bool readTag_Project(cx::xml::xml_reader_t& reader)
+	{
+		bool rv;
+
+		std::wstring v;
+		rv = cx::xml::read_xml_attr_wstring(reader, L"Name", _Document->_ProjectName);
+		if (true != rv)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	bool readTag_Solution(cx::xml::xml_reader_t& reader)
+	{
+		bool rv;
+
+		std::wstring v;
+		rv = cx::xml::read_xml_attr_wstring(reader, L"Name", _Document->_SolutionName);
+		if (true != rv)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	//-----------------------------------------------------------------------
 public:
 	bool writeTag_Root(cx::xml::xml_writer_t& writer)
@@ -112,6 +142,16 @@ public:
 
 
 		rv = writeTag_Template(writer);
+		if (true != rv)
+		{
+			return false;
+		}
+		rv = writeTag_Solution(writer);
+		if (true != rv)
+		{
+			return false;
+		}
+		rv = writeTag_Project(writer);
 		if (true != rv)
 		{
 			return false;
@@ -143,6 +183,68 @@ public:
 		if (!_Document->_TemplateFilePath.empty())
 		{
 			rv = cx::xml::write_xml_attr_wstring(writer, L"FilePath", _Document->_TemplateFilePath);
+			if (true != rv)
+			{
+				return false;
+			}
+		}
+
+
+		rv = cx::xml::write_xml_single_tag_end(writer);
+		if (true != rv)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	bool writeTag_Project(cx::xml::xml_writer_t& writer)
+	{
+		bool rv;
+
+
+		rv = cx::xml::write_xml_single_tag_start(writer, L"Project", 1);
+		if (true != rv)
+		{
+			return false;
+		}
+
+
+		if (!_Document->_ProjectName.empty())
+		{
+			rv = cx::xml::write_xml_attr_wstring(writer, L"Name", _Document->_ProjectName);
+			if (true != rv)
+			{
+				return false;
+			}
+		}
+
+
+		rv = cx::xml::write_xml_single_tag_end(writer);
+		if (true != rv)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	bool writeTag_Solution(cx::xml::xml_writer_t& writer)
+	{
+		bool rv;
+
+
+		rv = cx::xml::write_xml_single_tag_start(writer, L"Solution", 1);
+		if (true != rv)
+		{
+			return false;
+		}
+
+
+		if (!_Document->_SolutionName.empty())
+		{
+			rv = cx::xml::write_xml_attr_wstring(writer, L"Name", _Document->_SolutionName);
 			if (true != rv)
 			{
 				return false;

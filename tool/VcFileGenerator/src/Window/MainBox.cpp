@@ -56,8 +56,9 @@ void MainBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 	//-----------------------------------------------------------------------
 	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT1), getConfig()._TemplateFilePath);
 	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT2), L"");
+	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT3), getConfig()._SolutionName);
+	cx::wui::setWindowText(::GetDlgItem(*this, IDC_EDIT4), getConfig()._ProjectName);
 
-	
 	//-----------------------------------------------------------------------
 	windowMessage.setResult(TRUE);
 }

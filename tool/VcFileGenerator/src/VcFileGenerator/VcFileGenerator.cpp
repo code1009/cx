@@ -85,6 +85,8 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 
 
 	getConfig()._TemplateFilePath = templateFilePath;
+	getConfig()._SolutionName = solutionName;
+	getConfig()._ProjectName = projectName;
 	saveConfig();
 	return true;
 }

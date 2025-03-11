@@ -84,13 +84,13 @@ void VcFile_sln::write_Project(void)
 
 	for(auto& project : _Projects)
 	{
-		std::wstring soultionItemGuid;
+		std::wstring solutionItemGuid;
 		std::wstring projectName;
 		std::wstring projectFile;
 		std::wstring projectGuid;
 
 
-		soultionItemGuid = project->_Guid;
+		solutionItemGuid = project->_Guid;
 
 		projectName = project->_vcxproj->_ProjectName;
 		projectFile = project->_FilePath;
@@ -98,7 +98,7 @@ void VcFile_sln::write_Project(void)
 
 		_oss 
 			<< "Project" 
-			<< parentheses(dquot(soultionItemGuid)) << " = " 
+			<< parentheses(dquot(solutionItemGuid)) << " = " 
 			<< dquot(projectName) << ", " 
 			<< dquot(projectFile) << ", " 
 			<< dquot(projectGuid)  

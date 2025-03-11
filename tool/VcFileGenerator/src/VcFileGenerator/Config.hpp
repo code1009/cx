@@ -10,6 +10,8 @@ class Config
 {
 public:
 	std::wstring _TemplateFilePath { L"" };
+	std::wstring _SolutionName { L"" };
+	std::wstring _ProjectName  { L"" };
 
 public:
 	Config() = default;
