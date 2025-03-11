@@ -62,16 +62,42 @@ void FileCopy::makeItems(void)
 	std::wstring sourceFilePath;
 	std::wstring targetFilePath;
 
+	std::wstring sourceFileRelativePath;
+	std::wstring sourceFileRelativeDirectory;
+	std::wstring sourceFileRelativeDirectoryWithoutTrailingBackslash;
+
 	for (const auto& file : fileList)
 	{
+		sourceFileRelativePath = file.substr(sourceDirectory.size());
+		sourceFileRelativeDirectory = cx::wfs::get_directory_of_file_path(sourceFileRelativePath);
+		if (sourceFileRelativeDirectory.rfind(L"\\") == (sourceFileRelativeDirectory.size()-1))
+		{
+			sourceFileRelativeDirectoryWithoutTrailingBackslash = 
+				sourceFileRelativeDirectory.substr(0, sourceFileRelativeDirectory.size() - 1);
+		}
+		else
+		{
+			sourceFileRelativeDirectoryWithoutTrailingBackslash = L"";
+		}
+
 		sourceFilePath = file;
-		targetFilePath = targetDirectory + file.substr(sourceDirectory.size());
+		targetFilePath = targetDirectory + sourceFileRelativePath;
 
 		item = std::make_shared<Item>(sourceFilePath, targetFilePath);
-		item->_Source = file;
-		item->_Target = targetDirectory + file.substr(sourceDirectory.size());
+
 
 		_Items.push_back(item);
+
+
+		CX_RUNTIME_LOG(cxLDebug)
+			<< L"<Item"
+			<< L" "
+			<< L"Filter=" << dquot(sourceFileRelativeDirectoryWithoutTrailingBackslash)
+			<< L" "
+			<< L"File=" << dquot(sourceFileRelativePath)
+			<< L" "
+			<< L"/>"
+			;
 	}
 }
 
@@ -174,9 +200,13 @@ bool FileCopy::copyItems(void)
 
 	for (const auto& item : _Items)
 	{
-		CX_RUNTIME_LOG(cxLDebug) << L"sourceFilePath=" << item->_Source;
-		CX_RUNTIME_LOG(cxLDebug) << L"targetFilePath=" << item->_Target;
-		CX_RUNTIME_LOG(cxLDebug) << L" ";
+#if 0
+		CX_RUNTIME_LOG(cxLDebug) 
+			<< L"sourceFilePath=" << item->_Source
+			<< L" ";
+			<< L"targetFilePath=" << item->_Target
+			<< L" ";
+#endif
 
 		source.insert(source.end(), item->_Source.begin(),  item->_Source.end());
 		target.insert(target.end(), item->_Target.begin(),  item->_Target.end());
