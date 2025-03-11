@@ -73,7 +73,7 @@ public:
 		cx::xml::xml_read_handler_map_t readHandlerMap;
 
 
-		readHandlerMap[L"Source"] = std::bind(&Config_XML_IO::readTag_Source, this, std::placeholders::_1);
+		readHandlerMap[L"Template"] = std::bind(&Config_XML_IO::readTag_Template, this, std::placeholders::_1);
 
 		return cx::xml::read_xml_child_tag(
 			reader,
@@ -83,12 +83,12 @@ public:
 	}
 
 public:
-	bool readTag_Source(cx::xml::xml_reader_t& reader)
+	bool readTag_Template(cx::xml::xml_reader_t& reader)
 	{
 		bool rv;
 
 		std::wstring v;
-		rv = cx::xml::read_xml_attr_wstring(reader, L"TemplateFilePath", _Document->_TemplateFilePath);
+		rv = cx::xml::read_xml_attr_wstring(reader, L"FilePath", _Document->_TemplateFilePath);
 		if (true != rv)
 		{
 			return false;
@@ -111,7 +111,7 @@ public:
 		}
 
 
-		rv = writeTag_Source(writer);
+		rv = writeTag_Template(writer);
 		if (true != rv)
 		{
 			return false;
@@ -128,12 +128,12 @@ public:
 	}
 
 public:
-	bool writeTag_Source(cx::xml::xml_writer_t& writer)
+	bool writeTag_Template(cx::xml::xml_writer_t& writer)
 	{
 		bool rv;
 
 
-		rv = cx::xml::write_xml_single_tag_start(writer, L"Source", 1);
+		rv = cx::xml::write_xml_single_tag_start(writer, L"Template", 1);
 		if (true != rv)
 		{
 			return false;
@@ -142,7 +142,7 @@ public:
 
 		if (!_Document->_TemplateFilePath.empty())
 		{
-			rv = cx::xml::write_xml_attr_wstring(writer, L"TemplateFilePath", _Document->_TemplateFilePath);
+			rv = cx::xml::write_xml_attr_wstring(writer, L"FilePath", _Document->_TemplateFilePath);
 			if (true != rv)
 			{
 				return false;
