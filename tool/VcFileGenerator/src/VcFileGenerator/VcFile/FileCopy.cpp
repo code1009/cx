@@ -224,14 +224,14 @@ bool FileCopy::copyItems(void)
 
 	memset (&shfo, 0, sizeof(shfo));
 
-	shfo.hwnd                      = NULL;
-	shfo.wFunc                     = FO_COPY;
-	shfo.pFrom                     = source.c_str();
-	shfo.pTo                       = target.c_str();
-	shfo.fFlags                    = FOF_SIMPLEPROGRESS | FOF_MULTIDESTFILES | FOF_NOCONFIRMMKDIR;
-	shfo.fAnyOperationsAborted     = FALSE;
-	shfo.hNameMappings             = NULL;
-	shfo.lpszProgressTitle         = L"Copy";
+	shfo.hwnd                  = NULL;
+	shfo.wFunc                 = FO_COPY;
+	shfo.pFrom                 = source.c_str();
+	shfo.pTo                   = target.c_str();
+	shfo.fFlags                = FOF_SIMPLEPROGRESS | FOF_MULTIDESTFILES | FOF_NOCONFIRMMKDIR;
+	shfo.fAnyOperationsAborted = FALSE;
+	shfo.hNameMappings         = NULL;
+	shfo.lpszProgressTitle     = L"Copy";
 
 	rc = SHFileOperationW (&shfo);
 	if (rc != 0)
