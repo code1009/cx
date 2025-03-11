@@ -246,7 +246,7 @@
     <ClInclude Include="src\VcFileGenerator\VcFile\Parameter.hpp">
       <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\Copy.hpp">
+    <ClInclude Include="src\VcFileGenerator\VcFile\FileCopy.hpp">
       <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClInclude>
     <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_sln.hpp">
@@ -404,7 +404,7 @@
     <ClCompile Include="src\VcFileGenerator\VcFile\Parameter.cpp">
       <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\Copy.cpp">
+    <ClCompile Include="src\VcFileGenerator\VcFile\FileCopy.cpp">
       <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClCompile>
     <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_sln.cpp">

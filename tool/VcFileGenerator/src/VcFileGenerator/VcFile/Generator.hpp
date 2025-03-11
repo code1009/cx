@@ -40,6 +40,9 @@ public:
 	bool hasVcItemType(std::wstring type);
 	bool isVcItem_ClCompile_PrecompiledHeader(std::shared_ptr<VcItem> vcItem);
 	bool isVcItem_CustomBuild_Ribbon         (std::shared_ptr<VcItem> vcItem);
+
+public:
+	bool copyTemplateFiles(void);
 };
 
 

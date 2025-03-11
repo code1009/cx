@@ -55,11 +55,11 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 
 
 	VcFile::Parameter param;
+	param.set(L"$(TargetDirectory)"         , targetDirectory);
+
 	param.set(L"$(VcTemplateDirectory)"     , templateDirectory);
 	param.set(L"$(VcTemplateFilePath)"      , templateFilePath);
 	param.set(L"$(VcTemplateFileName)"      , templateFileName);
-
-	param.set(L"$(VcTargetDirectory)"       , targetDirectory);
 
 	param.set(L"$(VcSolutionName)"          , solutionName);	
 	param.set(L"$(VcSolutionDirectory)"     , solutionDirectory);	

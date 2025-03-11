@@ -217,12 +217,28 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+static Config* _config = nullptr;
+
+//===========================================================================
 Config& getConfig(void)
 {
-	static Config instance;
+	//static Config instance;
+	//return instance;
+	if (nullptr == _config)
+	{
+		_config = cpp_new Config();
+	}
 
+	return *_config;
+}
 
-	return instance;
+void deleteConfig(void)
+{
+	if (nullptr != _config)
+	{
+		cpp_delete _config;
+		_config = nullptr;
+	}
 }
 
 //===========================================================================

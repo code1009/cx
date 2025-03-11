@@ -12,6 +12,7 @@
 	
 //===========================================================================
 #include "VcFileGenerator/VcFileGenerator.hpp"
+#include "VcFileGenerator/Config.hpp"
 #include "Window/MainBox.hpp"
 
 //===========================================================================
@@ -40,6 +41,7 @@ bool Application::initialize(void)
 
 void Application::terminate(void)
 {
+	deleteConfig();
 	cx::runtime::WindowApplication::terminate();
 }
 

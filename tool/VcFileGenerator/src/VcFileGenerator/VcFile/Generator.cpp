@@ -46,6 +46,12 @@ bool Generator::generate(void)
 		return false;
 	}
 
+	rv = copyTemplateFiles();
+	if (!rv)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -60,6 +66,11 @@ bool Generator::loadVcTemplate(void)
 	{
 		return false;
 	}
+	std::wstring sourceDirectory;	
+	sourceDirectory = _Parameter->get(L"$(VcTemplateDirectory)");
+	sourceDirectory += _VcTemplate._Settings.SourceDirectory;
+	_Parameter->set(L"$(SourceDirectory)", sourceDirectory);
+
 
 	for (auto& itemFile : _VcTemplate._ItemFiles)
 	{
@@ -112,7 +123,7 @@ bool Generator::loadVcTemplate(void)
 //===========================================================================
 bool Generator::generateVcFile(void)
 {
-	bool rv;
+	//bool rv;
 
 	//-----------------------------------------------------------------------
 	VcFile_vcxproj_filters _vcFile_vcxproj_filters(this);
@@ -182,6 +193,12 @@ bool Generator::isVcItem_CustomBuild_Ribbon(std::shared_ptr<VcItem> vcItem)
 	return false;
 }
 
+//===========================================================================
+bool Generator::copyTemplateFiles(void)
+{
+	FileCopy fileCopy(this);
+	return fileCopy.copy();
+}
 
 
 

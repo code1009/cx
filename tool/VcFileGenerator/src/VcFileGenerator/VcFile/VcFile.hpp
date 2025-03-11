@@ -11,7 +11,7 @@
 #include "Guid.hpp"
 #include "String.hpp"
 #include "File.hpp"
-#include "Copy.hpp"
+#include "FileCopy.hpp"
 
 #include "VcItem.hpp"
 #include "VcTemplate.hpp"

@@ -2,7 +2,7 @@
 <VcTemplate>
 
 	<Settings
-		SourceDirectory="Application/"
+		SourceDirectory=".\Application\"
 		ClCompile_PrecompiledHeader=".\src\pch.cpp"
 		/>
 
