@@ -149,7 +149,11 @@ bool Generator::loadVcTemplate(void)
 //===========================================================================
 bool Generator::generateVcFile(void)
 {
-	//bool rv;
+	//-----------------------------------------------------------------------
+	bool rv;
+	std::wstring filePath;
+	std::wstring fileString;
+
 
 	//-----------------------------------------------------------------------
 	VcFile_vcxproj_filters _vcFile_vcxproj_filters(this);
@@ -157,11 +161,26 @@ bool Generator::generateVcFile(void)
 	_vcFile_vcxproj_filters.write();
 	//OutputDebugStringW(_vcFile_vcxproj_filters._oss.str().c_str());
 
+	filePath = _Parameter->get(L"$(VcProjectFiltersFilePath)");
+	fileString = _vcFile_vcxproj_filters._oss.str();
+	rv = saveFileString(filePath, fileString);
+	if (!rv)
+	{
+		return false;
+	}
 
 	//-----------------------------------------------------------------------
 	VcFile_vcxproj _vcFile_vcxproj(this);
 	_vcFile_vcxproj.write();
 	//OutputDebugStringW(_vcFile_vcxproj._oss.str().c_str());
+
+	filePath = _Parameter->get(L"$(VcProjectFilePath)");
+	fileString = _vcFile_vcxproj._oss.str();
+	rv = saveFileString(filePath, fileString);
+	if (!rv)
+	{
+		return false;
+	}
 
 
 	//-----------------------------------------------------------------------
@@ -169,13 +188,21 @@ bool Generator::generateVcFile(void)
 	projectFilePath =
 		_Parameter->get(L"$(VcProjectName)") +
 		L"\\" +
-		_Parameter->get(L"$(VcProjectFileName)");
+		_Parameter->get(L"$(VcProjectFile)");
 
 	std::wstring solutionFolderGuid = makeGuid();
 	VcFile_sln _vcFile_sln(this);
 	_vcFile_sln.addProject(solutionFolderGuid, &_vcFile_vcxproj, projectFilePath);
 	_vcFile_sln.write();
 	//OutputDebugStringW(_vcFile_sln._oss.str().c_str());
+
+	filePath = _Parameter->get(L"$(VcSolutionFilePath)");
+	fileString = _vcFile_sln._oss.str();
+	rv = saveFileString(filePath, fileString);
+	if (!rv)
+	{
+		return false;
+	}
 
 
 	return true;
@@ -225,6 +252,7 @@ bool Generator::copyTemplateFiles(void)
 	FileCopy fileCopy(this);
 	return fileCopy.copy();
 }
+
 
 
 

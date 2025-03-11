@@ -159,6 +159,13 @@ std::vector<std::wstring> FileCopy::getSourceFileList(const std::wstring& direct
 bool FileCopy::copyItems(void)
 {
 	//-----------------------------------------------------------------------
+	if (_Items.empty())
+	{
+		return true;
+	}
+
+
+	//-----------------------------------------------------------------------
 	std::wstring source;
 	std::wstring target;
 
@@ -197,6 +204,10 @@ bool FileCopy::copyItems(void)
 	shfo.lpszProgressTitle         = L"Copy";
 
 	rc = SHFileOperationW (&shfo);
+	if (rc != 0)
+	{
+		return false;
+	}
 	return true;
 }
 

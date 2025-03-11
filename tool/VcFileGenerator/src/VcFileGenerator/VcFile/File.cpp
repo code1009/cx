@@ -104,7 +104,27 @@ bool loadFileString(std::wstring filePath, std::wstring& s)
 	return true;
 }
 
+bool saveFileString(std::wstring filePath, std::wstring& s)
+{
+	bool rv;
 
+	std::string utf8String;
+	std::vector<std::uint8_t> fileData;
+	
+	utf8String = cx::wcs_to_utf8(s);
+	fileData.resize(utf8String.size() + 3);
+	fileData[0] = 0xEF;
+	fileData[1] = 0xBB;
+	fileData[2] = 0xBF;
+
+	std::copy(utf8String.begin(), utf8String.end(), fileData.begin() + 3);
+	rv = saveFile(filePath, fileData);
+	if (!rv)
+	{
+		return false;
+	}
+	return true;
+}
 
 
 

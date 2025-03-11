@@ -228,7 +228,7 @@ void VcFile_vcxproj::write_ItemGroup_ItemType(std::wstring type)
 					<< L" "
 					<< L"Include=" << dquot(item->_File)
 					//<< L" "
-					<< L">"
+					<< L"/>"
 					<< eline();
 			}
 		}
@@ -279,7 +279,9 @@ void VcFile_vcxproj::write_ItemGroup_ItemType_ClCompile_PrecompiledHeader(std::s
 		_oss 
 			<< ispace2(3) 
 			<< L"<PrecompiledHeader" 
+			<< L" "
 			<< L"Condition=" << dquot(Condition)
+			//<< L" "
 			<< L">" 
 			<< value
 			//<< L" "
@@ -525,6 +527,7 @@ void VcFile_vcxproj::wirte_ImportGroup_Label_PropertySheets(void)
 			<< L"<ImportGroup"
 			<< L" "
 			<< L"Label=" << dquot(L"PropertySheets") 
+			<< L" "
 			<< L"Condition=" << dquot(Condition)
 			//<< L" "
 			<< L">" 
@@ -534,8 +537,11 @@ void VcFile_vcxproj::wirte_ImportGroup_Label_PropertySheets(void)
 		_oss 
 			<< ispace2(2) 
 			<< "<Import"
+			<< L" "
 			<< "Project="   << dquot(L"$(UserRootDir)\\Microsoft.Cpp.$(Platform).user.props") 
+			<< L" "
 			<< "Condition=" << dquot(Condition_LocalAppDataPlatform) 
+			<< L" "
 			<< "Label="     << dquot(L"LocalAppDataPlatform") 
 			<< "/>" 
 			<< eline();
