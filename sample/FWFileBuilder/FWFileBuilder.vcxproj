@@ -26,7 +26,14 @@
     <ClInclude Include="..\..\library\component\std_wstring_utility.hpp" />
     <ClInclude Include="..\..\library\component\to_std_wstring.hpp" />
     <ClInclude Include="..\..\library\component\xml.hpp" />
+    <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp" />
+    <ClInclude Include="..\..\library\gw\Context.hpp" />
     <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp" />
+    <ClInclude Include="..\..\library\gw\Drawable.hpp" />
+    <ClInclude Include="..\..\library\gw\gw.hpp" />
+    <ClInclude Include="..\..\library\gw\pch.hpp" />
+    <ClInclude Include="..\..\library\gw\Viewport.hpp" />
+    <ClInclude Include="..\..\library\gw\Window.hpp" />
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
     <ClInclude Include="..\..\library\pch.hpp" />
     <ClInclude Include="..\..\library\runtime\Assert.hpp" />
@@ -39,7 +46,7 @@
     <ClInclude Include="..\..\library\runtime\WindowApplication.hpp" />
     <ClInclude Include="..\..\library\wui\AppModule.hpp" />
     <ClInclude Include="..\..\library\wui\CommonDialog\FileDialog.hpp" />
-    <ClInclude Include="..\..\library\wui\Coord.hpp" />
+    <ClInclude Include="..\..\library\wui\CommonDialog\FolderDialog.hpp" />
     <ClInclude Include="..\..\library\wui\GDI\BasicDCT.hpp" />
     <ClInclude Include="..\..\library\wui\GDI\DC.hpp" />
     <ClInclude Include="..\..\library\wui\GDI\DC_Classes.hpp" />
@@ -56,6 +63,7 @@
     <ClInclude Include="..\..\library\wui\Resource\Resource_Functions.hpp" />
     <ClInclude Include="..\..\library\wui\Window\BaseWindow.hpp" />
     <ClInclude Include="..\..\library\wui\Window\BasicWindowT.hpp" />
+    <ClInclude Include="..\..\library\wui\Window\Coord.hpp" />
     <ClInclude Include="..\..\library\wui\Window\MessageMapWindow.hpp" />
     <ClInclude Include="..\..\library\wui\Window\pch.hpp" />
     <ClInclude Include="..\..\library\wui\Window\Window.hpp" />
@@ -86,7 +94,12 @@
     <ClCompile Include="..\..\library\component\std_wstring_utility.cpp" />
     <ClCompile Include="..\..\library\component\to_std_wstring.cpp" />
     <ClCompile Include="..\..\library\component\xml.cpp" />
+    <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp" />
+    <ClCompile Include="..\..\library\gw\Context.cpp" />
     <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp" />
+    <ClCompile Include="..\..\library\gw\Drawable.cpp" />
+    <ClCompile Include="..\..\library\gw\Viewport.cpp" />
+    <ClCompile Include="..\..\library\gw\Window.cpp" />
     <ClCompile Include="..\..\library\runtime\Assert.cpp" />
     <ClCompile Include="..\..\library\runtime\DebugMemory.cpp" />
     <ClCompile Include="..\..\library\runtime\LastError.cpp" />
@@ -94,7 +107,7 @@
     <ClCompile Include="..\..\library\runtime\WindowApplication.cpp" />
     <ClCompile Include="..\..\library\wui\AppModule.cpp" />
     <ClCompile Include="..\..\library\wui\CommonDialog\FileDialog.cpp" />
-    <ClCompile Include="..\..\library\wui\Coord.cpp" />
+    <ClCompile Include="..\..\library\wui\CommonDialog\FolderDialog.cpp" />
     <ClCompile Include="..\..\library\wui\GDI\DC.cpp" />
     <ClCompile Include="..\..\library\wui\GDI\DC_Classes.cpp" />
     <ClCompile Include="..\..\library\wui\GDI\DC_Functions.cpp" />
@@ -106,6 +119,7 @@
     <ClCompile Include="..\..\library\wui\Resource\Resource.cpp" />
     <ClCompile Include="..\..\library\wui\Resource\Resource_Functions.cpp" />
     <ClCompile Include="..\..\library\wui\Window\BaseWindow.cpp" />
+    <ClCompile Include="..\..\library\wui\Window\Coord.cpp" />
     <ClCompile Include="..\..\library\wui\Window\Window.cpp" />
     <ClCompile Include="..\..\library\wui\Window\WindowClass.cpp" />
     <ClCompile Include="..\..\library\wui\Window\WindowMessage.cpp" />

@@ -46,6 +46,9 @@
     <Filter Include="cx\library\wui\Resource">
       <UniqueIdentifier>{5ad23b13-f0df-4978-b92d-17bd7b4234f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cx\library\wui\CommonDialog">
+      <UniqueIdentifier>{01142ff2-310f-4b6e-a5a8-a99827be6b48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps">
@@ -372,14 +375,20 @@
     <ClInclude Include="..\..\library\wui\AppModule.hpp">
       <Filter>cx\library\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\Coord.hpp">
-      <Filter>cx\library\wui</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
       <Filter>cx\library</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\pch.hpp">
       <Filter>cx\library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\Coord.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\CommonDialog\FileDialog.hpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\CommonDialog\FolderDialog.hpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -617,8 +626,14 @@
     <ClCompile Include="..\..\library\wui\AppModule.cpp">
       <Filter>cx\library\wui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\Coord.cpp">
-      <Filter>cx\library\wui</Filter>
+    <ClCompile Include="..\..\library\wui\Window\Coord.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\CommonDialog\FileDialog.cpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\CommonDialog\FolderDialog.cpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

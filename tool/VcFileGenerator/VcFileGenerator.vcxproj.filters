@@ -20,38 +20,269 @@
       <UniqueIdentifier>{347f74f9-a127-4578-8eff-4fce9b8d911a}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library">
-      <UniqueIdentifier>{094c8cc8-2de9-4ee4-86f5-d18ee3ee8c7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cx\library\component">
-      <UniqueIdentifier>{566c0804-fd8c-4b50-9633-2e953176aa9e}</UniqueIdentifier>
+      <UniqueIdentifier>{fb999e81-b8d2-48d3-8148-a4b9f1dc1d75}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\gw">
-      <UniqueIdentifier>{f0693d56-ffab-456b-bf8b-bf5bf19bb0e0}</UniqueIdentifier>
+      <UniqueIdentifier>{f02812b8-7412-4ebb-8df6-61f4f92fea80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\gw\Widget">
+      <UniqueIdentifier>{45dd8553-7e88-4bdc-bf04-4785f6b1e08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\gw\Widget\Design">
+      <UniqueIdentifier>{e3a2d415-0588-4b0c-83e9-d52f1ec998fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\gw\Widget\Shape">
+      <UniqueIdentifier>{064247ed-4d5e-44d6-a6bb-1bf44937e21d}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\runtime">
-      <UniqueIdentifier>{7d44be7e-3e11-492b-9b22-996aebf00699}</UniqueIdentifier>
+      <UniqueIdentifier>{5d771ede-3501-44fd-a3db-873ef8a39c94}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui">
-      <UniqueIdentifier>{6bdea5fb-f642-44e2-87e7-93cf2f30be3a}</UniqueIdentifier>
+      <UniqueIdentifier>{325d98ce-b89b-4952-9db3-1ba76b8445c2}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui\Window">
-      <UniqueIdentifier>{199e6907-652d-467f-8040-6ba1cf54facb}</UniqueIdentifier>
+      <UniqueIdentifier>{7570bfca-6a8e-4106-b316-a52f2fcdf033}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui\GDI">
-      <UniqueIdentifier>{db7340f5-6e96-4abc-8449-b0ee278abb6f}</UniqueIdentifier>
+      <UniqueIdentifier>{c52dab9c-7f83-441a-9cdf-3a1f38d4cb70}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui\Resource">
-      <UniqueIdentifier>{e130d032-4177-4575-9769-9027037e62b6}</UniqueIdentifier>
+      <UniqueIdentifier>{1130cbdc-15c5-435e-8850-0dfa15978563}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui\CommonDialog">
-      <UniqueIdentifier>{e5bb7479-49dd-4d37-a950-f76d2455387d}</UniqueIdentifier>
+      <UniqueIdentifier>{61b1c4f7-fccd-40c9-b3c1-b01e3cc62029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\component">
+      <UniqueIdentifier>{75af0747-f89b-456d-8585-867eee013c5b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\library\wui\AppModule.hpp">
-      <Filter>cx\library\wui</Filter>
+    <ClInclude Include="res\resource.h">
+      <Filter>res</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\Coord.hpp">
+    <ClInclude Include="src\Application.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\targetver.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\MainBox.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\pch.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFileGenerator.hpp">
+      <Filter>src\VcFileGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\Config.hpp">
+      <Filter>src\VcFileGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcItem.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\pch.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\Generator.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\File.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\String.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\Guid.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\Parameter.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\FileCopy.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_sln.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcTemplate.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
+      <Filter>cx\library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\pch.hpp">
+      <Filter>cx\library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Bitmap.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Color.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Context.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Drawable.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\gw.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\pch.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Point.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Viewport.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Window.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\pch.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Widget.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetDocument.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetDrawingStyle.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEvent.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop_ClipboardFormat.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop_HGlobal.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventDragDrop_WindowDragDropComObject.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetEventWindowMessageHandler.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetFactory.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\WidgetResource.hpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\DesignWidgetContext.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\DesignWidget.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\pch.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesigner.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerCommand.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerConcreteCommand.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerFacility.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerMouseTool.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Design\WidgetDesignerWindow.hpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\widget\Shape\LineShape.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\widget\Shape\LineShapeDesign.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Shape\pch.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Shape\RectangleShape.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Shape\RectangleShapeDesign.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Shape\Shape.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Widget\Shape\ShapeDesign.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\widget\Shape\ShapeDesignTemplate.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\widget\Shape\ShapeTemplate.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\widget\Shape\Shape_Classes.hpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\Assert.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\DebugMemory.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\LastError.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\Log.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\Macros.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\pch.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\runtime.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\WindowApplication.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\AppModule.hpp">
       <Filter>cx\library\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\pch.hpp">
@@ -102,6 +333,9 @@
     <ClInclude Include="..\..\library\wui\Window\Window_Functions.hpp">
       <Filter>cx\library\wui\Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\Coord.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\wui\GDI\BasicDCT.hpp">
       <Filter>cx\library\wui\GDI</Filter>
     </ClInclude>
@@ -144,32 +378,8 @@
     <ClInclude Include="..\..\library\wui\CommonDialog\FileDialog.hpp">
       <Filter>cx\library\wui\CommonDialog</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\runtime\Assert.hpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\DebugMemory.hpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\LastError.hpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\Log.hpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\Macros.hpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\pch.hpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\runtime.hpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\runtime\WindowApplication.hpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp">
-      <Filter>cx\library\gw</Filter>
+    <ClInclude Include="..\..\library\wui\CommonDialog\FolderDialog.hpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\component\charset_system.hpp">
       <Filter>cx\library\component</Filter>
@@ -192,87 +402,186 @@
     <ClInclude Include="..\..\library\component\xml.hpp">
       <Filter>cx\library\component</Filter>
     </ClInclude>
-    <ClInclude Include="res\resource.h">
-      <Filter>res</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Application.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\framework.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pch.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\targetver.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\MainBox.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\pch.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFileGenerator.hpp">
-      <Filter>src\VcFileGenerator</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\Config.hpp">
-      <Filter>src\VcFileGenerator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\wui\CommonDialog\FolderDialog.hpp">
-      <Filter>cx\library\wui\CommonDialog</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\VcItem.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\pch.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\Generator.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\File.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\String.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\Guid.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\Parameter.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\FileCopy.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_sln.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\VcTemplate.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile.hpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
-      <Filter>cx\library</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\pch.hpp">
-      <Filter>cx\library</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\library\wui\AppModule.cpp">
-      <Filter>cx\library\wui</Filter>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\Coord.cpp">
+    <ClCompile Include="src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\MainBox.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\Config.cpp">
+      <Filter>src\VcFileGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFileGenerator.cpp">
+      <Filter>src\VcFileGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcItem.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\Generator.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\File.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\String.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\Guid.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\Parameter.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\FileCopy.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_sln.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\VcTemplate.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Bitmap.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Color.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Context.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Drawable.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Point.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Viewport.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Window.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Widget.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetDocument.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetDrawingStyle.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop_ClipboardFormat.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop_HGlobal.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventDragDrop_WindowDragDropComObject.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetEventWindowMessageHandler.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetFactory.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\WidgetResource.cpp">
+      <Filter>cx\library\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\DesignWidgetContext.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\DesignWidget.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesigner.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerCommand.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerConcreteCommand.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerFacility.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerModel.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerMouseTool.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Design\WidgetDesignerWindow.cpp">
+      <Filter>cx\library\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\widget\Shape\LineShape.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\widget\Shape\LineShapeDesign.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Shape\RectangleShape.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Shape\RectangleShapeDesign.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Shape\Shape.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Widget\Shape\ShapeDesign.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\widget\Shape\ShapeDesignTemplate.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\widget\Shape\ShapeTemplate.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\widget\Shape\Shape_Classes.cpp">
+      <Filter>cx\library\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\Assert.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\DebugMemory.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\LastError.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\Log.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\WindowApplication.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\AppModule.cpp">
       <Filter>cx\library\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Window\BaseWindow.cpp">
@@ -297,6 +606,9 @@
       <Filter>cx\library\wui\Window</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Window\Window_Functions.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\Window\Coord.cpp">
       <Filter>cx\library\wui\Window</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\GDI\DC.cpp">
@@ -332,23 +644,8 @@
     <ClCompile Include="..\..\library\wui\CommonDialog\FileDialog.cpp">
       <Filter>cx\library\wui\CommonDialog</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\runtime\Assert.cpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\runtime\DebugMemory.cpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\runtime\LastError.cpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\runtime\Log.cpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\runtime\WindowApplication.cpp">
-      <Filter>cx\library\runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp">
-      <Filter>cx\library\gw</Filter>
+    <ClCompile Include="..\..\library\wui\CommonDialog\FolderDialog.cpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\component\charset_system.cpp">
       <Filter>cx\library\component</Filter>
@@ -367,60 +664,6 @@
     </ClCompile>
     <ClCompile Include="..\..\library\component\xml.cpp">
       <Filter>cx\library\component</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Application.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pch.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\MainBox.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\Config.cpp">
-      <Filter>src\VcFileGenerator</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFileGenerator.cpp">
-      <Filter>src\VcFileGenerator</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\CommonDialog\FolderDialog.cpp">
-      <Filter>cx\library\wui\CommonDialog</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\VcItem.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\Generator.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\File.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\String.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\Guid.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\Parameter.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\FileCopy.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_sln.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VcFileGenerator\VcFile\VcTemplate.cpp">
-      <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

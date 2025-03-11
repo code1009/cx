@@ -111,9 +111,6 @@
     <ClInclude Include="..\..\library\wui\AppModule.hpp">
       <Filter>cx\library\wui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\Coord.hpp">
-      <Filter>cx\library\wui</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\library\wui\pch.hpp">
       <Filter>cx\library\wui</Filter>
     </ClInclude>
@@ -270,6 +267,9 @@
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
       <Filter>cx\library</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\Coord.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\runtime\Assert.cpp">
@@ -306,9 +306,6 @@
       <Filter>cx\library\gw</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\AppModule.cpp">
-      <Filter>cx\library\wui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\library\wui\Coord.cpp">
       <Filter>cx\library\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Window\BaseWindow.cpp">
@@ -409,6 +406,9 @@
     </ClCompile>
     <ClCompile Include="..\..\library\component\xml.cpp">
       <Filter>cx\library\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\Window\Coord.cpp">
+      <Filter>cx\library\wui\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

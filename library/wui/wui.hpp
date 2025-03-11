@@ -54,7 +54,7 @@
 #include "Window/MessageMapWindow.hpp"
 
 //===========================================================================
-#include "Coord.hpp"
+#include "Window/Coord.hpp"
 
 //===========================================================================
 #include "Window/WindowMessageCrack.hpp"

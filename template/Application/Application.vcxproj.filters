@@ -14,35 +14,65 @@
       <UniqueIdentifier>{26E861E1-47F2-4AA0-A75F-B5543CC06944}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library">
-      <UniqueIdentifier>{0a62df54-d8a1-4fea-a689-f0f13107977c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cx\library\gw">
-      <UniqueIdentifier>{69026353-12A9-4430-AF56-DD9AACDC9ADA}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cx\library\component">
-      <UniqueIdentifier>{0F72DC89-BCA5-45DF-8130-93CB9CA1D8F7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cx\library\runtime">
-      <UniqueIdentifier>{E5D4F843-3784-4E5B-A807-B61CE49467EA}</UniqueIdentifier>
+      <UniqueIdentifier>{5a11de39-d8ff-458d-9cfc-de82223cc300}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui">
-      <UniqueIdentifier>{84BBB693-737F-45D5-A668-1C6C5363AC43}</UniqueIdentifier>
+      <UniqueIdentifier>{fc6787a6-493d-4d89-a744-29ed9c2b5d1e}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui\Window">
-      <UniqueIdentifier>{AB1A37F7-F6C5-43E7-8020-E6E0EBCA6D1E}</UniqueIdentifier>
+      <UniqueIdentifier>{a0b7063c-0b7d-4649-89d1-28231ef3be24}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui\GDI">
-      <UniqueIdentifier>{37E3B291-746D-422D-A81E-CF4A452688B7}</UniqueIdentifier>
+      <UniqueIdentifier>{d19849ed-9e01-4432-9a05-8eb4a1367612}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\library\wui\Resource">
-      <UniqueIdentifier>{8D2AC66B-660E-45C0-9937-61FF94D63482}</UniqueIdentifier>
+      <UniqueIdentifier>{c98ee251-aa75-4c88-ab7f-100e342d0c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\runtime">
+      <UniqueIdentifier>{82b52e29-98dc-4bf4-8189-2749c6ed894b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\gw">
+      <UniqueIdentifier>{adc7691c-f70b-422c-bafd-6178059aa9e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\component">
+      <UniqueIdentifier>{0a73f6d4-8c94-4b08-a507-7fefa731affa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\library\wui\AppModule.hpp">
-      <Filter>cx\library\wui</Filter>
+    <ClInclude Include="res\Resource.h">
+      <Filter>res</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\wui\Coord.hpp">
+    <ClInclude Include="src\Application.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\targetver.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\AboutBox.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\MainFrame.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\pch.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\View.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\pch.hpp">
+      <Filter>cx\library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
+      <Filter>cx\library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\AppModule.hpp">
       <Filter>cx\library\wui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\pch.hpp">
@@ -91,6 +121,9 @@
       <Filter>cx\library\wui\Window</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\Window\Window_Functions.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\wui\Window\Coord.hpp">
       <Filter>cx\library\wui\Window</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\wui\GDI\BasicDCT.hpp">
@@ -156,7 +189,28 @@
     <ClInclude Include="..\..\library\runtime\WindowApplication.hpp">
       <Filter>cx\library\runtime</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\gw\BaseEditWindow.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Context.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\gw\DirectX2dGraphic.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Drawable.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\gw.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\pch.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Viewport.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\gw\Window.hpp">
       <Filter>cx\library\gw</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\component\charset_system.hpp">
@@ -177,45 +231,27 @@
     <ClInclude Include="..\..\library\component\xml.hpp">
       <Filter>cx\library\component</Filter>
     </ClInclude>
-    <ClInclude Include="res\Resource.h">
-      <Filter>res</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Application.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\framework.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pch.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\targetver.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\AboutBox.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\MainFrame.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\pch.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\View.hpp">
-      <Filter>src\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
-      <Filter>cx\library</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\pch.hpp">
-      <Filter>cx\library</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\library\wui\AppModule.cpp">
-      <Filter>cx\library\wui</Filter>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\wui\Coord.cpp">
+    <ClCompile Include="src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\AboutBox.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\MainFrame.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\View.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\AppModule.cpp">
       <Filter>cx\library\wui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Window\BaseWindow.cpp">
@@ -240,6 +276,9 @@
       <Filter>cx\library\wui\Window</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\Window\Window_Functions.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\wui\Window\Coord.cpp">
       <Filter>cx\library\wui\Window</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\wui\GDI\DC.cpp">
@@ -287,7 +326,22 @@
     <ClCompile Include="..\..\library\runtime\WindowApplication.cpp">
       <Filter>cx\library\runtime</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\library\gw\BaseEditWindow.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Context.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\library\gw\DirectX2dGraphic.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Drawable.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Viewport.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\gw\Window.cpp">
       <Filter>cx\library\gw</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\component\charset_system.cpp">
@@ -304,24 +358,6 @@
     </ClCompile>
     <ClCompile Include="..\..\library\component\xml.cpp">
       <Filter>cx\library\component</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Application.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pch.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\AboutBox.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\MainFrame.cpp">
-      <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\View.cpp">
-      <Filter>src\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,6 @@
     <ClInclude Include="..\..\library\runtime\runtime.hpp" />
     <ClInclude Include="..\..\library\runtime\WindowApplication.hpp" />
     <ClInclude Include="..\..\library\wui\AppModule.hpp" />
-    <ClInclude Include="..\..\library\wui\Coord.hpp" />
     <ClInclude Include="..\..\library\wui\GDI\BasicDCT.hpp" />
     <ClInclude Include="..\..\library\wui\GDI\DC.hpp" />
     <ClInclude Include="..\..\library\wui\GDI\DC_Classes.hpp" />
@@ -61,6 +60,7 @@
     <ClInclude Include="..\..\library\wui\Resource\Resource_Functions.hpp" />
     <ClInclude Include="..\..\library\wui\Window\BaseWindow.hpp" />
     <ClInclude Include="..\..\library\wui\Window\BasicWindowT.hpp" />
+    <ClInclude Include="..\..\library\wui\Window\Coord.hpp" />
     <ClInclude Include="..\..\library\wui\Window\MessageMapWindow.hpp" />
     <ClInclude Include="..\..\library\wui\Window\pch.hpp" />
     <ClInclude Include="..\..\library\wui\Window\Window.hpp" />
@@ -108,7 +108,6 @@
     <ClCompile Include="..\..\library\runtime\Log.cpp" />
     <ClCompile Include="..\..\library\runtime\WindowApplication.cpp" />
     <ClCompile Include="..\..\library\wui\AppModule.cpp" />
-    <ClCompile Include="..\..\library\wui\Coord.cpp" />
     <ClCompile Include="..\..\library\wui\GDI\DC.cpp" />
     <ClCompile Include="..\..\library\wui\GDI\DC_Classes.cpp" />
     <ClCompile Include="..\..\library\wui\GDI\DC_Functions.cpp" />
@@ -120,6 +119,7 @@
     <ClCompile Include="..\..\library\wui\Resource\Resource.cpp" />
     <ClCompile Include="..\..\library\wui\Resource\Resource_Functions.cpp" />
     <ClCompile Include="..\..\library\wui\Window\BaseWindow.cpp" />
+    <ClCompile Include="..\..\library\wui\Window\Coord.cpp" />
     <ClCompile Include="..\..\library\wui\Window\Window.cpp" />
     <ClCompile Include="..\..\library\wui\Window\WindowClass.cpp" />
     <ClCompile Include="..\..\library\wui\Window\WindowMessage.cpp" />
