@@ -89,13 +89,35 @@ bool Generator::loadTemplate(Parameter& param)
 
 bool Generator::saveVcFile_vcxproj_filters(Parameter& param)
 {
-	VcFile_vcxproj_filters _vcFile_vcxproj_filters(this);
+	VcFile_vcxproj_filters _vcFile(this);
 
-	_vcFile_vcxproj_filters.write();
-	OutputDebugStringW(_vcFile_vcxproj_filters._oss.str().c_str());
+	_vcFile.write();
+	OutputDebugStringW(_vcFile._oss.str().c_str());
 
 	return true;
 }
+
+bool Generator::saveVcFile_vcxproj(Parameter& param)
+{
+	VcFile_vcxproj _vcFile(this);
+
+	_vcFile.write();
+	OutputDebugStringW(_vcFile._oss.str().c_str());
+
+	return true;
+}
+
+bool Generator::saveVcFile_sln(Parameter& param)
+{
+	VcFile_sln _vcFile(this);
+
+	_vcFile.write();
+	OutputDebugStringW(_vcFile._oss.str().c_str());
+
+	return true;
+}
+
+
 
 
 

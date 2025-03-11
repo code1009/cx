@@ -18,7 +18,16 @@ namespace VcFile
 class VcFile_sln
 {
 public:
-	VcFile_sln();
+	Generator* _Generator {nullptr};
+
+public:
+	std::wostringstream _oss;
+
+public:
+	explicit VcFile_sln(Generator* generator);
+
+public:
+	void write(void);
 };
 
 

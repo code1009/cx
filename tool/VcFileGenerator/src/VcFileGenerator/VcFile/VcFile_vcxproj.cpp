@@ -31,7 +31,13 @@ namespace VcFile
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-VcFile_vcxproj::VcFile_vcxproj()
+VcFile_vcxproj::VcFile_vcxproj(Generator* generator):
+	_Generator(generator)
+{
+}
+
+//===========================================================================
+void VcFile_vcxproj::write(void)
 {
 }
 

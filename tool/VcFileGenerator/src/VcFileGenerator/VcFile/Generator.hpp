@@ -30,6 +30,8 @@ public:
 public:
 	bool loadTemplate(Parameter& param);
 	bool saveVcFile_vcxproj_filters(Parameter& param);
+	bool saveVcFile_vcxproj(Parameter& param);
+	bool saveVcFile_sln(Parameter& param);
 };
 
 

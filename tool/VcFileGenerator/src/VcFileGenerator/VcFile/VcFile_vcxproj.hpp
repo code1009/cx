@@ -18,7 +18,16 @@ namespace VcFile
 class VcFile_vcxproj
 {
 public:
-	VcFile_vcxproj();
+	Generator* _Generator {nullptr};
+
+public:
+	std::wostringstream _oss;
+
+public:
+	explicit VcFile_vcxproj(Generator* generator);
+
+public:
+	void write(void);
 };
 
 
