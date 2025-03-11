@@ -57,30 +57,28 @@ public:
 
 	void write_Project (void);
 
-	void write_ItemGroup_Label_ProjectConfigurations (void);
+	void write_ItemGroup_ProjectConfigurations (void);
 
 	void write_ItemGroup_Item(void);
 	void write_ItemGroup_ItemType(std::wstring type);
 	void write_ItemGroup_ItemType_ClCompile_PrecompiledHeader(std::shared_ptr<VcItem> vcItem);
 	void write_ItemGroup_ItemType_CustomBuild_Ribbon         (std::shared_ptr<VcItem> vcItem);
 
-	void write_PropertyGroup_Label_Globals(void);
-	void write_PropertyGroup_Label_Configuration(void);
+	void write_PropertyGroup_Globals(void);
+	void write_PropertyGroup_Configuration(void);
 	
-	void wirte_ImportGroup_Label_PropertySheets(void);
+	void wirte_ImportGroup_PropertySheets(void);
 
 	void wirte_ItemDefinitionGroup(void);
 
 	void wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props(void);
 	void wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_props(void);
-	void wirte_ImportGroup_Lable_ExtensionSettings(void);
-	void wirte_ImportGroup_Lable_Shared(void);
-	void wirte_PropertyGroup_Label_UserMacros(void);
-
-	void wirte_PropertyGroup_Label_VcPkg(void);
-
+	void wirte_ImportGroup_ExtensionSettings(void);
+	void wirte_ImportGroup_Shared(void);
+	void wirte_PropertyGroup_UserMacros(void);
+	void wirte_PropertyGroup_VcPkg(void);
 	void wirte_Import_Project_VCTargetsPath_Microsoft_targets(void);
-	void wirte_ImportGroup_Lable_ExtensionTargets(void);
+	void wirte_ImportGroup_ExtensionTargets(void);
 };
 
 

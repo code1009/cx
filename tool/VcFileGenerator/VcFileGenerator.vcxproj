@@ -238,6 +238,18 @@
   <ItemGroup>
     <ResourceCompile Include="res\Application.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\template\App.VcConfiguration.Debug.Win32.txt" />
+    <Text Include="..\..\template\App.VcConfiguration.Debug.x64.txt" />
+    <Text Include="..\..\template\App.VcConfiguration.Release.Win32.txt" />
+    <Text Include="..\..\template\App.VcConfiguration.Release.x64.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\template\Application.VcItem.xml" />
+    <Xml Include="..\..\template\Application.VcTemplate.xml" />
+    <Xml Include="..\..\template\cx.VcItem.xml" />
+    <Xml Include="..\..\template\cx.VcItem2.xml" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

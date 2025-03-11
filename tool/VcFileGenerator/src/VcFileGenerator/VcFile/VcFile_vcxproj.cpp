@@ -84,27 +84,28 @@ void VcFile_vcxproj::write_Project (void)
 
 
 	//--------------------------------------------------------------------------
-	write_ItemGroup_Label_ProjectConfigurations();	
+	write_ItemGroup_ProjectConfigurations();	
 	write_ItemGroup_Item();
-	write_PropertyGroup_Label_Globals();
+	write_PropertyGroup_Globals();
 	
 	wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props();
 	
-	write_PropertyGroup_Label_Configuration();
+	write_PropertyGroup_Configuration();
 
 	wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_props();
-	wirte_ImportGroup_Lable_ExtensionSettings();
-	wirte_ImportGroup_Lable_Shared();
+	wirte_ImportGroup_ExtensionSettings();
+	wirte_ImportGroup_Shared();
 
-	wirte_ImportGroup_Label_PropertySheets();
+	wirte_ImportGroup_PropertySheets();
 
-	wirte_PropertyGroup_Label_UserMacros();
-	wirte_PropertyGroup_Label_VcPkg();
+	wirte_PropertyGroup_UserMacros();
+	wirte_PropertyGroup_VcPkg();
 
 	wirte_ItemDefinitionGroup();
 
 	wirte_Import_Project_VCTargetsPath_Microsoft_targets();
-	wirte_ImportGroup_Lable_ExtensionTargets();
+	wirte_ImportGroup_ExtensionTargets();
+
 
 	//--------------------------------------------------------------------------
 	_oss 
@@ -113,27 +114,27 @@ void VcFile_vcxproj::write_Project (void)
 }
 
 //===========================================================================
-void VcFile_vcxproj::write_ItemGroup_Label_ProjectConfigurations(void)
+void VcFile_vcxproj::write_ItemGroup_ProjectConfigurations(void)
 {
 	/*
-		<ItemGroup Label="ProjectConfigurations">
-			<ProjectConfiguration Include="Debug|Win32">
-				<Configuration>Debug</Configuration>
-				<Platform>Win32</Platform>
-			</ProjectConfiguration>
-			<ProjectConfiguration Include="Release|Win32">
-				<Configuration>Release</Configuration>
-				<Platform>Win32</Platform>
-			</ProjectConfiguration>
-			<ProjectConfiguration Include="Debug|x64">
-				<Configuration>Debug</Configuration>
-				<Platform>x64</Platform>
-			</ProjectConfiguration>
-			<ProjectConfiguration Include="Release|x64">
-				<Configuration>Release</Configuration>
-				<Platform>x64</Platform>
-			</ProjectConfiguration>
-		</ItemGroup>
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Debug|Win32">
+			<Configuration>Debug</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|Win32">
+			<Configuration>Release</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug|x64">
+			<Configuration>Debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|x64">
+			<Configuration>Release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
 	*/
 	_oss 
 		<< ispace2(1) 
@@ -380,7 +381,7 @@ void VcFile_vcxproj::write_ItemGroup_ItemType_CustomBuild_Ribbon(std::shared_ptr
 }
 
 //===========================================================================
-void VcFile_vcxproj::write_PropertyGroup_Label_Globals(void)
+void VcFile_vcxproj::write_PropertyGroup_Globals(void)
 {
 	/*
 	<PropertyGroup Label="Globals">
@@ -414,7 +415,7 @@ void VcFile_vcxproj::write_PropertyGroup_Label_Globals(void)
 }
 
 //===========================================================================
-void VcFile_vcxproj::write_PropertyGroup_Label_Configuration(void)
+void VcFile_vcxproj::write_PropertyGroup_Configuration(void)
 {
 	/*
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -423,6 +424,7 @@ void VcFile_vcxproj::write_PropertyGroup_Label_Configuration(void)
 		<PlatformToolset>v143</PlatformToolset>
 		<CharacterSet>Unicode</CharacterSet>
 	</PropertyGroup>
+	...
 	*/
 
 	std::wstring Condition_Variable;
@@ -493,7 +495,7 @@ void VcFile_vcxproj::write_PropertyGroup_Label_Configuration(void)
 }
 
 //===========================================================================
-void VcFile_vcxproj::wirte_ImportGroup_Label_PropertySheets(void)
+void VcFile_vcxproj::wirte_ImportGroup_PropertySheets(void)
 {
 	/*
 	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -608,7 +610,7 @@ void VcFile_vcxproj::wirte_ItemDefinitionGroup(void)
 }
 
 //===========================================================================
-void VcFile_vcxproj::wirte_PropertyGroup_Label_VcPkg(void)
+void VcFile_vcxproj::wirte_PropertyGroup_VcPkg(void)
 {
 	/*
 	<PropertyGroup Label="Vcpkg">
@@ -704,7 +706,7 @@ void VcFile_vcxproj::wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_props(void
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_ImportGroup_Lable_ExtensionSettings(void)
+void VcFile_vcxproj::wirte_ImportGroup_ExtensionSettings(void)
 {
 	/*
 	<ImportGroup Label="ExtensionSettings">
@@ -724,7 +726,7 @@ void VcFile_vcxproj::wirte_ImportGroup_Lable_ExtensionSettings(void)
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_ImportGroup_Lable_Shared(void)
+void VcFile_vcxproj::wirte_ImportGroup_Shared(void)
 {
 	/*
 	<ImportGroup Label="Shared">
@@ -744,7 +746,7 @@ void VcFile_vcxproj::wirte_ImportGroup_Lable_Shared(void)
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_PropertyGroup_Label_UserMacros(void)
+void VcFile_vcxproj::wirte_PropertyGroup_UserMacros(void)
 {
 	/*
 	<PropertyGroup Label="UserMacros" />
@@ -774,7 +776,7 @@ void VcFile_vcxproj::wirte_Import_Project_VCTargetsPath_Microsoft_targets(void)
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_ImportGroup_Lable_ExtensionTargets(void)
+void VcFile_vcxproj::wirte_ImportGroup_ExtensionTargets(void)
 {
 	/*
 	<ImportGroup Label="ExtensionTargets">
