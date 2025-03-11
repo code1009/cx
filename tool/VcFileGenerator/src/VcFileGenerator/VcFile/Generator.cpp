@@ -22,6 +22,18 @@ namespace VcFile
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+static bool directoryExists(const std::wstring& directoryPath) 
+{
+	return std::filesystem::exists(directoryPath) && std::filesystem::is_directory(directoryPath);
+}
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 Generator::Generator(Parameter* param) :
@@ -66,10 +78,24 @@ bool Generator::loadVcTemplate(void)
 	{
 		return false;
 	}
-	std::wstring sourceDirectory;	
+	std::wstring sourceDirectory;
 	sourceDirectory = _Parameter->get(L"$(VcTemplateDirectory)");
 	sourceDirectory += _VcTemplate._Settings.SourceDirectory;
 	_Parameter->set(L"$(SourceDirectory)", sourceDirectory);
+
+
+	if (!directoryExists(sourceDirectory))
+	{
+		MessageBox(nullptr, L"템플릿 디렉토리가 존재하지 않습니다.", L"에러", MB_OK);
+		return false;
+	}
+	std::wstring targetDirectory;
+	targetDirectory = _Parameter->get(L"$(TargetDirectory)");
+	if (!directoryExists(targetDirectory))
+	{
+		MessageBox(nullptr, L"대상 디렉토리가 존재하지 않습니다.", L"에러", MB_OK);
+		return false;
+	}
 
 
 	for (auto& itemFile : _VcTemplate._ItemFiles)
