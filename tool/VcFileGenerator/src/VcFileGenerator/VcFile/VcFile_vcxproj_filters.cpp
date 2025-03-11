@@ -51,7 +51,7 @@ void VcFile_vcxproj_filters::write_xml(void)
 		<< L"version="  << dquot(L"1.0"  ) 
 		<< L" "
 		<< L"encoding=" << dquot(L"utf-8") 
-		<< L" "
+		//<< L" "
 		<< L"?>" 
 		<< eline();
 }
@@ -69,16 +69,16 @@ void VcFile_vcxproj_filters::write_Project(void)
 		<< eline();
 
 
-	write_ItemGroup_Filter ();
-	write_ItemGroup_Type (L"ClCompile"      );
-	write_ItemGroup_Type (L"ClInclude"      );
-	write_ItemGroup_Type (L"ResourceCompile");
-	write_ItemGroup_Type (L"Image"          );
-	write_ItemGroup_Type (L"Text"           );
-	write_ItemGroup_Type (L"Manifest"       );
-	write_ItemGroup_Type (L"CustomBuild"    );
-	write_ItemGroup_Type (L"None"           );
-	write_ItemGroup_None ();
+	write_ItemGroup_Filter();
+	write_ItemGroup_ItemType(L"ClCompile"      );
+	write_ItemGroup_ItemType(L"ClInclude"      );
+	write_ItemGroup_ItemType(L"ResourceCompile");
+	write_ItemGroup_ItemType(L"Image"          );
+	write_ItemGroup_ItemType(L"Text"           );
+	write_ItemGroup_ItemType(L"Manifest"       );
+	write_ItemGroup_ItemType(L"CustomBuild"    );
+	write_ItemGroup_ItemType(L"None"           );
+	write_ItemGroup_ItemType(L"");
 
 
 	_oss 
@@ -105,7 +105,7 @@ void VcFile_vcxproj_filters::write_ItemGroup_Filter(void)
 			<< L"<Filter"
 			<< L" "
 			<< L"Include=" << dquot(element->_Filter) 
-			<< L" "
+			//<< L" "
 			<< ">"
 			<< eline();
 
@@ -142,12 +142,24 @@ void VcFile_vcxproj_filters::write_ItemGroup_Filter(void)
 		<< eline();
 }
 
-void VcFile_vcxproj_filters::write_ItemGroup_None(void)
+void VcFile_vcxproj_filters::write_ItemGroup_ItemType(std::wstring type)
 {
 	//--------------------------------------------------------------------------
-	if (!hasType(L""))
+	if (!_Generator->hasVcItemType(type))
 	{
 		return;
+	}
+
+
+	//--------------------------------------------------------------------------
+	std::wstring typeName;
+	if (type.empty())
+	{
+		typeName = L"None";
+	}
+	else
+	{
+		typeName = type;
 	}
 
 
@@ -159,13 +171,9 @@ void VcFile_vcxproj_filters::write_ItemGroup_None(void)
 
 
 	//--------------------------------------------------------------------------
-	std::wstring typeName = L"None";
-
-
-	//--------------------------------------------------------------------------
 	for (auto item : _Generator->_VcItemData._Items)
 	{
-		if (item->_Type.empty())
+		if (item->_Type == type)
 		{
 			if (item->_Filter.empty())
 			{
@@ -174,7 +182,7 @@ void VcFile_vcxproj_filters::write_ItemGroup_None(void)
 					<< L"<" << typeName 
 					<< L" "
 					<< L"Include=" << dquot(item->_File) 
-					<< L" "
+					//<< L" "
 					<< L"/>"
 					<< eline();
 			}
@@ -185,7 +193,7 @@ void VcFile_vcxproj_filters::write_ItemGroup_None(void)
 					<< L"<" << typeName 
 					<< L" "
 					<< L"Include=" << dquot(item->_File) 
-					<< L" "
+					//<< L" "
 					<< L">"
 					<< eline();
 
@@ -211,90 +219,6 @@ void VcFile_vcxproj_filters::write_ItemGroup_None(void)
 		<< ispace2(1) 
 		<< L"</ItemGroup>"
 		<< eline();
-}
-
-void VcFile_vcxproj_filters::write_ItemGroup_Type(std::wstring type)
-{
-	//--------------------------------------------------------------------------
-	if (!hasType(type))
-	{
-		return;
-	}
-
-
-	//--------------------------------------------------------------------------
-	_oss 
-		<< ispace2(1) 
-		<< L"<ItemGroup>"
-		<< eline();
-
-
-	//--------------------------------------------------------------------------
-	std::wstring typeName = type;
-
-
-	//--------------------------------------------------------------------------
-	for (auto item : _Generator->_VcItemData._Items)
-	{
-		if (item->_Type == type)
-		{
-			if (item->_Filter.empty())
-			{
-				_oss 
-					<< ispace2(2) 
-					<< L"<" << typeName 
-					<< L" "
-					<< L"Include=" << dquot(item->_File) 
-					<< L" "
-					<< L"/>"
-					<< eline();
-			}
-			else
-			{
-				_oss 
-					<< ispace2(2) 
-					<< L"<" << typeName 
-					<< L" "
-					<< L"Include=" << dquot(item->_File) 
-					<< L" "
-					<< L">"
-					<< eline();
-
-				_oss 
-					<< ispace2(3) 
-					<< L"<Filter>"
-					<< item->_Filter
-					<< L"</Filter>"
-					<< eline();
-
-				_oss 
-					<< ispace2(2) 
-					<< L"</" << typeName 
-					<< L">"
-					<< eline();
-			}
-		}
-	}
-
-
-	//--------------------------------------------------------------------------
-	_oss 
-		<< ispace2(1) 
-		<< L"</ItemGroup>"
-		<< eline();
-}
-
-bool VcFile_vcxproj_filters::hasType(std::wstring type)
-{
-	for (auto item : _Generator->_VcItemData._Items)
-	{
-		if (item->_Type == type)
-		{
-			return true;
-		}
-	}
-
-	return false;
 }
 
 

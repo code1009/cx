@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <VcItem>
 
-<Item Filter=""           File="\vcpkg.json" />
-<Item Filter="res"        File="\res\Application.ico" />
-<Item Filter="res"        File="\res\Application.rc" />
-<Item Filter="res"        File="\res\Resource.h" />
-<Item Filter="res"        File="\res\small.ico" />
-<Item Filter="src"        File="\src\pch.hpp" />
-<Item Filter="src"        File="\src\Application.cpp" />
-<Item Filter="src"        File="\src\Application.hpp" />
-<Item Filter="src"        File="\src\framework.hpp" />
-<Item Filter="src"        File="\src\Main.cpp" />
-<Item Filter="src"        File="\src\pch.cpp" />
-<Item Filter="src"        File="\src\targetver.h" />
-<Item Filter="src\Window" File="\src\Window\pch.hpp" />
-<Item Filter="src\Window" File="\src\Window\AboutBox.cpp" />
-<Item Filter="src\Window" File="\src\Window\AboutBox.hpp" />
-<Item Filter="src\Window" File="\src\Window\MainFrame.cpp" />
-<Item Filter="src\Window" File="\src\Window\MainFrame.hpp" />
-<Item Filter="src\Window" File="\src\Window\View.cpp" />
-<Item Filter="src\Window" File="\src\Window\View.hpp" />
+<Item Filter=""           File=".\vcpkg.json" />
+<Item Filter="res"        File=".\res\Application.ico" />
+<Item Filter="res"        File=".\res\Application.rc" />
+<Item Filter="res"        File=".\res\Resource.h" />
+<Item Filter="res"        File=".\res\small.ico" />
+<Item Filter="src"        File=".\src\pch.hpp" />
+<Item Filter="src"        File=".\src\Application.cpp" />
+<Item Filter="src"        File=".\src\Application.hpp" />
+<Item Filter="src"        File=".\src\framework.hpp" />
+<Item Filter="src"        File=".\src\Main.cpp" />
+<Item Filter="src"        File=".\src\pch.cpp" />
+<Item Filter="src"        File=".\src\targetver.h" />
+<Item Filter="src\Window" File=".\src\Window\pch.hpp" />
+<Item Filter="src\Window" File=".\src\Window\AboutBox.cpp" />
+<Item Filter="src\Window" File=".\src\Window\AboutBox.hpp" />
+<Item Filter="src\Window" File=".\src\Window\MainFrame.cpp" />
+<Item Filter="src\Window" File=".\src\Window\MainFrame.hpp" />
+<Item Filter="src\Window" File=".\src\Window\View.cpp" />
+<Item Filter="src\Window" File=".\src\Window\View.hpp" />
 
 </VcItem>

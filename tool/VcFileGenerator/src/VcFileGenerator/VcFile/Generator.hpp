@@ -18,20 +18,31 @@ namespace VcFile
 class Generator
 {
 public:
+	Parameter* _Parameter;
+
+public:
 	VcTemplateData _VcTemplate;
 	VcItemData _VcItemData;
 
 public:
-	Generator();
+	explicit Generator(Parameter* param);
 
 public:
-	bool generate(Parameter& param);
+	bool generate();
 
 public:
-	bool loadTemplate(Parameter& param);
-	bool saveVcFile_vcxproj_filters(Parameter& param);
-	bool saveVcFile_vcxproj(Parameter& param);
-	bool saveVcFile_sln(Parameter& param);
+	bool loadVcTemplate(void);
+
+public:
+	bool saveVcFile(void);
+	bool saveVcFile_vcxproj_filters(void);
+	bool saveVcFile_vcxproj(void);
+	bool saveVcFile_sln(void);
+
+public:
+	bool hasVcItemType(std::wstring type);
+	bool isVcItem_ClCompile_PrecompiledHeader(std::shared_ptr<VcItem> vcItem);
+	bool isVcItem_CustomBuild_Ribbon         (std::shared_ptr<VcItem> vcItem);
 };
 
 

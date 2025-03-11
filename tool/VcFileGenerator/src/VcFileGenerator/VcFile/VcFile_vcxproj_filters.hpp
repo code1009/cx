@@ -40,11 +40,7 @@ public:
 	void write_xml(void);
 	void write_Project(void);
 	void write_ItemGroup_Filter(void);
-	void write_ItemGroup_None(void);
-	void write_ItemGroup_Type(std::wstring type);
-
-public:
-	bool hasType(std::wstring type);
+	void write_ItemGroup_ItemType(std::wstring type);
 };
 
 

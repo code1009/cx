@@ -3,7 +3,7 @@
 
 	<Settings
 		SourceDirectory="Application/"
-		ClCompile_PrecompiledHeader="src\pch.cpp"
+		ClCompile_PrecompiledHeader=".\src\pch.cpp"
 		/>
 
 	<ItemFiles>
@@ -12,10 +12,10 @@
 	</ItemFiles>
 	
 	<ConfigurationFiles>
-		<Item Name="$(VcConfiguration.Release.x64)"   File="App.VcConfiguration.Release.x64.txt"/>
-		<Item Name="$(VcConfiguration.Debug.x64)"     File="App.VcConfiguration.Debug.x64.txt"/>
-		<Item Name="$(VcConfiguration.Release.Win32)" File="App.VcConfiguration.Release.Win32.txt"/>
-		<Item Name="$(VcConfiguration.Debug.Win32)"   File="App.VcConfiguration.Debug.Win32.txt"/>
+		<Item Name="$(VcConfiguration.Release|x64)"   File="App.VcConfiguration.Release.x64.txt"/>
+		<Item Name="$(VcConfiguration.Debug|x64)"     File="App.VcConfiguration.Debug.x64.txt"/>
+		<Item Name="$(VcConfiguration.Release|Win32)" File="App.VcConfiguration.Release.Win32.txt"/>
+		<Item Name="$(VcConfiguration.Debug|Win32)"   File="App.VcConfiguration.Debug.Win32.txt"/>
 	</ConfigurationFiles>
 	
 </VcTemplate>

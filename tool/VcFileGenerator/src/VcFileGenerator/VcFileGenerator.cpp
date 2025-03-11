@@ -41,6 +41,7 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 
 	std::wstring projectDirectory = targetDirectory + projectName + L"\\";
 	std::wstring projectFilePath  = projectDirectory + projectName + L".vcxproj";
+	std::wstring projectGuid      = VcFile::makeGuid();
 
 	std::wstring projectFiltersFilePath = projectFilePath + L".filters";
 
@@ -57,6 +58,7 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 	param.set(L"$(VcProjectName)"           , projectName);
 	param.set(L"$(VcProjectDirectory)"      , projectDirectory);
 	param.set(L"$(VcProjectFilePath)"       , projectFilePath);
+	param.set(L"$(VcProjectGuid)"           , projectGuid);
 	
 	param.set(L"$(VcProjectFiltersFilePath)", projectFiltersFilePath);	
 
@@ -64,8 +66,8 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 	param.set(L"$(VcSolutionFilePath)"      , solutionFilePath);	
 
 
-	VcFile::Generator generator;
-	rv = generator.generate(param);
+	VcFile::Generator generator(&param);
+	rv = generator.generate();
 	if (rv == false)
 	{
 		return false;
