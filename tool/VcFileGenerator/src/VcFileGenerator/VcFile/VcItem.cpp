@@ -49,36 +49,43 @@ void VcItemData::addItem(std::wstring file, std::wstring filter)
 
 	if (!filter.empty())
 	{
-		auto found = _Filters.find(filter);
-		if (found == _Filters.end())
+		if (!hasFilter(filter))
 		{
-			auto vcItemFilter = std::make_shared<VcItemFilter>();
-
-			vcItemFilter->_Filter = filter;
-			vcItemFilter->_Guid = makeGuid();
-
-			_Filters[filter] = vcItemFilter;
+			makeFilter(filter);
 		}
 	}
 }
 
-void VcItemData::makeFilters(void)
+bool VcItemData::hasFilter(std::wstring filter)
 {
-	_Filters.clear();
-
-	for (auto& item : _Items)
+	auto found = _Filters.find(filter);
+	if (found == _Filters.end())
 	{
-		_Filters[item->_Filter] = nullptr;
+		return false;
 	}
+
+	return true;
+}
+
+void VcItemData::makeFilter(std::wstring filterPath)
+{
+	std::size_t pos = filterPath.rfind(L"\\");
+	if (std::wstring::npos != pos)
+	{
+		std::wstring parentFilterPath;
+		parentFilterPath = filterPath.substr(0, pos);
+		if (!hasFilter(parentFilterPath))
+		{
+			makeFilter(parentFilterPath);
+		}
+	}
+
 
 	std::shared_ptr<VcItemFilter> filter;
-	for (auto& filter: _Filters)
-	{
-		filter.second = std::make_shared<VcItemFilter>();
-
-		filter.second->_Filter = filter.first;
-		filter.second->_Guid = makeGuid();
-	}
+	filter= std::make_shared<VcItemFilter>();
+	filter->_Filter = filterPath;
+	filter->_Guid = makeGuid();
+	_Filters[filterPath] = filter;
 }
 
 std::wstring VcItemData::getType(std::wstring filePath)
@@ -244,3 +251,4 @@ bool loadVcItemData(VcItemData& doc, std::wstring filePath)
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
+

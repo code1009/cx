@@ -61,7 +61,8 @@ public:
 
 public:
 	void addItem(std::wstring file, std::wstring filter);
-	void makeFilters(void);
+	bool hasFilter(std::wstring filter);
+	void makeFilter(std::wstring filterPath);
 	std::wstring getType(std::wstring filePath);
 	void initializeFileExtensionTypeMap(void);
 	void initializeFileNameTypeMap(void);
