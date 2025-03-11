@@ -138,7 +138,7 @@ bool Generator::generateVcFile(void)
 	VcFile_sln _vcFile_sln(this);
 	_vcFile_sln.addProject(solutionFolderGuid, &_vcFile_vcxproj, projectFilePath);
 	_vcFile_sln.write();
-	OutputDebugStringW(_vcFile_sln._oss.str().c_str());
+	//OutputDebugStringW(_vcFile_sln._oss.str().c_str());
 
 
 	return true;
@@ -181,6 +181,7 @@ bool Generator::isVcItem_CustomBuild_Ribbon(std::shared_ptr<VcItem> vcItem)
 
 	return false;
 }
+
 
 
 
