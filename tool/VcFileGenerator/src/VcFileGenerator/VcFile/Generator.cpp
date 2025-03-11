@@ -40,7 +40,7 @@ bool Generator::generate(void)
 		return false;
 	}
 
-	rv = saveVcFile();
+	rv = generateVcFile();
 	if (!rv)
 	{
 		return false;
@@ -110,55 +110,36 @@ bool Generator::loadVcTemplate(void)
 }
 
 //===========================================================================
-bool Generator::saveVcFile(void)
+bool Generator::generateVcFile(void)
 {
 	bool rv;
 
-	rv = saveVcFile_vcxproj_filters();
-	if (!rv)
-	{
-		return false;
-	}
-	rv = saveVcFile_vcxproj();
-	if (!rv)
-	{
-		return false;
-	}
-	rv = saveVcFile_sln();
-	if (!rv)
-	{
-		return false;
-	}
+	//-----------------------------------------------------------------------
+	VcFile_vcxproj_filters _vcFile_vcxproj_filters(this);
 
-	return true;
-}
+	_vcFile_vcxproj_filters.write();
+	//OutputDebugStringW(_vcFile_vcxproj_filters._oss.str().c_str());
 
-bool Generator::saveVcFile_vcxproj_filters(void)
-{
-	VcFile_vcxproj_filters _vcFile(this);
 
-	_vcFile.write();
-	OutputDebugStringW(_vcFile._oss.str().c_str());
+	//-----------------------------------------------------------------------
+	VcFile_vcxproj _vcFile_vcxproj(this);
+	_vcFile_vcxproj.write();
+	//OutputDebugStringW(_vcFile_vcxproj._oss.str().c_str());
 
-	return true;
-}
 
-bool Generator::saveVcFile_vcxproj(void)
-{
-	VcFile_vcxproj _vcFile(this);
+	//-----------------------------------------------------------------------
+	std::wstring projectFilePath;
+	projectFilePath =
+		_Parameter->get(L"$(VcProjectName)") +
+		L"\\" +
+		_Parameter->get(L"$(VcProjectFileName)");
 
-	_vcFile.write();
-	OutputDebugStringW(_vcFile._oss.str().c_str());
+	std::wstring solutionFolderGuid = makeGuid();
+	VcFile_sln _vcFile_sln(this);
+	_vcFile_sln.addProject(solutionFolderGuid, &_vcFile_vcxproj, projectFilePath);
+	_vcFile_sln.write();
+	OutputDebugStringW(_vcFile_sln._oss.str().c_str());
 
-	return true;
-}
-
-bool Generator::saveVcFile_sln(void)
-{
-	VcFile_sln _vcFile(this);
-
-	_vcFile.write();
-	OutputDebugStringW(_vcFile._oss.str().c_str());
 
 	return true;
 }

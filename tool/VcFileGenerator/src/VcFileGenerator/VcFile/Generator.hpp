@@ -34,10 +34,7 @@ public:
 	bool loadVcTemplate(void);
 
 public:
-	bool saveVcFile(void);
-	bool saveVcFile_vcxproj_filters(void);
-	bool saveVcFile_vcxproj(void);
-	bool saveVcFile_sln(void);
+	bool generateVcFile(void);
 
 public:
 	bool hasVcItemType(std::wstring type);

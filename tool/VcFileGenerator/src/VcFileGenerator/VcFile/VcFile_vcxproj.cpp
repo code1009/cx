@@ -39,6 +39,9 @@ VcFile_vcxproj::VcFile_vcxproj(Generator* generator):
 //===========================================================================
 void VcFile_vcxproj::write(void)
 {
+	_ProjectGuid = _Generator->_Parameter->get(L"$(VcProjectGuid)");
+	_ProjectName = _Generator->_Parameter->get(L"$(VcProjectName)");
+
 	ProjectConfiguration projectConfiguration_Debug_Win32(L"Debug", L"Win32");
 	ProjectConfiguration projectConfiguration_Release_Win32(L"Release", L"Win32");
 	ProjectConfiguration projectConfiguration_Debug_x64(L"Debug", L"x64");
@@ -270,7 +273,7 @@ void VcFile_vcxproj::write_ItemGroup_ItemType_ClCompile_PrecompiledHeader(std::s
 	for (auto e : _ProjectConfigurations)
 	{
 		Condition_Variable = squot(L"$(Configuration)|$(Platform)");
-		Condition_Value = squot(e._Include);
+		Condition_Value = squot(e._ConfigurationPlatform);
 		Condition = Condition_Variable + L"==" + Condition_Value;
 
 		_oss 
@@ -344,7 +347,7 @@ void VcFile_vcxproj::write_ItemGroup_ItemType_CustomBuild_Ribbon(std::shared_ptr
 	for (auto e : _ProjectConfigurations)
 	{
 		Condition_Variable = squot(L"$(Configuration)|$(Platform)");
-		Condition_Value = squot(e._Include);
+		Condition_Value = squot(e._ConfigurationPlatform);
 		Condition = Condition_Variable + L"==" + Condition_Value;
 
 		_oss << ispace2(3) 
@@ -395,11 +398,11 @@ void VcFile_vcxproj::write_PropertyGroup_Label_Globals(void)
 		<< L">" 
 		<< eline();
 
-	_oss << ispace2(2) << L"<VCProjectVersion>"             << L"17.0"                                          << L"</VCProjectVersion>"             << eline();
-	_oss << ispace2(2) << L"<Keyword>"                      << L"Win32Proj"                                     << L"</Keyword>"                      << eline();
-	_oss << ispace2(2) << L"<ProjectGuid>"                  << _Generator->_Parameter->get(L"$(VcProjectGuid)") << L"</ProjectGuid>"                  << eline();
-	_oss << ispace2(2) << L"<RootNamespace>"                << _Generator->_Parameter->get(L"$(VcProjectName)") << L"</RootNamespace>"                << eline();
-	_oss << ispace2(2) << L"<WindowsTargetPlatformVersion>" << L"10.0"                                          << L"</WindowsTargetPlatformVersion>" << eline();
+	_oss << ispace2(2) << L"<VCProjectVersion>"             << L"17.0"      << L"</VCProjectVersion>"             << eline();
+	_oss << ispace2(2) << L"<Keyword>"                      << L"Win32Proj" << L"</Keyword>"                      << eline();
+	_oss << ispace2(2) << L"<ProjectGuid>"                  << _ProjectGuid << L"</ProjectGuid>"                  << eline();
+	_oss << ispace2(2) << L"<RootNamespace>"                << _ProjectName << L"</RootNamespace>"                << eline();
+	_oss << ispace2(2) << L"<WindowsTargetPlatformVersion>" << L"10.0"      << L"</WindowsTargetPlatformVersion>" << eline();
 
 	_oss 
 		<< ispace2(1) 
@@ -441,7 +444,7 @@ void VcFile_vcxproj::write_PropertyGroup_Label_Configuration(void)
 	for (auto e : _ProjectConfigurations)
 	{
 		Condition_Variable = squot(L"$(Configuration)|$(Platform)");
-		Condition_Value = squot(e._Include);
+		Condition_Value = squot(e._ConfigurationPlatform);
 		Condition = Condition_Variable + L"==" + Condition_Value;
 
 
@@ -514,7 +517,7 @@ void VcFile_vcxproj::wirte_ImportGroup_Label_PropertySheets(void)
 	for (auto e : _ProjectConfigurations)
 	{
 		Condition_Variable = squot(L"$(Configuration)|$(Platform)");
-		Condition_Value = squot(e._Include);
+		Condition_Value = squot(e._ConfigurationPlatform);
 		Condition = Condition_Variable + L"==" + Condition_Value;
 
 		_oss 
@@ -570,11 +573,11 @@ void VcFile_vcxproj::wirte_ItemDefinitionGroup(void)
 	for (auto e : _ProjectConfigurations)
 	{
 		Condition_Variable = squot(L"$(Configuration)|$(Platform)");
-		Condition_Value = squot(e._Include);
+		Condition_Value = squot(e._ConfigurationPlatform);
 		Condition = Condition_Variable + L"==" + Condition_Value;
 
 		
-		ConfigurationParamName = L"$(VcConfiguration." + e._Include + L")";
+		ConfigurationParamName = L"$(VcConfiguration." + e._ConfigurationPlatform + L")";
 		Configuration = _Generator->_Parameter->get(ConfigurationParamName);
 
 

@@ -136,20 +136,23 @@ void MainBox::onButton3(cx::wui::WindowMessage& windowMessage)
 	std::wstring edit1=cx::wui::getWindowText(::GetDlgItem(*this, IDC_EDIT1));
 	std::wstring edit2=cx::wui::getWindowText(::GetDlgItem(*this, IDC_EDIT2));
 	std::wstring edit3=cx::wui::getWindowText(::GetDlgItem(*this, IDC_EDIT3));
+	std::wstring edit4=cx::wui::getWindowText(::GetDlgItem(*this, IDC_EDIT4));
 
 	CX_RUNTIME_LOG(cxLDebug)  << std::endl
 		<< L"edit1=" << edit1 << std::endl
 		<< L"edit2=" << edit2 << std::endl
-		<< L"edit2=" << edit3;
+		<< L"edit3=" << edit3 << std::endl
+		<< L"edit4=" << edit4;
 
 	if(edit1.empty()) { MessageBox(*this, L"템플릿 파일 경로를 선택하십시오.", L"에러", MB_OK); return; }
 	if(edit2.empty()) { MessageBox(*this, L"대상 디렉토리 경로를 선택하십시오.", L"에러", MB_OK); return; }
-	if(edit3.empty()) { MessageBox(*this, L"프로젝트 이름을 입력하세요.", L"에러", MB_OK); return; }
+	if(edit3.empty()) { MessageBox(*this, L"솔루션 이름을 입력하세요.", L"에러", MB_OK); return; }
+	if(edit4.empty()) { MessageBox(*this, L"프로젝트 이름을 입력하세요.", L"에러", MB_OK); return; }
 
 
 	//-----------------------------------------------------------------------
 	bool rv;
-	rv = _VcFileGenerator->generate(edit1, edit2, edit3);
+	rv = _VcFileGenerator->generate(edit1, edit2, edit3, edit4);
 	if (false == rv)
 	{
 		MessageBox(*this, L"파일 생성 실패", L"에러", MB_OK);

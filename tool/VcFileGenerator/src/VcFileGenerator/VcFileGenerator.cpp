@@ -30,40 +30,50 @@ void VcFileGenerator::terminate(void)
 {
 }
 
-bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targetDirectory, std::wstring projectName)
+bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targetDirectory, std::wstring solutionName, std::wstring projectName)
 {
 	bool rv;
 
 
 	std::wstring templateDirectory = cx::wfs::get_directory_of_file_path(templateFilePath);
+	std::wstring templateFileName  = cx::wfs::get_file_name_of_file_path(templateFilePath);
 
 	targetDirectory += L"\\";
 
-	std::wstring projectDirectory = targetDirectory + projectName + L"\\";
+
+	std::wstring solutionDirectory = targetDirectory;
+	std::wstring solutionFilePath  = solutionDirectory + solutionName + L".sln";
+	std::wstring solutionFileName  = cx::wfs::get_file_name_of_file_path(solutionFilePath);
+	std::wstring solutionGuid      = VcFile::makeGuid();
+
+	std::wstring projectDirectory = solutionDirectory + projectName + L"\\";
 	std::wstring projectFilePath  = projectDirectory + projectName + L".vcxproj";
+	std::wstring projectFileName  = cx::wfs::get_file_name_of_file_path(projectFilePath);
 	std::wstring projectGuid      = VcFile::makeGuid();
 
 	std::wstring projectFiltersFilePath = projectFilePath + L".filters";
-
-	std::wstring solutionDirectory = projectDirectory;
-	std::wstring solutionFilePath  = solutionDirectory + projectName + L".sln";
 
 
 	VcFile::Parameter param;
 	param.set(L"$(VcTemplateDirectory)"     , templateDirectory);
 	param.set(L"$(VcTemplateFilePath)"      , templateFilePath);
+	param.set(L"$(VcTemplateFileName)"      , templateFileName);
 
 	param.set(L"$(VcTargetDirectory)"       , targetDirectory);
+
+	param.set(L"$(VcSolutionName)"          , solutionName);	
+	param.set(L"$(VcSolutionDirectory)"     , solutionDirectory);	
+	param.set(L"$(VcSolutionFilePath)"      , solutionFilePath);	
+	param.set(L"$(VcSolutionFileName)"      , solutionFileName);	
+	param.set(L"$(VcSolutionGuid)"          , solutionGuid);
 
 	param.set(L"$(VcProjectName)"           , projectName);
 	param.set(L"$(VcProjectDirectory)"      , projectDirectory);
 	param.set(L"$(VcProjectFilePath)"       , projectFilePath);
+	param.set(L"$(VcProjectFileName)"       , projectFileName);
 	param.set(L"$(VcProjectGuid)"           , projectGuid);
 	
-	param.set(L"$(VcProjectFiltersFilePath)", projectFiltersFilePath);	
-
-	param.set(L"$(VcSolutionDirectory)"     , solutionDirectory);	
-	param.set(L"$(VcSolutionFilePath)"      , solutionFilePath);	
+	param.set(L"$(VcProjectFiltersFilePath)", projectFiltersFilePath);
 
 
 	VcFile::Generator generator(&param);

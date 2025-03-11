@@ -24,12 +24,15 @@ public:
 		std::wstring _Configuration;
 		std::wstring _Platform;
 		std::wstring _Include;
+		std::wstring _ConfigurationPlatform;
+
 	public:
 		ProjectConfiguration(std::wstring configuration, std::wstring platform) :
 			_Configuration(configuration),
 			_Platform(platform)
 		{
 			_Include = _Configuration + L"|" + _Platform;
+			_ConfigurationPlatform = _Configuration + L"|" + _Platform;
 		}
 	};
 
@@ -41,6 +44,8 @@ public:
 
 public:
 	std::vector<ProjectConfiguration> _ProjectConfigurations;
+	std::wstring _ProjectGuid;
+	std::wstring _ProjectName;
 
 public:
 	explicit VcFile_vcxproj(Generator* generator);
