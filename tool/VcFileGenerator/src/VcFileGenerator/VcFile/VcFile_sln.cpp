@@ -14,11 +14,7 @@
 #include <component/xml.hpp>
 
 //===========================================================================
-#include "Guid.hpp"
-#include "VcItem.hpp"
-#include "VcTemplate.hpp"
-
-#include "VcFile_sln.hpp"
+#include "VcFile.hpp"
 
 
 

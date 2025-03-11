@@ -14,9 +14,7 @@
 #include <component/xml.hpp>
 
 //===========================================================================
-#include "Guid.hpp"
-#include "VcItem.hpp"
-#include "VcTemplate.hpp"
+#include "VcFile.hpp"
 
 
 
@@ -57,7 +55,7 @@ void VcTemplateData::addConfigurationFile(const std::wstring& name, const std::w
 //===========================================================================
 class VcTemplate_XML_IO
 {
-public:
+protected:
 	VcTemplateData* _Document;
 	cx::xml::xml_loader _Loader;
 
@@ -73,13 +71,8 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool loadFile(void)
+	bool loadFile(std::wstring filePath)
 	{
-		std::wstring fileName = L"VcTemplate.xml";
-		std::wstring filePath;
-
-		filePath = cx::wfs::get_directory_of_current_process() + fileName;
-
 		return _Loader.load_xml_file(filePath);
 	}
 
@@ -87,18 +80,19 @@ public:
 public:
 	bool readTag_Root(cx::xml::xml_reader_t& reader)
 	{
+		bool rv;
+
 		cx::xml::xml_read_handler_map_t readHandlerMap;
-
-
 		readHandlerMap[L"Settings"] = std::bind(&VcTemplate_XML_IO::readTag_Settings, this, std::placeholders::_1);
 		readHandlerMap[L"ItemFiles"] = std::bind(&VcTemplate_XML_IO::readTag_ItemFiles, this, std::placeholders::_1);
 		readHandlerMap[L"ConfigurationFiles"] = std::bind(&VcTemplate_XML_IO::readTag_ConfigurationFiles, this, std::placeholders::_1);
-
-		return cx::xml::read_xml_child_tag(
+		rv = cx::xml::read_xml_child_tag(
 			reader,
 			_Loader.get_xml_context()->get_xml_root_tag_name(),
 			readHandlerMap
 		);
+
+		return rv;
 	}
 
 public:
@@ -134,16 +128,17 @@ public:
 public:
 	bool readTag_ItemFiles(cx::xml::xml_reader_t& reader)
 	{
+		bool rv;
+
 		cx::xml::xml_read_handler_map_t readHandlerMap;
-
-
 		readHandlerMap[L"Item"] = std::bind(&VcTemplate_XML_IO::readTag_ItemFiles_Item, this, std::placeholders::_1);
-
-		return cx::xml::read_xml_child_tag(
+		rv = cx::xml::read_xml_child_tag(
 			reader,
-			_Loader.get_xml_context()->get_xml_root_tag_name(),
+			L"ItemFiles",
 			readHandlerMap
 		);
+
+		return rv;
 	}
 	bool readTag_ItemFiles_Item(cx::xml::xml_reader_t& reader)
 	{
@@ -167,16 +162,17 @@ public:
 public:
 	bool readTag_ConfigurationFiles(cx::xml::xml_reader_t& reader)
 	{
+		bool rv;
+
 		cx::xml::xml_read_handler_map_t readHandlerMap;
-
-
 		readHandlerMap[L"Item"] = std::bind(&VcTemplate_XML_IO::readTag_ConfigurationFiles_Item, this, std::placeholders::_1);
-
-		return cx::xml::read_xml_child_tag(
+		rv = cx::xml::read_xml_child_tag(
 			reader,
-			_Loader.get_xml_context()->get_xml_root_tag_name(),
+			L"ConfigurationFiles",
 			readHandlerMap
 		);
+
+		return rv;
 	}
 	bool readTag_ConfigurationFiles_Item(cx::xml::xml_reader_t& reader)
 	{
@@ -204,6 +200,13 @@ public:
 		return true;
 	}
 };
+
+bool loadVcTemplateData(VcTemplateData& doc, std::wstring filePath)
+{
+	VcTemplate_XML_IO xml_io{ &doc };
+	return xml_io.loadFile(filePath);
+}
+
 
 
 

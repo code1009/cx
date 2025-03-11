@@ -20,7 +20,7 @@
 #include <component/std_wstring_utility.hpp>
 
 //===========================================================================
-#include "Guid.hpp"
+#include "VcFile.hpp"
 
 
 

@@ -80,6 +80,7 @@
     <ClInclude Include="src\VcFileGenerator\VcFile\File.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\Copy.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\Generator.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_sln.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_vcxproj_filters.hpp" />

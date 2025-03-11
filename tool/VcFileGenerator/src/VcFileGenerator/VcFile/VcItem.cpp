@@ -14,8 +14,7 @@
 #include <component/xml.hpp>
 
 //===========================================================================
-#include "VcItem.hpp"
-#include "Guid.hpp"
+#include "VcFile.hpp"
 
 
 
@@ -45,6 +44,7 @@ void VcItemData::addItem(std::wstring file, std::wstring filter)
 	item->_File = file;
 	item->_Filter = filter;
 	item->_Type = getType(file);
+	_Items.push_back(item);
 
 
 	if (!filter.empty())
@@ -139,7 +139,7 @@ void VcItemData::initializeTypeFileExtensionsMap(void)
 //===========================================================================
 class VcItem_XML_IO
 {
-public:
+protected:
 	VcItemData* _Document;
 	cx::xml::xml_loader _Loader;
 
@@ -155,13 +155,8 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool loadFile(void)
+	bool loadFile(std::wstring filePath)
 	{
-		std::wstring fileName = L"VcItem.xml";
-		std::wstring filePath;
-
-		filePath = cx::wfs::get_directory_of_current_process() + fileName;
-
 		return _Loader.load_xml_file(filePath);
 	}
 
@@ -208,6 +203,18 @@ public:
 		return true;
 	}
 };
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+bool loadVcItemData(VcItemData& doc, std::wstring filePath)
+{
+	VcItem_XML_IO xml_io{ &doc };
+	return xml_io.loadFile(filePath);
+}
 
 
 

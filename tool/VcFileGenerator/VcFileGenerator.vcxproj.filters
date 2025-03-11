@@ -261,6 +261,9 @@
     <ClInclude Include="src\VcFileGenerator\VcFile\VcTemplate.hpp">
       <Filter>src\VcFileGenerator\VcFile</Filter>
     </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\VcFile.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\library\wui\AppModule.cpp">

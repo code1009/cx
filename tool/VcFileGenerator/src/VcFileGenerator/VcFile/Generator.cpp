@@ -6,8 +6,7 @@
 #include <runtime/runtime.hpp>
 
 //===========================================================================
-#include "Parameter.hpp"
-#include "Generator.hpp"
+#include "VcFile.hpp"
 
 
 
@@ -30,6 +29,30 @@ Generator::Generator()
 //===========================================================================
 bool Generator::generate(Parameter& param)
 {
+	bool rv;
+
+
+	VcTemplateData _vcTemplate;
+	rv = loadVcTemplateData(_vcTemplate, param.get(L"$(VcTemplateFilePath)"));
+	if (!rv)
+	{
+		return false;
+	}
+
+
+	VcItemData _VcItemData;
+	for (auto& itemFile : _vcTemplate._ItemFiles)
+	{
+		auto vcItemFilePath = param.get(L"$(VcTemplateDirectory)") + itemFile;
+
+		rv = loadVcItemData(_VcItemData, vcItemFilePath);
+		if (!rv)
+		{
+			return false;
+		}
+	}
+
+
 	return true;
 }
 

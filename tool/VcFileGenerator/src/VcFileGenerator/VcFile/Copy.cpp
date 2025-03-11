@@ -9,8 +9,7 @@
 #include <component/fs_std_wstring.hpp>
 
 //===========================================================================
-#include "Parameter.hpp"
-#include "Copy.hpp"
+#include "VcFile.hpp"
 
 
 

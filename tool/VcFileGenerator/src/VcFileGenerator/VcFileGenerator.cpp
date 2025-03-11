@@ -5,15 +5,14 @@
 //===========================================================================
 #include <wui/wui.hpp>
 #include <runtime/runtime.hpp>
+#include <component/fs_std_wstring.hpp>
 
 //===========================================================================
 #include "VcFileGenerator.hpp"
 #include "Config.hpp"
 
 //===========================================================================
-#include "VcFile\VcItem.hpp"
-#include "VcFile\Parameter.hpp"
-#include "VcFile\Generator.hpp"
+#include "VcFile\VcFile.hpp"
 
 
 
@@ -36,6 +35,8 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 	bool rv;
 
 
+	std::wstring templateDirectory = cx::wfs::get_directory_of_file_path(templateFilePath);
+
 	targetDirectory += L"\\";
 
 	std::wstring projectDirectory = targetDirectory + projectName + L"\\";
@@ -48,12 +49,17 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 
 
 	VcFile::Parameter param;
+	param.set(L"$(VcTemplateDirectory)"     , templateDirectory);
 	param.set(L"$(VcTemplateFilePath)"      , templateFilePath);
+
 	param.set(L"$(VcTargetDirectory)"       , targetDirectory);
+
 	param.set(L"$(VcProjectName)"           , projectName);
 	param.set(L"$(VcProjectDirectory)"      , projectDirectory);
 	param.set(L"$(VcProjectFilePath)"       , projectFilePath);
+	
 	param.set(L"$(VcProjectFiltersFilePath)", projectFiltersFilePath);	
+
 	param.set(L"$(VcSolutionDirectory)"     , solutionDirectory);	
 	param.set(L"$(VcSolutionFilePath)"      , solutionFilePath);	
 
