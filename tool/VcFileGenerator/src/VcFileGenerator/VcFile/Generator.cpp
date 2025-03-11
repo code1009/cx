@@ -68,6 +68,18 @@ bool Generator::generate(void)
 }
 
 //===========================================================================
+static std::wstring getRelativePath(const std::wstring& absolutePath, const std::wstring& basePath) 
+{
+	std::filesystem::path absPath(absolutePath);
+	std::filesystem::path base(basePath);
+
+	absPath = std::filesystem::absolute(absPath);
+	base = std::filesystem::absolute(base);
+
+	std::filesystem::path relativePath = std::filesystem::relative(absPath, base);
+	return relativePath.wstring();
+}
+
 bool Generator::loadVcTemplate(void)
 {
 	bool rv;
@@ -128,6 +140,22 @@ bool Generator::loadVcTemplate(void)
 				return false;
 			}
 		);
+	for (auto& item : _VcItemData._Items)
+	{
+		if (item->_File.empty())
+		{
+			return false;
+		}
+		if (item->_File.size()>1)
+		{
+			if (item->_File[0] != '.')
+			{
+				std::wstring sourceFilePath;
+				sourceFilePath = getRelativePath(item->_File, _Parameter->get(L"$(VcProjectDirectory)"));
+				item->_File = sourceFilePath;
+			}
+		}
+	}
 
 	for (auto& configurationFile : _VcTemplate._ConfigurationFiles)
 	{

@@ -76,6 +76,9 @@ public:
 	void wirte_ImportGroup_Lable_ExtensionSettings(void);
 	void wirte_ImportGroup_Lable_Shared(void);
 	void wirte_PropertyGroup_Label_UserMacros(void);
+
+	void wirte_PropertyGroup_Label_VcPkg(void);
+
 	void wirte_Import_Project_VCTargetsPath_Microsoft_targets(void);
 	void wirte_ImportGroup_Lable_ExtensionTargets(void);
 };

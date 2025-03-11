@@ -99,6 +99,7 @@ void VcFile_vcxproj::write_Project (void)
 	wirte_ImportGroup_Label_PropertySheets();
 
 	wirte_PropertyGroup_Label_UserMacros();
+	wirte_PropertyGroup_Label_VcPkg();
 
 	wirte_ItemDefinitionGroup();
 
@@ -602,6 +603,72 @@ void VcFile_vcxproj::wirte_ItemDefinitionGroup(void)
 		_oss 
 			<< ispace2(1) 
 			<< L"</ItemDefinitionGroup>"  
+			<< eline();
+	}
+}
+
+//===========================================================================
+void VcFile_vcxproj::wirte_PropertyGroup_Label_VcPkg(void)
+{
+	/*
+	<PropertyGroup Label="Vcpkg">
+		<VcpkgEnableManifest>true</VcpkgEnableManifest>
+	</PropertyGroup>
+	<PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<VcpkgTriplet>x64-windows</VcpkgTriplet>
+	</PropertyGroup>
+	<PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<VcpkgTriplet>x64-windows</VcpkgTriplet>
+	</PropertyGroup>
+	*/
+
+	_oss 
+		<< ispace2(1) 
+		<< L"<PropertyGroup"
+		<< L" "
+		<< L"Label=" << dquot(L"Vcpkg") 
+		//<< L" "
+		<< L">"
+		<< eline();
+
+	_oss << ispace2(2) << L"<" << L"VcpkgEnableManifest" << L">" << "True" << L"</" << L"VcpkgEnableManifest" << L">" << eline();
+
+	_oss 
+		<< ispace2(1) 
+		<< L"</PropertyGroup>"
+		<< eline();
+
+	std::wstring Condition_Variable;
+	std::wstring Condition_Value;
+	std::wstring Condition;
+
+	std::wstring ConfigurationParamName;
+	std::wstring Configuration;
+
+
+	for (auto e : _ProjectConfigurations)
+	{
+		Condition_Variable = squot(L"$(Configuration)|$(Platform)");
+		Condition_Value = squot(e._ConfigurationPlatform);
+		Condition = Condition_Variable + L"==" + Condition_Value;
+
+
+		_oss 
+			<< ispace2(1) 
+			<< L"<PropertyGroup"
+			<< L" "
+			<< L"Label=" << dquot(L"Vcpkg") 
+			<< L" "
+			<< L"Condition=" << dquot(Condition)
+			//<< L" "
+			<< L">"
+			<< eline();
+
+		_oss << ispace2(2) << L"<" << L"VcpkgTriplet" << L">" << "x64-windows" << L"</" << L"VcpkgTriplet" << L">" << eline();
+
+		_oss 
+			<< ispace2(1) 
+			<< L"</PropertyGroup>"
 			<< eline();
 	}
 }
