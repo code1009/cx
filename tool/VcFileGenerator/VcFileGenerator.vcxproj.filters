@@ -55,7 +55,7 @@
     <Filter Include="cx\library\component">
       <UniqueIdentifier>{75af0747-f89b-456d-8585-867eee013c5b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="template.xml">
+    <Filter Include="VcTemplate.xml">
       <UniqueIdentifier>{ad10fd57-228b-4f42-8d49-39135af77da5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -690,30 +690,30 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\template\App.VcConfiguration.Debug.Win32.txt">
-      <Filter>template.xml</Filter>
+      <Filter>VcTemplate.xml</Filter>
     </Text>
     <Text Include="..\..\template\App.VcConfiguration.Debug.x64.txt">
-      <Filter>template.xml</Filter>
+      <Filter>VcTemplate.xml</Filter>
     </Text>
     <Text Include="..\..\template\App.VcConfiguration.Release.Win32.txt">
-      <Filter>template.xml</Filter>
+      <Filter>VcTemplate.xml</Filter>
     </Text>
     <Text Include="..\..\template\App.VcConfiguration.Release.x64.txt">
-      <Filter>template.xml</Filter>
+      <Filter>VcTemplate.xml</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\template\Application.VcItem.xml">
-      <Filter>template.xml</Filter>
+      <Filter>VcTemplate.xml</Filter>
     </Xml>
     <Xml Include="..\..\template\Application.VcTemplate.xml">
-      <Filter>template.xml</Filter>
+      <Filter>VcTemplate.xml</Filter>
     </Xml>
     <Xml Include="..\..\template\cx.VcItem.xml">
-      <Filter>template.xml</Filter>
+      <Filter>VcTemplate.xml</Filter>
     </Xml>
     <Xml Include="..\..\template\cx.VcItem2.xml">
-      <Filter>template.xml</Filter>
+      <Filter>VcTemplate.xml</Filter>
     </Xml>
   </ItemGroup>
 </Project>
