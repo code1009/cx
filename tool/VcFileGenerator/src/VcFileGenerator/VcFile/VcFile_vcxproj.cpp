@@ -172,11 +172,11 @@ void VcFile_vcxproj::write_ItemGroup_Label_ProjectConfigurations(void)
 //===========================================================================
 void VcFile_vcxproj::write_ItemGroup_Item(void)
 {
-	write_ItemGroup_ItemType(L"Text"           );
-	write_ItemGroup_ItemType(L"ClInclude"      );
 	write_ItemGroup_ItemType(L"ClCompile"      );
+	write_ItemGroup_ItemType(L"ClInclude"      );
 	write_ItemGroup_ItemType(L"ResourceCompile");
 	write_ItemGroup_ItemType(L"Image"          );
+	write_ItemGroup_ItemType(L"Text"           );
 	write_ItemGroup_ItemType(L"Manifest"       );
 	write_ItemGroup_ItemType(L"CustomBuild"    );
 	write_ItemGroup_ItemType(L"None"           );

@@ -52,13 +52,13 @@ bool Generator::generate(void)
 		return false;
 	}
 
-	rv = generateVcFile();
+	rv = copyTemplateFiles();
 	if (!rv)
 	{
 		return false;
 	}
 
-	rv = copyTemplateFiles();
+	rv = generateVcFile();
 	if (!rv)
 	{
 		return false;

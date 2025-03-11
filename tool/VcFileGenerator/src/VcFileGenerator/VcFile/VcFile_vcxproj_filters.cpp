@@ -64,7 +64,7 @@ void VcFile_vcxproj_filters::write_Project(void)
 		<< L"ToolsVersion=" << dquot(L"4.0" )
 		<< L" "
 		<< L"xmlns="        << dquot(L"http://schemas.microsoft.com/developer/msbuild/2003") 
-		<< L" "
+		//<< L" "
 		<< L">" 
 		<< eline();
 
