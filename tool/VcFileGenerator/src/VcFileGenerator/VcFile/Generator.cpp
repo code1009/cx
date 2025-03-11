@@ -31,17 +31,29 @@ bool Generator::generate(Parameter& param)
 {
 	bool rv;
 
-
-	VcTemplateData _vcTemplate;
-	rv = loadVcTemplateData(_vcTemplate, param.get(L"$(VcTemplateFilePath)"));
+	rv = loadTemplate(param);
 	if (!rv)
 	{
 		return false;
 	}
 
+	saveVcFile_vcxproj_filters(param);
 
-	VcItemData _VcItemData;
-	for (auto& itemFile : _vcTemplate._ItemFiles)
+	return true;
+}
+
+bool Generator::loadTemplate(Parameter& param)
+{
+	bool rv;
+
+
+	rv = loadVcTemplateData(_VcTemplate, param.get(L"$(VcTemplateFilePath)"));
+	if (!rv)
+	{
+		return false;
+	}
+
+	for (auto& itemFile : _VcTemplate._ItemFiles)
 	{
 		auto vcItemFilePath = param.get(L"$(VcTemplateDirectory)") + itemFile;
 
@@ -51,12 +63,39 @@ bool Generator::generate(Parameter& param)
 			return false;
 		}
 	}
+	std::sort(_VcItemData._Items.begin(), _VcItemData._Items.end(),
+			[](std::shared_ptr<VcItem> a, std::shared_ptr<VcItem> b)
+			{
+				return a->_Type < b->_Type;
+			}
+		);
 
+	for (auto& configurationFile : _VcTemplate._ConfigurationFiles)
+	{
+		auto configurationFilePath = param.get(L"$(VcTemplateDirectory)") + configurationFile.second;
+
+		std::wstring value;
+		rv = loadFileString(configurationFilePath, value);
+		if (!rv)
+		{
+			return false;
+		}
+
+		param.set(configurationFile.first, value);
+	}
 
 	return true;
 }
 
+bool Generator::saveVcFile_vcxproj_filters(Parameter& param)
+{
+	VcFile_vcxproj_filters _vcFile_vcxproj_filters(this);
 
+	_vcFile_vcxproj_filters.write();
+	OutputDebugStringW(_vcFile_vcxproj_filters._oss.str().c_str());
+
+	return true;
+}
 
 
 

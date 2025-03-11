@@ -4,6 +4,8 @@
 
 //===========================================================================
 #include <runtime/runtime.hpp>
+#include <component/fs_std_wstring.hpp>
+#include <component/charset_system.hpp>
 
 //===========================================================================
 #include "VcFile.hpp"
@@ -61,6 +63,47 @@ bool loadFile(std::wstring filePath, std::vector<std::uint8_t>& fileData)
 
 	return true;
 }
+
+bool loadFileString(std::wstring filePath, std::wstring& s)
+{
+	bool rv;
+
+	std::vector<std::uint8_t> fileData;
+	rv = loadFile(filePath, fileData);
+	if (!rv)
+	{
+		return false;
+	}
+
+
+	if (fileData.size() > 3)
+	{
+		if (fileData[0] == 0xEF && fileData[1] == 0xBB && fileData[2] == 0xBF)
+		{
+			std::string utf8String;
+			
+			utf8String = std::string(reinterpret_cast<char*>(fileData.data() + 3), fileData.size() - 3);
+			s = cx::utf8_to_wcs(utf8String);
+		}
+		else
+		{
+			std::string mbcsString;
+
+			mbcsString = std::string(reinterpret_cast<char*>(fileData.data()), fileData.size());
+			s = cx::mbcs_to_wcs(mbcsString);
+		}
+	}
+	else
+	{
+		std::string mbcsString;
+
+		mbcsString = std::string(reinterpret_cast<char*>(fileData.data()), fileData.size());
+		s = cx::mbcs_to_wcs(mbcsString);
+	}
+
+	return true;
+}
+
 
 
 

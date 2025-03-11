@@ -34,7 +34,8 @@ namespace VcFile
 VcItemData::VcItemData()
 {
 	initializeTypeFileExtensionsMap();
-	initializeFileExtensionsTypeMap();
+	initializeFileExtensionTypeMap();
+	initializeFileNameTypeMap();
 }
 
 //===========================================================================
@@ -45,7 +46,6 @@ void VcItemData::addItem(std::wstring file, std::wstring filter)
 	item->_Filter = filter;
 	item->_Type = getType(file);
 	_Items.push_back(item);
-
 
 	if (!filter.empty())
 	{
@@ -87,6 +87,21 @@ std::wstring VcItemData::getType(std::wstring filePath)
 	type = L"None"; // default
 
 
+	std::wstring fileName;
+	fileName = cx::wfs::get_file_name_of_file_path(filePath);
+	if (fileName.empty())
+	{
+		return type;
+	}
+
+	std::map<std::wstring, std::wstring>::iterator foundFileName = _FileNameTypeMap.find(fileName);
+	if (foundFileName != _FileNameTypeMap.end())
+	{
+		type = foundFileName->second;
+		return type;
+	}
+
+
 	std::wstring fileExtension;
 	fileExtension = cx::wfs::get_file_extension_of_file_path(filePath);
 	if (fileExtension.empty())
@@ -94,19 +109,25 @@ std::wstring VcItemData::getType(std::wstring filePath)
 		return type;
 	}
 
-	auto it = _FileExtensionsTypeMap.find(fileExtension);
-	if (it != _FileExtensionsTypeMap.end())
+	std::map<std::wstring, std::wstring>::iterator foundFileExtension  = _FileExtensionTypeMap.find(fileExtension);
+	if (foundFileExtension != _FileExtensionTypeMap.end())
 	{
-		type = it->second;
+		type = foundFileExtension->second;
+		return type;
 	}
 
 
 	return type;
 }
 
-void VcItemData::initializeFileExtensionsTypeMap(void)
+void VcItemData::initializeFileNameTypeMap(void)
 {
-	_FileExtensionsTypeMap.clear();
+	_FileNameTypeMap[L"ribbon.xml"] = L"CustomBuild";
+}
+
+void VcItemData::initializeFileExtensionTypeMap(void)
+{
+	_FileExtensionTypeMap.clear();
 
 	for (auto& typeExt : _TypeFileExtensionsMap)
 	{
@@ -114,7 +135,7 @@ void VcItemData::initializeFileExtensionsTypeMap(void)
 		exts = cx::tokenizeObject_std_wstring(typeExt.second, L";", false);
 		for (auto& ext : exts)
 		{
-			_FileExtensionsTypeMap[ext] = typeExt.first;
+			_FileExtensionTypeMap[ext] = typeExt.first;
 		}
 	}
 }
@@ -128,6 +149,7 @@ void VcItemData::initializeTypeFileExtensionsMap(void)
 	_TypeFileExtensionsMap[L"ResourceCompile"] = L".rc";
 	_TypeFileExtensionsMap[L"Image"] = L".ico;.cur;.bmp;.gif;.jpg;.jpeg;.png;.tiff;.tif";
 	_TypeFileExtensionsMap[L"Manifest"] = L".manifest";
+	_TypeFileExtensionsMap[L"Text"] = L".txt;.csv;.md";
 	_TypeFileExtensionsMap[L"None"] = L".cd";
 }
 

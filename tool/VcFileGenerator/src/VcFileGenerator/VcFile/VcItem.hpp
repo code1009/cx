@@ -36,6 +36,9 @@ class VcItemFilter
 public:
 	std::wstring _Filter;
 	std::wstring _Guid;
+
+public:
+	std::wstring _FileExtensions;
 };
 
 
@@ -49,7 +52,8 @@ class VcItemData
 public:
 	std::vector<std::shared_ptr<VcItem>> _Items;
 	std::map<std::wstring, std::shared_ptr<VcItemFilter>> _Filters;
-	std::map<std::wstring, std::wstring> _FileExtensionsTypeMap;
+	std::map<std::wstring, std::wstring> _FileExtensionTypeMap;
+	std::map<std::wstring, std::wstring> _FileNameTypeMap;
 	std::map<std::wstring, std::wstring> _TypeFileExtensionsMap;
 
 public:
@@ -59,7 +63,8 @@ public:
 	void addItem(std::wstring file, std::wstring filter);
 	void makeFilters(void);
 	std::wstring getType(std::wstring filePath);
-	void initializeFileExtensionsTypeMap(void);
+	void initializeFileExtensionTypeMap(void);
+	void initializeFileNameTypeMap(void);
 	void initializeTypeFileExtensionsMap(void);
 };
 

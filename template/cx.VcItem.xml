@@ -144,13 +144,13 @@
 <Item Filter="app\cx\library\wui\GDI"          File="D:\app\cx\library\wui\GDI\GDIObject_Pen.cpp" />
 <Item Filter="app\cx\library\wui\GDI"          File="D:\app\cx\library\wui\GDI\GDIObject_Pen.hpp" />
 
-<Item Filter="app\cx\library\wui\Resource"     File="pch.hpp" />
-<Item Filter="app\cx\library\wui\Resource"     File="DialogTemplate.cpp" />
-<Item Filter="app\cx\library\wui\Resource"     File="DialogTemplate.hpp" />
-<Item Filter="app\cx\library\wui\Resource"     File="Resource.cpp" />
-<Item Filter="app\cx\library\wui\Resource"     File="Resource.hpp" />
-<Item Filter="app\cx\library\wui\Resource"     File="Resource_Functions.cpp" />
-<Item Filter="app\cx\library\wui\Resource"     File="Resource_Functions.hpp" />
+<Item Filter="app\cx\library\wui\Resource"     File="D:\app\cx\library\wui\Resource\pch.hpp" />
+<Item Filter="app\cx\library\wui\Resource"     File="D:\app\cx\library\wui\Resource\DialogTemplate.cpp" />
+<Item Filter="app\cx\library\wui\Resource"     File="D:\app\cx\library\wui\Resource\DialogTemplate.hpp" />
+<Item Filter="app\cx\library\wui\Resource"     File="D:\app\cx\library\wui\Resource\Resource.cpp" />
+<Item Filter="app\cx\library\wui\Resource"     File="D:\app\cx\library\wui\Resource\Resource.hpp" />
+<Item Filter="app\cx\library\wui\Resource"     File="D:\app\cx\library\wui\Resource\Resource_Functions.cpp" />
+<Item Filter="app\cx\library\wui\Resource"     File="D:\app\cx\library\wui\Resource\Resource_Functions.hpp" />
 
 <Item Filter="app\cx\library\wui\Window"       File="D:\app\cx\library\wui\Window\pch.hpp" />
 <Item Filter="app\cx\library\wui\Window"       File="D:\app\cx\library\wui\Window\BaseWindow.cpp" />
