@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VcTemplate>
 
 	<Settings
+    cxDirectory="D:\prj_my\cx\"
 		SourceDirectory=".\Application\"
 		ClCompile_PrecompiledHeader=".\src\pch.cpp"
 		/>
@@ -17,5 +18,5 @@
 		<Item Name="$(VcConfiguration.Release|Win32)" File="App.VcConfiguration.Release.Win32.txt"/>
 		<Item Name="$(VcConfiguration.Debug|Win32)"   File="App.VcConfiguration.Debug.Win32.txt"/>
 	</ConfigurationFiles>
-	
+  
 </VcTemplate>

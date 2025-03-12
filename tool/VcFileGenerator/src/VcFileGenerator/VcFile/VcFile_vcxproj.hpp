@@ -67,6 +67,8 @@ public:
 	void write_PropertyGroup_Globals(void);
 	void write_PropertyGroup_Configuration(void);
 	
+	void write_PropertyGroup_EnvironmentVariables(void);
+
 	void wirte_ImportGroup_PropertySheets(void);
 
 	void wirte_ItemDefinitionGroup(void);

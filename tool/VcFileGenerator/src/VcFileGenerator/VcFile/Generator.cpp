@@ -25,17 +25,6 @@ namespace VcFile
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static bool directoryExists(const std::wstring& directoryPath) 
-{
-	return std::filesystem::exists(directoryPath) && std::filesystem::is_directory(directoryPath);
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 Generator::Generator(Parameter* param) :
 	_Parameter(param)
 {
@@ -68,18 +57,6 @@ bool Generator::generate(void)
 }
 
 //===========================================================================
-static std::wstring getRelativePath(const std::wstring& absolutePath, const std::wstring& basePath) 
-{
-	std::filesystem::path absPath(absolutePath);
-	std::filesystem::path base(basePath);
-
-	absPath = std::filesystem::absolute(absPath);
-	base = std::filesystem::absolute(base);
-
-	std::filesystem::path relativePath = std::filesystem::relative(absPath, base);
-	return relativePath.wstring();
-}
-
 bool Generator::loadVcTemplate(void)
 {
 	bool rv;
@@ -109,7 +86,7 @@ bool Generator::loadVcTemplate(void)
 		return false;
 	}
 
-
+	// 파일항목 목록 읽기
 	for (auto& itemFile : _VcTemplate._ItemFiles)
 	{
 		auto vcItemFilePath = _Parameter->get(L"$(VcTemplateDirectory)") + itemFile;
@@ -120,26 +97,32 @@ bool Generator::loadVcTemplate(void)
 			return false;
 		}
 	}
-	std::sort(_VcItemData._Items.begin(), _VcItemData._Items.end(),
-			[](std::shared_ptr<VcItem> a, std::shared_ptr<VcItem> b)
+
+	// 파일항목 정렬
+	std::sort(
+		_VcItemData._Items.begin(), 
+		_VcItemData._Items.end(),
+		[](std::shared_ptr<VcItem> a, std::shared_ptr<VcItem> b)
+		{
+			if (a->_Type < b->_Type)
 			{
-				if (a->_Type < b->_Type)
-				{
-					return true;
-				}
-				if (a->_Type > b->_Type)
-				{
-					return false;
-				}
-
-				if (a->_File < b->_File)
-				{
-					return true;
-				}
-
+				return true;
+			}
+			if (a->_Type > b->_Type)
+			{
 				return false;
 			}
-		);
+
+			if (a->_File < b->_File)
+			{
+				return true;
+			}
+
+			return false;
+		}
+	);
+
+	// 파일항목 절대경로를 상대경로로 변환
 	for (auto& item : _VcItemData._Items)
 	{
 		if (item->_File.empty())
@@ -148,6 +131,10 @@ bool Generator::loadVcTemplate(void)
 		}
 		if (item->_File.size()>1)
 		{
+			if (item->_File[0] == '$')
+			{
+				continue;
+			}
 			if (item->_File[0] != '.')
 			{
 				std::wstring sourceFilePath;
@@ -157,6 +144,8 @@ bool Generator::loadVcTemplate(void)
 		}
 	}
 
+	// 컴파일옵션 파일 읽기
+	// 파라메터로 설정
 	for (auto& configurationFile : _VcTemplate._ConfigurationFiles)
 	{
 		auto configurationFilePath = _Parameter->get(L"$(VcTemplateDirectory)") + configurationFile.second;

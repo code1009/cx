@@ -91,14 +91,15 @@ void VcFile_vcxproj::write_Project (void)
 	wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props();
 	
 	write_PropertyGroup_Configuration();
-
+	
 	wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_props();
 	wirte_ImportGroup_ExtensionSettings();
 	wirte_ImportGroup_Shared();
 
 	wirte_ImportGroup_PropertySheets();
 
-	wirte_PropertyGroup_UserMacros();
+	//wirte_PropertyGroup_UserMacros();
+	write_PropertyGroup_EnvironmentVariables();
 	wirte_PropertyGroup_VcPkg();
 
 	wirte_ItemDefinitionGroup();
@@ -610,6 +611,89 @@ void VcFile_vcxproj::wirte_ItemDefinitionGroup(void)
 }
 
 //===========================================================================
+void VcFile_vcxproj::write_PropertyGroup_EnvironmentVariables(void)
+{
+	/*
+	<PropertyGroup>
+		<cxDirectory>$(SolutionDir)..\cx</cxDirectory>
+	</PropertyGroup>
+	*/
+
+	
+	if (_Generator->_VcTemplate._Settings.cxDirectory.empty() &&
+		_Generator->_VcTemplate._EnvironmentVariables.empty() )
+	{
+		return;
+	}
+
+
+	//--------------------------------------------------------------------------
+	_oss
+		<< ispace2(1)
+		<< L"<PropertyGroup"
+		<< L" "
+		<< L"Label=" << dquot(L"UserMacros") 
+		//<< L" "
+		<< L">"
+		<< eline();
+
+	
+	//--------------------------------------------------------------------------
+	std::wstring name;
+	std::wstring value;
+
+
+	//--------------------------------------------------------------------------
+	std::wstring cxDirectory = _Generator->_VcTemplate._Settings.cxDirectory;
+	std::wstring cxRelativeDirectory;
+	if (!cxDirectory.empty())
+	{
+		name = L"cxDirectory";
+		value = _Generator->_VcTemplate._Settings.cxDirectory;
+
+		if ((cxDirectory[0] != '$') && (cxDirectory[0] != '.'))
+		{
+			cxRelativeDirectory = getRelativePath(cxDirectory, _Generator->_Parameter->get(L"$(VcProjectDirectory)"));
+			cxRelativeDirectory += L"\\";
+			value = cxRelativeDirectory;
+		}
+		else
+		{
+			value = cxDirectory;
+		}
+
+
+		_oss
+			<< ispace2(2)
+			<< L"<" << name << L">"
+			<< value
+			<< L"</" << name << L">"
+			<< eline();
+	}
+
+
+	//--------------------------------------------------------------------------
+	for(auto& variable : _Generator->_VcTemplate._EnvironmentVariables)
+	{
+		name = variable.first;
+		value = variable.second;
+
+		_oss
+			<< ispace2(2)
+			<< L"<" << name << L">"
+			<< value
+			<< L"</" << name << L">"
+			<< eline();
+	}
+
+
+	//--------------------------------------------------------------------------
+	_oss
+		<< ispace2(1)
+		<< L"</PropertyGroup>"
+		<< eline();
+}
+
 void VcFile_vcxproj::wirte_PropertyGroup_VcPkg(void)
 {
 	/*

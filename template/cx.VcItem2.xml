@@ -117,8 +117,6 @@
 <Item Filter="cx\library\wui"              File="D:\prj_my\cx\library\wui\wui.hpp" />
 <Item Filter="cx\library\wui"              File="D:\prj_my\cx\library\wui\AppModule.cpp" />
 <Item Filter="cx\library\wui"              File="D:\prj_my\cx\library\wui\AppModule.hpp" />
-<Item Filter="cx\library\wui"              File="D:\prj_my\cx\library\wui\Coord.cpp" />
-<Item Filter="cx\library\wui"              File="D:\prj_my\cx\library\wui\Coord.hpp" />
 
 <Item Filter="cx\library\wui\CommonDialog" File="D:\prj_my\cx\library\wui\CommonDialog\pch.hpp" />
 <Item Filter="cx\library\wui\CommonDialog" File="D:\prj_my\cx\library\wui\CommonDialog\FileDialog.cpp" />
@@ -152,6 +150,8 @@
 <Item Filter="cx\library\wui\Resource"     File="D:\prj_my\cx\library\wui\Resource\Resource_Functions.hpp" />
 
 <Item Filter="cx\library\wui\Window"       File="D:\prj_my\cx\library\wui\Window\pch.hpp" />
+<Item Filter="cx\library\wui\Window"       File="D:\prj_my\cx\library\wui\Window\Coord.cpp" />
+<Item Filter="cx\library\wui\Window"       File="D:\prj_my\cx\library\wui\Window\Coord.hpp" />
 <Item Filter="cx\library\wui\Window"       File="D:\prj_my\cx\library\wui\Window\BaseWindow.cpp" />
 <Item Filter="cx\library\wui\Window"       File="D:\prj_my\cx\library\wui\Window\BaseWindow.hpp" />
 <Item Filter="cx\library\wui\Window"       File="D:\prj_my\cx\library\wui\Window\BasicWindowT.hpp" />

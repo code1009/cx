@@ -121,6 +121,7 @@
     <ClInclude Include="src\VcFileGenerator\VcFileGenerator.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\File.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\FileCopy.hpp" />
+    <ClInclude Include="src\VcFileGenerator\VcFile\FilePath.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\Generator.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\VcFile.hpp" />
     <ClInclude Include="src\VcFileGenerator\VcFile\VcFile_sln.hpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="src\VcFileGenerator\VcFileGenerator.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\File.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\FileCopy.cpp" />
+    <ClCompile Include="src\VcFileGenerator\VcFile\FilePath.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\Generator.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_sln.cpp" />
     <ClCompile Include="src\VcFileGenerator\VcFile\VcFile_vcxproj.cpp" />
@@ -248,7 +250,9 @@
     <Xml Include="..\..\template\Application.VcItem.xml" />
     <Xml Include="..\..\template\Application.VcTemplate.xml" />
     <Xml Include="..\..\template\cx.VcItem.xml" />
+    <Xml Include="..\..\template\cx.VcItem1.xml" />
     <Xml Include="..\..\template\cx.VcItem2.xml" />
+    <Xml Include="..\..\template\cx.VcItem3.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

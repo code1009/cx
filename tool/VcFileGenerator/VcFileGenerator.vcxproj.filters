@@ -405,6 +405,9 @@
     <ClInclude Include="..\..\library\component\xml.hpp">
       <Filter>cx\library\component</Filter>
     </ClInclude>
+    <ClInclude Include="src\VcFileGenerator\VcFile\FilePath.hpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -668,6 +671,9 @@
     <ClCompile Include="..\..\library\component\xml.cpp">
       <Filter>cx\library\component</Filter>
     </ClCompile>
+    <ClCompile Include="src\VcFileGenerator\VcFile\FilePath.cpp">
+      <Filter>src\VcFileGenerator\VcFile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Application.aps">
@@ -713,6 +719,12 @@
       <Filter>VcTemplate.xml</Filter>
     </Xml>
     <Xml Include="..\..\template\cx.VcItem2.xml">
+      <Filter>VcTemplate.xml</Filter>
+    </Xml>
+    <Xml Include="..\..\template\cx.VcItem3.xml">
+      <Filter>VcTemplate.xml</Filter>
+    </Xml>
+    <Xml Include="..\..\template\cx.VcItem1.xml">
       <Filter>VcTemplate.xml</Filter>
     </Xml>
   </ItemGroup>

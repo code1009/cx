@@ -10,6 +10,7 @@
 
 #include "Guid.hpp"
 #include "String.hpp"
+#include "FilePath.hpp"
 #include "File.hpp"
 #include "FileCopy.hpp"
 

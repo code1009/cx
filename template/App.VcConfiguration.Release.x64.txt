@@ -1,4 +1,4 @@
-    <ClCompile>
+﻿    <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -10,7 +10,7 @@
       <AdditionalIncludeDirectories>D:\app\cx\library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
-      <ObjectFileName>$(IntDir)Output/Root/%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
