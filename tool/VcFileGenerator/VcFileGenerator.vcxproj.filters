@@ -718,14 +718,5 @@
     <Xml Include="..\..\template\cx.VcItem.xml">
       <Filter>VcTemplate.xml</Filter>
     </Xml>
-    <Xml Include="..\..\template\cx.VcItem2.xml">
-      <Filter>VcTemplate.xml</Filter>
-    </Xml>
-    <Xml Include="..\..\template\cx.VcItem3.xml">
-      <Filter>VcTemplate.xml</Filter>
-    </Xml>
-    <Xml Include="..\..\template\cx.VcItem1.xml">
-      <Filter>VcTemplate.xml</Filter>
-    </Xml>
   </ItemGroup>
 </Project>
