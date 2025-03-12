@@ -51,26 +51,25 @@ void FileCopy::makeItems(void)
 {
 	std::wstring sourceDirectory;
 	std::wstring targetDirectory;
-
 	sourceDirectory = _Generator->_Parameter->get(L"$(SourceDirectory)");
 	targetDirectory = _Generator->_Parameter->get(L"$(VcProjectDirectory)");
 
+	
 	std::vector<std::wstring> fileList = getSourceFileList(sourceDirectory);
 
-	std::shared_ptr<Item> item;
 
 	std::wstring sourceFilePath;
 	std::wstring targetFilePath;
 
+
 	std::wstring sourceFileRelativePath;
 	std::wstring sourceFileRelativeDirectory;
 	std::wstring sourceFileRelativeDirectoryWithoutTrailingBackslash;
-
 	for (const auto& file : fileList)
 	{
 		sourceFileRelativePath = file.substr(sourceDirectory.size());
 		sourceFileRelativeDirectory = cx::wfs::get_directory_of_file_path(sourceFileRelativePath);
-		if (sourceFileRelativeDirectory.rfind(L"\\") == (sourceFileRelativeDirectory.size()-1))
+		if (sourceFileRelativeDirectory.rfind(L"\\") == (sourceFileRelativeDirectory.size() - 1))
 		{
 			sourceFileRelativeDirectoryWithoutTrailingBackslash = 
 				sourceFileRelativeDirectory.substr(0, sourceFileRelativeDirectory.size() - 1);
@@ -82,12 +81,8 @@ void FileCopy::makeItems(void)
 
 		sourceFilePath = file;
 		targetFilePath = targetDirectory + sourceFileRelativePath;
-
-		item = std::make_shared<Item>(sourceFilePath, targetFilePath);
-
-
+		auto item = std::make_shared<Item>(sourceFilePath, targetFilePath);
 		_Items.push_back(item);
-
 
 		CX_RUNTIME_LOG(cxLDebug)
 			<< L"<Item"
