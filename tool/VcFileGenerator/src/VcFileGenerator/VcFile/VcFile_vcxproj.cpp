@@ -648,9 +648,6 @@ void VcFile_vcxproj::write_PropertyGroup_EnvironmentVariables(void)
 	std::wstring cxRelativeDirectory;
 	if (!cxDirectory.empty())
 	{
-		name = L"cxDirectory";
-		value = _Generator->_VcTemplate._Settings.cxDirectory;
-
 		if ((cxDirectory[0] != '$') && (cxDirectory[0] != '.'))
 		{
 			cxRelativeDirectory = getRelativePath(cxDirectory, _Generator->_Parameter->get(L"$(VcProjectDirectory)"));
@@ -663,6 +660,7 @@ void VcFile_vcxproj::write_PropertyGroup_EnvironmentVariables(void)
 		}
 
 
+		name = L"cxDirectory";
 		_oss
 			<< ispace2(2)
 			<< L"<" << name << L">"

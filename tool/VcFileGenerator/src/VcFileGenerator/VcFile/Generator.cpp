@@ -125,22 +125,18 @@ bool Generator::loadVcTemplate(void)
 	// 파일항목 절대경로를 상대경로로 변환
 	for (auto& item : _VcItemData._Items)
 	{
-		if (item->_File.empty())
+		if (!item->_File.empty())
 		{
-			return false;
-		}
-		if (item->_File.size()>1)
-		{
-			if (item->_File[0] == '$')
+			if ((item->_File[0] != '$') && (item->_File[0] != '.'))
 			{
-				continue;
-			}
-			if (item->_File[0] != '.')
-			{
-				std::wstring sourceFilePath;
-				sourceFilePath = getRelativePath(item->_File, _Parameter->get(L"$(VcProjectDirectory)"));
+				std::wstring sourceFilePath =
+				getRelativePath(item->_File, _Parameter->get(L"$(VcProjectDirectory)"));
 				item->_File = sourceFilePath;
 			}
+		}
+		else
+		{
+			return false;
 		}
 	}
 
