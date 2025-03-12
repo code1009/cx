@@ -105,7 +105,8 @@ std::vector<std::wstring> FileCopy::getSourceFileList(const std::wstring& direct
 {
 	std::vector<std::wstring> fileList;
 	std::wstring filePath;
-	std::wstring fileExt;
+	bool rv;
+
 
 	try 
 	{
@@ -115,62 +116,11 @@ std::vector<std::wstring> FileCopy::getSourceFileList(const std::wstring& direct
 			{
 				filePath = entry.path().wstring();
 
-
-				fileExt = cx::wfs::get_file_extension_of_file_path(filePath);
-				if (fileExt == L".sln")
+				rv = shouldIgnoreFile(filePath);
+				if (!rv)
 				{
-					continue;
+					fileList.push_back(filePath);
 				}
-				if (fileExt == L".vcxproj")
-				{
-					continue;
-				}
-				if (fileExt == L".aps")
-				{
-					continue;
-				}
-				if (fileExt == L".filters")
-				{
-					continue;
-				}
-				if (fileExt == L".user")
-				{
-					continue;
-				}
-
-
-				if (std::wstring::npos != filePath.rfind(L".vcxproj.filters"))
-				{
-					continue;
-				}
-				if (std::wstring::npos != filePath.rfind(L".vcxproj.user"))
-				{
-					continue;
-				}
-
-
-				if (std::wstring::npos != filePath.find(L"vcpkg_installed\\"))
-				{
-					continue;
-				}
-				if (std::wstring::npos != filePath.find(L"x64\\Debug\\"))
-				{
-					continue;
-				}
-				if (std::wstring::npos != filePath.find(L"x64\\Release\\"))
-				{
-					continue;
-				}
-				if (std::wstring::npos != filePath.find(L"Win32\\Debug\\"))
-				{
-					continue;
-				}
-				if (std::wstring::npos != filePath.find(L"Win32\\Release\\"))
-				{
-					continue;
-				}
-
-				fileList.push_back(filePath);
 			}
 		}
 	}
@@ -179,6 +129,47 @@ std::vector<std::wstring> FileCopy::getSourceFileList(const std::wstring& direct
 	}
 
 	return fileList;
+}
+
+bool FileCopy::shouldIgnoreFile(const std::wstring& filePath)
+{
+	static const std::vector<std::wstring> ignoredExtensions =
+	{
+		L".filters", 
+		L".vcxproj", 
+		L".sln", 
+		L".aps", 
+		L".user"
+	};
+
+	static const std::vector<std::wstring> ignoredKeywords = 
+	{
+		L".vcxproj.filters", 
+		L".vcxproj.user",
+		L"\\.git\\", 
+		L"\\.vs\\", 
+		L"\\vcpkg_installed\\", 
+		L"\\x64\\Debug\\", 
+		L"\\x64\\Release\\",
+		L"\\Debug\\", 
+		L"\\Release\\"
+	};
+
+	std::wstring fileExt = cx::wfs::get_file_extension_of_file_path(filePath);
+	if (std::find(ignoredExtensions.begin(), ignoredExtensions.end(), fileExt) != ignoredExtensions.end())
+	{
+		return true;
+	}
+
+	for (const auto& keyword : ignoredKeywords)
+	{
+		if (filePath.find(keyword) != std::wstring::npos)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 //===========================================================================

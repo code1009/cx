@@ -54,6 +54,7 @@ public:
 
 public:
 	void makeItems(void);
+	bool shouldIgnoreFile(const std::wstring& filePath);
 	std::vector<std::wstring> getSourceFileList(const std::wstring& directoryPath);
 		
 	bool copyItems(void);
