@@ -2,7 +2,7 @@
 <VcTemplate>
 
 	<Settings
-    cxDirectory="D:\app\cx\"
+    cxDirectory="D:\prj_my\cx\"
 		SourceDirectory=".\Application\"
 		ClCompile_PrecompiledHeader=".\src\pch.cpp"
 		/>
@@ -13,10 +13,10 @@
 	</ItemFiles>
 	
 	<ConfigurationFiles>
-		<Item Name="$(VcConfiguration.Release|x64)"   File="App.VcConfiguration.Release.x64.txt"/>
-		<Item Name="$(VcConfiguration.Debug|x64)"     File="App.VcConfiguration.Debug.x64.txt"/>
-		<Item Name="$(VcConfiguration.Release|Win32)" File="App.VcConfiguration.Release.Win32.txt"/>
-		<Item Name="$(VcConfiguration.Debug|Win32)"   File="App.VcConfiguration.Debug.Win32.txt"/>
+		<Item Name="Release|x64"   File="Vc.App.Config.Release.x64.txt"/>
+		<Item Name="Debug|x64"     File="Vc.App.Config.Debug.x64.txt"/>
+		<Item Name="Release|Win32" File="Vc.App.Config.Release.Win32.txt"/>
+		<Item Name="Debug|Win32"   File="Vc.App.Config.Debug.Win32.txt"/>
 	</ConfigurationFiles>
   
 </VcTemplate>

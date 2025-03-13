@@ -241,10 +241,10 @@
     <ResourceCompile Include="res\Application.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\template\App.VcConfiguration.Debug.Win32.txt" />
-    <Text Include="..\..\template\App.VcConfiguration.Debug.x64.txt" />
-    <Text Include="..\..\template\App.VcConfiguration.Release.Win32.txt" />
-    <Text Include="..\..\template\App.VcConfiguration.Release.x64.txt" />
+    <Text Include="..\..\template\Vc.App.Config.Debug.Win32.txt" />
+    <Text Include="..\..\template\Vc.App.Config.Debug.x64.txt" />
+    <Text Include="..\..\template\Vc.App.Config.Release.Win32.txt" />
+    <Text Include="..\..\template\Vc.App.Config.Release.x64.txt" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\template\Application.VcItem.xml" />

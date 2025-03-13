@@ -695,16 +695,16 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\template\App.VcConfiguration.Debug.Win32.txt">
+    <Text Include="..\..\template\Vc.App.Config.Debug.Win32.txt">
       <Filter>VcTemplate.xml</Filter>
     </Text>
-    <Text Include="..\..\template\App.VcConfiguration.Debug.x64.txt">
+    <Text Include="..\..\template\Vc.App.Config.Debug.x64.txt">
       <Filter>VcTemplate.xml</Filter>
     </Text>
-    <Text Include="..\..\template\App.VcConfiguration.Release.Win32.txt">
+    <Text Include="..\..\template\Vc.App.Config.Release.Win32.txt">
       <Filter>VcTemplate.xml</Filter>
     </Text>
-    <Text Include="..\..\template\App.VcConfiguration.Release.x64.txt">
+    <Text Include="..\..\template\Vc.App.Config.Release.x64.txt">
       <Filter>VcTemplate.xml</Filter>
     </Text>
   </ItemGroup>

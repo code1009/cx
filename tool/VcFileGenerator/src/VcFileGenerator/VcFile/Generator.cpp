@@ -67,10 +67,16 @@ bool Generator::loadVcTemplate(void)
 	{
 		return false;
 	}
+
+
 	std::wstring sourceDirectory;
 	sourceDirectory = _Parameter->get(L"$(VcTemplateDirectory)");
 	sourceDirectory += _VcTemplate._Settings.SourceDirectory;
 	_Parameter->set(L"$(SourceDirectory)", sourceDirectory);
+
+
+	std::wstring targetDirectory;
+	targetDirectory = _Parameter->get(L"$(TargetDirectory)");
 
 
 	if (!directoryExists(sourceDirectory))
@@ -78,13 +84,33 @@ bool Generator::loadVcTemplate(void)
 		MessageBox(nullptr, L"템플릿 디렉토리가 존재하지 않습니다.", L"에러", MB_OK);
 		return false;
 	}
-	std::wstring targetDirectory;
-	targetDirectory = _Parameter->get(L"$(TargetDirectory)");
 	if (!directoryExists(targetDirectory))
 	{
 		MessageBox(nullptr, L"대상 디렉토리가 존재하지 않습니다.", L"에러", MB_OK);
 		return false;
 	}
+	
+
+	rv = loadVcTemplateItemFiles();
+	if (!rv)
+	{
+		return false;
+	}
+
+	rv = loadVcTemplateConfigurationFiles();
+	if (!rv)
+	{
+		return false;
+	}
+
+
+	return true;
+}
+
+bool Generator::loadVcTemplateItemFiles(void)
+{
+	bool rv;
+
 
 	// 파일항목 목록 읽기
 	for (auto& itemFile : _VcTemplate._ItemFiles)
@@ -130,7 +156,7 @@ bool Generator::loadVcTemplate(void)
 			if ((item->_File[0] != '$') && (item->_File[0] != '.'))
 			{
 				std::wstring sourceFilePath =
-				getRelativePath(item->_File, _Parameter->get(L"$(VcProjectDirectory)"));
+					getRelativePath(item->_File, _Parameter->get(L"$(VcProjectDirectory)"));
 				item->_File = sourceFilePath;
 			}
 		}
@@ -140,11 +166,23 @@ bool Generator::loadVcTemplate(void)
 		}
 	}
 
+	return true;
+}
+
+bool Generator::loadVcTemplateConfigurationFiles(void)
+{
+	bool rv;
+
+
 	// 컴파일옵션 파일 읽기
 	// 파라메터로 설정
 	for (auto& configurationFile : _VcTemplate._ConfigurationFiles)
 	{
-		auto configurationFilePath = _Parameter->get(L"$(VcTemplateDirectory)") + configurationFile.second;
+		auto [name, filePath] = configurationFile;
+
+		auto configurationFilePath = 
+			_Parameter->get(L"$(VcTemplateDirectory)") + 
+			filePath;
 
 		std::wstring value;
 		rv = loadFileString(configurationFilePath, value);
@@ -153,8 +191,17 @@ bool Generator::loadVcTemplate(void)
 			return false;
 		}
 
-		_Parameter->set(configurationFile.first, value);
+
+		// $(VcConfiguration.Release|x64)
+		//                   ~~~~~~~~~~~
+		std::wstring VarialbeName;
+		std::wstring VariableValue;
+
+		VarialbeName = L"$(VcConfiguration." + name + L")";
+		VariableValue = value;
+		_Parameter->set(VarialbeName, VariableValue);
 	}
+
 
 	return true;
 }

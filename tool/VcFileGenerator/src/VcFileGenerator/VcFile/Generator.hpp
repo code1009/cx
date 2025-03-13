@@ -32,6 +32,8 @@ public:
 
 public:
 	bool loadVcTemplate(void);
+	bool loadVcTemplateItemFiles(void);
+	bool loadVcTemplateConfigurationFiles(void);
 
 public:
 	bool generateVcFile(void);
