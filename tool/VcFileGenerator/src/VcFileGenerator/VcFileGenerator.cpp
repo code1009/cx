@@ -80,16 +80,22 @@ static void dumpVcFileItems(std::wstring sourceDirectory)
 //===========================================================================
 bool VcFileGenerator::initialize(void)
 {
-	std::wstring cxDirectory = LR"__(D:\prj_my\cx\template\)__";
+	std::wstring cxDirectory = LR"__(D:\prj_my\cx\)__";
 
 
-	auto Subdirectories = VcFile::getSubdirectories(cxDirectory);
+	std::wstring cxTemplateDirectory;
+	cxTemplateDirectory = cxDirectory + L"template\\";
+
+
+	auto Subdirectories = VcFile::getSubdirectories(cxTemplateDirectory);
 	for (auto& directory : Subdirectories)
 	{
 		dumpVcFileItems(directory);
 	}
 
+
 	loadConfig();
+
 	return true;
 }
 
