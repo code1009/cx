@@ -2,7 +2,7 @@
 <VcTemplate>
 
 	<Settings
-    cxDirectory="D:\prj_my\cx\"
+		cxDirectory="D:\prj_my\cx\"
 		SourceDirectory=".\WebUIApplication\"
 		ClCompile_PrecompiledHeader=".\src\pch.cpp"
 		/>
