@@ -128,7 +128,7 @@ bool Generator::loadVcTemplateItemFiles(void)
 	std::sort(
 		_VcItemData._Items.begin(), 
 		_VcItemData._Items.end(),
-		[](std::shared_ptr<VcItem> a, std::shared_ptr<VcItem> b)
+		[](std::shared_ptr<VcItem> a, std::shared_ptr<VcItem> b) -> bool
 		{
 			if (a->_Type < b->_Type)
 			{
@@ -153,7 +153,7 @@ bool Generator::loadVcTemplateItemFiles(void)
 	{
 		if (!item->_File.empty())
 		{
-			if ((item->_File[0] != '$') && (item->_File[0] != '.'))
+			if (isAbsolutePath(item->_File))
 			{
 				std::wstring sourceFilePath =
 					getRelativePath(item->_File, _Parameter->get(L"$(VcProjectDirectory)"));

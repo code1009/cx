@@ -42,6 +42,11 @@ std::wstring getRelativePath(const std::wstring& absolutePath, const std::wstrin
 	return relativePath.wstring();
 }
 
+bool isAbsolutePath(const std::wstring& path)
+{
+	return std::filesystem::path(path).is_absolute();
+}
+
 
 
 
