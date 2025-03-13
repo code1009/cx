@@ -56,37 +56,39 @@ std::vector<std::wstring> SourceFileList::getFileList(const std::wstring& direct
 	return fileList;
 }
 
+//===========================================================================
+static const std::vector<std::wstring> _ignoredExtensions =
+{
+	L".filters", 
+	L".vcxproj", 
+	L".sln", 
+	L".aps", 
+	L".user"
+};
+
+static const std::vector<std::wstring> _ignoredKeywords = 
+{
+	L".vcxproj.filters", 
+	L".vcxproj.user",
+	L"\\.git\\", 
+	L"\\.vs\\", 
+	L"\\vcpkg_installed\\", 
+	L"\\x64\\Debug\\", 
+	L"\\x64\\Release\\",
+	L"\\Debug\\", 
+	L"\\Release\\"
+};
+
+//===========================================================================
 bool SourceFileList::shouldIgnoreFile(const std::wstring& filePath)
 {
-	static const std::vector<std::wstring> ignoredExtensions =
-	{
-		L".filters", 
-		L".vcxproj", 
-		L".sln", 
-		L".aps", 
-		L".user"
-	};
-
-	static const std::vector<std::wstring> ignoredKeywords = 
-	{
-		L".vcxproj.filters", 
-		L".vcxproj.user",
-		L"\\.git\\", 
-		L"\\.vs\\", 
-		L"\\vcpkg_installed\\", 
-		L"\\x64\\Debug\\", 
-		L"\\x64\\Release\\",
-		L"\\Debug\\", 
-		L"\\Release\\"
-	};
-
 	std::wstring fileExt = cx::wfs::get_file_extension_of_file_path(filePath);
-	if (std::find(ignoredExtensions.begin(), ignoredExtensions.end(), fileExt) != ignoredExtensions.end())
+	if (std::find(_ignoredExtensions.begin(), _ignoredExtensions.end(), fileExt) != _ignoredExtensions.end())
 	{
 		return true;
 	}
 
-	for (const auto& keyword : ignoredKeywords)
+	for (const auto& keyword : _ignoredKeywords)
 	{
 		if (filePath.find(keyword) != std::wstring::npos)
 		{
