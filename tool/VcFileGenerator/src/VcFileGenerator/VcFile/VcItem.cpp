@@ -69,6 +69,12 @@ bool VcItemData::hasFilter(std::wstring filter)
 
 void VcItemData::makeFilter(std::wstring filterPath)
 {
+	if (filterPath.empty())
+	{
+		return;
+	}
+
+
 	std::size_t pos = filterPath.rfind(L"\\");
 	if (std::wstring::npos != pos)
 	{

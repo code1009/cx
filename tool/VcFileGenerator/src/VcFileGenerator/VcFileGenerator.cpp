@@ -22,6 +22,12 @@
 //===========================================================================
 static void dumpVcFileItems(std::wstring sourceDirectory)
 {
+	if (sourceDirectory.back() != L'\\')
+	{
+		sourceDirectory += L'\\';
+	}
+
+
 	CX_RUNTIME_LOG(cxLDebug) << sourceDirectory;
 
 
@@ -29,8 +35,8 @@ static void dumpVcFileItems(std::wstring sourceDirectory)
 	std::vector<std::wstring> fileList = sourceFileList.getFileList(sourceDirectory);
 
 
-	std::wstring sourceFilePath;
-	std::wstring targetFilePath;
+	std::wstring vcItemFilter;
+	std::wstring vcItemFile;
 
 
 	std::wstring sourceFileRelativePath;
@@ -50,12 +56,14 @@ static void dumpVcFileItems(std::wstring sourceDirectory)
 			sourceFileRelativeDirectoryWithoutTrailingBackslash = L"";
 		}
 
+		vcItemFilter = sourceFileRelativeDirectoryWithoutTrailingBackslash;
+		vcItemFile = L".\\" + sourceFileRelativePath;
 		CX_RUNTIME_LOG(cxLDebug)
 			<< L"<Item"
 			<< L" "
-			<< L"Filter=" << VcFile::dquot(sourceFileRelativeDirectoryWithoutTrailingBackslash)
+			<< L"Filter=" << VcFile::dquot(vcItemFilter)
 			<< L" "
-			<< L"File=" << VcFile::dquot(L".\\" + sourceFileRelativePath)
+			<< L"File=" << VcFile::dquot(vcItemFile)
 			<< L" "
 			<< L"/>"
 			;
@@ -72,8 +80,10 @@ static void dumpVcFileItems(std::wstring sourceDirectory)
 //===========================================================================
 bool VcFileGenerator::initialize(void)
 {
-	auto Subdirectories = VcFile::getSubdirectories(LR"__(D:\prj_my\cx\template\)__");
+	std::wstring cxDirectory = LR"__(D:\prj_my\cx\template\)__";
 
+
+	auto Subdirectories = VcFile::getSubdirectories(cxDirectory);
 	for (auto& directory : Subdirectories)
 	{
 		dumpVcFileItems(directory);

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<VcItem>
+
+<Item Filter="res" File=".\res\Application.ico" />
+<Item Filter="res" File=".\res\Application.rc" />
+<Item Filter="res" File=".\res\Resource.h" />
+<Item Filter="res" File=".\res\small.ico" />
+<Item Filter="res\web" File=".\res\web\basic.css" />
+<Item Filter="res\web" File=".\res\web\core.js" />
+<Item Filter="res\web\images" File=".\res\web\images\logo.png" />
+<Item Filter="res\web\page_1" File=".\res\web\page_1\page.css" />
+<Item Filter="res\web\page_1" File=".\res\web\page_1\page.html" />
+<Item Filter="res\web\page_1" File=".\res\web\page_1\page.js" />
+<Item Filter="res\web\page_2" File=".\res\web\page_2\page.css" />
+<Item Filter="res\web\page_2" File=".\res\web\page_2\page.html" />
+<Item Filter="res\web\page_2" File=".\res\web\page_2\page.js" />
+<Item Filter="res\web\page_3" File=".\res\web\page_3\page.css" />
+<Item Filter="res\web\page_3" File=".\res\web\page_3\page.html" />
+<Item Filter="res\web\page_3" File=".\res\web\page_3\page.js" />
+<Item Filter="res\web\page_home" File=".\res\web\page_home\page.css" />
+<Item Filter="res\web\page_home" File=".\res\web\page_home\page.html" />
+<Item Filter="res\web\page_home" File=".\res\web\page_home\page.js" />
+<Item Filter="src" File=".\src\Application.cpp" />
+<Item Filter="src" File=".\src\Application.hpp" />
+<Item Filter="src" File=".\src\framework.hpp" />
+<Item Filter="src" File=".\src\Main.cpp" />
+<Item Filter="src" File=".\src\pch.cpp" />
+<Item Filter="src" File=".\src\pch.hpp" />
+<Item Filter="src" File=".\src\targetver.h" />
+<Item Filter="src\WebUI" File=".\src\WebUI\pch.hpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUI.hpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIContents.cpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIContents.hpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIManager.cpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIManager.hpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIMessageService.cpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIMessageService.hpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIView.cpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIView.hpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIWindow.cpp" />
+<Item Filter="src\WebUI" File=".\src\WebUI\WebUIWindow.hpp" />
+<Item Filter="src\Window" File=".\src\Window\AboutBox.cpp" />
+<Item Filter="src\Window" File=".\src\Window\AboutBox.hpp" />
+<Item Filter="src\Window" File=".\src\Window\MainFrame.cpp" />
+<Item Filter="src\Window" File=".\src\Window\MainFrame.hpp" />
+<Item Filter="src\Window" File=".\src\Window\pch.hpp" />
+<Item Filter="" File=".\vcpkg.json" />
+
+</VcItem>

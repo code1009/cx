@@ -250,6 +250,8 @@
     <Xml Include="..\..\template\Application.VcItem.xml" />
     <Xml Include="..\..\template\Application.VcTemplate.xml" />
     <Xml Include="..\..\template\cx.VcItem.xml" />
+    <Xml Include="..\..\template\WebUIApplication.VcItem.xml" />
+    <Xml Include="..\..\template\WebUIApplication.VcTemplate.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

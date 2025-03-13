@@ -718,5 +718,11 @@
     <Xml Include="..\..\template\cx.VcItem.xml">
       <Filter>VcTemplate.xml</Filter>
     </Xml>
+    <Xml Include="..\..\template\WebUIApplication.VcItem.xml">
+      <Filter>VcTemplate.xml</Filter>
+    </Xml>
+    <Xml Include="..\..\template\WebUIApplication.VcTemplate.xml">
+      <Filter>VcTemplate.xml</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
