@@ -151,13 +151,13 @@ void VcItemData::initializeTypeFileExtensionsMap(void)
 {
 	_TypeFileExtensionsMap.clear();
 
-	_TypeFileExtensionsMap[L"ClCompile"] = L".cpp;.c;.cc;.cxx;";
-	_TypeFileExtensionsMap[L"ClInclude"] = L".h;.hh;.hpp;.hxx;.inl;.inc";
+	_TypeFileExtensionsMap[L"ClCompile"      ] = L".cpp;.c;.cc;.cxx;";
+	_TypeFileExtensionsMap[L"ClInclude"      ] = L".h;.hh;.hpp;.hxx;.inl;.inc";
 	_TypeFileExtensionsMap[L"ResourceCompile"] = L".rc";
-	_TypeFileExtensionsMap[L"Image"] = L".ico;.cur;.bmp;.gif;.jpg;.jpeg;.png;.tiff;.tif";
-	_TypeFileExtensionsMap[L"Manifest"] = L".manifest";
-	_TypeFileExtensionsMap[L"Text"] = L".txt;.csv;.md";
-	_TypeFileExtensionsMap[L"None"] = L".cd";
+	_TypeFileExtensionsMap[L"Image"          ] = L".ico;.cur;.bmp;.gif;.jpg;.jpeg;.png;.tiff;.tif";
+	_TypeFileExtensionsMap[L"Manifest"       ] = L".manifest";
+	_TypeFileExtensionsMap[L"Text"           ] = L".txt;.csv;.md";
+	_TypeFileExtensionsMap[L"None"           ] = L".cd";
 }
 
 
