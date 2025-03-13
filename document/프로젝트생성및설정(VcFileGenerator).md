@@ -4,6 +4,8 @@
 이 문서는 `VcFileGenerator`를 사용하여 Visual Studio 프로젝트를 생성하고 설정하는 방법을 설명합니다.  
 `VcFileGenerator`는 템플릿 파일을 기반으로 프로젝트 파일(.vcxproj)과 솔루션 파일(.sln)을 자동으로 생성하는 도구입니다.
 
+![VcFileGenerator](VcFileGenerator.png)
+
 ## 프로젝트 생성
 
 ### VcFileGenerator 실행
