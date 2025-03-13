@@ -23,80 +23,10 @@ namespace VcFile
 
 
 
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-FileCopy::FileCopy(Generator* generator) :
-	_Generator(generator)
-{
-}
-
-//===========================================================================
-bool FileCopy::copy(void)
-{
-	bool rv;
-
-
-	makeItems();
-	rv = copyItems();
-	if (!rv)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-//===========================================================================
-void FileCopy::makeItems(void)
-{
-	std::wstring sourceDirectory;
-	std::wstring targetDirectory;
-	sourceDirectory = _Generator->_Parameter->get(L"$(SourceDirectory)");
-	targetDirectory = _Generator->_Parameter->get(L"$(VcProjectDirectory)");
-
-	
-	std::vector<std::wstring> fileList = getSourceFileList(sourceDirectory);
-
-
-	std::wstring sourceFilePath;
-	std::wstring targetFilePath;
-
-
-	std::wstring sourceFileRelativePath;
-	std::wstring sourceFileRelativeDirectory;
-	std::wstring sourceFileRelativeDirectoryWithoutTrailingBackslash;
-	for (const auto& file : fileList)
-	{
-		sourceFileRelativePath = file.substr(sourceDirectory.size());
-		sourceFileRelativeDirectory = cx::wfs::get_directory_of_file_path(sourceFileRelativePath);
-		if (sourceFileRelativeDirectory.rfind(L"\\") == (sourceFileRelativeDirectory.size() - 1))
-		{
-			sourceFileRelativeDirectoryWithoutTrailingBackslash = 
-				sourceFileRelativeDirectory.substr(0, sourceFileRelativeDirectory.size() - 1);
-		}
-		else
-		{
-			sourceFileRelativeDirectoryWithoutTrailingBackslash = L"";
-		}
-
-		sourceFilePath = file;
-		targetFilePath = targetDirectory + sourceFileRelativePath;
-		auto item = std::make_shared<Item>(sourceFilePath, targetFilePath);
-		_Items.push_back(item);
-
-		CX_RUNTIME_LOG(cxLDebug)
-			<< L"<Item"
-			<< L" "
-			<< L"Filter=" << dquot(sourceFileRelativeDirectoryWithoutTrailingBackslash)
-			<< L" "
-			<< L"File=" << dquot(sourceFileRelativePath)
-			<< L" "
-			<< L"/>"
-			;
-	}
-}
-
-std::vector<std::wstring> FileCopy::getSourceFileList(const std::wstring& directoryPath)
+std::vector<std::wstring> SourceFileList::getFileList(const std::wstring& directoryPath)
 {
 	std::vector<std::wstring> fileList;
 	std::wstring filePath;
@@ -126,7 +56,7 @@ std::vector<std::wstring> FileCopy::getSourceFileList(const std::wstring& direct
 	return fileList;
 }
 
-bool FileCopy::shouldIgnoreFile(const std::wstring& filePath)
+bool SourceFileList::shouldIgnoreFile(const std::wstring& filePath)
 {
 	static const std::vector<std::wstring> ignoredExtensions =
 	{
@@ -165,6 +95,65 @@ bool FileCopy::shouldIgnoreFile(const std::wstring& filePath)
 	}
 
 	return false;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+FileCopy::FileCopy(Generator* generator) :
+	_Generator(generator)
+{
+}
+
+//===========================================================================
+bool FileCopy::copy(void)
+{
+	bool rv;
+
+
+	makeItems();
+	rv = copyItems();
+	if (!rv)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+//===========================================================================
+void FileCopy::makeItems(void)
+{
+	std::wstring sourceDirectory;
+	std::wstring targetDirectory;
+	sourceDirectory = _Generator->_Parameter->get(L"$(SourceDirectory)");
+	targetDirectory = _Generator->_Parameter->get(L"$(VcProjectDirectory)");
+
+	
+	SourceFileList sourceFileList;
+	std::vector<std::wstring> fileList = sourceFileList.getFileList(sourceDirectory);
+
+
+	std::wstring sourceFilePath;
+	std::wstring targetFilePath;
+
+	std::wstring sourceFileRelativePath;
+	std::wstring sourceFileRelativeDirectory;
+
+
+	for (const auto& file : fileList)
+	{
+		sourceFileRelativePath = file.substr(sourceDirectory.size());
+		sourceFileRelativeDirectory = cx::wfs::get_directory_of_file_path(sourceFileRelativePath);
+
+		sourceFilePath = file;
+		targetFilePath = targetDirectory + sourceFileRelativePath;
+		auto item = std::make_shared<Item>(sourceFilePath, targetFilePath);
+		_Items.push_back(item);
+	}
 }
 
 //===========================================================================

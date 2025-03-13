@@ -44,10 +44,41 @@ std::wstring getRelativePath(const std::wstring& absolutePath, const std::wstrin
 
 bool isAbsolutePath(const std::wstring& path)
 {
+	/*
+	if (path.empty())
+	{
+		if (path[0] == L'$' || path[0] == L'.')
+		{
+			return false;
+		}
+		return true;
+	}
+	return false;
+	*/
+
 	return std::filesystem::path(path).is_absolute();
 }
 
+std::vector<std::wstring> getSubdirectories(const std::wstring& directoryPath)
+{
+	std::vector<std::wstring> subdirectories;
 
+	try
+	{
+		for (const auto& entry : std::filesystem::directory_iterator(directoryPath))
+		{
+			if (entry.is_directory())
+			{
+				subdirectories.push_back(entry.path().wstring());
+			}
+		}
+	}
+	catch (const std::filesystem::filesystem_error& e)
+	{
+	}
+
+	return subdirectories;
+}
 
 
 

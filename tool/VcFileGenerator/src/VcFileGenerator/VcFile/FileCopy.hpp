@@ -23,6 +23,19 @@ class Generator;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class SourceFileList
+{
+public:
+	bool shouldIgnoreFile(const std::wstring& filePath);
+	std::vector<std::wstring> getFileList(const std::wstring& directoryPath);
+};
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class FileCopy
 {
 public:
@@ -54,9 +67,6 @@ public:
 
 public:
 	void makeItems(void);
-	bool shouldIgnoreFile(const std::wstring& filePath);
-	std::vector<std::wstring> getSourceFileList(const std::wstring& directoryPath);
-		
 	bool copyItems(void);
 };
 

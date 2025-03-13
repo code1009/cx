@@ -20,8 +20,65 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+static void dumpVcFileItems(std::wstring sourceDirectory)
+{
+	CX_RUNTIME_LOG(cxLDebug) << sourceDirectory;
+
+
+	VcFile::SourceFileList sourceFileList;
+	std::vector<std::wstring> fileList = sourceFileList.getFileList(sourceDirectory);
+
+
+	std::wstring sourceFilePath;
+	std::wstring targetFilePath;
+
+
+	std::wstring sourceFileRelativePath;
+	std::wstring sourceFileRelativeDirectory;
+	std::wstring sourceFileRelativeDirectoryWithoutTrailingBackslash;
+	for (const auto& file : fileList)
+	{
+		sourceFileRelativePath = file.substr(sourceDirectory.size());
+		sourceFileRelativeDirectory = cx::wfs::get_directory_of_file_path(sourceFileRelativePath);
+		if (sourceFileRelativeDirectory.rfind(L"\\") == (sourceFileRelativeDirectory.size() - 1))
+		{
+			sourceFileRelativeDirectoryWithoutTrailingBackslash = 
+				sourceFileRelativeDirectory.substr(0, sourceFileRelativeDirectory.size() - 1);
+		}
+		else
+		{
+			sourceFileRelativeDirectoryWithoutTrailingBackslash = L"";
+		}
+
+		CX_RUNTIME_LOG(cxLDebug)
+			<< L"<Item"
+			<< L" "
+			<< L"Filter=" << VcFile::dquot(sourceFileRelativeDirectoryWithoutTrailingBackslash)
+			<< L" "
+			<< L"File=" << VcFile::dquot(L".\\" + sourceFileRelativePath)
+			<< L" "
+			<< L"/>"
+			;
+	}
+
+	CX_RUNTIME_LOG(cxLDebug) << std::endl;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 bool VcFileGenerator::initialize(void)
 {
+	auto Subdirectories = VcFile::getSubdirectories(LR"__(D:\prj_my\cx\template\)__");
+
+	for (auto& directory : Subdirectories)
+	{
+		dumpVcFileItems(directory);
+	}
+
 	loadConfig();
 	return true;
 }
@@ -35,6 +92,7 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 	bool rv;
 
 
+	//-----------------------------------------------------------------------
 	std::wstring templateDirectory = cx::wfs::get_directory_of_file_path(templateFilePath);
 	std::wstring templateFileName  = cx::wfs::get_file_name_of_file_path(templateFilePath);
 	std::wstring templateFile      = cx::wfs::get_file_of_file_path(templateFilePath);
@@ -57,6 +115,7 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 	std::wstring projectFiltersFilePath = projectFilePath + L".filters";
 
 
+	//-----------------------------------------------------------------------
 	VcFile::Parameter param;
 	param.set(L"$(TargetDirectory)"         , targetDirectory);
 
@@ -82,6 +141,7 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 	param.set(L"$(VcProjectFiltersFilePath)", projectFiltersFilePath);
 
 
+	//-----------------------------------------------------------------------
 	VcFile::Generator generator(&param);
 	rv = generator.generate();
 	if (rv == false)
@@ -90,9 +150,14 @@ bool VcFileGenerator::generate(std::wstring templateFilePath, std::wstring targe
 	}
 
 
+	//-----------------------------------------------------------------------
 	getConfig()._TemplateFilePath = templateFilePath;
 	getConfig()._SolutionName = solutionName;
 	getConfig()._ProjectName = projectName;
 	saveConfig();
+
+
+	//-----------------------------------------------------------------------
+
 	return true;
 }

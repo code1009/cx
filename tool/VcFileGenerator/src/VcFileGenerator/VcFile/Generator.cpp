@@ -103,7 +103,6 @@ bool Generator::loadVcTemplate(void)
 		return false;
 	}
 
-
 	return true;
 }
 
@@ -201,7 +200,6 @@ bool Generator::loadVcTemplateConfigurationFiles(void)
 		VariableValue = value;
 		_Parameter->set(VarialbeName, VariableValue);
 	}
-
 
 	return true;
 }
