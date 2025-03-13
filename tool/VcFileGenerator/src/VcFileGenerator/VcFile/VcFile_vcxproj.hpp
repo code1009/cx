@@ -23,6 +23,8 @@ public:
 	public:
 		std::wstring _Configuration;
 		std::wstring _Platform;
+
+	public:
 		std::wstring _Include;
 		std::wstring _ConfigurationPlatform;
 

@@ -10,8 +10,6 @@ class MainBox :
 	public cx::wui::MessageMapWindowT<MainBox, cx::wui::ModalTemplateBaseDialog>
 {
 private:
-
-private:
 	std::unique_ptr<VcFileGenerator> _VcFileGenerator;
 
 public:
