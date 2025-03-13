@@ -73,7 +73,7 @@ std::vector<std::wstring> getSubdirectories(const std::wstring& directoryPath)
 			}
 		}
 	}
-	catch (const std::filesystem::filesystem_error& e)
+	catch (const std::filesystem::filesystem_error&)
 	{
 	}
 
