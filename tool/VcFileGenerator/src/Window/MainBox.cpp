@@ -67,6 +67,7 @@ void MainBox::onCommand(cx::wui::WindowMessage& windowMessage)
 {
 	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
+	windowMessage.setResult(TRUE);
 
 	switch (wm.nID())
 	{
@@ -76,12 +77,10 @@ void MainBox::onCommand(cx::wui::WindowMessage& windowMessage)
 
 	case IDOK:
 		::EndDialog(*this, IDOK);
-		windowMessage.setResult(TRUE);
 		break;
 
 	case IDCANCEL:
 		::EndDialog(*this, IDCANCEL);
-		windowMessage.setResult(TRUE);
 		break;
 
 	default:
