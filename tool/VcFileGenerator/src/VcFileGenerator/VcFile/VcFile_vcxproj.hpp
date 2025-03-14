@@ -71,18 +71,18 @@ public:
 	
 	void write_PropertyGroup_EnvironmentVariables(void);
 
-	void wirte_ImportGroup_PropertySheets(void);
+	void write_ImportGroup_PropertySheets(void);
 
-	void wirte_ItemDefinitionGroup(void);
+	void write_ItemDefinitionGroup(void);
 
-	void wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props(void);
-	void wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_props(void);
-	void wirte_ImportGroup_ExtensionSettings(void);
-	void wirte_ImportGroup_Shared(void);
-	void wirte_PropertyGroup_UserMacros(void);
-	void wirte_PropertyGroup_VcPkg(void);
-	void wirte_Import_Project_VCTargetsPath_Microsoft_targets(void);
-	void wirte_ImportGroup_ExtensionTargets(void);
+	void write_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props(void);
+	void write_Import_Project_VCTargetsPath_Microsoft_Cpp_props(void);
+	void write_ImportGroup_ExtensionSettings(void);
+	void write_ImportGroup_Shared(void);
+	void write_PropertyGroup_UserMacros(void);
+	void write_PropertyGroup_VcPkg(void);
+	void write_Import_Project_VCTargetsPath_Microsoft_targets(void);
+	void write_ImportGroup_ExtensionTargets(void);
 };
 
 

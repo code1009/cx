@@ -88,24 +88,24 @@ void VcFile_vcxproj::write_Project (void)
 	write_ItemGroup_Item();
 	write_PropertyGroup_Globals();
 	
-	wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props();
+	write_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props();
 	
 	write_PropertyGroup_Configuration();
 	
-	wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_props();
-	wirte_ImportGroup_ExtensionSettings();
-	wirte_ImportGroup_Shared();
+	write_Import_Project_VCTargetsPath_Microsoft_Cpp_props();
+	write_ImportGroup_ExtensionSettings();
+	write_ImportGroup_Shared();
 
-	wirte_ImportGroup_PropertySheets();
+	write_ImportGroup_PropertySheets();
 
-	//wirte_PropertyGroup_UserMacros();
+	//write_PropertyGroup_UserMacros();
 	write_PropertyGroup_EnvironmentVariables();
-	wirte_PropertyGroup_VcPkg();
+	write_PropertyGroup_VcPkg();
 
-	wirte_ItemDefinitionGroup();
+	write_ItemDefinitionGroup();
 
-	wirte_Import_Project_VCTargetsPath_Microsoft_targets();
-	wirte_ImportGroup_ExtensionTargets();
+	write_Import_Project_VCTargetsPath_Microsoft_targets();
+	write_ImportGroup_ExtensionTargets();
 
 
 	//--------------------------------------------------------------------------
@@ -496,7 +496,7 @@ void VcFile_vcxproj::write_PropertyGroup_Configuration(void)
 }
 
 //===========================================================================
-void VcFile_vcxproj::wirte_ImportGroup_PropertySheets(void)
+void VcFile_vcxproj::write_ImportGroup_PropertySheets(void)
 {
 	/*
 	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -559,7 +559,7 @@ void VcFile_vcxproj::wirte_ImportGroup_PropertySheets(void)
 }
 
 //===========================================================================
-void VcFile_vcxproj::wirte_ItemDefinitionGroup(void)
+void VcFile_vcxproj::write_ItemDefinitionGroup(void)
 {
 	/*
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -692,7 +692,7 @@ void VcFile_vcxproj::write_PropertyGroup_EnvironmentVariables(void)
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_PropertyGroup_VcPkg(void)
+void VcFile_vcxproj::write_PropertyGroup_VcPkg(void)
 {
 	/*
 	<PropertyGroup Label="Vcpkg">
@@ -758,7 +758,7 @@ void VcFile_vcxproj::wirte_PropertyGroup_VcPkg(void)
 }
 
 //===========================================================================
-void VcFile_vcxproj::wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props(void)
+void VcFile_vcxproj::write_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_props(void)
 {
 	/*
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -773,7 +773,7 @@ void VcFile_vcxproj::wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_Default_pr
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_props(void)
+void VcFile_vcxproj::write_Import_Project_VCTargetsPath_Microsoft_Cpp_props(void)
 {
 	/*
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -788,7 +788,7 @@ void VcFile_vcxproj::wirte_Import_Project_VCTargetsPath_Microsoft_Cpp_props(void
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_ImportGroup_ExtensionSettings(void)
+void VcFile_vcxproj::write_ImportGroup_ExtensionSettings(void)
 {
 	/*
 	<ImportGroup Label="ExtensionSettings">
@@ -808,7 +808,7 @@ void VcFile_vcxproj::wirte_ImportGroup_ExtensionSettings(void)
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_ImportGroup_Shared(void)
+void VcFile_vcxproj::write_ImportGroup_Shared(void)
 {
 	/*
 	<ImportGroup Label="Shared">
@@ -828,7 +828,7 @@ void VcFile_vcxproj::wirte_ImportGroup_Shared(void)
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_PropertyGroup_UserMacros(void)
+void VcFile_vcxproj::write_PropertyGroup_UserMacros(void)
 {
 	/*
 	<PropertyGroup Label="UserMacros" />
@@ -843,7 +843,7 @@ void VcFile_vcxproj::wirte_PropertyGroup_UserMacros(void)
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_Import_Project_VCTargetsPath_Microsoft_targets(void)
+void VcFile_vcxproj::write_Import_Project_VCTargetsPath_Microsoft_targets(void)
 {
 	/*
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -858,7 +858,7 @@ void VcFile_vcxproj::wirte_Import_Project_VCTargetsPath_Microsoft_targets(void)
 		<< eline();
 }
 
-void VcFile_vcxproj::wirte_ImportGroup_ExtensionTargets(void)
+void VcFile_vcxproj::write_ImportGroup_ExtensionTargets(void)
 {
 	/*
 	<ImportGroup Label="ExtensionTargets">
