@@ -76,16 +76,16 @@ void DebugMemory::endMemoryLeakCheck(void)
 void DebugMemory::testMemoryLeak(void)
 {
 #ifdef _DEBUG
-	char* memory_leack_p0;
-	char* memory_leack_p1;
-	void* memory_leack_p2;
-	void* memory_leack_p3;
+	char* memory_leak_p0;
+	char* memory_leak_p1;
+	void* memory_leak_p2;
+	void* memory_leak_p3;
 
 
-	memory_leack_p0 = new char[16];
-	memory_leack_p1 = cpp_new char[16];
-	memory_leack_p2 = malloc(16);
-	memory_leack_p3 = calloc(16, 1);
+	memory_leak_p0 = new char[16];
+	memory_leak_p1 = cpp_new char[16];
+	memory_leak_p2 = malloc(16);
+	memory_leak_p3 = calloc(16, 1);
 #endif
 }
 
