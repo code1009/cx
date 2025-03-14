@@ -312,7 +312,7 @@ void VcFile_vcxproj::write_ItemGroup_ItemType_CustomBuild_Ribbon(std::shared_ptr
 	/*
 	1. Ribbon.xml Ribbon.bml RibbonUI.h RibbonUI.rc
 
-	2. Resouce.rc­
+	2. Resource.rc­
 	   //////////////////////////////////////////////////////
 	   // Ribbon
 	   #include "RibbonUI.rc"
