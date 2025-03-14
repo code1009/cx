@@ -55,7 +55,8 @@ std::wstring makeGuid(void)
 	RPC_STATUS status;
 
 
-	status = UuidCreate(&uuid);
+	UuidCreate(&uuid);
+
 
 	uuid_cstr = 0;
 	status = UuidToStringW(&uuid, &uuid_cstr);
