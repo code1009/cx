@@ -22,6 +22,7 @@ class MainBox :
 {
 private:
 	std::shared_ptr<app::WebUIManager> _WebUIManager;
+	UINT_PTR _TimerID;
 
 public:
 	MainBox();
@@ -35,6 +36,7 @@ public:
 	void onClose(cx::wui::WindowMessage& windowMessage);
 	void onSize(cx::wui::WindowMessage& windowMessage);
 	void onCommand(cx::wui::WindowMessage& windowMessage);
+	void onTimer(cx::wui::WindowMessage& windowMessage);
 	void onUser0(cx::wui::WindowMessage& windowMessage);
 	void onUser1(cx::wui::WindowMessage& windowMessage);
 };

@@ -14,11 +14,19 @@
 
     <h3>연결설정</h3>
     <div id="연결설정">
-        <label for="수신주소">주소:</label>
-        <input type="text" id="수신주소" name="주소" size="16" value="127.0.0.1" />
+        <label for="로컬주소">로컬주소:</label>
+        <input type="text" id="로컬주소" name="주소" size="16" value="127.0.0.1" />
 
-        <label for="수신포트">포트:</label>
-        <input type="text" id="수신포트" name="포트" size="6" value="5000" />
+        <label for="로컬포트">로컬포트:</label>
+        <input type="text" id="로컬포트" name="포트" size="6" value="5000" />
+        <br />
+
+        <label for="원격주소">원격주소:</label>
+        <input type="text" id="원격주소" name="주소" size="16" value="127.0.0.1" />
+
+        <label for="원격포트">원격포트:</label>
+        <input type="text" id="원격포트" name="포트" size="6" value="5000" />
+        <br />
 
         <button id="연결">연결</button>
         <button id="연결해제">연결해제</button>
@@ -26,15 +34,10 @@
 
     <h3>데이터전송</h3>
     <div id="데이터전송">
-        <label for="송신주소">주소:</label>
-        <input type="text" id="송신주소" name="주소" size="16" value="127.0.0.1" />
-
-        <label for="송신포트">포트:</label>
-        <input type="text" id="송신포트" name="포트" size="6" value="5000" />
+        <label for="송신데이터">데이터:</label>
+        <input type="text" id="송신데이터" name="송신데이터" size="128" value="00 00 00 00" />
         <br />
 
-        <label for="송신데이터">송신데이터:</label>
-        <input type="text" id="송신데이터" name="송신데이터" size="64" value="00 00 00 00" />
         <button id="송신">송신</button>
         <button id="자동송신">자동송신</button>
     </div>

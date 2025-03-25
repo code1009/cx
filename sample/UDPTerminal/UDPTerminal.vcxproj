@@ -80,6 +80,10 @@
     </ClCompile>
     <ClCompile Include="src\Model\Model.cpp" />
     <ClCompile Include="src\Model\UDPTerminal.cpp" />
+    <ClCompile Include="src\Model\Utility.cpp" />
+    <ClCompile Include="src\WebUI\WebMessage.cpp" />
+    <ClCompile Include="src\WebUI\WebMessageMemory.cpp" />
+    <ClCompile Include="src\WebUI\WebMessageQueue.cpp" />
     <ClCompile Include="src\WebUI\WebUIContents.cpp" />
     <ClCompile Include="src\WebUI\WebUIManager.cpp" />
     <ClCompile Include="src\WebUI\WebUIMessageService.cpp" />
@@ -166,7 +170,11 @@
     <ClInclude Include="src\Model\Model.hpp" />
     <ClInclude Include="src\Model\pch.hpp" />
     <ClInclude Include="src\Model\UDPTerminal.hpp" />
+    <ClInclude Include="src\Model\Utility.hpp" />
     <ClInclude Include="src\WebUI\pch.hpp" />
+    <ClInclude Include="src\WebUI\WebMessage.hpp" />
+    <ClInclude Include="src\WebUI\WebMessageMemory.hpp" />
+    <ClInclude Include="src\WebUI\WebMessageQueue.hpp" />
     <ClInclude Include="src\WebUI\WebUI.hpp" />
     <ClInclude Include="src\WebUI\WebUIContents.hpp" />
     <ClInclude Include="src\WebUI\WebUIManager.hpp" />

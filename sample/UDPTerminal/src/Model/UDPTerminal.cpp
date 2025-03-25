@@ -22,10 +22,14 @@
 
 #include <network/wsa.hpp>
 
+#include <wui/wui.hpp>
+
 //===========================================================================
+#include "../WebUI/WebUI.hpp"
+
 #include "UDPTerminal.hpp"
 #include "Model.hpp"
-
+#include "Utility.hpp"
 
 
 
@@ -33,6 +37,9 @@
 //===========================================================================
 class udp_unicast
 {
+public:
+	UDPTerminal* _UDPTerminal;
+
 public:
 	cx::network::net_addr_config _local_addr_config{};
 	cx::network::net_addr_config _remote_addr_config{};
@@ -236,6 +243,9 @@ void udp_unicast::process(void)
 
 void udp_unicast::run(void)
 {
+	_UDPTerminal->postWebMessage(L"접속...");
+
+
 	//-----------------------------------------------------------------------
 	bool rv;
 
@@ -485,6 +495,8 @@ void udp_unicast::do_recv(void)
 
 void udp_unicast::on_recv(cx::network::socket_address& socket_remote_address, std::uint8_t* packet_pointer, std::size_t packet_size)
 {
+
+#if 0
 	cx::network::net_msg* m;
 
 
@@ -506,6 +518,7 @@ void udp_unicast::on_recv(cx::network::socket_address& socket_remote_address, st
 
 
 	_rx_queue.push(m);
+#endif
 }
 
 //===========================================================================
@@ -577,20 +590,39 @@ std::size_t udp_unicast::recv(void* packet_pointer, std::size_t packet_size)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-UDPTerminal::UDPTerminal(Model* model, std::wstring address, std::wstring port) :
+UDPTerminal::UDPTerminal(Model* model, std::wstring laddress, std::wstring lport, std::wstring raddress, std::wstring rport) :
 	_Model{ model },
-	_Address{ address },
-	_Port{ port }
+	_LocalAddress{ laddress },
+	_LocalPort{ lport },
+	_RemoteAddress{ raddress },
+	_RemotePort{ rport }
 {
+	_udp_unicast = std::make_unique<udp_unicast>();
+	_udp_unicast->_UDPTerminal = this;
+	_udp_unicast->_local_addr_config._addr = cx::wcs_to_mbcs(_LocalAddress);
+	_udp_unicast->_local_addr_config._port = cx::wcs_to_mbcs(_LocalPort);
+	_udp_unicast->_remote_addr_config._addr = cx::wcs_to_mbcs(_RemoteAddress);
+	_udp_unicast->_remote_addr_config._port = cx::wcs_to_mbcs(_RemotePort);
+	
+	_udp_unicast->create();
 }
 
-bool UDPTerminal::initialize(void)
+UDPTerminal::~UDPTerminal()
 {
-
-	return true;
+	_udp_unicast->destroy();
+	_udp_unicast.reset();
 }
 
-void UDPTerminal::terminate(void)
+void UDPTerminal::send(const std::vector<std::uint8_t>& data)
 {
+	if (_udp_unicast)
+	{
+		_udp_unicast->send((void*)data.data(), data.size());
+	}
+}
+
+void UDPTerminal::postWebMessage(std::wstring message, std::wstring command)
+{
+	_Model->_WebUIManager->getMessageService()->postWebMessage(command, message);
 }
 

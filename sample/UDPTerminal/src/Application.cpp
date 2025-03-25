@@ -19,7 +19,9 @@
 #include "../res/resource.h"
 	
 //===========================================================================
+#include "WebUI/WebUI.hpp"
 #include "Window/MainBox.hpp"
+#include "Model/Model.hpp"
 
 //===========================================================================
 #include "Application.hpp"
@@ -58,11 +60,30 @@ bool Application::initialize(void)
 		return false;
 	}
 
+	rv = cx::network::net_msg_memory_initialize();
+	if (false == rv)
+	{
+		terminate();
+		return false;
+	}
+
+	rv = app::WebMessageMemory_Initialize();
+	if (false == rv)
+	{
+		terminate();
+		return false;
+	}
+
 	return true;
 }
 
 void Application::terminate(void)
 {
+	getModel()->disconnect();
+
+	app::WebMessageMemory_Cleanup();
+	cx::network::net_msg_memory_cleanup();
+
 	CX_RUNTIME_LOG(cxLInfo) << L"END" << std::endl;	
 	
 	cx::runtime::LogFacility_Cleanup();

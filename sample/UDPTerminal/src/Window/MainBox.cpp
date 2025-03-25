@@ -15,12 +15,17 @@
 
 //===========================================================================
 #include "../WebUI/WebUI.hpp"
+#include "../Model/Model.hpp"
 
 //===========================================================================
 #include "MainBox.hpp"
 
 
 
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+constexpr UINT MainBox_Timer_ID = 10;
+constexpr UINT MainBox_Timer_Time = 100;
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -42,6 +47,7 @@ void MainBox::registerWindowMessageMap(void)
 	_WindowMessageMap.handle(WM_INITDIALOG) = &MainBox::onInitDialog;
 	_WindowMessageMap.handle(WM_CLOSE)      = &MainBox::onClose;
 	_WindowMessageMap.handle(WM_SIZE)       = &MainBox::onSize;
+	_WindowMessageMap.handle(WM_TIMER)      = &MainBox::onTimer;
 	_WindowMessageMap.handle(WM_COMMAND)    = &MainBox::onCommand;
 
 	_WindowMessageMap.handle(WM_USER+0) = &MainBox::onUser0;
@@ -77,11 +83,22 @@ void MainBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
+	getModel()->setWebUIManager(_WebUIManager);
+	_TimerID = SetTimer(*this, MainBox_Timer_ID, MainBox_Timer_Time, nullptr);
+
+
+	//-----------------------------------------------------------------------
 	windowMessage.setResult(TRUE);
 }
 
 void MainBox::onClose(cx::wui::WindowMessage& windowMessage)
 {
+	//-----------------------------------------------------------------------
+	getModel()->disconnect();
+	getModel()->setWebUIManager(nullptr);
+	KillTimer(*this, _TimerID);
+
+
 	//-----------------------------------------------------------------------
 	_WebUIManager->deleteAndDestroyAllWindows();
 	_WebUIManager.reset();
@@ -97,6 +114,15 @@ void MainBox::onSize(cx::wui::WindowMessage& windowMessage)
 	RECT rect;
 	GetClientRect(getWindowHandle(), &rect);
 	_WebUIManager->moveWindow(getWindowHandle(), rect);
+	windowMessage.setResult(TRUE);
+}
+
+void MainBox::onTimer(cx::wui::WindowMessage& windowMessage)
+{
+	//CX_RUNTIME_LOG(cxLInfo) << L"MainBox::onTimer()";
+	_WebUIManager->getMessageService()->postWebMessageQueue();
+
+	windowMessage.setResult(TRUE);
 }
 
 void MainBox::onCommand(cx::wui::WindowMessage& windowMessage)
@@ -125,8 +151,10 @@ void MainBox::onCommand(cx::wui::WindowMessage& windowMessage)
 void MainBox::onUser0(cx::wui::WindowMessage& windowMessage)
 {
 	_WebUIManager->deleteWindow((HWND)windowMessage.wParam);
+	windowMessage.setResult(TRUE);
 }
 
 void MainBox::onUser1(cx::wui::WindowMessage& windowMessage)
 {
+	windowMessage.setResult(TRUE);
 }

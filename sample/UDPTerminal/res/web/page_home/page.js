@@ -89,24 +89,41 @@ class Page extends BasePage {
         this.initializeCommandHandlerMap();
         this.setupWebMessageHandler();
 
-        document.getElementById("연결").disabled = false;
-        document.getElementById("연결해제").disabled = true;
+        //document.getElementById("연결").disabled = false;
+        //document.getElementById("연결해제").disabled = true;
 
         this.setupClickEventListener("연결", "connect", "연결");
         this.setupClickEventListener("연결해제", "connect", "연결해제");
+
+        this.setupClickEventListener("송신", "send", "송신");
 
         this._ConsoleMessageWindow = new ConsoleMessageWindow();
     }
 
     connect(stringMessage) {
-        let address = document.getElementById("수신주소").value;
-        let port = document.getElementById("수신포트").value;
+        let laddress = document.getElementById("로컬주소").value;
+        let lport = document.getElementById("로컬포트").value;
+        let raddress = document.getElementById("원격주소").value;
+        let rport = document.getElementById("원격포트").value;
 
         let jsonMessage =
         {
             Command: stringMessage,
-            Address: address,
-            Port: port
+            LocalAddress: laddress,
+            LocalPort: lport,
+            RemoteAddress: raddress,
+            RemotePort: rport
+        };
+        this.postJsonMessage(jsonMessage);
+    }
+
+    send(stringMessage) {
+        let txData = document.getElementById("송신데이터").value;
+
+        let jsonMessage =
+        {
+            Command: stringMessage,
+            TxData: txData
         };
         this.postJsonMessage(jsonMessage);
     }

@@ -243,6 +243,18 @@
     <ClCompile Include="..\..\library\runtime\LogFacility\LogAsyncWriter.cpp">
       <Filter>cx\library\runtime\LogFacility</Filter>
     </ClCompile>
+    <ClCompile Include="src\Model\Utility.cpp">
+      <Filter>src\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebUI\WebMessageQueue.cpp">
+      <Filter>src\WebUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebUI\WebMessageMemory.cpp">
+      <Filter>src\WebUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebUI\WebMessage.cpp">
+      <Filter>src\WebUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(cxDirectory)library\component\charset_system.hpp">
@@ -502,6 +514,18 @@
     </ClInclude>
     <ClInclude Include="..\..\library\runtime\LogFacility\LogAsyncWriter.hpp">
       <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model\Utility.hpp">
+      <Filter>src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebUI\WebMessageQueue.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebUI\WebMessageMemory.hpp">
+      <Filter>src\WebUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebUI\WebMessage.hpp">
+      <Filter>src\WebUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

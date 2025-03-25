@@ -6,41 +6,37 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class UDPTerminal;
-
 namespace app
 {
-class WebUIManager;
-}
-
 
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Model
+class WebMessageQueue final
 {
 public:
-	std::unique_ptr<UDPTerminal> _UDPTerminal;
-	std::shared_ptr<app::WebUIManager> _WebUIManager;
+	std::mutex           _mutex;
+	std::deque<WebMessage*> _container;
 
 public:
-	Model() = default;
+	WebMessageQueue();
+
+private:
+	WebMessageQueue(const WebMessageQueue& other) = delete;
+	WebMessageQueue& operator=(const WebMessageQueue& other) = delete;
+
+private:
+	WebMessageQueue(WebMessageQueue&& other) noexcept = delete;
+	WebMessageQueue& operator=(WebMessageQueue&& other) noexcept = delete;
 
 public:
-	virtual ~Model() = default;
+	void push(WebMessage* m);
+	WebMessage* pop(void);
 
 public:
-	void setWebUIManager(std::shared_ptr<app::WebUIManager> ptr)
-	{
-		_WebUIManager = ptr;
-	}
-
-public:
-	void connect(std::wstring laddress, std::wstring lport, std::wstring raddress, std::wstring rport);
-	void disconnect(void);
-	void send(const std::vector<std::uint8_t>& data);
+	std::size_t count(void);
 };
 
 
@@ -49,5 +45,13 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-Model* getModel(void);
+}
+
+
+
+
+
+
+
+
 

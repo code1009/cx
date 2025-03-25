@@ -12,6 +12,8 @@
 //===========================================================================
 #include "../Model/UDPTerminal.hpp"
 #include "../Model/Model.hpp"
+#include "../Model/Utility.hpp"
+
 
 
 
@@ -266,6 +268,7 @@ bool WebUIMessageService::onCommand(WebUIWindow* window, web::json::value& jsonM
 	else if (command == L"파일갱신")   { return onCommand_FileUpdate(window, jsonMessage); }
 	else if (command == L"연결")       { return onCommand_Connect(window, jsonMessage); }
 	else if (command == L"연결해제")   { return onCommand_Disconnect(window, jsonMessage); }
+	else if (command == L"송신")       { return onCommand_Send(window, jsonMessage); }
 
 	return false;
 }
@@ -404,23 +407,39 @@ std::wstring WebUIMessageService::getFile_Json(void)
 bool WebUIMessageService::onCommand_Connect(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	//------------------------------------------------------------------------
-	web::json::value jsonAddress;
-	jsonAddress = jsonMessage.at(L"Address");
+	web::json::value jsonLocalAddress;
+	jsonLocalAddress = jsonMessage.at(L"LocalAddress");
 
-	web::json::value jsonPort;
-	jsonPort = jsonMessage.at(L"Port");
-
-
-	//------------------------------------------------------------------------
-	std::wstring Address;
-	Address = jsonAddress.as_string();
-
-	std::wstring Port;
-	Port = jsonPort.as_string();
+	web::json::value jsonLocalPort;
+	jsonLocalPort = jsonMessage.at(L"LocalPort");
 
 
 	//------------------------------------------------------------------------
-	getModel()->connect(Address, Port);
+	std::wstring LocalAddress;
+	LocalAddress = jsonLocalAddress.as_string();
+
+	std::wstring LocalPort;
+	LocalPort = jsonLocalPort.as_string();
+
+
+	//------------------------------------------------------------------------
+	web::json::value jsonRemoteAddress;
+	jsonRemoteAddress = jsonMessage.at(L"RemoteAddress");
+
+	web::json::value jsonRemotePort;
+	jsonRemotePort = jsonMessage.at(L"RemotePort");
+
+
+	//------------------------------------------------------------------------
+	std::wstring RemoteAddress;
+	RemoteAddress = jsonRemoteAddress.as_string();
+
+	std::wstring RemotePort;
+	RemotePort = jsonRemotePort.as_string();
+
+
+	//------------------------------------------------------------------------
+	getModel()->connect(LocalAddress, LocalPort, RemoteAddress, RemotePort);
 
 	return true;
 }
@@ -432,7 +451,62 @@ bool WebUIMessageService::onCommand_Disconnect(WebUIWindow* window, web::json::v
 	return true;
 }
 
+bool WebUIMessageService::onCommand_Send(WebUIWindow* window, web::json::value& jsonMessage)
+{
+	//------------------------------------------------------------------------
+	web::json::value jsonTxData;
+	jsonTxData = jsonMessage.at(L"TxData");
 
+
+	//------------------------------------------------------------------------
+	std::wstring TxData;
+	TxData = jsonTxData.as_string();
+
+
+	//------------------------------------------------------------------------
+	auto txData = hexStringToByteArray(TxData);
+	getModel()->send(txData);
+
+	return true;
+}
+
+void WebUIMessageService::postWebMessage_StringMessage(std::wstring command, std::wstring message)
+{
+	//------------------------------------------------------------------------
+	web::json::value jsonMessage;
+	jsonMessage[L"Command"] = web::json::value::string(command);
+	jsonMessage[L"StringMessage"] = web::json::value::string(message);
+
+
+	//------------------------------------------------------------------------
+	utility::stringstream_t stream;
+	jsonMessage.serialize(stream);
+	getWindow()->getView()->postWebMessageAsJson(stream.str());
+}
+
+void WebUIMessageService::postWebMessageQueue(void)
+{
+	std::size_t count;
+	std::size_t i;
+
+	count = _MessageQueue.count();
+	for (i=0u; i<count; i++)
+	{
+		auto m = _MessageQueue.pop();
+
+		postWebMessage_StringMessage(m->_Command, m->_Message);
+
+		WebMessage_Free(m);
+	}
+}
+
+void WebUIMessageService::postWebMessage(std::wstring command, std::wstring message)
+{
+	auto m = WebMessage_Alloc();
+	m->_Command = command;
+	m->_Message = message;
+	_MessageQueue.push(m);
+}
 
 
 

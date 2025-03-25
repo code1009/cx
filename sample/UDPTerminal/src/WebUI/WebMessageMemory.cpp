@@ -3,11 +3,13 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include "../runtime/runtime.hpp"
+#include <runtime/runtime.hpp>
 
 //===========================================================================
-#include "net_msg.hpp"
-#include "net_msg_memory.hpp"
+#include "WebMessage.hpp"
+#include "WebMessageMemory.hpp"
+
+
 
 
 
@@ -15,11 +17,8 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx
+namespace app
 {
-namespace network
-{
-
 
 
 
@@ -35,9 +34,9 @@ namespace network
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #if defined _DEBUG
-#define net_msg_pool_debug 1
+#define WebMessagePoolDebug 1
 #else
-#define net_msg_pool_debug 0
+#define WebMessagePoolDebug 0
 #endif
 
 
@@ -45,20 +44,20 @@ namespace network
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class net_msg_pool
+class WebMessagePool
 {
 public:
-	std::vector<net_msg*> _pool;
+	std::vector<WebMessage*> _pool;
 	std::size_t _grow;
 
-#if 1==net_msg_pool_debug
+#if 1==WebMessagePoolDebug
 	std::size_t _count;
 	std::size_t _max_count;
 #endif
 
 public:
-	net_msg_pool();
-	~net_msg_pool();
+	WebMessagePool();
+	~WebMessagePool();
 
 public:
 	bool create(std::size_t count);
@@ -69,15 +68,15 @@ public:
 	void cleanup(void);
 
 public:
-	net_msg* acquire(void);
-	void release(net_msg* m);
+	WebMessage* acquire(void);
+	void release(WebMessage* m);
 };
 
 //===========================================================================
-net_msg_pool::net_msg_pool() :
+WebMessagePool::WebMessagePool() :
 	_pool(),
 	_grow(16U)
-#if 1==net_msg_pool_debug
+#if 1==WebMessagePoolDebug
 	,
 	_count(0U),
 	_max_count(0U)
@@ -85,11 +84,11 @@ net_msg_pool::net_msg_pool() :
 {
 }
 
-net_msg_pool::~net_msg_pool()
+WebMessagePool::~WebMessagePool()
 {
 }
 
-bool net_msg_pool::create(std::size_t count)
+bool WebMessagePool::create(std::size_t count)
 {
 	_pool.reserve(count);
 
@@ -98,20 +97,20 @@ bool net_msg_pool::create(std::size_t count)
 	return true;
 }
 
-void net_msg_pool::destroy(void)
+void WebMessagePool::destroy(void)
 {
 	cleanup();
 }
 
-void net_msg_pool::append(std::size_t count)
+void WebMessagePool::append(std::size_t count)
 {
-	net_msg* ptr;
+	WebMessage* ptr;
 	std::size_t i;
 
 
 	for (i = 0; i < count; ++i)
 	{
-		ptr = new (std::nothrow)net_msg();
+		ptr = new (std::nothrow)WebMessage();
 		if (ptr)
 		{
 			_pool.push_back(ptr);
@@ -119,9 +118,9 @@ void net_msg_pool::append(std::size_t count)
 	}
 }
 
-void net_msg_pool::cleanup(void)
+void WebMessagePool::cleanup(void)
 {
-	net_msg* ptr;
+	WebMessage* ptr;
 	std::size_t i;
 	std::size_t count;
 
@@ -137,25 +136,25 @@ void net_msg_pool::cleanup(void)
 		}
 		else
 		{
-			// 올수 없는 조건
-			CX_RUNTIME_LOG(cxLError) << L"net_msg_pool::cleanup(): error!";
+			// 올 수 없는 조건
+			CX_RUNTIME_LOG(cxLError) << L"WebMessagePool::cleanup(): error!";
 		}
 	}
 
 	_pool.clear();
 
 
-#if 1==net_msg_pool_debug
+#if 1==WebMessagePoolDebug
 	CX_RUNTIME_LOG(cxLDebug)
 		<< L"----------------------------------------------------------------------------" << std::endl
-		<< L"net_msg_pool::cleanup(): count=" << _count << " max_count=" << _max_count << std::endl
+		<< L"WebMessagePool::cleanup(): count=" << _count << " max_count=" << _max_count << std::endl
 		<< L"----------------------------------------------------------------------------" << std::endl;
 #endif
 }
 
-net_msg* net_msg_pool::acquire(void)
+WebMessage* WebMessagePool::acquire(void)
 {
-	net_msg* ptr;
+	WebMessage* ptr;
 
 
 	if (!_pool.empty())
@@ -164,7 +163,7 @@ net_msg* net_msg_pool::acquire(void)
 
 		_pool.pop_back();
 
-#if 1==net_msg_pool_debug
+#if 1==WebMessagePoolDebug
 		_count++;
 		if (_count > _max_count)
 		{
@@ -185,7 +184,7 @@ net_msg* net_msg_pool::acquire(void)
 
 		_pool.pop_back();
 
-#if 1==net_msg_pool_debug
+#if 1==WebMessagePoolDebug
 		_count++;
 		if (_count > _max_count)
 		{
@@ -197,24 +196,24 @@ net_msg* net_msg_pool::acquire(void)
 	}
 
 
-	CX_RUNTIME_LOG(cxLError) << L"net_msg_pool::acquire(): empty!";
+	CX_RUNTIME_LOG(cxLError) << L"WebMessagePool::acquire(): empty!";
 
 	return nullptr;
 }
 
-void net_msg_pool::release(net_msg* ptr)
+void WebMessagePool::release(WebMessage* ptr)
 {
 	if (ptr)
 	{
 		_pool.push_back(ptr);
 
-#if 1==net_msg_pool_debug
+#if 1==WebMessagePoolDebug
 		_count--;
 #endif
 	}
 	else
 	{
-		CX_RUNTIME_LOG(cxLError) << L"net_msg_pool::release(): nullptr!";
+		CX_RUNTIME_LOG(cxLError) << L"WebMessagePool::release(): nullptr!";
 	}
 }
 
@@ -224,67 +223,32 @@ void net_msg_pool::release(net_msg* ptr)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class net_msg_concurrency_pool_mutex
+class WebMessageConcurrencyPool
 {
 private:
-	std::mutex _mutex;
+	std::mutex  _mutex;
+	WebMessagePool _pool;
 
 public:
-	net_msg_concurrency_pool_mutex();
-
-public:
-	void lock(void);
-	void unlock(void);
-};
-
-//===========================================================================
-net_msg_concurrency_pool_mutex::net_msg_concurrency_pool_mutex() :
-	_mutex()
-{
-}
-
-void net_msg_concurrency_pool_mutex::lock(void)
-{
-	_mutex.lock();
-}
-
-void net_msg_concurrency_pool_mutex::unlock(void)
-{
-	_mutex.unlock();
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-class net_msg_concurrency_pool
-{
-private:
-	net_msg_concurrency_pool_mutex _mutex;
-	net_msg_pool _pool;
-
-public:
-	net_msg_concurrency_pool();
+	WebMessageConcurrencyPool();
 
 public:
 	bool create(std::size_t count);
 	void destroy(void);
 
 public:
-	net_msg* acquire(void);
-	void release(net_msg* ptr);
+	WebMessage* acquire(void);
+	void release(WebMessage* ptr);
 };
 
 //===========================================================================
-net_msg_concurrency_pool::net_msg_concurrency_pool() :
+WebMessageConcurrencyPool::WebMessageConcurrencyPool() :
 	_mutex(),
 	_pool()
 {
 }
 
-bool net_msg_concurrency_pool::create(std::size_t count)
+bool WebMessageConcurrencyPool::create(std::size_t count)
 {
 	bool rv;
 
@@ -296,16 +260,16 @@ bool net_msg_concurrency_pool::create(std::size_t count)
 	return rv;
 }
 
-void net_msg_concurrency_pool::destroy(void)
+void WebMessageConcurrencyPool::destroy(void)
 {
 	_mutex.lock();
 	_pool.destroy();
 	_mutex.unlock();
 }
 
-net_msg* net_msg_concurrency_pool::acquire(void)
+WebMessage* WebMessageConcurrencyPool::acquire(void)
 {
-	net_msg* ptr;
+	WebMessage* ptr;
 
 
 	_mutex.lock();
@@ -315,7 +279,7 @@ net_msg* net_msg_concurrency_pool::acquire(void)
 	return ptr;
 }
 
-void net_msg_concurrency_pool::release(net_msg* ptr)
+void WebMessageConcurrencyPool::release(WebMessage* ptr)
 {
 	_mutex.lock();
 	_pool.release(ptr);
@@ -328,27 +292,27 @@ void net_msg_concurrency_pool::release(net_msg* ptr)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static net_msg_concurrency_pool* _net_msg_concurrency_pool = nullptr;
+static WebMessageConcurrencyPool* _WebMessageConcurrencyPool;
 
 //===========================================================================
-bool net_msg_memory_initialize(std::size_t capacity)
+bool WebMessageMemory_Initialize(std::size_t capacity)
 {
-	if (nullptr == _net_msg_concurrency_pool)
+	if (nullptr==_WebMessageConcurrencyPool)
 	{
-		_net_msg_concurrency_pool = cpp_new net_msg_concurrency_pool();
-		return _net_msg_concurrency_pool->create(capacity);
+		_WebMessageConcurrencyPool = cpp_new WebMessageConcurrencyPool();
+		return _WebMessageConcurrencyPool->create(capacity);
 	}
 
 	return false;
 }
 
-void net_msg_memory_cleanup(void)
+void WebMessageMemory_Cleanup(void)
 {
-	if (_net_msg_concurrency_pool)
+	if (_WebMessageConcurrencyPool)
 	{
-		_net_msg_concurrency_pool->destroy();
-		cpp_delete _net_msg_concurrency_pool;
-		_net_msg_concurrency_pool = nullptr;
+		_WebMessageConcurrencyPool->destroy();
+		cpp_delete _WebMessageConcurrencyPool;
+		_WebMessageConcurrencyPool = nullptr;
 	}
 }
 
@@ -358,18 +322,16 @@ void net_msg_memory_cleanup(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-net_msg* net_msg_alloc(void) noexcept
+WebMessage* WebMessage_Alloc(void) noexcept
 {
-	return _net_msg_concurrency_pool->acquire();
+	return _WebMessageConcurrencyPool->acquire();
 }
 
-void net_msg_free(net_msg* ptr) noexcept
+void WebMessage_Free(WebMessage* ptr) noexcept
 {
 	if (ptr)
 	{
-		ptr->reset();
-
-		_net_msg_concurrency_pool->release(ptr);
+		_WebMessageConcurrencyPool->release(ptr);
 	}
 }
 #endif
@@ -381,17 +343,17 @@ void net_msg_free(net_msg* ptr) noexcept
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #if 0
-net_msg* net_msg_alloc(void) noexcept
+WebMessage* WebMessage_Alloc(void) noexcept
 {
-	net_msg* ptr;
+	WebMessage* ptr;
 
 
-	ptr = new (std::nothrow) net_msg();
+	ptr = new (std::nothrow) WebMessage();
 
 	return ptr;
 }
 
-void net_msg_free(net_msg* ptr) noexcept
+void WebMessage_Free(WebMessage* ptr) noexcept
 {
 	if (ptr)
 	{
@@ -404,10 +366,13 @@ void net_msg_free(net_msg* ptr) noexcept
 
 
 
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
-}
+
 
 
 

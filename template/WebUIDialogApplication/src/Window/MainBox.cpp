@@ -97,6 +97,7 @@ void MainBox::onSize(cx::wui::WindowMessage& windowMessage)
 	RECT rect;
 	GetClientRect(getWindowHandle(), &rect);
 	_WebUIManager->moveWindow(getWindowHandle(), rect);
+	windowMessage.setResult(TRUE);
 }
 
 void MainBox::onCommand(cx::wui::WindowMessage& windowMessage)
@@ -125,8 +126,10 @@ void MainBox::onCommand(cx::wui::WindowMessage& windowMessage)
 void MainBox::onUser0(cx::wui::WindowMessage& windowMessage)
 {
 	_WebUIManager->deleteWindow((HWND)windowMessage.wParam);
+	windowMessage.setResult(TRUE);
 }
 
 void MainBox::onUser1(cx::wui::WindowMessage& windowMessage)
 {
+	windowMessage.setResult(TRUE);
 }

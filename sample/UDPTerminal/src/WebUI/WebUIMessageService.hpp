@@ -27,6 +27,8 @@ class WebUIMessageService
 private:
 	WebUIManager* _Manager{ nullptr };
 	HWND _hWindow{ nullptr };
+	
+	WebMessageQueue _MessageQueue;
 
 public:
 	explicit WebUIMessageService(WebUIManager* manager);
@@ -52,10 +54,14 @@ public:
 
 	bool onCommand_Connect(WebUIWindow* window, web::json::value& jsonMessage);
 	bool onCommand_Disconnect(WebUIWindow* window, web::json::value& jsonMessage);
+	bool onCommand_Send(WebUIWindow* window, web::json::value& jsonMessage);
 
 public:
 	std::wstring getFile_Json(void);
 	void postWebMessage_StringMessage(void);
+	void postWebMessage_StringMessage(std::wstring command, std::wstring message);
+	void postWebMessageQueue(void);
+	void postWebMessage(std::wstring command, std::wstring message);
 };
 
 
