@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(cxDirectory)library\component\charset_system.cpp" />
+    <ClCompile Include="$(cxDirectory)library\component\fs_std_wstring.cpp" />
+    <ClCompile Include="$(cxDirectory)library\component\parse_c_string.cpp" />
+    <ClCompile Include="$(cxDirectory)library\component\std_wstring_utility.cpp" />
+    <ClCompile Include="$(cxDirectory)library\component\to_std_wstring.cpp" />
+    <ClCompile Include="$(cxDirectory)library\component\xml.cpp" />
+    <ClCompile Include="$(cxDirectory)library\runtime\Assert.cpp" />
+    <ClCompile Include="$(cxDirectory)library\runtime\DebugMemory.cpp" />
+    <ClCompile Include="$(cxDirectory)library\runtime\LastError.cpp" />
+    <ClCompile Include="$(cxDirectory)library\runtime\Log.cpp" />
+    <ClCompile Include="$(cxDirectory)library\runtime\WindowApplication.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\AppModule.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\CommonDialog\FileDialog.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\CommonDialog\FolderDialog.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\DC.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\DC_Classes.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\DC_Functions.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\GDIObject_Bitmap.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\GDIObject_Brush.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\GDIObject_Font.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\GDIObject_Pen.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Resource\DialogTemplate.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Resource\Resource.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Resource\Resource_Functions.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\BaseWindow.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\Coord.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\Window.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowClass.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowMessage.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowMessageCrack.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowMessageLoop.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowProc.cpp" />
+    <ClCompile Include="$(cxDirectory)library\wui\Window\Window_Functions.cpp" />
+    <ClCompile Include=".\src\Application.cpp" />
+    <ClCompile Include=".\src\Main.cpp" />
+    <ClCompile Include=".\src\Window\MainBox.cpp" />
+    <ClCompile Include=".\src\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\WebUI\WebUIContents.cpp" />
+    <ClCompile Include="src\WebUI\WebUIManager.cpp" />
+    <ClCompile Include="src\WebUI\WebUIMessageService.cpp" />
+    <ClCompile Include="src\WebUI\WebUIView.cpp" />
+    <ClCompile Include="src\WebUI\WebUIWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(cxDirectory)library\component\charset_system.hpp" />
+    <ClInclude Include="$(cxDirectory)library\component\fs_std_wstring.hpp" />
+    <ClInclude Include="$(cxDirectory)library\component\parse_c_string.hpp" />
+    <ClInclude Include="$(cxDirectory)library\component\pch.hpp" />
+    <ClInclude Include="$(cxDirectory)library\component\std_wstring_utility.hpp" />
+    <ClInclude Include="$(cxDirectory)library\component\to_std_wstring.hpp" />
+    <ClInclude Include="$(cxDirectory)library\component\xml.hpp" />
+    <ClInclude Include="$(cxDirectory)library\runtime\Assert.hpp" />
+    <ClInclude Include="$(cxDirectory)library\runtime\DebugMemory.hpp" />
+    <ClInclude Include="$(cxDirectory)library\runtime\LastError.hpp" />
+    <ClInclude Include="$(cxDirectory)library\runtime\Log.hpp" />
+    <ClInclude Include="$(cxDirectory)library\runtime\Macros.hpp" />
+    <ClInclude Include="$(cxDirectory)library\runtime\WindowApplication.hpp" />
+    <ClInclude Include="$(cxDirectory)library\runtime\pch.hpp" />
+    <ClInclude Include="$(cxDirectory)library\runtime\runtime.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\AppModule.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\CommonDialog\FileDialog.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\CommonDialog\FolderDialog.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\CommonDialog\pch.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\BasicDCT.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\DC.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\DC_Classes.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\DC_Functions.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\GDIObject_Bitmap.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\GDIObject_Brush.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\GDIObject_Font.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\GDIObject_Pen.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\pch.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Resource\DialogTemplate.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Resource\Resource.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Resource\Resource_Functions.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Resource\pch.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\BaseWindow.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\BasicWindowT.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\Coord.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\MessageMapWindow.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\Window.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowClass.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessage.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessageCrack.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessageHandler.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessageLoop.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessageMap.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowProc.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowStyle.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\Window_Functions.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\Window\pch.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\pch.hpp" />
+    <ClInclude Include="$(cxDirectory)library\wui\wui.hpp" />
+    <ClInclude Include=".\res\Resource.h" />
+    <ClInclude Include=".\src\Application.hpp" />
+    <ClInclude Include=".\src\Window\MainBox.hpp" />
+    <ClInclude Include=".\src\Window\pch.hpp" />
+    <ClInclude Include=".\src\framework.hpp" />
+    <ClInclude Include=".\src\pch.hpp" />
+    <ClInclude Include=".\src\targetver.h" />
+    <ClInclude Include="src\WebUI\pch.hpp" />
+    <ClInclude Include="src\WebUI\WebUI.hpp" />
+    <ClInclude Include="src\WebUI\WebUIContents.hpp" />
+    <ClInclude Include="src\WebUI\WebUIManager.hpp" />
+    <ClInclude Include="src\WebUI\WebUIMessageService.hpp" />
+    <ClInclude Include="src\WebUI\WebUIView.hpp" />
+    <ClInclude Include="src\WebUI\WebUIWindow.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\res\Application.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include=".\res\Application.ico" />
+    <Image Include=".\res\small.ico" />
+    <Image Include="res\web\images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".\vcpkg.json" />
+    <None Include="res\web\basic.css" />
+    <None Include="res\web\core.js" />
+    <None Include="res\web\page_home\page.css" />
+    <None Include="res\web\page_home\page.html" />
+    <None Include="res\web\page_home\page.js" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{4a686936-0bdd-4c35-916b-58be27b26674}</ProjectGuid>
+    <RootNamespace>UDPTerminal</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+    <cxDirectory>..\..\</cxDirectory>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>True</VcpkgEnableManifest>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

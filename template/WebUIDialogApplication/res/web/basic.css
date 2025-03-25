@@ -1,0 +1,34 @@
+﻿@charset "utf-8";
+
+/***************************************************************************/
+body {
+    margin-top     : 1.0em;
+    margin-bottom  : 1.0em;
+    margin-left    : 1.0em;
+    margin-right   : 1.0em;
+
+    border-collapse: collapse;
+    border-style   : solid;
+    border-color   : #fefefe;
+    border-width   : 0px;
+
+    padding-top    : 0px;
+    padding-bottom : 0px;
+    padding-left   : 0px;
+    padding-right  : 0px;
+
+    font-family    : 맑은 고딕;
+    font-size      : 1.0em;
+    font-weight    : normal;
+    font-style     : normal;
+
+    background     : #ffffff;
+    color          : #000000;
+
+    line-height    : 1.5em;
+    vertical-align : top;
+    text-align     : left;
+}
+
+
+/***************************************************************************/
