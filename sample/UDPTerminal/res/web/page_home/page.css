@@ -103,3 +103,21 @@ body {
 .메뉴버튼형식:hover {
     background: linear-gradient(45deg, #000080, #000080);
 }
+
+/***************************************************************************/
+.콘솔메시지창형식 {
+    height: calc(100vh - 10px - 280px);
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    overflow-y: scroll;
+    border: 2px solid #333;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Fixedsys', monospace;
+}

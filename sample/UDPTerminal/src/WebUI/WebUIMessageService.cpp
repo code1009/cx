@@ -261,6 +261,8 @@ bool WebUIMessageService::onCommand(WebUIWindow* window, web::json::value& jsonM
 	else if (command == L"페이지이동") { return onCommand_PageNavigation(window, jsonMessage); }
 	else if (command == L"메시지")     { return onCommand_StringMessage(window, jsonMessage); }
 	else if (command == L"파일갱신")   { return onCommand_FileUpdate(window, jsonMessage); }
+	else if (command == L"연결")       { return onCommand_Connect(window, jsonMessage); }
+	else if (command == L"연결해제")   { return onCommand_Disconnect(window, jsonMessage); }
 
 	return false;
 }
@@ -394,6 +396,32 @@ std::wstring WebUIMessageService::getFile_Json(void)
 	utility::stringstream_t stream;
 	jsonMessage.serialize(stream);
 	return stream.str();
+}
+
+bool WebUIMessageService::onCommand_Connect(WebUIWindow* window, web::json::value& jsonMessage)
+{
+	//------------------------------------------------------------------------
+	web::json::value jsonAddress;
+	jsonAddress = jsonMessage.at(L"Address");
+
+	web::json::value jsonPort;
+	jsonPort = jsonMessage.at(L"Port");
+
+	//------------------------------------------------------------------------
+	std::wstring Address;
+	Address = jsonAddress.as_string();
+
+	//------------------------------------------------------------------------
+	std::wstring Port;
+	Port = jsonPort.as_string();
+
+	return true;
+}
+
+bool WebUIMessageService::onCommand_Disconnect(WebUIWindow* window, web::json::value& jsonMessage)
+{
+
+	return true;
 }
 
 

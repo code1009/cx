@@ -52,6 +52,9 @@
     <Filter Include="cx\library\network">
       <UniqueIdentifier>{0fe9c623-1ab6-44b8-8d87-c1178c718c5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Model">
+      <UniqueIdentifier>{9920e8b5-124b-4c94-8bc8-135d19822834}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(cxDirectory)library\component\charset_system.cpp">
@@ -215,6 +218,9 @@
     </ClCompile>
     <ClCompile Include="..\..\library\network\wsa.cpp">
       <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model\Model.cpp">
+      <Filter>src\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -448,6 +454,12 @@
     </ClInclude>
     <ClInclude Include="..\..\library\network\wsa.hpp">
       <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model\Model.hpp">
+      <Filter>src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model\pch.hpp">
+      <Filter>src\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

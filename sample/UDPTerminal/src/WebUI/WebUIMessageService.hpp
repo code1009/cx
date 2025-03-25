@@ -50,6 +50,9 @@ public:
 	bool onCommand_StringMessage(WebUIWindow* window, web::json::value& jsonMessage);
 	bool onCommand_FileUpdate(WebUIWindow* window, web::json::value& jsonMessage);
 
+	bool onCommand_Connect(WebUIWindow* window, web::json::value& jsonMessage);
+	bool onCommand_Disconnect(WebUIWindow* window, web::json::value& jsonMessage);
+
 public:
 	std::wstring getFile_Json(void);
 	void postWebMessage_StringMessage(void);

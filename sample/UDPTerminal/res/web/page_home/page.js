@@ -89,15 +89,18 @@ class Page extends BasePage {
         this.initializeCommandHandlerMap();
         this.setupWebMessageHandler();
 
-        this.setupClickEventListener("연결", "postStringMessage", "연결");
-        this.setupClickEventListener("연결해제", "postStringMessage", "연결해제");
+        document.getElementById("연결").disabled = false;
+        document.getElementById("연결해제").disabled = true;
+
+        this.setupClickEventListener("연결", "connect", "연결");
+        this.setupClickEventListener("연결해제", "connect", "연결해제");
 
         this._ConsoleMessageWindow = new ConsoleMessageWindow();
     }
 
-    postConnect(stringMessage) {
-        let address = document.getElementById("주소").value;
-        let port = document.getElementById("포트").value;
+    connect(stringMessage) {
+        let address = document.getElementById("수신주소").value;
+        let port = document.getElementById("수신포트").value;
 
         let jsonMessage =
         {

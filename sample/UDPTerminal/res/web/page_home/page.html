@@ -12,36 +12,36 @@
 </head>
 <body>
 
-
-
-
-
+    <h3>연결설정</h3>
     <div id="연결설정">
-        <label for="주소">주소:</label>
-        <input type="text" id="주소" name="ip주소" size="16" />
+        <label for="수신주소">주소:</label>
+        <input type="text" id="수신주소" name="주소" size="16" value="127.0.0.1" />
 
-        <label for="포트">포트:</label>
-        <input type="text" id="포트" name="포트" size="6" />
+        <label for="수신포트">포트:</label>
+        <input type="text" id="수신포트" name="포트" size="6" value="5000" />
 
         <button id="연결">연결</button>
         <button id="연결해제">연결해제</button>
     </div>
 
+    <h3>데이터전송</h3>
     <div id="데이터전송">
+        <label for="송신주소">주소:</label>
+        <input type="text" id="송신주소" name="주소" size="16" value="127.0.0.1" />
+
+        <label for="송신포트">포트:</label>
+        <input type="text" id="송신포트" name="포트" size="6" value="5000" />
+        <br />
+
         <label for="송신데이터">송신데이터:</label>
-        <input type="text" id="송신데이터" name="송신데이터" size="64"/>
+        <input type="text" id="송신데이터" name="송신데이터" size="64" value="00 00 00 00" />
         <button id="송신">송신</button>
         <button id="자동송신">자동송신</button>
     </div>
 
-
-
-
+    <h3>메시지</h3>
     <div id="내용콘솔메시지창" class="콘솔메시지창형식">
     </div>
-
-
-
 
 </body>
 </html>
