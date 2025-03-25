@@ -43,12 +43,17 @@ private:
 private:
 	std::thread _thread{};
 	
+private:
 	bool _run{ false };
 	bool _socket_event_loop{ false };
+
+private:
 	DWORD _rerun_sleep_time{ 3000 };
 
+private:
 	HANDLE _destroy_event_handle{ nullptr };
 
+private:
 	std::promise<void> _start_barrier {};
 	std::future<void> _start_barrier_future {};
 
