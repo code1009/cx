@@ -64,6 +64,7 @@
     <ClCompile Include="..\..\library\network\socket_error.cpp" />
     <ClCompile Include="..\..\library\network\socket_event_select.cpp" />
     <ClCompile Include="..\..\library\network\wsa.cpp" />
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogWriter.cpp" />
     <ClCompile Include=".\src\Application.cpp" />
     <ClCompile Include=".\src\Main.cpp" />
     <ClCompile Include=".\src\Window\MainBox.cpp" />
@@ -74,6 +75,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Model\Model.cpp" />
+    <ClCompile Include="src\Model\UDPTerminal.cpp" />
     <ClCompile Include="src\WebUI\WebUIContents.cpp" />
     <ClCompile Include="src\WebUI\WebUIManager.cpp" />
     <ClCompile Include="src\WebUI\WebUIMessageService.cpp" />
@@ -144,6 +146,8 @@
     <ClInclude Include="..\..\library\network\socket_error.hpp" />
     <ClInclude Include="..\..\library\network\socket_event_select.hpp" />
     <ClInclude Include="..\..\library\network\wsa.hpp" />
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogWriter.hpp" />
+    <ClInclude Include="..\..\library\runtime\LogFacility\pch.hpp" />
     <ClInclude Include=".\res\Resource.h" />
     <ClInclude Include=".\src\Application.hpp" />
     <ClInclude Include=".\src\Window\MainBox.hpp" />
@@ -153,6 +157,7 @@
     <ClInclude Include=".\src\targetver.h" />
     <ClInclude Include="src\Model\Model.hpp" />
     <ClInclude Include="src\Model\pch.hpp" />
+    <ClInclude Include="src\Model\UDPTerminal.hpp" />
     <ClInclude Include="src\WebUI\pch.hpp" />
     <ClInclude Include="src\WebUI\WebUI.hpp" />
     <ClInclude Include="src\WebUI\WebUIContents.hpp" />

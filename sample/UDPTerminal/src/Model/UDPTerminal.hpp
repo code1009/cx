@@ -6,36 +6,29 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class UDPTerminal;
-
+class Model;
 
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Model
+class UDPTerminal
 {
-public:
-	std::unique_ptr<UDPTerminal> _UDPTerminal;
+private:
+	Model* _Model;
+	std::wstring _Address;
+	std::wstring _Port;
 
 public:
-	Model() = default;
+	explicit UDPTerminal(Model* model, std::wstring address, std::wstring port);
 
 public:
-	virtual ~Model() = default;
+	virtual ~UDPTerminal() = default;
 
 	//-----------------------------------------------------------------------
 public:
-	void connect(std::wstring address, std::wstring port);
-	void disconnect(void);
+	virtual bool initialize(void);
+	virtual void terminate(void);
 };
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-Model* getModel(void);
 

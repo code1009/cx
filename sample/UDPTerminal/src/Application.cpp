@@ -7,6 +7,12 @@
 #include <gw/gw.hpp>
 #include <runtime/runtime.hpp>
 
+#include <network/net_msg.hpp>
+#include <network/net_msg_memory.hpp>
+#include <network/net_msg_event_queue.hpp>
+#include <network/net_addr_config.hpp>
+#include <network/wsa.hpp>
+
 //===========================================================================
 #include "../res/resource.h"
 	
@@ -33,12 +39,19 @@ bool Application::initialize(void)
 		terminate();
 		return false;
 	}
+	rv = cx::network::wsa_startup();
+	if (false == rv)
+	{
+		terminate();
+		return false;
+	}
 
 	return true;
 }
 
 void Application::terminate(void)
 {
+	cx::network::wsa_cleanup();
 	cx::runtime::WindowApplication::terminate();
 }
 

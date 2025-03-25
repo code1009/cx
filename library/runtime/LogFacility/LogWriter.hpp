@@ -1,13 +1,6 @@
 ﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include "pch.hpp"
-
-//===========================================================================
-#include <runtime/runtime.hpp>
-
-//===========================================================================
-#include "UDPTerminal.hpp"
-#include "Model.hpp"
+#pragma once
 
 
 
@@ -15,18 +8,8 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void Model::connect(std::wstring address, std::wstring port)
+namespace cx::runtime
 {
-	_UDPTerminal = std::make_unique<UDPTerminal>(this, address, port);
-}
-
-void Model::disconnect(void)
-{
-	if (_UDPTerminal)
-	{
-		_UDPTerminal.reset();
-	}
-}
 
 
 
@@ -34,10 +17,24 @@ void Model::disconnect(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-Model* getModel(void)
+class LogWriter
 {
-	static Model instance;
+public:
+	LogWriter() = default;
+
+public:
+	virtual ~LogWriter() = default;
+
+public:
+	void output(std::wstringstream& ss, LogInfomation& info);
+};
 
 
-	return &instance;
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 }
+
+

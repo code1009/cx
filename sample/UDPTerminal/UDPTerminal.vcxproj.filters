@@ -55,6 +55,9 @@
     <Filter Include="src\Model">
       <UniqueIdentifier>{9920e8b5-124b-4c94-8bc8-135d19822834}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cx\library\runtime\LogFacility">
+      <UniqueIdentifier>{227d0a8c-f89c-450b-9c32-7f3f9d7b971d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(cxDirectory)library\component\charset_system.cpp">
@@ -221,6 +224,12 @@
     </ClCompile>
     <ClCompile Include="src\Model\Model.cpp">
       <Filter>src\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model\UDPTerminal.cpp">
+      <Filter>src\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogWriter.cpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -460,6 +469,15 @@
     </ClInclude>
     <ClInclude Include="src\Model\pch.hpp">
       <Filter>src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model\UDPTerminal.hpp">
+      <Filter>src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogWriter.hpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\LogFacility\pch.hpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

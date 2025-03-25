@@ -9,6 +9,9 @@
 //===========================================================================
 #include "WebUI.hpp"
 
+//===========================================================================
+#include "../Model/UDPTerminal.hpp"
+#include "../Model/Model.hpp"
 
 
 
@@ -407,19 +410,24 @@ bool WebUIMessageService::onCommand_Connect(WebUIWindow* window, web::json::valu
 	web::json::value jsonPort;
 	jsonPort = jsonMessage.at(L"Port");
 
+
 	//------------------------------------------------------------------------
 	std::wstring Address;
 	Address = jsonAddress.as_string();
 
-	//------------------------------------------------------------------------
 	std::wstring Port;
 	Port = jsonPort.as_string();
+
+
+	//------------------------------------------------------------------------
+	getModel()->connect(Address, Port);
 
 	return true;
 }
 
 bool WebUIMessageService::onCommand_Disconnect(WebUIWindow* window, web::json::value& jsonMessage)
 {
+	getModel()->disconnect();
 
 	return true;
 }
