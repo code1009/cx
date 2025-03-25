@@ -4,9 +4,8 @@
 
 //===========================================================================
 #include <wui/wui.hpp>
-#include <gw/gw.hpp>
 #include <runtime/runtime.hpp>
-#include <runtime/LogFacility/LogFacility.hpp>
+
 
 //===========================================================================
 #include "Application.hpp"
@@ -31,22 +30,7 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
-	cx::runtime::LogFacility_Initialize();
-
-	CX_RUNTIME_LOG(cxLInfo)
-		<< L"START" << std::endl;
-
-
-	cx::wui::getAppModule()->setInstanceHandle(hInstance);
-
-	
+	cx::wui::getAppModule()->setInstanceHandle(hInstance);	
 	getApplication()->launch();
-
-
-	CX_RUNTIME_LOG(cxLInfo)
-		<< L"END" << std::endl;
-	
-	cx::runtime::LogFacility_Cleanup();
-
 	return 0;
 }

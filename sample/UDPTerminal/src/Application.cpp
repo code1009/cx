@@ -13,6 +13,8 @@
 #include <network/net_addr_config.hpp>
 #include <network/wsa.hpp>
 
+#include <runtime/LogFacility/LogFacility.hpp>
+
 //===========================================================================
 #include "../res/resource.h"
 	
@@ -39,6 +41,16 @@ bool Application::initialize(void)
 		terminate();
 		return false;
 	}
+
+	rv = cx::runtime::LogFacility_Initialize();
+	if (false == rv)
+	{
+		terminate();
+		return false;
+	}
+
+	CX_RUNTIME_LOG(cxLInfo) << L"START" << std::endl;
+
 	rv = cx::network::wsa_startup();
 	if (false == rv)
 	{
@@ -51,6 +63,10 @@ bool Application::initialize(void)
 
 void Application::terminate(void)
 {
+	CX_RUNTIME_LOG(cxLInfo) << L"END" << std::endl;	
+	
+	cx::runtime::LogFacility_Cleanup();
+
 	cx::network::wsa_cleanup();
 	cx::runtime::WindowApplication::terminate();
 }

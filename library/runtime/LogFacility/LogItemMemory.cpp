@@ -302,17 +302,28 @@ void LogItemConcurrencyPool::release(LogItem* ptr)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static LogItemConcurrencyPool _LogItemConcurrencyPool;
+static LogItemConcurrencyPool* _LogItemConcurrencyPool;
 
 //===========================================================================
 bool LogItemMemory_Initialize(std::size_t capacity)
 {
-	return _LogItemConcurrencyPool.create(capacity);
+	if (nullptr==_LogItemConcurrencyPool)
+	{
+		_LogItemConcurrencyPool = cpp_new LogItemConcurrencyPool();
+		return _LogItemConcurrencyPool->create(capacity);
+	}
+
+	return false;
 }
 
 void LogItemMemory_Cleanup(void)
 {
-	_LogItemConcurrencyPool.destroy();
+	if (_LogItemConcurrencyPool)
+	{
+		_LogItemConcurrencyPool->destroy();
+		cpp_delete _LogItemConcurrencyPool;
+		_LogItemConcurrencyPool = nullptr;
+	}
 }
 
 
@@ -323,14 +334,14 @@ void LogItemMemory_Cleanup(void)
 //===========================================================================
 LogItem* LogItem_Alloc(void) noexcept
 {
-	return _LogItemConcurrencyPool.acquire();
+	return _LogItemConcurrencyPool->acquire();
 }
 
 void LogItem_Free(LogItem* ptr) noexcept
 {
 	if (ptr)
 	{
-		_LogItemConcurrencyPool.release(ptr);
+		_LogItemConcurrencyPool->release(ptr);
 	}
 }
 #endif

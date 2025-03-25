@@ -335,17 +335,28 @@ void net_msg_concurrency_pool::release(net_msg* ptr)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static net_msg_concurrency_pool _net_msg_concurrency_pool;
+static net_msg_concurrency_pool* _net_msg_concurrency_pool = nullptr;
 
 //===========================================================================
 bool net_msg_memory_initialize(std::size_t capacity)
 {
-	return _net_msg_concurrency_pool.create(capacity);
+	if (nullptr == _net_msg_concurrency_pool)
+	{
+		_net_msg_concurrency_pool = cpp_new net_msg_concurrency_pool();
+		return _net_msg_concurrency_pool->create(capacity);
+	}
+
+	return false;
 }
 
 void net_msg_memory_cleanup(void)
 {
-	_net_msg_concurrency_pool.destroy();
+	if (_net_msg_concurrency_pool)
+	{
+		_net_msg_concurrency_pool->destroy();
+		cpp_delete _net_msg_concurrency_pool;
+		_net_msg_concurrency_pool = nullptr;
+	}
 }
 
 
@@ -356,7 +367,7 @@ void net_msg_memory_cleanup(void)
 //===========================================================================
 net_msg* net_msg_alloc(void) noexcept
 {
-	return _net_msg_concurrency_pool.acquire();
+	return _net_msg_concurrency_pool->acquire();
 }
 
 void net_msg_free(net_msg* ptr) noexcept
@@ -365,7 +376,7 @@ void net_msg_free(net_msg* ptr) noexcept
 	{
 		ptr->reset();
 
-		_net_msg_concurrency_pool.release(ptr);
+		_net_msg_concurrency_pool->release(ptr);
 	}
 }
 #endif

@@ -55,6 +55,7 @@ public:
 
 public:
 	virtual void write(LogItem& item) override;
+	virtual void flush(void) override;
 
 private:
 	bool create(void);

@@ -64,6 +64,14 @@ void LogFacility_Cleanup(void)
 	LogItemMemory_Cleanup();
 }
 
+void LogFacility_Flush(void)
+{
+	if (_LogWriter)
+	{
+		_LogWriter->flush();
+	}
+}
+
 
 
 

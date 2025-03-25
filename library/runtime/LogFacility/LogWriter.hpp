@@ -27,6 +27,7 @@ public:
 
 public:
 	virtual void write(LogItem& item);
+	virtual void flush(void);
 };
 
 

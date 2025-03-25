@@ -19,6 +19,7 @@ namespace cx::runtime
 //===========================================================================
 bool LogFacility_Initialize(void);
 void LogFacility_Cleanup(void);
+void LogFacility_Flush(void);
 
 
 

@@ -18,7 +18,7 @@ namespace cx::runtime
 class LogItemQueue
 {
 public:
-	std::mutex             _mutex;
+	std::mutex           _mutex;
 	std::deque<LogItem*> _container;
 
 public:

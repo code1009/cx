@@ -28,6 +28,10 @@ void LogWriter::write(LogItem& item)
 	OutputDebugStringW(ss.str().c_str());
 }
 
+void LogWriter::flush(void)
+{
+}
+
 
 
 

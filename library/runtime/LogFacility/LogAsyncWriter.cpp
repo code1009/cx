@@ -65,6 +65,11 @@ void LogAsyncWriter::write(LogItem& item)
 	_mutex.unlock();
 }
 
+void LogAsyncWriter::flush(void)
+{
+	notifyFlush();
+}
+
 //===========================================================================
 bool LogAsyncWriter::create(void)
 {
