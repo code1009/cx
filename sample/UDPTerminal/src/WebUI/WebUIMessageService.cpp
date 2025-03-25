@@ -36,6 +36,15 @@ WebUIMessageService::WebUIMessageService(WebUIManager* manager):
 
 WebUIMessageService::~WebUIMessageService()
 {
+	std::size_t count;
+	std::size_t i;
+
+	count = _MessageQueue.count();
+	for (i=0u; i<count; i++)
+	{
+		auto m = _MessageQueue.pop();
+		WebMessage_Free(m);
+	}
 }
 
 //===========================================================================

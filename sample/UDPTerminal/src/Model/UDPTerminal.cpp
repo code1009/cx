@@ -243,7 +243,7 @@ void udp_unicast::process(void)
 
 void udp_unicast::run(void)
 {
-	_UDPTerminal->postWebMessage(L"접속...");
+	_UDPTerminal->postWebMessage(L"연결...");
 
 
 	//-----------------------------------------------------------------------
@@ -351,6 +351,9 @@ bool udp_unicast::setup_socket(void)
 
 void udp_unicast::socket_event_loop(void)
 {
+	_UDPTerminal->postWebMessage(L"연결완료");
+
+
 	std::uint32_t rv;
 
 
@@ -370,6 +373,9 @@ void udp_unicast::socket_event_loop(void)
 
 
 	CX_RUNTIME_LOG(cxLInfo) << L"end";
+
+
+	_UDPTerminal->postWebMessage(L"연결해제");
 }
 
 void udp_unicast::on_event(std::uint32_t event_index)
@@ -463,6 +469,23 @@ void udp_unicast::do_send(void)
 
 
 	//-----------------------------------------------------------------------
+	if (true == rv)
+	{
+		std::wstring message;
+		message = L"송신:";
+		message += byteArrayToHexString(m->_data);
+		_UDPTerminal->postWebMessage(message);
+	}
+	else
+	{
+		std::wstring message;
+		message = L"송신실패:";
+		message += byteArrayToHexString(m->_data);
+		_UDPTerminal->postWebMessage(message);
+	}
+
+
+	//-----------------------------------------------------------------------
 	cx::network::net_msg_free(m);
 }
 
@@ -491,11 +514,27 @@ void udp_unicast::do_recv(void)
 		CX_RUNTIME_LOG(cxLError) << L"_socket.recvfrom(): " << rsize << L"Byte(s)";
 		on_recv(_socket_remote_address, buffer, rsize);
 	}
+
+
+	//-----------------------------------------------------------------------
+	if (true == rv)
+	{
+		std::vector<std::uint8_t> data(buffer, buffer + rsize);
+		std::wstring message;
+		message = L"수신:";
+		message += byteArrayToHexString(data);
+		_UDPTerminal->postWebMessage(message);
+	}
+	else
+	{
+		std::wstring message;
+		message = L"수신실패:";
+		_UDPTerminal->postWebMessage(message);
+	}
 }
 
 void udp_unicast::on_recv(cx::network::socket_address& socket_remote_address, std::uint8_t* packet_pointer, std::size_t packet_size)
 {
-
 #if 0
 	cx::network::net_msg* m;
 

@@ -43,6 +43,8 @@ bool Application::initialize(void)
 		terminate();
 		return false;
 	}
+	
+	getModel()->setWebUIManager(nullptr);
 
 	rv = cx::runtime::LogFacility_Initialize();
 	if (false == rv)
