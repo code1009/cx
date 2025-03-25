@@ -3,25 +3,9 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <runtime/runtime.hpp>
-
 #include <component/charset_system.hpp>
-
-#include <network/socket_descriptor.hpp>
-#include <network/socket_address.hpp>
-#include <network/socket.hpp>
-#include <network/socket_error.hpp>
-
-#include <network/socket_event_select.hpp>
-
-#include <network/net_msg.hpp>
-#include <network/net_msg_memory.hpp>
-#include <network/net_msg_event_queue.hpp>
-
-#include <network/net_addr_config.hpp>
-
-#include <network/wsa.hpp>
-
+#include <runtime/runtime.hpp>
+#include <network/network.hpp>
 #include <wui/wui.hpp>
 
 //===========================================================================
@@ -33,12 +17,14 @@
 
 
 
+
+
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class udp_unicast
 {
 public:
-	UDPTerminal* _UDPTerminal;
+	UDPTerminal* _UDPTerminal{ nullptr };
 
 public:
 	cx::network::net_addr_config _local_addr_config{};
@@ -63,12 +49,12 @@ private:
 
 	HANDLE _destroy_event_handle{ nullptr };
 
-	std::promise<void> _start_barrier;
-	std::future<void> _start_barrier_future;
+	std::promise<void> _start_barrier {};
+	std::future<void> _start_barrier_future {};
 
 public:
-	udp_unicast();
-	~udp_unicast();
+	udp_unicast() = default;
+	~udp_unicast()= default;
 
 public:
 	bool create(void);
@@ -110,15 +96,6 @@ public:
 
 
 /////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-udp_unicast::udp_unicast()
-{
-}
-
-udp_unicast::~udp_unicast()
-{
-}
-
 //===========================================================================
 bool udp_unicast::create(void)
 {
@@ -243,6 +220,7 @@ void udp_unicast::process(void)
 
 void udp_unicast::run(void)
 {
+	//-----------------------------------------------------------------------
 	_UDPTerminal->postWebMessage(L"연결...");
 
 
@@ -351,9 +329,11 @@ bool udp_unicast::setup_socket(void)
 
 void udp_unicast::socket_event_loop(void)
 {
+	//-----------------------------------------------------------------------
 	_UDPTerminal->postWebMessage(L"연결완료");
 
 
+	//-----------------------------------------------------------------------
 	std::uint32_t rv;
 
 
@@ -375,6 +355,7 @@ void udp_unicast::socket_event_loop(void)
 	CX_RUNTIME_LOG(cxLInfo) << L"end";
 
 
+	//-----------------------------------------------------------------------
 	_UDPTerminal->postWebMessage(L"연결해제");
 }
 

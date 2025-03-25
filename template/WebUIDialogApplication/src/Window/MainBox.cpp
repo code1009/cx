@@ -55,7 +55,7 @@ void MainBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	app::regsiterWebUIWindowClass();
+	app::regsisterWebUIWindowClass();
 
 
 	//-----------------------------------------------------------------------

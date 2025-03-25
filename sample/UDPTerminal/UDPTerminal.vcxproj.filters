@@ -527,6 +527,9 @@
     <ClInclude Include="src\WebUI\WebMessage.hpp">
       <Filter>src\WebUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\network\network.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\res\Application.rc">

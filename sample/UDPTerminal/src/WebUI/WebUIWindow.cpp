@@ -43,7 +43,7 @@ constexpr LPCWSTR WebUI_WindowClassName = L"View";
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void regsiterWebUIWindowClass(void)
+void regsisterWebUIWindowClass(void)
 {
 	cx::wui::WindowClass windowClass;
 	windowClass.registerWindowClass(

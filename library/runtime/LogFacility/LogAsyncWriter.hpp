@@ -92,7 +92,7 @@ public:
 
 private:
 	void record(void);
-	void recordContainer(std::vector<LogItem*>* c);
+	void recordItems(std::vector<LogItem*>* c);
 	void recordItem(LogItem* m);
 
 private:

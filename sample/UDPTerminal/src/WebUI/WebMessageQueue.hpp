@@ -17,7 +17,7 @@ namespace app
 class WebMessageQueue final
 {
 public:
-	std::mutex           _mutex;
+	std::mutex              _mutex;
 	std::deque<WebMessage*> _container;
 
 public:

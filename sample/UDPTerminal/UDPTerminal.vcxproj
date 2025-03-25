@@ -141,6 +141,7 @@
     <ClInclude Include="$(cxDirectory)library\wui\pch.hpp" />
     <ClInclude Include="$(cxDirectory)library\wui\wui.hpp" />
     <ClInclude Include="..\..\library\library_window_cpp_framework.hpp" />
+    <ClInclude Include="..\..\library\network\network.hpp" />
     <ClInclude Include="..\..\library\network\net_addr_config.hpp" />
     <ClInclude Include="..\..\library\network\net_msg.hpp" />
     <ClInclude Include="..\..\library\network\net_msg_event_queue.hpp" />

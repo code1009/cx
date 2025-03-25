@@ -106,14 +106,14 @@ void LogAsyncWriter::cleanup(void)
 {
 	if (_back)
 	{
-		recordContainer(_back);
+		recordItems(_back);
 
 		_back = nullptr;
 	}
 
 	if (_front)
 	{
-		recordContainer(_front);
+		recordItems(_front);
 
 		_front = nullptr;
 	}
@@ -323,11 +323,11 @@ void LogAsyncWriter::record(void)
 
 	if (_back)
 	{
-		recordContainer(_back);
+		recordItems(_back);
 	}
 }
 
-void LogAsyncWriter::recordContainer(std::vector<LogItem*>* container)
+void LogAsyncWriter::recordItems(std::vector<LogItem*>* container)
 {
 	std::vector<LogItem*>::iterator iter;
 	LogItem* m;
