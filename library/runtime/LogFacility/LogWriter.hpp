@@ -26,7 +26,7 @@ public:
 	virtual ~LogWriter() = default;
 
 public:
-	void output(std::wstringstream& ss, LogInfomation& info);
+	void output(LogInfomation& info);
 };
 
 

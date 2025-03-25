@@ -77,6 +77,7 @@ typedef struct _LogInfomation
 	const wchar_t*      func;
 	std::wstringstream* message;
 	void*               param;
+	std::size_t         paramSize;
 } LogInfomation;
 
 //===========================================================================
@@ -121,7 +122,8 @@ public:
 		int                 line,
 		const wchar_t*      func,
 		std::wstringstream* message,
-		void*               param   = nullptr
+		void*               param     = nullptr,
+		std::size_t         paramSize = 0
 	);
 };
 
@@ -148,6 +150,7 @@ private:
 
 private:
 	void* _param;
+	std::size_t _paramSize;
 
 public:
 	Log(
@@ -156,7 +159,8 @@ public:
 		const wchar_t* file,
 		int            line,
 		const wchar_t* func,
-		void*          param = nullptr
+		void*          param = nullptr,
+		std::size_t    paramSize = 0
 	);
 
 public:

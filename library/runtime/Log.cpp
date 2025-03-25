@@ -301,7 +301,7 @@ void writeLogString(
 		info.file,
 		info.line,
 		info.func,
-		info.message
+		info.message->str()
 	);
 }
 
@@ -336,7 +336,8 @@ void Logger::log(
 	int                 line,
 	const wchar_t*      func,
 	std::wstringstream* message,
-	void*               param
+	void*               param,
+	std::size_t         paramSize
 )
 {
 	//-----------------------------------------------------------------------
@@ -377,21 +378,23 @@ Log::Log(
 	const wchar_t* file,
 	int            line,
 	const wchar_t* func,
-	void*          param
+	void*          param,
+	std::size_t    paramSize
 ) :
-	_logger(logger), 
-	_level (level), 
-	_file  (file), 
-	_line  (line),
-	_func  (func),
-	_param (param)
+	_logger   (logger), 
+	_level    (level), 
+	_file     (file), 
+	_line     (line),
+	_func     (func),
+	_param    (param),
+	_paramSize(paramSize)
 {
 }
 
 //===========================================================================
 Log::~Log()
 {
-	_logger->log(_level, _file, _line, _func, &_ss, _param);
+	_logger->log(_level, _file, _line, _func, &_ss, _param, _paramSize);
 }
 
 //===========================================================================

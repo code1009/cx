@@ -21,7 +21,7 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void LogWriter::output(std::wstringstream& output, LogInfomation& info)
+void LogWriter::output(LogInfomation& info)
 {
 }
 

@@ -26,43 +26,45 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#define CX_RUNTIME_LOG(level)                \
-	cx::runtime::Log(                        \
-		cx::runtime::getLogger(),            \
-		(level),                             \
-		CX_RUNTIME_WFILE,                    \
-		__LINE__,                            \
-		CX_RUNTIME_WFUNC                     \
+#define CX_RUNTIME_LOG(level)                          \
+	cx::runtime::Log(                                  \
+		cx::runtime::getLogger(),                      \
+		(level),                                       \
+		CX_RUNTIME_WFILE,                              \
+		__LINE__,                                      \
+		CX_RUNTIME_WFUNC                               \
 	)
 
-#define CX_RUNTIME_LOGP(level,param)         \
-	cx::runtime::Log(                        \
-		cx::runtime::getLogger(),            \
-		(level),                             \
-		CX_RUNTIME_WFILE,                    \
-		__LINE__,                            \
-		CX_RUNTIME_WFUNC                     \
-		(param)                              \
+#define CX_RUNTIME_LOGP(level,param,paramSize)         \
+	cx::runtime::Log(                                  \
+		cx::runtime::getLogger(),                      \
+		(level),                                       \
+		CX_RUNTIME_WFILE,                              \
+		__LINE__,                                      \
+		CX_RUNTIME_WFUNC                               \
+		(param)                                        \
+		(paramSize)                                    \
 	)
 
 //===========================================================================
-#define CX_RUNTIME_TLOG(logger,level)        \
-	cx::runtime::Log(                        \
-		(logger),                            \
-		(level),                             \
-		CX_RUNTIME_WFILE,                    \
-		__LINE__,                            \
-		CX_RUNTIME_WFUNC                     \
+#define CX_RUNTIME_TLOG(logger,level)                  \
+	cx::runtime::Log(                                  \
+		(logger),                                      \
+		(level),                                       \
+		CX_RUNTIME_WFILE,                              \
+		__LINE__,                                      \
+		CX_RUNTIME_WFUNC                               \
 	)
 
-#define CX_RUNTIME_TLOGP(logger,level,param) \
-	cx::runtime::Log(                        \
-		(logger),                            \
-		(level),                             \
-		CX_RUNTIME_WFILE,                    \
-		__LINE__,                            \
-		CX_RUNTIME_WFUNC                     \
-		(param)                              \
+#define CX_RUNTIME_TLOGP(logger,level,param,paramSize) \
+	cx::runtime::Log(                                  \
+		(logger),                                      \
+		(level),                                       \
+		CX_RUNTIME_WFILE,                              \
+		__LINE__,                                      \
+		CX_RUNTIME_WFUNC                               \
+		(param)                                        \
+		(paramSize)                                    \
 	)
 
 //===========================================================================
