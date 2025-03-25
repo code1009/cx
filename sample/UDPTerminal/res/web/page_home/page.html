@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="utf-8" />
-<title>WebUI</title>
+<title>UDP Terminal</title>
 <link rel="stylesheet" type="text/css" href="../basic.css" />
 <link rel="stylesheet" type="text/css" href="./page.css" />
 <script type="text/javascript" src="../core.js"></script>
@@ -16,11 +16,29 @@
 
 
 
-<div id="메뉴">
-    <div id="페이지1" class="메뉴버튼형식">페이지1</div>
-    <div id="페이지2" class="메뉴버튼형식">페이지2</div>
-    <div id="페이지3" class="메뉴버튼형식">페이지3</div>
-</div>
+    <div id="연결설정">
+        <label for="주소">주소:</label>
+        <input type="text" id="주소" name="ip주소" size="16" />
+
+        <label for="포트">포트:</label>
+        <input type="text" id="포트" name="포트" size="6" />
+
+        <button id="연결">연결</button>
+        <button id="연결해제">연결해제</button>
+    </div>
+
+    <div id="데이터전송">
+        <label for="송신데이터">송신데이터:</label>
+        <input type="text" id="송신데이터" name="송신데이터" size="64"/>
+        <button id="송신">송신</button>
+        <button id="자동송신">자동송신</button>
+    </div>
+
+
+
+
+    <div id="내용콘솔메시지창" class="콘솔메시지창형식">
+    </div>
 
 
 
