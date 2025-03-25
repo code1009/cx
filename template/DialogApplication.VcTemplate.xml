@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<VcTemplate>
+
+	<Settings
+		cxDirectory="D:\prj_my\cx\"
+		SourceDirectory=".\DialogApplication\"
+		ClCompile_PrecompiledHeader=".\src\pch.cpp"
+		/>
+
+	<ItemFiles>
+		<Item File="cx.VcItem.xml"/>
+		<Item File="DialogApplication.VcItem.xml"/>
+	</ItemFiles>
+	
+	<ConfigurationFiles>
+		<Item Name="Release|x64"   File="Vc.App.Config.Release.x64.txt"/>
+		<Item Name="Debug|x64"     File="Vc.App.Config.Debug.x64.txt"/>
+		<Item Name="Release|Win32" File="Vc.App.Config.Release.Win32.txt"/>
+		<Item Name="Debug|Win32"   File="Vc.App.Config.Debug.Win32.txt"/>
+	</ConfigurationFiles>
+  
+</VcTemplate>
