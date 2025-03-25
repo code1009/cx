@@ -368,3 +368,4 @@ FodyWeavers.xsd
 /sample/FWFileBuilder/vcpkg_installed/x64-windows
 /sample/HelloWorld/vcpkg_installed/x64-windows
 /tool/VcFileGenerator/vcpkg_installed/x64-windows
+/template/DialogApplication/vcpkg_installed/x64-windows
