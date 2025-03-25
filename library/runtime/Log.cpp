@@ -301,7 +301,7 @@ void writeLogString(
 		info.file,
 		info.line,
 		info.func,
-		info.message->str()
+		info.message
 	);
 }
 
