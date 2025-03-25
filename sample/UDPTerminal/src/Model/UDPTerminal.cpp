@@ -234,7 +234,7 @@ void udp_unicast::process(void)
 	while (_run)
 	{
 		run();
-		if (!_run)
+		if (_run)
 		{
 			Sleep(_rerun_sleep_time);
 		}

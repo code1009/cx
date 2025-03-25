@@ -30,9 +30,10 @@ class ConsoleMessageWindow {
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
+        const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
 
         const dateString = `${year}-${month}-${date}`;
-        const timeString = `${hours}:${minutes}:${seconds}`;
+        const timeString = `${hours}:${minutes}:${seconds}.${milliseconds}`;
 
         let dateTimeString;
         dateTimeString = dateString + " " + timeString;
@@ -96,6 +97,7 @@ class Page extends BasePage {
         this.setupClickEventListener("연결해제", "connect", "연결해제");
 
         this.setupClickEventListener("송신", "send", "송신");
+        this.setupClickEventListener("클립보드복사", "copyClipboard", "클립보드복사");
 
         this._ConsoleMessageWindow = new ConsoleMessageWindow();
     }
@@ -126,6 +128,24 @@ class Page extends BasePage {
             TxData: txData
         };
         this.postJsonMessage(jsonMessage);
+    }
+
+    copyClipboard(stringMessage) {
+        const element = document.getElementById("내용콘솔메시지창");
+
+        const text = element.innerText;
+
+        // Create a temporary textarea element to hold the text
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+
+        // Select the text and copy it to the clipboard
+        textarea.select();
+        document.execCommand("copy");
+
+        // Remove the temporary textarea element
+        document.body.removeChild(textarea);
     }
 
     //-----------------------------------------------------------------------

@@ -225,9 +225,15 @@ HRESULT WebUIView::setupWebView_Settings(void)
 
 
 	//-----------------------------------------------------------------------
+#if 0
 	constexpr bool _UseContextMenu = false;
 	constexpr bool _UseZoom = false;
 	constexpr bool _UseMouseSelection = false;
+#else
+	constexpr bool _UseContextMenu = false;
+	constexpr bool _UseZoom = false;
+	constexpr bool _UseMouseSelection = true;
+#endif
 
 
 	//-----------------------------------------------------------------------
