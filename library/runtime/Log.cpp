@@ -290,18 +290,18 @@ void writeLogString(
 //===========================================================================
 void writeLogString(
 	std::wstringstream& ss,
-	LogInfomation& info
+	LogItem& item
 )
 {
 	writeLogString(
 		ss,
-		&info.dateTime,
-		info.threadId,
-		info.level,
-		info.file,
-		info.line,
-		info.func,
-		info.message
+		&item.dateTime,
+		item.threadId,
+		item.level,
+		item.file,
+		item.line,
+		item.func,
+		item.message
 	);
 }
 
@@ -317,17 +317,17 @@ void Logger::setOutputHandler(OutputHandler handler)
 	_OutputHandler = handler;
 }
 
-void Logger::output(LogInfomation& info)
+void Logger::output(LogItem& item)
 {
 	const std::lock_guard<std::mutex> lock(_Mutex);
 	if (_OutputHandler)
 	{
-		_OutputHandler(info);
+		_OutputHandler(item);
 	}
 	else
 	{
 		std::wstringstream ss;
-		writeLogString(ss, info);
+		writeLogString(ss, item);
 		OutputDebugStringW(ss.str().c_str());
 	}
 }
@@ -342,22 +342,22 @@ void Logger::log(
 )
 {
 	//-----------------------------------------------------------------------
-	LogInfomation info;
+	LogItem item;
 	
 
-	GetLocalTime(&info.dateTime);	
-	info.threadId = GetCurrentThreadId();
+	GetLocalTime(&item.dateTime);	
+	item.threadId = GetCurrentThreadId();
 
-	info.level   = level;
-	info.file    = file;
-	info.line    = line;
-	info.func    = func;
-	info.message = message;
-	info.param   = param;
+	item.level   = level;
+	item.file    = file;
+	item.line    = line;
+	item.func    = func;
+	item.message = message;
+	item.param   = param;
 
 
 	//-----------------------------------------------------------------------
-	output(info);
+	output(item);
 }
 
 

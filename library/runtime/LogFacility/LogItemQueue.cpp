@@ -4,7 +4,9 @@
 
 //===========================================================================
 #include "../runtime.hpp"
-#include "LogWriter.hpp"
+
+//===========================================================================
+#include "LogItemQueue.hpp"
 
 
 
@@ -21,12 +23,51 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void LogWriter::write(LogItem& item)
+LogItemQueue::LogItemQueue() :
+	_mutex(),
+	_container()
 {
-	std::wstringstream ss;
-	writeLogString(ss, item);
-	OutputDebugStringW(ss.str().c_str());
 }
+
+//===========================================================================
+void LogItemQueue::push(LogItem* m)
+{
+	const std::lock_guard<std::mutex> lock(_mutex);
+
+
+	_container.push_back(m);
+}
+
+LogItem* LogItemQueue::pop(void)
+{
+	const std::lock_guard<std::mutex> lock(_mutex);
+
+
+	LogItem* m = nullptr;
+
+
+	if (!_container.empty())
+	{
+		m = _container.front();
+		_container.pop_front();
+	}
+
+
+	return m;
+}
+
+std::size_t LogItemQueue::count(void)
+{
+	const std::lock_guard<std::mutex> lock(_mutex);
+
+	std::size_t count;
+
+
+	count = _container.size();
+
+	return count;
+}
+
 
 
 
@@ -35,7 +76,6 @@ void LogWriter::write(LogItem& item)
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
-
 
 
 

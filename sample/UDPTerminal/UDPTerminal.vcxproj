@@ -64,6 +64,10 @@
     <ClCompile Include="..\..\library\network\socket_error.cpp" />
     <ClCompile Include="..\..\library\network\socket_event_select.cpp" />
     <ClCompile Include="..\..\library\network\wsa.cpp" />
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogAsyncWriter.cpp" />
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogFacility.cpp" />
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogItemMemory.cpp" />
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogItemQueue.cpp" />
     <ClCompile Include="..\..\library\runtime\LogFacility\LogWriter.cpp" />
     <ClCompile Include=".\src\Application.cpp" />
     <ClCompile Include=".\src\Main.cpp" />
@@ -146,6 +150,10 @@
     <ClInclude Include="..\..\library\network\socket_error.hpp" />
     <ClInclude Include="..\..\library\network\socket_event_select.hpp" />
     <ClInclude Include="..\..\library\network\wsa.hpp" />
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogAsyncWriter.hpp" />
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogFacility.hpp" />
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogItemMemory.hpp" />
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogItemQueue.hpp" />
     <ClInclude Include="..\..\library\runtime\LogFacility\LogWriter.hpp" />
     <ClInclude Include="..\..\library\runtime\LogFacility\pch.hpp" />
     <ClInclude Include=".\res\Resource.h" />

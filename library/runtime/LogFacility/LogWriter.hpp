@@ -26,7 +26,7 @@ public:
 	virtual ~LogWriter() = default;
 
 public:
-	void output(LogInfomation& info);
+	virtual void write(LogItem& item);
 };
 
 

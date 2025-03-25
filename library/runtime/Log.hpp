@@ -67,7 +67,7 @@ void writeLogString(
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-typedef struct _LogInfomation
+typedef struct _LogItem
 {
 	SYSTEMTIME                dateTime;
 	DWORD                     threadId;
@@ -77,12 +77,12 @@ typedef struct _LogInfomation
 	const wchar_t*            func;
 	std::wstring              message;
 	std::vector<std::uint8_t> param;
-} LogInfomation;
+} LogItem;
 
 //===========================================================================
 void writeLogString(
 	std::wstringstream& ss,
-	LogInfomation&      info
+	LogItem&            item
 );
 
 
@@ -94,7 +94,7 @@ void writeLogString(
 class Logger
 {
 public:
-	using OutputHandler = std::function<void(LogInfomation&)>;
+	using OutputHandler = std::function<void(LogItem&)>;
 
 private:
 	std::mutex _Mutex;
@@ -112,7 +112,7 @@ public:
 	void setOutputHandler(OutputHandler handler);
 
 public:
-	virtual void output(LogInfomation& info);
+	virtual void output(LogItem& item);
 
 public:
 	virtual void log(

@@ -1,10 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-#include "pch.hpp"
-
-//===========================================================================
-#include "../runtime.hpp"
-#include "LogWriter.hpp"
+﻿#pragma once
 
 
 
@@ -21,12 +15,22 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void LogWriter::write(LogItem& item)
+class LogItemQueue
 {
-	std::wstringstream ss;
-	writeLogString(ss, item);
-	OutputDebugStringW(ss.str().c_str());
-}
+public:
+	std::mutex             _mutex;
+	std::deque<LogItem*> _container;
+
+public:
+	LogItemQueue();
+
+public:
+	void push(LogItem* m);
+	LogItem* pop(void);
+
+public:
+	std::size_t count(void);
+};
 
 
 
@@ -35,7 +39,6 @@ void LogWriter::write(LogItem& item)
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
-
 
 
 

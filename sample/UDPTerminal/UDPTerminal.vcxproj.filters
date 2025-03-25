@@ -231,6 +231,18 @@
     <ClCompile Include="..\..\library\runtime\LogFacility\LogWriter.cpp">
       <Filter>cx\library\runtime\LogFacility</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogItemMemory.cpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogItemQueue.cpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogFacility.cpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\runtime\LogFacility\LogAsyncWriter.cpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(cxDirectory)library\component\charset_system.hpp">
@@ -477,6 +489,18 @@
       <Filter>cx\library\runtime\LogFacility</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\runtime\LogFacility\pch.hpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogItemMemory.hpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogItemQueue.hpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogFacility.hpp">
+      <Filter>cx\library\runtime\LogFacility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\runtime\LogFacility\LogAsyncWriter.hpp">
       <Filter>cx\library\runtime\LogFacility</Filter>
     </ClInclude>
   </ItemGroup>
