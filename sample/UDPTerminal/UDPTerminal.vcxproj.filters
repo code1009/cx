@@ -49,6 +49,9 @@
     <Filter Include="res\web\page_home">
       <UniqueIdentifier>{960044c9-be51-4872-b200-d35fafe19535}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cx\library\network">
+      <UniqueIdentifier>{0fe9c623-1ab6-44b8-8d87-c1178c718c5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(cxDirectory)library\component\charset_system.cpp">
@@ -176,6 +179,42 @@
     </ClCompile>
     <ClCompile Include="src\WebUI\WebUIWindow.cpp">
       <Filter>src\WebUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\socket.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\socket_address.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\socket_control.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\socket_descriptor.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\socket_error.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\socket_event_select.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\wsa.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\net_addr_config.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\net_msg.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\net_msg_event_queue.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\net_msg_memory.cpp">
+      <Filter>cx\library\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\net\net_msg_queue.cpp">
+      <Filter>cx\library\network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +406,48 @@
     </ClInclude>
     <ClInclude Include="src\WebUI\WebUIWindow.hpp">
       <Filter>src\WebUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\socket.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\socket_address.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\socket_control.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\socket_descriptor.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\socket_error.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\socket_event_select.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\wsa.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\pch.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\library_window_cpp_framework.hpp">
+      <Filter>cx\library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\net_addr_config.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\net_msg.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\net_msg_event_queue.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\net_msg_memory.hpp">
+      <Filter>cx\library\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\net\net_msg_queue.hpp">
+      <Filter>cx\library\network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
