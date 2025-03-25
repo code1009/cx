@@ -301,7 +301,7 @@ void writeLogString(
 		info.file,
 		info.line,
 		info.func,
-		info.message->str()
+		info.message
 	);
 }
 
@@ -317,27 +317,28 @@ void Logger::setOutputHandler(OutputHandler handler)
 	_OutputHandler = handler;
 }
 
-void Logger::output(std::wstringstream& output, LogInfomation& info)
+void Logger::output(LogInfomation& info)
 {
 	const std::lock_guard<std::mutex> lock(_Mutex);
 	if (_OutputHandler)
 	{
-		_OutputHandler(output, info);
+		_OutputHandler(info);
 	}
 	else
 	{
-		OutputDebugStringW(output.str().c_str());
+		std::wstringstream ss;
+		writeLogString(ss, info);
+		OutputDebugStringW(ss.str().c_str());
 	}
 }
 
 void Logger::log(
-	LogLevel            level,
-	const wchar_t*      file,
-	int                 line,
-	const wchar_t*      func,
-	std::wstringstream* message,
-	void*               param,
-	std::size_t         paramSize
+	LogLevel                   level,
+	const wchar_t*             file,
+	int                        line,
+	const wchar_t*             func,
+	std::wstring_view          message,
+	std::vector<std::uint8_t>& param
 )
 {
 	//-----------------------------------------------------------------------
@@ -356,16 +357,8 @@ void Logger::log(
 
 
 	//-----------------------------------------------------------------------
-	std::wstringstream ss;
-
-
-	writeLogString(ss, info);
-
-
-	//-----------------------------------------------------------------------
-	output(ss, info);
+	output(info);
 }
-
 
 
 
@@ -378,23 +371,26 @@ Log::Log(
 	const wchar_t* file,
 	int            line,
 	const wchar_t* func,
-	void*          param,
+	void*          paramPointer,
 	std::size_t    paramSize
 ) :
 	_logger   (logger), 
 	_level    (level), 
 	_file     (file), 
 	_line     (line),
-	_func     (func),
-	_param    (param),
-	_paramSize(paramSize)
+	_func     (func)
 {
+	if (paramPointer)
+	{
+		_param.resize(paramSize);
+		std::memcpy(_param.data(), paramPointer, paramSize);
+	}
 }
 
 //===========================================================================
 Log::~Log()
 {
-	_logger->log(_level, _file, _line, _func, &_ss, _param, _paramSize);
+	_logger->log(_level, _file, _line, _func, _ss.str(), _param);
 }
 
 //===========================================================================
@@ -402,7 +398,8 @@ Log& Log::operator<<(std::wostream& (*manip)(std::wostream&))
 {
 	if (manip == static_cast<std::wostream & (*)(std::wostream&)>(std::endl))
 	{
-		_logger->log(_level, _file, _line, _func, &_ss);
+		std::vector<std::uint8_t> emptyParam;
+		_logger->log(_level, _file, _line, _func, _ss.str(), emptyParam);
 		_ss.str(L"");
 		_ss.clear();
 	}

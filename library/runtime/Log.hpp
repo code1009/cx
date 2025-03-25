@@ -69,15 +69,14 @@ void writeLogString(
 //===========================================================================
 typedef struct _LogInfomation
 {
-	SYSTEMTIME          dateTime;
-	DWORD               threadId;
-	LogLevel            level;
-	const wchar_t*      file;
-	int                 line;
-	const wchar_t*      func;
-	std::wstringstream* message;
-	void*               param;
-	std::size_t         paramSize;
+	SYSTEMTIME                dateTime;
+	DWORD                     threadId;
+	LogLevel                  level;
+	const wchar_t*            file;
+	int                       line;
+	const wchar_t*            func;
+	std::wstring              message;
+	std::vector<std::uint8_t> param;
 } LogInfomation;
 
 //===========================================================================
@@ -95,7 +94,7 @@ void writeLogString(
 class Logger
 {
 public:
-	using OutputHandler = std::function<void(std::wstringstream&, LogInfomation&)>;
+	using OutputHandler = std::function<void(LogInfomation&)>;
 
 private:
 	std::mutex _Mutex;
@@ -113,17 +112,16 @@ public:
 	void setOutputHandler(OutputHandler handler);
 
 public:
-	virtual void output(std::wstringstream& ss, LogInfomation& info);
+	virtual void output(LogInfomation& info);
 
 public:
 	virtual void log(
-		LogLevel            level,
-		const wchar_t*      file,
-		int                 line,
-		const wchar_t*      func,
-		std::wstringstream* message,
-		void*               param     = nullptr,
-		std::size_t         paramSize = 0
+		LogLevel                   level,
+		const wchar_t*             file,
+		int                        line,
+		const wchar_t*             func,
+		std::wstring_view          message,
+		std::vector<std::uint8_t>& param
 	);
 };
 
@@ -140,17 +138,12 @@ private:
 	Logger* _logger;
 
 private:
-	LogLevel       _level;
-	const wchar_t* _file ;
-	int            _line ;
-	const wchar_t* _func ;
-
-private:
-	std::wstringstream _ss;
-
-private:
-	void* _param;
-	std::size_t _paramSize;
+	LogLevel                  _level;
+	const wchar_t*            _file ;
+	int                       _line ;
+	const wchar_t*            _func ;
+	std::wstringstream        _ss   ;
+	std::vector<std::uint8_t> _param;
 
 public:
 	Log(
@@ -159,7 +152,7 @@ public:
 		const wchar_t* file,
 		int            line,
 		const wchar_t* func,
-		void*          param = nullptr,
+		void*          paramPointer = nullptr,
 		std::size_t    paramSize = 0
 	);
 
