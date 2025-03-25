@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="cx">
+      <UniqueIdentifier>{b902ef5e-cbe4-4869-81af-9c4fa1868585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library">
+      <UniqueIdentifier>{54ee71b7-6881-4d59-a36d-478af83813b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\component">
+      <UniqueIdentifier>{68bea9bd-c98e-4b16-8a3f-928ae523ba0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\gw">
+      <UniqueIdentifier>{d7835078-cd7f-4d43-b8d7-a689834c6660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\gw\widget">
+      <UniqueIdentifier>{b62671b2-4f67-41c4-8ee0-5a50a1726f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\gw\widget\Design">
+      <UniqueIdentifier>{025f33f1-a4d1-4b23-8a87-3943d9e90ba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\gw\widget\Shape">
+      <UniqueIdentifier>{8c2e83e5-7b13-4e28-9605-65aba0895992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\runtime">
+      <UniqueIdentifier>{513e7d4f-c429-4f86-8b4f-5db80d6fd624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\wui">
+      <UniqueIdentifier>{e16b5a0d-c752-4d85-a1ea-ace80b16e0e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\wui\CommonDialog">
+      <UniqueIdentifier>{402a6e43-e985-4d03-908a-1d13cda159bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\wui\GDI">
+      <UniqueIdentifier>{06d1da0f-39ac-41cd-a26a-0b0c498d9a71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\wui\Resource">
+      <UniqueIdentifier>{739755ef-f4d8-4c06-af3b-5fd6d74c7deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\library\wui\Window">
+      <UniqueIdentifier>{60cb6eb6-d366-4f43-b538-8ab0b9fd93c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{03d5da05-1cda-42f8-9f30-ed58ec6b4ce2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{b082cb56-a853-422e-9476-faa91a9c0571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Window">
+      <UniqueIdentifier>{bd49fee6-5327-480a-b0fa-87b4915fcd3d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(cxDirectory)library\component\charset_system.cpp">
+      <Filter>cx\library\component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\component\fs_std_wstring.cpp">
+      <Filter>cx\library\component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\component\parse_c_string.cpp">
+      <Filter>cx\library\component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\component\std_wstring_utility.cpp">
+      <Filter>cx\library\component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\component\to_std_wstring.cpp">
+      <Filter>cx\library\component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\component\xml.cpp">
+      <Filter>cx\library\component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\BaseEditWindow.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\Bitmap.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\Color.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\Context.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\DirectX2dGraphic.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\Drawable.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\Point.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\Viewport.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\Window.cpp">
+      <Filter>cx\library\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\DesignWidget.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\DesignWidgetContext.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\WidgetDesigner.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerCommand.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerConcreteCommand.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerFacility.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerModel.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerMouseTool.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerWindow.cpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\LineShape.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\LineShapeDesign.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\RectangleShape.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\RectangleShapeDesign.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\Shape.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\ShapeDesign.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\ShapeDesignTemplate.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\ShapeTemplate.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Shape\Shape_Classes.cpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\Widget.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetDocument.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetDrawingStyle.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetEventDragDrop.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetEventDragDrop_ClipboardFormat.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetEventDragDrop_HGlobal.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetEventDragDrop_WindowDragDropComObject.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetEventWindowMessageHandler.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetFactory.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\gw\widget\WidgetResource.cpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\runtime\Assert.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\runtime\DebugMemory.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\runtime\LastError.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\runtime\Log.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\runtime\WindowApplication.cpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\AppModule.cpp">
+      <Filter>cx\library\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\CommonDialog\FileDialog.cpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\CommonDialog\FolderDialog.cpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\DC.cpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\DC_Classes.cpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\DC_Functions.cpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\GDIObject_Bitmap.cpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\GDIObject_Brush.cpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\GDIObject_Font.cpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\GDI\GDIObject_Pen.cpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Resource\DialogTemplate.cpp">
+      <Filter>cx\library\wui\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Resource\Resource.cpp">
+      <Filter>cx\library\wui\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Resource\Resource_Functions.cpp">
+      <Filter>cx\library\wui\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\BaseWindow.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\Coord.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\Window.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowClass.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowMessage.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowMessageCrack.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowMessageLoop.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\WindowProc.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="$(cxDirectory)library\wui\Window\Window_Functions.cpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Application.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\MainBox.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(cxDirectory)library\component\charset_system.hpp">
+      <Filter>cx\library\component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\component\fs_std_wstring.hpp">
+      <Filter>cx\library\component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\component\parse_c_string.hpp">
+      <Filter>cx\library\component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\component\pch.hpp">
+      <Filter>cx\library\component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\component\std_wstring_utility.hpp">
+      <Filter>cx\library\component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\component\to_std_wstring.hpp">
+      <Filter>cx\library\component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\component\xml.hpp">
+      <Filter>cx\library\component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\BaseEditWindow.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\Bitmap.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\Color.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\Context.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\DirectX2dGraphic.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\Drawable.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\Point.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\Viewport.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\Window.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\gw.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\pch.hpp">
+      <Filter>cx\library\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\DesignWidget.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\DesignWidgetContext.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\WidgetDesigner.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerCommand.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerConcreteCommand.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerFacility.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerModel.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerMouseTool.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\WidgetDesignerWindow.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Design\pch.hpp">
+      <Filter>cx\library\gw\widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\LineShape.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\LineShapeDesign.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\RectangleShape.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\RectangleShapeDesign.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\Shape.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\ShapeDesign.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\ShapeDesignTemplate.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\ShapeTemplate.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\Shape_Classes.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Shape\pch.hpp">
+      <Filter>cx\library\gw\widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\Widget.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetDocument.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetDrawingStyle.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetEvent.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetEventDragDrop.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetEventDragDrop_ClipboardFormat.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetEventDragDrop_HGlobal.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetEventDragDrop_WindowDragDropComObject.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetEventWindowMessageHandler.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetFactory.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\WidgetResource.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\gw\widget\pch.hpp">
+      <Filter>cx\library\gw\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\runtime\Assert.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\runtime\DebugMemory.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\runtime\LastError.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\runtime\Log.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\runtime\Macros.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\runtime\WindowApplication.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\runtime\pch.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\runtime\runtime.hpp">
+      <Filter>cx\library\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\AppModule.hpp">
+      <Filter>cx\library\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\CommonDialog\FileDialog.hpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\CommonDialog\FolderDialog.hpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\CommonDialog\pch.hpp">
+      <Filter>cx\library\wui\CommonDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\BasicDCT.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\DC.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\DC_Classes.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\DC_Functions.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\GDIObject_Bitmap.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\GDIObject_Brush.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\GDIObject_Font.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\GDIObject_Pen.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\GDI\pch.hpp">
+      <Filter>cx\library\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Resource\DialogTemplate.hpp">
+      <Filter>cx\library\wui\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Resource\Resource.hpp">
+      <Filter>cx\library\wui\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Resource\Resource_Functions.hpp">
+      <Filter>cx\library\wui\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Resource\pch.hpp">
+      <Filter>cx\library\wui\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\BaseWindow.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\BasicWindowT.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\Coord.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\MessageMapWindow.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\Window.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowClass.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessage.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessageCrack.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessageHandler.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessageLoop.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowMessageMap.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowProc.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\WindowStyle.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\Window_Functions.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\Window\pch.hpp">
+      <Filter>cx\library\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\pch.hpp">
+      <Filter>cx\library\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="$(cxDirectory)library\wui\wui.hpp">
+      <Filter>cx\library\wui</Filter>
+    </ClInclude>
+    <ClInclude Include=".\res\Resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Application.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\framework.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\pch.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\targetver.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\MainBox.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\pch.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\res\Application.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include=".\res\Application.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include=".\res\small.ico">
+      <Filter>res</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".\vcpkg.json" />
+  </ItemGroup>
+</Project>

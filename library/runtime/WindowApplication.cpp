@@ -5,9 +5,6 @@
 //===========================================================================
 #include "runtime.hpp"
 
-//===========================================================================
-#include "../gw/DirectX2dGraphic.hpp"
-
 
 
 
@@ -37,15 +34,6 @@ bool WindowApplication::initialize(void)
 
 
 	//-----------------------------------------------------------------------
-	if (gw::DirectX2dGraphic::createFactory() == false)
-	{
-		::OleUninitialize();
-
-		return false;
-	}
-
-
-	//-----------------------------------------------------------------------
 	_DebugMemory.enableMemoryCheck();
 	_DebugMemory.startMemoryLeakCheck();
 
@@ -57,10 +45,6 @@ void WindowApplication::terminate(void)
 {
 	//-----------------------------------------------------------------------
 	_DebugMemory.endMemoryLeakCheck();
-
-
-	//-----------------------------------------------------------------------
-	gw::DirectX2dGraphic::destroyFactory();
 
 
 	//-----------------------------------------------------------------------

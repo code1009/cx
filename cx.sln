@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D2dSample", "sample\D2dSamp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VcFileGenerator", "tool\VcFileGenerator\VcFileGenerator.vcxproj", "{6E7C18C8-C702-418B-88BC-1A60D3C3A19C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DialogApplication", "template\DialogApplication\DialogApplication.vcxproj", "{6A981E47-2870-4981-B74B-6C54A0D7C7A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -97,6 +99,14 @@ Global
 		{6E7C18C8-C702-418B-88BC-1A60D3C3A19C}.Release|x64.Build.0 = Release|x64
 		{6E7C18C8-C702-418B-88BC-1A60D3C3A19C}.Release|x86.ActiveCfg = Release|Win32
 		{6E7C18C8-C702-418B-88BC-1A60D3C3A19C}.Release|x86.Build.0 = Release|Win32
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2}.Debug|x64.ActiveCfg = Debug|x64
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2}.Debug|x64.Build.0 = Debug|x64
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2}.Debug|x86.ActiveCfg = Debug|Win32
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2}.Debug|x86.Build.0 = Debug|Win32
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2}.Release|x64.ActiveCfg = Release|x64
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2}.Release|x64.Build.0 = Release|x64
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2}.Release|x86.ActiveCfg = Release|Win32
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +120,7 @@ Global
 		{92090ECB-9102-45AF-94A6-9631B6B104A3} = {060EEB5B-2577-46C9-AA87-4D9B6B7E623D}
 		{B916C1DD-B567-42D1-B448-A51D8FA0589C} = {50EFC057-4A08-4362-8DAB-9B2001376C18}
 		{6E7C18C8-C702-418B-88BC-1A60D3C3A19C} = {C2826898-6919-49D6-9840-D436441D42E9}
+		{6A981E47-2870-4981-B74B-6C54A0D7C7A2} = {060EEB5B-2577-46C9-AA87-4D9B6B7E623D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC7C65DC-29E2-40ED-8440-0F008964DA46}

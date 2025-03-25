@@ -26,20 +26,24 @@
 bool Application::initialize(void)
 {
 	bool rv;
-
-
 	rv = cx::runtime::WindowApplication::initialize();
 	if (false == rv)
 	{
 		terminate();
 		return false;
 	}
-
+	rv = cx::gw::DirectX2dGraphic::createFactory();
+	if (false == rv)
+	{
+		terminate();
+		return false;
+	}
 	return true;
 }
 
 void Application::terminate(void)
 {
+	cx::gw::DirectX2dGraphic::destroyFactory();
 	cx::runtime::WindowApplication::terminate();
 }
 
