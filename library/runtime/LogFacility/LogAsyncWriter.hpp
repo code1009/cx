@@ -51,7 +51,9 @@ private:
 
 public:
 	LogAsyncWriter();
-	~LogAsyncWriter();
+
+public:
+	virtual ~LogAsyncWriter();
 
 public:
 	virtual void write(LogItem& item) override;
