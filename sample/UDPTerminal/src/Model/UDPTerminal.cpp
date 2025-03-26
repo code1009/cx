@@ -36,9 +36,9 @@ public:
 	cx::network::net_msg_event_queue _rx_queue{};
 
 private:
-	cx::network::socket _socket{};
-	cx::network::socket_address _socket_local_address{};
-	cx::network::socket_address _socket_remote_address{};
+	cx::network::socket              _socket{};
+	cx::network::socket_address      _socket_local_address{};
+	cx::network::socket_address      _socket_remote_address{};
 	cx::network::socket_event_select _socket_event_select{};
 
 private:
@@ -55,8 +55,8 @@ private:
 	HANDLE _destroy_event_handle{ nullptr };
 
 private:
-	std::promise<void> _start_barrier {};
-	std::future<void> _start_barrier_future {};
+	std::promise<void> _start_barrier        {};
+	std::future <void> _start_barrier_future {};
 
 public:
 	udp_unicast() = default;
@@ -644,12 +644,16 @@ UDPTerminal::UDPTerminal(Model* model, std::wstring laddress, std::wstring lport
 	_udp_unicast->_remote_addr_config._port = cx::wcs_to_mbcs(_RemotePort);
 	
 	_udp_unicast->create();
+
+	CX_RUNTIME_LOG(cxLError) << L"UDPTerminal()";
 }
 
 UDPTerminal::~UDPTerminal()
 {
 	_udp_unicast->destroy();
 	_udp_unicast.reset();
+
+	CX_RUNTIME_LOG(cxLError) << L"~UDPTerminal()";
 }
 
 void UDPTerminal::send(const std::vector<std::uint8_t>& data)

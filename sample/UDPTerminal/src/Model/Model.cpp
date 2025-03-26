@@ -17,6 +17,10 @@
 //===========================================================================
 void Model::connect(std::wstring laddress, std::wstring lport, std::wstring raddress, std::wstring rport)
 {
+	if (_UDPTerminal)
+	{
+		_UDPTerminal.reset();
+	}
 	_UDPTerminal = std::make_unique<UDPTerminal>(this, laddress, lport, raddress, rport);
 }
 
