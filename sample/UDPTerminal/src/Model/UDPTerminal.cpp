@@ -28,8 +28,8 @@ public:
 	UDPTerminal* _UDPTerminal{ nullptr };
 
 public:
-	cx::network::net_addr_config _local_addr_config{};
-	cx::network::net_addr_config _remote_addr_config{};
+	cx::network::net_addr_config _addr_config_local{};
+	cx::network::net_addr_config _addr_config_remote{};
 
 public:
 	cx::network::net_msg_event_queue _tx_queue{};
@@ -37,22 +37,22 @@ public:
 
 private:
 	cx::network::socket              _socket{};
-	cx::network::socket_address      _socket_local_address{};
-	cx::network::socket_address      _socket_remote_address{};
+	cx::network::socket_address      _socket_address_local{};
+	cx::network::socket_address      _socket_address_remote{};
 	cx::network::socket_event_select _socket_event_select{};
 
 private:
 	std::thread _thread{};
 	
 private:
-	std::atomic_bool _run              { false };
-	std::atomic_bool _socket_event_loop{ false };
+	std::atomic_bool _run       { false };
+	std::atomic_bool _event_loop{ false };
 
 private:
 	DWORD _rerun_sleep_time{ 3000 };
 
 private:
-	HANDLE _destroy_event_handle{ nullptr };
+	HANDLE _event_handle_destroy{ nullptr };
 
 private:
 	std::promise<void> _start_barrier        {};
@@ -78,9 +78,10 @@ private:
 	void run(void);
 
 private:
-	bool setup_socket(void);
-	void socket_event_loop(void);
+	bool setup(void);
+	void event_loop(void);
 
+private:
 	void on_event(std::uint32_t event_index);
 	void on_event_destroy(void);
 	void on_event_send(void);
@@ -106,12 +107,12 @@ public:
 bool udp_unicast::create(void)
 {
 	//-----------------------------------------------------------------------
-	_destroy_event_handle = CreateEvent(NULL, TRUE, FALSE, NULL);
+	_event_handle_destroy = CreateEvent(NULL, TRUE, FALSE, NULL);
 
 
 	//-----------------------------------------------------------------------
 	_run = true;
-	_socket_event_loop = true;
+	_event_loop = true;
 
 
 	//-----------------------------------------------------------------------
@@ -136,12 +137,12 @@ bool udp_unicast::create(void)
 void udp_unicast::destroy(void)
 {
 	_run = false;
-	_socket_event_loop = false;
+	_event_loop = false;
 
 
-	if (_destroy_event_handle)
+	if (_event_handle_destroy)
 	{
-		SetEvent(_destroy_event_handle);
+		SetEvent(_event_handle_destroy);
 	}
 
 
@@ -151,10 +152,10 @@ void udp_unicast::destroy(void)
 	}
 
 
-	if (_destroy_event_handle)
+	if (_event_handle_destroy)
 	{
-		CloseHandle(_destroy_event_handle);
-		_destroy_event_handle = nullptr;
+		CloseHandle(_event_handle_destroy);
+		_event_handle_destroy = nullptr;
 	}
 
 
@@ -247,16 +248,16 @@ void udp_unicast::run(void)
 
 
 	//-----------------------------------------------------------------------
-	rv = setup_socket();
+	rv = setup();
 	if (false == rv)
 	{
-		CX_RUNTIME_LOG(cxLError) << L"socket_setup() failed";
+		CX_RUNTIME_LOG(cxLError) << L"setup() failed";
 		return;
 	}
 
 
 	//-----------------------------------------------------------------------
-	socket_event_loop();
+	event_loop();
 
 
 	//-----------------------------------------------------------------------
@@ -268,7 +269,7 @@ void udp_unicast::run(void)
 	CX_RUNTIME_LOG(cxLInfo) << L"end";
 }
 
-bool udp_unicast::setup_socket(void)
+bool udp_unicast::setup(void)
 {
 	//-----------------------------------------------------------------------
 	bool rv;
@@ -284,12 +285,12 @@ bool udp_unicast::setup_socket(void)
 
 
 	//-----------------------------------------------------------------------
-	_socket_local_address.set_inet_v4(_local_addr_config._addr, _local_addr_config._port);
-	_socket_remote_address.set_inet_v4(_remote_addr_config._addr, _remote_addr_config._port);
+	_socket_address_local.set_inet_v4(_addr_config_local._addr, _addr_config_local._port);
+	_socket_address_remote.set_inet_v4(_addr_config_remote._addr, _addr_config_remote._port);
 
 
 	//-----------------------------------------------------------------------
-	rv = _socket.bind(&_socket_local_address);
+	rv = _socket.bind(&_socket_address_local);
 	if (false == rv)
 	{
 		CX_RUNTIME_LOG(cxLError) << L"_socket.bind() failed";
@@ -315,7 +316,7 @@ bool udp_unicast::setup_socket(void)
 
 
 	//-----------------------------------------------------------------------
-	_socket_event_select.register_event(_destroy_event_handle);
+	_socket_event_select.register_event(_event_handle_destroy);
 	_socket_event_select.register_event(_tx_queue._event);
 
 
@@ -337,7 +338,7 @@ bool udp_unicast::setup_socket(void)
 	return true;
 }
 
-void udp_unicast::socket_event_loop(void)
+void udp_unicast::event_loop(void)
 {
 	//-----------------------------------------------------------------------
 	_UDPTerminal->postWebMessage(L"연결완료");
@@ -350,7 +351,7 @@ void udp_unicast::socket_event_loop(void)
 	CX_RUNTIME_LOG(cxLInfo) << L"begin";
 
 
-	while (_socket_event_loop)
+	while (_event_loop)
 	{
 		rv = _socket_event_select.wait(_socket.get_descriptor());
 		if (rv == cx::network::socket_event_error)
@@ -390,12 +391,12 @@ void udp_unicast::on_event(std::uint32_t event_index)
 void udp_unicast::on_event_destroy(void)
 {
 	//-----------------------------------------------------------------------
-	_socket_event_loop = false;
+	_event_loop = false;
 	_run = false;
 
 
 	//-----------------------------------------------------------------------
-	CX_RUNTIME_LOG(cxLInfo) << L"on_event_destroy(): " << cx::mbcs_to_wcs(_local_addr_config._port);
+	CX_RUNTIME_LOG(cxLInfo) << L"on_event_destroy(): " << cx::mbcs_to_wcs(_addr_config_local._port);
 }
 
 void udp_unicast::on_event_send(void)
@@ -418,9 +419,9 @@ void udp_unicast::on_socket_event_read(void)
 
 void udp_unicast::on_socket_event_close(void)
 {
-	CX_RUNTIME_LOG(cxLInfo) << L"on_socket_event_close(): " << cx::mbcs_to_wcs(_local_addr_config._port);
+	CX_RUNTIME_LOG(cxLInfo) << L"on_socket_event_close(): " << cx::mbcs_to_wcs(_addr_config_local._port);
 
-	_socket_event_loop = false;
+	_event_loop = false;
 }
 
 //===========================================================================
@@ -447,10 +448,10 @@ void udp_unicast::do_send(void)
 
 	pointer = static_cast<void*>(m->_data.data());
 	size = static_cast<std::int32_t>(m->_data.size());
-	rv = _socket.sendto(&_socket_remote_address, pointer, size, &wsize);
+	rv = _socket.sendto(&_socket_address_remote, pointer, size, &wsize);
 	if (false == rv)
 	{
-		CX_RUNTIME_LOG(cxLError) << L"_socket.sendto() failed: " << cx::mbcs_to_wcs(_local_addr_config._port);
+		CX_RUNTIME_LOG(cxLError) << L"_socket.sendto() failed: " << cx::mbcs_to_wcs(_addr_config_local._port);
 		CX_RUNTIME_LOG(cxLError) << L"Socket Error: " << cx::network::get_socket_error();
 	}
 	else
@@ -495,21 +496,21 @@ void udp_unicast::do_recv(void)
 
 	std::uint8_t buffer[1500];
 
-	cx::network::socket_address _socket_remote_address;
+	cx::network::socket_address _socket_address_remote;
 
 
 	pointer = static_cast<void*>(buffer);
 	size = sizeof(buffer);
-	rv = _socket.recvfrom(&_socket_remote_address, pointer, size, &rsize);
+	rv = _socket.recvfrom(&_socket_address_remote, pointer, size, &rsize);
 	if (false == rv)
 	{
-		CX_RUNTIME_LOG(cxLError) << L"_socket.recvfrom() failed: " << cx::mbcs_to_wcs(_local_addr_config._port);
+		CX_RUNTIME_LOG(cxLError) << L"_socket.recvfrom() failed: " << cx::mbcs_to_wcs(_addr_config_local._port);
 		CX_RUNTIME_LOG(cxLError) << L"Socket Error: " << cx::network::get_socket_error();
 	}
 	else
 	{
 		CX_RUNTIME_LOG(cxLError) << L"_socket.recvfrom(): " << rsize << L"Byte(s)";
-		on_recv(_socket_remote_address, buffer, rsize);
+		on_recv(_socket_address_remote, buffer, rsize);
 	}
 
 
@@ -638,10 +639,10 @@ UDPTerminal::UDPTerminal(Model* model, std::wstring laddress, std::wstring lport
 {
 	_udp_unicast = std::make_unique<udp_unicast>();
 	_udp_unicast->_UDPTerminal = this;
-	_udp_unicast->_local_addr_config._addr = cx::wcs_to_mbcs(_LocalAddress);
-	_udp_unicast->_local_addr_config._port = cx::wcs_to_mbcs(_LocalPort);
-	_udp_unicast->_remote_addr_config._addr = cx::wcs_to_mbcs(_RemoteAddress);
-	_udp_unicast->_remote_addr_config._port = cx::wcs_to_mbcs(_RemotePort);
+	_udp_unicast->_addr_config_local._addr = cx::wcs_to_mbcs(_LocalAddress);
+	_udp_unicast->_addr_config_local._port = cx::wcs_to_mbcs(_LocalPort);
+	_udp_unicast->_addr_config_remote._addr = cx::wcs_to_mbcs(_RemoteAddress);
+	_udp_unicast->_addr_config_remote._port = cx::wcs_to_mbcs(_RemotePort);
 	
 	_udp_unicast->create();
 
