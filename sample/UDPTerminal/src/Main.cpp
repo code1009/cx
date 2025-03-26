@@ -32,7 +32,13 @@ int APIENTRY wWinMain(
 {
 	// 인스턴스 설정
 	cx::wui::getAppModule()->setInstanceHandle(hInstance);	
+
+
 	// 어플리케이션 실행
 	getApplication()->launch();	
+
+
+	// 종료
+
 	return 0;
 }
