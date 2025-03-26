@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -29,6 +29,12 @@ https://github.com/DavidNash2024/Win32xx/blob/v10.1/include/wxx_gdi.h
 template <typename TBase>
 class BasicDCT : public TBase
 {
+private:
+	HWND getBasicDCHandle(void) const
+	{
+		return static_cast<const TBase*>(this)->getDCHandle();
+	}
+
 public:
 	int enumObjects(int objectType, GOBJENUMPROC pObjectFunc, LPARAM lparam) const;
 	void gradientFill(COLORREF color1, COLORREF color2, RECT rc, BOOL isVertical) const;
@@ -259,8 +265,8 @@ public:
 template <typename TBase>
 int BasicDCT<TBase>::enumObjects(int objectType, GOBJENUMPROC pObjectFunc, LPARAM lparam) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::EnumObjects(static_cast<TBase*>(this)->getDCHandle(), objectType, pObjectFunc, lparam);
+	assert(getBasicDCHandle() != nullptr);
+	return ::EnumObjects(getBasicDCHandle(), objectType, pObjectFunc, lparam);
 }
 
 template <typename TBase>
@@ -299,22 +305,22 @@ void BasicDCT<TBase>::gradientFill(COLORREF color1, COLORREF color2, RECT rc, BO
 template <typename TBase>
 BOOL BasicDCT<TBase>::restoreDC(int savedDC) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::RestoreDC(static_cast<TBase*>(this)->getDCHandle(), savedDC);
+	assert(getBasicDCHandle() != nullptr);
+	return ::RestoreDC(getBasicDCHandle(), savedDC);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::saveDC() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SaveDC(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::SaveDC(getBasicDCHandle());
 }
 
 template <typename TBase>
 HBITMAP BasicDCT<TBase>::selectBitmap(HBITMAP bitmap) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	HBITMAP oldBitmap = static_cast<HBITMAP>(::SelectObject(static_cast<TBase*>(this)->getDCHandle(), bitmap));
+	assert(getBasicDCHandle() != nullptr);
+	HBITMAP oldBitmap = static_cast<HBITMAP>(::SelectObject(getBasicDCHandle(), bitmap));
 
 	return oldBitmap;
 }
@@ -322,8 +328,8 @@ HBITMAP BasicDCT<TBase>::selectBitmap(HBITMAP bitmap) const
 template <typename TBase>
 HBRUSH BasicDCT<TBase>::selectBrush(HBRUSH brush) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	HBRUSH oldBrush = static_cast<HBRUSH>(::SelectObject(static_cast<TBase*>(this)->getDCHandle(), brush));
+	assert(getBasicDCHandle() != nullptr);
+	HBRUSH oldBrush = static_cast<HBRUSH>(::SelectObject(getBasicDCHandle(), brush));
 
 	return oldBrush;
 }
@@ -331,8 +337,8 @@ HBRUSH BasicDCT<TBase>::selectBrush(HBRUSH brush) const
 template <typename TBase>
 HFONT BasicDCT<TBase>::selectFont(HFONT font) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	HFONT oldFont = static_cast<HFONT>(::SelectObject(static_cast<TBase*>(this)->getDCHandle(), font));
+	assert(getBasicDCHandle() != nullptr);
+	HFONT oldFont = static_cast<HFONT>(::SelectObject(getBasicDCHandle(), font));
 
 	return oldFont;
 }
@@ -340,8 +346,8 @@ HFONT BasicDCT<TBase>::selectFont(HFONT font) const
 template <typename TBase>
 HPEN BasicDCT<TBase>::selectPen(HPEN pen) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	HPEN oldPen = static_cast<HPEN>(::SelectObject(static_cast<TBase*>(this)->getDCHandle(), pen));
+	assert(getBasicDCHandle() != nullptr);
+	HPEN oldPen = static_cast<HPEN>(::SelectObject(getBasicDCHandle(), pen));
 	
 	return oldPen;
 }
@@ -349,8 +355,8 @@ HPEN BasicDCT<TBase>::selectPen(HPEN pen) const
 template <typename TBase>
 int BasicDCT<TBase>::selectRGN(HRGN rgn) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	HANDLE rgnType = ::SelectObject(static_cast<TBase*>(this)->getDCHandle(), rgn);
+	assert(getBasicDCHandle() != nullptr);
+	HANDLE rgnType = ::SelectObject(getBasicDCHandle(), rgn);
 
 	return static_cast<int> (reinterpret_cast<INT_PTR>(rgnType));
 }
@@ -358,8 +364,8 @@ int BasicDCT<TBase>::selectRGN(HRGN rgn) const
 template <typename TBase>
 HPALETTE BasicDCT<TBase>::selectPalette(const HPALETTE palette, BOOL forceBkgnd) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	HPALETTE oldPalette = ::SelectPalette(static_cast<TBase*>(this)->getDCHandle(), palette, forceBkgnd);
+	assert(getBasicDCHandle() != nullptr);
+	HPALETTE oldPalette = ::SelectPalette(getBasicDCHandle(), palette, forceBkgnd);
 
 	return oldPalette;
 }
@@ -378,8 +384,8 @@ void BasicDCT<TBase>::solidFill(COLORREF color, RECT rc) const
 template <typename TBase>
 HBITMAP BasicDCT<TBase>::getCurrentBitmap() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return static_cast<HBITMAP>(::GetCurrentObject(static_cast<TBase*>(this)->getDCHandle(), OBJ_BITMAP));
+	assert(getBasicDCHandle() != nullptr);
+	return static_cast<HBITMAP>(::GetCurrentObject(getBasicDCHandle(), OBJ_BITMAP));
 }
 
 //===========================================================================
@@ -388,25 +394,25 @@ HBITMAP BasicDCT<TBase>::getCurrentBitmap() const
 template <typename TBase>
 HBRUSH BasicDCT<TBase>::getCurrentBrush() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return static_cast<HBRUSH>(::GetCurrentObject(static_cast<TBase*>(this)->getDCHandle(), OBJ_BRUSH));
+	assert(getBasicDCHandle() != nullptr);
+	return static_cast<HBRUSH>(::GetCurrentObject(getBasicDCHandle(), OBJ_BRUSH));
 }
 
 template <typename TBase>
 CoordPoint BasicDCT<TBase>::getBrushOrgEx() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	CoordPoint pt;
-	::GetBrushOrgEx(static_cast<TBase*>(this)->getDCHandle(), &pt);
+	::GetBrushOrgEx(getBasicDCHandle(), &pt);
 	return pt;
 }
 
 template <typename TBase>
 CoordPoint BasicDCT<TBase>::setBrushOrgEx(int x, int y)
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	CoordPoint oldPt;
-	::SetBrushOrgEx(static_cast<TBase*>(this)->getDCHandle(), x, y, &oldPt);
+	::SetBrushOrgEx(getBasicDCHandle(), x, y, &oldPt);
 	return oldPt;
 }
 
@@ -416,8 +422,8 @@ CoordPoint BasicDCT<TBase>::setBrushOrgEx(int x, int y)
 template <typename TBase>
 HFONT BasicDCT<TBase>::getCurrentFont() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return static_cast<HFONT>(::GetCurrentObject(static_cast<TBase*>(this)->getDCHandle(), OBJ_FONT));
+	assert(getBasicDCHandle() != nullptr);
+	return static_cast<HFONT>(::GetCurrentObject(getBasicDCHandle(), OBJ_FONT));
 }
 
 //===========================================================================
@@ -426,43 +432,43 @@ HFONT BasicDCT<TBase>::getCurrentFont() const
 template <typename TBase>
 HPALETTE BasicDCT<TBase>::getCurrentPalette() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return static_cast<HPALETTE>(::GetCurrentObject(static_cast<TBase*>(this)->getDCHandle(), OBJ_PAL));
+	assert(getBasicDCHandle() != nullptr);
+	return static_cast<HPALETTE>(::GetCurrentObject(getBasicDCHandle(), OBJ_PAL));
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::getNearestColor(COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetNearestColor(static_cast<TBase*>(this)->getDCHandle(), color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetNearestColor(getBasicDCHandle(), color);
 }
 
 template <typename TBase>
 UINT BasicDCT<TBase>::realizePalette() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::RealizePalette(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::RealizePalette(getBasicDCHandle());
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getColorAdjustment(LPCOLORADJUSTMENT pCA) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetColorAdjustment(static_cast<TBase*>(this)->getDCHandle(), pCA);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetColorAdjustment(getBasicDCHandle(), pCA);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setColorAdjustment(const COLORADJUSTMENT* pCA) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetColorAdjustment(static_cast<TBase*>(this)->getDCHandle(), pCA);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetColorAdjustment(getBasicDCHandle(), pCA);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::updateColors() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::UpdateColors(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::UpdateColors(getBasicDCHandle());
 }
 
 //===========================================================================
@@ -471,8 +477,8 @@ BOOL BasicDCT<TBase>::updateColors() const
 template <typename TBase>
 HPEN BasicDCT<TBase>::getCurrentPen() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return static_cast<HPEN>(::GetCurrentObject(static_cast<TBase*>(this)->getDCHandle(), OBJ_PEN));
+	assert(getBasicDCHandle() != nullptr);
+	return static_cast<HPEN>(::GetCurrentObject(getBasicDCHandle(), OBJ_PEN));
 }
 
 //===========================================================================
@@ -487,10 +493,10 @@ HGDIOBJ BasicDCT<TBase>::getStockObject(int index) const
 template <typename TBase>
 HGDIOBJ BasicDCT<TBase>::selectStockObject(int index) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	HGDIOBJ stockObject = ::GetStockObject(index);
 
-	HGDIOBJ oldObject = ::SelectObject(static_cast<TBase*>(this)->getDCHandle(), stockObject);
+	HGDIOBJ oldObject = ::SelectObject(getBasicDCHandle(), stockObject);
 
 	return oldObject;
 }
@@ -505,8 +511,8 @@ HGDIOBJ BasicDCT<TBase>::selectStockObject(int index) const
 template <typename TBase>
 int BasicDCT<TBase>::getDeviceCaps(int index) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetDeviceCaps(static_cast<TBase*>(this)->getDCHandle(), index);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetDeviceCaps(getBasicDCHandle(), index);
 }
 
 //===========================================================================
@@ -515,15 +521,15 @@ int BasicDCT<TBase>::getDeviceCaps(int index) const
 template <typename TBase>
 COLORREF BasicDCT<TBase>::getDCBrushColor() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetDCBrushColor(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetDCBrushColor(getBasicDCHandle());
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::setDCBrushColor(COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetDCBrushColor(static_cast<TBase*>(this)->getDCHandle(), color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetDCBrushColor(getBasicDCHandle(), color);
 }
 
 //===========================================================================
@@ -532,51 +538,51 @@ COLORREF BasicDCT<TBase>::setDCBrushColor(COLORREF color) const
 template <typename TBase>
 DWORD BasicDCT<TBase>::getFontData(DWORD table, DWORD offset, LPVOID buffer, DWORD data) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetFontData(static_cast<TBase*>(this)->getDCHandle(), table, offset, buffer, data);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetFontData(getBasicDCHandle(), table, offset, buffer, data);
 }
 
 template <typename TBase>
 DWORD BasicDCT<TBase>::getFontLanguageInfo() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetFontLanguageInfo(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetFontLanguageInfo(getBasicDCHandle());
 }
 
 template <typename TBase>
 DWORD BasicDCT<TBase>::getGlyphOutline(UINT query, UINT format, LPGLYPHMETRICS pGM, DWORD bufSize,
 	LPVOID buffer, const MAT2* pMAT2) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetGlyphOutline(static_cast<TBase*>(this)->getDCHandle(), query, format, pGM, bufSize, buffer, pMAT2);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetGlyphOutline(getBasicDCHandle(), query, format, pGM, bufSize, buffer, pMAT2);
 }
 
 template <typename TBase>
 DWORD BasicDCT<TBase>::getKerningPairs(DWORD numPairs, LPKERNINGPAIR pKrnPair) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetKerningPairs(static_cast<TBase*>(this)->getDCHandle(), numPairs, pKrnPair);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetKerningPairs(getBasicDCHandle(), numPairs, pKrnPair);
 }
 
 template <typename TBase>
 DWORD BasicDCT<TBase>::setMapperFlags(DWORD flag) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetMapperFlags(static_cast<TBase*>(this)->getDCHandle(), flag);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetMapperFlags(getBasicDCHandle(), flag);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getMiterLimit(PFLOAT pLimit) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetMiterLimit(static_cast<TBase*>(this)->getDCHandle(), pLimit);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetMiterLimit(getBasicDCHandle(), pLimit);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setMiterLimit(FLOAT newLimit, PFLOAT pOldLimit) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetMiterLimit(static_cast<TBase*>(this)->getDCHandle(), newLimit, pOldLimit);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetMiterLimit(getBasicDCHandle(), newLimit, pOldLimit);
 }
 
 //===========================================================================
@@ -585,50 +591,50 @@ BOOL BasicDCT<TBase>::setMiterLimit(FLOAT newLimit, PFLOAT pOldLimit) const
 template <typename TBase>
 int BasicDCT<TBase>::excludeClipRect(int left, int top, int right, int bottom) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::ExcludeClipRect(static_cast<TBase*>(this)->getDCHandle(), left, top, right, bottom);
+	assert(getBasicDCHandle() != nullptr);
+	return ::ExcludeClipRect(getBasicDCHandle(), left, top, right, bottom);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::excludeClipRect(RECT rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::ExcludeClipRect(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom);
+	assert(getBasicDCHandle() != nullptr);
+	return ::ExcludeClipRect(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getClipBox(RECT& rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetClipBox(static_cast<TBase*>(this)->getDCHandle(), &rc);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetClipBox(getBasicDCHandle(), &rc);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::intersectClipRect(int left, int top, int right, int bottom) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::IntersectClipRect(static_cast<TBase*>(this)->getDCHandle(), left, top, right, bottom);
+	assert(getBasicDCHandle() != nullptr);
+	return ::IntersectClipRect(getBasicDCHandle(), left, top, right, bottom);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::intersectClipRect(RECT rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::IntersectClipRect(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom);
+	assert(getBasicDCHandle() != nullptr);
+	return ::IntersectClipRect(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::rectVisible(RECT rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::RectVisible(static_cast<TBase*>(this)->getDCHandle(), &rc);
+	assert(getBasicDCHandle() != nullptr);
+	return ::RectVisible(getBasicDCHandle(), &rc);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::selectClipRgn(HRGN rgn) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	int rgnType = ::SelectClipRgn(static_cast<TBase*>(this)->getDCHandle(), rgn);
+	assert(getBasicDCHandle() != nullptr);
+	int rgnType = ::SelectClipRgn(getBasicDCHandle(), rgn);
 
 	return rgnType;
 }
@@ -636,29 +642,29 @@ int BasicDCT<TBase>::selectClipRgn(HRGN rgn) const
 template <typename TBase>
 BOOL BasicDCT<TBase>::abortPath() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::AbortPath(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::AbortPath(getBasicDCHandle());
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::beginPath() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::BeginPath(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::BeginPath(getBasicDCHandle());
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::endPath() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::EndPath(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::EndPath(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::extSelectClipRgn(HRGN rgn, int mode) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	int rgnType = ::ExtSelectClipRgn(static_cast<TBase*>(this)->getDCHandle(), rgn, mode);
+	assert(getBasicDCHandle() != nullptr);
+	int rgnType = ::ExtSelectClipRgn(getBasicDCHandle(), rgn, mode);
 
 	return rgnType;
 }
@@ -666,57 +672,57 @@ int BasicDCT<TBase>::extSelectClipRgn(HRGN rgn, int mode) const
 template <typename TBase>
 BOOL BasicDCT<TBase>::flattenPath() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::FlattenPath(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::FlattenPath(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getPath(POINT* pointArray, BYTE* types, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetPath(static_cast<TBase*>(this)->getDCHandle(), pointArray, types, count);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetPath(getBasicDCHandle(), pointArray, types, count);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::ptVisible(int x, int y) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PtVisible(static_cast<TBase*>(this)->getDCHandle(), x, y);
+	assert(getBasicDCHandle() != nullptr);
+	return ::PtVisible(getBasicDCHandle(), x, y);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::offsetClipRgn(int xOffset, int yOffset) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::OffsetClipRgn(static_cast<TBase*>(this)->getDCHandle(), xOffset, yOffset);
+	assert(getBasicDCHandle() != nullptr);
+	return ::OffsetClipRgn(getBasicDCHandle(), xOffset, yOffset);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::selectClipPath(int mode) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SelectClipPath(static_cast<TBase*>(this)->getDCHandle(), mode);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SelectClipPath(getBasicDCHandle(), mode);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::strokeAndFillPath() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::StrokeAndFillPath(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::StrokeAndFillPath(getBasicDCHandle());
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::strokePath() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::StrokePath(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::StrokePath(getBasicDCHandle());
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::widenPath() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::WidenPath(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::WidenPath(getBasicDCHandle());
 }
 
 //===========================================================================
@@ -725,198 +731,198 @@ BOOL BasicDCT<TBase>::widenPath() const
 template <typename TBase>
 CoordPoint BasicDCT<TBase>::getCurrentPosition() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	CoordPoint pt;
-	::GetCurrentPositionEx(static_cast<TBase*>(this)->getDCHandle(), &pt);
+	::GetCurrentPositionEx(getBasicDCHandle(), &pt);
 	return pt;
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::getPixel(int x, int y) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetPixel(static_cast<TBase*>(this)->getDCHandle(), x, y);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetPixel(getBasicDCHandle(), x, y);
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::getPixel(POINT pt) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetPixel(static_cast<TBase*>(this)->getDCHandle(), pt.x, pt.y);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetPixel(getBasicDCHandle(), pt.x, pt.y);
 }
 
 template <typename TBase>
 CoordPoint BasicDCT<TBase>::moveTo(int x, int y) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	CoordPoint previous;
-	::MoveToEx(static_cast<TBase*>(this)->getDCHandle(), x, y, &previous);
+	::MoveToEx(getBasicDCHandle(), x, y, &previous);
 	return previous;
 }
 
 template <typename TBase>
 CoordPoint BasicDCT<TBase>::moveTo(POINT pt) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	CoordPoint previous;
-	::MoveToEx(static_cast<TBase*>(this)->getDCHandle(), pt.x, pt.y, &previous);
+	::MoveToEx(getBasicDCHandle(), pt.x, pt.y, &previous);
 	return previous;
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::lineTo(int x, int y) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::LineTo(static_cast<TBase*>(this)->getDCHandle(), x, y);
+	assert(getBasicDCHandle() != nullptr);
+	return ::LineTo(getBasicDCHandle(), x, y);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::lineTo(POINT pt) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::LineTo(static_cast<TBase*>(this)->getDCHandle(), pt.x, pt.y);
+	assert(getBasicDCHandle() != nullptr);
+	return ::LineTo(getBasicDCHandle(), pt.x, pt.y);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setROP2(int drawMode) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetROP2(static_cast<TBase*>(this)->getDCHandle(), drawMode);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetROP2(getBasicDCHandle(), drawMode);
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::setPixel(int x, int y, COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetPixel(static_cast<TBase*>(this)->getDCHandle(), x, y, color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetPixel(getBasicDCHandle(), x, y, color);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::arc(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Arc(static_cast<TBase*>(this)->getDCHandle(), x1, y1, x2, y2, x3, y3, x4, y4);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Arc(getBasicDCHandle(), x1, y1, x2, y2, x3, y3, x4, y4);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::arc(RECT rc, POINT start, POINT end) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Arc(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom,
+	assert(getBasicDCHandle() != nullptr);
+	return ::Arc(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom,
 		start.x, start.y, end.x, end.y);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::arcTo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::ArcTo(static_cast<TBase*>(this)->getDCHandle(), x1, y1, x2, y2, x3, y3, x4, y4);
+	assert(getBasicDCHandle() != nullptr);
+	return ::ArcTo(getBasicDCHandle(), x1, y1, x2, y2, x3, y3, x4, y4);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::arcTo(RECT rc, POINT ptStart, POINT ptEnd) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::ArcTo(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom,
+	assert(getBasicDCHandle() != nullptr);
+	return ::ArcTo(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom,
 		ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::angleArc(int x, int y, int radius, float startAngle, float sweepAngle) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::AngleArc(static_cast<TBase*>(this)->getDCHandle(), x, y, static_cast<DWORD>(radius), startAngle, sweepAngle);
+	assert(getBasicDCHandle() != nullptr);
+	return ::AngleArc(getBasicDCHandle(), x, y, static_cast<DWORD>(radius), startAngle, sweepAngle);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::closeFigure() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::CloseFigure(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::CloseFigure(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getROP2() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetROP2(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetROP2(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getArcDirection() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetArcDirection(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetArcDirection(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setArcDirection(int arcDirection) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetArcDirection(static_cast<TBase*>(this)->getDCHandle(), arcDirection);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetArcDirection(getBasicDCHandle(), arcDirection);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::polyDraw(const POINT* pPointArray, const BYTE* pTypes, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PolyDraw(static_cast<TBase*>(this)->getDCHandle(), pPointArray, pTypes, count);
+	assert(getBasicDCHandle() != nullptr);
+	return ::PolyDraw(getBasicDCHandle(), pPointArray, pTypes, count);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::polyline(LPPOINT pPointArray, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Polyline(static_cast<TBase*>(this)->getDCHandle(), pPointArray, count);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Polyline(getBasicDCHandle(), pPointArray, count);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::polyPolyline(const POINT* pPointArray, const DWORD* pPolyPoints, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PolyPolyline(static_cast<TBase*>(this)->getDCHandle(), pPointArray, pPolyPoints, static_cast<DWORD>(count));
+	assert(getBasicDCHandle() != nullptr);
+	return ::PolyPolyline(getBasicDCHandle(), pPointArray, pPolyPoints, static_cast<DWORD>(count));
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::polylineTo(const POINT* pPointArray, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PolylineTo(static_cast<TBase*>(this)->getDCHandle(), pPointArray, static_cast<DWORD>(count));
+	assert(getBasicDCHandle() != nullptr);
+	return ::PolylineTo(getBasicDCHandle(), pPointArray, static_cast<DWORD>(count));
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::polyBezier(const POINT* pPointArray, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PolyBezier(static_cast<TBase*>(this)->getDCHandle(), pPointArray, static_cast<DWORD>(count));
+	assert(getBasicDCHandle() != nullptr);
+	return ::PolyBezier(getBasicDCHandle(), pPointArray, static_cast<DWORD>(count));
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::polyBezierTo(const POINT* pPointArray, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PolyBezierTo(static_cast<TBase*>(this)->getDCHandle(), pPointArray, static_cast<DWORD>(count));
+	assert(getBasicDCHandle() != nullptr);
+	return ::PolyBezierTo(getBasicDCHandle(), pPointArray, static_cast<DWORD>(count));
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::setPixel(POINT pt, COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetPixel(static_cast<TBase*>(this)->getDCHandle(), pt.x, pt.y, color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetPixel(getBasicDCHandle(), pt.x, pt.y, color);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setPixelV(int x, int y, COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetPixelV(static_cast<TBase*>(this)->getDCHandle(), x, y, color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetPixelV(getBasicDCHandle(), x, y, color);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setPixelV(POINT pt, COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetPixelV(static_cast<TBase*>(this)->getDCHandle(), pt.x, pt.y, color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetPixelV(getBasicDCHandle(), pt.x, pt.y, color);
 }
 
 //===========================================================================
@@ -925,94 +931,94 @@ BOOL BasicDCT<TBase>::setPixelV(POINT pt, COLORREF color) const
 template <typename TBase>
 BOOL BasicDCT<TBase>::drawFocusRect(RECT rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DrawFocusRect(static_cast<TBase*>(this)->getDCHandle(), &rc);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DrawFocusRect(getBasicDCHandle(), &rc);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::ellipse(int x1, int y1, int x2, int y2) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Ellipse(static_cast<TBase*>(this)->getDCHandle(), x1, y1, x2, y2);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Ellipse(getBasicDCHandle(), x1, y1, x2, y2);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::ellipse(RECT rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Ellipse(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Ellipse(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::polygon(LPPOINT pPointArray, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Polygon(static_cast<TBase*>(this)->getDCHandle(), pPointArray, count);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Polygon(getBasicDCHandle(), pPointArray, count);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::rectangle(int x1, int y1, int x2, int y2) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Rectangle(static_cast<TBase*>(this)->getDCHandle(), x1, y1, x2, y2);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Rectangle(getBasicDCHandle(), x1, y1, x2, y2);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::rectangle(RECT rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Rectangle(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Rectangle(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::roundRect(int x1, int y1, int x2, int y2, int width, int height) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::RoundRect(static_cast<TBase*>(this)->getDCHandle(), x1, y1, x2, y2, width, height);
+	assert(getBasicDCHandle() != nullptr);
+	return ::RoundRect(getBasicDCHandle(), x1, y1, x2, y2, width, height);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::roundRect(RECT rc, int width, int height) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::RoundRect(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom, width, height);
+	assert(getBasicDCHandle() != nullptr);
+	return ::RoundRect(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom, width, height);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::chord(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Chord(static_cast<TBase*>(this)->getDCHandle(), x1, y1, x2, y2, x3, y3, x4, y4);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Chord(getBasicDCHandle(), x1, y1, x2, y2, x3, y3, x4, y4);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::chord(RECT rc, POINT start, POINT end) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Chord(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom,
+	assert(getBasicDCHandle() != nullptr);
+	return ::Chord(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom,
 		start.x, start.y, end.x, end.y);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::pie(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Pie(static_cast<TBase*>(this)->getDCHandle(), x1, y1, x2, y2, x3, y3, x4, y4);
+	assert(getBasicDCHandle() != nullptr);
+	return ::Pie(getBasicDCHandle(), x1, y1, x2, y2, x3, y3, x4, y4);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::pie(RECT rc, POINT start, POINT end) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::Pie(static_cast<TBase*>(this)->getDCHandle(), rc.left, rc.top, rc.right, rc.bottom,
+	assert(getBasicDCHandle() != nullptr);
+	return ::Pie(getBasicDCHandle(), rc.left, rc.top, rc.right, rc.bottom,
 		start.x, start.y, end.x, end.y);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::polyPolygon(LPPOINT pPointArray, LPINT pPolyCounts, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PolyPolygon(static_cast<TBase*>(this)->getDCHandle(), pPointArray, pPolyCounts, count);
+	assert(getBasicDCHandle() != nullptr);
+	return ::PolyPolygon(getBasicDCHandle(), pPointArray, pPolyCounts, count);
 }
 
 //===========================================================================
@@ -1021,49 +1027,49 @@ BOOL BasicDCT<TBase>::polyPolygon(LPPOINT pPointArray, LPINT pPolyCounts, int co
 template <typename TBase>
 BOOL BasicDCT<TBase>::fillRect(RECT rc, HBRUSH brush) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return (::FillRect(static_cast<TBase*>(this)->getDCHandle(), &rc, brush) ? TRUE : FALSE);
+	assert(getBasicDCHandle() != nullptr);
+	return (::FillRect(getBasicDCHandle(), &rc, brush) ? TRUE : FALSE);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::invertRect(RECT rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::InvertRect(static_cast<TBase*>(this)->getDCHandle(), &rc);
+	assert(getBasicDCHandle() != nullptr);
+	return ::InvertRect(getBasicDCHandle(), &rc);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::drawIconEx(int xLeft, int yTop, HICON icon, int cxWidth, int cyWidth, UINT index, HBRUSH flickerFreeDraw, UINT flags) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DrawIconEx(static_cast<TBase*>(this)->getDCHandle(), xLeft, yTop, icon, cxWidth, cyWidth, index, flickerFreeDraw, flags);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DrawIconEx(getBasicDCHandle(), xLeft, yTop, icon, cxWidth, cyWidth, index, flickerFreeDraw, flags);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::drawEdge(RECT rc, UINT edge, UINT flags) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DrawEdge(static_cast<TBase*>(this)->getDCHandle(), const_cast<LPRECT>(&rc), edge, flags);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DrawEdge(getBasicDCHandle(), const_cast<LPRECT>(&rc), edge, flags);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::drawFrameControl(RECT rc, UINT type, UINT state) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DrawFrameControl(static_cast<TBase*>(this)->getDCHandle(), const_cast<LPRECT>(&rc), type, state);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DrawFrameControl(getBasicDCHandle(), const_cast<LPRECT>(&rc), type, state);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::fillRgn(HRGN rgn, HBRUSH brush) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::FillRgn(static_cast<TBase*>(this)->getDCHandle(), rgn, brush);
+	assert(getBasicDCHandle() != nullptr);
+	return ::FillRgn(getBasicDCHandle(), rgn, brush);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::gradientFill(PTRIVERTEX pVertex, ULONG vertex, PVOID pMesh, ULONG mesh, ULONG mode) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 
 	wchar_t systemDirectory[MAX_PATH];
 	::GetSystemDirectoryW(systemDirectory, MAX_PATH);
@@ -1082,7 +1088,7 @@ BOOL BasicDCT<TBase>::gradientFill(PTRIVERTEX pVertex, ULONG vertex, PVOID pMesh
 
 		if (pfn)
 		{
-			return pfn(static_cast<TBase*>(this)->getDCHandle(), pVertex, vertex, pMesh, mesh, mode);
+			return pfn(getBasicDCHandle(), pVertex, vertex, pMesh, mesh, mode);
 		}
 	}
 
@@ -1092,50 +1098,50 @@ BOOL BasicDCT<TBase>::gradientFill(PTRIVERTEX pVertex, ULONG vertex, PVOID pMesh
 template <typename TBase>
 BOOL BasicDCT<TBase>::drawIcon(int x, int y, HICON icon) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DrawIcon(static_cast<TBase*>(this)->getDCHandle(), x, y, icon);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DrawIcon(getBasicDCHandle(), x, y, icon);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::drawIcon(POINT pt, HICON icon) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DrawIcon(static_cast<TBase*>(this)->getDCHandle(), pt.x, pt.y, icon);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DrawIcon(getBasicDCHandle(), pt.x, pt.y, icon);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::frameRect(RECT rc, HBRUSH brush) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return (::FrameRect(static_cast<TBase*>(this)->getDCHandle(), &rc, brush)) ? TRUE : FALSE;
+	assert(getBasicDCHandle() != nullptr);
+	return (::FrameRect(getBasicDCHandle(), &rc, brush)) ? TRUE : FALSE;
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::frameRgn(HRGN rgn, HBRUSH brush, int width, int height) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::FrameRgn(static_cast<TBase*>(this)->getDCHandle(), rgn, brush, width, height);
+	assert(getBasicDCHandle() != nullptr);
+	return ::FrameRgn(getBasicDCHandle(), rgn, brush, width, height);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getPolyFillMode() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetPolyFillMode(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetPolyFillMode(getBasicDCHandle());
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::paintRgn(HRGN rgn) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PaintRgn(static_cast<TBase*>(this)->getDCHandle(), rgn);
+	assert(getBasicDCHandle() != nullptr);
+	return ::PaintRgn(getBasicDCHandle(), rgn);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setPolyFillMode(int polyFillMode) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetPolyFillMode(static_cast<TBase*>(this)->getDCHandle(), polyFillMode);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetPolyFillMode(getBasicDCHandle(), polyFillMode);
 }
 
 //===========================================================================
@@ -1145,86 +1151,86 @@ template <typename TBase>
 int BasicDCT<TBase>::stretchDIBits(int xDest, int yDest, int destWidth, int destHeight, int xSrc, int ySrc, int srcWidth,
 	int srcHeight, LPCVOID pBits, const LPBITMAPINFO pBMI, UINT usage, DWORD rop) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::StretchDIBits(static_cast<TBase*>(this)->getDCHandle(), xDest, yDest, destWidth, destHeight, xSrc, ySrc, srcWidth, srcHeight, pBits, pBMI, usage, rop);
+	assert(getBasicDCHandle() != nullptr);
+	return ::StretchDIBits(getBasicDCHandle(), xDest, yDest, destWidth, destHeight, xSrc, ySrc, srcWidth, srcHeight, pBits, pBMI, usage, rop);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::patBlt(int x, int y, int width, int height, DWORD rop) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PatBlt(static_cast<TBase*>(this)->getDCHandle(), x, y, width, height, rop);
+	assert(getBasicDCHandle() != nullptr);
+	return ::PatBlt(getBasicDCHandle(), x, y, width, height, rop);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::bitBlt(int x, int y, int width, int height, HDC hSrc, int xSrc, int ySrc, DWORD rop) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::BitBlt(static_cast<TBase*>(this)->getDCHandle(), x, y, width, height, hSrc, xSrc, ySrc, rop);
+	assert(getBasicDCHandle() != nullptr);
+	return ::BitBlt(getBasicDCHandle(), x, y, width, height, hSrc, xSrc, ySrc, rop);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::maskBlt(int xDest, int yDest, int width, int height, HDC hSrc, int xSrc, int ySrc, HBITMAP mask, int xMask, int yMask, DWORD rop) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::MaskBlt(static_cast<TBase*>(this)->getDCHandle(), xDest, yDest, width, height, hSrc, xSrc, ySrc, mask, xMask, yMask, rop);
+	assert(getBasicDCHandle() != nullptr);
+	return ::MaskBlt(getBasicDCHandle(), xDest, yDest, width, height, hSrc, xSrc, ySrc, mask, xMask, yMask, rop);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::stretchBlt(int x, int y, int width, int height, HDC src, int xSrc, int ySrc, int srcWidth, int srcHeight, DWORD rop) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::StretchBlt(static_cast<TBase*>(this)->getDCHandle(), x, y, width, height, src, xSrc, ySrc, srcWidth, srcHeight, rop);
+	assert(getBasicDCHandle() != nullptr);
+	return ::StretchBlt(getBasicDCHandle(), x, y, width, height, src, xSrc, ySrc, srcWidth, srcHeight, rop);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getDIBits(HBITMAP bitmap, UINT startScan, UINT scanLines, LPVOID pBits, LPBITMAPINFO pBMI, UINT usage) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetDIBits(static_cast<TBase*>(this)->getDCHandle(), bitmap, startScan, scanLines, pBits, pBMI, usage);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetDIBits(getBasicDCHandle(), bitmap, startScan, scanLines, pBits, pBMI, usage);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setDIBits(HBITMAP bitmap, UINT startScan, UINT scanLines, LPCVOID pBits, LPBITMAPINFO pBMI, UINT colorUse) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetDIBits(static_cast<TBase*>(this)->getDCHandle(), bitmap, startScan, scanLines, pBits, pBMI, colorUse);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetDIBits(getBasicDCHandle(), bitmap, startScan, scanLines, pBits, pBMI, colorUse);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getStretchBltMode() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetStretchBltMode(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetStretchBltMode(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setStretchBltMode(int stretchMode) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetStretchBltMode(static_cast<TBase*>(this)->getDCHandle(), stretchMode);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetStretchBltMode(getBasicDCHandle(), stretchMode);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::transparentBlt(int x, int y, int width, int height, HDC hSrc, int xSrc, int ySrc,
 	int widthSrc, int heightSrc, UINT transparent) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::TransparentBlt(static_cast<TBase*>(this)->getDCHandle(), x, y, width, height, hSrc, xSrc, ySrc, widthSrc, heightSrc, transparent);
+	assert(getBasicDCHandle() != nullptr);
+	return ::TransparentBlt(getBasicDCHandle(), x, y, width, height, hSrc, xSrc, ySrc, widthSrc, heightSrc, transparent);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::floodFill(int x, int y, COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::FloodFill(static_cast<TBase*>(this)->getDCHandle(), x, y, color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::FloodFill(getBasicDCHandle(), x, y, color);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::extFloodFill(int x, int y, COLORREF color, UINT fillType) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::ExtFloodFill(static_cast<TBase*>(this)->getDCHandle(), x, y, color, fillType);
+	assert(getBasicDCHandle() != nullptr);
+	return ::ExtFloodFill(getBasicDCHandle(), x, y, color, fillType);
 }
 
 //===========================================================================
@@ -1233,29 +1239,29 @@ BOOL BasicDCT<TBase>::extFloodFill(int x, int y, COLORREF color, UINT fillType) 
 template <typename TBase>
 BOOL BasicDCT<TBase>::DPtoLP(LPPOINT pPointArray, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DPtoLP(static_cast<TBase*>(this)->getDCHandle(), pPointArray, count);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DPtoLP(getBasicDCHandle(), pPointArray, count);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::DPtoLP(RECT& rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DPtoLP(static_cast<TBase*>(this)->getDCHandle(), reinterpret_cast<LPPOINT>(&rc), 2);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DPtoLP(getBasicDCHandle(), reinterpret_cast<LPPOINT>(&rc), 2);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::LPtoDP(LPPOINT pPointArray, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::LPtoDP(static_cast<TBase*>(this)->getDCHandle(), pPointArray, count);
+	assert(getBasicDCHandle() != nullptr);
+	return ::LPtoDP(getBasicDCHandle(), pPointArray, count);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::LPtoDP(RECT& rc) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::LPtoDP(static_cast<TBase*>(this)->getDCHandle(), reinterpret_cast<LPPOINT>(&rc), 2);
+	assert(getBasicDCHandle() != nullptr);
+	return ::LPtoDP(getBasicDCHandle(), reinterpret_cast<LPPOINT>(&rc), 2);
 }
 
 //===========================================================================
@@ -1264,15 +1270,15 @@ BOOL BasicDCT<TBase>::LPtoDP(RECT& rc) const
 template <typename TBase>
 DWORD BasicDCT<TBase>::getLayout() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetLayout(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetLayout(getBasicDCHandle());
 }
 
 template <typename TBase>
 DWORD BasicDCT<TBase>::setLayout(DWORD layout) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetLayout(static_cast<TBase*>(this)->getDCHandle(), layout);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetLayout(getBasicDCHandle(), layout);
 }
 
 //===========================================================================
@@ -1281,127 +1287,127 @@ DWORD BasicDCT<TBase>::setLayout(DWORD layout) const
 template <typename TBase>
 int BasicDCT<TBase>::getMapMode()  const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetMapMode(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetMapMode(getBasicDCHandle());
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getViewportOrgEx(LPPOINT pPoint)  const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetViewportOrgEx(static_cast<TBase*>(this)->getDCHandle(), pPoint);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetViewportOrgEx(getBasicDCHandle(), pPoint);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setMapMode(int mapMode) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetMapMode(static_cast<TBase*>(this)->getDCHandle(), mapMode);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetMapMode(getBasicDCHandle(), mapMode);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setViewportOrgEx(int x, int y, LPPOINT pPoint) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetViewportOrgEx(static_cast<TBase*>(this)->getDCHandle(), x, y, pPoint);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetViewportOrgEx(getBasicDCHandle(), x, y, pPoint);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setViewportOrgEx(POINT point, LPPOINT pPointRet) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	return setViewportOrgEx(point.x, point.y, pPointRet);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::offsetViewportOrgEx(int width, int height, LPPOINT pPoint) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::OffsetViewportOrgEx(static_cast<TBase*>(this)->getDCHandle(), width, height, pPoint);
+	assert(getBasicDCHandle() != nullptr);
+	return ::OffsetViewportOrgEx(getBasicDCHandle(), width, height, pPoint);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getViewportExtEx(LPSIZE pSize)  const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetViewportExtEx(static_cast<TBase*>(this)->getDCHandle(), pSize);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetViewportExtEx(getBasicDCHandle(), pSize);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setViewportExtEx(int x, int y, LPSIZE pSize) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetViewportExtEx(static_cast<TBase*>(this)->getDCHandle(), x, y, pSize);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetViewportExtEx(getBasicDCHandle(), x, y, pSize);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setViewportExtEx(SIZE size, LPSIZE pSizeRet) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	return setViewportExtEx(size.cx, size.cy, pSizeRet);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::scaleViewportExtEx(int xNum, int xDenom, int yNum, int yDenom, LPSIZE pSize) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::ScaleViewportExtEx(static_cast<TBase*>(this)->getDCHandle(), xNum, xDenom, yNum, yDenom, pSize);
+	assert(getBasicDCHandle() != nullptr);
+	return ::ScaleViewportExtEx(getBasicDCHandle(), xNum, xDenom, yNum, yDenom, pSize);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getWindowOrgEx(LPPOINT pPoint) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetWindowOrgEx(static_cast<TBase*>(this)->getDCHandle(), pPoint);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetWindowOrgEx(getBasicDCHandle(), pPoint);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setWindowOrgEx(int x, int y, LPPOINT pPoint) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetWindowOrgEx(static_cast<TBase*>(this)->getDCHandle(), x, y, pPoint);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetWindowOrgEx(getBasicDCHandle(), x, y, pPoint);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setWindowOrgEx(POINT point, LPPOINT pPointRet) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	return setWindowOrgEx(point.x, point.y, pPointRet);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::offsetWindowOrgEx(int width, int height, LPPOINT pPoint) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::OffsetWindowOrgEx(static_cast<TBase*>(this)->getDCHandle(), width, height, pPoint);
+	assert(getBasicDCHandle() != nullptr);
+	return ::OffsetWindowOrgEx(getBasicDCHandle(), width, height, pPoint);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getWindowExtEx(LPSIZE pSize)  const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetWindowExtEx(static_cast<TBase*>(this)->getDCHandle(), pSize);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetWindowExtEx(getBasicDCHandle(), pSize);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setWindowExtEx(int x, int y, LPSIZE pSize) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetWindowExtEx(static_cast<TBase*>(this)->getDCHandle(), x, y, pSize);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetWindowExtEx(getBasicDCHandle(), x, y, pSize);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::setWindowExtEx(SIZE size, LPSIZE pSizeRet) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	return setWindowExtEx(size.cx, size.cy, pSizeRet);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::scaleWindowExtEx(int xNum, int xDenom, int yNum, int yDenom, LPSIZE pSize) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::ScaleWindowExtEx(static_cast<TBase*>(this)->getDCHandle(), xNum, xDenom, yNum, yDenom, pSize);
+	assert(getBasicDCHandle() != nullptr);
+	return ::ScaleWindowExtEx(getBasicDCHandle(), xNum, xDenom, yNum, yDenom, pSize);
 }
 
 //===========================================================================
@@ -1410,15 +1416,15 @@ BOOL BasicDCT<TBase>::scaleWindowExtEx(int xNum, int xDenom, int yNum, int yDeno
 template <typename TBase>
 BOOL BasicDCT<TBase>::playMetaFile(HMETAFILE metaFile) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PlayMetaFile(static_cast<TBase*>(this)->getDCHandle(), metaFile);
+	assert(getBasicDCHandle() != nullptr);
+	return ::PlayMetaFile(getBasicDCHandle(), metaFile);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::playMetaFile(HENHMETAFILE enhMetaFile, RECT bounds) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::PlayEnhMetaFile(static_cast<TBase*>(this)->getDCHandle(), enhMetaFile, &bounds);
+	assert(getBasicDCHandle() != nullptr);
+	return ::PlayEnhMetaFile(getBasicDCHandle(), enhMetaFile, &bounds);
 }
 
 //===========================================================================
@@ -1427,43 +1433,43 @@ BOOL BasicDCT<TBase>::playMetaFile(HENHMETAFILE enhMetaFile, RECT bounds) const
 template <typename TBase>
 int BasicDCT<TBase>::startDoc(LPDOCINFO pDocInfo) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::StartDoc(static_cast<TBase*>(this)->getDCHandle(), pDocInfo);
+	assert(getBasicDCHandle() != nullptr);
+	return ::StartDoc(getBasicDCHandle(), pDocInfo);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::endDoc() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::EndDoc(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::EndDoc(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::startPage() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::StartPage(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::StartPage(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::endPage() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::EndPage(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::EndPage(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::abortDoc() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::AbortDoc(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::AbortDoc(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setAbortProc(BOOL(CALLBACK* pfn)(HDC, int)) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetAbortProc(static_cast<TBase*>(this)->getDCHandle(), pfn);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetAbortProc(getBasicDCHandle(), pfn);
 }
 
 //===========================================================================
@@ -1472,134 +1478,134 @@ int BasicDCT<TBase>::setAbortProc(BOOL(CALLBACK* pfn)(HDC, int)) const
 template <typename TBase>
 BOOL BasicDCT<TBase>::extTextOut(int x, int y, UINT options, RECT rc, LPCTSTR string, int count, LPINT pDxWidths) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 
 	if (count == -1)
 		count = lstrlen(string);
 
-	return ::ExtTextOut(static_cast<TBase*>(this)->getDCHandle(), x, y, options, &rc, string, static_cast<UINT>(count), pDxWidths);
+	return ::ExtTextOut(getBasicDCHandle(), x, y, options, &rc, string, static_cast<UINT>(count), pDxWidths);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::drawText(LPCTSTR string, int count, RECT rc, UINT format) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DrawText(static_cast<TBase*>(this)->getDCHandle(), string, count, const_cast<LPRECT>(&rc), format);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DrawText(getBasicDCHandle(), string, count, const_cast<LPRECT>(&rc), format);
 }
 
 template <typename TBase>
 UINT BasicDCT<TBase>::getTextAlign() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetTextAlign(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetTextAlign(getBasicDCHandle());
 }
 
 template <typename TBase>
 UINT BasicDCT<TBase>::setTextAlign(UINT flags) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetTextAlign(static_cast<TBase*>(this)->getDCHandle(), flags);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetTextAlign(getBasicDCHandle(), flags);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getTextFace(int count, LPTSTR faceName) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetTextFace(static_cast<TBase*>(this)->getDCHandle(), count, faceName);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetTextFace(getBasicDCHandle(), count, faceName);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getTextMetrics(TEXTMETRIC& metrics) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetTextMetrics(static_cast<TBase*>(this)->getDCHandle(), &metrics);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetTextMetrics(getBasicDCHandle(), &metrics);
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::getBkColor() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetBkColor(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetBkColor(getBasicDCHandle());
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::setBkColor(COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetBkColor(static_cast<TBase*>(this)->getDCHandle(), color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetBkColor(getBasicDCHandle(), color);
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::getTextColor() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetTextColor(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetTextColor(getBasicDCHandle());
 }
 
 template <typename TBase>
 COLORREF BasicDCT<TBase>::setTextColor(COLORREF color) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetTextColor(static_cast<TBase*>(this)->getDCHandle(), color);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetTextColor(getBasicDCHandle(), color);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getBkMode() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetBkMode(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetBkMode(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setBkMode(int bkMode) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetBkMode(static_cast<TBase*>(this)->getDCHandle(), bkMode);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetBkMode(getBasicDCHandle(), bkMode);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::drawTextEx(LPTSTR string, int count, RECT rc, UINT format, LPDRAWTEXTPARAMS pDTParams) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::DrawTextEx(static_cast<TBase*>(this)->getDCHandle(), string, count, const_cast<LPRECT>(&rc), format, pDTParams);
+	assert(getBasicDCHandle() != nullptr);
+	return ::DrawTextEx(getBasicDCHandle(), string, count, const_cast<LPRECT>(&rc), format, pDTParams);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getCharABCWidths(UINT firstChar, UINT lastChar, LPABC pABC) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return::GetCharABCWidths(static_cast<TBase*>(this)->getDCHandle(), firstChar, lastChar, pABC);
+	assert(getBasicDCHandle() != nullptr);
+	return::GetCharABCWidths(getBasicDCHandle(), firstChar, lastChar, pABC);
 }
 
 template <typename TBase>
 DWORD BasicDCT<TBase>::getCharacterPlacement(LPCTSTR string, int count, int maxExtent, LPGCP_RESULTS results, DWORD flags) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetCharacterPlacement(static_cast<TBase*>(this)->getDCHandle(), string, count, maxExtent, results, flags);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetCharacterPlacement(getBasicDCHandle(), string, count, maxExtent, results, flags);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getCharWidth(UINT firstChar, UINT lastChar, int* buffer) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetCharWidth(static_cast<TBase*>(this)->getDCHandle(), firstChar, lastChar, buffer);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetCharWidth(getBasicDCHandle(), firstChar, lastChar, buffer);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getCharWidthFloat(UINT firstChar, UINT lastChar, float* buffer) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetCharWidthFloat(static_cast<TBase*>(this)->getDCHandle(), firstChar, lastChar, buffer);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetCharWidthFloat(getBasicDCHandle(), firstChar, lastChar, buffer);
 }
 
 template <typename TBase>
 CoordSize BasicDCT<TBase>::getTextExtentPoint32(LPCTSTR string, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	assert(string != nullptr);
 	assert(count <= lstrlen(string));
 	CoordSize sz;
-	::GetTextExtentPoint32(static_cast<TBase*>(this)->getDCHandle(), string, count, &sz);
+	::GetTextExtentPoint32(getBasicDCHandle(), string, count, &sz);
 	return sz;
 }
 
@@ -1613,8 +1619,8 @@ CoordSize BasicDCT<TBase>::getTextExtentPoint32(LPCTSTR string) const
 template <typename TBase>
 CoordSize BasicDCT<TBase>::getTabbedTextExtent(LPCTSTR string, int count, int tabPositions, LPINT pTabStopPositions) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	DWORD size = ::GetTabbedTextExtent(static_cast<TBase*>(this)->getDCHandle(), string, count, tabPositions, pTabStopPositions);
+	assert(getBasicDCHandle() != nullptr);
+	DWORD size = ::GetTabbedTextExtent(getBasicDCHandle(), string, count, tabPositions, pTabStopPositions);
 	CoordSize sz(size);
 	return sz;
 }
@@ -1622,36 +1628,36 @@ CoordSize BasicDCT<TBase>::getTabbedTextExtent(LPCTSTR string, int count, int ta
 template <typename TBase>
 BOOL BasicDCT<TBase>::grayString(HBRUSH brush, GRAYSTRINGPROC pOutputFunc, LPARAM pData, int count, int x, int y, int width, int height) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GrayString(static_cast<TBase*>(this)->getDCHandle(), brush, pOutputFunc, pData, count, x, y, width, height);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GrayString(getBasicDCHandle(), brush, pOutputFunc, pData, count, x, y, width, height);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setTextJustification(int breakExtra, int breakCount) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetTextJustification(static_cast<TBase*>(this)->getDCHandle(), breakExtra, breakCount);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetTextJustification(getBasicDCHandle(), breakExtra, breakCount);
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::getTextCharacterExtra() const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetTextCharacterExtra(static_cast<TBase*>(this)->getDCHandle());
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetTextCharacterExtra(getBasicDCHandle());
 }
 
 template <typename TBase>
 int BasicDCT<TBase>::setTextCharacterExtra(int charExtra) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::SetTextCharacterExtra(static_cast<TBase*>(this)->getDCHandle(), charExtra);
+	assert(getBasicDCHandle() != nullptr);
+	return ::SetTextCharacterExtra(getBasicDCHandle(), charExtra);
 }
 
 template <typename TBase>
 CoordSize BasicDCT<TBase>::tabbedTextOut(int x, int y, LPCTSTR string, int count, int tabPositions, LPINT pTabStopPositions, int tabOrigin) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	LONG size = ::TabbedTextOut(static_cast<TBase*>(this)->getDCHandle(), x, y, string, count, tabPositions, pTabStopPositions, tabOrigin);
+	assert(getBasicDCHandle() != nullptr);
+	LONG size = ::TabbedTextOut(getBasicDCHandle(), x, y, string, count, tabPositions, pTabStopPositions, tabOrigin);
 	CoordSize sz(static_cast<DWORD>(size));
 	return sz;
 }
@@ -1659,25 +1665,25 @@ CoordSize BasicDCT<TBase>::tabbedTextOut(int x, int y, LPCTSTR string, int count
 template <typename TBase>
 BOOL BasicDCT<TBase>::textOut(int x, int y, LPCTSTR string, int count) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
+	assert(getBasicDCHandle() != nullptr);
 	if (count == -1)
 		count = lstrlen(string);
 
-	return ::TextOut(static_cast<TBase*>(this)->getDCHandle(), x, y, string, count);
+	return ::TextOut(getBasicDCHandle(), x, y, string, count);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getCharABCWidthsI(UINT giFirst, UINT cgi, LPWORD pGI, LPABC pABC) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetCharABCWidthsI(static_cast<TBase*>(this)->getDCHandle(), giFirst, cgi, pGI, pABC);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetCharABCWidthsI(getBasicDCHandle(), giFirst, cgi, pGI, pABC);
 }
 
 template <typename TBase>
 BOOL BasicDCT<TBase>::getCharWidthI(UINT giFirst, UINT cgi, LPWORD pGI, int* buffer) const
 {
-	assert(static_cast<TBase*>(this)->getDCHandle() != nullptr);
-	return ::GetCharWidthI(static_cast<TBase*>(this)->getDCHandle(), giFirst, cgi, pGI, buffer);
+	assert(getBasicDCHandle() != nullptr);
+	return ::GetCharWidthI(getBasicDCHandle(), giFirst, cgi, pGI, buffer);
 }
 
 

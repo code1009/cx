@@ -18,7 +18,11 @@ class WebUIManager;
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 class MainBox : 
-	public cx::wui::MessageMapWindowT<MainBox, cx::wui::ModalTemplateBaseDialog>
+	//public cx::wui::MessageMapWindowT<MainBox, cx::wui::ModalTemplateBaseDialog>
+	public cx::wui::MessageMapWindowT<
+			MainBox, 
+			cx::wui::BasicWindowT<cx::wui::ModalTemplateBaseDialog>
+		>	
 {
 private:
 	std::shared_ptr<app::WebUIManager> _WebUIManager;

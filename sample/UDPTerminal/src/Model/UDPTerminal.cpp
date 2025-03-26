@@ -465,7 +465,7 @@ void udp_unicast::do_send(void)
 		std::wstring message;
 		message = L"송신: ";
 		message += L" (";
-		message += cx::to_std_wstring(m->_data.size());
+		message += std::format(L"{:04}",m->_data.size());
 		message += L") ";
 		message += byteArrayToHexString(m->_data);
 		_UDPTerminal->postWebMessage(message);
@@ -475,7 +475,7 @@ void udp_unicast::do_send(void)
 		std::wstring message;
 		message = L"송신실패:";
 		message += L" (";
-		message += cx::to_std_wstring(m->_data.size());
+		message += std::format(L"{:04}",m->_data.size());
 		message += L") ";
 		message += byteArrayToHexString(m->_data);
 		_UDPTerminal->postWebMessage(message);

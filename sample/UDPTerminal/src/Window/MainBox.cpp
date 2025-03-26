@@ -59,6 +59,15 @@ void MainBox::registerWindowMessageMap(void)
 void MainBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
+	//HICON hIcon = LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_MAIN));
+	//HICON hSmallIcon = LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_SMALL));
+	//SendMessage(*this, WM_SETICON, ICON_SMALL, (LPARAM)hSmallIcon);
+	//SendMessage(*this, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+	setIcon(cx::wui::loadIcon(IDI_MAIN), TRUE);
+	setIcon(cx::wui::loadIcon(IDI_SMALL), FALSE);
+
+
+	//-----------------------------------------------------------------------
 	_WebUIManager = std::make_shared<app::WebUIManager>(getWindowHandle());
 
 
