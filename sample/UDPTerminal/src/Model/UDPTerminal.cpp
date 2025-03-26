@@ -4,6 +4,7 @@
 
 //===========================================================================
 #include <component/charset_system.hpp>
+#include <component/to_std_wstring.hpp>
 #include <runtime/runtime.hpp>
 #include <network/network.hpp>
 #include <wui/wui.hpp>
@@ -462,7 +463,10 @@ void udp_unicast::do_send(void)
 	if (true == rv)
 	{
 		std::wstring message;
-		message = L"송신:";
+		message = L"송신: ";
+		message += L" (";
+		message += cx::to_std_wstring(m->_data.size());
+		message += L") ";
 		message += byteArrayToHexString(m->_data);
 		_UDPTerminal->postWebMessage(message);
 	}
@@ -470,6 +474,9 @@ void udp_unicast::do_send(void)
 	{
 		std::wstring message;
 		message = L"송신실패:";
+		message += L" (";
+		message += cx::to_std_wstring(m->_data.size());
+		message += L") ";
 		message += byteArrayToHexString(m->_data);
 		_UDPTerminal->postWebMessage(message);
 	}
@@ -511,14 +518,17 @@ void udp_unicast::do_recv(void)
 	{
 		std::vector<std::uint8_t> data(buffer, buffer + rsize);
 		std::wstring message;
-		message = L"수신:";
+		message = L"수신: ";
+		message += L" (";
+		message += std::format(L"{:04}",data.size());
+		message += L") ";
 		message += byteArrayToHexString(data);
 		_UDPTerminal->postWebMessage(message);
 	}
 	else
 	{
 		std::wstring message;
-		message = L"수신실패:";
+		message = L"수신실패: ";
 		_UDPTerminal->postWebMessage(message);
 	}
 }
@@ -650,8 +660,44 @@ void UDPTerminal::send(const std::vector<std::uint8_t>& data)
 	}
 }
 
-void UDPTerminal::postWebMessage(std::wstring message, std::wstring command)
+void UDPTerminal::postWebMessage(std::wstring_view message, std::wstring command)
 {
-	_Model->_WebUIManager->getMessageService()->postWebMessage(command, message);
+	std::wstringstream ss;
+
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+
+
+	ss.width(2);
+	ss.fill(L'0');
+	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
+	ss << st.wHour;
+
+	ss << L":";
+
+	ss.width(2);
+	ss.fill('0');
+	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
+	ss << st.wMinute;
+
+	ss << L":";
+
+	ss.width(2);
+	ss.fill('0');
+	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
+	ss << st.wSecond;
+
+	ss << L".";
+
+	ss.width(3);
+	ss.fill(L'0');
+	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
+	ss << st.wMilliseconds;
+
+	ss << L" ";
+	ss << message;
+
+
+	_Model->_WebUIManager->getMessageService()->postWebMessage(command, ss.str());
 }
 

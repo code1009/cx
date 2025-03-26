@@ -8,6 +8,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+/*
 class ConsoleMessageWindow {
 
     //-----------------------------------------------------------------------
@@ -18,6 +19,8 @@ class ConsoleMessageWindow {
     constructor() {
         this.#TargetDivElement = document.getElementById("내용콘솔메시지창");
         this.#ConsoleMessageCount = 0;
+
+        this.processMessageQueue();
     }
 
     //-----------------------------------------------------------------------
@@ -42,30 +45,129 @@ class ConsoleMessageWindow {
 
     addMessage(stringMessage, messageTextColor = "black") {
         let textString;
-        textString = this.getDateTimeString();
-        textString += " ";
-        textString += stringMessage;
+        
+        //textString = this.getDateTimeString();
+        //textString += " ";
+        //textString += stringMessage;
+        
+        textString = stringMessage;
+    
+        let targetElement = this.#TargetDivElement;
+        if (targetElement == null) {
+            return;
+        }
+    
+    
+        if (0 == (this.#ConsoleMessageCount % 128)) {
+            targetElement.innerHTML = "";
+        }
+    
+        //-------------------------------------------------------------------
+        //targetElement.innerHTML += `<span style="color:${messageTextColor};">${escapeHtml(textString)}</span><br/>`;
+        //-------------------------------------------------------------------
+        const fragment = document.createDocumentFragment();
+        const span = document.createElement("span");
+        span.style.color = messageTextColor;
+        span.style.whiteSpace = "nowrap";
+        span.innerHTML = escapeHtml(textString);
+        fragment.appendChild(span);
+        fragment.appendChild(document.createElement("br"));
+        targetElement.appendChild(fragment);
+        //-------------------------------------------------------------------
+    
+    
+        targetElement.scrollTop = targetElement.scrollHeight;
+        //targetElement.scrollIntoView({ behavior: "instant", block: "end" });
+    
+    
+        this.#ConsoleMessageCount++;
+    }
+}
+*/
 
+class ConsoleMessageWindow {
+
+    //-----------------------------------------------------------------------
+    #TargetDivElement = null;
+    #ConsoleMessageCount = null;
+
+    #MessageQueue = [];
+    #BatchSize = 64;
+
+    //-----------------------------------------------------------------------
+    constructor() {
+        this.#TargetDivElement = document.getElementById("내용콘솔메시지창");
+        this.#ConsoleMessageCount = 0;
+
+        this.processMessageQueue();
+    }
+
+    //-----------------------------------------------------------------------
+    getDateTimeString() {
+        const now = new Date();
+
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const date = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+
+        const dateString = `${year}-${month}-${date}`;
+        const timeString = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+
+        let dateTimeString;
+        dateTimeString = dateString + " " + timeString;
+        return dateTimeString;
+    }
+
+    addMessage(stringMessage, messageTextColor = "black") {
+        this.#MessageQueue.push({ stringMessage, messageTextColor });
+
+        if (this.#MessageQueue.length >= this.#BatchSize) {
+            this.flushMessages();
+        }
+    }
+
+    flushMessages() {
+        if (this.#MessageQueue.length === 0) {
+            return;
+        }
 
         let targetElement = this.#TargetDivElement;
         if (targetElement == null) {
             return;
         }
 
+        const fragment = document.createDocumentFragment();
 
-        if (0 == (this.#ConsoleMessageCount % 1000)) {
-            targetElement.innerHTML = "";
-        }
+        this.#MessageQueue.forEach(({ stringMessage, messageTextColor }) => {
 
+            if (0 == (this.#ConsoleMessageCount % 1024)) {
+                targetElement.innerHTML = "";
+            }
 
-        targetElement.innerHTML += `<span style="color:${messageTextColor};">${escapeHtml(textString)}</span><br/>`;
+            const span = document.createElement("span");
+            span.style.color = messageTextColor;
+            span.style.whiteSpace = "nowrap";
+            span.innerHTML = escapeHtml(stringMessage);
+            fragment.appendChild(span);
+            fragment.appendChild(document.createElement("br"));
+            this.#ConsoleMessageCount++;
+        });
 
-
+        targetElement.appendChild(fragment);
         targetElement.scrollTop = targetElement.scrollHeight;
-        //targetElement.scrollIntoView({ behavior: "instant", block: "end" });
 
+        this.#MessageQueue = [];
+    }
 
-        this.#ConsoleMessageCount++;
+    processMessageQueue() {
+        requestAnimationFrame(() => {
+            this.flushMessages();
+            this.processMessageQueue();
+        });
     }
 }
 

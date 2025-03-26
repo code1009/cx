@@ -36,6 +36,6 @@ public:
 	void send(const std::vector<std::uint8_t>& data);
 
 public:
-	void postWebMessage(std::wstring message, std::wstring command = L"메시지");
+	void postWebMessage(std::wstring_view message, std::wstring command = L"메시지");
 };
 
