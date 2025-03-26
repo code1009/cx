@@ -35,10 +35,7 @@ int APIENTRY wWinMain(
 
 
 	// 어플리케이션 실행
-	getApplication()->launch();	
-
-
-	// 종료
+	getApplication()->launch();
 
 	return 0;
 }
