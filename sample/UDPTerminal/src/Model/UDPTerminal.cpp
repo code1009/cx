@@ -44,8 +44,8 @@ private:
 	std::thread _thread{};
 	
 private:
-	bool _run{ false };
-	bool _socket_event_loop{ false };
+	std::atomic_bool _run              { false };
+	std::atomic_bool _socket_event_loop{ false };
 
 private:
 	DWORD _rerun_sleep_time{ 3000 };
@@ -134,6 +134,10 @@ bool udp_unicast::create(void)
 
 void udp_unicast::destroy(void)
 {
+	_run = false;
+	_socket_event_loop = false;
+
+
 	if (_destroy_event_handle)
 	{
 		SetEvent(_destroy_event_handle);
@@ -482,7 +486,7 @@ void udp_unicast::do_recv(void)
 	std::int32_t size;
 	void* pointer;
 
-	std::uint8_t buffer[1024];
+	std::uint8_t buffer[1500];
 
 	cx::network::socket_address _socket_remote_address;
 
