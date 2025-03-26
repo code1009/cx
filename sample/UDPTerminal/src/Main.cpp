@@ -31,6 +31,6 @@ int APIENTRY wWinMain(
 	int       nCmdShow)
 {
 	cx::wui::getAppModule()->setInstanceHandle(hInstance);	
-	getApplication()->launch();
+	getApplication()->launch();	
 	return 0;
 }
