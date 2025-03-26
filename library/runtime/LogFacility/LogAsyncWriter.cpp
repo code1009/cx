@@ -28,8 +28,8 @@ LogAsyncWriter::LogAsyncWriter() :
 	_EventCv{},
 	_EventCvMutex{},
 	_EventTimeout_msec{1000U},
-	_Shutdown_EventFlag{false},
-	_Flush_EventFlag{false},
+	_EventFlag_Shutdown{false},
+	_EventFlag_Flush{false},
 	_ProcessThread{},
 	_mutex{},
 	_buffer0{},
@@ -182,20 +182,20 @@ bool LogAsyncWriter::onEvent(Event e)
 	switch (e)
 	{
 	case Event::Timeout:
-		onTimeoutEvent();
+		onEvent_Timeout();
 		break;
 
 	case Event::Shutdown:
-		loop_flag = onShutdownEvent();
+		loop_flag = onEvent_Shutdown();
 		break;
 
 	case Event::Flush:
-		onFlushEvent();
+		onEvent_Flush();
 		break;
 
 	case Event::Unknown:
 	default:
-		loop_flag = onUnknownEvent();
+		loop_flag = onEvent_Unknown();
 		break;
 	}
 
@@ -205,12 +205,12 @@ bool LogAsyncWriter::onEvent(Event e)
 //===========================================================================
 bool LogAsyncWriter::checkEvent(void)
 {
-	if (_Shutdown_EventFlag)
+	if (_EventFlag_Shutdown)
 	{
 		return true;
 	}
 
-	if (_Flush_EventFlag)
+	if (_EventFlag_Flush)
 	{
 		return true;
 	}
@@ -220,16 +220,16 @@ bool LogAsyncWriter::checkEvent(void)
 
 LogAsyncWriter::Event LogAsyncWriter::getEvent(void)
 {
-	if (_Shutdown_EventFlag)
+	if (_EventFlag_Shutdown)
 	{
-		_Shutdown_EventFlag = false;
+		_EventFlag_Shutdown = false;
 
 		return Event::Shutdown;
 	}
 
-	if (_Flush_EventFlag)
+	if (_EventFlag_Flush)
 	{
-		_Flush_EventFlag = false;
+		_EventFlag_Flush = false;
 
 		return Event::Flush;
 	}
@@ -267,22 +267,22 @@ LogAsyncWriter::Event LogAsyncWriter::waitEvent(const std::uint32_t msec)
 	return getEvent();
 }
 
-bool LogAsyncWriter::onUnknownEvent(void)
+bool LogAsyncWriter::onEvent_Unknown(void)
 {
 	return false;
 }
 
-void LogAsyncWriter::onTimeoutEvent(void)
+void LogAsyncWriter::onEvent_Timeout(void)
 {
 	record();
 }
 
-bool LogAsyncWriter::onShutdownEvent(void)
+bool LogAsyncWriter::onEvent_Shutdown(void)
 {
 	return false;
 }
 
-void LogAsyncWriter::onFlushEvent(void)
+void LogAsyncWriter::onEvent_Flush(void)
 {
 	record();
 }
@@ -292,7 +292,7 @@ void LogAsyncWriter::notifyShutdown(void)
 	{
 		std::unique_lock<std::mutex> lock(_EventCvMutex);
 
-		_Shutdown_EventFlag = true;
+		_EventFlag_Shutdown = true;
 	}
 	_EventCv.notify_one();
 }
@@ -302,7 +302,7 @@ void LogAsyncWriter::notifyFlush(void)
 	{
 		std::unique_lock<std::mutex> lock(_EventCvMutex);
 
-		_Flush_EventFlag = true;
+		_EventFlag_Flush = true;
 	}
 	_EventCv.notify_one();
 }

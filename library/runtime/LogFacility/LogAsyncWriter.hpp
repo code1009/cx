@@ -20,23 +20,23 @@ namespace cx::runtime
 class LogAsyncWriter : public LogWriter
 {
 private:
-	std::condition_variable _EventCv{ };
+	std::condition_variable _EventCv     {};
 	std::mutex              _EventCvMutex{};
 
 private:
 	std::uint32_t _EventTimeout_msec{ 1000U };
 
 private:
-	bool _Shutdown_EventFlag{ false };
-	bool _Flush_EventFlag{ false };
+	bool _EventFlag_Shutdown{ false };
+	bool _EventFlag_Flush   { false };
 
 private:
 	enum class Event
 	{
-		Unknown = 0,
-		Timeout = 1,
+		Unknown  = 0,
+		Timeout  = 1,
 		Shutdown = 2,
-		Flush = 3
+		Flush    = 3
 	};
 
 private:
@@ -83,10 +83,10 @@ private:
 
 private:
 	bool onEvent(Event e);
-	bool onUnknownEvent(void);
-	void onTimeoutEvent(void);
-	bool onShutdownEvent(void);
-	void onFlushEvent(void);
+	bool onEvent_Unknown(void);
+	void onEvent_Timeout(void);
+	bool onEvent_Shutdown(void);
+	void onEvent_Flush(void);
 
 public:
 	void notifyShutdown(void);
