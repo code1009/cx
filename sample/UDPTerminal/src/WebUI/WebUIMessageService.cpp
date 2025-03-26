@@ -36,15 +36,7 @@ WebUIMessageService::WebUIMessageService(WebUIManager* manager):
 
 WebUIMessageService::~WebUIMessageService()
 {
-	std::size_t count;
-	std::size_t i;
-
-	count = _MessageQueue.count();
-	for (i=0u; i<count; i++)
-	{
-		auto m = _MessageQueue.pop();
-		WebMessage_Free(m);
-	}
+	clearWebMessageQueue();
 }
 
 //===========================================================================
@@ -227,6 +219,16 @@ void WebUIMessageService::onWebMessage(WebUIWindow* window, const std::wstring& 
 
 
 	//------------------------------------------------------------------------
+#if 1
+	auto m = WebMessage_Alloc();
+	m->_Command = L"메시지";
+	m->_Message = message;
+	_WebMessageRxQueue.push(m);
+#endif
+
+
+	//------------------------------------------------------------------------
+#if 0
 	web::json::value jsonMessage = web::json::value::parse(message);
 	bool rv;
 
@@ -237,6 +239,111 @@ void WebUIMessageService::onWebMessage(WebUIWindow* window, const std::wstring& 
 		CX_RUNTIME_LOG(cxLDebug)
 			<< L"onCommand() failed";
 	}
+#endif
+}
+
+//===========================================================================
+void WebUIMessageService::clearWebMessageQueue(void)
+{
+	clearWebMessageTxQueue();
+	clearWebMessageRxQueue();
+}
+
+void WebUIMessageService::clearWebMessageTxQueue(void)
+{
+	std::size_t count;
+	std::size_t i;
+
+	count = _WebMessageTxQueue.count();
+	for (i=0u; i<count; i++)
+	{
+		auto m = _WebMessageTxQueue.pop();
+		WebMessage_Free(m);
+	}
+}
+
+void WebUIMessageService::clearWebMessageRxQueue(void)
+{
+	std::size_t count;
+	std::size_t i;
+
+	count = _WebMessageRxQueue.count();
+	for (i=0u; i<count; i++)
+	{
+		auto m = _WebMessageRxQueue.pop();
+		WebMessage_Free(m);
+	}
+}
+
+//===========================================================================
+void WebUIMessageService::processWebMessageQueue(void)
+{
+	pullWebMessageQueue();
+	postWebMessageQueue();
+}
+
+void WebUIMessageService::pullWebMessageQueue(void)
+{
+	std::size_t count;
+	std::size_t i;
+
+	count = _WebMessageRxQueue.count();
+	for (i=0u; i<count; i++)
+	{
+		auto m = _WebMessageRxQueue.pop();
+
+		pullWebMessage(m);
+
+		WebMessage_Free(m);
+	}
+}
+
+void WebUIMessageService::postWebMessageQueue(void)
+{
+	std::size_t count;
+	std::size_t i;
+
+	count = _WebMessageTxQueue.count();
+	for (i=0u; i<count; i++)
+	{
+		auto m = _WebMessageTxQueue.pop();
+
+		postWebMessage(m);
+
+		WebMessage_Free(m);
+	}
+}
+
+void WebUIMessageService::pullWebMessage(WebMessage* webMessage)
+{
+	//------------------------------------------------------------------------
+	WebUIWindow* window = nullptr;
+
+
+	//------------------------------------------------------------------------
+	web::json::value jsonMessage = web::json::value::parse(webMessage->_Message);
+	bool rv;
+
+
+	rv = onCommand(window, jsonMessage);
+	if (!rv)
+	{
+		CX_RUNTIME_LOG(cxLDebug)
+			<< L"onCommand() failed";
+	}
+}
+
+void WebUIMessageService::postWebMessage(WebMessage* webMessage)
+{
+	postStringMessage(webMessage->_Command, webMessage->_Message);
+}
+
+void WebUIMessageService::writeWebMessage(std::wstring command, std::wstring message)
+{
+	auto m = WebMessage_Alloc();
+	m->_Command = command;
+	m->_Message = message;
+	_WebMessageTxQueue.push(m);
 }
 
 //===========================================================================
@@ -326,7 +433,8 @@ bool WebUIMessageService::onCommand_StringMessage(WebUIWindow* window, web::json
 	// https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/threading-model#re-entrancy
 
 	//------------------------------------------------------------------------
-	postWebMessage_StringMessage();
+	postStringMessage();
+
 	return true;
 }
 
@@ -355,64 +463,6 @@ bool WebUIMessageService::onCommand_FileUpdate(WebUIWindow* window, web::json::v
 }
 
 //===========================================================================
-void WebUIMessageService::postWebMessage_StringMessage(void)
-{
-	//------------------------------------------------------------------------
-	web::json::value jsonMessage;
-	jsonMessage[L"Command"] = web::json::value::string(L"메시지");
-	jsonMessage[L"StringMessage"] = web::json::value::string(L"안녕하세요? C++입니다.");
-
-
-	//------------------------------------------------------------------------
-	utility::stringstream_t stream;
-	jsonMessage.serialize(stream);
-	getWindow()->getView()->postWebMessageAsJson(stream.str());
-}
-
-std::wstring WebUIMessageService::getFile_Json(void)
-{
-	//------------------------------------------------------------------------
-	SYSTEMTIME st;
-	GetLocalTime(&st);
-
-
-	//------------------------------------------------------------------------
-	std::wstring currentDateTime;
-	currentDateTime = std::format(L"{:04}-{:02}-{:02} {:02}:{:02}:{:02}",
-		st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
-
-
-	//------------------------------------------------------------------------
-	std::vector<std::vector<std::wstring>> dataView;
-	dataView.push_back({ L"1", currentDateTime, L"INFO", L"안녕하세요?" });
-	dataView.push_back({ L"2", currentDateTime, L"INFO", L"안녕하세요?" });
-
-
-	//------------------------------------------------------------------------
-	std::vector<web::json::value> collection;
-	for (auto& e : dataView)
-	{
-		web::json::value rec;
-		rec = web::json::value::array(4);
-		rec[0] = web::json::value::string(e[0]);
-		rec[1] = web::json::value::string(e[1]);
-		rec[2] = web::json::value::string(e[2]);
-		rec[3] = web::json::value::string(e[3]);
-		collection.push_back(rec);
-	}
-
-
-	//------------------------------------------------------------------------
-	web::json::value jsonMessage;
-	jsonMessage = web::json::value::array(collection);
-
-
-	//------------------------------------------------------------------------
-	utility::stringstream_t stream;
-	jsonMessage.serialize(stream);
-	return stream.str();
-}
-
 bool WebUIMessageService::onCommand_Connect(WebUIWindow* window, web::json::value& jsonMessage)
 {
 	//------------------------------------------------------------------------
@@ -479,7 +529,8 @@ bool WebUIMessageService::onCommand_Send(WebUIWindow* window, web::json::value& 
 	return true;
 }
 
-void WebUIMessageService::postWebMessage_StringMessage(std::wstring command, std::wstring message)
+//===========================================================================
+void WebUIMessageService::postStringMessage(std::wstring command, std::wstring message)
 {
 	//------------------------------------------------------------------------
 	web::json::value jsonMessage;
@@ -493,29 +544,66 @@ void WebUIMessageService::postWebMessage_StringMessage(std::wstring command, std
 	getWindow()->getView()->postWebMessageAsJson(stream.str());
 }
 
-void WebUIMessageService::postWebMessageQueue(void)
+void WebUIMessageService::postStringMessage(void)
 {
-	std::size_t count;
-	std::size_t i;
+	//------------------------------------------------------------------------
+	web::json::value jsonMessage;
+	jsonMessage[L"Command"] = web::json::value::string(L"메시지");
+	jsonMessage[L"StringMessage"] = web::json::value::string(L"안녕하세요? C++입니다.");
 
-	count = _MessageQueue.count();
-	for (i=0u; i<count; i++)
+
+	//------------------------------------------------------------------------
+	utility::stringstream_t stream;
+	jsonMessage.serialize(stream);
+	getWindow()->getView()->postWebMessageAsJson(stream.str());
+}
+
+//===========================================================================
+std::wstring WebUIMessageService::getFile_Json(void)
+{
+	//------------------------------------------------------------------------
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+
+
+	//------------------------------------------------------------------------
+	std::wstring currentDateTime;
+	currentDateTime = std::format(L"{:04}-{:02}-{:02} {:02}:{:02}:{:02}",
+		st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
+
+
+	//------------------------------------------------------------------------
+	std::vector<std::vector<std::wstring>> dataView;
+	dataView.push_back({ L"1", currentDateTime, L"INFO", L"안녕하세요?" });
+	dataView.push_back({ L"2", currentDateTime, L"INFO", L"안녕하세요?" });
+
+
+	//------------------------------------------------------------------------
+	std::vector<web::json::value> collection;
+	for (auto& e : dataView)
 	{
-		auto m = _MessageQueue.pop();
-
-		postWebMessage_StringMessage(m->_Command, m->_Message);
-
-		WebMessage_Free(m);
+		web::json::value rec;
+		rec = web::json::value::array(4);
+		rec[0] = web::json::value::string(e[0]);
+		rec[1] = web::json::value::string(e[1]);
+		rec[2] = web::json::value::string(e[2]);
+		rec[3] = web::json::value::string(e[3]);
+		collection.push_back(rec);
 	}
+
+
+	//------------------------------------------------------------------------
+	web::json::value jsonMessage;
+	jsonMessage = web::json::value::array(collection);
+
+
+	//------------------------------------------------------------------------
+	utility::stringstream_t stream;
+	jsonMessage.serialize(stream);
+	return stream.str();
 }
 
-void WebUIMessageService::postWebMessage(std::wstring command, std::wstring message)
-{
-	auto m = WebMessage_Alloc();
-	m->_Command = command;
-	m->_Message = message;
-	_MessageQueue.push(m);
-}
+
 
 
 

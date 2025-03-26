@@ -131,7 +131,7 @@ void MainBox::onSize(cx::wui::WindowMessage& windowMessage)
 void MainBox::onTimer(cx::wui::WindowMessage& windowMessage)
 {
 	//CX_RUNTIME_LOG(cxLInfo) << L"MainBox::onTimer()";
-	_WebUIManager->getMessageService()->postWebMessageQueue();
+	_WebUIManager->getMessageService()->processWebMessageQueue();
 
 	windowMessage.setResult(TRUE);
 }

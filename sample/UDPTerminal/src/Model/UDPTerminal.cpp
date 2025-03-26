@@ -698,6 +698,6 @@ void UDPTerminal::postWebMessage(std::wstring_view message, std::wstring command
 	ss << message;
 
 
-	_Model->_WebUIManager->getMessageService()->postWebMessage(command, ss.str());
+	_Model->_WebUIManager->getMessageService()->writeWebMessage(command, ss.str());
 }
 

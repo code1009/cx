@@ -237,6 +237,15 @@ class Page extends BasePage {
 
         const text = element.innerText;
 
+
+        // Use the Clipboard API to copy the text
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('Text copied to clipboard');
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+
+        /*
         // Create a temporary textarea element to hold the text
         const textarea = document.createElement("textarea");
         textarea.value = text;
@@ -248,6 +257,7 @@ class Page extends BasePage {
 
         // Remove the temporary textarea element
         document.body.removeChild(textarea);
+        */
     }
 
     //-----------------------------------------------------------------------
