@@ -58,7 +58,7 @@ STDMETHODIMP_(ULONG) WindowDropSource::Release()
 {
 	if (InterlockedDecrement(&_RefCount) == 0)
 	{
-		delete this;
+		cpp_delete this;
 		return 0;
 	}
 
@@ -152,7 +152,7 @@ STDMETHODIMP_(ULONG) WindowDataObject::Release()
 {
 	if (InterlockedDecrement(&_RefCount) == 0)
 	{
-		delete this;
+		cpp_delete this;
 		return 0;
 	}
 
@@ -392,7 +392,7 @@ STDMETHODIMP_(ULONG) WindowDropTarget::Release()
 {
 	if (InterlockedDecrement(&_RefCount) == 0)
 	{
-		delete this;
+		cpp_delete this;
 		return 0;
 	}
 

@@ -1155,7 +1155,7 @@ HRESULT WebUIView::AddContextMenuItems(HMENU hPopupMenu, wil::com_ptr<ICoreWebVi
 
 void WebUIView::runAsync(std::function<void()> callback)
 {
-	auto* task = new std::function<void()>(std::move(callback));
+	auto* task = cpp_new std::function<void()>(std::move(callback));
 
 	PostMessage(_Window->getWindowHandle(), WM_USER + 1, reinterpret_cast<WPARAM>(task), 0);
 }
@@ -1169,7 +1169,7 @@ void WebUIView::onExecuteTask(void* ptr)
 {
 	auto* task = reinterpret_cast<std::function<void()>*>(ptr);
 	(*task)();
-	delete task;
+	cpp_delete task;
 }
 
 //===========================================================================

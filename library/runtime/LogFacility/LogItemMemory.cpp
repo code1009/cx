@@ -358,7 +358,7 @@ LogItem* LogItem_Alloc(void) noexcept
 	LogItem* ptr;
 
 
-	ptr = new (std::nothrow) LogItem();
+	ptr = cpp_new LogItem();
 
 	return ptr;
 }
@@ -367,7 +367,7 @@ void LogItem_Free(LogItem* ptr) noexcept
 {
 	if (ptr)
 	{
-		delete ptr;
+		cpp_delete ptr;
 	}
 }
 #endif

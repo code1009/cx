@@ -99,8 +99,8 @@ public:
 //===========================================================================
 WidgetEventDragDropNotifier::Impl::Impl()
 {
-	_pDropSource = new WindowDropSource();
-	_pDataObject = new WindowDataObject(getWidgetEventDragDropClipboardFormat()->getClipboardFormat());
+	_pDropSource = cpp_new WindowDropSource();
+	_pDataObject = cpp_new WindowDataObject(getWidgetEventDragDropClipboardFormat()->getClipboardFormat());
 }
 
 //===========================================================================
@@ -353,7 +353,7 @@ WidgetEventDragDropHandler::Impl::Impl(WidgetDocument* doc, Viewport* viewport) 
 	_Viewport{ viewport }
 {
 	WindowDropTarget* pDropTarget;
-	pDropTarget = new WindowDropTarget(
+	pDropTarget = cpp_new WindowDropTarget(
 		getWidgetEventDragDropClipboardFormat()->getClipboardFormat()
 	);
 	pDropTarget->onDragEnter = std::bind(&WidgetEventDragDropHandler::Impl::onDragEnter, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);

@@ -386,7 +386,7 @@ net_msg* net_msg_alloc(void) noexcept
 	net_msg* ptr;
 
 
-	ptr = new (std::nothrow) net_msg();
+	ptr = cpp_new net_msg();
 
 	return ptr;
 }
@@ -395,7 +395,7 @@ void net_msg_free(net_msg* ptr) noexcept
 {
 	if (ptr)
 	{
-		delete ptr;
+		cpp_delete ptr;
 	}
 }
 #endif

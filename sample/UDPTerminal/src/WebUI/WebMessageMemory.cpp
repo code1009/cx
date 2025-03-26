@@ -348,7 +348,7 @@ WebMessage* WebMessage_Alloc(void) noexcept
 	WebMessage* ptr;
 
 
-	ptr = new (std::nothrow) WebMessage();
+	ptr = cpp_new WebMessage();
 
 	return ptr;
 }
@@ -357,7 +357,7 @@ void WebMessage_Free(WebMessage* ptr) noexcept
 {
 	if (ptr)
 	{
-		delete ptr;
+		cpp_delete ptr;
 	}
 }
 #endif
