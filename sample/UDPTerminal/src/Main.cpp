@@ -30,7 +30,9 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
+	// 인스턴스 설정
 	cx::wui::getAppModule()->setInstanceHandle(hInstance);	
+	// 어플리케이션 실행
 	getApplication()->launch();	
 	return 0;
 }
