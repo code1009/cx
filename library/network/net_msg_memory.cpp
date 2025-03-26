@@ -111,7 +111,7 @@ void net_msg_pool::append(std::size_t count)
 
 	for (i = 0; i < count; ++i)
 	{
-		ptr = new (std::nothrow)net_msg();
+		ptr = cpp_new net_msg();
 		if (ptr)
 		{
 			_pool.push_back(ptr);
@@ -133,7 +133,7 @@ void net_msg_pool::cleanup(void)
 
 		if (ptr)
 		{
-			delete ptr;
+			cpp_delete ptr;
 		}
 		else
 		{

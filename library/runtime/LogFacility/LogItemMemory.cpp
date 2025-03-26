@@ -110,7 +110,7 @@ void LogItemPool::append(std::size_t count)
 
 	for (i = 0; i < count; ++i)
 	{
-		ptr = new (std::nothrow)LogItem();
+		ptr = cpp_new LogItem();
 		if (ptr)
 		{
 			_pool.push_back(ptr);
@@ -132,7 +132,7 @@ void LogItemPool::cleanup(void)
 
 		if (ptr)
 		{
-			delete ptr;
+			cpp_delete ptr;
 		}
 		else
 		{

@@ -110,7 +110,7 @@ void WebMessagePool::append(std::size_t count)
 
 	for (i = 0; i < count; ++i)
 	{
-		ptr = new (std::nothrow)WebMessage();
+		ptr = cpp_new WebMessage();
 		if (ptr)
 		{
 			_pool.push_back(ptr);
@@ -132,7 +132,7 @@ void WebMessagePool::cleanup(void)
 
 		if (ptr)
 		{
-			delete ptr;
+			cpp_delete ptr;
 		}
 		else
 		{
