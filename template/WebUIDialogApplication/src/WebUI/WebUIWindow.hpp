@@ -24,7 +24,7 @@ class WebUIView;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void regsisterWebUIWindowClass(void);
+void registerWebUIWindowClass(void);
 
 
 
