@@ -17,31 +17,14 @@
 ### `wui(Windows User Interface)`
 - WinAPI 기반의 창(window)을 관리하는 라이브러리입니다.
 - 현재 기본적인 창 관리만 구현되어 있습니다.
-- 앞으로 진행 계획은 다음과 같습니다:
-  - GDIObject
-    - Pen
-    - Brush
-    - Font
-    - Bitmap
-  - Common Control
-    - Button
-    - ListBox
-    - ListView
-    - TreeView
-    - ...
-  - Common Dialog
-    - OpenFileDialog (일부 완료)
-    - SaveFileDialog (일부 완료)
-    - FolderDialog (일부 완료)
-    - FontDialog
-    - ColorDialog
-  - Menu
-  - Toolbar
 
 ### `gw(Graphic Widget)`
 - Direct2D 기반 그래픽 라이브러리입니다.
 - 다이어그램이나 드로잉 위젯을 만들기 위한 라이브러리입니다.
 - 아직 개발 중입니다.
+
+### `network`
+- 간단한 socket 라이브러리입니다.
 
 
 
