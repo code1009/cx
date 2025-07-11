@@ -34,6 +34,7 @@ int APIENTRY wWinMain(
 	_memory_debug.enable();
 	_memory_debug.start_leak_check();
 
+
 	cx::wui::getAppModule()->setInstanceHandle(hInstance);
 	getApplication()->launch();
 	

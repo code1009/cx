@@ -4,7 +4,7 @@
 
 //===========================================================================
 #include <wui/wui.hpp>
-#include <component/charset_system.hpp>
+#include <common/charset_system.hpp>
 
 //===========================================================================
 #include "WebUI.hpp"
