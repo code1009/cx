@@ -371,3 +371,4 @@ FodyWeavers.xsd
 /template/DialogApplication/vcpkg_installed/x64-windows
 /sample/UDPTerminal/vcpkg_installed/x64-windows
 /template/WebUIDialogApplication/vcpkg_installed/x64-windows
+/sample/D2dSample/vcpkg_installed/x64-windows
