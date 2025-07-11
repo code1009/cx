@@ -9,6 +9,7 @@
 
 //===========================================================================
 #include "Application.hpp"
+#include "Config.hpp"
 
 
 
@@ -30,18 +31,15 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
-	CX_RUNTIME_LOG(cxLInfo)
-		<< L"START" << std::endl;
-
+	cx::runtime::memory_debug _memory_debug;
+	_memory_debug.enable();
+	_memory_debug.start_leak_check();
 
 	cx::wui::getAppModule()->setInstanceHandle(hInstance);
-
-	
 	getApplication()->launch();
+	deleteConfig();
 
-
-	CX_RUNTIME_LOG(cxLInfo)
-		<< L"END" << std::endl;
-	
+	//_memory_debug.test_leak_check();
+	_memory_debug.end_leak_check();
 	return 0;
 }

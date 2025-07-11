@@ -3,7 +3,8 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include "runtime.hpp"
+#include "assert.hpp"
+#include "log.hpp"
 
 
 
@@ -20,7 +21,7 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void assertCondition(
+void assert_condition(
 	bool condition,
 	const wchar_t* expression,
 	const wchar_t* file,
@@ -34,7 +35,7 @@ void assertCondition(
 		GetLocalTime(&st);
 
 
-		DWORD threadId = GetCurrentThreadId();
+		DWORD thread_id = GetCurrentThreadId();
 
 
 		std::wstringstream ss;
@@ -45,14 +46,14 @@ void assertCondition(
 		ss << std::endl;
 
 		ss << L" - DATETIME: ";
-		writeLogDateTime_YYYYMMDD_String(ss, &st);
+		write_log_datetime_YYYYMMDD(ss, st);
 		ss << L" ";
-		writeLogDateTime_hhmmssms_String(ss, &st);
+		write_log_datetime_hhmmssms(ss, st);
 		ss << std::endl;
 
-		ss << L" - THREAD: "    ; writeLogThreadIdString      (ss, threadId);   ss << std::endl;
-		ss << L" - FILE: "      ; writeLogSourceFileLineString(ss, file, line); ss << std::endl;
-		ss << L" - FUNCTION: "  ; writeLogSourceFuncString    (ss, func);       ss << std::endl;
+		ss << L" - THREAD: "    ; write_log_thread_id (ss, thread_id);   ss << std::endl;
+		ss << L" - FILE: "      ; write_log_source_file_line(ss, file, line); ss << std::endl;
+		ss << L" - FUNCTION: "  ; write_log_source_func (ss, func);       ss << std::endl;
 
 		ss << L" - EXPRESSION:" ; ss << std::endl;
 		ss << L"   "; ss << expression; ss << std::endl;

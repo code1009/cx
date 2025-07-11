@@ -3,8 +3,8 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <component/charset_system.hpp>
-#include <component/to_std_wstring.hpp>
+#include <common/charset_system.hpp>
+#include <common/to_std_wstring.hpp>
 #include <runtime/runtime.hpp>
 #include <network/network.hpp>
 #include <wui/wui.hpp>

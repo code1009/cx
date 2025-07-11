@@ -3,7 +3,10 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include "runtime.hpp"
+#include "log.hpp"
+
+#include "../common/std_wstring_utility.hpp"
+#include "../common/fs_std_wstring.hpp"
 
 
 
@@ -20,48 +23,20 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static std::wstring truncate_std_wstring(std::wstring str, size_t width, bool show_ellipsis = true)
+const std::size_t LOG_STRING_NAME_WIDTH = 16U;
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+static log_string get_function_name(log_string func)
 {
-	if (str.length() > width)
+	log_string::size_type pos = func.rfind(CX_RUNTIME_LOG_TEXT("::"));
+	if (pos != log_string::npos)
 	{
-		if (show_ellipsis)
-		{
-			return str.substr(0, width - 3U) + L"...";
-		}
-		else
-		{
-			return str.substr(0, width);
-		}
-	}
-
-	return str;
-}
-
-static std::wstring get_file_of_file_path(std::wstring file_path)
-{
-	std::wstring result;
-
-	std::wstring::size_type index;
-
-
-	index = file_path.find_last_of(L"\\/");
-	if (std::wstring::npos == index)
-	{
-		return result;
-	}
-
-
-	result = file_path.substr(index + 1);
-
-	return result;
-}
-
-static std::wstring get_function_name(std::wstring func)
-{
-	std::wstring::size_type pos = func.rfind(L"::");
-	if (pos != std::wstring::npos)
-	{
-		return func.substr(pos + 2);
+		return func.substr(pos + 2U);
 	}
 	return func;
 }
@@ -72,153 +47,224 @@ static std::wstring get_function_name(std::wstring func)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void writeLogDateTime_YYYYMMDD_String(std::wstringstream& ss, const SYSTEMTIME* st)
+void write_log_datetime_YYYYMMDD(log_stringstream& ss, const log_datetime& datetime)
 {
-	ss.width(4);
-	ss.fill(L'0');
+	ss.width(4U);
+	ss.fill(CX_RUNTIME_LOG_TEXT('0'));
 	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << st->wYear;
+	ss << datetime.wYear;
 
-	ss << L"-";
+	ss << CX_RUNTIME_LOG_TEXT("-");
 
-	ss.width(2);
-	ss.fill('0');
+	ss.width(2U);
+	ss.fill(CX_RUNTIME_LOG_TEXT('0'));
 	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << st->wMonth;
+	ss << datetime.wMonth;
 
-	ss << L"-";
+	ss << CX_RUNTIME_LOG_TEXT("-");
 
-	ss.width(2);
-	ss.fill('0');
+	ss.width(2U);
+	ss.fill(CX_RUNTIME_LOG_TEXT('0'));
 	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << st->wDay;
-
-	//ss.width(2);
-	//ss.fill('0');
-	//ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	//ss << st->wDayOfWeek;
+	ss << datetime.wDay;
 }
 
-void writeLogDateTime_hhmmssms_String(std::wstringstream& ss, const SYSTEMTIME* st)
+void write_log_datetime_YYYYMMDD_ddd(log_stringstream& ss, const log_datetime& datetime)
 {
-	ss.width(2);
-	ss.fill(L'0');
-	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << st->wHour;
+	write_log_datetime_YYYYMMDD(ss, datetime);
 
-	ss << L":";
-
-	ss.width(2);
-	ss.fill('0');
-	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << st->wMinute;
-
-	ss << L":";
-
-	ss.width(2);
-	ss.fill('0');
-	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << st->wSecond;
-
-	ss << L".";
-
-	ss.width(3);
-	ss.fill(L'0');
-	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << st->wMilliseconds;
-}
-
-void writeLogDateTimeString(std::wstringstream& ss, const SYSTEMTIME* st)
-{
-	writeLogDateTime_YYYYMMDD_String(ss, st);
-
-	ss << L" ";
-
-	writeLogDateTime_hhmmssms_String(ss, st);
-}
-
-void writeLogLevelString(std::wstringstream& ss, LogLevel level)
-{
-	switch (level)
+	ss << CX_RUNTIME_LOG_TEXT("(");
+	switch (datetime.wDayOfWeek)
 	{
-	case LogLevel::Verbose    : ss << L"Verbose    "; break;
-	case LogLevel::Debug      : ss << L"Debug      "; break;
-	case LogLevel::Normal     : ss << L"Normal     "; break;
-	case LogLevel::Dump       : ss << L"Dump       "; break;
-	case LogLevel::Information: ss << L"Information"; break;
-	case LogLevel::Warning    : ss << L"Warning    "; break;
-	case LogLevel::Error      : ss << L"Error      "; break;
-	case LogLevel::Critical   : ss << L"Critical   "; break;
-	default                   : ss << L"Unknown    "; break;
+	case 0: ss << CX_RUNTIME_LOG_TEXT("Sun"); break;
+	case 1: ss << CX_RUNTIME_LOG_TEXT("Mon"); break;
+	case 2: ss << CX_RUNTIME_LOG_TEXT("Tue"); break;
+	case 3: ss << CX_RUNTIME_LOG_TEXT("Wed"); break;
+	case 4: ss << CX_RUNTIME_LOG_TEXT("Thu"); break;
+	case 5: ss << CX_RUNTIME_LOG_TEXT("Fri"); break;
+	case 6: ss << CX_RUNTIME_LOG_TEXT("Sat"); break;
+	default:
+		ss << CX_RUNTIME_LOG_TEXT("???");
+		break;
+	}
+	ss << CX_RUNTIME_LOG_TEXT(")");
+}
+
+void write_log_datetime_hhmmssms(log_stringstream& ss, const log_datetime& datetime)
+{
+	ss.width(2U);
+	ss.fill(CX_RUNTIME_LOG_TEXT('0'));
+	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
+	ss << datetime.wHour;
+
+	ss << CX_RUNTIME_LOG_TEXT(":");
+
+	ss.width(2U);
+	ss.fill(CX_RUNTIME_LOG_TEXT('0'));
+	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
+	ss << datetime.wMinute;
+
+	ss << CX_RUNTIME_LOG_TEXT(":");
+
+	ss.width(2U);
+	ss.fill(CX_RUNTIME_LOG_TEXT('0'));
+	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
+	ss << datetime.wSecond;
+
+	ss << CX_RUNTIME_LOG_TEXT(".");
+
+	ss.width(3U);
+	ss.fill(CX_RUNTIME_LOG_TEXT('0'));
+	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
+	ss << datetime.wMilliseconds;
+}
+
+void write_log_datetime(log_stringstream& ss, const log_datetime& datetime)
+{
+#if 0
+	write_log_datetime_YYYYMMDD(ss, datetime);
+	ss << CX_RUNTIME_LOG_TEXT(" ");
+#endif
+	write_log_datetime_hhmmssms(ss, datetime);
+}
+
+//===========================================================================
+void write_log_severity(log_stringstream& ss, const log_severity severity)
+{
+	switch (severity)
+	{
+	case log_severity::trace   : ss << CX_RUNTIME_LOG_TEXT("trace   "); break;
+	case log_severity::debug   : ss << CX_RUNTIME_LOG_TEXT("debug   "); break;
+	case log_severity::info    : ss << CX_RUNTIME_LOG_TEXT("info    "); break;
+	case log_severity::warning : ss << CX_RUNTIME_LOG_TEXT("warning "); break;
+	case log_severity::error   : ss << CX_RUNTIME_LOG_TEXT("error   "); break;
+	case log_severity::critical: ss << CX_RUNTIME_LOG_TEXT("critical"); break;
+	default                    : ss << CX_RUNTIME_LOG_TEXT("Unknown "); break;
 	}
 }
 
-void writeLogLevelShortString(std::wstringstream& ss, LogLevel level)
+void write_log_severity_short(log_stringstream& ss, const log_severity severity)
 {
-	switch (level)
+	switch (severity)
 	{
-	case LogLevel::Verbose    : ss << L"V"; break;
-	case LogLevel::Debug      : ss << L"D"; break;
-	case LogLevel::Normal     : ss << L"N"; break;
-	case LogLevel::Dump       : ss << L"U"; break;
-	case LogLevel::Information: ss << L"I"; break;
-	case LogLevel::Warning    : ss << L"W"; break;
-	case LogLevel::Error      : ss << L"E"; break;
-	case LogLevel::Critical   : ss << L"C"; break;
-	default                   : ss << L"?"; break;
+	case log_severity::trace   : ss << CX_RUNTIME_LOG_TEXT("T"); break;
+	case log_severity::debug   : ss << CX_RUNTIME_LOG_TEXT("D"); break;
+	case log_severity::info    : ss << CX_RUNTIME_LOG_TEXT("I"); break;
+	case log_severity::warning : ss << CX_RUNTIME_LOG_TEXT("W"); break;
+	case log_severity::error   : ss << CX_RUNTIME_LOG_TEXT("E"); break;
+	case log_severity::critical: ss << CX_RUNTIME_LOG_TEXT("C"); break;
+	default                    : ss << CX_RUNTIME_LOG_TEXT("?"); break;
 	}
 }
 
-void writeLogThreadIdString(std::wstringstream& ss, DWORD threadId)
+//===========================================================================
+void write_log_thread_id(log_stringstream& ss, const log_thread_id thread_id)
 {
-	ss << L"0x";
-	ss.width(8);
-	ss.fill(L'0');
+	ss << CX_RUNTIME_LOG_TEXT("0x");
+	ss.width(8U);
+	ss.fill(CX_RUNTIME_LOG_TEXT('0'));
 	ss.setf(std::ios::hex | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << threadId;
+	ss << std::uppercase;
+	ss << thread_id;
 }
 
-void writeLogSourceFileString(std::wstringstream& ss, const wchar_t* file)
+//===========================================================================
+void write_log_source_file(log_stringstream& ss, const log_char* const file)
 {
-	const std::size_t width = 16U;
+	const std::size_t width = LOG_STRING_NAME_WIDTH;
 	ss.width(width);
-	ss.fill(L' ');
+	ss.fill(CX_RUNTIME_LOG_TEXT(' '));
 	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
-	ss << truncate_std_wstring(get_file_of_file_path(file), width, false);
+	ss << truncate_std_wstring(wfs::get_file_of_file_path(file), width, false);
 }
 
-void writeLogSourceLineString(std::wstringstream& ss, int line)
+void write_log_source_line(log_stringstream& ss, const log_source_line line)
 {
-	ss.width(5);
-	ss.fill(L'_');
+	const std::size_t width = 4U;
+	ss.width(width);
+	ss.fill(CX_RUNTIME_LOG_TEXT(' '));
 	ss.setf(std::ios::dec | std::ios::right, std::ios::basefield | std::ios::adjustfield);
 	ss << line;
 }
 
-void writeLogSourceFileLineString(std::wstringstream& ss, const wchar_t* file, int line)
+void write_log_source_file_line(log_stringstream& ss, const log_char* const file, const log_source_line line)
 {
-	const std::size_t width = 25U;
+	const std::size_t width = LOG_STRING_NAME_WIDTH + 1U + 4U;
 	ss.width(width);
-	ss.fill(L' ');
+	ss.fill(CX_RUNTIME_LOG_TEXT(' '));
 	ss.setf(std::ios::dec | std::ios::left, std::ios::basefield | std::ios::adjustfield);
 
 	ss <<
 		truncate_std_wstring(
-			truncate_std_wstring(get_file_of_file_path(file), 20, false)
-			+ L":"
-			+ std::to_wstring(line),
+			truncate_std_wstring(wfs::get_file_of_file_path(file), 20, false)
+			+ CX_RUNTIME_LOG_TEXT(":")
+			+ std::format(CX_RUNTIME_LOG_TEXT("{}"), line),
 			width,
 			false
 		);
 }
 
-void writeLogSourceFuncString(std::wstringstream& ss, const wchar_t* func)
+void write_log_source_func(log_stringstream& ss, const log_char* func)
 {
-	const std::size_t width = 32U;
+	const std::size_t width = LOG_STRING_NAME_WIDTH;
 	ss.width(width);
-	ss.fill(L' ');
+	ss.fill(CX_RUNTIME_LOG_TEXT(' '));
 	ss.setf(std::ios::dec | std::ios::left, std::ios::basefield | std::ios::adjustfield);
 	ss << truncate_std_wstring(get_function_name(func), width, false);
+}
+
+void write_log_source(log_stringstream& ss, const log_source& source)
+{
+#if 0
+	write_log_source_file_line(ss, source.file, source.line);
+	ss << L" ";
+	write_log_source_func(ss, source.func);
+#endif
+
+	const std::size_t width = LOG_STRING_NAME_WIDTH + 1U + 4U + 3U + LOG_STRING_NAME_WIDTH + 3U;
+	ss.width(width);
+	ss.fill(CX_RUNTIME_LOG_TEXT(' '));
+	ss.setf(std::ios::dec | std::ios::left, std::ios::basefield | std::ios::adjustfield);
+
+	ss <<
+		truncate_std_wstring(
+			truncate_std_wstring(wfs::get_file_of_file_path(source.file), 20, false)
+			+ CX_RUNTIME_LOG_TEXT(":")
+			+ std::format(CX_RUNTIME_LOG_TEXT("{}"), source.line)
+			+ CX_RUNTIME_LOG_TEXT(" > ")
+			+ truncate_std_wstring(get_function_name(source.func), 20, false)
+			+ CX_RUNTIME_LOG_TEXT("() "),
+			width,
+			false
+		);
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+void write_log(
+	log_stringstream& ss,
+	const log_datetime&   datetime,
+	const log_thread_id   thread_id,
+	const log_severity    severity,
+	const log_char* const file,
+	const log_source_line line,
+	const log_char* const func,
+	const log_string_view message
+)
+{
+	log_item item
+	{
+		datetime,
+		thread_id,
+		severity,
+		{file,line,func},
+		log_string(message),
+		log_param{}
+	};
+	write_log_item(ss, item);
 }
 
 
@@ -227,58 +273,20 @@ void writeLogSourceFuncString(std::wstringstream& ss, const wchar_t* func)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void writeLogString(
-	std::wstringstream& ss,
-	SYSTEMTIME*         dateTime,
-	DWORD               threadId,
-	LogLevel            level,
-	const wchar_t*      file,
-	int                 line,
-	const wchar_t*      func,
-	std::wstring_view   message
+void write_log_item(
+	log_stringstream& ss,
+	const log_item& item
 )
 {
-	ss << L"[";
-#if 0
-	writeLogDateTimeString(ss, dateTime);
-#else
-	writeLogDateTime_hhmmssms_String(ss, dateTime);
-#endif
-	ss << L"]";
-
-
-	ss << L"[";
-	writeLogThreadIdString(ss, threadId);
-	ss << L"]";
-
-
-	ss << L"[";
-	writeLogLevelShortString(ss, level);
-	ss << L"]";
-
-
-#if 0
-	ss << L"[";
-	writeLogSourceFileString(ss, file);
-	ss << L":";
-	writeLogSourceLineString(ss, line);
-	ss << L"]";
-#else
-	ss << L"[";
-	writeLogSourceFileLineString(ss, file, line);
-	ss << L"]";
-#endif
-
-
-#if 1
-	ss << L"[";
-	writeLogSourceFuncString(ss, func);
-	ss << L"]";
-#endif
-
-
-	ss << L" ";
-	ss << message;
+	write_log_datetime(ss, item.datetime);
+	ss << CX_RUNTIME_LOG_TEXT(" (");
+	write_log_thread_id(ss, item.thread_id);
+	ss << CX_RUNTIME_LOG_TEXT(") [");
+	write_log_severity_short(ss, item.severity);
+	ss << CX_RUNTIME_LOG_TEXT("] ");
+	write_log_source(ss, item.source);
+	ss << CX_RUNTIME_LOG_TEXT(": ");
+	ss << item.message;
 	ss << std::endl;
 }
 
@@ -288,75 +296,46 @@ void writeLogString(
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void writeLogString(
-	std::wstringstream& ss,
-	LogItem& item
-)
+void logger::set_output_handler(output_handler handler)
 {
-	writeLogString(
-		ss,
-		&item.dateTime,
-		item.threadId,
-		item.level,
-		item.file,
-		item.line,
-		item.func,
-		item.message
-	);
+	const std::lock_guard<std::mutex> lock(_mutex);
+	_output_handler = handler;
 }
 
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-void Logger::setOutputHandler(OutputHandler handler)
+void logger::output(const log_item& item)
 {
-	const std::lock_guard<std::mutex> lock(_Mutex);
-	_OutputHandler = handler;
-}
-
-void Logger::output(LogItem& item)
-{
-	const std::lock_guard<std::mutex> lock(_Mutex);
-	if (_OutputHandler)
+	const std::lock_guard<std::mutex> lock(_mutex);
+	if (_output_handler)
 	{
-		_OutputHandler(item);
+		_output_handler(item);
 	}
 	else
 	{
-		std::wstringstream ss;
-		writeLogString(ss, item);
+		log_stringstream ss;
+		write_log_item(ss, item);
 		OutputDebugStringW(ss.str().c_str());
 	}
 }
 
-void Logger::log(
-	LogLevel                   level,
-	const wchar_t*             file,
-	int                        line,
-	const wchar_t*             func,
-	std::wstring_view          message,
-	std::vector<std::uint8_t>& param
+void logger::log(
+	log_severity          severity,
+	const log_char* const file,
+	log_source_line       line,
+	const log_char* const func,
+	log_string_view       message,
+	log_param&            param
 )
 {
-	//-----------------------------------------------------------------------
-	LogItem item;
-	
+	log_item item;
+	GetLocalTime(&item.datetime);	
+	item.thread_id   = GetCurrentThreadId();
+	item.severity    = severity;
+	item.source.file = file;
+	item.source.line = line;
+	item.source.func = func;
+	item.message     = message;
+	item.param       = param;
 
-	GetLocalTime(&item.dateTime);	
-	item.threadId = GetCurrentThreadId();
-
-	item.level   = level;
-	item.file    = file;
-	item.line    = line;
-	item.func    = func;
-	item.message = message;
-	item.param   = param;
-
-
-	//-----------------------------------------------------------------------
 	output(item);
 }
 
@@ -365,42 +344,40 @@ void Logger::log(
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-Log::Log(
-	Logger*        logger, 
-	LogLevel       level, 
-	const wchar_t* file,
-	int            line,
-	const wchar_t* func,
-	void*          paramPointer,
-	std::size_t    paramSize
+log::log(
+	logger* const         logger,
+	const log_severity    severity,
+	const log_char* const file,
+	const log_source_line line,
+	const log_char* const func,
+	const void* const     param_pointer,
+	const std::size_t     param_size
 ) :
 	_logger   (logger), 
-	_level    (level), 
+	_severity (severity), 
 	_file     (file), 
 	_line     (line),
 	_func     (func)
 {
-	if (paramPointer)
+	if (param_pointer && param_size)
 	{
-		_param.resize(paramSize);
-		std::memcpy(_param.data(), paramPointer, paramSize);
+		_param.resize(param_size);
+		std::memcpy(_param.data(), param_pointer, param_size);
 	}
 }
 
-//===========================================================================
-Log::~Log()
+log::~log()
 {
-	_logger->log(_level, _file, _line, _func, _ss.str(), _param);
+	_logger->log(_severity, _file, _line, _func, _ss.str(), _param);
 }
 
-//===========================================================================
-Log& Log::operator<<(std::wostream& (*manip)(std::wostream&))
+log& log::operator<<(std::wostream& (*manip)(std::wostream&))
 {
 	if (manip == static_cast<std::wostream & (*)(std::wostream&)>(std::endl))
 	{
-		std::vector<std::uint8_t> emptyParam;
-		_logger->log(_level, _file, _line, _func, _ss.str(), emptyParam);
-		_ss.str(L"");
+		std::vector<std::uint8_t> empty_param;
+		_logger->log(_severity, _file, _line, _func, _ss.str(), empty_param);
+		_ss.str(CX_RUNTIME_LOG_TEXT(""));
 		_ss.clear();
 	}
 	else
@@ -417,12 +394,10 @@ Log& Log::operator<<(std::wostream& (*manip)(std::wostream&))
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-Logger* getLogger(void)
+logger* get_logger(void)
 {
-	static Logger logger;
-
-
-	return &logger;
+	static logger instance;
+	return &instance;
 }
 
 

@@ -3,10 +3,9 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include "../runtime.hpp"
+#include "../log.hpp"
 
-//===========================================================================
-#include "LogItemMemory.hpp"
+#include "log_item_memory.hpp"
 
 
 
@@ -34,9 +33,9 @@ namespace cx::runtime
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #if defined _DEBUG
-#define LogItemPoolDebug 1
+#define LOG_ITEM_POOL_DEBUG 1
 #else
-#define LogItemPoolDebug 0
+#define LOG_ITEM_POOL_DEBUG 0
 #endif
 
 
@@ -44,20 +43,20 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class LogItemPool
+class log_item_pool
 {
 public:
-	std::vector<LogItem*> _pool;
+	std::vector<log_item*> _pool;
 	std::size_t _grow;
 
-#if 1==LogItemPoolDebug
+#if 1==LOG_ITEM_POOL_DEBUG
 	std::size_t _count;
 	std::size_t _max_count;
 #endif
 
 public:
-	LogItemPool();
-	~LogItemPool();
+	log_item_pool();
+	~log_item_pool();
 
 public:
 	bool create(std::size_t count);
@@ -68,15 +67,15 @@ public:
 	void cleanup(void);
 
 public:
-	LogItem* acquire(void);
-	void release(LogItem* m);
+	log_item* acquire(void);
+	void release(log_item* m);
 };
 
 //===========================================================================
-LogItemPool::LogItemPool() :
+log_item_pool::log_item_pool() :
 	_pool(),
 	_grow(16U)
-#if 1==LogItemPoolDebug
+#if 1==LOG_ITEM_POOL_DEBUG
 	,
 	_count(0U),
 	_max_count(0U)
@@ -84,11 +83,11 @@ LogItemPool::LogItemPool() :
 {
 }
 
-LogItemPool::~LogItemPool()
+log_item_pool::~log_item_pool()
 {
 }
 
-bool LogItemPool::create(std::size_t count)
+bool log_item_pool::create(std::size_t count)
 {
 	_pool.reserve(count);
 
@@ -97,20 +96,20 @@ bool LogItemPool::create(std::size_t count)
 	return true;
 }
 
-void LogItemPool::destroy(void)
+void log_item_pool::destroy(void)
 {
 	cleanup();
 }
 
-void LogItemPool::append(std::size_t count)
+void log_item_pool::append(std::size_t count)
 {
-	LogItem* ptr;
+	log_item* ptr;
 	std::size_t i;
 
 
 	for (i = 0; i < count; ++i)
 	{
-		ptr = cpp_new LogItem();
+		ptr = cpp_new log_item();
 		if (ptr)
 		{
 			_pool.push_back(ptr);
@@ -118,9 +117,9 @@ void LogItemPool::append(std::size_t count)
 	}
 }
 
-void LogItemPool::cleanup(void)
+void log_item_pool::cleanup(void)
 {
-	LogItem* ptr;
+	log_item* ptr;
 	std::size_t i;
 	std::size_t count;
 
@@ -137,23 +136,23 @@ void LogItemPool::cleanup(void)
 		else
 		{
 			// 올 수 없는 조건
-			std::cerr << "LogItemPool::cleanup(): error!" << std::endl;
+			std::cerr << "log_item_pool::cleanup(): error!" << std::endl;
 		}
 	}
 
 	_pool.clear();
 
 
-#if 1==LogItemPoolDebug
-	std::cerr << "LogItemPool::cleanup(): count=" << _count << " max_count=" << _max_count << std::endl;
+#if 1==LOG_ITEM_POOL_DEBUG
+	std::cerr << "log_item_pool::cleanup(): count=" << _count << " max_count=" << _max_count << std::endl;
 #endif
 
 
-#if 1==LogItemPoolDebug
+#if 1==LOG_ITEM_POOL_DEBUG
 	char message[256];
 
 
-	sprintf_s(message, "LogItemPool::cleanup(): count=%zu max_count=%zu \r\n", _count, _max_count);
+	sprintf_s(message, "log_item_pool::cleanup(): count=%zu max_count=%zu \r\n", _count, _max_count);
 
 
 	OutputDebugStringA("----------------------------------------------------------------------------\r\n");
@@ -162,9 +161,9 @@ void LogItemPool::cleanup(void)
 #endif
 }
 
-LogItem* LogItemPool::acquire(void)
+log_item* log_item_pool::acquire(void)
 {
-	LogItem* ptr;
+	log_item* ptr;
 
 
 	if (!_pool.empty())
@@ -173,7 +172,7 @@ LogItem* LogItemPool::acquire(void)
 
 		_pool.pop_back();
 
-#if 1==LogItemPoolDebug
+#if 1==LOG_ITEM_POOL_DEBUG
 		_count++;
 		if (_count > _max_count)
 		{
@@ -194,7 +193,7 @@ LogItem* LogItemPool::acquire(void)
 
 		_pool.pop_back();
 
-#if 1==LogItemPoolDebug
+#if 1==LOG_ITEM_POOL_DEBUG
 		_count++;
 		if (_count > _max_count)
 		{
@@ -206,24 +205,24 @@ LogItem* LogItemPool::acquire(void)
 	}
 
 
-	std::cerr << "LogItemPool::acquire(): empty!" << std::endl;
+	std::cerr << "log_item_pool::acquire(): empty!" << std::endl;
 
 	return nullptr;
 }
 
-void LogItemPool::release(LogItem* ptr)
+void log_item_pool::release(log_item* ptr)
 {
 	if (ptr)
 	{
 		_pool.push_back(ptr);
 
-#if 1==LogItemPoolDebug
+#if 1==LOG_ITEM_POOL_DEBUG
 		_count--;
 #endif
 	}
 	else
 	{
-		std::cerr << "LogItemPool::release(): nullptr!" << std::endl;
+		std::cerr << "log_item_pool::release(): nullptr!" << std::endl;
 	}
 }
 
@@ -233,32 +232,32 @@ void LogItemPool::release(LogItem* ptr)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class LogItemConcurrencyPool
+class log_item_concurrency_pool
 {
 private:
-	std::mutex  _mutex;
-	LogItemPool _pool;
+	std::mutex _mutex;
+	log_item_pool _pool;
 
 public:
-	LogItemConcurrencyPool();
+	log_item_concurrency_pool();
 
 public:
 	bool create(std::size_t count);
 	void destroy(void);
 
 public:
-	LogItem* acquire(void);
-	void release(LogItem* ptr);
+	log_item* acquire(void);
+	void release(log_item* ptr);
 };
 
 //===========================================================================
-LogItemConcurrencyPool::LogItemConcurrencyPool() :
+log_item_concurrency_pool::log_item_concurrency_pool() :
 	_mutex(),
 	_pool()
 {
 }
 
-bool LogItemConcurrencyPool::create(std::size_t count)
+bool log_item_concurrency_pool::create(std::size_t count)
 {
 	bool rv;
 
@@ -270,16 +269,16 @@ bool LogItemConcurrencyPool::create(std::size_t count)
 	return rv;
 }
 
-void LogItemConcurrencyPool::destroy(void)
+void log_item_concurrency_pool::destroy(void)
 {
 	_mutex.lock();
 	_pool.destroy();
 	_mutex.unlock();
 }
 
-LogItem* LogItemConcurrencyPool::acquire(void)
+log_item* log_item_concurrency_pool::acquire(void)
 {
-	LogItem* ptr;
+	log_item* ptr;
 
 
 	_mutex.lock();
@@ -289,7 +288,7 @@ LogItem* LogItemConcurrencyPool::acquire(void)
 	return ptr;
 }
 
-void LogItemConcurrencyPool::release(LogItem* ptr)
+void log_item_concurrency_pool::release(log_item* ptr)
 {
 	_mutex.lock();
 	_pool.release(ptr);
@@ -302,27 +301,27 @@ void LogItemConcurrencyPool::release(LogItem* ptr)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static LogItemConcurrencyPool* _LogItemConcurrencyPool;
+static log_item_concurrency_pool* _log_item_concurrency_pool;
 
 //===========================================================================
-bool LogItemMemory_Initialize(std::size_t capacity)
+bool log_item_memory_initialize(std::size_t capacity)
 {
-	if (nullptr==_LogItemConcurrencyPool)
+	if (nullptr==_log_item_concurrency_pool)
 	{
-		_LogItemConcurrencyPool = cpp_new LogItemConcurrencyPool();
-		return _LogItemConcurrencyPool->create(capacity);
+		_log_item_concurrency_pool = cpp_new log_item_concurrency_pool();
+		return _log_item_concurrency_pool->create(capacity);
 	}
 
 	return false;
 }
 
-void LogItemMemory_Cleanup(void)
+void log_item_memory_cleanup(void)
 {
-	if (_LogItemConcurrencyPool)
+	if (_log_item_concurrency_pool)
 	{
-		_LogItemConcurrencyPool->destroy();
-		cpp_delete _LogItemConcurrencyPool;
-		_LogItemConcurrencyPool = nullptr;
+		_log_item_concurrency_pool->destroy();
+		cpp_delete _log_item_concurrency_pool;
+		_log_item_concurrency_pool = nullptr;
 	}
 }
 
@@ -332,16 +331,16 @@ void LogItemMemory_Cleanup(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-LogItem* LogItem_Alloc(void) noexcept
+log_item* log_item_alloc(void) noexcept
 {
-	return _LogItemConcurrencyPool->acquire();
+	return _log_item_concurrency_pool->acquire();
 }
 
-void LogItem_Free(LogItem* ptr) noexcept
+void log_item_free(log_item* ptr) noexcept
 {
 	if (ptr)
 	{
-		_LogItemConcurrencyPool->release(ptr);
+		_log_item_concurrency_pool->release(ptr);
 	}
 }
 #endif
@@ -353,17 +352,17 @@ void LogItem_Free(LogItem* ptr) noexcept
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #if 0
-LogItem* LogItem_Alloc(void) noexcept
+log_item* log_item_alloc(void) noexcept
 {
-	LogItem* ptr;
+	log_item* ptr;
 
 
-	ptr = cpp_new LogItem();
+	ptr = cpp_new log_item();
 
 	return ptr;
 }
 
-void LogItem_Free(LogItem* ptr) noexcept
+void log_item_free(log_item* ptr) noexcept
 {
 	if (ptr)
 	{

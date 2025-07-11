@@ -26,58 +26,54 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#define CX_RUNTIME_LOG(level)                          \
-	cx::runtime::Log(                                  \
-		cx::runtime::getLogger(),                      \
-		(level),                                       \
+#define CX_RUNTIME_LOG(severity) \
+	cx::runtime::log(                                  \
+		cx::runtime::get_logger(),                     \
+		(severity),                                    \
 		CX_RUNTIME_WFILE,                              \
 		__LINE__,                                      \
 		CX_RUNTIME_WFUNC                               \
 	)
 
-#define CX_RUNTIME_LOGP(level,param,paramSize)         \
-	cx::runtime::Log(                                  \
-		cx::runtime::getLogger(),                      \
-		(level),                                       \
+#define CX_RUNTIME_LOG_PARAM(severity,param_pointer,param_size) \
+	cx::runtime::log(                                  \
+		cx::runtime::get_logger(),                     \
+		(severity),                                    \
 		CX_RUNTIME_WFILE,                              \
 		__LINE__,                                      \
 		CX_RUNTIME_WFUNC                               \
-		(param)                                        \
-		(paramSize)                                    \
-	)
-
-//===========================================================================
-#define CX_RUNTIME_TLOG(logger,level)                  \
-	cx::runtime::Log(                                  \
-		(logger),                                      \
-		(level),                                       \
-		CX_RUNTIME_WFILE,                              \
-		__LINE__,                                      \
-		CX_RUNTIME_WFUNC                               \
-	)
-
-#define CX_RUNTIME_TLOGP(logger,level,param,paramSize) \
-	cx::runtime::Log(                                  \
-		(logger),                                      \
-		(level),                                       \
-		CX_RUNTIME_WFILE,                              \
-		__LINE__,                                      \
-		CX_RUNTIME_WFUNC                               \
-		(param)                                        \
-		(paramSize)                                    \
+		(param_pointer)                                \
+		(param_size)                                   \
 	)
 
 //===========================================================================
-constexpr cx::runtime::LogLevel cxLVerbose  = cx::runtime::LogLevel::Verbose;
-constexpr cx::runtime::LogLevel cxLDebug    = cx::runtime::LogLevel::Debug;
-constexpr cx::runtime::LogLevel cxLNormal   = cx::runtime::LogLevel::Normal;
-constexpr cx::runtime::LogLevel cxLDump     = cx::runtime::LogLevel::Dump;
-constexpr cx::runtime::LogLevel cxLInfo     = cx::runtime::LogLevel::Information;
-constexpr cx::runtime::LogLevel cxLWarning  = cx::runtime::LogLevel::Warning;
-constexpr cx::runtime::LogLevel cxLError    = cx::runtime::LogLevel::Error;
-constexpr cx::runtime::LogLevel cxLCritical = cx::runtime::LogLevel::Critical;
+#define CX_RUNTIME_xLOG(logger,severity) \
+	cx::runtime::log(                                  \
+		(logger),                                      \
+		(severity),                                    \
+		CX_RUNTIME_WFILE,                              \
+		__LINE__,                                      \
+		CX_RUNTIME_WFUNC                               \
+	)
 
-constexpr cx::runtime::LogLevel cxLDefault = cxLDebug;
+#define CX_RUNTIME_xLOG_PARAM(logger,severity,param_pointer,param_size) \
+	cx::runtime::log(                                  \
+		(logger),                                      \
+		(severity),                                    \
+		CX_RUNTIME_WFILE,                              \
+		__LINE__,                                      \
+		CX_RUNTIME_WFUNC                               \
+		(param_pointer)                                \
+		(param_size)                                   \
+	)
+
+//===========================================================================
+constexpr cx::runtime::log_severity cxLTrace    = cx::runtime::log_severity::trace   ;
+constexpr cx::runtime::log_severity cxLDebug    = cx::runtime::log_severity::debug   ;
+constexpr cx::runtime::log_severity cxLInfo     = cx::runtime::log_severity::info    ;
+constexpr cx::runtime::log_severity cxLWarning  = cx::runtime::log_severity::warning ;
+constexpr cx::runtime::log_severity cxLError    = cx::runtime::log_severity::error   ;
+constexpr cx::runtime::log_severity cxLCritical = cx::runtime::log_severity::critical;
 
 
 
@@ -103,7 +99,7 @@ constexpr cx::runtime::LogLevel cxLDefault = cxLDebug;
 		if (!(X))                                     \
 		{                                             \
 			_CrtDbgBreak();                           \
-			cx::runtime::assertCondition(             \
+			cx::runtime::assert_condition(            \
 				(X),                                  \
 				CX_RUNTIME_PREPROCESSOR_WCSTRING(#X), \
 				CX_RUNTIME_WFILE,                     \
@@ -121,7 +117,7 @@ constexpr cx::runtime::LogLevel cxLDefault = cxLDebug;
 	{                                                 \
 		if (!(X))                                     \
 		{                                             \
-			cx::runtime::assertCondition(             \
+			cx::runtime::assert_condition(            \
 				(X),                                  \
 				CX_RUNTIME_PREPROCESSOR_WCSTRING(#X), \
 				CX_RUNTIME_WFILE,                     \
@@ -136,7 +132,7 @@ constexpr cx::runtime::LogLevel cxLDefault = cxLDebug;
 
 #else
 
-#define CX_RUNTIME_ASSERT cx::runtime::AssertNull
+#define CX_RUNTIME_ASSERT cx::runtime::assert_null
 
 #endif
 

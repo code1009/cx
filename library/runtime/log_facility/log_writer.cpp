@@ -1,6 +1,11 @@
 ﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#pragma once
+#include "pch.hpp"
+
+//===========================================================================
+#include "../log.hpp"
+
+#include "log_writer.hpp"
 
 
 
@@ -17,10 +22,16 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bool getLastErrorString(
-	std::wstring& lastErrorString, 
-	DWORD lastErrorCode=::GetLastError()
-);
+void log_writer::write(const log_item& item)
+{
+	log_stringstream ss;
+	write_log_item(ss, item);
+	OutputDebugStringW(ss.str().c_str());
+}
+
+void log_writer::flush(void)
+{
+}
 
 
 
@@ -29,7 +40,6 @@ bool getLastErrorString(
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
-
 
 
 

@@ -3,11 +3,14 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include "../runtime.hpp"
-#include "LogItemMemory.hpp"
-#include "LogItemQueue.hpp"
-#include "LogWriter.hpp"
-#include "LogAsyncWriter.hpp"
+#include "../log.hpp"
+
+#include "log_facility.hpp"
+
+#include "log_item_memory.hpp"
+#include "log_item_queue.hpp"
+#include "log_writer.hpp"
+#include "log_async_writer.hpp"
 
 
 
@@ -24,7 +27,7 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static LogWriter* _LogWriter = nullptr;
+static log_writer* _log_writer = nullptr;
 
 
 
@@ -32,43 +35,45 @@ static LogWriter* _LogWriter = nullptr;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bool LogFacility_Initialize(void)
+bool log_facility_initialize(void)
 {
 	bool rv;
 
-	rv = LogItemMemory_Initialize();
+	rv = log_item_memory_initialize();
 	if (!rv)
 	{
 		return false;
 	}
 
 #if 1
-	_LogWriter = cpp_new LogAsyncWriter();
+	_log_writer = cpp_new log_async_writer();
 #else
-	_LogWriter = cpp_new LogWriter();
+	_log_writer = cpp_new log_writer();
 #endif
 
-	getLogger()->setOutputHandler(std::bind(&LogWriter::write, _LogWriter, std::placeholders::_1));
+	get_logger()->set_output_handler(
+		std::bind(&log_writer::write, _log_writer, std::placeholders::_1)
+	);
 
 	return true;
 }
 
-void LogFacility_Cleanup(void)
+void log_facility_cleanup(void)
 {
-	if (_LogWriter)
+	if (_log_writer)
 	{
-		cpp_delete _LogWriter;
-		_LogWriter = nullptr;
+		cpp_delete _log_writer;
+		_log_writer = nullptr;
 	}
 
-	LogItemMemory_Cleanup();
+	log_item_memory_cleanup();
 }
 
-void LogFacility_Flush(void)
+void log_facility_flush(void)
 {
-	if (_LogWriter)
+	if (_log_writer)
 	{
-		_LogWriter->flush();
+		_log_writer->flush();
 	}
 }
 

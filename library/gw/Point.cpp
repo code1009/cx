@@ -108,7 +108,7 @@ Point to_Point(const std::wstring& v)
 	Point point;
 
 
-	auto tokens = cx::tokenizeObject_std_wstring(v);
+	auto tokens = cx::tokenize_object_std_wstring(v);
 	if (tokens.size() == 2)
 	{
 		point._x = cx::to_float(tokens[0]);

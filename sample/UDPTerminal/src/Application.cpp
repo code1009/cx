@@ -12,8 +12,7 @@
 #include <network/net_msg_event_queue.hpp>
 #include <network/net_addr_config.hpp>
 #include <network/wsa.hpp>
-
-#include <runtime/LogFacility/LogFacility.hpp>
+#include <runtime/log_facility/log_facility.hpp>
 
 //===========================================================================
 #include "../res/resource.h"
@@ -34,41 +33,53 @@
 //===========================================================================
 bool Application::initialize(void)
 {
+	//-----------------------------------------------------------------------
+	HRESULT hr;
+	hr = OleInitialize(nullptr);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+
+	//-----------------------------------------------------------------------
 	bool rv;
+	rv = cx::runtime::log_facility_initialize();
+	if (false == rv)
+	{
+		printf("Failed to initialize log item memory.\n");
+		return false;
+	}
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"----------------------------------------------------------------------------" << std::endl
+		<< L"START" << std::endl
+		<< L"----------------------------------------------------------------------------"
+		;
 
 
-	rv = cx::runtime::WindowApplication::initialize();
+	//-----------------------------------------------------------------------
+	rv = cx::gw::DirectX2dGraphic::createFactory();
 	if (false == rv)
 	{
 		terminate();
 		return false;
 	}
-	
-	getModel()->setWebUIManager(nullptr);
 
-	rv = cx::runtime::LogFacility_Initialize();
-	if (false == rv)
-	{
-		terminate();
-		return false;
-	}
 
-	CX_RUNTIME_LOG(cxLInfo) << L"START" << std::endl;
-
+	//-----------------------------------------------------------------------
 	rv = cx::network::wsa_startup();
 	if (false == rv)
 	{
 		terminate();
 		return false;
 	}
-
 	rv = cx::network::net_msg_memory_initialize();
 	if (false == rv)
 	{
 		terminate();
 		return false;
 	}
-
+	getModel()->setWebUIManager(nullptr);
 	rv = app::WebMessageMemory_Initialize();
 	if (false == rv)
 	{
@@ -76,22 +87,39 @@ bool Application::initialize(void)
 		return false;
 	}
 
+
+
 	return true;
 }
 
 void Application::terminate(void)
 {
+	//-----------------------------------------------------------------------
 	getModel()->disconnect();
 
 	app::WebMessageMemory_Cleanup();
 	cx::network::net_msg_memory_cleanup();
-
-	CX_RUNTIME_LOG(cxLInfo) << L"END" << std::endl;	
-	
-	cx::runtime::LogFacility_Cleanup();
-
 	cx::network::wsa_cleanup();
-	cx::runtime::WindowApplication::terminate();
+
+
+	//-----------------------------------------------------------------------
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"----------------------------------------------------------------------------" << std::endl
+		<< L"END" << std::endl
+		<< L"----------------------------------------------------------------------------"
+		;
+
+
+	//-----------------------------------------------------------------------
+	cx::gw::DirectX2dGraphic::destroyFactory();
+
+
+	//-----------------------------------------------------------------------
+	cx::runtime::log_facility_cleanup();
+
+
+	//-----------------------------------------------------------------------
+	::OleUninitialize();
 }
 
 void Application::run(void)
@@ -118,7 +146,5 @@ void Application::launch(void)
 Application* getApplication(void)
 {
 	static Application instance;
-
-
 	return &instance;
 }

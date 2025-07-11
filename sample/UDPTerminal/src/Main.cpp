@@ -30,7 +30,15 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
-	cx::wui::getAppModule()->setInstanceHandle(hInstance);	
+	cx::runtime::memory_debug _memory_debug;
+	_memory_debug.enable();
+	_memory_debug.start_leak_check();
+
+	cx::wui::getAppModule()->setInstanceHandle(hInstance);
 	getApplication()->launch();
+	
+
+	//_memory_debug.test_leak_check();
+	_memory_debug.end_leak_check();
 	return 0;
 }

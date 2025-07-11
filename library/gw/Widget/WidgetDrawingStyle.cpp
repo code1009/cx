@@ -290,7 +290,7 @@ WidgetFillStyle to_WidgetFillStyle(std::wstring s)
 	WidgetFillStyle o;
 
 
-	auto tokens = cx::tokenizeObject_std_wstring(s);
+	auto tokens = cx::tokenize_object_std_wstring(s);
 	if (1 == tokens.size())
 	{
 		o.setColor(to_Color(tokens[0]));
@@ -304,7 +304,7 @@ WidgetLineStyle to_WidgetLineStyle(std::wstring s)
 	WidgetLineStyle o;
 
 
-	auto tokens = cx::tokenizeObject_std_wstring(s);
+	auto tokens = cx::tokenize_object_std_wstring(s);
 	if (4 == tokens.size())
 	{
 		o.setColor(to_Color(tokens[0]));
@@ -320,7 +320,7 @@ WidgetTextStyle to_WidgetTextStyle(std::wstring s)
 {
 	WidgetTextStyle o;
 
-	auto tokens = cx::tokenizeObject_std_wstring(s);
+	auto tokens = cx::tokenize_object_std_wstring(s);
 	if (5 == tokens.size())
 	{
 		o.setColor(to_Color(tokens[0]));

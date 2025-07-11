@@ -2,15 +2,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// SDKDDKVer.h를 포함하면 최고 수준의 가용성을 가진 Windows 플랫폼이 정의됩니다.
-// 이전 Windows 플랫폼용 애플리케이션을 빌드하려는 경우에는 SDKDDKVer.h를 포함하기 전에
-// WinSDKVer.h를 포함하고 _WIN32_WINNT를 지원하려는 플랫폼으로 설정합니다.
-#include <SDKDDKVer.h>
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 // CRT Debug
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -33,13 +24,18 @@
 
 
 
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-#define NOMINMAX             // min 및 max 매크로 함수 정의 방지
-#define WIN32_LEAN_AND_MEAN  // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
-// Windows 헤더 파일
-#include <windows.h>
+
+//////////////////////////////////////////////////////////////////////////////
+//============================================================================
+// Windows.h 관련 설정
+#define NOMINMAX
+#define WIN32_LEAN_AND_MEAN
+
+//============================================================================
+// window c 헤더
+#include <Windows.h>
+
 #include <windowsx.h>
 #include <winuser.h>
 
@@ -54,6 +50,12 @@
 #include <dwrite.h>
 #include <wincodec.h>
 
+//===========================================================================
+#include <Unknwn.h>
+#include <shobjidl.h>
+
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -67,23 +69,24 @@
 
 
 
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-// C++ 런타임 헤더 파일입니다.
+
+//////////////////////////////////////////////////////////////////////////////
+//============================================================================
+// c++ stl 헤더
 #include <cinttypes>
 #include <cstdint>
 #include <cstddef>
 #include <stdexcept>
 
-#include <utility>
-
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <iomanip>
-
 #include <string>
 #include <string_view>
+
+#include <utility>
+
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <sstream>
 
 #include <vector>
 #include <stack>
@@ -91,6 +94,8 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+
+#include <optional>
 
 #include <algorithm>
 
@@ -101,6 +106,8 @@
 #include <thread>
 #include <mutex>
 #include <future>
+#include <coroutine>
 
 #include <chrono>
+#include <format>
 #include <filesystem>

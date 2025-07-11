@@ -1,9 +1,6 @@
 ﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include "pch.hpp"
-
-//===========================================================================
-#include "runtime.hpp"
+#pragma once
 
 
 
@@ -20,29 +17,51 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bool getLastErrorString(std::wstring& lastErrorString, DWORD lastErrorCode)
+#ifdef _DEBUG
+struct memory_check_point
 {
-	DWORD dwLastErrorCode;
-	DWORD dwSystemLocale;
-	DWORD dwFlags;
-	HLOCAL hLocal;
-	DWORD dwLength;
+	_CrtMemState start;
+	_CrtMemState end;
+	_CrtMemState diff;
+};
+#endif
 
 
-	dwLastErrorCode = lastErrorCode;
-	dwSystemLocale  = MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL);
-	dwFlags         = FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS;
-	hLocal          = NULL;
-	dwLength        = FormatMessageW(dwFlags, NULL, dwLastErrorCode, dwSystemLocale, (LPWSTR)&hLocal, 0, NULL);
-	if (dwLength && hLocal)
-	{
-		lastErrorString = (LPWSTR)LocalLock(hLocal);
-		LocalFree(hLocal);
-		return true;
-	}
 
-	return false;
-}
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+class memory_debug
+{
+public:
+#ifdef _DEBUG
+	memory_check_point _leak_check_point{};
+#endif
+
+public:
+	memory_debug();
+
+public:
+	virtual ~memory_debug() = default;
+
+public:
+	memory_debug(const memory_debug&) = delete;
+	memory_debug& operator=(const memory_debug&) = delete;
+
+	memory_debug(memory_debug&&) = delete;
+	memory_debug& operator=(memory_debug&&) = delete;
+
+public:
+	void enable(void);
+
+public:
+	void start_leak_check(void);
+	void end_leak_check(void);
+
+public:
+	void test_leak_check(void);
+};
 
 
 
@@ -51,6 +70,7 @@ bool getLastErrorString(std::wstring& lastErrorString, DWORD lastErrorCode)
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 }
+
 
 
 

@@ -2,10 +2,9 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include "Log.hpp"
-#include "Assert.hpp"
-#include "Macros.hpp"
+#include "assert.hpp"
+#include "log.hpp"
+#include "macros.hpp"
 
-#include "LastError.hpp"
-#include "DebugMemory.hpp"
-#include "WindowApplication.hpp"
+#include "last_error.hpp"
+#include "memory_debug.hpp"

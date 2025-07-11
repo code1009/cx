@@ -3,10 +3,9 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include "../runtime.hpp"
+#include "../log.hpp"
 
-//===========================================================================
-#include "LogItemQueue.hpp"
+#include "log_item_queue.hpp"
 
 
 
@@ -23,14 +22,14 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-LogItemQueue::LogItemQueue() :
+log_item_queue::log_item_queue() :
 	_mutex(),
 	_container()
 {
 }
 
 //===========================================================================
-void LogItemQueue::push(LogItem* m)
+void log_item_queue::push(log_item* m)
 {
 	const std::lock_guard<std::mutex> lock(_mutex);
 
@@ -38,12 +37,12 @@ void LogItemQueue::push(LogItem* m)
 	_container.push_back(m);
 }
 
-LogItem* LogItemQueue::pop(void)
+log_item* log_item_queue::pop(void)
 {
 	const std::lock_guard<std::mutex> lock(_mutex);
 
 
-	LogItem* m = nullptr;
+	log_item* m = nullptr;
 
 
 	if (!_container.empty())
@@ -56,7 +55,7 @@ LogItem* LogItemQueue::pop(void)
 	return m;
 }
 
-std::size_t LogItemQueue::count(void)
+std::size_t log_item_queue::count(void)
 {
 	const std::lock_guard<std::mutex> lock(_mutex);
 

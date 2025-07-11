@@ -17,12 +17,12 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static inline void assertNull(...)
+static inline void assert_null(...)
 {
 }
 
 //===========================================================================
-void assertCondition(
+void assert_condition(
 	bool condition,
 	const wchar_t* expression,
 	const wchar_t* file,

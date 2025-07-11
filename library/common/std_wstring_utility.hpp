@@ -27,10 +27,10 @@ std::wstring ltrim_std_wstring(const std::wstring& s);
 std::wstring rtrim_std_wstring(const std::wstring& s);
 std::wstring trim_std_wstring(const std::wstring& s);
 
-std::wstring unescapeObject_std_wstring(const std::wstring& s);
-std::wstring escapeObject_std_wstring(const std::wstring& s, const std::wstring_view first = L"{", const std::wstring_view last = L"}");
+std::wstring unescape_object_std_wstring(const std::wstring& s);
+std::wstring escape_object_std_wstring(const std::wstring& s, const std::wstring_view first = L"{", const std::wstring_view last = L"}");
 
-std::vector<std::wstring> tokenizeObject_std_wstring(const std::wstring& s, const std::wstring_view delimiter = L",", bool trim = true);
+std::vector<std::wstring> tokenize_object_std_wstring(const std::wstring& s, const std::wstring_view delimiter = L",", bool trim = true);
 
 std::wstring replace_std_wstring(const std::wstring& input, const std::wstring& findwhat, const std::wstring& replacewith);
 

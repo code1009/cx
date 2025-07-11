@@ -5,7 +5,7 @@
 //===========================================================================
 #include <wui/wui.hpp>
 #include <runtime/runtime.hpp>
-#include <component/fs_std_wstring.hpp>
+#include <common/fs_std_wstring.hpp>
 
 //===========================================================================
 #include "../../res/resource.h"

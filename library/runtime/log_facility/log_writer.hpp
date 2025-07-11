@@ -17,16 +17,16 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class LogWriter
+class log_writer
 {
 public:
-	LogWriter() = default;
+	log_writer() = default;
 
 public:
-	virtual ~LogWriter() = default;
+	virtual ~log_writer() = default;
 
 public:
-	virtual void write(LogItem& item);
+	virtual void write(const log_item& item);
 	virtual void flush(void);
 };
 

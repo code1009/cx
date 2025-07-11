@@ -6,6 +6,7 @@
 #include <wui/wui.hpp>
 #include <gw/gw.hpp>
 #include <runtime/runtime.hpp>
+#include <runtime/log_facility/log_facility.hpp>
 
 //===========================================================================
 #include "../res/resource.h"
@@ -31,7 +32,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Application : public cx::runtime::WindowApplication
+class Application
 {
 public:
 	Application() = default;
@@ -40,13 +41,11 @@ public:
 	virtual ~Application() = default;
 
 	//-----------------------------------------------------------------------
-	// cx::runtime::WindowApplication
 public:
-	virtual bool initialize(void) override;
-	virtual void terminate(void) override;
+	bool initialize(void);
+	void terminate(void);
 
 	//-----------------------------------------------------------------------
-	// Application
 public:
 	void run(void);
 	void launch(void);
@@ -55,15 +54,31 @@ public:
 //===========================================================================
 bool Application::initialize(void)
 {
-	bool rv;
-
-
-	rv = cx::runtime::WindowApplication::initialize();
-	if (false == rv)
+	//-----------------------------------------------------------------------
+	HRESULT hr;
+	hr = OleInitialize(nullptr);
+	if (FAILED(hr))
 	{
-		terminate();
 		return false;
 	}
+
+
+	//-----------------------------------------------------------------------
+	bool rv;
+	rv = cx::runtime::log_facility_initialize();
+	if (false == rv)
+	{
+		printf("Failed to initialize log item memory.\n");
+		return false;
+	}
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"----------------------------------------------------------------------------" << std::endl
+		<< L"START" << std::endl
+		<< L"----------------------------------------------------------------------------"
+		;
+
+
+	//-----------------------------------------------------------------------
 	rv = cx::gw::DirectX2dGraphic::createFactory();
 	if (false == rv)
 	{
@@ -77,14 +92,29 @@ bool Application::initialize(void)
 
 void Application::terminate(void)
 {
+	//-----------------------------------------------------------------------
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"----------------------------------------------------------------------------" << std::endl
+		<< L"END" << std::endl
+		<< L"----------------------------------------------------------------------------"
+		;
+
+
+	//-----------------------------------------------------------------------
 	cx::gw::DirectX2dGraphic::destroyFactory();
-	cx::runtime::WindowApplication::terminate();
+
+
+	//-----------------------------------------------------------------------
+	cx::runtime::log_facility_cleanup();
+
+
+	//-----------------------------------------------------------------------
+	::OleUninitialize();
 }
 
 void Application::run(void)
 {
 	MainFrame mainFrame;
-
 	cx::wui::WindowMessageLoop windowMessageLoop;
 	windowMessageLoop.addIdleHandler(std::bind(&MainFrame::onIdle, &mainFrame));
 	windowMessageLoop.run();
@@ -95,10 +125,6 @@ void Application::launch(void)
 	if (initialize())
 	{
 		run();
-
-		// Memory-leak
-		_DebugMemory.testMemoryLeak();
-
 		terminate();
 	}
 }
@@ -111,8 +137,6 @@ void Application::launch(void)
 Application* getApplication(void)
 {
 	static Application instance;
-
-
 	return &instance;
 }
 
@@ -128,10 +152,15 @@ int APIENTRY wWinMain(
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
-	cx::wui::getAppModule()->setInstanceHandle(hInstance);
+	cx::runtime::memory_debug _memory_debug;
+	_memory_debug.enable();
+	_memory_debug.start_leak_check();
 
-	
+	cx::wui::getAppModule()->setInstanceHandle(hInstance);
 	getApplication()->launch();
+
+	_memory_debug.test_leak_check();
+	_memory_debug.end_leak_check();
 
 	return 0;
 }

@@ -57,8 +57,8 @@
 #include "Widget/Shape/Shape_Classes.hpp"
 
 //===========================================================================
-#include "../component/std_wstring_utility.hpp"
-#include "../component/to_std_wstring.hpp"
+#include "../common/std_wstring_utility.hpp"
+#include "../common/to_std_wstring.hpp"
 
 
 

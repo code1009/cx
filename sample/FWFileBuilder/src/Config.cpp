@@ -10,7 +10,7 @@
 //===========================================================================
 #include <wui/wui.hpp>
 #include <runtime/runtime.hpp>
-#include <component/fs_std_wstring.hpp>
+#include <common/fs_std_wstring.hpp>
 #include <component/xml.hpp>
 
 //===========================================================================
@@ -35,11 +35,11 @@ public:
 		_Loader  { L"Config" },
 		_Saver   { L"Config" }
 	{
-		_Loader.get_xml_context()->set_read_xml_root_tag_handler(
+		_Loader.get_xml_context()->set_xml_root_tag_read_handler(
 			std::bind(&Config_XML_IO::readTag_Root, this, std::placeholders::_1)
 		);
 
-		_Saver.get_xml_context()->set_write_xml_root_tag_handler(
+		_Saver.get_xml_context()->set_xml_root_tag_write_handler(
 			std::bind(&Config_XML_IO::writeTag_Root, this, std::placeholders::_1)
 		);
 	}
@@ -68,9 +68,9 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool readTag_Root(cx::xml::xml_reader_t& reader)
+	bool readTag_Root(cx::xml::xml_reader& reader)
 	{
-		cx::xml::xml_read_handler_map_t readHandlerMap;
+		cx::xml::xml_read_handler_map readHandlerMap;
 
 
 		readHandlerMap[L"bl"] = std::bind(&Config_XML_IO::readTag_bl, this, std::placeholders::_1);
@@ -86,23 +86,23 @@ public:
 	}
 
 public:
-	bool readTag_bl(cx::xml::xml_reader_t& reader)
+	bool readTag_bl(cx::xml::xml_reader& reader)
 	{
 		return readTag_FilePath(reader, _Document->_BL_FilePath);
 	}
-	bool readTag_sa(cx::xml::xml_reader_t& reader)
+	bool readTag_sa(cx::xml::xml_reader& reader)
 	{
 		return readTag_FilePath(reader, _Document->_SA_FilePath);
 	}
-	bool readTag_ma(cx::xml::xml_reader_t& reader)
+	bool readTag_ma(cx::xml::xml_reader& reader)
 	{
 		return readTag_FilePath(reader, _Document->_MA_FilePath);
 	}
-	bool readTag_image(cx::xml::xml_reader_t& reader)
+	bool readTag_image(cx::xml::xml_reader& reader)
 	{
 		return readTag_FilePath(reader, _Document->_Image_FilePath);
 	}
-	bool readTag_FilePath(cx::xml::xml_reader_t& reader, std::wstring& filePath)
+	bool readTag_FilePath(cx::xml::xml_reader& reader, std::wstring& filePath)
 	{
 		bool rv;
 
@@ -119,12 +119,12 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool writeTag_Root(cx::xml::xml_writer_t& writer)
+	bool writeTag_Root(cx::xml::xml_writer& writer)
 	{
 		bool rv;
 
 
-		rv = cx::xml::write_xml_parent_tag_start(writer, _Saver.get_xml_context()->get_xml_root_tag_name());
+		rv = cx::xml::write_xml_tag_open(writer, _Saver.get_xml_context()->get_xml_root_tag_name());
 		if (true != rv)
 		{
 			return false;
@@ -153,7 +153,7 @@ public:
 		}
 
 
-		rv = cx::xml::write_xml_parent_tag_end(writer);
+		rv = cx::xml::write_xml_tag_close(writer);
 		if (true != rv)
 		{
 			return false;
@@ -163,28 +163,28 @@ public:
 	}
 
 public:
-	bool writeTag_bl(cx::xml::xml_writer_t& writer)
+	bool writeTag_bl(cx::xml::xml_writer& writer)
 	{
 		return writeTag_FilePath(writer, L"bl", _Document->_BL_FilePath);
 	}
-	bool writeTag_sa(cx::xml::xml_writer_t& writer)
+	bool writeTag_sa(cx::xml::xml_writer& writer)
 	{
 		return writeTag_FilePath(writer, L"sa", _Document->_SA_FilePath);
 	}
-	bool writeTag_ma(cx::xml::xml_writer_t& writer)
+	bool writeTag_ma(cx::xml::xml_writer& writer)
 	{
 		return writeTag_FilePath(writer, L"ma", _Document->_MA_FilePath);
 	}
-	bool writeTag_image(cx::xml::xml_writer_t& writer)
+	bool writeTag_image(cx::xml::xml_writer& writer)
 	{
 		return writeTag_FilePath(writer, L"image", _Document->_Image_FilePath);
 	}
-	bool writeTag_FilePath(cx::xml::xml_writer_t& writer, const wchar_t* tagName, const std::wstring& filePath)
+	bool writeTag_FilePath(cx::xml::xml_writer& writer, const wchar_t* tagName, const std::wstring& filePath)
 	{
 		bool rv;
 
 
-		rv = cx::xml::write_xml_single_tag_start(writer, tagName, 1);
+		rv = cx::xml::write_xml_tag_open(writer, tagName, 1);
 		if (true != rv)
 		{
 			return false;
@@ -201,7 +201,7 @@ public:
 		}
 
 
-		rv = cx::xml::write_xml_single_tag_end(writer);
+		rv = cx::xml::write_xml_tag_close(writer, 1);
 		if (true != rv)
 		{
 			return false;

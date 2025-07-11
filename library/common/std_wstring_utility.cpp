@@ -3,11 +3,6 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <string>
-#include <vector>
-#include <algorithm>
-
-//===========================================================================
 #include "std_wstring_utility.hpp"
 
 
@@ -120,7 +115,7 @@ std::wstring trim_std_wstring(const std::wstring& s)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-std::wstring unescapeObject_std_wstring(const std::wstring& s)
+std::wstring unescape_object_std_wstring(const std::wstring& s)
 {
 	if (s.empty())
 	{
@@ -141,7 +136,7 @@ std::wstring unescapeObject_std_wstring(const std::wstring& s)
 	return result;
 }
 
-std::wstring escapeObject_std_wstring(const std::wstring& s, const std::wstring_view first, const std::wstring_view last)
+std::wstring escape_object_std_wstring(const std::wstring& s, const std::wstring_view first, const std::wstring_view last)
 {
 	std::wstring result;
 	
@@ -159,7 +154,7 @@ std::wstring escapeObject_std_wstring(const std::wstring& s, const std::wstring_
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-std::vector<std::wstring> tokenizeObject_std_wstring(const std::wstring& s, std::wstring_view delimiter, bool trim)
+std::vector<std::wstring> tokenize_object_std_wstring(const std::wstring& s, std::wstring_view delimiter, bool trim)
 {
 	std::vector<std::wstring> tokens;
 	std::wstring token;
