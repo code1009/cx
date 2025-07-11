@@ -36,7 +36,7 @@ public:
 		_Saver   { L"Config" }
 	{
 		_Loader.get_xml_context()->set_xml_root_tag_read_handler(
-			std::bind(&Config_XML_IO::readTag_Root, this, std::placeholders::_1)
+			std::bind(&Config_XML_IO::readTag_Root, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
 		_Saver.get_xml_context()->set_xml_root_tag_write_handler(
@@ -68,15 +68,15 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool readTag_Root(cx::xml::xml_reader& reader)
+	bool readTag_Root(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		cx::xml::xml_read_handler_map readHandlerMap;
 
 
-		readHandlerMap[L"bl"] = std::bind(&Config_XML_IO::readTag_bl, this, std::placeholders::_1);
-		readHandlerMap[L"sa"] = std::bind(&Config_XML_IO::readTag_sa, this, std::placeholders::_1);
-		readHandlerMap[L"ma"] = std::bind(&Config_XML_IO::readTag_ma, this, std::placeholders::_1);
-		readHandlerMap[L"image"] = std::bind(&Config_XML_IO::readTag_image, this, std::placeholders::_1);
+		readHandlerMap[L"bl"] = std::bind(&Config_XML_IO::readTag_bl, this, std::placeholders::_1, std::placeholders::_2);
+		readHandlerMap[L"sa"] = std::bind(&Config_XML_IO::readTag_sa, this, std::placeholders::_1, std::placeholders::_2);
+		readHandlerMap[L"ma"] = std::bind(&Config_XML_IO::readTag_ma, this, std::placeholders::_1, std::placeholders::_2);
+		readHandlerMap[L"image"] = std::bind(&Config_XML_IO::readTag_image, this, std::placeholders::_1, std::placeholders::_2);
 
 		return cx::xml::read_xml_child_tag(
 			reader,
@@ -86,19 +86,19 @@ public:
 	}
 
 public:
-	bool readTag_bl(cx::xml::xml_reader& reader)
+	bool readTag_bl(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		return readTag_FilePath(reader, _Document->_BL_FilePath);
 	}
-	bool readTag_sa(cx::xml::xml_reader& reader)
+	bool readTag_sa(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		return readTag_FilePath(reader, _Document->_SA_FilePath);
 	}
-	bool readTag_ma(cx::xml::xml_reader& reader)
+	bool readTag_ma(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		return readTag_FilePath(reader, _Document->_MA_FilePath);
 	}
-	bool readTag_image(cx::xml::xml_reader& reader)
+	bool readTag_image(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		return readTag_FilePath(reader, _Document->_Image_FilePath);
 	}

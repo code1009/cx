@@ -36,7 +36,7 @@ public:
 		_Saver   { L"Config" }
 	{
 		_Loader.get_xml_context()->set_xml_root_tag_read_handler(
-			std::bind(&Config_XML_IO::readTag_Root, this, std::placeholders::_1)
+			std::bind(&Config_XML_IO::readTag_Root, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
 		_Saver.get_xml_context()->set_xml_root_tag_write_handler(
@@ -68,14 +68,14 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool readTag_Root(cx::xml::xml_reader& reader)
+	bool readTag_Root(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		cx::xml::xml_read_handler_map readHandlerMap;
 
 
-		readHandlerMap[L"Template"] = std::bind(&Config_XML_IO::readTag_Template, this, std::placeholders::_1);
-		readHandlerMap[L"Project"] = std::bind(&Config_XML_IO::readTag_Project, this, std::placeholders::_1);
-		readHandlerMap[L"Solution"] = std::bind(&Config_XML_IO::readTag_Solution, this, std::placeholders::_1);
+		readHandlerMap[L"Template"] = std::bind(&Config_XML_IO::readTag_Template, this, std::placeholders::_1, std::placeholders::_2);
+		readHandlerMap[L"Project"] = std::bind(&Config_XML_IO::readTag_Project, this, std::placeholders::_1, std::placeholders::_2);
+		readHandlerMap[L"Solution"] = std::bind(&Config_XML_IO::readTag_Solution, this, std::placeholders::_1, std::placeholders::_2);
 
 		return cx::xml::read_xml_child_tag(
 			reader,
@@ -85,7 +85,7 @@ public:
 	}
 
 public:
-	bool readTag_Template(cx::xml::xml_reader& reader)
+	bool readTag_Template(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		bool rv;
 
@@ -99,7 +99,7 @@ public:
 		return true;
 	}
 
-	bool readTag_Project(cx::xml::xml_reader& reader)
+	bool readTag_Project(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		bool rv;
 
@@ -113,7 +113,7 @@ public:
 		return true;
 	}
 
-	bool readTag_Solution(cx::xml::xml_reader& reader)
+	bool readTag_Solution(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		bool rv;
 

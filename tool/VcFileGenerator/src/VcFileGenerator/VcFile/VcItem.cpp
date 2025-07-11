@@ -184,7 +184,7 @@ public:
 		_Loader{ L"VcItem" }
 	{
 		_Loader.get_xml_context()->set_xml_root_tag_read_handler(
-			std::bind(&VcItem_XML_IO::readTag_Root, this, std::placeholders::_1)
+			std::bind(&VcItem_XML_IO::readTag_Root, this, std::placeholders::_1, std::placeholders::_2)
 		);
 	}
 
@@ -197,12 +197,12 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool readTag_Root(cx::xml::xml_reader& reader)
+	bool readTag_Root(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		cx::xml::xml_read_handler_map readHandlerMap;
 
 
-		readHandlerMap[L"Item"] = std::bind(&VcItem_XML_IO::readTag_Item, this, std::placeholders::_1);
+		readHandlerMap[L"Item"] = std::bind(&VcItem_XML_IO::readTag_Item, this, std::placeholders::_1, std::placeholders::_2);
 
 		return cx::xml::read_xml_child_tag(
 			reader,
@@ -212,7 +212,7 @@ public:
 	}
 
 public:
-	bool readTag_Item(cx::xml::xml_reader& reader)
+	bool readTag_Item(cx::xml::xml_reader& reader, void* /*param*/)
 	{
 		std::wstring file;
 		std::wstring filter;
