@@ -32,22 +32,17 @@ int APIENTRY wWinMain(
 {
 	//CX_RUNTIME_ASSERT(1==0);
 
-	CX_RUNTIME_LOG(cxLInfo)
-		<< L"LINE" << 1 << L": -------------------------" << std::endl
-		<< L"LINE" << 2 << L": START" << std::endl
-		<< L"LINE" << 3 << L": -------------------------" << std::endl;
+	cx::runtime::memory_debug _memory_debug;
+	_memory_debug.enable();
+	_memory_debug.start_leak_check();
 
 
 	cx::wui::getAppModule()->setInstanceHandle(hInstance);
-
-	
 	getApplication()->launch();
 
 
-	CX_RUNTIME_LOG(cxLInfo)
-		<< L"LINE" << 1 << L": -------------------------" << std::endl
-		<< L"LINE" << 2 << L": END" << std::endl
-		<< L"LINE" << 3 << L": -------------------------" << std::endl;
+	//_memory_debug.test_leak_check();
+	_memory_debug.end_leak_check();
 	
 	return 0;
 }

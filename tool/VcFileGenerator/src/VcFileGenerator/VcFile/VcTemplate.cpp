@@ -9,8 +9,8 @@
 
 //===========================================================================
 #include <runtime/runtime.hpp>
-#include <component/fs_std_wstring.hpp>
-#include <component/std_wstring_utility.hpp>
+#include <common/fs_std_wstring.hpp>
+#include <common/std_wstring_utility.hpp>
 #include <component/xml.hpp>
 
 //===========================================================================
@@ -68,7 +68,7 @@ public:
 		_Document{ doc },
 		_Loader{ L"VcTemplate" }
 	{
-		_Loader.get_xml_context()->set_read_xml_root_tag_handler(
+		_Loader.get_xml_context()->set_xml_root_tag_read_handler(
 			std::bind(&VcTemplate_XML_IO::readTag_Root, this, std::placeholders::_1)
 		);
 	}
@@ -82,11 +82,11 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool readTag_Root(cx::xml::xml_reader_t& reader)
+	bool readTag_Root(cx::xml::xml_reader& reader)
 	{
 		bool rv;
 
-		cx::xml::xml_read_handler_map_t readHandlerMap;
+		cx::xml::xml_read_handler_map readHandlerMap;
 		readHandlerMap[L"Settings"] = std::bind(&VcTemplate_XML_IO::readTag_Settings, this, std::placeholders::_1);
 		readHandlerMap[L"ItemFiles"] = std::bind(&VcTemplate_XML_IO::readTag_ItemFiles, this, std::placeholders::_1);
 		readHandlerMap[L"ConfigurationFiles"] = std::bind(&VcTemplate_XML_IO::readTag_ConfigurationFiles, this, std::placeholders::_1);
@@ -102,7 +102,7 @@ public:
 	}
 
 public:
-	bool readTag_Settings(cx::xml::xml_reader_t& reader)
+	bool readTag_Settings(cx::xml::xml_reader& reader)
 	{
 		VcTemplateData::Settings settings;
 
@@ -143,11 +143,11 @@ public:
 	}
 
 public:
-	bool readTag_ItemFiles(cx::xml::xml_reader_t& reader)
+	bool readTag_ItemFiles(cx::xml::xml_reader& reader)
 	{
 		bool rv;
 
-		cx::xml::xml_read_handler_map_t readHandlerMap;
+		cx::xml::xml_read_handler_map readHandlerMap;
 		readHandlerMap[L"Item"] = std::bind(&VcTemplate_XML_IO::readTag_ItemFiles_Item, this, std::placeholders::_1);
 		rv = cx::xml::read_xml_child_tag(
 			reader,
@@ -157,7 +157,7 @@ public:
 
 		return rv;
 	}
-	bool readTag_ItemFiles_Item(cx::xml::xml_reader_t& reader)
+	bool readTag_ItemFiles_Item(cx::xml::xml_reader& reader)
 	{
 		std::wstring file;
 
@@ -177,11 +177,11 @@ public:
 	}
 
 public:
-	bool readTag_ConfigurationFiles(cx::xml::xml_reader_t& reader)
+	bool readTag_ConfigurationFiles(cx::xml::xml_reader& reader)
 	{
 		bool rv;
 
-		cx::xml::xml_read_handler_map_t readHandlerMap;
+		cx::xml::xml_read_handler_map readHandlerMap;
 		readHandlerMap[L"Item"] = std::bind(&VcTemplate_XML_IO::readTag_ConfigurationFiles_Item, this, std::placeholders::_1);
 		rv = cx::xml::read_xml_child_tag(
 			reader,
@@ -191,7 +191,7 @@ public:
 
 		return rv;
 	}
-	bool readTag_ConfigurationFiles_Item(cx::xml::xml_reader_t& reader)
+	bool readTag_ConfigurationFiles_Item(cx::xml::xml_reader& reader)
 	{
 		std::wstring name;
 		std::wstring file;
@@ -218,11 +218,11 @@ public:
 	}
 
 public:
-	bool readTag_EnvironmentVariables(cx::xml::xml_reader_t& reader)
+	bool readTag_EnvironmentVariables(cx::xml::xml_reader& reader)
 	{
 		bool rv;
 
-		cx::xml::xml_read_handler_map_t readHandlerMap;
+		cx::xml::xml_read_handler_map readHandlerMap;
 		readHandlerMap[L"Item"] = std::bind(&VcTemplate_XML_IO::readTag_EnvironmentVariables_Item, this, std::placeholders::_1);
 		rv = cx::xml::read_xml_child_tag(
 			reader,
@@ -232,7 +232,7 @@ public:
 
 		return rv;
 	}
-	bool readTag_EnvironmentVariables_Item(cx::xml::xml_reader_t& reader)
+	bool readTag_EnvironmentVariables_Item(cx::xml::xml_reader& reader)
 	{
 		std::wstring name;
 		std::wstring value;

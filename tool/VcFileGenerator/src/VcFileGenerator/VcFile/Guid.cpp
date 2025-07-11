@@ -17,7 +17,7 @@
 //===========================================================================
 #include <runtime/runtime.hpp>
 
-#include <component/std_wstring_utility.hpp>
+#include <common/std_wstring_utility.hpp>
 
 //===========================================================================
 #include "VcFile.hpp"

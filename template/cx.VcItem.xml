@@ -1,19 +1,81 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VcItem>
 
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\pch.hpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\charset_system.cpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\charset_system.hpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\fs_std_wstring.cpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\fs_std_wstring.hpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\parse_c_string.cpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\parse_c_string.hpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\std_wstring_utility.cpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\std_wstring_utility.hpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\to_std_wstring.cpp" />
-<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\to_std_wstring.hpp" />
+
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\assert.cpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\assert.hpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\last_error.cpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\last_error.hpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\log.cpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\log.hpp" />
+
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\macros.hpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\memory_debug.cpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\memory_debug.hpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\pch.hpp" />
+<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\runtime.hpp" />
+
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_async_writer.cpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_async_writer.hpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_facility.cpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_facility.hpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_item_memory.cpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_item_memory.hpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_item_queue.cpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_item_queue.hpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_writer.cpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\log_writer.hpp" />
+<Item Filter="cx\library\runtime\log_facility"          File="$(cxDirectory)library\runtime\log_facility\pch.hpp" />
+
+
+<Item Filter="cx\library\pch"              File="$(cxDirectory)library\pch\pch_internal.hpp" />
+<Item Filter="cx\library\pch"              File="$(cxDirectory)library\pch\pch_internal_win32.hpp" />
+
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\pch.hpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\charset_system.cpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\charset_system.hpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\fs_std_wstring.cpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\fs_std_wstring.hpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\parse_c_string.cpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\parse_c_string.hpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\std_wstring_utility.cpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\std_wstring_utility.hpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\to_std_wstring.cpp" />
+<Item Filter="cx\library\common"           File="$(cxDirectory)library\common\to_std_wstring.hpp" />
+
+<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\command_line.cpp" />
+<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\command_line.hpp" />
 <Item Filter="cx\library\component"        File="$(cxDirectory)library\component\xml.cpp" />
 <Item Filter="cx\library\component"        File="$(cxDirectory)library\component\xml.hpp" />
+<Item Filter="cx\library\component"        File="$(cxDirectory)library\component\pch.hpp" />
+
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\network.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_addr_config.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_addr_config.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_msg.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_msg.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_msg_event_queue.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_msg_event_queue.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_msg_memory.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_msg_memory.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_msg_queue.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\net_msg_queue.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\pch.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_address.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_address.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_control.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_control.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_descriptor.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_descriptor.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_error.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_error.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_event_select.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\socket_event_select.hpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\wsa.cpp" />
+<Item Filter="cx\library\network"          File="$(cxDirectory)library\network\wsa.hpp" />
+
 
 <Item Filter="cx\library\gw"               File="$(cxDirectory)library\gw\gw.hpp" />
 <Item Filter="cx\library\gw"               File="$(cxDirectory)library\gw\pch.hpp" />
@@ -99,19 +161,9 @@
 <Item Filter="cx\library\gw\widget\Shape"  File="$(cxDirectory)library\gw\widget\Shape\Shape_Classes.cpp" />
 <Item Filter="cx\library\gw\widget\Shape"  File="$(cxDirectory)library\gw\widget\Shape\Shape_Classes.hpp" />
 
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\Assert.cpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\Assert.hpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\DebugMemory.cpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\DebugMemory.hpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\LastError.cpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\LastError.hpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\Log.cpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\Log.hpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\Macros.hpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\pch.hpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\runtime.hpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\WindowApplication.cpp" />
-<Item Filter="cx\library\runtime"          File="$(cxDirectory)library\runtime\WindowApplication.hpp" />
+
+
+
 
 <Item Filter="cx\library\wui"              File="$(cxDirectory)library\wui\pch.hpp" />
 <Item Filter="cx\library\wui"              File="$(cxDirectory)library\wui\wui.hpp" />

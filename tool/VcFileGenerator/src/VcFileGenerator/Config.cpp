@@ -10,7 +10,7 @@
 //===========================================================================
 #include <wui/wui.hpp>
 #include <runtime/runtime.hpp>
-#include <component/fs_std_wstring.hpp>
+#include <common/fs_std_wstring.hpp>
 #include <component/xml.hpp>
 
 //===========================================================================
@@ -35,11 +35,11 @@ public:
 		_Loader  { L"Config" },
 		_Saver   { L"Config" }
 	{
-		_Loader.get_xml_context()->set_read_xml_root_tag_handler(
+		_Loader.get_xml_context()->set_xml_root_tag_read_handler(
 			std::bind(&Config_XML_IO::readTag_Root, this, std::placeholders::_1)
 		);
 
-		_Saver.get_xml_context()->set_write_xml_root_tag_handler(
+		_Saver.get_xml_context()->set_xml_root_tag_write_handler(
 			std::bind(&Config_XML_IO::writeTag_Root, this, std::placeholders::_1)
 		);
 	}
@@ -68,9 +68,9 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool readTag_Root(cx::xml::xml_reader_t& reader)
+	bool readTag_Root(cx::xml::xml_reader& reader)
 	{
-		cx::xml::xml_read_handler_map_t readHandlerMap;
+		cx::xml::xml_read_handler_map readHandlerMap;
 
 
 		readHandlerMap[L"Template"] = std::bind(&Config_XML_IO::readTag_Template, this, std::placeholders::_1);
@@ -85,7 +85,7 @@ public:
 	}
 
 public:
-	bool readTag_Template(cx::xml::xml_reader_t& reader)
+	bool readTag_Template(cx::xml::xml_reader& reader)
 	{
 		bool rv;
 
@@ -99,7 +99,7 @@ public:
 		return true;
 	}
 
-	bool readTag_Project(cx::xml::xml_reader_t& reader)
+	bool readTag_Project(cx::xml::xml_reader& reader)
 	{
 		bool rv;
 
@@ -113,7 +113,7 @@ public:
 		return true;
 	}
 
-	bool readTag_Solution(cx::xml::xml_reader_t& reader)
+	bool readTag_Solution(cx::xml::xml_reader& reader)
 	{
 		bool rv;
 
@@ -129,12 +129,12 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool writeTag_Root(cx::xml::xml_writer_t& writer)
+	bool writeTag_Root(cx::xml::xml_writer& writer)
 	{
 		bool rv;
 
 
-		rv = cx::xml::write_xml_parent_tag_start(writer, _Saver.get_xml_context()->get_xml_root_tag_name());
+		rv = cx::xml::write_xml_tag_open(writer, _Saver.get_xml_context()->get_xml_root_tag_name());
 		if (true != rv)
 		{
 			return false;
@@ -158,7 +158,7 @@ public:
 		}
 
 
-		rv = cx::xml::write_xml_parent_tag_end(writer);
+		rv = cx::xml::write_xml_tag_close(writer);
 		if (true != rv)
 		{
 			return false;
@@ -168,12 +168,12 @@ public:
 	}
 
 public:
-	bool writeTag_Template(cx::xml::xml_writer_t& writer)
+	bool writeTag_Template(cx::xml::xml_writer& writer)
 	{
 		bool rv;
 
 
-		rv = cx::xml::write_xml_single_tag_start(writer, L"Template", 1);
+		rv = cx::xml::write_xml_tag_open(writer, L"Template", 1);
 		if (true != rv)
 		{
 			return false;
@@ -190,7 +190,8 @@ public:
 		}
 
 
-		rv = cx::xml::write_xml_single_tag_end(writer);
+		// single xml tag로 설정시에는 write_xml_tag_close()의 tab의 개수를 0으로 설정합니다.
+		rv = cx::xml::write_xml_tag_close(writer, 0);
 		if (true != rv)
 		{
 			return false;
@@ -199,12 +200,12 @@ public:
 		return true;
 	}
 
-	bool writeTag_Project(cx::xml::xml_writer_t& writer)
+	bool writeTag_Project(cx::xml::xml_writer& writer)
 	{
 		bool rv;
 
 
-		rv = cx::xml::write_xml_single_tag_start(writer, L"Project", 1);
+		rv = cx::xml::write_xml_tag_open(writer, L"Project", 1);
 		if (true != rv)
 		{
 			return false;
@@ -221,7 +222,8 @@ public:
 		}
 
 
-		rv = cx::xml::write_xml_single_tag_end(writer);
+		// single xml tag로 설정시에는 write_xml_tag_close()의 tab의 개수를 0으로 설정합니다.
+		rv = cx::xml::write_xml_tag_close(writer, 0);
 		if (true != rv)
 		{
 			return false;
@@ -230,12 +232,12 @@ public:
 		return true;
 	}
 
-	bool writeTag_Solution(cx::xml::xml_writer_t& writer)
+	bool writeTag_Solution(cx::xml::xml_writer& writer)
 	{
 		bool rv;
 
 
-		rv = cx::xml::write_xml_single_tag_start(writer, L"Solution", 1);
+		rv = cx::xml::write_xml_tag_open(writer, L"Solution", 1);
 		if (true != rv)
 		{
 			return false;
@@ -252,7 +254,8 @@ public:
 		}
 
 
-		rv = cx::xml::write_xml_single_tag_end(writer);
+		// single xml tag로 설정시에는 write_xml_tag_close()의 tab의 개수를 0으로 설정합니다.
+		rv = cx::xml::write_xml_tag_close(writer, 0);
 		if (true != rv)
 		{
 			return false;

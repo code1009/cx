@@ -4,8 +4,8 @@
 
 //===========================================================================
 #include <runtime/runtime.hpp>
-#include <component/fs_std_wstring.hpp>
-#include <component/charset_system.hpp>
+#include <common/fs_std_wstring.hpp>
+#include <common/charset_system.hpp>
 
 //===========================================================================
 #include "VcFile.hpp"

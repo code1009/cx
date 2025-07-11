@@ -5,8 +5,8 @@
 //===========================================================================
 #include <runtime/runtime.hpp>
 
-#include <component/std_wstring_utility.hpp>
-#include <component/fs_std_wstring.hpp>
+#include <common/std_wstring_utility.hpp>
+#include <common/fs_std_wstring.hpp>
 
 //===========================================================================
 #include "VcFile.hpp"

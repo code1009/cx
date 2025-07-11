@@ -9,8 +9,8 @@
 
 //===========================================================================
 #include <runtime/runtime.hpp>
-#include <component/fs_std_wstring.hpp>
-#include <component/std_wstring_utility.hpp>
+#include <common/fs_std_wstring.hpp>
+#include <common/std_wstring_utility.hpp>
 #include <component/xml.hpp>
 
 //===========================================================================
@@ -145,7 +145,7 @@ void VcItemData::initializeFileExtensionTypeMap(void)
 	for (auto& typeExt : _TypeFileExtensionsMap)
 	{
 		std::vector<std::wstring> exts;
-		exts = cx::tokenizeObject_std_wstring(typeExt.second, L";", false);
+		exts = cx::tokenize_object_std_wstring(typeExt.second, L";", false);
 		for (auto& ext : exts)
 		{
 			_FileExtensionTypeMap[ext] = typeExt.first;
@@ -183,7 +183,7 @@ public:
 		_Document{ doc },
 		_Loader{ L"VcItem" }
 	{
-		_Loader.get_xml_context()->set_read_xml_root_tag_handler(
+		_Loader.get_xml_context()->set_xml_root_tag_read_handler(
 			std::bind(&VcItem_XML_IO::readTag_Root, this, std::placeholders::_1)
 		);
 	}
@@ -197,9 +197,9 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	bool readTag_Root(cx::xml::xml_reader_t& reader)
+	bool readTag_Root(cx::xml::xml_reader& reader)
 	{
-		cx::xml::xml_read_handler_map_t readHandlerMap;
+		cx::xml::xml_read_handler_map readHandlerMap;
 
 
 		readHandlerMap[L"Item"] = std::bind(&VcItem_XML_IO::readTag_Item, this, std::placeholders::_1);
@@ -212,7 +212,7 @@ public:
 	}
 
 public:
-	bool readTag_Item(cx::xml::xml_reader_t& reader)
+	bool readTag_Item(cx::xml::xml_reader& reader)
 	{
 		std::wstring file;
 		std::wstring filter;
