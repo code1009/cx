@@ -15,14 +15,19 @@
 
 
 ## 라이브러리
-`cx/library`의 하위 디렉토리별로 라이브러리를 구성하고 있습니다.  
-`component`와 `runtime`는 공통 라이브러리입니다.
+`cx/library`의 하위 폴더 단위로 라이브러리를 구성하고 있습니다.  
+하위 폴더 `runtime`과 `common`은 공통으로 사용하는 모듈입니다.
+`runtime`과 `common`을 제외하고, 그 이외의 폴더 들은 각각 
+독립적으로 사용이 가능합니다.
+
+### `common`
+- 기본적인 공통 모듈입니다..
+
+### `runtime`
+- log와 assert문을 제공합니다.
 
 ### `component`
 - 유틸리티 모음입니다.
-
-### `runtime`
-- 기본적인 디버깅 정보를 위한 런타임 환경을 제공합니다.
 
 ### `wui(Windows User Interface)`
 - WinAPI 기반의 창(window)을 관리하는 라이브러리입니다.
