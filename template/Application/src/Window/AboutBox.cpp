@@ -26,57 +26,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#define IDC_ABOUTBOX_APP_VERSION 1001
-#define IDC_ABOUTBOX_APP_NAME    1002
-#define IDC_ABOUTBOX_APP_NOTE    1003
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-AboutBox::AboutBox()
-{
-	initializeDialogTemplate();
-
-	registerWindowMessageMap();
-}
-
-//===========================================================================
-void AboutBox::initializeDialogTemplate(void)
-{
-	cx::wui::MemoryDialogTemplateWriter w(_DialogTemplate);
-
-
-	w.BEGIN_DIALOG(0, 0, 260, 150);
-		w.DIALOG_CAPTION(L"정보");
-		w.DIALOG_STYLE  (DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU);
-		w.DIALOG_FONT   (9, L"Segoe UI");
-	w.END_DIALOG();
-	w.BEGIN_CONTROLS_MAP();
-		w.CONTROL_ICON         (MAKEINTRESOURCEW(IDI_MAIN)                 , IDC_STATIC              , 10,  20,  20,  20);
-		w.CONTROL_LTEXT        (L"어플리케이션"                            , IDC_ABOUTBOX_APP_NAME   , 35,  20, 210,  10);
-		w.CONTROL_LTEXT        (L"버전 0.0.0.0"                            , IDC_ABOUTBOX_APP_VERSION, 35,  30, 210,  10);
-		w.CONTROL_LTEXT        (L"Copyright (c) 2025 <회사 이름> Co., Ltd.", IDC_STATIC              , 35,  50, 210,  10);
-		w.CONTROL_LTEXT        (L"All Rights Reserved."                    , IDC_STATIC              , 35,  60, 210,  10);
-		w.CONTROL_LTEXT        (L""                                        , IDC_ABOUTBOX_APP_NOTE   , 35,  80, 210,  35);
-		w.CONTROL_DEFPUSHBUTTON(L"확인"                                    , IDOK                    ,190, 130,  65,  15);
-		w.CONTROL_GROUPBOX     (L""                                        , IDC_STATIC              ,  5,   5, 250, 120);
-	w.END_CONTROLS_MAP();
-
-
-	setTemplate(_DialogTemplate.getTemplatePtr());
-}
-
-//===========================================================================
-void AboutBox::registerWindowMessageMap(void)
-{
-	_WindowMessageMap.handle(WM_INITDIALOG) = &AboutBox::onInitDialog;
-	_WindowMessageMap.handle(WM_COMMAND   ) = &AboutBox::onCommand;
-}
-
-void AboutBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
+static std::wstring getAppVersionString(void)
 {
 	//-----------------------------------------------------------------------
 	int v0;
@@ -141,20 +91,75 @@ void AboutBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 		v3
 	);
 
-	SetDlgItemTextW(*this, IDC_ABOUTBOX_APP_VERSION, app_version);
+
+	return std::wstring(app_version);
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+#define IDC_ABOUTBOX_APP_VERSION 1001
+#define IDC_ABOUTBOX_APP_NAME    1002
+#define IDC_ABOUTBOX_APP_NOTE    1003
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+AboutBox::AboutBox()
+{
+	initializeDialogTemplate();
+
+	registerWindowMessageMap();
+}
+
+//===========================================================================
+void AboutBox::initializeDialogTemplate(void)
+{
+	cx::wui::MemoryDialogTemplateWriter w(_DialogTemplate);
+
+
+	w.BEGIN_DIALOG(0, 0, 260, 150);
+		w.DIALOG_CAPTION(L"정보");
+		w.DIALOG_STYLE  (DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU);
+		w.DIALOG_FONT   (9, L"Segoe UI");
+	w.END_DIALOG();
+	w.BEGIN_CONTROLS_MAP();
+		w.CONTROL_ICON         (MAKEINTRESOURCEW(IDI_APP_ICON)             , IDC_STATIC              , 10,  20,  20,  20);
+		w.CONTROL_LTEXT        (L"어플리케이션"                            , IDC_ABOUTBOX_APP_NAME   , 35,  20, 210,  10);
+		w.CONTROL_LTEXT        (L"버전 0.0.0.0"                            , IDC_ABOUTBOX_APP_VERSION, 35,  30, 210,  10);
+		w.CONTROL_LTEXT        (L"Copyright (c) 2025 <회사 이름> Co., Ltd.", IDC_STATIC              , 35,  50, 210,  10);
+		w.CONTROL_LTEXT        (L"All Rights Reserved."                    , IDC_STATIC              , 35,  60, 210,  10);
+		w.CONTROL_LTEXT        (L""                                        , IDC_ABOUTBOX_APP_NOTE   , 35,  80, 210,  35);
+		w.CONTROL_DEFPUSHBUTTON(L"확인"                                    , IDOK                    ,190, 130,  65,  15);
+		w.CONTROL_GROUPBOX     (L""                                        , IDC_STATIC              ,  5,   5, 250, 120);
+	w.END_CONTROLS_MAP();
+
+
+	setTemplate(_DialogTemplate.getTemplatePtr());
+}
+
+//===========================================================================
+void AboutBox::registerWindowMessageMap(void)
+{
+	_WindowMessageMap.handle(WM_INITDIALOG) = &AboutBox::onInitDialog;
+	_WindowMessageMap.handle(WM_COMMAND   ) = &AboutBox::onCommand;
+}
+
+void AboutBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
+{
+	//-----------------------------------------------------------------------
+	std::wstring appVersionString = getAppVersionString();
+	SetDlgItemTextW(*this, IDC_ABOUTBOX_APP_VERSION, appVersionString.c_str());
 
 
 	//-----------------------------------------------------------------------
-	wchar_t app_name[256];
-
-
-	LoadStringW(
-		cx::wui::getAppModule()->getInstanceHandle(),
-		IDS_APP_TITLE,
-		app_name,
-		sizeof(app_name) / sizeof(wchar_t)
-	);
-	SetDlgItemTextW(*this, IDC_ABOUTBOX_APP_NAME, app_name);
+	std::wstring appTitleString = cx::wui::loadString(IDS_APP_TITLE);
+	SetDlgItemTextW(*this, IDC_ABOUTBOX_APP_NAME, appTitleString.c_str());
 
 
 	//-----------------------------------------------------------------------
@@ -167,6 +172,10 @@ void AboutBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 	};
 
 	SetDlgItemTextW(*this, IDC_ABOUTBOX_APP_NOTE, app_note);
+
+
+	//-----------------------------------------------------------------------
+	cx::wui::centerWindow(getWindowHandle());
 
 
 	//-----------------------------------------------------------------------

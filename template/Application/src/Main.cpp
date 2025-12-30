@@ -23,14 +23,14 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#if 0
+#if 1
 #if defined(_DEBUG)
 #pragma comment(lib, "../../library/lib/cx_static_library/x64/Debug/cx_static_library.lib")
 #else
 #pragma comment(lib, "../../library/lib/cx_static_library/x64/Release/cx_static_library.lib")
 #endif
 #endif
-#if 1
+#if 0
 #pragma comment(lib, "cx_static_library.lib")
 #endif
 

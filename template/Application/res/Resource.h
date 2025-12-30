@@ -2,12 +2,12 @@
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
 // Application.rc에서 사용되고 있습니다.
 //
-#define IDC_MAIN                        101
-#define IDI_MAIN                        102
-#define IDI_SMALL                       103
-#define IDS_APP_TITLE                   104
-#define IDM_ABOUT                       106
-#define IDM_EXIT                        107
+#define IDS_APP_TITLE                   101
+#define IDI_APP_ICON                    102
+#define IDI_APP_ICON_SMALL              103
+#define IDM_ABOUT                       104
+#define IDM_EXIT                        105
+#define IDR_MAINFRAME                   128
 #define IDC_STATIC                      -1
 
 // Next default values for new objects

@@ -40,8 +40,8 @@ MainFrame::MainFrame()
 
 	windowClass.registerWindowClass(
 		MainFrame_WindowClassName,
-		IDC_MAIN,
-		IDI_MAIN, IDI_SMALL
+		IDR_MAINFRAME,
+		IDI_APP_ICON, IDI_APP_ICON_SMALL
 	);
 
 
@@ -195,7 +195,7 @@ void MainFrame::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 
 	switch (wm.nID())
 	{
-	case IDC_MAIN:
+	case IDR_MAINFRAME:
 		break;
 
 	default:
