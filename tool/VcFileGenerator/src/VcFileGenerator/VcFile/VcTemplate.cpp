@@ -8,10 +8,10 @@
 #include <wil/com.h>
 
 //===========================================================================
-#include <runtime/runtime.hpp>
-#include <common/fs_std_wstring.hpp>
-#include <common/std_wstring_utility.hpp>
-#include <component/xml.hpp>
+#include <cx/runtime/runtime.hpp>
+#include <cx/common/fs_std_wstring.hpp>
+#include <cx/common/std_wstring_utility.hpp>
+#include <cx/component/xml.hpp>
 
 //===========================================================================
 #include "VcFile.hpp"

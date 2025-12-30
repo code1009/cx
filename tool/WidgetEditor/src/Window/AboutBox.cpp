@@ -1,11 +1,11 @@
-/////////////////////////////////////////////////////////////////////////////
+ï»¿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "pch.hpp"
 
 //===========================================================================
-#include <wui/wui.hpp>
-#include <gw/gw.hpp>
-#include <runtime/runtime.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/gw/gw.hpp>
+#include <cx/runtime/runtime.hpp>
 
 //===========================================================================
 #include "../../res/resource.h"
@@ -19,7 +19,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// winver.h(Windows.h Æ÷ÇÔ)
+// winver.h(Windows.h í¬í•¨)
 // Api-ms-win-core-version-l1-1-0.dll
 #pragma comment (lib, "Version.lib")
 
@@ -54,33 +54,33 @@ void AboutBox::initializeDialogTemplate(void)
 	/*
 	IDD_ABOUTBOX DIALOGEX 0, 0, 260, 150
 	STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-	CAPTION "Á¤º¸"
+	CAPTION "ì •ë³´"
 	FONT 9, "Segoe UI", 0, 0, 0x0
 	BEGIN
 		GROUPBOX        "",IDC_STATIC,5,5,250,120
 		ICON            IDI_MAIN,IDC_STATIC,10,20,20,20
-		LTEXT           "¾îÇÃ¸®ÄÉÀÌ¼Ç",IDC_ABOUTBOX_APP_NAME,35,20,210,10
-		LTEXT           "¹öÀü 0.0.0.0",IDC_ABOUTBOX_APP_VERSION,35,30,210,10
-		LTEXT           "Copyright (c) 2025 <È¸»ç ÀÌ¸§> Co., Ltd.",IDC_STATIC,35,50,210,10
+		LTEXT           "ì–´í”Œë¦¬ì¼€ì´ì…˜",IDC_ABOUTBOX_APP_NAME,35,20,210,10
+		LTEXT           "ë²„ì „ 0.0.0.0",IDC_ABOUTBOX_APP_VERSION,35,30,210,10
+		LTEXT           "Copyright (c) 2025 <íšŒì‚¬ ì´ë¦„> Co., Ltd.",IDC_STATIC,35,50,210,10
 		LTEXT           "All Rights Reserved.",IDC_STATIC,35,60,210,10
 		LTEXT           "",IDC_ABOUTBOX_APP_NOTE,35,80,210,35
-		DEFPUSHBUTTON   "È®ÀÎ",IDOK,190,130,65,15
+		DEFPUSHBUTTON   "í™•ì¸",IDOK,190,130,65,15
 	END
 	*/
 
 	w.BEGIN_DIALOG(0, 0, 260, 150);
-		w.DIALOG_CAPTION(L"Á¤º¸");
+		w.DIALOG_CAPTION(L"ì •ë³´");
 		w.DIALOG_STYLE  (DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU);
 		w.DIALOG_FONT   (9, L"Segoe UI");
 	w.END_DIALOG();
 	w.BEGIN_CONTROLS_MAP();
 		w.CONTROL_ICON         (MAKEINTRESOURCEW(IDI_MAIN)                 , IDC_STATIC              , 10,  20,  20,  20);
-		w.CONTROL_LTEXT        (L"¾îÇÃ¸®ÄÉÀÌ¼Ç"                            , IDC_ABOUTBOX_APP_NAME   , 35,  20, 210,  10);
-		w.CONTROL_LTEXT        (L"¹öÀü 0.0.0.0"                            , IDC_ABOUTBOX_APP_VERSION, 35,  30, 210,  10);
-		w.CONTROL_LTEXT        (L"Copyright (c) 2025 <È¸»ç ÀÌ¸§> Co., Ltd.", IDC_STATIC              , 35,  50, 210,  10);
+		w.CONTROL_LTEXT        (L"ì–´í”Œë¦¬ì¼€ì´ì…˜"                            , IDC_ABOUTBOX_APP_NAME   , 35,  20, 210,  10);
+		w.CONTROL_LTEXT        (L"ë²„ì „ 0.0.0.0"                            , IDC_ABOUTBOX_APP_VERSION, 35,  30, 210,  10);
+		w.CONTROL_LTEXT        (L"Copyright (c) 2025 <íšŒì‚¬ ì´ë¦„> Co., Ltd.", IDC_STATIC              , 35,  50, 210,  10);
 		w.CONTROL_LTEXT        (L"All Rights Reserved."                    , IDC_STATIC              , 35,  60, 210,  10);
 		w.CONTROL_LTEXT        (L""                                        , IDC_ABOUTBOX_APP_NOTE   , 35,  80, 210,  35);
-		w.CONTROL_DEFPUSHBUTTON(L"È®ÀÎ"                                    , IDOK                    ,190, 130,  65,  15);
+		w.CONTROL_DEFPUSHBUTTON(L"í™•ì¸"                                    , IDOK                    ,190, 130,  65,  15);
 		w.CONTROL_GROUPBOX     (L""                                        , IDC_STATIC              ,  5,   5, 250, 120);
 	w.END_CONTROLS_MAP();
 
@@ -153,7 +153,7 @@ void AboutBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 	wchar_t app_version[256];
 
 
-	swprintf_s(app_version, L"¹öÁ¯ %d.%d.%d.%d",
+	swprintf_s(app_version, L"ë²„ì ¼ %d.%d.%d.%d",
 		v0,
 		v1,
 		v2,
@@ -179,10 +179,10 @@ void AboutBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 	//-----------------------------------------------------------------------
 	wchar_t app_note[] =
 	{
-	L"°æ°í:"                                                                L"\r\n"
-	L"ÀÌ ÄÄÇ»ÅÍ ÇÁ·Î±×·¥Àº ÀúÀÛ±Ç¹ý°ú ±¹Á¦ Çù¾àÀÇ º¸È£¸¦ ¹Þ½À´Ï´Ù."         L"\r\n"
-	L"ÀÌ ÇÁ·Î±×·¥ÀÇ ÀüºÎ ¶Ç´Â ÀÏºÎ¸¦ ¹«´ÜÀ¸·Î º¹Á¦, ¹èÆ÷ÇÏ´Â ÇàÀ§´Â"        L"\r\n"
-	L"¹Î»ç ¹× Çü»ç¹ý¿¡ ÀÇÇØ ¾ö°ÝÈ÷ ±ÔÁ¦µÇ¾î ÀÖÀ¸¸ç, ±â¼Ò »çÀ¯°¡ µË´Ï´Ù."    L"\r\n"
+	L"ê²½ê³ :"                                                                L"\r\n"
+	L"ì´ ì»´í“¨í„° í”„ë¡œê·¸ëž¨ì€ ì €ìž‘ê¶Œë²•ê³¼ êµ­ì œ í˜‘ì•½ì˜ ë³´í˜¸ë¥¼ ë°›ìŠµë‹ˆë‹¤."         L"\r\n"
+	L"ì´ í”„ë¡œê·¸ëž¨ì˜ ì „ë¶€ ë˜ëŠ” ì¼ë¶€ë¥¼ ë¬´ë‹¨ìœ¼ë¡œ ë³µì œ, ë°°í¬í•˜ëŠ” í–‰ìœ„ëŠ”"        L"\r\n"
+	L"ë¯¼ì‚¬ ë° í˜•ì‚¬ë²•ì— ì˜í•´ ì—„ê²©ížˆ ê·œì œë˜ì–´ ìžˆìœ¼ë©°, ê¸°ì†Œ ì‚¬ìœ ê°€ ë©ë‹ˆë‹¤."    L"\r\n"
 	};
 
 	SetDlgItemTextW(*this, IDC_ABOUTBOX_APP_NOTE, app_note);

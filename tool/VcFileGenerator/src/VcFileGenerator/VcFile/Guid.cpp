@@ -15,9 +15,9 @@
 //#include <rpcssl.h>
 
 //===========================================================================
-#include <runtime/runtime.hpp>
+#include <cx/runtime/runtime.hpp>
 
-#include <common/std_wstring_utility.hpp>
+#include <cx/common/std_wstring_utility.hpp>
 
 //===========================================================================
 #include "VcFile.hpp"

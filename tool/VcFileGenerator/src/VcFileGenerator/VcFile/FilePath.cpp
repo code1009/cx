@@ -3,10 +3,10 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <runtime/runtime.hpp>
+#include <cx/runtime/runtime.hpp>
 
-#include <common/std_wstring_utility.hpp>
-#include <common/fs_std_wstring.hpp>
+#include <cx/common/std_wstring_utility.hpp>
+#include <cx/common/fs_std_wstring.hpp>
 
 //===========================================================================
 #include "VcFile.hpp"

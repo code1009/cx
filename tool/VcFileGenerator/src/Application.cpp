@@ -3,16 +3,16 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <wui/wui.hpp>
-#include <gw/gw.hpp>
-#include <runtime/runtime.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/gw/gw.hpp>
+#include <cx/runtime/runtime.hpp>
 
-#include <network/net_msg.hpp>
-#include <network/net_msg_memory.hpp>
-#include <network/net_msg_event_queue.hpp>
-#include <network/net_addr_config.hpp>
-#include <network/wsa.hpp>
-#include <runtime/log_facility/log_facility.hpp>
+#include <cx/network/net_msg.hpp>
+#include <cx/network/net_msg_memory.hpp>
+#include <cx/network/net_msg_event_queue.hpp>
+#include <cx/network/net_addr_config.hpp>
+#include <cx/network/wsa.hpp>
+#include <cx/runtime/log_facility/log_facility.hpp>
 
 //===========================================================================
 #include "../res/resource.h"

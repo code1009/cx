@@ -3,9 +3,9 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <runtime/runtime.hpp>
-#include <common/fs_std_wstring.hpp>
-#include <common/charset_system.hpp>
+#include <cx/runtime/runtime.hpp>
+#include <cx/common/fs_std_wstring.hpp>
+#include <cx/common/charset_system.hpp>
 
 //===========================================================================
 #include "VcFile.hpp"

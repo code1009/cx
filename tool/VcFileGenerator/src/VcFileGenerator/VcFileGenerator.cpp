@@ -3,9 +3,9 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <wui/wui.hpp>
-#include <runtime/runtime.hpp>
-#include <common/fs_std_wstring.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/runtime/runtime.hpp>
+#include <cx/common/fs_std_wstring.hpp>
 
 //===========================================================================
 #include "VcFileGenerator.hpp"

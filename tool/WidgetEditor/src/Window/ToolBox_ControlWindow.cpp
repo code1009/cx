@@ -3,9 +3,9 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <wui/wui.hpp>
-#include <gw/gw.hpp>
-#include <runtime/runtime.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/gw/gw.hpp>
+#include <cx/runtime/runtime.hpp>
 
 //===========================================================================
 #include "ToolBox.hpp"
