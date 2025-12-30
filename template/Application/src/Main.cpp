@@ -3,8 +3,8 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <cx/wui/wui.hpp>
 #include <cx/runtime/runtime.hpp>
+#include <cx/wui/wui.hpp>
 
 //===========================================================================
 #include "Application.hpp"
@@ -23,10 +23,15 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+#if 0
 #if defined(_DEBUG)
 #pragma comment(lib, "../../library/lib/cx_static_library/x64/Debug/cx_static_library.lib")
 #else
 #pragma comment(lib, "../../library/lib/cx_static_library/x64/Release/cx_static_library.lib")
+#endif
+#endif
+#if 1
+#pragma comment(lib, "cx_static_library.lib")
 #endif
 
 

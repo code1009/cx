@@ -17,4 +17,5 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/Win32/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
