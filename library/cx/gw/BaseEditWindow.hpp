@@ -38,8 +38,8 @@ protected:
 	//-----------------------------------------------------------------------
 	// BaseEditWindow
 public:
-	[[nodiscard]] constexpr DocumentGrid*      getDocumentGrid     (void) { return _DocumentGrid.get();      }
-	[[nodiscard]] constexpr StatusOverayPanel* getStatusOverayPanel(void) { return _StatusOverayPanel.get(); }
+	DocumentGrid*      getDocumentGrid     (void) { return _DocumentGrid.get();      }
+	StatusOverayPanel* getStatusOverayPanel(void) { return _StatusOverayPanel.get(); }
 
 public:
 	virtual void drawDocument(void);

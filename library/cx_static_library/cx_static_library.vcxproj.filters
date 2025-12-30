@@ -1,0 +1,753 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="build">
+      <UniqueIdentifier>{476ff7ca-1da5-4b94-9ca3-c71689401074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx">
+      <UniqueIdentifier>{1ae87ca6-048d-4c5a-9508-25319d1c36b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\common">
+      <UniqueIdentifier>{f172f0ea-89d9-4bda-bbcd-1c2965ecc3be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\component">
+      <UniqueIdentifier>{8bdb6eb1-ff1d-4d4d-8f23-36aa357dfabe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\gw">
+      <UniqueIdentifier>{ac2be54f-1560-425d-a07c-695db5875f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\network">
+      <UniqueIdentifier>{f31fd03a-6f8a-4567-a9c2-90f89adf3ee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\pch">
+      <UniqueIdentifier>{a05831d2-ca7f-4eae-9d0e-82d335e486f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\rpn">
+      <UniqueIdentifier>{2ca9a1bd-e864-48dd-8966-5d4b38d8d650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\rs_comm">
+      <UniqueIdentifier>{60e58baa-e796-411e-a9cc-38dd75a79237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\runtime">
+      <UniqueIdentifier>{9c8e3cfb-2b84-4882-ab79-b8b755f06d4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\wui">
+      <UniqueIdentifier>{0c23d8fa-34ca-4462-9187-1132328a027d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\gw\Widget">
+      <UniqueIdentifier>{5cabb5bd-9b98-4c23-b58b-7c707817fa25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\gw\Widget\Design">
+      <UniqueIdentifier>{3d6b35a8-5190-416e-8e86-5e99f0c3e899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\gw\Widget\Shape">
+      <UniqueIdentifier>{3dd2cfd4-089c-4f04-8141-a5d44f6cef2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\runtime\log_facility">
+      <UniqueIdentifier>{18047a7d-319c-40a3-b56d-49769a9f43d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\wui\CommonDialog">
+      <UniqueIdentifier>{0a43020b-f791-4519-9c25-44f3c359530e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\wui\GDI">
+      <UniqueIdentifier>{886a511d-ca88-43e9-9395-033dfb33513d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\wui\Resource">
+      <UniqueIdentifier>{1bd0e1e6-1f3b-4ad3-9a76-383b5e20fcc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\wui\Window">
+      <UniqueIdentifier>{a46d23c0-e1be-4ff9-80f5-a7f1793358ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.hpp">
+      <Filter>build</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\common\charset_system.hpp">
+      <Filter>cx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\common\common.hpp">
+      <Filter>cx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\common\fs_std_wstring.hpp">
+      <Filter>cx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\common\parse_c_string.hpp">
+      <Filter>cx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\common\pch.hpp">
+      <Filter>cx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\common\std_wstring_utility.hpp">
+      <Filter>cx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\common\to_std_wstring.hpp">
+      <Filter>cx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\component\command_line.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\component\pch.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\component\xml.hpp">
+      <Filter>cx\component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\DesignWidget.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\DesignWidgetContext.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\pch.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\WidgetDesigner.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\WidgetDesignerCommand.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\WidgetDesignerConcreteCommand.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\WidgetDesignerFacility.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\WidgetDesignerModel.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\WidgetDesignerMouseTool.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Design\WidgetDesignerWindow.hpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\LineShape.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\LineShapeDesign.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\pch.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\RectangleShape.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\RectangleShapeDesign.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\Shape.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\Shape_Classes.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\ShapeDesign.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\ShapeDesignTemplate.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Shape\ShapeTemplate.hpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\pch.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\Widget.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetDocument.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetDrawingStyle.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetEvent.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetEventDragDrop.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetEventDragDrop_ClipboardFormat.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetEventDragDrop_HGlobal.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetEventDragDrop_WindowDragDropComObject.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetEventWindowMessageHandler.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetFactory.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Widget\WidgetResource.hpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\BaseEditWindow.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Bitmap.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Color.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Context.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\DirectX2dGraphic.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Drawable.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\gw.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\pch.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Point.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Viewport.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\gw\Window.hpp">
+      <Filter>cx\gw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\net_addr_config.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\net_msg.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\net_msg_event_queue.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\net_msg_memory.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\net_msg_queue.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\network.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\pch.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\socket.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\socket_address.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\socket_control.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\socket_descriptor.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\socket_error.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\socket_event_select.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\network\wsa.hpp">
+      <Filter>cx\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\pch\pch_internal.hpp">
+      <Filter>cx\pch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\pch\pch_internal_win32.hpp">
+      <Filter>cx\pch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rpn\cx-rpn.hpp">
+      <Filter>cx\rpn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rpn\cx-rpn-fsm.hpp">
+      <Filter>cx\rpn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rpn\cx-rpn-interpret.hpp">
+      <Filter>cx\rpn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rpn\cx-rpn-parser.hpp">
+      <Filter>cx\rpn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rpn\cx-rpn-tokenizer.hpp">
+      <Filter>cx\rpn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rpn\pch.hpp">
+      <Filter>cx\rpn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rs_comm\auto_critical_section.hpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rs_comm\rs_comm.hpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rs_comm\rs_comm_port.hpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rs_comm\rs_comm_port_connector.hpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rs_comm\rs_comm_port_impl.hpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rs_comm\rs_comm_port_reader.hpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rs_comm\rs_comm_port_writer.hpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\assert.hpp">
+      <Filter>cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\last_error.hpp">
+      <Filter>cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\log.hpp">
+      <Filter>cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\macros.hpp">
+      <Filter>cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\memory_debug.hpp">
+      <Filter>cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\pch.hpp">
+      <Filter>cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\runtime.hpp">
+      <Filter>cx\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\log_facility\log_async_writer.hpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\log_facility\log_facility.hpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\log_facility\log_item_memory.hpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\log_facility\log_item_queue.hpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\log_facility\log_writer.hpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\runtime\log_facility\pch.hpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\AppModule.hpp">
+      <Filter>cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\pch.hpp">
+      <Filter>cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\wui.hpp">
+      <Filter>cx\wui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\CommonDialog\FileDialog.hpp">
+      <Filter>cx\wui\CommonDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\CommonDialog\FolderDialog.hpp">
+      <Filter>cx\wui\CommonDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\CommonDialog\pch.hpp">
+      <Filter>cx\wui\CommonDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\BasicDCT.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\DC.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\DC_Classes.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\DC_Functions.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\GDIObject_Bitmap.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\GDIObject_Brush.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\GDIObject_Font.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\GDIObject_Pen.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\GDI\pch.hpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Resource\DialogTemplate.hpp">
+      <Filter>cx\wui\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Resource\pch.hpp">
+      <Filter>cx\wui\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Resource\Resource.hpp">
+      <Filter>cx\wui\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Resource\Resource_Functions.hpp">
+      <Filter>cx\wui\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\BaseWindow.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\BasicWindowT.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\Coord.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\MessageMapWindow.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\pch.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\Window.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\Window_Functions.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\WindowClass.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\WindowMessage.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\WindowMessageCrack.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\WindowMessageHandler.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\WindowMessageLoop.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\WindowMessageMap.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\WindowProc.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\wui\Window\WindowStyle.hpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>build</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\common\charset_system.cpp">
+      <Filter>cx\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\common\fs_std_wstring.cpp">
+      <Filter>cx\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\common\parse_c_string.cpp">
+      <Filter>cx\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\common\std_wstring_utility.cpp">
+      <Filter>cx\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\common\to_std_wstring.cpp">
+      <Filter>cx\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\component\command_line.cpp">
+      <Filter>cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\component\xml.cpp">
+      <Filter>cx\component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\DesignWidget.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\DesignWidgetContext.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\WidgetDesigner.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\WidgetDesignerCommand.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\WidgetDesignerConcreteCommand.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\WidgetDesignerFacility.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\WidgetDesignerModel.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\WidgetDesignerMouseTool.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Design\WidgetDesignerWindow.cpp">
+      <Filter>cx\gw\Widget\Design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\LineShape.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\LineShapeDesign.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\RectangleShape.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\RectangleShapeDesign.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\Shape.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\Shape_Classes.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\ShapeDesign.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\ShapeDesignTemplate.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Shape\ShapeTemplate.cpp">
+      <Filter>cx\gw\Widget\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\Widget.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetDocument.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetDrawingStyle.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetEventDragDrop.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetEventDragDrop_ClipboardFormat.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetEventDragDrop_HGlobal.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetEventDragDrop_WindowDragDropComObject.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetEventWindowMessageHandler.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetFactory.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Widget\WidgetResource.cpp">
+      <Filter>cx\gw\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\BaseEditWindow.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Bitmap.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Color.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Context.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\DirectX2dGraphic.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Drawable.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Point.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Viewport.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\gw\Window.cpp">
+      <Filter>cx\gw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\net_addr_config.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\net_msg.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\net_msg_event_queue.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\net_msg_memory.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\net_msg_queue.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\socket.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\socket_address.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\socket_control.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\socket_descriptor.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\socket_error.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\socket_event_select.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\network\wsa.cpp">
+      <Filter>cx\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rpn\cx-rpn-fsm.cpp">
+      <Filter>cx\rpn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rpn\cx-rpn-interpret.cpp">
+      <Filter>cx\rpn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rpn\cx-rpn-parser.cpp">
+      <Filter>cx\rpn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rpn\cx-rpn-tokenizer.cpp">
+      <Filter>cx\rpn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rs_comm\auto_critical_section.cpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rs_comm\rs_comm.cpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rs_comm\rs_comm_port.cpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rs_comm\rs_comm_port_connector.cpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rs_comm\rs_comm_port_impl.cpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rs_comm\rs_comm_port_reader.cpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\rs_comm\rs_comm_port_writer.cpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\assert.cpp">
+      <Filter>cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\last_error.cpp">
+      <Filter>cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\log.cpp">
+      <Filter>cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\memory_debug.cpp">
+      <Filter>cx\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\log_facility\log_async_writer.cpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\log_facility\log_facility.cpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\log_facility\log_item_memory.cpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\log_facility\log_item_queue.cpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\runtime\log_facility\log_writer.cpp">
+      <Filter>cx\runtime\log_facility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\AppModule.cpp">
+      <Filter>cx\wui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\CommonDialog\FileDialog.cpp">
+      <Filter>cx\wui\CommonDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\CommonDialog\FolderDialog.cpp">
+      <Filter>cx\wui\CommonDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\GDI\DC.cpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\GDI\DC_Classes.cpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\GDI\DC_Functions.cpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\GDI\GDIObject_Bitmap.cpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\GDI\GDIObject_Brush.cpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\GDI\GDIObject_Font.cpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\GDI\GDIObject_Pen.cpp">
+      <Filter>cx\wui\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Resource\DialogTemplate.cpp">
+      <Filter>cx\wui\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Resource\Resource.cpp">
+      <Filter>cx\wui\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Resource\Resource_Functions.cpp">
+      <Filter>cx\wui\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\BaseWindow.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\Coord.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\Window.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\Window_Functions.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\WindowClass.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\WindowMessage.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\WindowMessageCrack.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\WindowMessageLoop.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\Window\WindowProc.cpp">
+      <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -38,9 +38,9 @@ public:
 	Window& operator=(Window&&) = delete;
 
 public:
-	[[nodiscard]] constexpr HWND      getWindowHandle (void) { return _WindowHandle;   }
-	[[nodiscard]] constexpr Context*  getContext      (void) { return _Context.get();  }
-	[[nodiscard]] constexpr Viewport* getViewport     (void) { return _Viewport.get(); }
+	HWND      getWindowHandle (void) { return _WindowHandle;   }
+	Context*  getContext      (void) { return _Context.get();  }
+	Viewport* getViewport     (void) { return _Viewport.get(); }
 	
 public:
 	virtual void render(void);

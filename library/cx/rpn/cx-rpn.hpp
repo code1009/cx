@@ -15,7 +15,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include "cx-rpn-fsm.hpp"
-#include "cx-rpn-tokenizer.hpp"
-#include "cx-rpn-parser.hpp"
-#include "cx-rpn-interpret.hpp"
+#include <cx/rpn/cx-rpn-fsm.hpp>
+#include <cx/rpn/cx-rpn-tokenizer.hpp>
+#include <cx/rpn/cx-rpn-parser.hpp>
+#include <cx/rpn/cx-rpn-interpret.hpp>

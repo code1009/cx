@@ -8,7 +8,7 @@
 		/>
 
 	<ItemFiles>
-    <Item File="cx.VcItem.xml"/>
+		<!-- Item File="cx.VcItem.xml"/ -->
 		<Item File="WebUIApplication.VcItem.xml"/>
 	</ItemFiles>
 	

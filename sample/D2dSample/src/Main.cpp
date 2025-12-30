@@ -3,10 +3,10 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <wui/wui.hpp>
-#include <gw/gw.hpp>
-#include <runtime/runtime.hpp>
-#include <runtime/log_facility/log_facility.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/gw/gw.hpp>
+#include <cx/runtime/runtime.hpp>
+#include <cx/runtime/log_facility/log_facility.hpp>
 
 //===========================================================================
 #include "../res/resource.h"
@@ -25,6 +25,18 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #pragma comment(linker,"\"/manifestdependency:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+#if defined(_DEBUG)
+#pragma comment(lib, "../../library/lib/cx_static_library/x64/Debug/cx_static_library.lib")
+#else
+#pragma comment(lib, "../../library/lib/cx_static_library/x64/Release/cx_static_library.lib")
+#endif
 
 
 

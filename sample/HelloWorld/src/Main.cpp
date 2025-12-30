@@ -3,10 +3,22 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <wui/wui.hpp>
+#include <cx/wui/wui.hpp>
 
 //===========================================================================
 #include "../res/resource.h"
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+#if defined(_DEBUG)
+#pragma comment(lib, "../../library/lib/cx_static_library/x64/Debug/cx_static_library.lib")
+#else
+#pragma comment(lib, "../../library/lib/cx_static_library/x64/Release/cx_static_library.lib")
+#endif
 
 
 

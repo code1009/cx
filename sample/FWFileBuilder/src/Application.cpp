@@ -3,10 +3,10 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <wui/wui.hpp>
-#include <gw/gw.hpp>
-#include <runtime/runtime.hpp>
-#include <runtime/log_facility/log_facility.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/gw/gw.hpp>
+#include <cx/runtime/runtime.hpp>
+#include <cx/runtime/log_facility/log_facility.hpp>
 
 //===========================================================================
 #include "../res/resource.h"

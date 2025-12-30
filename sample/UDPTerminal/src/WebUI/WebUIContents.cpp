@@ -3,8 +3,8 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <wui/wui.hpp>
-#include <common/charset_system.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/common/charset_system.hpp>
 
 //===========================================================================
 #include "WebUI.hpp"

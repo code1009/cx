@@ -39,14 +39,14 @@ public:
 	virtual ~WidgetDesignerModel();
 
 public:
-	[[nodiscard]] constexpr Window* getWindow(void) const { return _Window; }
+	Window* getWindow(void) const { return _Window; }
 
-	[[nodiscard]] constexpr WidgetDocument*                  getWidgetDocument                 (void) const { return _WidgetDocument.get(); }
-	[[nodiscard]] constexpr WidgetEventWindowMessageHandler* getWidgetEventWindowMessageHandler(void) const { return _WidgetEventWindowMessageHandler.get(); }
-	[[nodiscard]] constexpr WidgetEventDragDropHandler*      getWidgetEventDragDropHandler     (void) const { return _WidgetEventDragDropHandler.get(); }
-	[[nodiscard]] constexpr WidgetResourceMap*   getWidgetResourceMap  (void) const { return _WidgetResourceMap.get(); }
-	[[nodiscard]] constexpr DesignWidgetContext* getDesignWidgetContext(void) const { return _DesignWidgetContext.get(); }
-	[[nodiscard]] constexpr WidgetDesigner*      getWidgetDesigner     (void) const { return _WidgetDesigner.get(); }
+	WidgetDocument*                  getWidgetDocument                 (void) const { return _WidgetDocument.get(); }
+	WidgetEventWindowMessageHandler* getWidgetEventWindowMessageHandler(void) const { return _WidgetEventWindowMessageHandler.get(); }
+	WidgetEventDragDropHandler*      getWidgetEventDragDropHandler     (void) const { return _WidgetEventDragDropHandler.get(); }
+	WidgetResourceMap*   getWidgetResourceMap  (void) const { return _WidgetResourceMap.get(); }
+	DesignWidgetContext* getDesignWidgetContext(void) const { return _DesignWidgetContext.get(); }
+	WidgetDesigner*      getWidgetDesigner     (void) const { return _WidgetDesigner.get(); }
 
 public:
 	virtual bool createDeviceIndependentResources(Context* ctx);

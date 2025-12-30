@@ -1,0 +1,10 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+  "name": "app",
+  "version": "1.0.0",
+  "dependencies": [
+    "wil",
+    "cpprestsdk",
+    "webview2"
+  ]
+}
