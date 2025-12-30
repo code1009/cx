@@ -35,6 +35,18 @@ std::vector<std::wstring> tokenize_object_std_wstring(const std::wstring& s, con
 std::wstring replace_std_wstring(const std::wstring& input, const std::wstring& findwhat, const std::wstring& replacewith);
 
 
+bool is_float_std_wstring(const std::wstring& s);
+bool is_double_std_wstring(const std::wstring& s);
+bool is_uint8_std_wstring(const std::wstring& s);
+bool is_uint16_std_wstring(const std::wstring& s);
+bool is_uint32_std_wstring(const std::wstring& s);
+bool is_uint64_std_wstring(const std::wstring& s);
+bool is_int8_std_wstring(const std::wstring& s);
+bool is_int16_std_wstring(const std::wstring& s);
+bool is_int32_std_wstring(const std::wstring& s);
+bool is_int64_std_wstring(const std::wstring& s);
+
+
 
 
 

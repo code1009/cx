@@ -166,6 +166,7 @@ bool read_xml_attr_double (xml_reader& reader, const wchar_t* attr_name, double&
 bool read_xml_attr_wstring(xml_reader& reader, const wchar_t* attr_name, std::wstring& v);
 
 //===========================================================================
+bool write_xml_tabs(xml_writer& writer, std::size_t tabs);
 bool write_xml_endl(xml_writer& writer);
 bool write_xml_tag_open(xml_writer& writer, const wchar_t* parent_tag_name, std::size_t tab=0);
 bool write_xml_tag_close(xml_writer& writer, std::size_t tab=0);

@@ -23,7 +23,7 @@ namespace cx::runtime
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-const std::size_t LOG_STRING_NAME_WIDTH = 16U;
+const std::size_t LOG_STRING_NAME_WIDTH = 24U;
 
 
 
@@ -34,11 +34,17 @@ const std::size_t LOG_STRING_NAME_WIDTH = 16U;
 static log_string get_function_name(log_string func)
 {
 	log_string::size_type pos = func.rfind(CX_RUNTIME_LOG_TEXT("::"));
+	log_string name;
 	if (pos != log_string::npos)
 	{
-		return func.substr(pos + 2U);
+		name = func.substr(pos + 2U);
 	}
-	return func;
+	else
+	{
+		name = func;
+	}
+	name += CX_RUNTIME_LOG_TEXT("()");
+	return name;
 }
 
 
@@ -232,8 +238,7 @@ void write_log_source(log_stringstream& ss, const log_source& source)
 			+ CX_RUNTIME_LOG_TEXT(":")
 			+ std::format(CX_RUNTIME_LOG_TEXT("{}"), source.line)
 			+ CX_RUNTIME_LOG_TEXT(" > ")
-			+ truncate_std_wstring(get_function_name(source.func), 20, false)
-			+ CX_RUNTIME_LOG_TEXT("() "),
+			+ get_function_name(source.func),
 			width,
 			false
 		);

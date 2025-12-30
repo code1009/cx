@@ -18,7 +18,7 @@ namespace cx
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-std::int32_t parse_std_int32_t_c_string(const char* value_string, std::int32_t default_value)
+int32_t parse_int32_t_c_string(const char* value_string, int32_t default_value)
 {
 	//-----------------------------------------------------------------------
 	if (nullptr==value_string)
@@ -32,18 +32,18 @@ std::int32_t parse_std_int32_t_c_string(const char* value_string, std::int32_t d
 
 
 	//-----------------------------------------------------------------------
-	std::uint32_t string_length;
+	uint32_t string_length;
 
 
 	// -2,147,483,648 ~ +2,147,483,647 = max length 11(with sign)
-	string_length = static_cast<std::uint32_t>( strlen(value_string) );
+	string_length = static_cast<uint32_t>( strlen(value_string) );
 	if ( 0u==string_length) { validate = false; }
 	if (11u< string_length) { validate = false; }
 		
 
 	//-----------------------------------------------------------------------
-	std::uint32_t i;
-	std::uint32_t count;
+	uint32_t i;
+	uint32_t count;
 
 	char ch;
 
@@ -99,7 +99,7 @@ std::int32_t parse_std_int32_t_c_string(const char* value_string, std::int32_t d
 
 
 	//-----------------------------------------------------------------------
-	std::int32_t value = default_value;
+	int32_t value = default_value;
 
 
 	if (true==validate)
@@ -114,7 +114,7 @@ std::int32_t parse_std_int32_t_c_string(const char* value_string, std::int32_t d
 }
 
 //===========================================================================
-std::uint32_t parse_std_uint32_t_c_string(const char* value_string, std::uint32_t default_value)
+uint32_t parse_uint32_t_c_string(const char* value_string, uint32_t default_value)
 {
 	//-----------------------------------------------------------------------
 	if (nullptr==value_string)
@@ -128,18 +128,18 @@ std::uint32_t parse_std_uint32_t_c_string(const char* value_string, std::uint32_
 
 
 	//-----------------------------------------------------------------------
-	std::uint32_t string_length;
+	uint32_t string_length;
 
 
 	// 0 ~ 4,294,967,295 = max length 10
-	string_length = static_cast<std::uint32_t>( strlen(value_string) );
+	string_length = static_cast<uint32_t>( strlen(value_string) );
 	if ( 0u==string_length) { validate = false; }
 	if (10u< string_length) { validate = false; }
 		
 
 	//-----------------------------------------------------------------------
-	std::uint32_t i;
-	std::uint32_t count;
+	uint32_t i;
+	uint32_t count;
 
 	char ch;
 
@@ -174,7 +174,7 @@ std::uint32_t parse_std_uint32_t_c_string(const char* value_string, std::uint32_
 	}
 
 	//-----------------------------------------------------------------------
-	std::uint32_t value = default_value;
+	uint32_t value = default_value;
 
 
 	if (true==validate)
@@ -189,7 +189,7 @@ std::uint32_t parse_std_uint32_t_c_string(const char* value_string, std::uint32_
 	return value;
 }
 
-std::uint32_t parse_std_uint32_t_hex_c_string(const char* value_string, std::uint32_t default_value)
+uint32_t parse_uint32_t_hex_c_string(const char* value_string, uint32_t default_value)
 {
 	//-----------------------------------------------------------------------
 	if (nullptr==value_string)
@@ -203,18 +203,18 @@ std::uint32_t parse_std_uint32_t_hex_c_string(const char* value_string, std::uin
 
 
 	//-----------------------------------------------------------------------
-	std::uint32_t string_length;
+	uint32_t string_length;
 
 
 	// 0 ~ FFFFFFFF = max length 8
-	string_length = static_cast<std::uint32_t>( strlen(value_string) );
+	string_length = static_cast<uint32_t>( strlen(value_string) );
 	if (0u==string_length) { validate = false; }
 	if (8u< string_length) { validate = false; }
 		
 
 	//-----------------------------------------------------------------------
-	std::uint32_t i;
-	std::uint32_t count;
+	uint32_t i;
+	uint32_t count;
 
 	char ch;
 
@@ -262,7 +262,7 @@ std::uint32_t parse_std_uint32_t_hex_c_string(const char* value_string, std::uin
 
 
 	//-----------------------------------------------------------------------
-	std::uint32_t value = default_value;
+	uint32_t value = default_value;
 
 
 	if (true==validate)
@@ -276,7 +276,7 @@ std::uint32_t parse_std_uint32_t_hex_c_string(const char* value_string, std::uin
 	return value;
 }
 
-std::uint32_t parse_std_uint32_t_prefix_c_string(const char* value_string, std::uint32_t default_value)
+uint32_t parse_uint32_t_prefix_c_string(const char* value_string, uint32_t default_value)
 {
 	//-----------------------------------------------------------------------
 	if (nullptr==value_string)
@@ -286,10 +286,10 @@ std::uint32_t parse_std_uint32_t_prefix_c_string(const char* value_string, std::
 	
 	
 	//-----------------------------------------------------------------------
-	std::uint32_t string_length;
+	uint32_t string_length;
 
 
-	string_length = static_cast<std::uint32_t>( strlen(value_string) );
+	string_length = static_cast<uint32_t>( strlen(value_string) );
 	if (0u==string_length)
 	{
 		return default_value;
@@ -301,7 +301,7 @@ std::uint32_t parse_std_uint32_t_prefix_c_string(const char* value_string, std::
 	{
 		if ( 0==strncmp (value_string, "#", 1u) )
 		{
-			return parse_std_uint32_t_hex_c_string(value_string+1, default_value);
+			return parse_uint32_t_hex_c_string(value_string+1, default_value);
 		}
 	}
 
@@ -309,16 +309,16 @@ std::uint32_t parse_std_uint32_t_prefix_c_string(const char* value_string, std::
 	{
 		if ( 0==strncmp (value_string, "0x", 2u) )
 		{
-			return parse_std_uint32_t_hex_c_string(value_string+2, default_value);
+			return parse_uint32_t_hex_c_string(value_string+2, default_value);
 		}
 		if ( 0==strncmp (value_string, "0X", 2u) )
 		{
-			return parse_std_uint32_t_hex_c_string(value_string+2, default_value);
+			return parse_uint32_t_hex_c_string(value_string+2, default_value);
 		}
 	}
 
 
-	return parse_std_uint32_t_c_string(value_string, default_value);
+	return parse_uint32_t_c_string(value_string, default_value);
 }
 
 //===========================================================================
@@ -332,10 +332,10 @@ bool parse_bool_c_string(const char* value_string, bool default_value)
 
 	
 	//-----------------------------------------------------------------------
-	std::uint32_t string_length;
+	uint32_t string_length;
 
 
-	string_length = static_cast<std::uint32_t>( strlen(value_string) );
+	string_length = static_cast<uint32_t>( strlen(value_string) );
 	if (0u==string_length)
 	{
 		return default_value;
@@ -363,33 +363,33 @@ bool parse_bool_c_string(const char* value_string, bool default_value)
 }
 
 //===========================================================================
-std::uint16_t parse_socket_addr_port_c_string(const char* socket_addr_port_string)
+uint16_t parse_socket_addr_port_c_string(const char* socket_addr_port_string)
 {
 	int           number;
-	std::uint16_t port;
+	uint16_t port;
 
 
-	number = parse_std_uint32_t_c_string(socket_addr_port_string, 0u);
-	port   = static_cast<std::uint16_t>(number);
+	number = parse_uint32_t_c_string(socket_addr_port_string, 0u);
+	port   = static_cast<uint16_t>(number);
 
 	return port;
 }
 
-std::uint32_t parse_socket_addr_ipv4_c_string(const char* socket_addr_ipv4_string)
+uint32_t parse_socket_addr_ipv4_c_string(const char* socket_addr_ipv4_string)
 {
 	// ip address: "000.000.000.000" 16 bytes
 
-	std::uint32_t string_length;
-	std::uint32_t i;
-	std::uint32_t count;
+	uint32_t string_length;
+	uint32_t i;
+	uint32_t count;
 	char ch;
-	std::uint32_t offset;
+	uint32_t offset;
 	bool validate;
 
-	std::uint32_t address_class_index;
-	std::uint8_t  address_class[4];
+	uint32_t address_class_index;
+	uint8_t  address_class[4];
 	char          address_class_string[4][32];
-	std::uint32_t address;
+	uint32_t address;
 
 
 	offset   = 0u;
@@ -403,7 +403,7 @@ std::uint32_t parse_socket_addr_ipv4_c_string(const char* socket_addr_ipv4_strin
 
 	if (nullptr!= socket_addr_ipv4_string)
 	{
-		string_length = static_cast<std::uint32_t>( strlen (socket_addr_ipv4_string) );
+		string_length = static_cast<uint32_t>( strlen (socket_addr_ipv4_string) );
 
 		if ( (7 <= string_length) && (string_length  <= 16) )
 		{
@@ -457,7 +457,7 @@ std::uint32_t parse_socket_addr_ipv4_c_string(const char* socket_addr_ipv4_strin
 				count = 4;
 				for (i=0u; i<count;i++)
 				{
-					address_class[i] = static_cast<std::uint8_t>(atoi( address_class_string[i] ));
+					address_class[i] = static_cast<uint8_t>(atoi( address_class_string[i] ));
 				}
 			}
 		}

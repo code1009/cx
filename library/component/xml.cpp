@@ -1049,6 +1049,23 @@ bool read_xml_attr_wstring(xml_reader& reader, const wchar_t* attr_name, std::ws
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+bool write_xml_tabs(xml_writer& writer, std::size_t tabs)
+{
+	HRESULT hr;
+
+
+	for (std::size_t i = 0; i < tabs; i++)
+	{
+		hr = writer->WriteWhitespace(L"\n");
+		if (FAILED(hr))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
 bool write_xml_endl(xml_writer& writer)
 {
 	HRESULT hr;

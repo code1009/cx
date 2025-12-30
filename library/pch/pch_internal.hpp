@@ -59,6 +59,7 @@
 //============================================================================
 // c++ stl 헤더
 #include <cinttypes>
+#include <cwctype>
 #include <cstdint>
 #include <cstddef>
 #include <stdexcept>
@@ -79,6 +80,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+#include <set>
 
 #include <optional>
 

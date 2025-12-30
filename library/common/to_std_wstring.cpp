@@ -20,6 +20,31 @@ namespace cx
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+std::wstring to_std_wstring(const bool value)
+{
+	return value ? L"true" : L"false";
+}
+
+bool to_bool(const std::wstring value, bool default_value)
+{
+	if (value == L"true" || value == L"1")
+	{
+		return true;
+	}
+	if (value == L"false" || value == L"0")
+	{
+		return false;
+	}
+	
+	return default_value;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 std::wstring to_std_wstring(const float value)
 {
 	std::wstringstream wss;

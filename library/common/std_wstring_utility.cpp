@@ -3,6 +3,12 @@
 #include "pch.hpp"
 
 //===========================================================================
+#include <cwctype>
+#include <cwchar>
+#include <limits>
+#include <cerrno>
+
+//===========================================================================
 #include "std_wstring_utility.hpp"
 
 
@@ -80,7 +86,7 @@ std::wstring ltrim_std_wstring(const std::wstring& s)
 		std::find_if(result.begin(), result.end(),
 			[](wchar_t ch)
 			{
-				return !std::isspace(ch);
+				return !std::iswspace(ch);
 			}
 		)
 	);
@@ -95,7 +101,7 @@ std::wstring rtrim_std_wstring(const std::wstring& s)
 			result.rbegin(), result.rend(),
 			[](wchar_t ch)
 			{
-				return !std::isspace(ch);
+				return !std::iswspace(ch);
 			}
 		).base(),
 		result.end()
@@ -267,6 +273,106 @@ std::wstring replace_std_wstring(const std::wstring& input, const std::wstring& 
 	return result;
 }
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+bool is_float_std_wstring(const std::wstring& s)
+{
+#pragma warning(push)
+#pragma warning(disable:4189)
+	const wchar_t* str = s.c_str();
+	wchar_t* endptr = nullptr;
+	errno = 0;
+	float value = std::wcstof(str, &endptr);
+	if (str == endptr) return false;
+	if (errno == ERANGE) return false;
+	while (*endptr) { if (!iswspace(*endptr)) return false; ++endptr; }
+	return true;
+#pragma warning(pop)
+}
+
+bool is_double_std_wstring(const std::wstring& s)
+{
+#pragma warning(push)
+#pragma warning(disable:4189)
+	const wchar_t* str = s.c_str();
+	wchar_t* endptr = nullptr;
+	errno = 0;
+	double value = std::wcstod(str, &endptr);
+	if (str == endptr) return false;
+	if (errno == ERANGE) return false;
+	while (*endptr) { if (!iswspace(*endptr)) return false; ++endptr; }
+	return true;
+#pragma warning(pop)
+}
+
+template<typename T>
+static bool is_uinteger_std_wstring(const std::wstring& s)
+{
+	const wchar_t* str = s.c_str();
+	wchar_t* endptr = nullptr;
+	errno = 0;
+	unsigned long long value = std::wcstoull(str, &endptr, 10);
+	if (str == endptr) return false;
+	if (errno == ERANGE) return false;
+	if (value > std::numeric_limits<T>::max()) return false;
+	while (*endptr) { if (!iswspace(*endptr)) return false; ++endptr; }
+	return true;
+}
+
+template<typename T>
+static bool is_integer_std_wstring(const std::wstring& s)
+{
+	const wchar_t* str = s.c_str();
+	wchar_t* endptr = nullptr;
+	errno = 0;
+	long long value = std::wcstoll(str, &endptr, 10);
+	if (str == endptr) return false;
+	if (errno == ERANGE) return false;
+	if (value < std::numeric_limits<T>::min() || value > std::numeric_limits<T>::max()) return false;
+	while (*endptr) { if (!iswspace(*endptr)) return false; ++endptr; }
+	return true;
+}
+
+bool is_uint8_std_wstring(const std::wstring& s)
+{
+	return is_uinteger_std_wstring<uint8_t>(s);	
+}
+
+bool is_uint16_std_wstring(const std::wstring& s)
+{
+	return is_uinteger_std_wstring<uint16_t>(s);
+}
+
+bool is_uint32_std_wstring(const std::wstring& s)
+{
+	return is_uinteger_std_wstring<uint32_t>(s);
+}
+
+bool is_uint64_std_wstring(const std::wstring& s)
+{
+	return is_uinteger_std_wstring<uint64_t>(s);
+}
+
+bool is_int8_std_wstring(const std::wstring& s)
+{
+	return is_integer_std_wstring<int8_t>(s);
+}
+bool is_int16_std_wstring(const std::wstring& s)
+{
+	return is_integer_std_wstring<int16_t>(s);
+}
+bool is_int32_std_wstring(const std::wstring& s)
+{
+	return is_integer_std_wstring<int32_t>(s);
+}
+bool is_int64_std_wstring(const std::wstring& s)
+{
+	return is_integer_std_wstring<int64_t>(s);
+}
 
 
 

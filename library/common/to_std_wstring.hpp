@@ -17,6 +17,9 @@ namespace cx
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+std::wstring to_std_wstring(const bool value);
+bool to_bool(const std::wstring value, bool default_value=false);
+
 std::wstring to_std_wstring(const float value);
 float to_float(const std::wstring value);
 
