@@ -4,7 +4,6 @@
 
 //===========================================================================
 #include <cx/wui/wui.hpp>
-#include <cx/gw/gw.hpp>
 #include <cx/runtime/runtime.hpp>
 
 #include <cx/network/net_msg.hpp>
@@ -58,15 +57,6 @@ bool Application::initialize(void)
 
 
 	//-----------------------------------------------------------------------
-	rv = cx::gw::DirectX2dGraphic::createFactory();
-	if (false == rv)
-	{
-		terminate();
-		return false;
-	}
-
-
-	//-----------------------------------------------------------------------
 	rv = cx::network::wsa_startup();
 	if (false == rv)
 	{
@@ -108,10 +98,6 @@ void Application::terminate(void)
 		<< L"END" << std::endl
 		<< L"----------------------------------------------------------------------------"
 		;
-
-
-	//-----------------------------------------------------------------------
-	cx::gw::DirectX2dGraphic::destroyFactory();
 
 
 	//-----------------------------------------------------------------------

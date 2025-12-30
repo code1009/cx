@@ -4,7 +4,6 @@
 
 //===========================================================================
 #include <cx/wui/wui.hpp>
-#include <cx/gw/gw.hpp>
 #include <cx/runtime/runtime.hpp>
 #include <cx/runtime/log_facility/log_facility.hpp>
 
@@ -51,15 +50,6 @@ bool Application::initialize(void)
 		;
 
 
-	//-----------------------------------------------------------------------
-	rv = cx::gw::DirectX2dGraphic::createFactory();
-	if (false == rv)
-	{
-		terminate();
-		return false;
-	}
-
-
 	return true;
 }
 
@@ -71,10 +61,6 @@ void Application::terminate(void)
 		<< L"END" << std::endl
 		<< L"----------------------------------------------------------------------------"
 		;
-
-
-	//-----------------------------------------------------------------------
-	cx::gw::DirectX2dGraphic::destroyFactory();
 
 
 	//-----------------------------------------------------------------------
