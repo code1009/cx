@@ -17,7 +17,7 @@ namespace cx::d2d
 //===========================================================================
 class DrawingSession
 {
-public:
+private:
 	Context* _Context{ nullptr };
 
 public:

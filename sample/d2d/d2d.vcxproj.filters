@@ -33,22 +33,22 @@
     <ClCompile Include=".\src\pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\d2d\cx-d2d-DrawingSession.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d.cpp">
       <Filter>src\d2d</Filter>
     </ClCompile>
-    <ClCompile Include="src\d2d\cx-d2d.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp">
       <Filter>src\d2d</Filter>
     </ClCompile>
-    <ClCompile Include="src\d2d\cx-d2d-Factory.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp">
       <Filter>src\d2d</Filter>
     </ClCompile>
-    <ClCompile Include="src\d2d\cx-d2d-Context.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.cpp">
       <Filter>src\d2d</Filter>
     </ClCompile>
-    <ClCompile Include="src\d2d\cx-d2d-Renderer.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Factory.cpp">
       <Filter>src\d2d</Filter>
     </ClCompile>
-    <ClCompile Include="src\d2d\cx-d2d-Canvas.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Renderer.cpp">
       <Filter>src\d2d</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,25 +80,25 @@
     <ClInclude Include=".\src\targetver.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\d2d\cx-d2d-DrawingSession.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d.hpp">
       <Filter>src\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="src\d2d\pch.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp">
       <Filter>src\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="src\d2d\cx-d2d.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp">
       <Filter>src\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="src\d2d\cx-d2d-Factory.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.hpp">
       <Filter>src\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="src\d2d\cx-d2d-Context.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Factory.hpp">
       <Filter>src\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="src\d2d\cx-d2d-Renderer.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Renderer.hpp">
       <Filter>src\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="src\d2d\cx-d2d-Canvas.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\pch.hpp">
       <Filter>src\d2d</Filter>
     </ClInclude>
   </ItemGroup>
