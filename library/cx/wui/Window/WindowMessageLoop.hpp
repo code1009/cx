@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #pragma once
 
@@ -39,11 +39,19 @@ public:
 	WindowMessageLoop& operator=(WindowMessageLoop&&) = delete;
 
 public:
-	virtual void addIdleHandler(IdleHandler handler);
+	void addIdleHandler(IdleHandler handler);
 
 public:
-	virtual void run(void);
-	virtual void onIdle(void);
+	void run(HACCEL hAccelTable=nullptr);
+
+private:
+	void runStandard(void);
+	void runWithAccel(HACCEL hAccelTable);
+	void runWithIdle(void);
+	void runWithIdleAndAccel(HACCEL hAccelTable);
+
+private:
+	void processIdleHandlers(void);
 };
 
 
