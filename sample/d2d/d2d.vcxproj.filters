@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{1557b59a-a162-4127-bf41-ea928ab6948b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{1d26d216-e745-4bef-ba2d-19085af9c32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Window">
+      <UniqueIdentifier>{3a0979aa-657b-4699-a96d-2ab915d3ec8c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include=".\src\Application.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Window\AboutBox.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Window\MainFrame.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Window\View.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include=".\res\Resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Application.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Window\AboutBox.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Window\MainFrame.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Window\View.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Window\pch.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\framework.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\pch.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\targetver.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\res\Application.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include=".\res\Application.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include=".\res\small.ico">
+      <Filter>res</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".\vcpkg.json"/>
+  </ItemGroup>
+</Project>
