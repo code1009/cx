@@ -35,8 +35,8 @@
 #include <cx/wui/AppModule.hpp>
 
 //===========================================================================
-#include <cx/wui/Window/WindowClass.hpp>
 #include <cx/wui/Window/WindowProc.hpp>
+#include <cx/wui/Window/WindowClass.hpp>
 #include <cx/wui/Window/Window.hpp>
 
 #include <cx/wui/Window/WindowStyle.hpp>

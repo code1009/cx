@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #pragma once
 
@@ -29,10 +29,12 @@ public:
 
 	explicit WindowClass(
 		LPCWSTR   className,
-		UINT      idMenu    = 0,
-		UINT      idIcon    = 0, UINT idSmallIcon = 0, UINT idCursor = 0,
-		UINT      style     = CS_HREDRAW | CS_VREDRAW,
-		HINSTANCE hInstance = nullptr
+		UINT      idMenu      = 0,
+		UINT      idIcon      = 0, 
+		UINT      idSmallIcon = 0, 
+		UINT      idCursor    = 0,
+		UINT      style       = CS_HREDRAW | CS_VREDRAW,
+		HINSTANCE hInstance   = nullptr
 	);
 
 public:
@@ -48,10 +50,12 @@ public:
 public:
 	void registerWindowClass(
 		LPCWSTR   className,
-		UINT      idMenu    = 0,
-		UINT      idIcon    = 0, UINT idSmallIcon = 0, UINT idCursor = 0,
-		UINT      style     = CS_HREDRAW | CS_VREDRAW,
-		HINSTANCE hInstance = nullptr
+		UINT      idMenu      = 0,
+		UINT      idIcon      = 0, 
+		UINT      idSmallIcon = 0, 
+		UINT      idCursor    = 0,
+		UINT      style       = CS_HREDRAW | CS_VREDRAW,
+		HINSTANCE hInstance   = nullptr
 		);
 	void unregisterWindowClass(void);
 
