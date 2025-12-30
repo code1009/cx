@@ -3,15 +3,10 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <cx/wui/wui.hpp>
 #include <cx/runtime/runtime.hpp>
-
-#include <cx/network/net_msg.hpp>
-#include <cx/network/net_msg_memory.hpp>
-#include <cx/network/net_msg_event_queue.hpp>
-#include <cx/network/net_addr_config.hpp>
-#include <cx/network/wsa.hpp>
 #include <cx/runtime/log_facility/log_facility.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/network/network.hpp>
 
 //===========================================================================
 #include "../res/resource.h"
