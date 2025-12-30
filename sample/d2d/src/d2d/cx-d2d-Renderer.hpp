@@ -21,6 +21,8 @@ class Renderer
 {
 private:
 	Context* _Context{ nullptr };
+	std::uint32_t _Width{ 0 };
+	std::uint32_t _Height{ 0 };
 
 public:
 	explicit Renderer(Context* context);

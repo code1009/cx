@@ -52,21 +52,24 @@ Context::~Context()
 }
 
 //===========================================================================
-bool Context::createRenderTarget(void)
+bool Context::createRenderTarget(std::uint32_t cx, std::uint32_t cy)
 {
 	HRESULT hr;
 	hr = getD2dFactory()->CreateHwndRenderTarget(
 		D2D1::RenderTargetProperties(),
-		D2D1::HwndRenderTargetProperties(_hwnd),
+		D2D1::HwndRenderTargetProperties(_hwnd, D2D1::SizeU(cx, cy)),
 		_pD2dHwndRenderTarget.put()
 	);
 	if (FAILED(hr))
 	{
 		return false;
 	}
-
-
 	return true;
+}
+
+bool Context::createRenderTarget(void)
+{
+	return createRenderTarget(0, 0);
 }
 
 void Context::destroyRenderTarget(void)

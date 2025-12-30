@@ -34,6 +34,10 @@ Renderer::~Renderer()
 //===========================================================================
 void Renderer::resize(std::uint32_t width, std::uint32_t height)
 {
+	_Width = width;
+	_Height = height;
+
+
 	if (_Context->getD2dHwndRenderTarget())
 	{
 		_Context->getD2dHwndRenderTarget()->Resize(
@@ -103,7 +107,7 @@ bool Renderer::createDeviceResources(void)
 
 	bool rv;
 
-	rv = _Context->createRenderTarget();
+	rv = _Context->createRenderTarget(_Width, _Height);
 	if (!rv)
 	{
 		return false;

@@ -59,21 +59,18 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	cx::d2d::Factory factory;
-	_Context = std::make_unique<cx::d2d::Context>(hwnd, &factory);
-	_Renderer = std::make_unique<cx::d2d::Renderer>(_Context.get());
-
-
-	//-----------------------------------------------------------------------
 	RECT rect;
 	::GetClientRect(*this, &rect);
-
-
-	//-----------------------------------------------------------------------
 	UINT cx;
 	UINT cy;
 	cx = static_cast<UINT>(rect.right - rect.left);
 	cy = static_cast<UINT>(rect.bottom - rect.top);
+
+
+	//-----------------------------------------------------------------------
+	cx::d2d::Factory factory;
+	_Context = std::make_unique<cx::d2d::Context>(hwnd, &factory);
+	_Renderer = std::make_unique<cx::d2d::Renderer>(_Context.get());
 	_Renderer->resize(cx, cy);
 	_Renderer->render();
 }

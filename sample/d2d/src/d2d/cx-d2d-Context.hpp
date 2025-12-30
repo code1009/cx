@@ -40,6 +40,7 @@ public:
 	Context& operator=(Context&&) = delete;
 
 public:
+	bool createRenderTarget(std::uint32_t cx, std::uint32_t cy);
 	bool createRenderTarget(void);
 	void destroyRenderTarget(void);
 
