@@ -48,6 +48,9 @@
     <ClCompile Include="src\d2d\cx-d2d-Renderer.cpp">
       <Filter>src\d2d</Filter>
     </ClCompile>
+    <ClCompile Include="src\d2d\cx-d2d-Canvas.cpp">
+      <Filter>src\d2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -93,6 +96,9 @@
       <Filter>src\d2d</Filter>
     </ClInclude>
     <ClInclude Include="src\d2d\cx-d2d-Renderer.hpp">
+      <Filter>src\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\d2d\cx-d2d-Canvas.hpp">
       <Filter>src\d2d</Filter>
     </ClInclude>
   </ItemGroup>

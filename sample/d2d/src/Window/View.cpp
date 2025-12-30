@@ -52,6 +52,21 @@ View::View(HWND parentWindowHandle)
 		throw std::runtime_error("View::View(): createView() failed");
 	}
 
+	/*
+	//-----------------------------------------------------------------------
+	RECT rect;
+	UINT cx;
+	UINT cy;
+	::GetClientRect(*this, &rect);
+	cx = static_cast<UINT>(rect.right - rect.left);
+	cy = static_cast<UINT>(rect.bottom - rect.top);
+
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"cx=" << cx
+		<< L" "
+		<< L"cy=" << cy
+		;
+
 
 	//-----------------------------------------------------------------------
 	::ShowWindow(*this, SW_SHOW);
@@ -59,20 +74,46 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	RECT rect;
 	::GetClientRect(*this, &rect);
-	UINT cx;
-	UINT cy;
 	cx = static_cast<UINT>(rect.right - rect.left);
 	cy = static_cast<UINT>(rect.bottom - rect.top);
 
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"cx=" << cx
+		<< L" "
+		<< L"cy=" << cy
+		;
+	*/
 
 	//-----------------------------------------------------------------------
 	cx::d2d::Factory factory;
-	_Context = std::make_unique<cx::d2d::Context>(hwnd, &factory);
-	_Renderer = std::make_unique<cx::d2d::Renderer>(_Context.get());
-	_Renderer->resize(cx, cy);
-	_Renderer->render();
+	_Canvas = std::make_unique<cx::d2d::Canvas>(&factory, hwnd);
+	_Canvas->onDraw =
+		[this](cx::d2d::DrawingSession* drawingSession)
+		{
+			auto renderTarget = drawingSession->getContext()->getD2dHwndRenderTarget();
+
+			renderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Yellow));
+
+
+			wil::com_ptr_nothrow<ID2D1SolidColorBrush> solidColorBrush;
+
+			renderTarget->CreateSolidColorBrush(
+				D2D1::ColorF(D2D1::ColorF::Black),
+				solidColorBrush.put()
+			);
+
+			renderTarget->DrawEllipse(
+				D2D1::Ellipse(
+					D2D1::Point2F(100.0f, 100.0f),
+					50.0f,
+					50.0f
+				),
+				solidColorBrush.get(),
+				5.0f
+			);
+		}
+	;
 }
 
 //===========================================================================
@@ -84,6 +125,10 @@ HWND View::createView(HWND parentWindowHandle)
 	DWORD     dwStyle       = cx::wui::ChildWindowStyle;
 	DWORD     dwExStyle     = cx::wui::ChildWindowStyleEx;
 
+
+	dwStyle |= WS_VSCROLL;
+	dwStyle |= WS_HSCROLL;
+	dwExStyle |= WS_EX_CLIENTEDGE;
 
 	HWND hwnd;
 	hwnd = createWindow(
@@ -109,6 +154,14 @@ void View::registerWindowMessageMap(void)
 void View::onSize(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
+#if 0
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"onSize()"
+		;
+#endif
+
+
+	//-----------------------------------------------------------------------
 	RECT rect;
 	::GetClientRect(*this, &rect);
 
@@ -121,24 +174,33 @@ void View::onSize(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	if (_Renderer)
+	if (_Canvas)
 	{
-		_Renderer->resize(cx, cy);
-		//_Renderer->render();
+		_Canvas->resize(cx, cy);
 	}
 }
 
 void View::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 {
-	///OutputDebugStringW(L"View::onEraseBkgnd()\r\n");
+#if 0
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"onEraseBkgnd()"
+		;
+#endif
+
 	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
 	wm.Result(TRUE);
 }
 
 void View::onPaint(cx::wui::WindowMessage& windowMessage)
 {
-	//OutputDebugStringW(L"View::onPaint()\r\n");
-	_Renderer->render();
+#if 0
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"onPaint()"
+		;
+#endif
+
+	_Canvas->invalidate();
 
 	// The ValidateRect function validates the client area within a rectangle by
 	// removing the rectangle from the update region of the window.
@@ -191,9 +253,9 @@ void View::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 //===========================================================================
 void View::onIdle(void)
 {
-	if (_Renderer)
+	if (_Canvas)
 	{
-		_Renderer->render();
+		_Canvas->invalidate();
 	}
 }
 

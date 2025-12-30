@@ -10,8 +10,7 @@ class View :
 	public cx::wui::MessageMapWindowT<View, cx::wui::BaseWindow>
 {
 public:
-	std::unique_ptr<cx::d2d::Context> _Context;
-	std::unique_ptr<cx::d2d::Renderer> _Renderer;
+	std::unique_ptr<cx::d2d::Canvas> _Canvas;
 	
 public:
 	explicit View(HWND parentWindowHandle);

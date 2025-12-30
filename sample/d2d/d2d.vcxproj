@@ -30,6 +30,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\d2d\cx-d2d-Canvas.cpp" />
     <ClCompile Include="src\d2d\cx-d2d-Context.cpp" />
     <ClCompile Include="src\d2d\cx-d2d-DrawingSession.cpp" />
     <ClCompile Include="src\d2d\cx-d2d-Factory.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include=".\src\framework.hpp" />
     <ClInclude Include=".\src\pch.hpp" />
     <ClInclude Include=".\src\targetver.h" />
+    <ClInclude Include="src\d2d\cx-d2d-Canvas.hpp" />
     <ClInclude Include="src\d2d\cx-d2d-Context.hpp" />
     <ClInclude Include="src\d2d\cx-d2d-Factory.hpp" />
     <ClInclude Include="src\d2d\cx-d2d-Renderer.hpp" />
@@ -190,7 +192,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/x64/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(cxDirectory)/x64/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

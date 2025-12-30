@@ -58,6 +58,9 @@
     <Filter Include="cx\wui\Window">
       <UniqueIdentifier>{a46d23c0-e1be-4ff9-80f5-a7f1793358ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cx\ev">
+      <UniqueIdentifier>{2731aa00-a2a2-440e-8f1a-96dc5136aa94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.hpp">
@@ -450,6 +453,18 @@
     <ClInclude Include="..\cx\wui\Window\WindowStyle.hpp">
       <Filter>cx\wui\Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\cx\ev\cx-ev.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\ev\cx-ev-core.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\ev\cx-ev-key.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\ev\cx-ev-target.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -748,6 +763,15 @@
     </ClCompile>
     <ClCompile Include="..\cx\wui\Window\WindowProc.cpp">
       <Filter>cx\wui\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\ev\cx-ev-core.cpp">
+      <Filter>cx\ev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\ev\cx-ev-key.cpp">
+      <Filter>cx\ev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\ev\cx-ev-target.cpp">
+      <Filter>cx\ev</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

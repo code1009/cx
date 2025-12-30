@@ -24,66 +24,18 @@ Renderer::Renderer(Context* context)
 {
 }
 
+Renderer::Renderer(Context* context, std::uint32_t cx, std::uint32_t cy)
+	: _Context{ context }
+	, _cx{ cx }
+	, _cy{ cy }
+{
+}
+
 //===========================================================================
 Renderer::~Renderer()
 {
 	destroyDeviceResources();
 	destroyDeviceIndependentResources();
-}
-
-//===========================================================================
-void Renderer::resize(std::uint32_t width, std::uint32_t height)
-{
-	_Width = width;
-	_Height = height;
-
-
-	if (_Context->getD2dHwndRenderTarget())
-	{
-		_Context->getD2dHwndRenderTarget()->Resize(
-			D2D1::SizeU(
-				static_cast<UINT32>(width),
-				static_cast<UINT32>(height)
-			)
-		);
-
-		CX_RUNTIME_LOG(cxLInfo)
-			<< L"width=" << width
-			<< L" "
-			<< L"height=" << height
-			;
-	}
-}
-
-//===========================================================================
-void Renderer::render(void)
-{
-	bool rv;
-
-
-	rv = createDeviceResources();
-	if (rv)
-	{
-		_Context->getD2dHwndRenderTarget()->BeginDraw();
-
-
-		draw();
-
-
-		HRESULT hr;
-		hr = _Context->getD2dHwndRenderTarget()->EndDraw();
-		if (hr == D2DERR_RECREATE_TARGET)
-		{
-			CX_RUNTIME_LOG(cxLInfo)
-				<< L"D2DERR_RECREATE_TARGET" << std::endl
-				;
-			destroyDeviceResources();
-		}
-	}
-	else
-	{
-		destroyDeviceResources();
-	}
 }
 
 //===========================================================================
@@ -107,7 +59,7 @@ bool Renderer::createDeviceResources(void)
 
 	bool rv;
 
-	rv = _Context->createRenderTarget(_Width, _Height);
+	rv = _Context->createRenderTarget(_cx, _cy);
 	if (!rv)
 	{
 		return false;
@@ -130,70 +82,78 @@ void Renderer::destroyDeviceResources(void)
 }
 
 //===========================================================================
-void Renderer::draw(void)
+void Renderer::resize(std::uint32_t cx, std::uint32_t cy)
 {
+	_cx = cx;
+	_cy = cy;
+
+
+	if (_Context->getD2dHwndRenderTarget())
+	{
+		_Context->getD2dHwndRenderTarget()->Resize(
+			D2D1::SizeU(
+				static_cast<UINT32>(_cx),
+				static_cast<UINT32>(_cy)
+			)
+		);
 #if 0
-	//-----------------------------------------------------------------------
-	D2D1::Matrix3x2F matrix;
-
-
-	matrix = D2D1::Matrix3x2F::Identity();
-
-
-	//-----------------------------------------------------------------------
-	double translationX;
-	double translationY;
-
-
-	_Viewport->getDocumentViewportPointTranslation(translationX, translationY);
-
-
-	//-----------------------------------------------------------------------
-	double scale;
-
-
-	_Viewport->getScale(scale);
-
-
-	//-----------------------------------------------------------------------
-	matrix =
-		D2D1::Matrix3x2F::Scale(
-			static_cast<FLOAT>(scale),
-			static_cast<FLOAT>(scale)
-		);
-	matrix =
-		matrix *
-		D2D1::Matrix3x2F::Translation(
-			static_cast<FLOAT>(translationX * scale),
-			static_cast<FLOAT>(translationY * scale)
-		);
-	_Context->getD2dRenderTarget()->SetTransform(matrix);
-
-
-	//-----------------------------------------------------------------------
-	_Context->getD2dRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::White));
+		CX_RUNTIME_LOG(cxLInfo)
+			<< L"cx=" << _cx
+			<< L" "
+			<< L"cy=" << _cy
+			<< L" "
+			<< L"RenderTarget"
+			;
 #endif
+	}
+	else
+	{
+		CX_RUNTIME_LOG(cxLInfo)
+			<< L"cx=" << _cx
+			<< L" "
+			<< L"cy=" << _cy
+			;
+	}
+}
 
-	_Context->getD2dHwndRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::Yellow));
+//===========================================================================
+void Renderer::render(DrawingSession* ds)
+{
+	bool rv;
 
 
-	wil::com_ptr_nothrow<ID2D1SolidColorBrush> solidColorBrush;
+	rv = createDeviceResources();
+	if (rv)
+	{
+		_Context->getD2dHwndRenderTarget()->BeginDraw();
 
-	_Context->getD2dHwndRenderTarget()->CreateSolidColorBrush(
-		D2D1::ColorF(D2D1::ColorF::Black),
-		solidColorBrush.put()
-	);
 
-	_Context->getD2dHwndRenderTarget()->DrawEllipse(
-		D2D1::Ellipse(
-			D2D1::Point2F(100.0f, 100.0f),
-			50.0f,
-			50.0f
-		),
-		solidColorBrush.get(),
-		5.0f
-	);
+		draw(ds);
 
+
+		HRESULT hr;
+		hr = _Context->getD2dHwndRenderTarget()->EndDraw();
+		if (hr == D2DERR_RECREATE_TARGET)
+		{
+			CX_RUNTIME_LOG(cxLInfo)
+				<< L"D2DERR_RECREATE_TARGET" << std::endl
+				;
+			destroyDeviceResources();
+		}
+	}
+	else
+	{
+		destroyDeviceResources();
+	}
+}
+
+//===========================================================================
+void Renderer::draw(DrawingSession* ds)
+{
+	if (onDraw)
+	{
+		onDraw(ds);
+	}
 }
 
 

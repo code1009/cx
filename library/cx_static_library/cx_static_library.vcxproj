@@ -162,6 +162,10 @@
     <ClInclude Include="..\cx\component\command_line.hpp" />
     <ClInclude Include="..\cx\component\pch.hpp" />
     <ClInclude Include="..\cx\component\xml.hpp" />
+    <ClInclude Include="..\cx\ev\cx-ev-core.hpp" />
+    <ClInclude Include="..\cx\ev\cx-ev-key.hpp" />
+    <ClInclude Include="..\cx\ev\cx-ev-target.hpp" />
+    <ClInclude Include="..\cx\ev\cx-ev.hpp" />
     <ClInclude Include="..\cx\gw\BaseEditWindow.hpp" />
     <ClInclude Include="..\cx\gw\Bitmap.hpp" />
     <ClInclude Include="..\cx\gw\Color.hpp" />
@@ -291,6 +295,9 @@
     <ClCompile Include="..\cx\common\to_std_wstring.cpp" />
     <ClCompile Include="..\cx\component\command_line.cpp" />
     <ClCompile Include="..\cx\component\xml.cpp" />
+    <ClCompile Include="..\cx\ev\cx-ev-core.cpp" />
+    <ClCompile Include="..\cx\ev\cx-ev-key.cpp" />
+    <ClCompile Include="..\cx\ev\cx-ev-target.cpp" />
     <ClCompile Include="..\cx\gw\BaseEditWindow.cpp" />
     <ClCompile Include="..\cx\gw\Bitmap.cpp" />
     <ClCompile Include="..\cx\gw\Color.cpp" />

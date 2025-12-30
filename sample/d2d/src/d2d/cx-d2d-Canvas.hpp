@@ -17,46 +17,32 @@ namespace cx::d2d
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class Renderer
+class Canvas
 {
 public:
 	std::function<void(DrawingSession*)> onDraw;
 
 private:
-	Context* _Context{ nullptr };
-	std::uint32_t _cx{ 0 };
-	std::uint32_t _cy{ 0 };
+	std::unique_ptr<cx::d2d::Context> _Context;
+	std::unique_ptr<cx::d2d::Renderer> _Renderer;
+	std::unique_ptr<cx::d2d::DrawingSession> _DrawingSession;
 
 public:
-	explicit Renderer(Context* context);
-	explicit Renderer(Context* context, std::uint32_t cx, std::uint32_t cy);
+	explicit Canvas(Factory* factory, HWND hwnd, std::uint32_t cx, std::uint32_t cy);
+	explicit Canvas(Factory* factory, HWND hwnd);
 
 public:
-	virtual ~Renderer();
+	virtual ~Canvas();
 
 public:
-	Renderer(const Renderer&) = delete;
-	Renderer& operator=(const Renderer&) = delete;
-
-	Renderer(Renderer&&) = delete;
-	Renderer& operator=(Renderer&&) = delete;
-
-protected:
-	virtual bool createDeviceIndependentResources(void);
-	virtual void destroyDeviceIndependentResources(void);
-
-protected:
-	virtual bool createDeviceResources(void);
-	virtual void destroyDeviceResources(void);
+	Canvas(const Canvas&) = delete;
+	Canvas& operator=(const Canvas&) = delete;
+	Canvas(Canvas&&) = delete;
+	Canvas& operator=(Canvas&&) = delete;
 
 public:
-	void resize(std::uint32_t cx, std::uint32_t cy);
-
-public:
-	virtual void render(DrawingSession* ds);
-
-protected:
-	virtual void draw(DrawingSession* ds);
+	void resize(std::uint32_t width, std::uint32_t height);
+	void invalidate(void);
 };
 
 
