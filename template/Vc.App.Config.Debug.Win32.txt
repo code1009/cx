@@ -13,5 +13,5 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/Win32/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/Win32/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
