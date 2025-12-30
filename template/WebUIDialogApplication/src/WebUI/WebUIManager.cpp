@@ -3,8 +3,8 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <runtime/runtime.hpp>
-#include <wui/wui.hpp>
+#include <cx/runtime/runtime.hpp>
+#include <cx/wui/wui.hpp>
 
 //===========================================================================
 #include "WebUI.hpp"
@@ -188,8 +188,8 @@ static void loadWebUIContentsMapFromResource(WebUIContentsMap& _ContentsMap)
 	std::vector<std::wstring> resourceCollection
 	{
 		L"/basic.css",
-		L"/core.js",
-		L"/images/logo.png",
+		L"/core.js",             
+		L"/images/logo.png"    ,
 
 		L"/page_home/page.css"          ,
 		L"/page_home/page.html"         ,

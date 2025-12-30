@@ -6,8 +6,8 @@
 #include <wrl.h>
 
 //===========================================================================
-#include <wui/wui.hpp>
-#include <runtime/runtime.hpp>
+#include <cx/wui/wui.hpp>
+#include <cx/runtime/runtime.hpp>
 
 //===========================================================================
 #include "WebUI.hpp"
