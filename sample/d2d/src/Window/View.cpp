@@ -85,6 +85,7 @@ View::View(HWND parentWindowHandle)
 		;
 	*/
 
+
 	//-----------------------------------------------------------------------
 	cx::d2d::Factory factory;
 	_Canvas = std::make_unique<cx::d2d::Canvas>(&factory, hwnd);
