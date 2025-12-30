@@ -7,6 +7,9 @@
 #include <cx/runtime/runtime.hpp>
 
 //===========================================================================
+#include "../d2d/cx-d2d.hpp"
+
+//===========================================================================
 #include "../../res/resource.h"
 
 //===========================================================================
@@ -53,6 +56,26 @@ View::View(HWND parentWindowHandle)
 	//-----------------------------------------------------------------------
 	::ShowWindow(*this, SW_SHOW);
 	::UpdateWindow(*this);
+
+
+	//-----------------------------------------------------------------------
+	cx::d2d::Factory factory;
+	_Context = std::make_unique<cx::d2d::Context>(hwnd, &factory);
+	_Renderer = std::make_unique<cx::d2d::Renderer>(_Context.get());
+
+
+	//-----------------------------------------------------------------------
+	RECT rect;
+	::GetClientRect(*this, &rect);
+
+
+	//-----------------------------------------------------------------------
+	UINT cx;
+	UINT cy;
+	cx = static_cast<UINT>(rect.right - rect.left);
+	cy = static_cast<UINT>(rect.bottom - rect.top);
+	_Renderer->resize(cx, cy);
+	_Renderer->render();
 }
 
 //===========================================================================
@@ -80,7 +103,49 @@ HWND View::createView(HWND parentWindowHandle)
 //===========================================================================
 void View::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_COMMAND   ) = &View::onCommand;
+	_WindowMessageMap.handle(WM_SIZE) = &View::onSize;
+	_WindowMessageMap.handle(WM_ERASEBKGND) = &View::onEraseBkgnd;
+	_WindowMessageMap.handle(WM_PAINT) = &View::onPaint;
+	_WindowMessageMap.handle(WM_COMMAND) = &View::onCommand;
+}
+
+void View::onSize(cx::wui::WindowMessage& windowMessage)
+{
+	//-----------------------------------------------------------------------
+	RECT rect;
+	::GetClientRect(*this, &rect);
+
+
+	//-----------------------------------------------------------------------
+	UINT cx;
+	UINT cy;
+	cx = static_cast<UINT>(rect.right - rect.left);
+	cy = static_cast<UINT>(rect.bottom - rect.top);
+
+
+	//-----------------------------------------------------------------------
+	if (_Renderer)
+	{
+		_Renderer->resize(cx, cy);
+		//_Renderer->render();
+	}
+}
+
+void View::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
+{
+	///OutputDebugStringW(L"View::onEraseBkgnd()\r\n");
+	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
+	wm.Result(TRUE);
+}
+
+void View::onPaint(cx::wui::WindowMessage& windowMessage)
+{
+	//OutputDebugStringW(L"View::onPaint()\r\n");
+	_Renderer->render();
+
+	// The ValidateRect function validates the client area within a rectangle by
+	// removing the rectangle from the update region of the window.
+	::ValidateRect(*this, nullptr);
 }
 
 void View::onCommand(cx::wui::WindowMessage& windowMessage)
@@ -129,6 +194,10 @@ void View::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 //===========================================================================
 void View::onIdle(void)
 {
+	if (_Renderer)
+	{
+		_Renderer->render();
+	}
 }
 
 

@@ -7,6 +7,9 @@
 #include <cx/runtime/runtime.hpp>
 
 //===========================================================================
+#include "../d2d/cx-d2d.hpp"
+
+//===========================================================================
 #include "../../res/resource.h"
 
 //===========================================================================
@@ -195,7 +198,7 @@ void MainFrame::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 
 	switch (wm.nID())
 	{
-	case IDR_MAINFRAME:
+	case 0:
 		break;
 
 	default:

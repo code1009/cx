@@ -9,6 +9,9 @@
 #include <cx/network/network.hpp>
 
 //===========================================================================
+#include "d2d/cx-d2d.hpp"
+
+//===========================================================================
 #include "../res/resource.h"
 
 //===========================================================================
@@ -93,9 +96,12 @@ void Application::terminate(void)
 void Application::run(void)
 {
 	MainFrame mainFrame;
+
 	cx::wui::WindowMessageLoop windowMessageLoop;
-	//windowMessageLoop.addIdleHandler(std::bind(&MainFrame::onIdle, &mainFrame));
-	windowMessageLoop.run();
+	windowMessageLoop.addIdleHandler(std::bind(&MainFrame::onIdle, &mainFrame));
+
+	HACCEL hAccelTable = LoadAcceleratorsW(nullptr, MAKEINTRESOURCEW(IDR_MAINFRAME));
+	windowMessageLoop.run(hAccelTable);
 }
 
 void Application::launch(void)

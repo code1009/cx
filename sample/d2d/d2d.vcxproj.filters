@@ -10,6 +10,9 @@
     <Filter Include="src\Window">
       <UniqueIdentifier>{3a0979aa-657b-4699-a96d-2ab915d3ec8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\d2d">
+      <UniqueIdentifier>{91ef0fda-f7fd-48db-85aa-60ec5d41cf8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include=".\src\Application.cpp">
@@ -29,6 +32,21 @@
     </ClCompile>
     <ClCompile Include=".\src\pch.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d2d\cx-d2d-DrawingSession.cpp">
+      <Filter>src\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d2d\cx-d2d.cpp">
+      <Filter>src\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d2d\cx-d2d-Factory.cpp">
+      <Filter>src\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d2d\cx-d2d-Context.cpp">
+      <Filter>src\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d2d\cx-d2d-Renderer.cpp">
+      <Filter>src\d2d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +77,24 @@
     <ClInclude Include=".\src\targetver.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\d2d\cx-d2d-DrawingSession.hpp">
+      <Filter>src\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\d2d\pch.hpp">
+      <Filter>src\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\d2d\cx-d2d.hpp">
+      <Filter>src\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\d2d\cx-d2d-Factory.hpp">
+      <Filter>src\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\d2d\cx-d2d-Context.hpp">
+      <Filter>src\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\d2d\cx-d2d-Renderer.hpp">
+      <Filter>src\d2d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\res\Application.rc">
@@ -74,6 +110,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include=".\vcpkg.json"/>
+    <None Include=".\vcpkg.json" />
   </ItemGroup>
 </Project>

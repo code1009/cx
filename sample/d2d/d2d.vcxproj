@@ -19,38 +19,49 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include=".\src\Application.cpp"/>
-    <ClCompile Include=".\src\Main.cpp"/>
-    <ClCompile Include=".\src\Window\AboutBox.cpp"/>
-    <ClCompile Include=".\src\Window\MainFrame.cpp"/>
-    <ClCompile Include=".\src\Window\View.cpp"/>
+    <ClCompile Include=".\src\Application.cpp" />
+    <ClCompile Include=".\src\Main.cpp" />
+    <ClCompile Include=".\src\Window\AboutBox.cpp" />
+    <ClCompile Include=".\src\Window\MainFrame.cpp" />
+    <ClCompile Include=".\src\Window\View.cpp" />
     <ClCompile Include=".\src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\d2d\cx-d2d-Context.cpp" />
+    <ClCompile Include="src\d2d\cx-d2d-DrawingSession.cpp" />
+    <ClCompile Include="src\d2d\cx-d2d-Factory.cpp" />
+    <ClCompile Include="src\d2d\cx-d2d-Renderer.cpp" />
+    <ClCompile Include="src\d2d\cx-d2d.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include=".\res\Resource.h"/>
-    <ClInclude Include=".\src\Application.hpp"/>
-    <ClInclude Include=".\src\Window\AboutBox.hpp"/>
-    <ClInclude Include=".\src\Window\MainFrame.hpp"/>
-    <ClInclude Include=".\src\Window\View.hpp"/>
-    <ClInclude Include=".\src\Window\pch.hpp"/>
-    <ClInclude Include=".\src\framework.hpp"/>
-    <ClInclude Include=".\src\pch.hpp"/>
-    <ClInclude Include=".\src\targetver.h"/>
+    <ClInclude Include=".\res\Resource.h" />
+    <ClInclude Include=".\src\Application.hpp" />
+    <ClInclude Include=".\src\Window\AboutBox.hpp" />
+    <ClInclude Include=".\src\Window\MainFrame.hpp" />
+    <ClInclude Include=".\src\Window\View.hpp" />
+    <ClInclude Include=".\src\Window\pch.hpp" />
+    <ClInclude Include=".\src\framework.hpp" />
+    <ClInclude Include=".\src\pch.hpp" />
+    <ClInclude Include=".\src\targetver.h" />
+    <ClInclude Include="src\d2d\cx-d2d-Context.hpp" />
+    <ClInclude Include="src\d2d\cx-d2d-Factory.hpp" />
+    <ClInclude Include="src\d2d\cx-d2d-Renderer.hpp" />
+    <ClInclude Include="src\d2d\cx-d2d.hpp" />
+    <ClInclude Include="src\d2d\cx-d2d-DrawingSession.hpp" />
+    <ClInclude Include="src\d2d\pch.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include=".\res\Application.rc"/>
+    <ResourceCompile Include=".\res\Application.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include=".\res\Application.ico"/>
-    <Image Include=".\res\small.ico"/>
+    <Image Include=".\res\Application.ico" />
+    <Image Include=".\res\small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".\vcpkg.json"/>
+    <None Include=".\vcpkg.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -92,16 +103,16 @@
   <ImportGroup Label="Shared">
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
     <cxDirectory>..\..\</cxDirectory>
