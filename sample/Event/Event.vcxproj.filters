@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{dfc8ee8d-fcbd-4352-9f3f-7a1982b9dd0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx">
+      <UniqueIdentifier>{fc7f186d-e166-498e-86ec-2e8bf8af56db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\ev">
+      <UniqueIdentifier>{e09f2913-446e-4bf6-b363-f5092384443d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\ev\cx-ev-core.cpp">
+      <Filter>cx\ev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\ev\cx-ev-key.cpp">
+      <Filter>cx\ev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\ev\cx-ev-target.cpp">
+      <Filter>cx\ev</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\library\cx\ev\cx-ev.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\ev\cx-ev-core.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\ev\cx-ev-key.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\ev\cx-ev-target.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\ev\pch.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
