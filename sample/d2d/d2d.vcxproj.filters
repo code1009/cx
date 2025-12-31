@@ -10,8 +10,14 @@
     <Filter Include="src\Window">
       <UniqueIdentifier>{3a0979aa-657b-4699-a96d-2ab915d3ec8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\d2d">
+    <Filter Include="cx">
+      <UniqueIdentifier>{0fde07b2-f310-498a-afb5-4fb11c7734ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\d2d">
       <UniqueIdentifier>{91ef0fda-f7fd-48db-85aa-60ec5d41cf8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\d2dDiagram">
+      <UniqueIdentifier>{7b0e919e-53d2-4cf2-8fbe-231b2941f937}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,22 +40,31 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d.cpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.cpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Factory.cpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Renderer.cpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Coord.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Style.cpp">
+      <Filter>cx\d2d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,25 +96,34 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d.hpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.hpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Factory.hpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Renderer.hpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\pch.hpp">
-      <Filter>src\d2d</Filter>
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Coord.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Style.hpp">
+      <Filter>cx\d2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

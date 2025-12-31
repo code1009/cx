@@ -18,7 +18,19 @@
 #endif
 
 
-
+//////////////////////////////////////////////////////////////////////////////
+//============================================================================
+#if 0
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.44.35207\include
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.44.35207\atlmfc\include
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\VS\include
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\winrt
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\cppwinrt
+C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\Include\um
+#endif
 
 
 //////////////////////////////////////////////////////////////////////////////
