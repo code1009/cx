@@ -40,6 +40,7 @@ public:
 //===========================================================================
 class TextFormat
 {
+	// IDWriteTextFormat
 public:
 	D2D1_STROKE_STYLE_PROPERTIES _Properties;
 };
