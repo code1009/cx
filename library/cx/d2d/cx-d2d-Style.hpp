@@ -30,7 +30,7 @@ public:
 class CapStyle
 {
 public:
-	D2D1_STROKE_STYLE_PROPERTIES _Properties;
+	D2D1_CAP_STYLE _Properties;
 };
 
 
