@@ -39,11 +39,13 @@
     <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.cpp" />
     <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Arrow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Base.cpp" />
     <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Ellipse.cpp" />
     <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-HalfArrow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Line.cpp" />
     <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Rectangle.cpp" />
