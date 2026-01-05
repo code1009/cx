@@ -2,19 +2,22 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="res">
-      <UniqueIdentifier>{1557b59a-a162-4127-bf41-ea928ab6948b}</UniqueIdentifier>
+      <UniqueIdentifier>{6c3c3503-5fc3-4ba5-8b61-505f5f2c24f7}</UniqueIdentifier>
     </Filter>
     <Filter Include="src">
-      <UniqueIdentifier>{1d26d216-e745-4bef-ba2d-19085af9c32f}</UniqueIdentifier>
+      <UniqueIdentifier>{c584c0c0-b77f-44c7-aa24-55d301ae4425}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Window">
-      <UniqueIdentifier>{3a0979aa-657b-4699-a96d-2ab915d3ec8c}</UniqueIdentifier>
+      <UniqueIdentifier>{1b9d3971-356f-4101-993f-e66c560f4824}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx">
-      <UniqueIdentifier>{0fde07b2-f310-498a-afb5-4fb11c7734ff}</UniqueIdentifier>
+      <UniqueIdentifier>{ccec264d-f55a-4a7a-a2db-173ce0fdcb80}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\d2d">
-      <UniqueIdentifier>{91ef0fda-f7fd-48db-85aa-60ec5d41cf8d}</UniqueIdentifier>
+      <UniqueIdentifier>{075c0012-94de-453c-8e38-64f8e2d490a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\NewFilter1">
+      <UniqueIdentifier>{066187b2-3538-4627-b894-fc1c8797ec9f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,10 +39,10 @@
     <ClCompile Include=".\src\pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\cx\d2d\cx-d2d.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp">
@@ -51,16 +54,16 @@
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Factory.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Renderer.cpp">
-      <Filter>cx\d2d</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Coord.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Renderer.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Style.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,10 +95,10 @@
     <ClInclude Include=".\src\targetver.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx\d2d\cx-d2d.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp">
       <Filter>cx\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp">
       <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp">
@@ -107,19 +110,19 @@
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Factory.hpp">
       <Filter>cx\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Renderer.hpp">
-      <Filter>cx\d2d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\library\cx\d2d\pch.hpp">
-      <Filter>cx\d2d</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Coord.hpp">
       <Filter>cx\d2d</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Renderer.hpp">
       <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Style.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\pch.hpp">
       <Filter>cx\d2d</Filter>
     </ClInclude>
   </ItemGroup>
