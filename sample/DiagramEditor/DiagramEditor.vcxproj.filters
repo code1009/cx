@@ -16,7 +16,7 @@
     <Filter Include="cx\d2d">
       <UniqueIdentifier>{075c0012-94de-453c-8e38-64f8e2d490a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cx\NewFilter1">
+    <Filter Include="cx\d2dDiagram">
       <UniqueIdentifier>{066187b2-3538-4627-b894-fc1c8797ec9f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -65,6 +65,60 @@
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d.cpp">
       <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Anchor.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Color.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Core.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Design.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Drawing.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-DrawingStyle.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Edit.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditCommand.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditPointerTool.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditSeed.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Event.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Factory.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-File.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Item.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Point.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-PropertiesManipulator.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Property.cpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.cpp">
+      <Filter>cx\d2dDiagram</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +178,66 @@
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\pch.hpp">
       <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Anchor.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Color.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Core.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Design.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Drawing.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-DrawingStyle.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Edit.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditCommand.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditPointerTool.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditSeed.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Event.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Factory.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-File.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Item.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Point.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-PropertiesManipulator.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Property.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-UsingNamespace.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.hpp">
+      <Filter>cx\d2dDiagram</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

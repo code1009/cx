@@ -2,7 +2,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include <cx/library/diagram/cx-Diagram-UsingNamespace.hpp>
+#include <cx/d2dDiagram/cx-Diagram-UsingNamespace.hpp>
 
 
 

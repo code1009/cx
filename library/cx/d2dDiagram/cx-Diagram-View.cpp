@@ -4,7 +4,7 @@
 
 #include "cx-Diagram.hpp"
 
-#include <cx/library/runtime/log_facility/log_facility.hpp>
+#include <cx/runtime/log_facility/log_facility.hpp>
 
 
 

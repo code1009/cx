@@ -18,7 +18,7 @@ namespace cx::d2d
 class StrokeStyle
 {
 public:
-	D2D1_STROKE_STYLE_PROPERTIES _Properties;
+	D2D1_STROKE_STYLE_PROPERTIES _Value;
 };
 
 
@@ -30,7 +30,7 @@ public:
 class CapStyle
 {
 public:
-	D2D1_CAP_STYLE _Properties;
+	D2D1_CAP_STYLE _Value;
 };
 
 
@@ -42,7 +42,7 @@ class TextFormat
 {
 	// IDWriteTextFormat
 public:
-	D2D1_STROKE_STYLE_PROPERTIES _Properties;
+	D2D1_STROKE_STYLE_PROPERTIES _Value;
 };
 
 
@@ -50,10 +50,12 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class TextHAlignment
+enum class TextHAlignment : int32_t
 {
-public:
-	D2D1_STROKE_STYLE_PROPERTIES _Properties;
+    Left = 0,
+    Right = 1,
+    Center = 2,
+    Justified = 3,
 };
 
 
@@ -61,10 +63,11 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class TextVAlignment
+enum class TextVAlignment : int32_t
 {
-public:
-	D2D1_STROKE_STYLE_PROPERTIES _Properties;
+    Top = 0,
+    Bottom = 1,
+    Center = 2,
 };
 
 

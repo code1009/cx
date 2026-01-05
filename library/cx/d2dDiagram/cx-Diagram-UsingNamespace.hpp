@@ -21,6 +21,6 @@ namespace cx::Diagram
 	using CapStyle = d2d::CapStyle;
 
 	using TextFormat = d2d::TextFormat;
-	using TextHAlignment = d2d::HorizontalAlignment;
-	using TextVAlignment = d2d::VerticalAlignment;
+	using TextHAlignment = d2d::TextHAlignment;
+	using TextVAlignment = d2d::TextVAlignment;
 }

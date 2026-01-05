@@ -11,7 +11,7 @@
 #include <xmllite.h>
 
 //===========================================================================
-#include <cx/library/component/xml.hpp>
+#include <cx/component/xml.hpp>
 
 
 

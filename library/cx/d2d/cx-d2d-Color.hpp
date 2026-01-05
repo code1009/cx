@@ -15,16 +15,35 @@ namespace cx::d2d
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-struct Color : public D2D1::ColorF
+struct Color
 {
 public:
+	D2D1::ColorF _Value{ 0, 1.0f };
+    /*
+    int A{};
+    int R{};
+    int G{};
+    int B{};
+    */
+public:
+    constexpr Color() = default;
+
+    constexpr Color(uint8_t vA, uint8_t vR, uint8_t vG, uint8_t vB) noexcept;
+
+public:
+    Color(D2D1::ColorF::Enum knownColor, float a = 1.0);
 };
 
 //===========================================================================
 inline bool operator==(Color const& left, Color const& right) noexcept
 {
-    return left.a == right.a && left.r == right.r && left.g == right.g && left.b == right.b;
+    return 
+        left._Value.a == right._Value.a && 
+        left._Value.r == right._Value.r && 
+        left._Value.g == right._Value.g && 
+        left._Value.b == right._Value.b;
 }
+
 inline bool operator!=(Color const& left, Color const& right) noexcept
 {
     return !(left == right);

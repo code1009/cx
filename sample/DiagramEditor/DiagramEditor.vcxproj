@@ -19,6 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Anchor.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Color.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Core.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Design.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Drawing.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-DrawingStyle.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Edit.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditCommand.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditPointerTool.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditSeed.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Event.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Factory.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-File.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Item.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Point.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-PropertiesManipulator.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Property.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp" />
@@ -41,6 +59,26 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Anchor.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Color.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Core.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Design.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Drawing.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-DrawingStyle.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Edit.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditCommand.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditPointerTool.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-EditSeed.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Event.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Factory.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-File.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Item.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Point.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-PropertiesManipulator.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Property.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-UsingNamespace.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp" />
@@ -188,8 +226,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
