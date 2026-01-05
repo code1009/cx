@@ -17,13 +17,14 @@ namespace cx::d2d
 //===========================================================================
 struct Point
 {
-    float X;
-    float Y;
+    float X { 0.0f };
+    float Y { 0.0f };
 
     Point() noexcept = default;
 
-    constexpr Point(float X, float Y) noexcept
-        : X(X), Y(Y)
+    constexpr Point(float X, float Y) noexcept :
+        X(X),
+        Y(Y)
     {
     }
 };
@@ -47,17 +48,19 @@ constexpr bool operator!=(Point const& left, Point const& right) noexcept
 //===========================================================================
 struct Size
 {
-    float Width;
-    float Height;
+    float Width { 0.0f };
+    float Height { 0.0f };
 
     Size() noexcept = default;
 
-    constexpr Size(float Width, float Height) noexcept
-        : Width(Width), Height(Height)
+    constexpr Size(float width, float height) noexcept :
+        Width (width), 
+        Height(height)
     {
     }
 };
 
+//===========================================================================
 constexpr bool operator==(Size const& left, Size const& right) noexcept
 {
     return left.Width == right.Width && left.Height == right.Height;
@@ -76,10 +79,10 @@ constexpr bool operator!=(Size const& left, Size const& right) noexcept
 //===========================================================================
 struct Rect
 {
-    float X;
-    float Y;
-    float Width;
-    float Height;
+    float X { 0.0f };
+    float Y { 0.0f };
+    float Width { 0.0f };
+    float Height { 0.0f };
 
     Rect() noexcept = default;
 

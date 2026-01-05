@@ -18,31 +18,25 @@ namespace cx::d2d
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-constexpr Color::Color(uint8_t vA, uint8_t vR, uint8_t vG, uint8_t vB) noexcept
-	: _Value.a(vA / 255.0f)
-	, _Value.r(vR / 255.0f)
-	, _Value.g(vG / 255.0f)
-	, _Value.b(vB / 255.0f)
+Color::Color(std::uint32_t rgb, float a)
 {
+	static const std::uint32_t sc_redShift = 16;
+	static const std::uint32_t sc_greenShift = 8;
+	static const std::uint32_t sc_blueShift = 0;
+
+	static const std::uint32_t sc_redMask = 0xff << sc_redShift;
+	static const std::uint32_t sc_greenMask = 0xff << sc_greenShift;
+	static const std::uint32_t sc_blueMask = 0xff << sc_blueShift;
+
+	_Value.r = static_cast<float>((rgb & sc_redMask) >> sc_redShift) / 255.f;
+	_Value.g = static_cast<float>((rgb & sc_greenMask) >> sc_greenShift) / 255.f;
+	_Value.b = static_cast<float>((rgb & sc_blueMask) >> sc_blueShift) / 255.f;
+	_Value.a = a;
 }
 
-Color::Color(D2D1::ColorF::Enum knownColor,	float a)
+Color::Color(D2D1::ColorF::Enum knownColor,	float a) :
+	Color(static_cast<std::uint32_t>(knownColor), a)
 {
-	if (a < 0.0f)
-	{
-		a = 0.0f;
-	}
-	else if (a > 1.0f)
-	{
-		a = 1.0f;
-	}
-
-	A = static_cast<uint8_t>(a * 255.0f);
-	
-	D2D1::ColorF colorF(knownColor, a);
-	R = static_cast<uint8_t>(colorF.r * 255.0f);
-	G = static_cast<uint8_t>(colorF.g * 255.0f);
-	B = static_cast<uint8_t>(colorF.b * 255.0f);
 }
 
 

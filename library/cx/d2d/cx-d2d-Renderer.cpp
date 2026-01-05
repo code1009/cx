@@ -19,17 +19,17 @@ namespace cx::d2d
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-Renderer::Renderer(Context* context)
-	: _Context{ context },
+Renderer::Renderer(Context* context) :
+	_Context{ context },
 	_cx{ 0 },
 	_cy{ 0 }
 {
 }
 
-Renderer::Renderer(Context* context, std::uint32_t cx, std::uint32_t cy)
-	: _Context{ context }
-	, _cx{ cx }
-	, _cy{ cy }
+Renderer::Renderer(Context* context, std::uint32_t cx, std::uint32_t cy) :
+	_Context{ context },
+	_cx{ cx },
+	_cy{ cy }
 {
 }
 

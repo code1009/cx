@@ -226,6 +226,7 @@ namespace cx::Diagram
 	//=======================================================================
 	void TextStyle::updateTextFormat(void)
 	{
+#if 0
 		_TextFormat.FontFamily(_FontFamily.c_str());
 		_TextFormat.FontSize(_FontSize);
 		_TextFormat.FontWeight(
@@ -247,6 +248,8 @@ namespace cx::Diagram
 		_TextFormat.WordWrapping(
 			winrt::Microsoft::Graphics::Canvas::Text::CanvasWordWrapping::Wrap
 		);
+#endif
+		// TODO
 	}
 
 	//=======================================================================

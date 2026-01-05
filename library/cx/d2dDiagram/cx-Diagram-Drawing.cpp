@@ -26,6 +26,7 @@ namespace cx::Diagram
 		Coord lineSize
 	)
 	{
+#if 0
 		using namespace winrt::Windows::Foundation::Numerics;
 		using namespace winrt::Microsoft::Graphics::Canvas::Geometry;
 
@@ -59,6 +60,8 @@ namespace cx::Diagram
 		// 채우기 및 테두리 그리기
 		dctx.FillGeometry(geometry, fillColor);
 		dctx.DrawGeometry(geometry, lineColor, lineSize);
+#endif
+		// TODO
 	}
 
 	void DrawRotatedText(
@@ -71,6 +74,7 @@ namespace cx::Diagram
 		TextFormat const& textFormat
 	)
 	{
+#if 0
 		using namespace winrt::Windows::Foundation::Numerics;
 
 		// 현재 변환 상태 저장
@@ -85,5 +89,7 @@ namespace cx::Diagram
 
 		// 변환 상태 복원
 		dctx.Transform(oldTransform);
+#endif
+		// TODO
 	}
 }

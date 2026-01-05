@@ -858,6 +858,7 @@ namespace cx::Diagram
 	//=======================================================================
 	void View::setTransform(DrawingContext& dctx)
 	{
+#if 0
 		winrt::Windows::Foundation::Numerics::float3x2 scale = winrt::Windows::Foundation::Numerics::make_float3x2_scale(
 			viewContext().scale(),
 			viewContext().scale()
@@ -867,10 +868,13 @@ namespace cx::Diagram
 			viewContext().offsetPosition().Y
 		);
 		dctx.Transform(scale * translate);
+#endif
+		// TODO
 	}
 
 	void View::resetTransform(DrawingContext& dctx)
 	{
+#if 0
 		//winrt::Windows::Foundation::Numerics::float3x2 identity = winrt::Windows::Foundation::Numerics::float3x2::identity();
 		//dctx.Transform(identity);
 
@@ -879,6 +883,8 @@ namespace cx::Diagram
 			viewContext().windowScrollOffset().Y
 		);
 		dctx.Transform(translate);
+#endif
+		// TODO
 	}
 
 	//=======================================================================

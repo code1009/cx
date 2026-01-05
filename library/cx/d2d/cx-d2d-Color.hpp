@@ -18,19 +18,24 @@ namespace cx::d2d
 struct Color
 {
 public:
-	D2D1::ColorF _Value{ 0, 1.0f };
-    /*
-    int A{};
-    int R{};
-    int G{};
-    int B{};
-    */
+	D2D1_COLOR_F _Value{ 0, 0, 0, 0 };
+
 public:
     constexpr Color() = default;
 
-    constexpr Color(uint8_t vA, uint8_t vR, uint8_t vG, uint8_t vB) noexcept;
+    constexpr Color(std::uint8_t vA, std::uint8_t vR, std::uint8_t vG, std::uint8_t vB) noexcept :
+        _Value
+        {
+            (vR / 255.0f),
+            (vG / 255.0f),
+            (vB / 255.0f),
+            (vA / 255.0f) 
+        }
+    {
+    }
 
 public:
+    Color(std::uint32_t rgb, float a = 1.0);
     Color(D2D1::ColorF::Enum knownColor, float a = 1.0);
 };
 
