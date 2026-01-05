@@ -19,6 +19,9 @@
     <Filter Include="cx\d2dDiagram">
       <UniqueIdentifier>{066187b2-3538-4627-b894-fc1c8797ec9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cx\d2dDiagram\shape">
+      <UniqueIdentifier>{1915d022-665d-4a1c-861b-ba916e99678c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include=".\src\Application.cpp">
@@ -119,6 +122,33 @@
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.cpp">
       <Filter>cx\d2dDiagram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Arrow.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Base.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Ellipse.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-HalfArrow.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Line.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Rectangle.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Style.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Template.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Text.cpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +271,36 @@
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2dDiagram\pch.hpp">
       <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Arrow.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Base.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Ellipse.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-HalfArrow.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Line.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Rectangle.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Style.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Template.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Text.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\pch.hpp">
+      <Filter>cx\d2dDiagram\shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

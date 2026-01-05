@@ -37,6 +37,19 @@
     <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-PropertiesManipulator.cpp" />
     <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-Property.cpp" />
     <ClCompile Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Arrow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Base.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Ellipse.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-HalfArrow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Line.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Rectangle.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Style.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Template.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Text.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp" />
@@ -80,6 +93,16 @@
     <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.hpp" />
     <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram.hpp" />
     <ClInclude Include="..\..\library\cx\d2dDiagram\pch.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Arrow.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Base.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Ellipse.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-HalfArrow.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Line.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Rectangle.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Style.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Template.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Text.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\shape\pch.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp" />

@@ -1,3 +1,3 @@
 ﻿#pragma once
 
-#include "../pch.hpp"
+#include <cx/pch/pch_internal_win32.hpp>

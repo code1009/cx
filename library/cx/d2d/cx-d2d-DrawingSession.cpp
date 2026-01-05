@@ -36,15 +36,6 @@ void DrawingSession::DrawLine(float x0, float y0, float x1, float y1, Color cons
 }
 
 //===========================================================================
-void DrawingSession::FillCircle(Point const& center, float radius, Color const& color)
-{
-
-}
-
-void DrawingSession::DrawCircle(Point const& center, float radius, Color const& color, float strokeWidth)
-{
-}
-
 void DrawingSession::FillRectangle(float x, float y, float w, float h, Color const& color)
 {
 
@@ -64,6 +55,27 @@ void DrawingSession::DrawRoundedRectangle(float x, float y, float w, float h, fl
 {
 
 }
+
+//===========================================================================
+void DrawingSession::FillCircle(Point const& center, float radius, Color const& color)
+{
+
+}
+
+void DrawingSession::DrawCircle(Point const& center, float radius, Color const& color, float strokeWidth)
+{
+}
+
+void DrawingSession::FillEllipse(float x, float y, float radiusX, float radiusY, Color const& color)
+{
+
+}
+
+void DrawingSession::DrawEllipse(float x, float y, float radiusX, float radiusY, Color const& color, float strokeWidth)
+{
+
+}
+
 
 
 
