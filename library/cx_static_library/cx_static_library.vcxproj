@@ -166,6 +166,7 @@
     <ClInclude Include="..\cx\ev\cx-ev-key.hpp" />
     <ClInclude Include="..\cx\ev\cx-ev-target.hpp" />
     <ClInclude Include="..\cx\ev\cx-ev.hpp" />
+    <ClInclude Include="..\cx\ev\pch.hpp" />
     <ClInclude Include="..\cx\gw\BaseEditWindow.hpp" />
     <ClInclude Include="..\cx\gw\Bitmap.hpp" />
     <ClInclude Include="..\cx\gw\Color.hpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="..\cx\rpn\cx-rpn.hpp" />
     <ClInclude Include="..\cx\rpn\pch.hpp" />
     <ClInclude Include="..\cx\rs_comm\auto_critical_section.hpp" />
+    <ClInclude Include="..\cx\rs_comm\pch.hpp" />
     <ClInclude Include="..\cx\rs_comm\rs_comm.hpp" />
     <ClInclude Include="..\cx\rs_comm\rs_comm_port.hpp" />
     <ClInclude Include="..\cx\rs_comm\rs_comm_port_connector.hpp" />

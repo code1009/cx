@@ -465,6 +465,12 @@
     <ClInclude Include="..\cx\ev\cx-ev-target.hpp">
       <Filter>cx\ev</Filter>
     </ClInclude>
+    <ClInclude Include="..\cx\ev\pch.hpp">
+      <Filter>cx\ev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cx\rs_comm\pch.hpp">
+      <Filter>cx\rs_comm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

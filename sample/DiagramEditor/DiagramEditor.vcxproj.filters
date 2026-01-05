@@ -239,6 +239,9 @@
     <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.hpp">
       <Filter>cx\d2dDiagram</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dDiagram\pch.hpp">
+      <Filter>cx\d2dDiagram</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\res\Application.rc">

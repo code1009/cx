@@ -79,6 +79,7 @@
     <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-UsingNamespace.hpp" />
     <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-View.hpp" />
     <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dDiagram\pch.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp" />
