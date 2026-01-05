@@ -21,12 +21,17 @@ private:
 	HWND _hwnd{ nullptr };
 
 private:
-	wil::com_ptr_nothrow<ID2D1HwndRenderTarget>	_pD2dHwndRenderTarget;
+	wil::com_ptr_nothrow<ID2D1HwndRenderTarget>	_D2dHwndRenderTarget;
 
 private:
-	wil::com_ptr_nothrow<ID2D1Factory> _pD2dFactory;
-	wil::com_ptr_nothrow<IDWriteFactory> _pDWriteFactory;
-	wil::com_ptr_nothrow<IWICImagingFactory> _pWICImagingFactory;
+	wil::com_ptr_nothrow<ID2D1Factory> _D2dFactory;
+	wil::com_ptr_nothrow<IDWriteFactory> _DWriteFactory;
+	wil::com_ptr_nothrow<IWICImagingFactory> _WICImagingFactory;
+
+private:
+	wil::com_ptr_nothrow<ID2D1SolidColorBrush> _CurrentSolidColorBrush;
+	wil::com_ptr_nothrow<ID2D1StrokeStyle> _CurrentStrokeStyle;
+	wil::com_ptr_nothrow<IDWriteTextFormat> _CurrentTextFormat;
 
 public:
 	explicit Context(HWND hwnd, Factory* factory);
@@ -40,29 +45,38 @@ public:
 	Context& operator=(Context&&) = delete;
 
 public:
-	bool createRenderTarget(std::uint32_t cx, std::uint32_t cy);
-	bool createRenderTarget(void);
-	void destroyRenderTarget(void);
-
-public:
-	bool isValid(void) const noexcept
-	{
-		return (_pD2dHwndRenderTarget != nullptr);
-	}
-
-public:
 	HWND getHwnd(void) const noexcept
 	{
 		return _hwnd;
 	}
 
 public:
-	wil::com_ptr_nothrow<ID2D1HwndRenderTarget>& getD2dHwndRenderTarget(void);
+	bool isValid(void) const noexcept
+	{
+		return (_D2dHwndRenderTarget != nullptr);
+	}
 
 public:
 	wil::com_ptr_nothrow<ID2D1Factory>& getD2dFactory(void);
 	wil::com_ptr_nothrow<IDWriteFactory>& getDWriteFactory(void);
 	wil::com_ptr_nothrow<IWICImagingFactory>& getWICImagingFactory(void);
+
+public:
+	bool createRenderTarget(std::uint32_t cx, std::uint32_t cy);
+	bool createRenderTarget(void);
+	void destroyRenderTarget(void);
+
+public:
+	wil::com_ptr_nothrow<ID2D1HwndRenderTarget>& getD2dHwndRenderTarget(void);
+
+public:
+	bool createResources(void);
+	void destroyResources(void);
+
+public:
+	wil::com_ptr_nothrow<ID2D1SolidColorBrush>& getCurrentSolidColorBrush(void);
+	wil::com_ptr_nothrow<ID2D1StrokeStyle>& getCurrentStrokeStyle(void);
+	wil::com_ptr_nothrow<IDWriteTextFormat>& getCurrentTextFormat(void);
 };
 
 

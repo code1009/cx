@@ -24,6 +24,11 @@ DrawingSession::DrawingSession(Context* context) :
 }
 
 //===========================================================================
+void DrawingSession::Clear(Color const& color)
+{
+}
+
+//===========================================================================
 void DrawingSession::DrawText(std::wstring const& text, float x, float y, float w, float h, Color const& color, TextFormat const& format)
 {
 
@@ -75,6 +80,20 @@ void DrawingSession::DrawEllipse(float x, float y, float radiusX, float radiusY,
 {
 
 }
+
+//===========================================================================
+void DrawingSession::Transform(D2D1_MATRIX_3X2_F const& value)
+{
+	_Context->getD2dHwndRenderTarget()->SetTransform(value);
+}
+
+D2D1_MATRIX_3X2_F DrawingSession::Transform(void)
+{
+	D2D1_MATRIX_3X2_F value;
+	_Context->getD2dHwndRenderTarget()->GetTransform(&value);
+	return value;
+}
+
 
 
 

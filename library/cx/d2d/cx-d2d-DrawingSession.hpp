@@ -37,6 +37,9 @@ public:
 	}
 
 public:
+	void Clear(Color const& color);
+
+public:
 	void DrawText(std::wstring const& text, float x, float y, float w, float h, Color const& color, TextFormat const& format);
 
 public:
@@ -55,6 +58,10 @@ public:
 
 	void FillEllipse(float x, float y, float radiusX, float radiusY, Color const& color);
 	void DrawEllipse(float x, float y, float radiusX, float radiusY, Color const& color, float strokeWidth);
+
+public:
+	void Transform(D2D1_MATRIX_3X2_F const& value);
+	D2D1_MATRIX_3X2_F Transform(void);
 };
 
 

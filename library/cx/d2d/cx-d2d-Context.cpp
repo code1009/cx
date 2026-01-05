@@ -22,9 +22,9 @@ Context::Context(HWND hwnd, Factory* factory)
 {
 	_hwnd = hwnd;
 
-	_pD2dFactory = factory->getD2dFactory();
-	_pDWriteFactory = factory->getDWriteFactory();
-	_pWICImagingFactory = factory->getWICImagingFactory();
+	_D2dFactory = factory->getD2dFactory();
+	_DWriteFactory = factory->getDWriteFactory();
+	_WICImagingFactory = factory->getWICImagingFactory();
 
 #if 0
 	bool rv;
@@ -33,9 +33,9 @@ Context::Context(HWND hwnd, Factory* factory)
 	{
 		destroyRenderTarget();
 
-		_pWICImagingFactory.reset();
-		_pDWriteFactory.reset();
-		_pD2dFactory.reset();
+		_WICImagingFactory.reset();
+		_DWriteFactory.reset();
+		_D2dFactory.reset();
 
 		throw std::runtime_error("Failed to createRenderTarget()");
 	}
@@ -46,9 +46,25 @@ Context::~Context()
 {
 	destroyRenderTarget();
 
-	_pWICImagingFactory.reset();
-	_pDWriteFactory.reset();
-	_pD2dFactory.reset();
+	_WICImagingFactory.reset();
+	_DWriteFactory.reset();
+	_D2dFactory.reset();
+}
+
+//===========================================================================
+wil::com_ptr_nothrow<ID2D1Factory>& Context::getD2dFactory(void)
+{
+	return _D2dFactory;
+}
+
+wil::com_ptr_nothrow<IDWriteFactory>& Context::getDWriteFactory(void)
+{
+	return _DWriteFactory;
+}
+
+wil::com_ptr_nothrow<IWICImagingFactory>& Context::getWICImagingFactory(void)
+{
+	return _WICImagingFactory;
 }
 
 //===========================================================================
@@ -58,7 +74,7 @@ bool Context::createRenderTarget(std::uint32_t cx, std::uint32_t cy)
 	hr = getD2dFactory()->CreateHwndRenderTarget(
 		D2D1::RenderTargetProperties(),
 		D2D1::HwndRenderTargetProperties(_hwnd, D2D1::SizeU(cx, cy)),
-		_pD2dHwndRenderTarget.put()
+		_D2dHwndRenderTarget.put()
 	);
 	if (FAILED(hr))
 	{
@@ -74,29 +90,102 @@ bool Context::createRenderTarget(void)
 
 void Context::destroyRenderTarget(void)
 {
-	_pD2dHwndRenderTarget.reset();
+	_D2dHwndRenderTarget.reset();
 }
 
-//===========================================================================
 wil::com_ptr_nothrow<ID2D1HwndRenderTarget>& Context::getD2dHwndRenderTarget(void)
 {
-	return _pD2dHwndRenderTarget;
+	return _D2dHwndRenderTarget;
 }
 
 //===========================================================================
-wil::com_ptr_nothrow<ID2D1Factory>& Context::getD2dFactory(void)
+bool Context::createResources(void)
 {
-	return _pD2dFactory;
+	//--------------------------------------------------------------------------
+	wil::com_ptr_nothrow<ID2D1SolidColorBrush> currentSolidColorBrush;
+	wil::com_ptr_nothrow<ID2D1StrokeStyle> currentStrokeStyle;
+	wil::com_ptr_nothrow<IDWriteTextFormat> currentTextFormat;
+
+	HRESULT hr;
+
+
+	//--------------------------------------------------------------------------
+	hr = _D2dHwndRenderTarget->CreateSolidColorBrush(
+		D2D1::ColorF(D2D1::ColorF::Black),
+		currentSolidColorBrush.put()
+	);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+
+	//--------------------------------------------------------------------------
+	hr = _D2dFactory->CreateStrokeStyle(
+		D2D1::StrokeStyleProperties(
+			D2D1_CAP_STYLE_FLAT,
+			D2D1_CAP_STYLE_FLAT,
+			D2D1_CAP_STYLE_FLAT,
+			D2D1_LINE_JOIN_MITER,
+			10.0f,
+			D2D1_DASH_STYLE_SOLID,
+			0.0f
+		),
+		nullptr,
+		0,
+		currentStrokeStyle.put()
+	);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+
+	//--------------------------------------------------------------------------
+	hr = _DWriteFactory->CreateTextFormat(
+		L"Segoe UI",
+		nullptr,
+		DWRITE_FONT_WEIGHT_NORMAL,
+		DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_NORMAL,
+		12.0f,
+		L"en-us",
+		currentTextFormat.put()
+	);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+	
+
+	//--------------------------------------------------------------------------
+	_CurrentSolidColorBrush = currentSolidColorBrush;
+	_CurrentStrokeStyle = currentStrokeStyle;
+	_CurrentTextFormat = currentTextFormat;
+
+	return true;
 }
 
-wil::com_ptr_nothrow<IDWriteFactory>& Context::getDWriteFactory(void)
+void Context::destroyResources(void)
 {
-	return _pDWriteFactory;
+	_CurrentSolidColorBrush.reset();
+	_CurrentStrokeStyle.reset();
+	_CurrentTextFormat.reset();
 }
 
-wil::com_ptr_nothrow<IWICImagingFactory>& Context::getWICImagingFactory(void)
+wil::com_ptr_nothrow<ID2D1SolidColorBrush>& Context::getCurrentSolidColorBrush(void)
 {
-	return _pWICImagingFactory;
+	return _CurrentSolidColorBrush;
+}
+
+wil::com_ptr_nothrow<ID2D1StrokeStyle>& Context::getCurrentStrokeStyle(void)
+{
+	return _CurrentStrokeStyle;
+}
+
+wil::com_ptr_nothrow<IDWriteTextFormat>& Context::getCurrentTextFormat(void)
+{
+	return _CurrentTextFormat;
 }
 
 

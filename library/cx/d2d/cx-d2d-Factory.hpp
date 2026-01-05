@@ -18,9 +18,9 @@ namespace cx::d2d
 class Factory
 {
 private:
-	wil::com_ptr_nothrow<ID2D1Factory> _pD2dFactory;
-	wil::com_ptr_nothrow<IDWriteFactory> _pDWriteFactory;
-	wil::com_ptr_nothrow<IWICImagingFactory> _pWICImagingFactory;
+	wil::com_ptr_nothrow<ID2D1Factory> _D2dFactory;
+	wil::com_ptr_nothrow<IDWriteFactory> _DWriteFactory;
+	wil::com_ptr_nothrow<IWICImagingFactory> _WICImagingFactory;
 
 public:
 	Factory();
