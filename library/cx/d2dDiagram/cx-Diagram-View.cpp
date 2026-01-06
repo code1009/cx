@@ -901,19 +901,21 @@ namespace cx::Diagram
 		Coord translationY = viewContext().offsetPosition().Y;
 
 
+		D2D1::Matrix3x2F matrixScale;
+		D2D1::Matrix3x2F matrixTranslate;
 		D2D1::Matrix3x2F matrix;
 		//matrix = D2D1::Matrix3x2F::Identity();
-		matrix =
+		matrixScale =
 			D2D1::Matrix3x2F::Scale(
 				static_cast<FLOAT>(scale),
 				static_cast<FLOAT>(scale)
 			);
-		matrix =
-			matrix *
+		matrixTranslate =
 			D2D1::Matrix3x2F::Translation(
-				static_cast<FLOAT>(translationX * scale),
-				static_cast<FLOAT>(translationY * scale)
+				static_cast<FLOAT>(translationX),
+				static_cast<FLOAT>(translationY)
 			);
+		matrix = matrixScale * matrixTranslate;
 		dctx.Transform(matrix);
 	}
 
@@ -930,22 +932,24 @@ namespace cx::Diagram
 		dctx.Transform(translate);
 #endif
 		// TODO
-		/*
-		Coord translationX = viewContext().offsetPosition().X;
-		Coord translationY = viewContext().offsetPosition().Y;
+#if 1
+		//D2D1::Matrix3x2F matrix;
+		//matrix = D2D1::Matrix3x2F::Identity();
+		//dctx.Transform(matrix);
 
 
-		D2D1::Matrix3x2F matrix;
-		matrix =
+		Coord translationX = viewContext().windowScrollOffset().X;
+		Coord translationY = viewContext().windowScrollOffset().Y;
+
+
+		D2D1::Matrix3x2F matrixTranslate;
+		matrixTranslate =
 			D2D1::Matrix3x2F::Translation(
 				static_cast<FLOAT>(translationX),
 				static_cast<FLOAT>(translationY)
 			);
-		dctx.Transform(matrix);
-		*/
-		D2D1::Matrix3x2F matrix;
-		matrix = D2D1::Matrix3x2F::Identity();
-		dctx.Transform(matrix);
+		dctx.Transform(matrixTranslate);
+#endif
 	}
 
 	//=======================================================================
