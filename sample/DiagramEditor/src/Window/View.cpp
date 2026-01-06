@@ -114,6 +114,48 @@ View::View(HWND parentWindowHandle)
 				solidColorBrush.get(),
 				5.0f
 			);
+
+			drawingSession->FillRoundedRectangle(
+				200.0f,
+				200.0f,
+				150.0f,
+				100.0f,
+				15.0f,
+				15.0f,
+				cx::d2d::Color{ 255, 255, 0, 255 }
+			);
+			drawingSession->DrawRoundedRectangle(
+				200.0f,
+				200.0f,
+				150.0f,
+				100.0f,
+				15.0f,
+				15.0f,
+				cx::d2d::Color{ 255, 0, 0, 255 },
+				3.0f
+			);
+
+			cx::d2d::TextFormat textFormat;
+			textFormat.FontFamily(L"맑은 고딕");
+			textFormat.FontSize(24.0f);
+			textFormat.VerticalAlignment(cx::d2d::TextVAlignment::Bottom);
+			drawingSession->DrawRectangle(
+				400.0f,
+				200.0f,
+				300.0f,
+				50.0f,
+				cx::d2d::Color{ 255, 0, 0, 255 },
+				1.0f
+			);
+			drawingSession->DrawText(
+				L"Hello, cx::d2d::Canvas!",
+				400.0f,
+				200.0f,
+				300.0f,
+				50.0f,
+				cx::d2d::Color{ 255, 0, 0, 255 },
+				textFormat
+			);
 		}
 	;
 }

@@ -870,6 +870,25 @@ namespace cx::Diagram
 		dctx.Transform(scale * translate);
 #endif
 		// TODO
+		float scale = viewContext().scale();
+		Coord translationX = viewContext().offsetPosition().X;
+		Coord translationY = viewContext().offsetPosition().Y;
+
+
+		D2D1::Matrix3x2F matrix;
+		//matrix = D2D1::Matrix3x2F::Identity();
+		matrix =
+			D2D1::Matrix3x2F::Scale(
+				static_cast<FLOAT>(scale),
+				static_cast<FLOAT>(scale)
+			);
+		matrix =
+			matrix *
+			D2D1::Matrix3x2F::Translation(
+				static_cast<FLOAT>(translationX * scale),
+				static_cast<FLOAT>(translationY * scale)
+			);
+		dctx.Transform(matrix);
 	}
 
 	void View::resetTransform(DrawingContext& dctx)
@@ -885,6 +904,18 @@ namespace cx::Diagram
 		dctx.Transform(translate);
 #endif
 		// TODO
+		Coord translationX = viewContext().offsetPosition().X;
+		Coord translationY = viewContext().offsetPosition().Y;
+
+
+		D2D1::Matrix3x2F matrix;
+		matrix =
+			matrix *
+			D2D1::Matrix3x2F::Translation(
+				static_cast<FLOAT>(translationX),
+				static_cast<FLOAT>(translationY)
+			);
+		dctx.Transform(matrix);
 	}
 
 	//=======================================================================

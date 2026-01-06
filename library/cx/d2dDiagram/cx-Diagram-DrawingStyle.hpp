@@ -322,7 +322,7 @@ namespace cx::Diagram
 
 	public:
 		void updateTextFormat(void);
-		TextFormat const& textFormat() const { return _TextFormat; }
+		TextFormat& textFormat() { return _TextFormat; }
 
 	public:
 		void copyTo(TextStyle& dest) const;

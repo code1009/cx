@@ -250,6 +250,22 @@ namespace cx::Diagram
 		);
 #endif
 		// TODO
+		_TextFormat.FontFamily(_FontFamily);
+		_TextFormat.FontSize(_FontSize);
+		_TextFormat.FontWeight(
+			_FontBold
+		);
+		_TextFormat.FontStyle(
+			_FontItalic
+		);
+
+
+		_TextFormat.HorizontalAlignment(
+			_TextHAlignment
+		);
+		_TextFormat.VerticalAlignment(
+			_TextVAlignment
+		);
 	}
 
 	//=======================================================================
