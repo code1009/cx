@@ -72,7 +72,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\MouseHandler.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\WindowMouseHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\cx\d2dDiagram\cx-Diagram-Anchor.hpp" />
@@ -125,7 +125,7 @@
     <ClInclude Include=".\src\framework.hpp" />
     <ClInclude Include=".\src\pch.hpp" />
     <ClInclude Include=".\src\targetver.h" />
-    <ClInclude Include="src\Window\WindowHandler\MouseHandler.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\WindowMouseHandler.hpp" />
     <ClInclude Include="src\Window\WindowHandler\pch.hpp" />
   </ItemGroup>
   <ItemGroup>

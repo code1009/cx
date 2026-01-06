@@ -6,7 +6,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class MouseHandler
+class WindowMouseHandler
 {
 private:
 	HWND _Hwnd{ nullptr };
@@ -24,13 +24,13 @@ private:
 	bool _MouseTracked{ false };
 
 public:
-	explicit MouseHandler(HWND hwnd);
+	explicit WindowMouseHandler(HWND hwnd);
 
 public:
-	MouseHandler(const MouseHandler& other) = delete;
-	MouseHandler& operator=(const MouseHandler& other) = delete;
-	MouseHandler(MouseHandler&& other) noexcept = delete;
-	MouseHandler& operator=(MouseHandler&& other) noexcept = delete;
+	WindowMouseHandler(const WindowMouseHandler& other) = delete;
+	WindowMouseHandler& operator=(const WindowMouseHandler& other) = delete;
+	WindowMouseHandler(WindowMouseHandler&& other) noexcept = delete;
+	WindowMouseHandler& operator=(WindowMouseHandler&& other) noexcept = delete;
 
 public:
 	void getMouseDbClickTime(std::uint64_t& time);

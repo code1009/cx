@@ -14,7 +14,7 @@
 #include "../../res/resource.h"
 
 //===========================================================================
-#include "WindowHandler/MouseHandler.hpp"
+#include "WindowHandler/WindowMouseHandler.hpp"
 #include "View.hpp"
 
 
@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 d2dDiagramMouseHandler::d2dDiagramMouseHandler(HWND hwnd, d2dDiagram* d2ddiagram) :
-	MouseHandler(hwnd),
+	WindowMouseHandler(hwnd),
 	_d2dDiagram(d2ddiagram)
 {
 }

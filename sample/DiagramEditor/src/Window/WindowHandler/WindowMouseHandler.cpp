@@ -7,7 +7,7 @@
 #include <cx/runtime/runtime.hpp>
 
 //===========================================================================
-#include "MouseHandler.hpp"
+#include "WindowMouseHandler.hpp"
 
 
 
@@ -15,29 +15,29 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-MouseHandler::MouseHandler(HWND hwnd) :
+WindowMouseHandler::WindowMouseHandler(HWND hwnd) :
 	_Hwnd(hwnd)
 {
 }
 
 //===========================================================================
-void MouseHandler::getMouseDbClickTime(std::uint64_t& time)
+void WindowMouseHandler::getMouseDbClickTime(std::uint64_t& time)
 {
 	time = _MouseDbClickTime;
 }
 
-void MouseHandler::setMouseDbClickTime(std::uint64_t time)
+void WindowMouseHandler::setMouseDbClickTime(std::uint64_t time)
 {
 	_MouseDbClickTime = time;
 }
 
 //===========================================================================
-bool MouseHandler::getMouseCaptureEnabled(void)
+bool WindowMouseHandler::getMouseCaptureEnabled(void)
 {
 	return _MouseCaptureEnabled;
 }
 
-void MouseHandler::setMouseCaptureEnabled(bool enabled)
+void WindowMouseHandler::setMouseCaptureEnabled(bool enabled)
 {
 	_MouseCaptureEnabled = enabled;
 	if (false == enabled)
@@ -46,7 +46,7 @@ void MouseHandler::setMouseCaptureEnabled(bool enabled)
 	}
 }
 
-void MouseHandler::setMouseCapture(void)
+void WindowMouseHandler::setMouseCapture(void)
 {
 	if (getMouseCaptureEnabled())
 	{
@@ -55,7 +55,7 @@ void MouseHandler::setMouseCapture(void)
 	}
 }
 
-void MouseHandler::releaseMouseCapture(void)
+void WindowMouseHandler::releaseMouseCapture(void)
 {
 	if (_MouseCaptured)
 	{
@@ -65,12 +65,12 @@ void MouseHandler::releaseMouseCapture(void)
 }
 
 //===========================================================================
-bool MouseHandler::getMouseTrackEnabled(void)
+bool WindowMouseHandler::getMouseTrackEnabled(void)
 {
 	return _MouseTrackEnabled;
 }
 
-void MouseHandler::setMouseTrackEnabled(bool enabled)
+void WindowMouseHandler::setMouseTrackEnabled(bool enabled)
 {
 	_MouseTrackEnabled = enabled;
 	if (false == enabled)
@@ -79,7 +79,7 @@ void MouseHandler::setMouseTrackEnabled(bool enabled)
 	}
 }
 
-void MouseHandler::setMouseTrack(void)
+void WindowMouseHandler::setMouseTrack(void)
 {
 	if (getMouseTrackEnabled())
 	{
@@ -99,7 +99,7 @@ void MouseHandler::setMouseTrack(void)
 	}
 }
 
-void MouseHandler::releaseMouseTrack(void)
+void WindowMouseHandler::releaseMouseTrack(void)
 {
 	if (_MouseTracked)
 	{
@@ -108,7 +108,7 @@ void MouseHandler::releaseMouseTrack(void)
 }
 
 //===========================================================================
-bool MouseHandler::isWindowMouseMessage(cx::wui::WindowMessage& windowMessage)
+bool WindowMouseHandler::isWindowMouseMessage(cx::wui::WindowMessage& windowMessage)
 {
 	switch (windowMessage.uMsg)
 	{
@@ -132,14 +132,14 @@ bool MouseHandler::isWindowMouseMessage(cx::wui::WindowMessage& windowMessage)
 }
 
 //===========================================================================
-bool MouseHandler::onWindowMessage(cx::wui::WindowMessage& windowMessage)
+bool WindowMouseHandler::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
 	bool handled = false;
 	onWindowMouseMessage(windowMessage, handled);
 	return handled;
 }
 
-void MouseHandler::onWindowMouseMessage(cx::wui::WindowMessage& windowMessage, bool& handled)
+void WindowMouseHandler::onWindowMouseMessage(cx::wui::WindowMessage& windowMessage, bool& handled)
 {
 	switch (windowMessage.uMsg)
 	{
@@ -194,46 +194,46 @@ void MouseHandler::onWindowMouseMessage(cx::wui::WindowMessage& windowMessage, b
 }
 
 //===========================================================================
-void MouseHandler::onMouseWheel(cx::wui::WindowMessage& windowMessage, bool& handled)
+void WindowMouseHandler::onMouseWheel(cx::wui::WindowMessage& windowMessage, bool& handled)
 {
 }
 
 //===========================================================================
-void MouseHandler::onMouseMove(cx::wui::WindowMessage& windowMessage, bool& handled)
+void WindowMouseHandler::onMouseMove(cx::wui::WindowMessage& windowMessage, bool& handled)
 {
 }
 
 //===========================================================================
-void MouseHandler::onMouseHOver(cx::wui::WindowMessage& windowMessage, bool& handled)
+void WindowMouseHandler::onMouseHOver(cx::wui::WindowMessage& windowMessage, bool& handled)
 {
 }
 
-void MouseHandler::onMouseLeave(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-}
-
-//===========================================================================
-void MouseHandler::onMouseLButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-}
-
-void MouseHandler::onMouseLButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-}
-
-void MouseHandler::onMouseLButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled)
+void WindowMouseHandler::onMouseLeave(cx::wui::WindowMessage& windowMessage, bool& handled)
 {
 }
 
 //===========================================================================
-void MouseHandler::onMouseRButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled)
+void WindowMouseHandler::onMouseLButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled)
 {
 }
 
-void MouseHandler::onMouseRButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled)
+void WindowMouseHandler::onMouseLButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled)
 {
 }
 
-void MouseHandler::onMouseRButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled)
+void WindowMouseHandler::onMouseLButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled)
+{
+}
+
+//===========================================================================
+void WindowMouseHandler::onMouseRButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled)
+{
+}
+
+void WindowMouseHandler::onMouseRButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled)
+{
+}
+
+void WindowMouseHandler::onMouseRButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled)
 {
 }

@@ -153,7 +153,7 @@
     <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Text.cpp">
       <Filter>cx\d2dDiagram\shape</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\MouseHandler.cpp">
+    <ClCompile Include="src\Window\WindowHandler\WindowMouseHandler.cpp">
       <Filter>src\Window\WindowHandler</Filter>
     </ClCompile>
   </ItemGroup>
@@ -308,7 +308,7 @@
     <ClInclude Include="..\..\library\cx\d2dDiagram\shape\pch.hpp">
       <Filter>cx\d2dDiagram\shape</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\MouseHandler.hpp">
+    <ClInclude Include="src\Window\WindowHandler\WindowMouseHandler.hpp">
       <Filter>src\Window\WindowHandler</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\WindowHandler\pch.hpp">

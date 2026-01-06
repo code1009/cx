@@ -13,7 +13,7 @@ class d2dDiagram;
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class d2dDiagramMouseHandler : public MouseHandler
+class d2dDiagramMouseHandler : public WindowMouseHandler
 {
 public:
 	HWND _Hwnd{ nullptr };
