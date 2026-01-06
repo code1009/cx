@@ -22,7 +22,7 @@
     <Filter Include="cx\d2dDiagram\shape">
       <UniqueIdentifier>{1915d022-665d-4a1c-861b-ba916e99678c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Window\MouseEvent">
+    <Filter Include="src\Window\WindowHandler">
       <UniqueIdentifier>{199f609a-1116-4955-97f4-058fbeba0d6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -153,8 +153,8 @@
     <ClCompile Include="..\..\library\cx\d2dDiagram\shape\cx-Diagram-Shape-Text.cpp">
       <Filter>cx\d2dDiagram\shape</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window\MouseEvent\MouseHandler.cpp">
-      <Filter>src\Window\MouseEvent</Filter>
+    <ClCompile Include="src\Window\WindowHandler\MouseHandler.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,11 +308,11 @@
     <ClInclude Include="..\..\library\cx\d2dDiagram\shape\pch.hpp">
       <Filter>cx\d2dDiagram\shape</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\MouseEvent\MouseHandler.hpp">
-      <Filter>src\Window\MouseEvent</Filter>
+    <ClInclude Include="src\Window\WindowHandler\MouseHandler.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\MouseEvent\pch.hpp">
-      <Filter>src\Window\MouseEvent</Filter>
+    <ClInclude Include="src\Window\WindowHandler\pch.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

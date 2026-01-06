@@ -27,10 +27,10 @@ public:
 	explicit MouseHandler(HWND hwnd);
 
 public:
-	MouseHandler(const MouseHandler& other);
-	MouseHandler& operator=(const MouseHandler& other);
-	MouseHandler(MouseHandler&& other) noexcept;
-	MouseHandler& operator=(MouseHandler&& other) noexcept;
+	MouseHandler(const MouseHandler& other) = delete;
+	MouseHandler& operator=(const MouseHandler& other) = delete;
+	MouseHandler(MouseHandler&& other) noexcept = delete;
+	MouseHandler& operator=(MouseHandler&& other) noexcept = delete;
 
 public:
 	void getMouseDbClickTime(std::uint64_t& time);

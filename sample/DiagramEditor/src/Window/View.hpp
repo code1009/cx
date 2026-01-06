@@ -57,10 +57,10 @@ public:
 	virtual ~d2dDiagram();
 
 public:
-	d2dDiagram(const d2dDiagram& other);
-	d2dDiagram& operator=(const d2dDiagram& other);
-	d2dDiagram(d2dDiagram&& other) noexcept;
-	d2dDiagram& operator=(d2dDiagram&& other) noexcept;
+	d2dDiagram(const d2dDiagram& other) = delete;
+	d2dDiagram& operator=(const d2dDiagram& other) = delete;
+	d2dDiagram(d2dDiagram&& other) noexcept = delete;
+	d2dDiagram& operator=(d2dDiagram&& other) noexcept = delete;
 
 public:
 	void resize(std::uint32_t cx, std::uint32_t cy);
