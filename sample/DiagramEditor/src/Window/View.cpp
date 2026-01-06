@@ -88,91 +88,28 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
+	_Diagram_Edit = std::make_unique<cx::Diagram::Edit>(cx::Diagram::DefaultViewWidth, cx::Diagram::DefaultViewHeight);
+
+	_Diagram_Edit->viewGrid().showGridLine(true);
+	_Diagram_Edit->viewGrid().showCenterLine(true);
+	_Diagram_Edit->viewGrid().showOutline(true);
+	_Diagram_Edit->viewGrid().showCoordinate(true);
+	_Diagram_Edit->viewStatus().show(true);
+
+
+	//-----------------------------------------------------------------------
 	cx::d2d::Factory factory;
 	_Canvas = std::make_unique<cx::d2d::Canvas>(&factory, hwnd);
 	_Canvas->onDraw =
 		[this](cx::d2d::DrawingSession* drawingSession)
 		{
-			auto renderTarget = drawingSession->getContext()->getD2dHwndRenderTarget();
-
-			renderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Yellow));
+			drawingSession->getContext()->getD2dHwndRenderTarget()->SetAntialiasMode(D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
 
 
-			wil::com_ptr_nothrow<ID2D1SolidColorBrush> solidColorBrush;
-
-			renderTarget->CreateSolidColorBrush(
-				D2D1::ColorF(D2D1::ColorF::Black),
-				solidColorBrush.put()
-			);
-
-			renderTarget->DrawEllipse(
-				D2D1::Ellipse(
-					D2D1::Point2F(100.0f, 100.0f),
-					50.0f,
-					50.0f
-				),
-				solidColorBrush.get(),
-				5.0f
-			);
-
-			drawingSession->FillRoundedRectangle(
-				200.0f,
-				200.0f,
-				150.0f,
-				100.0f,
-				15.0f,
-				15.0f,
-				cx::d2d::Color{ 255, 255, 0, 255 }
-			);
-			drawingSession->DrawRoundedRectangle(
-				200.0f,
-				200.0f,
-				150.0f,
-				100.0f,
-				15.0f,
-				15.0f,
-				cx::d2d::Color{ 255, 0, 0, 255 },
-				3.0f
-			);
-
-			cx::d2d::TextFormat textFormat;
-			textFormat.FontFamily(L"맑은 고딕");
-			textFormat.FontSize(24.0f);
-			textFormat.VerticalAlignment(cx::d2d::TextVAlignment::Bottom);
-			drawingSession->DrawRectangle(
-				400.0f,
-				200.0f,
-				300.0f,
-				50.0f,
-				cx::d2d::Color{ 255, 0, 0, 255 },
-				1.0f
-			);
-			drawingSession->DrawText(
-				L"Hello, cx::d2d::Canvas!",
-				400.0f,
-				200.0f,
-				300.0f,
-				50.0f,
-				cx::d2d::Color{ 255, 0, 0, 255 },
-				textFormat
-			);
-		}
-	;
-
-	_Canvas->onDraw =
-		[this](cx::d2d::DrawingSession* drawingSession)
-		{
 			drawingSession->Clear(cx::d2d::Colors::AliceBlue());
-
-			_Diagram_Edit->viewGrid().showGridLine(true);
-			_Diagram_Edit->viewGrid().showCenterLine(true);
-			_Diagram_Edit->viewGrid().showOutline(true);
-			_Diagram_Edit->viewGrid().showCoordinate(true);
-			_Diagram_Edit->viewStatus().show(true);
 
 			_Diagram_Edit->draw(*drawingSession);
 
-
 			drawingSession->DrawRoundedRectangle(
 				200.0f,
 				200.0f,
@@ -186,7 +123,8 @@ View::View(HWND parentWindowHandle)
 		}
 	;
 
-	_Diagram_Edit = std::make_unique<cx::Diagram::Edit>(cx::Diagram::DefaultViewWidth, cx::Diagram::DefaultViewHeight);
+
+	//-----------------------------------------------------------------------
 	_Diagram_Edit->invalidatedEventListener.attach(
 		reinterpret_cast<std::uintptr_t>(this),
 		[this](cx::ev::Event& /*event*/)
