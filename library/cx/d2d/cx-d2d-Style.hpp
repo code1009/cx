@@ -40,9 +40,12 @@ public:
 //===========================================================================
 class TextFormat
 {
-	// IDWriteTextFormat
 public:
-	D2D1_STROKE_STYLE_PROPERTIES _Value;
+    wil::com_ptr_nothrow<IDWriteTextFormat> _Value;
+    bool _created;
+
+public:
+	D2D1_STROKE_STYLE_PROPERTIES _PROPERTIES;
 };
 
 

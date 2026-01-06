@@ -139,7 +139,7 @@ bool Context::createResources(void)
 	{
 		return false;
 	}
-
+	
 
 	//--------------------------------------------------------------------------
 	hr = _DWriteFactory->CreateTextFormat(

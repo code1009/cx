@@ -61,11 +61,20 @@ bool Renderer::createDeviceResources(void)
 
 	bool rv;
 
+
 	rv = _Context->createRenderTarget(_cx, _cy);
 	if (!rv)
 	{
 		return false;
 	}
+
+
+	rv = _Context->createResources();
+	if (!rv)
+	{
+		return false;
+	}
+
 
 	CX_RUNTIME_LOG(cxLInfo)
 		<< L"createDeviceResources()"
@@ -79,6 +88,10 @@ void Renderer::destroyDeviceResources(void)
 	CX_RUNTIME_LOG(cxLInfo)
 		<< L"destroyDeviceResources()"
 		;
+
+
+	_Context->destroyResources();
+
 
 	_Context->destroyRenderTarget();
 }
