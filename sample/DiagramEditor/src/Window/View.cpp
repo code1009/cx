@@ -330,7 +330,9 @@ LRESULT View::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 
 	if (_d2dDiagram)
 	{
-		bool handled = _d2dDiagram->_MouseHandler->onWindowMessage(windowMessage);
+		bool handled; 
+		
+		handled = _d2dDiagram->_MouseHandler->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
