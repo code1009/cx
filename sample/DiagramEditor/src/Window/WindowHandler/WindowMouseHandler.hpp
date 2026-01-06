@@ -53,7 +53,11 @@ public:
 
 public:
 	virtual bool onWindowMessage(cx::wui::WindowMessage& windowMessage);
+
+public:
 	virtual void onWindowMouseMessage(cx::wui::WindowMessage& windowMessage, bool& handled);
+
+public:
 	virtual void onMouseWheel(cx::wui::WindowMessage& windowMessage, bool& handled);
 	virtual void onMouseMove(cx::wui::WindowMessage& windowMessage, bool& handled);
 	virtual void onMouseHOver(cx::wui::WindowMessage& windowMessage, bool& handled);

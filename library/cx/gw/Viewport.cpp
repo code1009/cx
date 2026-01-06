@@ -21,6 +21,7 @@ namespace cx::gw
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #if  0
+
 From:
 https://www.codeproject.com/Articles/1042516/Custom-Controls-in-Win-API-Scrolling
 
@@ -34,6 +35,18 @@ typedef struct tagSCROLLINFO {
 	int  nTrackPos;
 } SCROLLINFO, * LPSCROLLINFO;
 
+@    0 <= nPage <  nMax - nMin
+@ nMin <= nPos  <= nMax - nPage
+
+#endif
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+#if 0
 
 From:
 https://www.catch22.net/tuts/win32/64bit-scrollbars/
