@@ -126,6 +126,7 @@
     <ClInclude Include=".\src\framework.hpp" />
     <ClInclude Include=".\src\pch.hpp" />
     <ClInclude Include=".\src\targetver.h" />
+    <ClInclude Include="src\Window\WindowHandler\WindowHandler.hpp" />
     <ClInclude Include="src\Window\WindowHandler\WindowMouseHandler.hpp" />
     <ClInclude Include="src\Window\WindowHandler\pch.hpp" />
     <ClInclude Include="src\Window\WindowHandler\WindowScrollHandler.hpp" />

@@ -143,6 +143,258 @@ WindowScrollHandler::WindowScrollHandler(HWND hwnd) :
 }
 
 //===========================================================================
+bool WindowScrollHandler::setXSize(std::int64_t size)
+{
+	bool changed = false;
+	std::int64_t newSize = _xSize;
+
+	
+	if (size < 0)
+	{
+		size = 0;
+	}
+
+
+	newSize = size;
+
+
+	if (_xSize != newSize)
+	{
+		_xSize = newSize;
+		changed = true;
+	}
+
+
+	if (setXPage(_xPage))
+	{
+		changed = true;
+	}
+	if (setXPos(_xPos))
+	{
+		changed = true;
+	}
+	return changed;
+}
+
+bool WindowScrollHandler::setXPage(std::int64_t page)
+{
+	bool changed = false;
+	std::int64_t newPage = _xPage;
+
+
+	if (page < 0)
+	{
+		page = 0;
+	}
+
+
+	// 0 <= nPage < nMax - nMin
+	if (page < _xSize)
+	{
+		newPage = page;
+	}
+	else
+	{
+		newPage = 0;
+	}
+
+
+	if (_xPage != newPage)
+	{
+		_xPage = newPage;
+		changed = true;
+	}
+	return changed;
+}
+
+bool WindowScrollHandler::setXPos(std::int64_t pos)
+{
+	bool changed = false;
+	std::int64_t newPos = _xPos;
+
+
+	if (pos < 0)
+	{
+		pos = 0;
+	}
+
+
+	// nMin <= nPos <= nMax - nPage
+	if (pos <= (_xSize - _xPage))
+	{
+		newPos = pos;
+	}
+	else
+	{
+		newPos = 0;
+	}
+
+
+	if (_xPos != newPos)
+	{
+		_xPos = newPos;
+		changed = true;
+	}
+	return changed;
+}
+
+bool WindowScrollHandler::setXLine(std::int64_t line)
+{
+	bool changed = false;
+	std::int64_t newLine = _xLine;
+	
+	
+	if (line < 1)
+	{
+		line = 1;
+	}
+
+	
+	newLine = line;
+	
+	
+	if (_xLine != newLine)
+	{
+		_xLine = newLine;
+		changed = true;
+	}
+	return changed;
+}
+
+//===========================================================================
+bool WindowScrollHandler::setYSize(std::int64_t size)
+{
+	bool changed = false;
+	std::int64_t newSize = _ySize;
+
+	if (size < 0)
+	{
+		size = 0;
+	}
+
+
+	newSize = size;
+
+
+	if (_ySize != newSize)
+	{
+		_ySize = newSize;
+		changed = true;
+	}
+
+
+	if (setYPage(_yPage))
+	{
+		changed = true;
+	}
+	if (setYPos(_yPos))
+	{
+		changed = true;
+	}
+	return changed;
+}
+
+bool WindowScrollHandler::setYPage(std::int64_t page)
+{
+	bool changed = false;
+	std::int64_t newPage = _yPage;
+
+	if (page < 0)
+	{
+		page = 0;
+	}
+
+
+	// 0 <= nPage < nMax - nMin
+	if (page < _ySize)
+	{
+		newPage = page;
+	}
+	else
+	{
+		newPage = 0;
+	}
+
+
+	if (_yPage != newPage)
+	{
+		_yPage = newPage;
+		changed = true;
+	}
+	return changed;
+}
+
+bool WindowScrollHandler::setYPos(std::int64_t pos)
+{
+	bool changed = false;
+	std::int64_t newPos = _yPos;
+
+	if (pos < 0)
+	{
+		pos = 0;
+	}
+
+
+	// nMin <= nPos <= nMax - nPage
+	if (pos <= (_ySize - _yPage))
+	{
+		newPos = pos;
+	}
+	else
+	{
+		newPos = 0;
+	}
+
+
+	if (_yPos != newPos)
+	{
+		_yPos = newPos;
+		changed = true;
+	}
+	return changed;
+}
+
+bool WindowScrollHandler::setYLine(std::int64_t line)
+{
+	bool changed = false;
+	std::int64_t newLine = _yLine;
+
+
+	if (line < 1)
+	{
+		line = 1;
+	}
+
+
+	newLine = line;
+
+
+	if (_yLine != newLine)
+	{
+		_yLine = newLine;
+		changed = true;
+	}
+	return changed;
+}
+
+//===========================================================================
+void WindowScrollHandler::updateScrollBars(void)
+{
+	updateXScrollBar();
+	updateYScrollBar();
+}
+
+void WindowScrollHandler::updateXScrollBar(void)
+{
+	SetScrollInfo64(_Hwnd, SB_HORZ, SIF_ALL, _xSize, _xPos, _xPage, TRUE);
+}
+
+void WindowScrollHandler::updateYScrollBar(void)
+{
+	SetScrollInfo64(_Hwnd, SB_VERT, SIF_ALL, _ySize, _yPos, _yPage, TRUE);
+}
+
+//===========================================================================
 bool WindowScrollHandler::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
 	bool handled = false;
@@ -156,10 +408,12 @@ void WindowScrollHandler::onWindowScrollMessage(cx::wui::WindowMessage& windowMe
 	{
 	case WM_HSCROLL:
 		onHScroll(windowMessage, handled);
+		handled = true;
 		break;
 
 	case WM_VSCROLL:
 		onVScroll(windowMessage, handled);
+		handled = true;
 		break;
 
 	default:
@@ -178,39 +432,39 @@ void WindowScrollHandler::onHScroll(cx::wui::WindowMessage& windowMessage, bool&
 	switch (nSBCode)
 	{
 	case SB_TOP:
-		onHScroll_Top(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_Top();
 		break;
 
 	case SB_BOTTOM:
-		onHScroll_Bottom(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_Bottom();
 		break;
 
 	case SB_LINEUP:
-		onHScroll_LineUp(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_LineUp();
 		break;
 
 	case SB_LINEDOWN:
-		onHScroll_LineDown(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_LineDown();
 		break;
 
 	case SB_PAGEUP:
-		onHScroll_PageUp(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_PageUp();
 		break;
 
 	case SB_PAGEDOWN:
-		onHScroll_PageDown(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_PageDown();
 		break;
 
 	case SB_THUMBTRACK:
-		onHScroll_ThumbTrack(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_ThumbTrack();
 		break;
 
 	case SB_THUMBPOSITION:
-		onHScroll_ThumbPosition(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_ThumbPosition();
 		break;
 
 	case SB_ENDSCROLL:
-		onHScroll_EndScroll(nSBCode, nPos, wndScrollBar, handled);
+		onHScroll_EndScroll();
 		break;
 	
 	default:
@@ -229,39 +483,39 @@ void WindowScrollHandler::onVScroll(cx::wui::WindowMessage& windowMessage, bool&
 	switch (nSBCode)
 	{
 	case SB_TOP:
-		onVScroll_Top(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_Top();
 		break;
 
 	case SB_BOTTOM:
-		onVScroll_Bottom(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_Bottom();
 		break;
 
 	case SB_LINEUP:
-		onVScroll_LineUp(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_LineUp();
 		break;
 
 	case SB_LINEDOWN:
-		onVScroll_LineDown(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_LineDown();
 		break;
 
 	case SB_PAGEUP:
-		onVScroll_PageUp(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_PageUp();
 		break;
 
 	case SB_PAGEDOWN:
-		onVScroll_PageDown(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_PageDown();
 		break;
 
 	case SB_THUMBTRACK:
-		onVScroll_ThumbTrack(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_ThumbTrack();
 		break;
 
 	case SB_THUMBPOSITION:
-		onVScroll_ThumbPosition(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_ThumbPosition();
 		break;
 
 	case SB_ENDSCROLL:
-		onVScroll_EndScroll(nSBCode, nPos, wndScrollBar, handled);
+		onVScroll_EndScroll();
 		break;
 
 	default:
@@ -270,93 +524,93 @@ void WindowScrollHandler::onVScroll(cx::wui::WindowMessage& windowMessage, bool&
 }
 
 //===========================================================================
-void WindowScrollHandler::onHScroll_Top(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_Top(void)
 {
 
 }
 
-void WindowScrollHandler::onHScroll_Bottom(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_Bottom(void)
 {
 
 }
 
-void WindowScrollHandler::onHScroll_LineUp(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_LineUp(void)
 {
 
 }
 
-void WindowScrollHandler::onHScroll_LineDown(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_LineDown(void)
 {
 
 }
 
-void WindowScrollHandler::onHScroll_PageUp(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_PageUp(void)
 {
 
 }
 
-void WindowScrollHandler::onHScroll_PageDown(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_PageDown(void)
 {
 
 }
 
-void WindowScrollHandler::onHScroll_ThumbTrack(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_ThumbTrack(void)
 {
 
 }
 
-void WindowScrollHandler::onHScroll_ThumbPosition(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_ThumbPosition(void)
 {
 
 }
 
-void WindowScrollHandler::onHScroll_EndScroll(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onHScroll_EndScroll(void)
 {
 
 }
 
 //===========================================================================
-void WindowScrollHandler::onVScroll_Top(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_Top(void)
 {
 
 }
 
-void WindowScrollHandler::onVScroll_Bottom(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_Bottom(void)
 {
 
 }
 
-void WindowScrollHandler::onVScroll_LineUp(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_LineUp(void)
 {
 
 }
 
-void WindowScrollHandler::onVScroll_LineDown(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_LineDown(void)
 {
 
 }
 
-void WindowScrollHandler::onVScroll_PageUp(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_PageUp(void)
 {
 
 }
 
-void WindowScrollHandler::onVScroll_PageDown(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_PageDown(void)
 {
 
 }
 
-void WindowScrollHandler::onVScroll_ThumbTrack(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_ThumbTrack(void)
 {
 
 }
 
-void WindowScrollHandler::onVScroll_ThumbPosition(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_ThumbPosition(void)
 {
 
 }
 
-void WindowScrollHandler::onVScroll_EndScroll(UINT nSBCode, UINT nPos, HWND wndScrollBar, bool& handled)
+void WindowScrollHandler::onVScroll_EndScroll(void)
 {
 
 }

@@ -51,6 +51,7 @@ public:
 	std::unique_ptr<cx::Diagram::PropertiesManipulator> _Diagram_PropertiesManipulator;
 	std::unique_ptr<cx::Diagram::Edit> _Diagram_Edit;
 	std::unique_ptr<d2dDiagramMouseHandler> _MouseHandler;
+	std::unique_ptr<WindowScrollHandler> _ScrollHandler;
 
 public:
 	explicit d2dDiagram(HWND hwnd);

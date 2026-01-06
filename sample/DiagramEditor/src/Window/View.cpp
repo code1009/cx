@@ -14,7 +14,7 @@
 #include "../../res/resource.h"
 
 //===========================================================================
-#include "WindowHandler/WindowMouseHandler.hpp"
+#include "WindowHandler/WindowHandler.hpp"
 #include "View.hpp"
 
 
@@ -176,6 +176,13 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 	//-----------------------------------------------------------------------
 	_MouseHandler = std::make_unique<d2dDiagramMouseHandler>(hwnd, this);
+	_ScrollHandler = std::make_unique<WindowScrollHandler>(hwnd);
+
+	_ScrollHandler->setXSize(static_cast<std::int64_t>(_Diagram_Edit->viewContext().canvasWidth()));
+	_ScrollHandler->setYSize(static_cast<std::int64_t>(_Diagram_Edit->viewContext().canvasHeight()));
+	_ScrollHandler->setXPage(static_cast<std::int64_t>(800));
+	_ScrollHandler->setYPage(static_cast<std::int64_t>(600));
+	_ScrollHandler->updateScrollBars();
 }
 
 d2dDiagram::~d2dDiagram()
@@ -333,6 +340,12 @@ LRESULT View::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 		bool handled; 
 		
 		handled = _d2dDiagram->_MouseHandler->onWindowMessage(windowMessage);
+		if (handled)
+		{
+			return windowMessage.lResult;
+		}
+
+		handled = _d2dDiagram->_ScrollHandler->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
