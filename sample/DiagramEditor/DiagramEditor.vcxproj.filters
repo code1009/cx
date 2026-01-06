@@ -156,6 +156,9 @@
     <ClCompile Include="src\Window\WindowHandler\WindowMouseHandler.cpp">
       <Filter>src\Window\WindowHandler</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\WindowScrollHandler.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -312,6 +315,9 @@
       <Filter>src\Window\WindowHandler</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\WindowHandler\pch.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowScrollHandler.hpp">
       <Filter>src\Window\WindowHandler</Filter>
     </ClInclude>
   </ItemGroup>
