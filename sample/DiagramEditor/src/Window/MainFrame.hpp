@@ -39,8 +39,7 @@ private:
 	std::wstring _Diagram_FilePath;
 
 private:
-	std::unique_ptr<cx::Diagram::PropertiesManipulator> _Diagram_PropertiesManipulator;
-	std::unique_ptr<cx::Diagram::Edit>                  _Diagram_Edit;
+
 
 public:
 	MainFrame();

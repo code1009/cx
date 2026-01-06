@@ -158,6 +158,42 @@ View::View(HWND parentWindowHandle)
 			);
 		}
 	;
+
+	_Canvas->onDraw =
+		[this](cx::d2d::DrawingSession* drawingSession)
+		{
+			drawingSession->Clear(cx::d2d::Colors::AliceBlue());
+
+			_Diagram_Edit->viewGrid().showGridLine(true);
+			_Diagram_Edit->viewGrid().showCenterLine(true);
+			_Diagram_Edit->viewGrid().showOutline(true);
+			_Diagram_Edit->viewGrid().showCoordinate(true);
+			_Diagram_Edit->viewStatus().show(true);
+
+			_Diagram_Edit->draw(*drawingSession);
+
+
+			drawingSession->DrawRoundedRectangle(
+				200.0f,
+				200.0f,
+				150.0f,
+				100.0f,
+				15.0f,
+				15.0f,
+				cx::d2d::Color{ 255, 0, 0, 255 },
+				3.0f
+			);
+		}
+	;
+
+	_Diagram_Edit = std::make_unique<cx::Diagram::Edit>(cx::Diagram::DefaultViewWidth, cx::Diagram::DefaultViewHeight);
+	_Diagram_Edit->invalidatedEventListener.attach(
+		reinterpret_cast<std::uintptr_t>(this),
+		[this](cx::ev::Event& /*event*/)
+		{
+			_Canvas->invalidate();
+		}
+	);
 }
 
 //===========================================================================
@@ -221,6 +257,16 @@ void View::onSize(cx::wui::WindowMessage& windowMessage)
 	if (_Canvas)
 	{
 		_Canvas->resize(cx, cy);
+
+
+		bool rv;
+		rv = _Diagram_Edit->viewContext().setWindowSize(cx, cy);
+		if (!rv)
+		{
+			CX_RUNTIME_LOG(cxLTrace) << L"diagram_updateWindowSize: not changed.";
+			_Canvas->invalidate();
+			return;
+		}
 	}
 }
 

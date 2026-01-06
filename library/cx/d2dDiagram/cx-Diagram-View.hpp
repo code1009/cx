@@ -208,10 +208,35 @@ namespace cx::Diagram
 namespace cx::Diagram
 {
 	//=======================================================================
+	class FPSCounter
+	{
+	private:
+		std::chrono::time_point<std::chrono::steady_clock> _LastDrawTime;
+		std::int64_t                                       _FrameDrawCount{ 0 };
+		float                                              _FPS{ 0.0f };
+
+	public:
+		FPSCounter() = default;
+
+	public:
+		FPSCounter(const FPSCounter& other) = delete;
+		FPSCounter& operator=(const FPSCounter& other) = delete;
+		FPSCounter(FPSCounter&& other) noexcept = delete;
+		FPSCounter& operator=(FPSCounter&& other) noexcept = delete;
+
+	public:
+		void calculate(void);
+		float fps() const { return _FPS; }
+	};
+
+	//=======================================================================
 	class ViewStatus
 	{
 	private:
 		bool _Show{ false };
+
+	private:
+		FPSCounter _FPSCounter;
 
 	private:
 		std::shared_ptr<FillStyle> _StatusFillStyle;

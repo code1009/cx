@@ -632,6 +632,24 @@ namespace cx::Diagram
 namespace cx::Diagram
 {
 	//=======================================================================
+	void FPSCounter::calculate(void)
+	{
+		_FrameDrawCount++;
+
+
+		auto currentDrawTime = std::chrono::steady_clock::now();
+		std::chrono::duration<float> elapsed = currentDrawTime - _LastDrawTime;
+
+
+		if (elapsed.count() >= 1.0f)
+		{
+			_FPS = _FrameDrawCount / elapsed.count();
+			_FrameDrawCount = 0;
+			_LastDrawTime = currentDrawTime;
+		}
+	}
+
+	//=======================================================================
 	ViewStatus::ViewStatus()
 	{
 		_StatusFillStyle = std::make_shared<FillStyle>(Color{ 128, 192, 192, 255 });
@@ -650,6 +668,9 @@ namespace cx::Diagram
 	//=======================================================================
 	void ViewStatus::draw(DrawingContext& dctx, ViewContext& viewContext)
 	{
+		_FPSCounter.calculate();
+
+
 		if (!_Show)
 		{
 			return;
@@ -698,6 +719,11 @@ namespace cx::Diagram
 			<< std::format(L"({:.2f}, {:.2f})",
 				viewContext.canvasWidth(),
 				viewContext.canvasHeight()
+			)
+			<< L" / "
+			<< L"FPS: "
+			<< std::format(L"{:.2f}",
+				_FPSCounter.fps()
 			)
 			<< std::endl
 
@@ -904,17 +930,21 @@ namespace cx::Diagram
 		dctx.Transform(translate);
 #endif
 		// TODO
+		/*
 		Coord translationX = viewContext().offsetPosition().X;
 		Coord translationY = viewContext().offsetPosition().Y;
 
 
 		D2D1::Matrix3x2F matrix;
 		matrix =
-			matrix *
 			D2D1::Matrix3x2F::Translation(
 				static_cast<FLOAT>(translationX),
 				static_cast<FLOAT>(translationY)
 			);
+		dctx.Transform(matrix);
+		*/
+		D2D1::Matrix3x2F matrix;
+		matrix = D2D1::Matrix3x2F::Identity();
 		dctx.Transform(matrix);
 	}
 

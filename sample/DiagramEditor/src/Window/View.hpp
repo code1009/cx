@@ -12,6 +12,8 @@ class View :
     // d2d
 public:
 	std::unique_ptr<cx::d2d::Canvas> _Canvas;
+	std::unique_ptr<cx::Diagram::PropertiesManipulator> _Diagram_PropertiesManipulator;
+	std::unique_ptr<cx::Diagram::Edit>                  _Diagram_Edit;
 
 public:
 	explicit View(HWND parentWindowHandle);
