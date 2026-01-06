@@ -27,19 +27,25 @@ public:
 	explicit MouseHandler(HWND hwnd);
 
 public:
+	MouseHandler(const MouseHandler& other);
+	MouseHandler& operator=(const MouseHandler& other);
+	MouseHandler(MouseHandler&& other) noexcept;
+	MouseHandler& operator=(MouseHandler&& other) noexcept;
+
+public:
 	void getMouseDbClickTime(std::uint64_t& time);
 	void setMouseDbClickTime(std::uint64_t time);
 
 public:
 	bool getMouseCaptureEnabled(void);
 	void setMouseCaptureEnabled(bool enabled);
-	void setMouseCapture(HWND hwnd);
+	void setMouseCapture(void);
 	void releaseMouseCapture(void);
 
 public:
 	bool getMouseTrackEnabled(void);
 	void setMouseTrackEnabled(bool enabled);
-	void setMouseTrack(HWND hwnd);
+	void setMouseTrack(void);
 	void releaseMouseTrack(void);
 
 public:

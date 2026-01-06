@@ -14,6 +14,7 @@
 #include "../../res/resource.h"
 
 //===========================================================================
+#include "MouseEvent/MouseHandler.hpp"
 #include "View.hpp"
 #include "MainFrame.hpp"
 #include "AboutBox.hpp"

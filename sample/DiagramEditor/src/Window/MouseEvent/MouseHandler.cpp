@@ -46,12 +46,12 @@ void MouseHandler::setMouseCaptureEnabled(bool enabled)
 	}
 }
 
-void MouseHandler::setMouseCapture(HWND hwnd)
+void MouseHandler::setMouseCapture(void)
 {
 	if (getMouseCaptureEnabled())
 	{
 		_MouseCaptured = true;
-		::SetCapture(hwnd);
+		::SetCapture(_Hwnd);
 	}
 }
 
@@ -79,7 +79,7 @@ void MouseHandler::setMouseTrackEnabled(bool enabled)
 	}
 }
 
-void MouseHandler::setMouseTrack(HWND hwnd)
+void MouseHandler::setMouseTrack(void)
 {
 	if (getMouseTrackEnabled())
 	{
@@ -88,7 +88,7 @@ void MouseHandler::setMouseTrack(HWND hwnd)
 			TRACKMOUSEEVENT tme;
 			tme.cbSize = sizeof(TRACKMOUSEEVENT);
 			tme.dwFlags = TME_HOVER | TME_LEAVE;
-			tme.hwndTrack = hwnd;
+			tme.hwndTrack = _Hwnd;
 			tme.dwHoverTime = 1000;
 
 			if (TrackMouseEvent(&tme))
