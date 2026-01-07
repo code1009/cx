@@ -83,7 +83,12 @@ WindowDropTargetHandler::WindowDropTargetHandler(HWND hwnd, std::uint32_t clipbo
 		CX_RUNTIME_LOG(cxLError) << L"RegisterDragDrop() failed : "
 			<< L"hr=" << hr
 			<< std::endl;
+		
+		throw std::runtime_error("RegisterDragDrop() failed");
 	}
+
+
+	CX_RUNTIME_LOG(cxLInfo) << L"Registered DragDrop Event";
 }
 
 WindowDropTargetHandler::~WindowDropTargetHandler()
@@ -105,6 +110,9 @@ WindowDropTargetHandler::~WindowDropTargetHandler()
 		_pDropTarget->Release();
 		_pDropTarget = nullptr;
 	}
+
+
+	CX_RUNTIME_LOG(cxLInfo) << L"Unregistered DragDrop Event";
 }
 
 //===========================================================================

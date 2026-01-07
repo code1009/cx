@@ -189,6 +189,13 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 			}
 		}
 	;
+
+
+	//-----------------------------------------------------------------------
+	_DropTargetHandler = std::make_unique<cx::wui::dragdrop::WindowDropTargetHandler>(
+		hwnd,
+		cx::wui::dragdrop::getWindowDragDropClipboardFormat()->getClipboardFormat()
+	);
 }
 
 d2dDiagram::~d2dDiagram()
@@ -436,10 +443,16 @@ HWND View::createView(HWND parentWindowHandle)
 //===========================================================================
 void View::registerWindowMessageMap(void)
 {
+	_WindowMessageMap.handle(WM_DESTROY) = &View::onDestroy;
 	_WindowMessageMap.handle(WM_SIZE) = &View::onSize;
 	_WindowMessageMap.handle(WM_ERASEBKGND) = &View::onEraseBkgnd;
 	_WindowMessageMap.handle(WM_PAINT) = &View::onPaint;
 	_WindowMessageMap.handle(WM_COMMAND) = &View::onCommand;
+}
+
+void View::onDestroy(cx::wui::WindowMessage& windowMessage)
+{
+	_d2dDiagram.reset();
 }
 
 void View::onSize(cx::wui::WindowMessage& windowMessage)

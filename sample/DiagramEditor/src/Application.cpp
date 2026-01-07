@@ -69,6 +69,16 @@ bool Application::initialize(void)
 		return false;
 	}
 
+
+	//-----------------------------------------------------------------------
+	rv = cx::wui::dragdrop::getWindowDragDropClipboardFormat()->initialize();
+	if (false == rv)
+	{
+		terminate();
+		return false;
+	}
+
+
 	return true;
 }
 

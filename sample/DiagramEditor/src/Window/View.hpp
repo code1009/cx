@@ -15,6 +15,7 @@ public:
 	std::unique_ptr<cx::Diagram::Edit> _Diagram_Edit;
 	std::unique_ptr<cx::wui::WindowMouseHandler> _MouseHandler;
 	std::unique_ptr<cx::wui::WindowScrollHandler> _ScrollHandler;
+	std::unique_ptr<cx::wui::dragdrop::WindowDropTargetHandler> _DropTargetHandler;
 
 public:
 	explicit d2dDiagram(HWND hwnd);
@@ -58,6 +59,7 @@ public:
 
 public:
 	void registerWindowMessageMap(void);
+	void onDestroy(cx::wui::WindowMessage& windowMessage);
 	void onSize(cx::wui::WindowMessage& windowMessage);
 	void onEraseBkgnd(cx::wui::WindowMessage& windowMessage);
 	void onPaint(cx::wui::WindowMessage& windowMessage);
