@@ -40,6 +40,12 @@ public:
 	explicit DropTarget(UINT clipboard_format);
 	virtual ~DropTarget();
 
+public:
+	DropTarget(const DropTarget& other) = delete;
+	DropTarget& operator=(const DropTarget& other) = delete;
+	DropTarget(DropTarget&& other) noexcept = delete;
+	DropTarget& operator=(DropTarget&& other) noexcept = delete;
+
 private:
 	HGLOBAL getDataObjectHGlobal(IDataObject* pDataObj, FORMATETC* formatetc);
 

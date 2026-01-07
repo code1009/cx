@@ -36,6 +36,12 @@ private:
 public:
 	explicit DataObject(UINT clipboard_format);
 	virtual ~DataObject();
+	
+public:
+	DataObject(const DataObject& other) = delete;
+	DataObject& operator=(const DataObject& other) = delete;
+	DataObject(DataObject&& other) noexcept = delete;
+	DataObject& operator=(DataObject&& other) noexcept = delete;
 
 public:
 	// IUnknown
@@ -76,6 +82,12 @@ private:
 public:
 	DropSource() = default;
 	virtual ~DropSource() = default;
+
+public:
+	DropSource(const DropSource& other) = delete;
+	DropSource& operator=(const DropSource& other) = delete;
+	DropSource(DropSource&& other) noexcept = delete;
+	DropSource& operator=(DropSource&& other) noexcept = delete;
 
 public:
 	// IUnknown

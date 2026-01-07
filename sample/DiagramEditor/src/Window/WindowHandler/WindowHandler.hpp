@@ -11,6 +11,7 @@
 #include "DropSource.hpp"
 #include "DropTarget.hpp"
 
+#include "WindowDragDropClipboardFormat.hpp"
 #include "WindowDropSourceNotifier.hpp"
 #include "WindowDropTargetHandler.hpp"
 

@@ -75,6 +75,7 @@
     <ClCompile Include="src\Window\WindowHandler\ClipboardFormat.cpp" />
     <ClCompile Include="src\Window\WindowHandler\DropTarget.cpp" />
     <ClCompile Include="src\Window\WindowHandler\HGlobal.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.cpp" />
     <ClCompile Include="src\Window\WindowHandler\WindowDropSourceNotifier.cpp" />
     <ClCompile Include="src\Window\WindowHandler\DropSource.cpp" />
     <ClCompile Include="src\Window\WindowHandler\WindowDropTargetHandler.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="src\Window\WindowHandler\ClipboardFormat.hpp" />
     <ClInclude Include="src\Window\WindowHandler\DropTarget.hpp" />
     <ClInclude Include="src\Window\WindowHandler\HGlobal.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.hpp" />
     <ClInclude Include="src\Window\WindowHandler\WindowDropSourceNotifier.hpp" />
     <ClInclude Include="src\Window\WindowHandler\DropSource.hpp" />
     <ClInclude Include="src\Window\WindowHandler\WindowDropTargetHandler.hpp" />
