@@ -89,7 +89,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 		reinterpret_cast<std::uintptr_t>(this),
 		[this](cx::ev::Event& /*event*/)
 		{
-			_Canvas->draw();
+			invalidate();
 		}
 	);
 
@@ -164,7 +164,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 			if (_Diagram_Edit->eventGenerator().isPointerCaptured())
 			{
-				draw();
+				invalidate();
 			}
 
 			return true;
@@ -189,7 +189,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 			_MouseHandler->setMouseCapture();
 
-			draw();
+			invalidate();
 
 			return true;
 		}
@@ -213,7 +213,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 			_MouseHandler->releaseMouseCapture();
 
-			draw();
+			invalidate();
 
 			return true;
 		}
@@ -232,7 +232,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				scrollOffset.Y = static_cast<float>(y);
 				_Diagram_Edit->viewContext().setWindowScrollOffset(scrollOffset);
 
-				draw();
+				invalidate();
 			}
 		}
 	;
@@ -264,7 +264,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 			if (!item)
 			{
 				_Diagram_Edit->setNewItem(nullptr);
-				draw();
+				invalidate();
 				return;
 			}
 
@@ -298,7 +298,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				;
 
 			_Diagram_Edit->setNewItem(nullptr);
-			draw();
+			invalidate();
 		}
 	;
 	_DropTargetHandler->dropHandler =
@@ -355,9 +355,9 @@ void d2dDiagram::resize(std::uint32_t cx, std::uint32_t cy)
 	_Canvas->draw();
 }
 
-void d2dDiagram::draw(void)
+void d2dDiagram::invalidate(void)
 {
-	_Canvas->draw();
+	InvalidateRect(_Hwnd, nullptr, FALSE);
 }
 
 //===========================================================================
@@ -396,7 +396,7 @@ void d2dDiagram::zoomIn(float px, float py)
 		scaledHeight, windowHeight, yScrollPos
 	);
 
-	draw();
+	invalidate();
 }
 
 void d2dDiagram::zoomOut(float px, float py)
@@ -434,7 +434,7 @@ void d2dDiagram::zoomOut(float px, float py)
 		scaledHeight, windowHeight, yScrollPos
 	);
 
-	draw();
+	invalidate();
 }
 
 
@@ -630,7 +630,7 @@ void View::onPaint(cx::wui::WindowMessage& windowMessage)
 
 	if (_d2dDiagram)
 	{
-		_d2dDiagram->draw();
+		_d2dDiagram->_Canvas->draw();
 	}
 
 	// The ValidateRect function validates the client area within a rectangle by
@@ -686,7 +686,7 @@ void View::onIdle(void)
 {
 	if (_d2dDiagram)
 	{
-		_d2dDiagram->draw();
+		_d2dDiagram->_Canvas->draw();
 	}
 }
 
