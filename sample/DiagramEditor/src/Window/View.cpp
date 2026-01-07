@@ -110,6 +110,17 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 					);
 				}
 			}
+			else
+			{
+				if (delta > 0)
+				{
+					_ScrollHandler->YScroll_LineUp();
+				}
+				else
+				{
+					_ScrollHandler->YScroll_LineDown();
+				}
+			}
 			return true;
 		}
 	;

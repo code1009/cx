@@ -941,7 +941,7 @@ void WindowScrollHandler::YScroll_EndScroll(void)
 //===========================================================================
 void WindowScrollHandler::notifyScrollChanged(bool byScrollBar)
 {
-#if 1
+#if 0
 	CX_RUNTIME_LOG(cxLTrace)
 		<< L"Scroll Changed: "
 		<< std::format(L"byScrollBar={} offset=({}, {}) page=({}, {}) size=({}, {})",
