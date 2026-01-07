@@ -196,6 +196,56 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 		hwnd,
 		cx::wui::dragdrop::getWindowDragDropClipboardFormat()->getClipboardFormat()
 	);
+
+	_DropTargetHandler->dragEnterHandler =
+		[this](std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y, cx::wui::dragdrop::WindowDropTargetData const& data)
+		{
+			CX_RUNTIME_LOG(cxLInfo)
+				<< L"dragEnter : "
+				<< L"seq=" << seq
+				<< L" "
+				<< L"x=" << x
+				<< L" "
+				<< L"y=" << y
+				;
+		}
+	;
+
+	_DropTargetHandler->dragOverHandler =
+		[this](std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y)
+		{
+			CX_RUNTIME_LOG(cxLInfo)
+				<< L"dragOver : "
+				<< L"seq=" << seq
+				<< L" "
+				<< L"x=" << x
+				<< L" "
+				<< L"y=" << y
+				;
+		}
+	;
+	_DropTargetHandler->dragLeaveHandler =
+		[this](std::uint32_t seq)
+		{
+			CX_RUNTIME_LOG(cxLInfo)
+				<< L"dragLeave : "
+				<< L"seq=" << seq
+				;
+		}
+	;
+	_DropTargetHandler->dropHandler =
+		[this](std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y)
+		{
+			CX_RUNTIME_LOG(cxLInfo)
+				<< L"drop : "
+				<< L"seq=" << seq
+				<< L" "
+				<< L"x=" << x
+				<< L" "
+				<< L"y=" << y
+				;
+		}
+	;
 }
 
 d2dDiagram::~d2dDiagram()

@@ -10,6 +10,8 @@ class MainFrame :
 	public cx::wui::MessageMapWindowT<MainFrame, cx::wui::BaseWindow>
 {
 private:
+	std::unique_ptr<CommandPanel> _CommandPanel;
+	std::unique_ptr<CommandPanel> _PropertyPanel;
 	std::unique_ptr<View> _View;
 
 	// diagram
@@ -24,12 +26,8 @@ private:
 
 	// diagram editor window layout
 private:
-	const std::uint32_t _Command_GridColumnIndex{ 0 };
-	const double _Command_GridColumnWidth{ 250 };
-
-	const std::uint32_t _Property_GridColumnIndex{ 2 };
-	const double _Property_GridColumnWidth{ 450 };
-	const double _Property_GridColumnNameWidth{ 130 };
+	const std::uint32_t _CommandPanel_Width{ 250 };
+	const std::uint32_t _PropertyPanel_Width{ 200 };
 
 private:
 	std::vector<CommandInfo> _CommandInfos;
@@ -37,8 +35,6 @@ private:
 
 private:
 	std::wstring _Diagram_FilePath;
-
-private:
 
 
 public:
@@ -59,4 +55,7 @@ public:
 
 public:
 	void onIdle(void);
+
+public:
+	void updateLayout(void);
 };

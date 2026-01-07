@@ -26,9 +26,10 @@ public:
 
 public:
 	WindowDropSourceData() = default;
+	~WindowDropSourceData() = default;
 
 public:
-	virtual ~WindowDropSourceData() = default;
+	explicit WindowDropSourceData(std::uint32_t clipboardFormat);
 
 public:
 	void setData(std::uint8_t* pointer, std::size_t size);

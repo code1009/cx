@@ -72,7 +72,6 @@ public:
 	void setMouseTrack(void);
 	void releaseMouseTrack(void);
 
-
 public:
 	virtual bool onWindowMessage(cx::wui::WindowMessage& windowMessage);
 

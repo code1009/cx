@@ -27,6 +27,7 @@ public:
 
 public:
 	WindowDropTargetData() = default;
+	~WindowDropTargetData() = default;
 
 public:
 	explicit WindowDropTargetData(std::uint32_t clipboardFormat, std::uint32_t dataSeq);

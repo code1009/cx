@@ -27,6 +27,12 @@ namespace cx::wui::dragdrop
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+WindowDropSourceData::WindowDropSourceData(std::uint32_t clipboardFormat) :
+	_ClipboardFormat{ clipboardFormat }
+{
+}
+
+//===========================================================================
 void WindowDropSourceData::setData(std::uint8_t* pointer, std::size_t size)
 {
 	_DataBuffer.clear();
@@ -146,7 +152,7 @@ bool WindowDropSourceNotifier::createCOMObject(void)
 		return false;
 	}
 	_pDataObject = cpp_new DataObject(_Data._ClipboardFormat);
-	if (_pDataObject)
+	if (!_pDataObject)
 	{
 		return false;
 	}

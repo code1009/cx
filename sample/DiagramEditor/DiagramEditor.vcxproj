@@ -72,6 +72,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Window\CommandPanel.cpp" />
     <ClCompile Include="src\Window\WindowHandler\ClipboardFormat.cpp" />
     <ClCompile Include="src\Window\WindowHandler\DropTarget.cpp" />
     <ClCompile Include="src\Window\WindowHandler\HGlobal.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include=".\src\framework.hpp" />
     <ClInclude Include=".\src\pch.hpp" />
     <ClInclude Include=".\src\targetver.h" />
+    <ClInclude Include="src\Window\CommandPanel.hpp" />
     <ClInclude Include="src\Window\WindowHandler\ClipboardFormat.hpp" />
     <ClInclude Include="src\Window\WindowHandler\DropTarget.hpp" />
     <ClInclude Include="src\Window\WindowHandler\HGlobal.hpp" />

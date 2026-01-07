@@ -18,6 +18,7 @@
 //===========================================================================
 #include "Window/WindowHandler/WindowHandler.hpp"
 #include "Window/View.hpp"
+#include "Window/CommandPanel.hpp"
 #include "Window/MainFrame.hpp"
 
 //===========================================================================

@@ -180,6 +180,9 @@
     <ClCompile Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.cpp">
       <Filter>src\Window\WindowHandler</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\CommandPanel.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -364,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.hpp">
       <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\CommandPanel.hpp">
+      <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

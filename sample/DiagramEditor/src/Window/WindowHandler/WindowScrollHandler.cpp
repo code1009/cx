@@ -146,8 +146,10 @@ namespace cx::wui
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-WindowScrollHandler::WindowScrollHandler(HWND hwnd) :
-	_Hwnd(hwnd)
+WindowScrollHandler::WindowScrollHandler(HWND hwnd, bool xScrollEnabled, bool yScrollEnabled) :
+	_Hwnd(hwnd),
+	_XScrollEnabled(xScrollEnabled),
+	_YScrollEnabled(yScrollEnabled)
 {
 }
 
@@ -468,12 +470,18 @@ void WindowScrollHandler::updateScrollBars(void)
 
 void WindowScrollHandler::updateXScrollBar(void)
 {
-	SetScrollInfo64(_Hwnd, SB_HORZ, SIF_ALL, _XSize, _XPos, _XPage, TRUE);
+	if (_XScrollEnabled)
+	{
+		SetScrollInfo64(_Hwnd, SB_HORZ, SIF_ALL, _XSize, _XPos, _XPage, TRUE);
+	}
 }
 
 void WindowScrollHandler::updateYScrollBar(void)
 {
-	SetScrollInfo64(_Hwnd, SB_VERT, SIF_ALL, _YSize, _YPos, _YPage, TRUE);
+	if (_YScrollEnabled)
+	{
+		SetScrollInfo64(_Hwnd, SB_VERT, SIF_ALL, _YSize, _YPos, _YPage, TRUE);
+	}
 }
 
 std::int64_t WindowScrollHandler::getXScrollTrackPos(void)

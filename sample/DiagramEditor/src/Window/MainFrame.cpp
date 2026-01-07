@@ -16,6 +16,7 @@
 //===========================================================================
 #include "WindowHandler/WindowHandler.hpp"
 #include "View.hpp"
+#include "CommandPanel.hpp"
 #include "MainFrame.hpp"
 #include "AboutBox.hpp"
 
@@ -64,6 +65,7 @@ MainFrame::MainFrame()
 
 
 	//-----------------------------------------------------------------------
+	_CommandPanel = std::make_unique<CommandPanel>(*this);
 	_View = std::make_unique<View>(*this);
 
 
@@ -104,27 +106,7 @@ void MainFrame::onClose(cx::wui::WindowMessage& windowMessage)
 
 void MainFrame::onSize(cx::wui::WindowMessage& windowMessage)
 {
-	//-----------------------------------------------------------------------
-	RECT rect;
-
-
-	::GetClientRect(*this, &rect);
-
-
-	//-----------------------------------------------------------------------
-	UINT cx;
-	UINT cy;
-
-
-	cx = static_cast<UINT>(rect.right - rect.left);
-	cy = static_cast<UINT>(rect.bottom - rect.top);
-
-
-	//-----------------------------------------------------------------------
-	if (_View.get())
-	{
-		::MoveWindow(*_View, 0, 0, cx, cy, TRUE);
-	}
+	updateLayout();
 }
 
 void MainFrame::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
@@ -218,6 +200,111 @@ void MainFrame::onIdle(void)
 	}
 }
 
+void MainFrame::updateLayout(void)
+{
+
+	//-----------------------------------------------------------------------
+	RECT rect;
+
+
+	::GetClientRect(*this, &rect);
+
+
+	//-----------------------------------------------------------------------
+	UINT cx;
+	UINT cy;
+
+
+	cx = static_cast<UINT>(rect.right - rect.left);
+	cy = static_cast<UINT>(rect.bottom - rect.top);
+
+
+	//-----------------------------------------------------------------------
+	struct WindowLayoutPosition
+	{
+		std::uint32_t x{ 0 };
+		std::uint32_t y{ 0 };
+		std::uint32_t cx{ 0 };
+		std::uint32_t cy{ 0 };
+	};
+
+	WindowLayoutPosition wlps[3];
+	WindowLayoutPosition* wlp;
+
+	
+	bool hasCommandPanel = (_CommandPanel.get() != nullptr);
+	bool hasPropertyPanel = (_PropertyPanel.get() != nullptr);
+
+
+	//-----------------------------------------------------------------------
+	if (hasCommandPanel && hasPropertyPanel)
+	{
+		// CommandPanel | View | PropertyPanel
+		std::uint32_t viewWidth = (cx > _CommandPanel_Width + _PropertyPanel_Width)
+			? cx - _CommandPanel_Width - _PropertyPanel_Width
+			: 0;
+
+		wlp = &wlps[1];
+		*wlp = { 0, 0, _CommandPanel_Width, cy };
+
+		wlp = &wlps[0];
+		*wlp = { _CommandPanel_Width, 0, viewWidth, cy };
+
+		wlp = &wlps[2];
+		*wlp = { _CommandPanel_Width + viewWidth, 0, _PropertyPanel_Width, cy };
+	}
+	else if (hasCommandPanel)
+	{
+		// CommandPanel | View
+		std::uint32_t viewWidth = (cx > _CommandPanel_Width)
+			? cx - _CommandPanel_Width
+			: 0;
+
+		wlp = &wlps[1];
+		*wlp = { 0, 0, _CommandPanel_Width, cy };
+
+		wlp = &wlps[0];
+		*wlp = { _CommandPanel_Width, 0, viewWidth, cy };
+	}
+	else if (hasPropertyPanel)
+	{
+		// View | PropertyPanel
+		std::uint32_t viewWidth = (cx > _PropertyPanel_Width)
+			? cx - _PropertyPanel_Width
+			: 0;
+		std::uint32_t propertyX = viewWidth;
+
+		wlp = &wlps[0];
+		*wlp = { 0, 0, viewWidth, cy };
+
+		wlp = &wlps[2];
+		*wlp = { propertyX, 0, _PropertyPanel_Width, cy };
+	}
+	else
+	{
+		// View only
+		wlp = &wlps[0];
+		*wlp = { 0, 0, cx, cy };
+	}
+
+
+	//-----------------------------------------------------------------------
+	if (_CommandPanel.get())
+	{
+		wlp = &wlps[1];
+		::MoveWindow(*_CommandPanel, wlp->x, wlp->y, wlp->cx, wlp->cy, TRUE);
+	}
+	if (_PropertyPanel.get())
+	{
+		wlp = &wlps[2];
+		::MoveWindow(*_PropertyPanel, wlp->x, wlp->y, wlp->cx, wlp->cy, TRUE);
+	}
+	if (_View.get())
+	{
+		wlp = &wlps[0];
+		::MoveWindow(*_View, wlp->x, wlp->y, wlp->cx, wlp->cy, TRUE);
+	}
+}
 
 
 

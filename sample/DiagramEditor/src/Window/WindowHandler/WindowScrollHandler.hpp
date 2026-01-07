@@ -25,6 +25,8 @@ public:
 
 private:
 	HWND _Hwnd{ nullptr };
+	bool _XScrollEnabled{ true };
+	bool _YScrollEnabled{ true };
 
 private:
 	std::int64_t _XSize{  0 };
@@ -39,7 +41,7 @@ private:
 	std::int64_t _YLine{ 20 };
 
 public:
-	explicit WindowScrollHandler(HWND hwnd);
+	explicit WindowScrollHandler(HWND hwnd, bool xScrollEnabled=true, bool yScrollEnabled=true);
 
 public:
 	WindowScrollHandler(const WindowScrollHandler& other) = delete;
