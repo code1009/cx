@@ -179,7 +179,10 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 	//-----------------------------------------------------------------------
 	_ScrollHandler = std::make_unique<WindowScrollHandler>(hwnd);
 
-	_ScrollHandler->updateScrollBars();
+	_ScrollHandler->setXYScroll(
+		1000, 100, 0,
+		1000, 100, 0
+	);
 }
 
 d2dDiagram::~d2dDiagram()

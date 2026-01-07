@@ -358,6 +358,96 @@ bool WindowScrollHandler::setYLine(std::int64_t line)
 }
 
 //===========================================================================
+void WindowScrollHandler::setXYScrollLine(std::int64_t xline, std::int64_t yline)
+{
+	bool changed = false;
+	changed |= setXLine(xline);
+	changed |= setYLine(yline);
+	if (changed)
+	{
+		CX_RUNTIME_LOG(cxLTrace)
+			<< L"Scroll Line: "
+			<< std::format(L"{}, {}",
+				_XLine, _YLine
+			);
+	}
+}
+
+void WindowScrollHandler::setXScroll(std::int64_t size, std::int64_t page, std::int64_t pos)
+{
+	bool changed = false;
+
+	changed |= setXSize(size);
+	changed |= setXPage(page);
+	changed |= setXPos(pos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
+}
+
+void WindowScrollHandler::setXScroll(std::int64_t size, std::int64_t page)
+{
+	bool changed = false;
+
+	changed |= setXSize(size);
+	changed |= setXPage(page);
+	changed |= setXPos(_XPos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
+}
+
+void WindowScrollHandler::setYScroll(std::int64_t size, std::int64_t page, std::int64_t pos)
+{
+	bool changed = false;
+
+	changed |= setYSize(size);
+	changed |= setYPage(page);
+	changed |= setYPos(pos);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
+}
+
+void WindowScrollHandler::setYScroll(std::int64_t size, std::int64_t page)
+{
+	bool changed = false;
+
+	changed |= setYSize(size);
+	changed |= setYPage(page);
+	changed |= setYPos(_YPos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
+}
+
+void WindowScrollHandler::setXYScroll(
+	std::int64_t xsize, std::int64_t xpage, std::int64_t xpos,
+	std::int64_t ysize, std::int64_t ypage, std::int64_t ypos
+)
+{
+	setXScroll(xsize, xpage, xpos);
+	setYScroll(ysize, ypage, ypos);
+}
+
+void WindowScrollHandler::setXYScroll(
+	std::int64_t xsize, std::int64_t xpage,
+	std::int64_t ysize, std::int64_t ypage
+)
+{
+	setXScroll(xsize, xpage);
+	setYScroll(ysize, ypage);
+}
+
+//===========================================================================
 void WindowScrollHandler::updateScrollBars(void)
 {
 	updateXScrollBar();
@@ -374,14 +464,24 @@ void WindowScrollHandler::updateYScrollBar(void)
 	SetScrollInfo64(_Hwnd, SB_VERT, SIF_ALL, _YSize, _YPos, _YPage, TRUE);
 }
 
-std::int64_t WindowScrollHandler::getXCurrentPos(void)
+std::int64_t WindowScrollHandler::getXScrollTrackPos(void)
 {
 	return static_cast<std::int64_t>(GetScrollPos64(_Hwnd, SB_HORZ, SIF_TRACKPOS, _XSize));
 }
 
-std::int64_t WindowScrollHandler::getYCurrentPos(void)
+std::int64_t WindowScrollHandler::getYScrollTrackPos(void)
 {
 	return static_cast<std::int64_t>(GetScrollPos64(_Hwnd, SB_VERT, SIF_TRACKPOS, _YSize));
+}
+
+std::int64_t WindowScrollHandler::getXScrollPos(void)
+{
+	return static_cast<std::int64_t>(GetScrollPos64(_Hwnd, SB_HORZ, SIF_POS, _XSize));
+}
+
+std::int64_t WindowScrollHandler::getYScrollPos(void)
+{
+	return static_cast<std::int64_t>(GetScrollPos64(_Hwnd, SB_VERT, SIF_POS, _YSize));
 }
 
 //===========================================================================
@@ -452,42 +552,189 @@ bool WindowScrollHandler::onVScroll(cx::wui::WindowMessage& windowMessage)
 //===========================================================================
 void WindowScrollHandler::XScroll_Top(void)
 {
+	std::int64_t top = 0;
 
+
+	bool changed = false;
+	changed |= setXPos(top);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::XScroll_Bottom(void)
 {
+	std::int64_t bottom = (_XSize > _XPage) ? _XSize - _XPage : 0;
 
+	bool changed = false;	
+	changed |= setXPos(bottom);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::XScroll_LineUp(void)
 {
+	std::int64_t top = 0;
+	std::int64_t pos = getXScrollPos();
+	std::int64_t newPos;
 
+	if (pos >= (top + _XLine))
+	{
+		newPos = pos - _XLine;
+	}
+	else
+	{
+		newPos = top;
+	}
+
+
+	bool changed = false;
+	changed |= setXPos(newPos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::XScroll_LineDown(void)
 {
+	std::int64_t bottom = (_XSize > _XPage) ? _XSize - _XPage : 0;
+	std::int64_t pos = getXScrollPos();
+	std::int64_t newPos;
 
+	if (pos <= (bottom - _XLine))
+	{
+		newPos = pos + _XLine;
+	}
+	else
+	{
+		newPos = bottom;
+	}
+
+
+	bool changed = false;
+	changed |= setXPos(newPos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::XScroll_PageUp(void)
 {
+	std::int64_t top = 0;
+	std::int64_t pos = getXScrollPos();
+	std::int64_t newPos;
 
+	if (pos >= (top + _XPage))
+	{
+		newPos = pos - _XPage;
+	}
+	else
+	{
+		newPos = top;
+	}
+
+
+	bool changed = false;
+	changed |= setXPos(newPos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::XScroll_PageDown(void)
 {
+	std::int64_t bottom = (_XSize > _XPage) ? _XSize - _XPage : 0;
+	std::int64_t pos = getXScrollPos();
+	std::int64_t newPos;
 
+	if (pos <= (bottom - _XPage))
+	{
+		newPos = pos + _XPage;
+	}
+	else
+	{
+		newPos = bottom;
+	}
+
+
+	bool changed = false;
+	changed |= setXPos(newPos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::XScroll_ThumbTrack(void)
 {
+	std::int64_t top = 0;
+	std::int64_t bottom = (_XSize > _XPage) ? _XSize - _XPage : 0;
+	std::int64_t pos = getXScrollTrackPos();
+	std::int64_t newPos;
 
+	if (top <= pos && pos <= bottom)
+	{
+		newPos = pos;
+	}
+	else if (pos < top)
+	{
+		newPos = top;
+	}
+	else
+	{
+		newPos = bottom;
+	}
+
+
+	bool changed = false;
+	changed |= setXPos(newPos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::XScroll_ThumbPosition(void)
 {
+	std::int64_t top = 0;
+	std::int64_t bottom = (_XSize > _XPage) ? _XSize - _XPage : 0;
+	std::int64_t pos = getXScrollTrackPos();
+	std::int64_t newPos;
 
+	if (top <= pos && pos <= bottom)
+	{
+		newPos = pos;
+	}
+	else if (pos < top)
+	{
+		newPos = top;
+	}
+	else
+	{
+		newPos = bottom;
+	}
+
+
+	bool changed = false;
+	changed |= setXPos(newPos);
+	if (changed)
+	{
+		updateXScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::XScroll_EndScroll(void)
@@ -498,42 +745,189 @@ void WindowScrollHandler::XScroll_EndScroll(void)
 //===========================================================================
 void WindowScrollHandler::YScroll_Top(void)
 {
+	std::int64_t top = 0;
 
+
+	bool changed = false;
+	changed |= setYPos(top);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::YScroll_Bottom(void)
 {
+	std::int64_t bottom = (_YSize > _YPage) ? _YSize - _YPage : 0;
 
+	bool changed = false;
+	changed |= setYPos(bottom);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::YScroll_LineUp(void)
 {
+	std::int64_t top = 0;
+	std::int64_t pos = getYScrollPos();
+	std::int64_t newPos;
 
+	if (pos >= (top + _YLine))
+	{
+		newPos = pos - _YLine;
+	}
+	else
+	{
+		newPos = top;
+	}
+
+
+	bool changed = false;
+	changed |= setYPos(newPos);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::YScroll_LineDown(void)
 {
+	std::int64_t bottom = (_YSize > _YPage) ? _YSize - _YPage : 0;
+	std::int64_t pos = getYScrollPos();
+	std::int64_t newPos;
 
+	if (pos <= (bottom - _YLine))
+	{
+		newPos = pos + _YLine;
+	}
+	else
+	{
+		newPos = bottom;
+	}
+
+
+	bool changed = false;
+	changed |= setYPos(newPos);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::YScroll_PageUp(void)
 {
+	std::int64_t top = 0;
+	std::int64_t pos = getYScrollPos();
+	std::int64_t newPos;
 
+	if (pos >= (top + _YPage))
+	{
+		newPos = pos - _YPage;
+	}
+	else
+	{
+		newPos = top;
+	}
+
+
+	bool changed = false;
+	changed |= setYPos(newPos);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::YScroll_PageDown(void)
 {
+	std::int64_t bottom = (_YSize > _YPage) ? _YSize - _YPage : 0;
+	std::int64_t pos = getYScrollPos();
+	std::int64_t newPos;
 
+	if (pos <= (bottom - _YPage))
+	{
+		newPos = pos + _YPage;
+	}
+	else
+	{
+		newPos = bottom;
+	}
+
+
+	bool changed = false;
+	changed |= setYPos(newPos);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::YScroll_ThumbTrack(void)
 {
+	std::int64_t top = 0;
+	std::int64_t bottom = (_YSize > _YPage) ? _YSize - _YPage : 0;
+	std::int64_t pos = getYScrollTrackPos();
+	std::int64_t newPos;
 
+	if (top <= pos && pos <= bottom)
+	{
+		newPos = pos;
+	}
+	else if (pos < top)
+	{
+		newPos = top;
+	}
+	else
+	{
+		newPos = bottom;
+	}
+
+
+	bool changed = false;
+	changed |= setYPos(newPos);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::YScroll_ThumbPosition(void)
 {
+	std::int64_t top = 0;
+	std::int64_t bottom = (_YSize > _YPage) ? _YSize - _YPage : 0;
+	std::int64_t pos = getYScrollTrackPos();
+	std::int64_t newPos;
 
+	if (top <= pos && pos <= bottom)
+	{
+		newPos = pos;
+	}
+	else if (pos < top)
+	{
+		newPos = top;
+	}
+	else
+	{
+		newPos = bottom;
+	}
+
+
+	bool changed = false;
+	changed |= setYPos(newPos);
+	if (changed)
+	{
+		updateYScrollBar();
+		notifyScrollChanged();
+	}
 }
 
 void WindowScrollHandler::YScroll_EndScroll(void)
@@ -541,11 +935,20 @@ void WindowScrollHandler::YScroll_EndScroll(void)
 
 }
 
-void WindowScrollHandler::scrollChanged(std::int64_t x, std::int64_t y)
+//===========================================================================
+void WindowScrollHandler::notifyScrollChanged(void)
 {
+#if 1
+	CX_RUNTIME_LOG(cxLTrace)
+		<< L"Scroll Changed: "
+		<< std::format(L"offset={}, {}",
+			_XPos, _YPos
+		);
+#endif
+
 	if (scrollChangedHandler)
 	{
-		scrollChangedHandler(x, y);
+		scrollChangedHandler(_XPos, _YPos);
 	}
 }
 

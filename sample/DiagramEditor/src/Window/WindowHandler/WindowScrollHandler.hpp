@@ -18,14 +18,15 @@ private:
 	HWND _Hwnd{ nullptr };
 
 private:
-	std::int64_t _XSize{ 0 };
-	std::int64_t _XPage{ 0 };
-	std::int64_t _XPos{ 0 };
+	std::int64_t _XSize{  0 };
+	std::int64_t _XPage{  0 };
+	std::int64_t _XPos {  0 };
 	std::int64_t _XLine{ 20 };
 
-	std::int64_t _YSize{ 0 };
-	std::int64_t _YPage{ 0 };
-	std::int64_t _YPos { 0 };	
+private:
+	std::int64_t _YSize{  0 };
+	std::int64_t _YPage{  0 };
+	std::int64_t _YPos {  0 };	
 	std::int64_t _YLine{ 20 };
 
 public:
@@ -50,13 +51,32 @@ protected:
 	bool setYLine(std::int64_t Line);
 
 public:
+	void setXYScrollLine(std::int64_t xline, std::int64_t yline);
+
+public:
+	void setXScroll(std::int64_t size, std::int64_t page, std::int64_t pos);
+	void setXScroll(std::int64_t size, std::int64_t page);
+	void setYScroll(std::int64_t size, std::int64_t page, std::int64_t pos);
+	void setYScroll(std::int64_t size, std::int64_t page);
+	void setXYScroll(
+		std::int64_t xsize, std::int64_t xpage, std::int64_t xpos,
+		std::int64_t ysize, std::int64_t ypage, std::int64_t ypos
+	);
+	void setXYScroll(
+		std::int64_t xsize, std::int64_t xpage,
+		std::int64_t ysize, std::int64_t ypage
+	); 
+
+public:
 	void updateScrollBars(void);
 	void updateXScrollBar(void);
 	void updateYScrollBar(void);
 
 public:
-	std::int64_t getXCurrentPos(void);
-	std::int64_t getYCurrentPos(void);
+	std::int64_t getXScrollTrackPos(void);
+	std::int64_t getYScrollTrackPos(void);
+	std::int64_t getXScrollPos(void);
+	std::int64_t getYScrollPos(void);
 
 public:
 	virtual bool onWindowMessage(cx::wui::WindowMessage& windowMessage);
@@ -88,6 +108,6 @@ public:
 	virtual void YScroll_EndScroll    (void);
 
 public:
-	virtual void scrollChanged(std::int64_t x, std::int64_t y);
+	virtual void notifyScrollChanged(void);
 };
 
