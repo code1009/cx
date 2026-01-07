@@ -108,132 +108,117 @@ void WindowMouseHandler::releaseMouseTrack(void)
 }
 
 //===========================================================================
-bool WindowMouseHandler::isWindowMouseMessage(cx::wui::WindowMessage& windowMessage)
+bool WindowMouseHandler::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
 	switch (windowMessage.uMsg)
 	{
-	case WM_MOUSEWHEEL:
-	case WM_MOUSEMOVE:
-	case WM_MOUSEHOVER:
-	case WM_MOUSELEAVE:
-	case WM_LBUTTONDBLCLK:
-	case WM_LBUTTONDOWN:
-	case WM_LBUTTONUP:
-	case WM_RBUTTONDBLCLK:
-	case WM_RBUTTONDOWN:
-	case WM_RBUTTONUP:
-		return true;
-
+	case WM_MOUSEWHEEL: return onMouseWheel(windowMessage);
+	case WM_MOUSEMOVE: return onMouseMove(windowMessage);
+	case WM_MOUSEHOVER: return onMouseHover(windowMessage);
+	case WM_MOUSELEAVE: return onMouseLeave(windowMessage);
+	case WM_LBUTTONDBLCLK: return onMouseLButtonDbClk(windowMessage);
+	case WM_LBUTTONDOWN: return onMouseLButtonDown(windowMessage);
+	case WM_LBUTTONUP: return onMouseLButtonUp(windowMessage);
+	case WM_RBUTTONDBLCLK: return onMouseLButtonDbClk(windowMessage);
+	case WM_RBUTTONDOWN: return onMouseLButtonDown(windowMessage);
+	case WM_RBUTTONUP: return onMouseLButtonUp(windowMessage);
 	default:
 		break;
 	}
-
 	return false;
 }
 
 //===========================================================================
-bool WindowMouseHandler::onWindowMessage(cx::wui::WindowMessage& windowMessage)
+bool WindowMouseHandler::onMouseWheel(cx::wui::WindowMessage& windowMessage)
 {
-	bool handled = false;
-	onWindowMouseMessage(windowMessage, handled);
-	return handled;
-}
-
-void WindowMouseHandler::onWindowMouseMessage(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-	switch (windowMessage.uMsg)
+	if (mouseWheelHandler)
 	{
-	//-----------------------------------------------------------------------
-	case WM_MOUSEWHEEL:
-		onMouseWheel(windowMessage, handled);
-		break;
-
-	//-----------------------------------------------------------------------
-	case WM_MOUSEMOVE:
-		onMouseMove(windowMessage, handled);
-		break;
-
-	//-----------------------------------------------------------------------
-	case WM_MOUSEHOVER:
-		onMouseHOver(windowMessage, handled);
-		break;
-
-	case WM_MOUSELEAVE:
-		onMouseLeave(windowMessage, handled);
-		break;
-
-	//-----------------------------------------------------------------------
-	case WM_LBUTTONDBLCLK:
-		onMouseLButtonDbClk(windowMessage, handled);
-		break;
-
-	case WM_LBUTTONDOWN:
-		onMouseLButtonDown(windowMessage, handled);
-		break;
-
-	case WM_LBUTTONUP:
-		onMouseLButtonUp(windowMessage, handled);
-		break;
-
-	//-----------------------------------------------------------------------
-	case WM_RBUTTONDBLCLK:
-		onMouseLButtonDbClk(windowMessage, handled);
-		break;
-
-	case WM_RBUTTONDOWN:
-		onMouseLButtonDown(windowMessage, handled);
-		break;
-
-	case WM_RBUTTONUP:
-		onMouseLButtonUp(windowMessage, handled);
-		break;
-
-	default:
-		break;
+		return mouseWheelHandler(windowMessage);
 	}
+	return false;
 }
 
 //===========================================================================
-void WindowMouseHandler::onMouseWheel(cx::wui::WindowMessage& windowMessage, bool& handled)
+bool WindowMouseHandler::onMouseMove(cx::wui::WindowMessage& windowMessage)
 {
+	if (mouseMoveHandler)
+	{
+		return mouseMoveHandler(windowMessage);
+	}
+	return false;
 }
 
 //===========================================================================
-void WindowMouseHandler::onMouseMove(cx::wui::WindowMessage& windowMessage, bool& handled)
+bool WindowMouseHandler::onMouseHover(cx::wui::WindowMessage& windowMessage)
 {
+	if (mouseHoverHandler)
+	{
+		return mouseHoverHandler(windowMessage);
+	}
+	return false;
+}
+
+bool WindowMouseHandler::onMouseLeave(cx::wui::WindowMessage& windowMessage)
+{
+	if (mouseLeaveHandler)
+	{
+		return mouseLeaveHandler(windowMessage);
+	}
+	return false;
 }
 
 //===========================================================================
-void WindowMouseHandler::onMouseHOver(cx::wui::WindowMessage& windowMessage, bool& handled)
+bool WindowMouseHandler::onMouseLButtonDbClk(cx::wui::WindowMessage& windowMessage)
 {
+	if (mouseLButtonDbClkHandler)
+	{
+		return mouseLButtonDbClkHandler(windowMessage);
+	}
+	return false;
 }
 
-void WindowMouseHandler::onMouseLeave(cx::wui::WindowMessage& windowMessage, bool& handled)
+bool WindowMouseHandler::onMouseLButtonDown(cx::wui::WindowMessage& windowMessage)
 {
+	if (mouseLButtonDownHandler)
+	{
+		return mouseLButtonDownHandler(windowMessage);
+	}
+	return false;
+}
+
+bool WindowMouseHandler::onMouseLButtonUp(cx::wui::WindowMessage& windowMessage)
+{
+	if (mouseLButtonUpHandler)
+	{
+		return mouseLButtonUpHandler(windowMessage);
+	}
+	return false;
 }
 
 //===========================================================================
-void WindowMouseHandler::onMouseLButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled)
+bool WindowMouseHandler::onMouseRButtonDbClk(cx::wui::WindowMessage& windowMessage)
 {
+	if (mouseRButtonDbClkHandler)
+	{
+		return mouseRButtonDbClkHandler(windowMessage);
+	}
+	return false;
 }
 
-void WindowMouseHandler::onMouseLButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled)
+bool WindowMouseHandler::onMouseRButtonDown(cx::wui::WindowMessage& windowMessage)
 {
+	if (mouseRButtonDownHandler)
+	{
+		return mouseRButtonDownHandler(windowMessage);
+	}
+	return false;
 }
 
-void WindowMouseHandler::onMouseLButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled)
+bool WindowMouseHandler::onMouseRButtonUp(cx::wui::WindowMessage& windowMessage)
 {
-}
-
-//===========================================================================
-void WindowMouseHandler::onMouseRButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-}
-
-void WindowMouseHandler::onMouseRButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-}
-
-void WindowMouseHandler::onMouseRButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
+	if (mouseRButtonUpHandler)
+	{
+		return mouseRButtonUpHandler(windowMessage);
+	}
+	return false;
 }

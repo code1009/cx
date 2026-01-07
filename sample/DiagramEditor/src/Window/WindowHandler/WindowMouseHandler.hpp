@@ -8,6 +8,21 @@
 //===========================================================================
 class WindowMouseHandler
 {
+public:
+	using Handler = std::function<bool(cx::wui::WindowMessage&)>;
+
+public:
+	Handler mouseWheelHandler;
+	Handler mouseMoveHandler;
+	Handler mouseHoverHandler;
+	Handler mouseLeaveHandler;
+	Handler mouseLButtonDbClkHandler;
+	Handler mouseLButtonDownHandler;
+	Handler mouseLButtonUpHandler;
+	Handler mouseRButtonDbClkHandler;
+	Handler mouseRButtonDownHandler;
+	Handler mouseRButtonUpHandler;
+
 private:
 	HWND _Hwnd{ nullptr };
 
@@ -48,25 +63,20 @@ public:
 	void setMouseTrack(void);
 	void releaseMouseTrack(void);
 
-public:
-	bool isWindowMouseMessage(cx::wui::WindowMessage& windowMessage);
 
 public:
 	virtual bool onWindowMessage(cx::wui::WindowMessage& windowMessage);
 
 public:
-	virtual void onWindowMouseMessage(cx::wui::WindowMessage& windowMessage, bool& handled);
-
-public:
-	virtual void onMouseWheel(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseMove(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseHOver(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseLeave(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseLButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseLButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseLButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseRButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseRButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onMouseRButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled);
+	virtual bool onMouseWheel       (cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseMove        (cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseHover       (cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseLeave       (cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseLButtonDbClk(cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseLButtonDown (cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseLButtonUp   (cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseRButtonDbClk(cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseRButtonDown (cx::wui::WindowMessage& windowMessage);
+	virtual bool onMouseRButtonUp   (cx::wui::WindowMessage& windowMessage);
 };
 

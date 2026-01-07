@@ -6,43 +6,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class d2dDiagram;
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-class d2dDiagramMouseHandler : public WindowMouseHandler
-{
-public:
-	HWND _Hwnd{ nullptr };
-	d2dDiagram* _d2dDiagram{ nullptr };
-
-public:
-	explicit d2dDiagramMouseHandler(HWND hwnd, d2dDiagram* d2ddiagram);
-
-public:
-	//virtual bool onWindowMessage(cx::wui::WindowMessage& windowMessage) override;
-	//virtual void onWindowMouseMessage(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	virtual void onMouseWheel(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	virtual void onMouseMove(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	//virtual void onMouseHOver(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	//virtual void onMouseLeave(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	//virtual void onMouseLButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	virtual void onMouseLButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	virtual void onMouseLButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	//virtual void onMouseRButtonDbClk(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	//virtual void onMouseRButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-	//virtual void onMouseRButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled) override;
-};
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 class d2dDiagram
 {
 public:
@@ -50,7 +13,7 @@ public:
 	std::unique_ptr<cx::d2d::Canvas> _Canvas;
 	std::unique_ptr<cx::Diagram::PropertiesManipulator> _Diagram_PropertiesManipulator;
 	std::unique_ptr<cx::Diagram::Edit> _Diagram_Edit;
-	std::unique_ptr<d2dDiagramMouseHandler> _MouseHandler;
+	std::unique_ptr<WindowMouseHandler> _MouseHandler;
 	std::unique_ptr<WindowScrollHandler> _ScrollHandler;
 
 public:

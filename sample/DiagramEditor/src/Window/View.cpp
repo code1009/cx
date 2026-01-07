@@ -23,107 +23,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-d2dDiagramMouseHandler::d2dDiagramMouseHandler(HWND hwnd, d2dDiagram* d2ddiagram) :
-	WindowMouseHandler(hwnd),
-	_d2dDiagram(d2ddiagram)
-{
-}
-
-//===========================================================================
-void d2dDiagramMouseHandler::onMouseWheel(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-	cx::wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
-
-	POINT pt = wm.pt();
-	short delta = wm.zDelta();
-	UINT flag = wm.nFlags();
-
-	bool controlKeyPressed = (flag & MK_CONTROL) != 0;
-	//bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
-
-	//bool lButtonPressed = (flag & MK_LBUTTON ) != 0;
-	//bool rButtonPressed = (flag & MK_RBUTTON ) != 0;
-	//bool mButtonPressed = (flag & MK_MBUTTON ) != 0;
-	//bool x1ButtonPressed = (flag & MK_XBUTTON1 ) != 0;
-	//bool x2ButtonPressed = (flag & MK_XBUTTON2) != 0;
-
-	if (controlKeyPressed)
-	{
-		if (delta > 0)
-		{
-			_d2dDiagram->zoomIn(
-				static_cast<float>(pt.x),
-				static_cast<float>(pt.y)
-			);
-		}
-		else
-		{
-			_d2dDiagram->zoomOut(
-				static_cast<float>(pt.x),
-				static_cast<float>(pt.y)
-			);
-		}
-	}
-}
-
-void d2dDiagramMouseHandler::onMouseMove(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-	cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
-
-	POINT pt = wm.point();
-	bool controlKeyPressed = (wm.nFlags() & MK_CONTROL) != 0;
-	bool shiftKeyPressed = (wm.nFlags() & MK_SHIFT) != 0;
-
-	_d2dDiagram->_Diagram_Edit->eventGenerator().pointerMoved(
-		static_cast<float>(pt.x), 
-		static_cast<float>(pt.y),
-		controlKeyPressed, 
-		shiftKeyPressed
-	);
-}
-
-void d2dDiagramMouseHandler::onMouseLButtonDown(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-	cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
-
-	POINT pt = wm.point();
-	bool controlKeyPressed = (wm.nFlags() & MK_CONTROL) != 0;
-	bool shiftKeyPressed = (wm.nFlags() & MK_SHIFT) != 0;
-
-	_d2dDiagram->_Diagram_Edit->eventGenerator().pointerPressed(
-		static_cast<float>(pt.x),
-		static_cast<float>(pt.y),
-		controlKeyPressed,
-		shiftKeyPressed
-	);
-	
-	setMouseCapture();
-}
-
-void d2dDiagramMouseHandler::onMouseLButtonUp(cx::wui::WindowMessage& windowMessage, bool& handled)
-{
-	cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
-
-	POINT pt = wm.point();
-	bool controlKeyPressed = (wm.nFlags() & MK_CONTROL) != 0;
-	bool shiftKeyPressed = (wm.nFlags() & MK_SHIFT) != 0;
-
-	_d2dDiagram->_Diagram_Edit->eventGenerator().pointerReleased(
-		static_cast<float>(pt.x),
-		static_cast<float>(pt.y),
-		controlKeyPressed,
-		shiftKeyPressed
-	);
-	
-	releaseMouseCapture();
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 d2dDiagram::d2dDiagram(HWND hwnd) :
 	_Hwnd(hwnd)
 {
@@ -175,13 +74,111 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 
 	//-----------------------------------------------------------------------
-	_MouseHandler = std::make_unique<d2dDiagramMouseHandler>(hwnd, this);
+	_MouseHandler = std::make_unique<WindowMouseHandler>(hwnd);
+	_MouseHandler->mouseWheelHandler =
+		[this](cx::wui::WindowMessage& windowMessage) -> bool
+		{
+			cx::wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
+
+			POINT pt = wm.pt();
+			short delta = wm.zDelta();
+			UINT flag = wm.nFlags();
+
+			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
+			//bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
+
+			//bool lButtonPressed = (flag & MK_LBUTTON) != 0;
+			//bool rButtonPressed = (flag & MK_RBUTTON) != 0;
+			//bool mButtonPressed = (flag & MK_MBUTTON) != 0;
+			//bool x1ButtonPressed = (flag & MK_XBUTTON1) != 0;
+			//bool x2ButtonPressed = (flag & MK_XBUTTON2) != 0;
+
+			if (controlKeyPressed)
+			{
+				if (delta > 0)
+				{
+					zoomIn(
+						static_cast<float>(pt.x),
+						static_cast<float>(pt.y)
+					);
+				}
+				else
+				{
+					zoomOut(
+						static_cast<float>(pt.x),
+						static_cast<float>(pt.y)
+					);
+				}
+			}
+			return true;
+		}
+	;
+	_MouseHandler->mouseMoveHandler =
+		[this](cx::wui::WindowMessage& windowMessage) -> bool
+		{
+			cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
+
+			POINT pt = wm.point();
+			UINT flag = wm.nFlags();
+			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
+			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
+
+			_Diagram_Edit->eventGenerator().pointerMoved(
+				static_cast<float>(pt.x),
+				static_cast<float>(pt.y),
+				controlKeyPressed,
+				shiftKeyPressed
+			);
+			return true;
+		}
+	;
+	_MouseHandler->mouseLButtonDownHandler =
+		[this](cx::wui::WindowMessage& windowMessage) -> bool
+		{
+			cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
+
+			POINT pt = wm.point();
+			UINT flag = wm.nFlags();
+			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
+			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
+
+			_Diagram_Edit->eventGenerator().pointerPressed(
+				static_cast<float>(pt.x),
+				static_cast<float>(pt.y),
+				controlKeyPressed,
+				shiftKeyPressed
+			);
+
+			_MouseHandler->setMouseCapture();
+			return true;
+		}
+	;
+	_MouseHandler->mouseLButtonUpHandler =
+		[this](cx::wui::WindowMessage& windowMessage) -> bool
+		{
+			cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
+
+			POINT pt = wm.point();
+			UINT flag = wm.nFlags();
+			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
+			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
+
+			_Diagram_Edit->eventGenerator().pointerReleased(
+				static_cast<float>(pt.x),
+				static_cast<float>(pt.y),
+				controlKeyPressed,
+				shiftKeyPressed
+			);
+
+			_MouseHandler->releaseMouseCapture();
+			return true;
+		}
+	;
+
+
+	//-----------------------------------------------------------------------
 	_ScrollHandler = std::make_unique<WindowScrollHandler>(hwnd);
 
-	_ScrollHandler->setXSize(static_cast<std::int64_t>(_Diagram_Edit->viewContext().canvasWidth()));
-	_ScrollHandler->setYSize(static_cast<std::int64_t>(_Diagram_Edit->viewContext().canvasHeight()));
-	_ScrollHandler->setXPage(static_cast<std::int64_t>(800));
-	_ScrollHandler->setYPage(static_cast<std::int64_t>(600));
 	_ScrollHandler->updateScrollBars();
 }
 

@@ -8,19 +8,25 @@
 //===========================================================================
 class WindowScrollHandler
 {
+public:
+	using Handler = std::function<void(std::int64_t, std::int64_t)>;
+
+public:
+	Handler scrollChangedHandler;
+
 private:
 	HWND _Hwnd{ nullptr };
 
 private:
-	std::int64_t _xSize{ 0 };
-	std::int64_t _xPage{ 0 };
-	std::int64_t _xPos{ 0 };
-	std::int64_t _xLine{ 20 };
+	std::int64_t _XSize{ 0 };
+	std::int64_t _XPage{ 0 };
+	std::int64_t _XPos{ 0 };
+	std::int64_t _XLine{ 20 };
 
-	std::int64_t _ySize{ 0 };
-	std::int64_t _yPage{ 0 };
-	std::int64_t _yPos { 0 };	
-	std::int64_t _yLine{ 20 };
+	std::int64_t _YSize{ 0 };
+	std::int64_t _YPage{ 0 };
+	std::int64_t _YPos { 0 };	
+	std::int64_t _YLine{ 20 };
 
 public:
 	explicit WindowScrollHandler(HWND hwnd);
@@ -31,13 +37,13 @@ public:
 	WindowScrollHandler(WindowScrollHandler&& other) noexcept = delete;
 	WindowScrollHandler& operator=(WindowScrollHandler&& other) noexcept = delete;
 
-public:
+protected:
 	bool setXSize(std::int64_t size);
 	bool setXPage(std::int64_t page);
 	bool setXPos(std::int64_t pos);
 	bool setXLine(std::int64_t line);
 
-public:
+protected:
 	bool setYSize(std::int64_t size);
 	bool setYPage(std::int64_t page);
 	bool setYPos(std::int64_t pos);
@@ -49,35 +55,39 @@ public:
 	void updateYScrollBar(void);
 
 public:
+	std::int64_t getXCurrentPos(void);
+	std::int64_t getYCurrentPos(void);
+
+public:
 	virtual bool onWindowMessage(cx::wui::WindowMessage& windowMessage);
 
 public:
-	virtual void onWindowScrollMessage(cx::wui::WindowMessage& windowMessage, bool& handled);
+	virtual bool onHScroll(cx::wui::WindowMessage& windowMessage);
+	virtual bool onVScroll(cx::wui::WindowMessage& windowMessage);
 
 public:
-	virtual void onHScroll(cx::wui::WindowMessage& windowMessage, bool& handled);
-	virtual void onVScroll(cx::wui::WindowMessage& windowMessage, bool& handled);
+	virtual void XScroll_Top          (void);
+	virtual void XScroll_Bottom       (void);
+	virtual void XScroll_LineUp       (void);
+	virtual void XScroll_LineDown     (void);
+	virtual void XScroll_PageUp       (void);
+	virtual void XScroll_PageDown     (void);
+	virtual void XScroll_ThumbTrack   (void);
+	virtual void XScroll_ThumbPosition(void);
+	virtual void XScroll_EndScroll    (void);
 
 public:
-	virtual void onHScroll_Top(void);
-	virtual void onHScroll_Bottom(void);
-	virtual void onHScroll_LineUp(void);
-	virtual void onHScroll_LineDown(void);
-	virtual void onHScroll_PageUp(void);
-	virtual void onHScroll_PageDown(void);
-	virtual void onHScroll_ThumbTrack(void);
-	virtual void onHScroll_ThumbPosition(void);
-	virtual void onHScroll_EndScroll(void);
+	virtual void YScroll_Top          (void);
+	virtual void YScroll_Bottom       (void);
+	virtual void YScroll_LineUp       (void);
+	virtual void YScroll_LineDown     (void);
+	virtual void YScroll_PageUp       (void);
+	virtual void YScroll_PageDown     (void);
+	virtual void YScroll_ThumbTrack   (void);
+	virtual void YScroll_ThumbPosition(void);
+	virtual void YScroll_EndScroll    (void);
 
 public:
-	virtual void onVScroll_Top(void);
-	virtual void onVScroll_Bottom(void);
-	virtual void onVScroll_LineUp(void);
-	virtual void onVScroll_LineDown(void);
-	virtual void onVScroll_PageUp(void);
-	virtual void onVScroll_PageDown(void);
-	virtual void onVScroll_ThumbTrack(void);
-	virtual void onVScroll_ThumbPosition(void);
-	virtual void onVScroll_EndScroll(void);
+	virtual void scrollChanged(std::int64_t x, std::int64_t y);
 };
 
