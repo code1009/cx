@@ -81,15 +81,15 @@ bool WindowDropSourceNotifier::doDragDrop(WindowDropSourceData const& data)
 
 
 	//-----------------------------------------------------------------------
-	uint8_t* source_pointer;
-	std::size_t source_size;
+	std::uint8_t* pointer;
+	std::size_t size;
 
-	source_size = _Data._DataBuffer.size();
-	source_pointer = _Data._DataBuffer.data();
+	size = _Data._DataBuffer.size();
+	pointer = _Data._DataBuffer.data();
 	rv = setData(
 		_pDataObject,
-		source_pointer,
-		source_size,
+		pointer,
+		size,
 		_Data._ClipboardFormat
 	);
 	if (!rv)
@@ -177,20 +177,20 @@ void WindowDropSourceNotifier::releaseCOMObject(void)
 //===========================================================================
 bool WindowDropSourceNotifier::setData(
 	IDataObject* pDataObject,
-	const std::uint8_t* source_pointer,
-	std::size_t source_size,
+	const std::uint8_t* pointer,
+	std::size_t size,
 	std::uint32_t cf
 )
 {
 	//-----------------------------------------------------------------------
 	HGLOBAL hGlobal;
-	hGlobal = createHGlobal(source_pointer, source_size);
+	hGlobal = createHGlobal(pointer, size);
 	if (nullptr == hGlobal)
 	{
 		CX_RUNTIME_LOG(cxLDebug) << L"createHGlobal() failed : "
-			<< L"source_pointer=" << source_pointer
+			<< L"pointer=" << pointer
 			<< L", "
-			<< L"source_size=" << source_size
+			<< L"size=" << size
 			<< std::endl;
 		return false;
 	}

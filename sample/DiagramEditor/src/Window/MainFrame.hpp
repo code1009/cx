@@ -16,21 +16,10 @@ private:
 
 	// diagram
 private:
-	// diagram command
-	struct CommandInfo
-	{
-		std::wstring type;
-		std::wstring label;
-		std::wstring name;
-	};
-
-	// diagram editor window layout
-private:
 	const std::uint32_t _CommandPanel_Width{ 250 };
 	const std::uint32_t _PropertyPanel_Width{ 200 };
 
 private:
-	std::vector<CommandInfo> _CommandInfos;
 	std::vector<std::wstring> _FontFamilies;
 
 private:

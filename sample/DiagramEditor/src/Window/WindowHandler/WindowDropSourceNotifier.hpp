@@ -70,8 +70,8 @@ private:
 
 	bool setData(
 		IDataObject* pDataObject,
-		const std::uint8_t* source_pointer,
-		std::size_t source_size,
+		const std::uint8_t* pointer,
+		std::size_t size,
 		std::uint32_t cf
 	);
 

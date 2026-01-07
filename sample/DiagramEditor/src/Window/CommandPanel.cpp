@@ -8,6 +8,7 @@
 
 //===========================================================================
 #include <cx/d2d/cx-d2d.hpp>
+#include <cx/d2dDiagram/cx-Diagram.hpp>
 
 //===========================================================================
 #include "../../res/resource.h"
@@ -15,6 +16,21 @@
 //===========================================================================
 #include "WindowHandler/WindowHandler.hpp"
 #include "CommandPanel.hpp"
+#include "View.hpp"
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+static std::vector<std::uint8_t> std_wstring_to_std_uint8_t_vector(std::wstring const& str)
+{
+	std::size_t size = (str.size()) * sizeof(wchar_t);
+	std::vector<std::uint8_t> data(size);
+	std::memcpy(data.data(), str.c_str(), size);
+	return data;
+}
 
 
 
@@ -30,7 +46,8 @@ constexpr LPCWSTR CommandPanel_WindowClassName = L"CommandPanel";
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CommandPanel::CommandPanel(HWND parentWindowHandle)
+CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
+	_View{ view }
 {
 	//-----------------------------------------------------------------------
 	cx::wui::WindowClass windowClass;
@@ -263,6 +280,10 @@ CommandPanel::CommandPanel(HWND parentWindowHandle)
 
 	//-----------------------------------------------------------------------
 	_DropSourceNotifier = std::make_unique<cx::wui::dragdrop::WindowDropSourceNotifier>();
+
+
+	//-----------------------------------------------------------------------
+	addCommands();
 }
 
 //===========================================================================
@@ -438,15 +459,107 @@ void CommandPanel::onIdle(void)
 }
 
 //===========================================================================
+void CommandPanel::addCommands(void)
+{
+	//-------------------------------------------------------------------
+	using namespace cx::Diagram;
+	using namespace cx::Diagram::Shape;
+//	using namespace rs::Diagram;
+
+
+	//-------------------------------------------------------------------
+	_View->_d2dDiagram->_Diagram_Edit->factory().clear();
+	_CommandInfos.clear();
+
+
+	//-------------------------------------------------------------------
+	addCommand_Label(L"도형");
+	//-------------------------------------------------------------------
+	addCommand_NewItem(std::make_shared<TextDesign         >(), makeProperties_TextDesign, L"글");
+	addCommand_NewItem(std::make_shared<LineDesign         >(), makeProperties_LineDesign, L"선");
+	//AddCommand_NewItem(std::make_shared<ArrowDesign        >(), makeProperties_ArrowDesign, L"화살표");
+	//AddCommand_NewItem(std::make_shared<HalfArrowDesign    >(), makeProperties_HalfArrowDesign, L"반쪽화살표");
+	addCommand_NewItem(std::make_shared<RectangleDesign    >(), makeProperties_RectangleDesign, L"사각형");
+	addCommand_NewItem(std::make_shared<EllipseDesign      >(), makeProperties_BaseDesign, L"타원");
+	addCommand_Spare();
+}
+
+void CommandPanel::addCommand_Label(std::wstring Label)
+{
+	CommandInfo commandInfo{ L"Label", Label, L"" };
+	_CommandInfos.push_back(commandInfo);
+}
+
+void CommandPanel::addCommand_Spare()
+{
+	CommandInfo commandInfo{ L"Spare", L"", L"" };
+	_CommandInfos.push_back(commandInfo);
+}
+
+void CommandPanel::addCommand_NewItem(std::shared_ptr<cx::Diagram::Item> const& item, cx::Diagram::ClassInfo::MakePropertiesFunction const& makeProperties, cx::Diagram::StringView const& friendlyName)
+{
+	if (!item)
+	{
+		return;
+	}
+	if (!makeProperties)
+	{
+		return;
+	}
+
+
+	_View->_d2dDiagram->_Diagram_Edit->factory().registerItem(item, makeProperties, friendlyName);
+
+	CommandInfo commandInfo{ L"NewItem", friendlyName.data(), L"" };
+	_CommandInfos.push_back(commandInfo);
+}
+
+void CommandPanel::loadCommands(void)
+{
+	for (auto item : _CommandInfos)
+	{
+		if (item.type == L"NewItem")
+		{
+			//loadCommand_NewItem(item);
+		}
+		else if (item.type == L"Label")
+		{
+			//loadCommand_Label(item);
+		}
+		else if (item.type == L"Spare")
+		{
+			//loadCommand_Spare(item);
+		}
+	}
+}
+
 void CommandPanel::doDragDrop(void)
 {
+	CommandInfo const& commandInfo = _CommandInfos[4];
+
+
+	auto itemClassInfo = _View->_d2dDiagram->_Diagram_Edit->factory().findByFriendlyName(commandInfo.label);
+	if (!itemClassInfo)
+	{
+		CX_RUNTIME_LOG(cxLError) << L"itemClassInfo is nullptr";
+		return;
+	}
+
+
+	auto const& name = itemClassInfo->friendlyName();
+
+
+
 	cx::wui::dragdrop::WindowDropSourceData data(
 		cx::wui::dragdrop::getWindowDragDropClipboardFormat()->getClipboardFormat()
 	);
+	data._DataBuffer = std_wstring_to_std_uint8_t_vector(name);
 
-	static std::uint32_t i = 0;
 
-	data.setData(reinterpret_cast<std::uint8_t*>(&i), sizeof(i));
 
 	_DropSourceNotifier->doDragDrop(data);
+
+
+
+	_View->_d2dDiagram->_Diagram_Edit->setNewItem(nullptr);
 }

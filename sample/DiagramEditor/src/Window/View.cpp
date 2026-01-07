@@ -23,6 +23,37 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+static std::wstring std_uint8_t_vector_to_std_wstring(std::vector<std::uint8_t> const& dataBuffer)
+{
+	std::wstring result;
+
+	if (dataBuffer.size() < 2 || dataBuffer.size() % 2 != 0)
+	{
+		return result;
+	}
+
+	result.resize(dataBuffer.size() / 2);
+
+	for (std::size_t i = 0; i < result.size(); ++i)
+	{
+		std::size_t byteIndex = i * 2;
+
+		wchar_t ch = 
+			static_cast<wchar_t>(dataBuffer[byteIndex]) |
+			(static_cast<wchar_t>(dataBuffer[byteIndex + 1]) << 8);
+
+		result[i] = ch;
+	}
+
+	return result;
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 d2dDiagram::d2dDiagram(HWND hwnd) :
 	_Hwnd(hwnd)
 {
@@ -198,8 +229,10 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 	);
 
 	_DropTargetHandler->dragEnterHandler =
-		[this](std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y, cx::wui::dragdrop::WindowDropTargetData const& data)
+		[this](std::uint32_t seq, std::uint32_t flags, std::int32_t x, std::int32_t y, cx::wui::dragdrop::WindowDropTargetData const& data)
 		{
+			std::wstring name = std_uint8_t_vector_to_std_wstring(data._DataBuffer);
+
 			CX_RUNTIME_LOG(cxLInfo)
 				<< L"dragEnter : "
 				<< L"seq=" << seq
@@ -207,13 +240,25 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				<< L"x=" << x
 				<< L" "
 				<< L"y=" << y
+				<< L" "
+				<< L"name=" << name
 				;
+
+			auto item = _Diagram_Edit->makeNewItemByFriendlyName(name);
+			if (!item)
+			{
+				_Diagram_Edit->setNewItem(nullptr);
+				return;
+			}
+
+			_Diagram_Edit->dragOverNewItem(static_cast<float>(x), static_cast<float>(y));
 		}
 	;
 
 	_DropTargetHandler->dragOverHandler =
-		[this](std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y)
+		[this](std::uint32_t seq, std::uint32_t flags, std::int32_t x, std::int32_t y)
 		{
+			/*
 			CX_RUNTIME_LOG(cxLInfo)
 				<< L"dragOver : "
 				<< L"seq=" << seq
@@ -222,6 +267,9 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				<< L" "
 				<< L"y=" << y
 				;
+				*/
+
+			_Diagram_Edit->dragOverNewItem(static_cast<float>(x), static_cast<float>(y));
 		}
 	;
 	_DropTargetHandler->dragLeaveHandler =
@@ -231,10 +279,12 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				<< L"dragLeave : "
 				<< L"seq=" << seq
 				;
+
+			_Diagram_Edit->setNewItem(nullptr);
 		}
 	;
 	_DropTargetHandler->dropHandler =
-		[this](std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y)
+		[this](std::uint32_t seq, std::uint32_t flags, std::int32_t x, std::int32_t y)
 		{
 			CX_RUNTIME_LOG(cxLInfo)
 				<< L"drop : "
@@ -244,6 +294,8 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				<< L" "
 				<< L"y=" << y
 				;
+
+			_Diagram_Edit->dropNewItem(static_cast<float>(x), static_cast<float>(y));
 		}
 	;
 }

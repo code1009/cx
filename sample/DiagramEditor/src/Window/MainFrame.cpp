@@ -65,8 +65,8 @@ MainFrame::MainFrame()
 
 
 	//-----------------------------------------------------------------------
-	_CommandPanel = std::make_unique<CommandPanel>(*this);
 	_View = std::make_unique<View>(*this);
+	_CommandPanel = std::make_unique<CommandPanel>(*this, _View.get());
 
 
 	//-----------------------------------------------------------------------

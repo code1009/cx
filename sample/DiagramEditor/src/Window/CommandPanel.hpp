@@ -6,9 +6,29 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class View;
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 class CommandPanel : 
 	public cx::wui::MessageMapWindowT<CommandPanel, cx::wui::BaseWindow>
 {
+private:
+	View* _View{ nullptr };
+
+private:
+	struct CommandInfo
+	{
+		std::wstring type;
+		std::wstring label;
+		std::wstring name;
+	};
+
+	std::vector<CommandInfo> _CommandInfos;
+
 public:
 	std::unique_ptr<cx::d2d::Canvas> _Canvas;
 	std::unique_ptr<cx::wui::WindowMouseHandler> _MouseHandler;
@@ -16,7 +36,7 @@ public:
 	std::unique_ptr<cx::wui::dragdrop::WindowDropSourceNotifier> _DropSourceNotifier;
 
 public:
-	explicit CommandPanel(HWND parentWindowHandle);
+	explicit CommandPanel(HWND parentWindowHandle, View* view);
 
 public:
 	virtual HWND createCommandPanel(HWND parentWindowHandle);
@@ -35,6 +55,15 @@ public:
 
 public:
 	void onIdle(void);
+
+public:
+	void addCommands(void);
+	void addCommand_Label(std::wstring Label);
+	void addCommand_Spare();
+	void addCommand_NewItem(std::shared_ptr<cx::Diagram::Item> const& item, cx::Diagram::ClassInfo::MakePropertiesFunction const& makeProperties, cx::Diagram::StringView const& friendlyName);
+
+public:
+	void loadCommands(void);
 
 public:
 	void doDragDrop(void);

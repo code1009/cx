@@ -56,10 +56,10 @@ private:
 	std::uint32_t _DataSeq{ 0 };
 
 public:
-	std::function<void(std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y, WindowDropTargetData const& data)> dragEnterHandler;
-	std::function<void(std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y)                                  > dragOverHandler;
-	std::function<void(std::uint32_t seq)                                                                                         > dragLeaveHandler;
-	std::function<void(std::uint32_t seq, std::uint32_t flags, std::uint32_t x, std::uint32_t y)                                  > dropHandler;
+	std::function<void(std::uint32_t seq, std::uint32_t flags, std::int32_t x, std::int32_t y, WindowDropTargetData const& data)> dragEnterHandler;
+	std::function<void(std::uint32_t seq, std::uint32_t flags, std::int32_t x, std::int32_t y)                                  > dragOverHandler;
+	std::function<void(std::uint32_t seq)                                                                                       > dragLeaveHandler;
+	std::function<void(std::uint32_t seq, std::uint32_t flags, std::int32_t x, std::int32_t y)                                  > dropHandler;
 
 public:
 	explicit WindowDropTargetHandler(HWND hwnd, std::uint32_t clipboardFormat);

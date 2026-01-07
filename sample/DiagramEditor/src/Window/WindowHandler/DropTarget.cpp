@@ -150,11 +150,13 @@ STDMETHODIMP DropTarget::DragEnter(IDataObject* pDataObj, DWORD grfKeyState, POI
 
 
 	//-----------------------------------------------------------------------
+#if 0
 	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
 		<< std::endl;
+#endif
 
 
 	//-----------------------------------------------------------------------
@@ -198,11 +200,13 @@ STDMETHODIMP DropTarget::DragOver(DWORD grfKeyState, POINTL pt, DWORD* pdwEffect
 
 
 	//-----------------------------------------------------------------------
+#if 0
 	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
 		<< std::endl;
+#endif
 
 
 	//-----------------------------------------------------------------------
@@ -231,9 +235,11 @@ STDMETHODIMP DropTarget::DragOver(DWORD grfKeyState, POINTL pt, DWORD* pdwEffect
 STDMETHODIMP DropTarget::DragLeave()
 {
 	//-----------------------------------------------------------------------
+#if 0
 	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< std::endl;
+#endif
 
 
 	//-----------------------------------------------------------------------
@@ -276,11 +282,13 @@ STDMETHODIMP DropTarget::Drop(IDataObject* pDataObj, DWORD grfKeyState, POINTL p
 
 
 	//-----------------------------------------------------------------------
+#if 0
 	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
 		<< std::endl;
+#endif
 
 
 	//-----------------------------------------------------------------------
