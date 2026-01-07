@@ -13,8 +13,8 @@ public:
 	std::unique_ptr<cx::d2d::Canvas> _Canvas;
 	std::unique_ptr<cx::Diagram::PropertiesManipulator> _Diagram_PropertiesManipulator;
 	std::unique_ptr<cx::Diagram::Edit> _Diagram_Edit;
-	std::unique_ptr<WindowMouseHandler> _MouseHandler;
-	std::unique_ptr<WindowScrollHandler> _ScrollHandler;
+	std::unique_ptr<cx::wui::WindowMouseHandler> _MouseHandler;
+	std::unique_ptr<cx::wui::WindowScrollHandler> _ScrollHandler;
 
 public:
 	explicit d2dDiagram(HWND hwnd);

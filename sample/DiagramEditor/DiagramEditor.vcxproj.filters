@@ -159,6 +159,24 @@
     <ClCompile Include="src\Window\WindowHandler\WindowScrollHandler.cpp">
       <Filter>src\Window\WindowHandler</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\ClipboardFormat.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\HGlobal.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\DropSource.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\WindowDropSourceNotifier.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\WindowDropTargetHandler.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\DropTarget.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -321,6 +339,24 @@
       <Filter>src\Window\WindowHandler</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\WindowHandler\WindowHandler.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\ClipboardFormat.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\HGlobal.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\DropSource.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowDropSourceNotifier.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowDropTargetHandler.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\DropTarget.hpp">
       <Filter>src\Window\WindowHandler</Filter>
     </ClInclude>
   </ItemGroup>

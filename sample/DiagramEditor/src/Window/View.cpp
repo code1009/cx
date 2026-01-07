@@ -42,23 +42,9 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 	_Canvas->onDraw =
 		[this](cx::d2d::DrawingSession* drawingSession)
 		{
-			drawingSession->getContext()->getD2dHwndRenderTarget()->SetAntialiasMode(D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
-
-
 			drawingSession->Clear(cx::d2d::Colors::AliceBlue());
 
 			_Diagram_Edit->draw(*drawingSession);
-
-			drawingSession->DrawRoundedRectangle(
-				200.0f,
-				200.0f,
-				150.0f,
-				100.0f,
-				15.0f,
-				15.0f,
-				cx::d2d::Color{ 255, 0, 0, 255 },
-				3.0f
-			);
 		}
 	;
 
@@ -74,7 +60,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 
 	//-----------------------------------------------------------------------
-	_MouseHandler = std::make_unique<WindowMouseHandler>(hwnd);
+	_MouseHandler = std::make_unique<cx::wui::WindowMouseHandler>(hwnd);
 	_MouseHandler->mouseWheelHandler =
 		[this](cx::wui::WindowMessage& windowMessage) -> bool
 		{
@@ -188,7 +174,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 
 	//-----------------------------------------------------------------------
-	_ScrollHandler = std::make_unique<WindowScrollHandler>(hwnd);
+	_ScrollHandler = std::make_unique<cx::wui::WindowScrollHandler>(hwnd);
 	_ScrollHandler->scrollChangedHandler =
 		[this](bool byScrollBar, std::int64_t x, std::int64_t y)
 		{
