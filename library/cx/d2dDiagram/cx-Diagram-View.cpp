@@ -154,20 +154,43 @@ namespace cx::Diagram
 		if (_ScaledWidth < _WindowWidth)
 		{
 			_WindowScrollOffset.X = 0.0f;
-			_OffsetPosition.X = (_WindowWidth - _ScaledWidth) / 2.0f - (_WindowScrollOffset.X * _Scale);
+
+
+			_OffsetPosition.X = (_WindowWidth - _ScaledWidth) / 2.0f;
 		}
 		else
 		{
-			_OffsetPosition.X = 0.0f - (_WindowScrollOffset.X * _Scale);
+			if (_WindowScrollOffset.X < 0.0f)
+			{
+				_WindowScrollOffset.X = 0.0f;
+			}
+			if (_WindowScrollOffset.X >= (_ScaledWidth - _WindowWidth))
+			{
+				_WindowScrollOffset.X = _ScaledWidth - _WindowWidth;
+			}
+
+
+			_OffsetPosition.X = -(_WindowScrollOffset.X);
 		}
 		if (_ScaledHeight < _WindowHeight)
 		{
 			_WindowScrollOffset.Y = 0.0f;
-			_OffsetPosition.Y = (_WindowHeight - _ScaledHeight) / 2.0f - (_WindowScrollOffset.Y * _Scale);
+
+
+			_OffsetPosition.Y = (_WindowHeight - _ScaledHeight) / 2.0f;
 		}
 		else
 		{
-			_OffsetPosition.Y = 0.0f - (_WindowScrollOffset.Y * _Scale);
+			if (_WindowScrollOffset.Y < 0.0f)
+			{
+				_WindowScrollOffset.Y = 0.0f;
+			}
+			if (_WindowScrollOffset.Y >= (_ScaledHeight - _WindowHeight))
+			{
+				_WindowScrollOffset.Y = _ScaledHeight - _WindowHeight;
+			}
+
+			_OffsetPosition.Y = -(_WindowScrollOffset.Y);
 		}
 	}
 
@@ -250,9 +273,6 @@ namespace cx::Diagram
 	//=======================================================================
 	Point ViewContext::fromWindow(Point const& window)
 	{
-		Point const _ViewportOffset{ 0.0f, 0.0f };
-
-
 		Point view;
 
 
@@ -262,7 +282,7 @@ namespace cx::Diagram
 		}
 		else
 		{
-			view.X = _ViewportOffset.X + (window.X / _Scale);
+			view.X = (window.X / _Scale) + (_WindowScrollOffset.X / _Scale);
 		}
 
 		if (_ScaledHeight < _WindowHeight)
@@ -271,7 +291,7 @@ namespace cx::Diagram
 		}
 		else
 		{
-			view.Y = _ViewportOffset.Y + (window.Y / _Scale);
+			view.Y = (window.Y / _Scale) + (_WindowScrollOffset.Y / _Scale);
 		}
 
 		return view;
@@ -279,28 +299,25 @@ namespace cx::Diagram
 
 	Point ViewContext::toWindow(Point const& view)
 	{
-		Point const _ViewportOffset{ 0.0f, 0.0f };
-
-
 		Point window;
 
 
 		if (_ScaledWidth < _WindowWidth)
 		{
-			window.X = ((_WindowWidth - _ScaledWidth) / 2) + (view.X * _Scale);
+			window.X = (view.X * _Scale) + ((_WindowWidth - _ScaledWidth) / 2);
 		}
 		else
 		{
-			window.X = (view.X - _ViewportOffset.X) * _Scale;
+			window.X = (view.X * _Scale) - _WindowScrollOffset.X;
 		}
 
 		if (_ScaledHeight < _WindowHeight)
 		{
-			window.Y = ((_WindowHeight - _ScaledHeight) / 2) + (view.Y * _Scale);
+			window.Y = (view.Y * _Scale) + ((_WindowHeight - _ScaledHeight) / 2);
 		}
 		else
 		{
-			window.Y = (view.Y - _ViewportOffset.Y) * _Scale;
+			window.Y = (view.Y * _Scale) - _WindowScrollOffset.Y;
 		}
 
 		return window;
