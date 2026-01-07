@@ -93,6 +93,31 @@ namespace cx::Diagram
 		}
 		return rv;
 	}
+	
+	bool ViewContext::setWindowScrollOffset(Point const& offset)
+	{
+		if (offset.X < 0.0f)
+		{
+			return false;
+		}
+		if (offset.Y < 0.0f)
+		{
+			return false;
+		}
+		if (_WindowScrollOffset == offset)
+		{
+			return false;
+		}
+
+		_WindowScrollOffset = offset;
+
+		bool rv = false;
+		if (update())
+		{
+			rv = true;
+		}
+		return rv;
+	}
 
 	//=======================================================================
 	void ViewContext::calcScaleRange(void)
@@ -128,19 +153,21 @@ namespace cx::Diagram
 	{
 		if (_ScaledWidth < _WindowWidth)
 		{
-			_OffsetPosition.X = (_WindowWidth - _ScaledWidth) / 2.0f;
+			_WindowScrollOffset.X = 0.0f;
+			_OffsetPosition.X = (_WindowWidth - _ScaledWidth) / 2.0f - (_WindowScrollOffset.X * _Scale);
 		}
 		else
 		{
-			_OffsetPosition.X = 0.0f;
+			_OffsetPosition.X = 0.0f - (_WindowScrollOffset.X * _Scale);
 		}
 		if (_ScaledHeight < _WindowHeight)
 		{
-			_OffsetPosition.Y = (_WindowHeight - _ScaledHeight) / 2.0f;
+			_WindowScrollOffset.Y = 0.0f;
+			_OffsetPosition.Y = (_WindowHeight - _ScaledHeight) / 2.0f - (_WindowScrollOffset.Y * _Scale);
 		}
 		else
 		{
-			_OffsetPosition.Y = 0.0f;
+			_OffsetPosition.Y = 0.0f - (_WindowScrollOffset.Y * _Scale);
 		}
 	}
 
@@ -933,11 +960,11 @@ namespace cx::Diagram
 #endif
 		// TODO
 #if 1
-		//D2D1::Matrix3x2F matrix;
-		//matrix = D2D1::Matrix3x2F::Identity();
-		//dctx.Transform(matrix);
-
-
+		D2D1::Matrix3x2F matrix;
+		matrix = D2D1::Matrix3x2F::Identity();
+		dctx.Transform(matrix);
+#endif
+#if 0
 		Coord translationX = viewContext().windowScrollOffset().X;
 		Coord translationY = viewContext().windowScrollOffset().Y;
 

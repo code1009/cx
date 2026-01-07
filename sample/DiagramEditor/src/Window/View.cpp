@@ -178,11 +178,20 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 	//-----------------------------------------------------------------------
 	_ScrollHandler = std::make_unique<WindowScrollHandler>(hwnd);
+	_ScrollHandler->scrollChangedHandler =
+		[this](bool byScrollBar, std::int64_t x, std::int64_t y)
+		{
+			if (byScrollBar)
+			{
+				cx::Diagram::Point scrollOffset;
+				scrollOffset.X = static_cast<float>(x);
+				scrollOffset.Y = static_cast<float>(y);
+				_Diagram_Edit->viewContext().setWindowScrollOffset(scrollOffset);
 
-	_ScrollHandler->setXYScroll(
-		1000, 100, 0,
-		1000, 100, 0
-	);
+				invalidate();
+			}
+		}
+	;
 }
 
 d2dDiagram::~d2dDiagram()
@@ -201,9 +210,25 @@ void d2dDiagram::resize(std::uint32_t cx, std::uint32_t cy)
 	if (!rv)
 	{
 		CX_RUNTIME_LOG(cxLTrace) << L"not changed.";
-		_Canvas->invalidate();
-		return;
 	}
+
+
+	std::int64_t scaledWidth  = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledWidth());
+	std::int64_t scaledHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledHeight());
+	std::int64_t windowWidth  = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowWidth());
+	std::int64_t windowHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowHeight());
+	std::int64_t xScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().X);
+	std::int64_t yScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().Y);
+
+	float maxXScrollOffset = _Diagram_Edit->viewContext().scaledWidth() - _Diagram_Edit->viewContext().windowWidth();
+	float maxYScrollOffset = _Diagram_Edit->viewContext().scaledHeight() - _Diagram_Edit->viewContext().windowHeight();
+
+	_ScrollHandler->setXYScroll(
+		scaledWidth, windowWidth, xScrollPos,
+		scaledHeight, windowHeight, yScrollPos
+		);
+
+	_Canvas->invalidate();
 }
 
 void d2dDiagram::invalidate(void)
@@ -229,8 +254,23 @@ void d2dDiagram::zoomIn(float px, float py)
 	//-------------------------------------------------------------------
 	if (!_Diagram_Edit->viewContext().zoomIn())
 	{
-		return;
+		//return;
 	}
+
+	std::int64_t scaledWidth = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledWidth());
+	std::int64_t scaledHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledHeight());
+	std::int64_t windowWidth = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowWidth());
+	std::int64_t windowHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowHeight());
+	std::int64_t xScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().X);
+	std::int64_t yScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().Y);
+
+	float maxXScrollOffset = _Diagram_Edit->viewContext().scaledWidth() - _Diagram_Edit->viewContext().windowWidth();
+	float maxYScrollOffset = _Diagram_Edit->viewContext().scaledHeight() - _Diagram_Edit->viewContext().windowHeight();
+
+	_ScrollHandler->setXYScroll(
+		scaledWidth, windowWidth, xScrollPos,
+		scaledHeight, windowHeight, yScrollPos
+	);
 }
 
 void d2dDiagram::zoomOut(float px, float py)
@@ -250,8 +290,23 @@ void d2dDiagram::zoomOut(float px, float py)
 	//-------------------------------------------------------------------
 	if (!_Diagram_Edit->viewContext().zoomOut())
 	{
-		return;
+		//return;
 	}
+
+	std::int64_t scaledWidth = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledWidth());
+	std::int64_t scaledHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledHeight());
+	std::int64_t windowWidth = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowWidth());
+	std::int64_t windowHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowHeight());
+	std::int64_t xScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().X);
+	std::int64_t yScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().Y);
+
+	float maxXScrollOffset = _Diagram_Edit->viewContext().scaledWidth() - _Diagram_Edit->viewContext().windowWidth();
+	float maxYScrollOffset = _Diagram_Edit->viewContext().scaledHeight() - _Diagram_Edit->viewContext().windowHeight();
+
+	_ScrollHandler->setXYScroll(
+		scaledWidth, windowWidth, xScrollPos,
+		scaledHeight, windowHeight, yScrollPos
+	);
 }
 
 

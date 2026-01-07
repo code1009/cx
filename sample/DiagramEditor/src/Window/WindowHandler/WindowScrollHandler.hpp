@@ -9,7 +9,7 @@
 class WindowScrollHandler
 {
 public:
-	using Handler = std::function<void(std::int64_t, std::int64_t)>;
+	using Handler = std::function<void(bool,std::int64_t, std::int64_t)>;
 
 public:
 	Handler scrollChangedHandler;
@@ -108,6 +108,6 @@ public:
 	virtual void YScroll_EndScroll    (void);
 
 public:
-	virtual void notifyScrollChanged(void);
+	virtual void notifyScrollChanged(bool byScrollBar=true);
 };
 

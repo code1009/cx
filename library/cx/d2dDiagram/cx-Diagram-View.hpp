@@ -75,7 +75,7 @@ namespace cx::Diagram
 
 	public:
 		bool setWindowSize(Coord const w, Coord const h);
-		void setWindowScrollOffset(Point const& offset) { _WindowScrollOffset = offset; }
+		bool setWindowScrollOffset(Point const& offset);
 
 	private:
 		void calcScaleRange(void);

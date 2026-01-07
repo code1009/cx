@@ -210,7 +210,7 @@ bool WindowScrollHandler::setXPos(std::int64_t pos)
 
 
 	// nMin <= nPos <= nMax - nPage
-	if (pos <= (_XSize - _XPage))
+	if ((0 < _XPage) && (pos <= (_XSize - _XPage)))
 	{
 		newPos = pos;
 	}
@@ -316,7 +316,7 @@ bool WindowScrollHandler::setYPos(std::int64_t pos)
 
 
 	// nMin <= nPos <= nMax - nPage
-	if (pos <= (_YSize - _YPage))
+	if ((0 < _YPage) && (pos <= (_YSize - _YPage)))
 	{
 		newPos = pos;
 	}
@@ -373,6 +373,7 @@ void WindowScrollHandler::setXYScrollLine(std::int64_t xline, std::int64_t yline
 	}
 }
 
+//===========================================================================
 void WindowScrollHandler::setXScroll(std::int64_t size, std::int64_t page, std::int64_t pos)
 {
 	bool changed = false;
@@ -383,7 +384,7 @@ void WindowScrollHandler::setXScroll(std::int64_t size, std::int64_t page, std::
 	if (changed)
 	{
 		updateXScrollBar();
-		notifyScrollChanged();
+		notifyScrollChanged(false);
 	}
 }
 
@@ -397,10 +398,11 @@ void WindowScrollHandler::setXScroll(std::int64_t size, std::int64_t page)
 	if (changed)
 	{
 		updateXScrollBar();
-		notifyScrollChanged();
+		notifyScrollChanged(false);
 	}
 }
 
+//===========================================================================
 void WindowScrollHandler::setYScroll(std::int64_t size, std::int64_t page, std::int64_t pos)
 {
 	bool changed = false;
@@ -411,7 +413,7 @@ void WindowScrollHandler::setYScroll(std::int64_t size, std::int64_t page, std::
 	if (changed)
 	{
 		updateYScrollBar();
-		notifyScrollChanged();
+		notifyScrollChanged(false);
 	}
 }
 
@@ -424,11 +426,12 @@ void WindowScrollHandler::setYScroll(std::int64_t size, std::int64_t page)
 	changed |= setYPos(_YPos);
 	if (changed)
 	{
-		updateXScrollBar();
-		notifyScrollChanged();
+		updateYScrollBar();
+		notifyScrollChanged(false);
 	}
 }
 
+//===========================================================================
 void WindowScrollHandler::setXYScroll(
 	std::int64_t xsize, std::int64_t xpage, std::int64_t xpos,
 	std::int64_t ysize, std::int64_t ypage, std::int64_t ypos
@@ -936,19 +939,22 @@ void WindowScrollHandler::YScroll_EndScroll(void)
 }
 
 //===========================================================================
-void WindowScrollHandler::notifyScrollChanged(void)
+void WindowScrollHandler::notifyScrollChanged(bool byScrollBar)
 {
 #if 1
 	CX_RUNTIME_LOG(cxLTrace)
 		<< L"Scroll Changed: "
-		<< std::format(L"offset={}, {}",
-			_XPos, _YPos
+		<< std::format(L"byScrollBar={} offset=({}, {}) page=({}, {}) size=({}, {})",
+			byScrollBar ? L"True" : L"False",
+			_XPos, _YPos,
+			_XPage, _YPage,
+			_XSize, _YSize
 		);
 #endif
 
 	if (scrollChangedHandler)
 	{
-		scrollChangedHandler(_XPos, _YPos);
+		scrollChangedHandler(byScrollBar, _XPos, _YPos);
 	}
 }
 
