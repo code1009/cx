@@ -45,8 +45,9 @@ DataObject::~DataObject()
 	if (_hGlobal != nullptr)
 	{
 		GlobalFree(_hGlobal); 
-		CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
-
+#if 0
+		CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()";
+#endif
 		_hGlobal = nullptr;
 	}
 }
@@ -134,7 +135,9 @@ STDMETHODIMP DataObject::SetData(FORMATETC* pformatetc, STGMEDIUM* pmedium, BOOL
 		if (_hGlobal != nullptr)
 		{
 			GlobalFree(_hGlobal); 
-			CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
+#if 0
+			CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()";
+#endif
 			_hGlobal = nullptr;
 		}
 
@@ -145,7 +148,9 @@ STDMETHODIMP DataObject::SetData(FORMATETC* pformatetc, STGMEDIUM* pmedium, BOOL
 		if (fRelease)
 		{
 			GlobalFree(pmedium->hGlobal); 
-			CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
+#if 0
+			CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()";
+#endif
 		}
 
 

@@ -30,11 +30,13 @@ HGLOBAL createHGlobal(const void* source_pointer, std::size_t source_size)
 
 
 	hGlobal = GlobalAlloc(GHND | GMEM_SHARE, source_size);
-	CX_RUNTIME_LOG(cxLDebug) << L"GlobalAlloc()" << std::endl;
+#if 0
+	CX_RUNTIME_LOG(cxLDebug) << L"GlobalAlloc()";
+#endif
 	if (nullptr == hGlobal)
 	{
 #if 1
-		CX_RUNTIME_LOG(cxLDebug) << L"GlobalAlloc() failed" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"GlobalAlloc() failed";
 #endif
 		return nullptr;
 	}
@@ -43,12 +45,12 @@ HGLOBAL createHGlobal(const void* source_pointer, std::size_t source_size)
 	if (nullptr == pointer)
 	{
 #if 1
-		CX_RUNTIME_LOG(cxLDebug) << L"GlobalLock() failed" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"GlobalLock() failed";
 #endif
 
 		GlobalFree(hGlobal);
 #if 1
-		CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()";
 #endif
 
 		return nullptr;
@@ -79,7 +81,7 @@ HGLOBAL cloneHGlobal(HGLOBAL source_hglobal)
 			<< L"source_hglobal=" << source_hglobal
 			<< L", "
 			<< L"source_size=" << source_size
-			<< std::endl;
+			;
 #endif
 		return nullptr;
 	}

@@ -112,32 +112,35 @@ bool WindowDropSourceNotifier::doDragDrop(WindowDropSourceData const& data)
 	}
 
 
+	//-----------------------------------------------------------------------
+#if 0
 	switch (dwEffect)
 	{
 	case DROPEFFECT_COPY:
 		CX_RUNTIME_LOG(cxLDebug) << L"DROPEFFECT_COPY : "
 			<< L"dwEffect=" << dwEffect
-			<< std::endl;
+			;
 		break;
 
 	case DROPEFFECT_MOVE:
 		CX_RUNTIME_LOG(cxLDebug) << L"DROPEFFECT_MOVE : "
 			<< L"dwEffect=" << dwEffect
-			<< std::endl;
+			;
 		break;
 
 	case DROPEFFECT_NONE:
 		CX_RUNTIME_LOG(cxLDebug) << L"DROPEFFECT_NONE : "
 			<< L"dwEffect=" << dwEffect
-			<< std::endl;
+			;
 		break;
 
 	default:
 		CX_RUNTIME_LOG(cxLDebug) << L"? : "
 			<< L"dwEffect=" << dwEffect
-			<< std::endl;
+			;
 		break;
 	}
+#endif
 
 
 	return true;
@@ -191,7 +194,7 @@ bool WindowDropSourceNotifier::setData(
 			<< L"pointer=" << pointer
 			<< L", "
 			<< L"size=" << size
-			<< std::endl;
+			;
 		return false;
 	}
 
@@ -219,14 +222,18 @@ bool WindowDropSourceNotifier::setData(
 	hr = pDataObject->SetData(&formatetc, &medium, TRUE);
 	if (hr == S_OK)
 	{
-		CX_RUNTIME_LOG(cxLDebug) << L"SetData() OK" << std::endl;
+#if 0
+		CX_RUNTIME_LOG(cxLDebug) << L"SetData() OK";
+#endif
 		return true;
 	}
-	CX_RUNTIME_LOG(cxLDebug) << L"SetData() failed" << std::endl;
+	CX_RUNTIME_LOG(cxLDebug) << L"SetData() failed";
 
 
 	GlobalFree(hGlobal);
-	CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()" << std::endl;
+#if 0
+	CX_RUNTIME_LOG(cxLDebug) << L"GlobalFree()";
+#endif
 
 	return false;
 }
@@ -241,7 +248,7 @@ bool WindowDropSourceNotifier::doDragDrop(DWORD& dwEffect, bool& drop)
 	{
 		CX_RUNTIME_LOG(cxLDebug) << L"DoDragDrop() failed : "
 			<< L"hr=" << hr
-			<< std::endl;
+			;
 		return false;
 	}
 
@@ -272,7 +279,7 @@ bool WindowDropSourceNotifier::doDragDrop(DWORD& dwEffect, bool& drop)
 	{
 		CX_RUNTIME_LOG(cxLDebug) << L"DoDragDrop() failed : "
 			<< L"hr=" << hr
-			<< std::endl;
+			;
 	}
 
 	return false;

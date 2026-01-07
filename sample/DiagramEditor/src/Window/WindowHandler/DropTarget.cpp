@@ -68,12 +68,9 @@ HGLOBAL DropTarget::getDataObjectHGlobal(IDataObject* pDataObj, FORMATETC* forma
 	//-----------------------------------------------------------------------
 	/*
 	std::uint8_t* pointer;
-	std::size_t size;
-
-		
-	pointer = GlobalLock(hGlobal);
+	std::size_t size;		
 	size    = GlobalSize(hGlobal);
-
+	pointer = GlobalLock(hGlobal);
 	GlobalUnlock(hGlobal);
 	*/
 
@@ -155,7 +152,7 @@ STDMETHODIMP DropTarget::DragEnter(IDataObject* pDataObj, DWORD grfKeyState, POI
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
-		<< std::endl;
+		;
 #endif
 
 
@@ -163,7 +160,7 @@ STDMETHODIMP DropTarget::DragEnter(IDataObject* pDataObj, DWORD grfKeyState, POI
 	_hGlobal = getDataObjectHGlobal(pDataObj, &formatetc);
 	if (_hGlobal == nullptr)
 	{
-		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is nullptr!" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is nullptr!";
 
 		*pdwEffect = DROPEFFECT_NONE;
 
@@ -205,14 +202,14 @@ STDMETHODIMP DropTarget::DragOver(DWORD grfKeyState, POINTL pt, DWORD* pdwEffect
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
-		<< std::endl;
+		;
 #endif
 
 
 	//-----------------------------------------------------------------------
 	if (_hGlobal == nullptr)
 	{
-		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is nullptr!" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is nullptr!";
 
 		*pdwEffect = DROPEFFECT_NONE;
 
@@ -238,7 +235,7 @@ STDMETHODIMP DropTarget::DragLeave()
 #if 0
 	CX_RUNTIME_LOG(cxLDebug)
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
-		<< std::endl;
+		;
 #endif
 
 
@@ -287,7 +284,7 @@ STDMETHODIMP DropTarget::Drop(IDataObject* pDataObj, DWORD grfKeyState, POINTL p
 		<< (_SupportFormat ? L"DROPEFFECT_COPY" : L"DROPEFFECT_NONE")
 		<< L" : "
 		<< pt.x << L", " << pt.y
-		<< std::endl;
+		;
 #endif
 
 
@@ -295,7 +292,7 @@ STDMETHODIMP DropTarget::Drop(IDataObject* pDataObj, DWORD grfKeyState, POINTL p
 	//	_hGlobal = getDataObjectHGlobal(pDataObj, &formatetc);
 	if (_hGlobal == nullptr)
 	{
-		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is nullptr!" << std::endl;
+		CX_RUNTIME_LOG(cxLDebug) << L"_hGlobal is nullptr!";
 
 		*pdwEffect = DROPEFFECT_NONE;
 

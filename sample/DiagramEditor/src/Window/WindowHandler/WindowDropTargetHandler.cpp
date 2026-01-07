@@ -82,7 +82,7 @@ WindowDropTargetHandler::WindowDropTargetHandler(HWND hwnd, std::uint32_t clipbo
 	{
 		CX_RUNTIME_LOG(cxLError) << L"RegisterDragDrop() failed : "
 			<< L"hr=" << hr
-			<< std::endl;
+			;
 		
 		throw std::runtime_error("RegisterDragDrop() failed");
 	}
@@ -101,7 +101,7 @@ WindowDropTargetHandler::~WindowDropTargetHandler()
 	{
 		CX_RUNTIME_LOG(cxLDebug) << L"RevokeDragDrop() failed : "
 			<< L"hr=" << hr
-			<< std::endl;
+			;
 	}
 
 
