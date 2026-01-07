@@ -89,7 +89,7 @@ View::View(HWND parentWindowHandle)
 	//-----------------------------------------------------------------------
 	cx::d2d::Factory factory;
 	_Canvas = std::make_unique<cx::d2d::Canvas>(&factory, hwnd);
-	_Canvas->onDraw =
+	_Canvas->drawingHandler =
 		[this](cx::d2d::DrawingSession* drawingSession)
 		{
 			auto renderTarget = drawingSession->getContext()->getD2dHwndRenderTarget();
@@ -243,7 +243,7 @@ void View::onPaint(cx::wui::WindowMessage& windowMessage)
 		;
 #endif
 
-	_Canvas->invalidate();
+	_Canvas->draw();
 
 	// The ValidateRect function validates the client area within a rectangle by
 	// removing the rectangle from the update region of the window.
@@ -298,7 +298,7 @@ void View::onIdle(void)
 {
 	if (_Canvas)
 	{
-		_Canvas->invalidate();
+		_Canvas->draw();
 	}
 }
 

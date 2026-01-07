@@ -20,7 +20,7 @@ namespace cx::d2d
 class Canvas
 {
 public:
-	std::function<void(DrawingSession*)> onDraw;
+	std::function<void(DrawingSession*)> drawingHandler;
 
 private:
 	std::unique_ptr<Context> _Context;
@@ -42,7 +42,7 @@ public:
 
 public:
 	void resize(std::uint32_t width, std::uint32_t height);
-	void invalidate(void);
+	void draw(void);
 };
 
 

@@ -25,12 +25,12 @@ Canvas::Canvas(Factory* factory, HWND hwnd, std::uint32_t cx, std::uint32_t cy)
 	_Renderer = std::make_unique<Renderer>(_Context.get(),  cx, cy);
 	_DrawingSession = std::make_unique<DrawingSession>(_Context.get());
 
-	_Renderer->onDraw = 
+	_Renderer->drawingHandler =
 		[this](DrawingSession* ds)
 		{
-			if (this->onDraw)
+			if (drawingHandler)
 			{
-				this->onDraw(ds);
+				drawingHandler(ds);
 			}
 		};
 }
@@ -41,12 +41,12 @@ Canvas::Canvas(Factory* factory, HWND hwnd)
 	_Renderer = std::make_unique<Renderer>(_Context.get());
 	_DrawingSession = std::make_unique<DrawingSession>(_Context.get());
 
-	_Renderer->onDraw =
+	_Renderer->drawingHandler =
 		[this](DrawingSession* ds)
 		{
-			if (this->onDraw)
+			if (drawingHandler)
 			{
-				this->onDraw(ds);
+				drawingHandler(ds);
 			}
 		};
 }
@@ -64,7 +64,7 @@ void Canvas::resize(std::uint32_t width, std::uint32_t height)
 	_Renderer->resize(width, height);
 }
 
-void Canvas::invalidate(void)
+void Canvas::draw(void)
 {
 	_Renderer->render(_DrawingSession.get());
 }

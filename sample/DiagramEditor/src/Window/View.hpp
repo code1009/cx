@@ -29,7 +29,7 @@ public:
 
 public:
 	void resize(std::uint32_t cx, std::uint32_t cy);
-	void invalidate(void);
+	void draw(void);
 
 public:
 	void zoomIn(float px, float py);

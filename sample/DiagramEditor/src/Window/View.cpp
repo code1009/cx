@@ -70,9 +70,13 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 	//-----------------------------------------------------------------------
 	cx::d2d::Factory factory;
 	_Canvas = std::make_unique<cx::d2d::Canvas>(&factory, hwnd);
-	_Canvas->onDraw =
+	_Canvas->drawingHandler =
 		[this](cx::d2d::DrawingSession* drawingSession)
 		{
+#if 1
+			CX_RUNTIME_LOG(cxLInfo) << L"drawing";
+#endif
+
 			drawingSession->Clear(cx::d2d::Colors::AliceBlue());
 
 			_Diagram_Edit->draw(*drawingSession);
@@ -85,7 +89,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 		reinterpret_cast<std::uintptr_t>(this),
 		[this](cx::ev::Event& /*event*/)
 		{
-			_Canvas->invalidate();
+			_Canvas->draw();
 		}
 	);
 
@@ -157,6 +161,12 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				controlKeyPressed,
 				shiftKeyPressed
 			);
+
+			if (_Diagram_Edit->eventGenerator().isPointerCaptured())
+			{
+				draw();
+			}
+
 			return true;
 		}
 	;
@@ -178,6 +188,9 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 			);
 
 			_MouseHandler->setMouseCapture();
+
+			draw();
+
 			return true;
 		}
 	;
@@ -199,6 +212,9 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 			);
 
 			_MouseHandler->releaseMouseCapture();
+
+			draw();
+
 			return true;
 		}
 	;
@@ -216,7 +232,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				scrollOffset.Y = static_cast<float>(y);
 				_Diagram_Edit->viewContext().setWindowScrollOffset(scrollOffset);
 
-				invalidate();
+				draw();
 			}
 		}
 	;
@@ -248,6 +264,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 			if (!item)
 			{
 				_Diagram_Edit->setNewItem(nullptr);
+				draw();
 				return;
 			}
 
@@ -281,6 +298,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				;
 
 			_Diagram_Edit->setNewItem(nullptr);
+			draw();
 		}
 	;
 	_DropTargetHandler->dropHandler =
@@ -334,12 +352,12 @@ void d2dDiagram::resize(std::uint32_t cx, std::uint32_t cy)
 		scaledHeight, windowHeight, yScrollPos
 		);
 
-	_Canvas->invalidate();
+	_Canvas->draw();
 }
 
-void d2dDiagram::invalidate(void)
+void d2dDiagram::draw(void)
 {
-	_Canvas->invalidate();
+	_Canvas->draw();
 }
 
 //===========================================================================
@@ -377,6 +395,8 @@ void d2dDiagram::zoomIn(float px, float py)
 		scaledWidth, windowWidth, xScrollPos,
 		scaledHeight, windowHeight, yScrollPos
 	);
+
+	draw();
 }
 
 void d2dDiagram::zoomOut(float px, float py)
@@ -413,6 +433,8 @@ void d2dDiagram::zoomOut(float px, float py)
 		scaledWidth, windowWidth, xScrollPos,
 		scaledHeight, windowHeight, yScrollPos
 	);
+
+	draw();
 }
 
 
@@ -608,7 +630,7 @@ void View::onPaint(cx::wui::WindowMessage& windowMessage)
 
 	if (_d2dDiagram)
 	{
-		_d2dDiagram->invalidate();
+		_d2dDiagram->draw();
 	}
 
 	// The ValidateRect function validates the client area within a rectangle by
@@ -664,7 +686,7 @@ void View::onIdle(void)
 {
 	if (_d2dDiagram)
 	{
-		_d2dDiagram->invalidate();
+		_d2dDiagram->draw();
 	}
 }
 

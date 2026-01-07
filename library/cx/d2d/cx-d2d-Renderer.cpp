@@ -165,9 +165,9 @@ void Renderer::render(DrawingSession* ds)
 //===========================================================================
 void Renderer::draw(DrawingSession* ds)
 {
-	if (onDraw)
+	if (drawingHandler)
 	{
-		onDraw(ds);
+		drawingHandler(ds);
 	}
 }
 

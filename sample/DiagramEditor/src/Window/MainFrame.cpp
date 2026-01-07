@@ -196,7 +196,7 @@ void MainFrame::onIdle(void)
 {
 	if (_View.get())
 	{
-		_View->onIdle();
+//		_View->onIdle();
 	}
 }
 

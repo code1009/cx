@@ -20,7 +20,7 @@ namespace cx::d2d
 class Renderer
 {
 public:
-	std::function<void(DrawingSession*)> onDraw;
+	std::function<void(DrawingSession*)> drawingHandler;
 
 private:
 	Context* _Context{ nullptr };
