@@ -60,7 +60,7 @@ public:
 	void addCommands(void);
 	void addCommand_Label(std::wstring Label);
 	void addCommand_Spare();
-	void addCommand_NewItem(std::shared_ptr<cx::Diagram::Item> const& item, cx::Diagram::ClassInfo::MakePropertiesFunction const& makeProperties, cx::Diagram::StringView const& friendlyName);
+	void addCommand_NewItem(std::shared_ptr<cx::Widget::Item> const& item, cx::Widget::ClassInfo::MakePropertiesFunction const& makeProperties, cx::Widget::StringView const& friendlyName);
 
 public:
 	void loadCommands(void);

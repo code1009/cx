@@ -234,7 +234,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 			if (byScrollBar)
 			{
 				/*
-				cx::Diagram::Point scrollOffset;
+				cx::Widget::Point scrollOffset;
 				scrollOffset.X = static_cast<float>(x);
 				scrollOffset.Y = static_cast<float>(y);
 				_Diagram_Edit->viewContext().setWindowScrollOffset(scrollOffset);
@@ -428,8 +428,8 @@ void CommandPanel::onIdle(void)
 void CommandPanel::addCommands(void)
 {
 	//-------------------------------------------------------------------
-	using namespace cx::Diagram;
-	using namespace cx::Diagram::Shape;
+	using namespace cx::Widget;
+	using namespace cx::Widget::Shape;
 //	using namespace rs::Diagram;
 
 
@@ -462,7 +462,7 @@ void CommandPanel::addCommand_Spare()
 	_CommandInfos.push_back(commandInfo);
 }
 
-void CommandPanel::addCommand_NewItem(std::shared_ptr<cx::Diagram::Item> const& item, cx::Diagram::ClassInfo::MakePropertiesFunction const& makeProperties, cx::Diagram::StringView const& friendlyName)
+void CommandPanel::addCommand_NewItem(std::shared_ptr<cx::Widget::Item> const& item, cx::Widget::ClassInfo::MakePropertiesFunction const& makeProperties, cx::Widget::StringView const& friendlyName)
 {
 	if (!item)
 	{

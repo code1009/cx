@@ -8,7 +8,7 @@
 
 //===========================================================================
 #include <cx/d2d/cx-d2d.hpp>
-#include <cx/d2dDiagram/cx-Diagram.hpp>
+#include <cx/d2dw/cx-Widget.hpp>
 
 //===========================================================================
 #include "../../res/resource.h"
@@ -58,7 +58,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 	_Hwnd(hwnd)
 {
 	//-----------------------------------------------------------------------
-	_Diagram_Edit = std::make_unique<cx::Diagram::Edit>(cx::Diagram::DefaultViewWidth, cx::Diagram::DefaultViewHeight);
+	_Diagram_Edit = std::make_unique<cx::Widget::Edit>(cx::Widget::DefaultViewWidth, cx::Widget::DefaultViewHeight);
 
 	_Diagram_Edit->viewGrid().showGridLine(true);
 	_Diagram_Edit->viewGrid().showCenterLine(true);
@@ -227,7 +227,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 		{
 			if (byScrollBar)
 			{
-				cx::Diagram::Point scrollOffset;
+				cx::Widget::Point scrollOffset;
 				scrollOffset.X = static_cast<float>(x);
 				scrollOffset.Y = static_cast<float>(y);
 				_Diagram_Edit->viewContext().setWindowScrollOffset(scrollOffset);
@@ -364,8 +364,8 @@ void d2dDiagram::invalidate(void)
 void d2dDiagram::zoomIn(float px, float py)
 {
 	//-------------------------------------------------------------------
-	cx::Diagram::Point window0{ px, py };
-	cx::Diagram::Point view0;
+	cx::Widget::Point window0{ px, py };
+	cx::Widget::Point view0;
 	view0 = _Diagram_Edit->viewContext().fromWindow(window0);
 	CX_RUNTIME_LOG(cxLTrace)
 		<< L"zoomIn(): "
@@ -402,8 +402,8 @@ void d2dDiagram::zoomIn(float px, float py)
 void d2dDiagram::zoomOut(float px, float py)
 {
 	//-------------------------------------------------------------------
-	cx::Diagram::Point window0{ px, py };
-	cx::Diagram::Point view0;
+	cx::Widget::Point window0{ px, py };
+	cx::Widget::Point view0;
 	view0 = _Diagram_Edit->viewContext().fromWindow(window0);
 	CX_RUNTIME_LOG(cxLTrace)
 		<< L"zoomOut(): "
