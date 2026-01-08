@@ -209,16 +209,16 @@ HWND ToolBox::createToolBox(HWND parentWindowHandle)
 //===========================================================================
 void ToolBox::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_CREATE    ) = &ToolBox::onCreate;
-	_WindowMessageMap.handle(WM_CLOSE     ) = &ToolBox::onClose;
-	_WindowMessageMap.handle(WM_SIZE      ) = &ToolBox::onSize;
-	_WindowMessageMap.handle(WM_HSCROLL   ) = &ToolBox::onHScroll;
-	_WindowMessageMap.handle(WM_VSCROLL   ) = &ToolBox::onVScroll;
-	_WindowMessageMap.handle(WM_MOUSEWHEEL) = &ToolBox::onMouseWheel;
-	_WindowMessageMap.handle(WM_KEYDOWN   ) = &ToolBox::onKeyDown;
-	_WindowMessageMap.handle(WM_COMMAND   ) = &ToolBox::onCommand;
-	_WindowMessageMap.handle(WM_ERASEBKGND) = &ToolBox::onEraseBkgnd;
-	_WindowMessageMap.handle(WM_PAINT     ) = &ToolBox::onPaint;
+	_WindowMessageMap[WM_CREATE    ] = &ToolBox::onCreate;
+	_WindowMessageMap[WM_CLOSE     ] = &ToolBox::onClose;
+	_WindowMessageMap[WM_SIZE      ] = &ToolBox::onSize;
+	_WindowMessageMap[WM_HSCROLL   ] = &ToolBox::onHScroll;
+	_WindowMessageMap[WM_VSCROLL   ] = &ToolBox::onVScroll;
+	_WindowMessageMap[WM_MOUSEWHEEL] = &ToolBox::onMouseWheel;
+	_WindowMessageMap[WM_KEYDOWN   ] = &ToolBox::onKeyDown;
+	_WindowMessageMap[WM_COMMAND   ] = &ToolBox::onCommand;
+	_WindowMessageMap[WM_ERASEBKGND] = &ToolBox::onEraseBkgnd;
+	_WindowMessageMap[WM_PAINT     ] = &ToolBox::onPaint;
 }
 
 void ToolBox::onCreate(cx::wui::WindowMessage& windowMessage)

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -37,7 +37,7 @@ public:
 	}
 
 public:
-	WindowMessageHandler& handle(std::uint32_t umsg)
+	WindowMessageHandler& operator[](std::uint32_t umsg)
 	{
 		return _WindowMessageHandlers[umsg];
 	}

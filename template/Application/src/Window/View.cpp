@@ -80,7 +80,7 @@ HWND View::createView(HWND parentWindowHandle)
 //===========================================================================
 void View::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_COMMAND   ) = &View::onCommand;
+	_WindowMessageMap[WM_COMMAND   ] = &View::onCommand;
 }
 
 void View::onCommand(cx::wui::WindowMessage& windowMessage)

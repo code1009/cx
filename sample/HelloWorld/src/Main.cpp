@@ -60,10 +60,10 @@ MainFrame::MainFrame()
 
 void MainFrame::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_DESTROY) = &MainFrame::onDestroy;
-	_WindowMessageMap.handle(WM_CLOSE  ) = &MainFrame::onClose;
-	_WindowMessageMap.handle(WM_PAINT  ) = &MainFrame::onPaint;
-	_WindowMessageMap.handle(WM_COMMAND) = &MainFrame::onCommand;
+	_WindowMessageMap[WM_DESTROY] = &MainFrame::onDestroy;
+	_WindowMessageMap[WM_CLOSE  ] = &MainFrame::onClose;
+	_WindowMessageMap[WM_PAINT  ] = &MainFrame::onPaint;
+	_WindowMessageMap[WM_COMMAND] = &MainFrame::onCommand;
 }
 
 void MainFrame::onDestroy(cx::wui::WindowMessage& windowMessage)

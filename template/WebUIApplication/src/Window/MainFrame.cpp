@@ -101,16 +101,16 @@ MainFrame::MainFrame()
 //===========================================================================
 void MainFrame::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_CREATE)     = &MainFrame::onCreate;
-	_WindowMessageMap.handle(WM_DESTROY)    = &MainFrame::onDestroy;
-	_WindowMessageMap.handle(WM_CLOSE)      = &MainFrame::onClose;
-	_WindowMessageMap.handle(WM_SIZE)       = &MainFrame::onSize;
-	_WindowMessageMap.handle(WM_ERASEBKGND) = &MainFrame::onEraseBkgnd;
-	_WindowMessageMap.handle(WM_KEYDOWN)    = &MainFrame::onKeyDown;
-	_WindowMessageMap.handle(WM_COMMAND)    = &MainFrame::onCommand;
+	_WindowMessageMap[WM_CREATE]     = &MainFrame::onCreate;
+	_WindowMessageMap[WM_DESTROY]    = &MainFrame::onDestroy;
+	_WindowMessageMap[WM_CLOSE]      = &MainFrame::onClose;
+	_WindowMessageMap[WM_SIZE]       = &MainFrame::onSize;
+	_WindowMessageMap[WM_ERASEBKGND] = &MainFrame::onEraseBkgnd;
+	_WindowMessageMap[WM_KEYDOWN]    = &MainFrame::onKeyDown;
+	_WindowMessageMap[WM_COMMAND]    = &MainFrame::onCommand;
 
-	_WindowMessageMap.handle(WM_USER+0) = &MainFrame::onUser0;
-	_WindowMessageMap.handle(WM_USER+1) = &MainFrame::onUser1;
+	_WindowMessageMap[WM_USER+0] = &MainFrame::onUser0;
+	_WindowMessageMap[WM_USER+1] = &MainFrame::onUser1;
 }
 
 void MainFrame::onCreate(cx::wui::WindowMessage& windowMessage)

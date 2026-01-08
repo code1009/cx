@@ -310,10 +310,10 @@ HWND CommandPanel::createCommandPanel(HWND parentWindowHandle)
 //===========================================================================
 void CommandPanel::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_SIZE) = &CommandPanel::onSize;
-	_WindowMessageMap.handle(WM_ERASEBKGND) = &CommandPanel::onEraseBkgnd;
-	_WindowMessageMap.handle(WM_PAINT) = &CommandPanel::onPaint;
-	_WindowMessageMap.handle(WM_COMMAND) = &CommandPanel::onCommand;
+	_WindowMessageMap[WM_SIZE] = &CommandPanel::onSize;
+	_WindowMessageMap[WM_ERASEBKGND] = &CommandPanel::onEraseBkgnd;
+	_WindowMessageMap[WM_PAINT] = &CommandPanel::onPaint;
+	_WindowMessageMap[WM_COMMAND] = &CommandPanel::onCommand;
 }
 
 void CommandPanel::onSize(cx::wui::WindowMessage& windowMessage)

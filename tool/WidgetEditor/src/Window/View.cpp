@@ -120,23 +120,23 @@ HWND View::createView(HWND parentWindowHandle)
 //===========================================================================
 void View::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_CREATE    ) = &View::onCreate;
-	_WindowMessageMap.handle(WM_DESTROY   ) = &View::onDestroy;
-	_WindowMessageMap.handle(WM_CLOSE     ) = &View::onClose;
+	_WindowMessageMap[WM_CREATE    ] = &View::onCreate;
+	_WindowMessageMap[WM_DESTROY   ] = &View::onDestroy;
+	_WindowMessageMap[WM_CLOSE     ] = &View::onClose;
 
-	_WindowMessageMap.handle(WM_SIZE      ) = &View::onSize;
-	_WindowMessageMap.handle(WM_HSCROLL   ) = &View::onHScroll;
-	_WindowMessageMap.handle(WM_VSCROLL   ) = &View::onVScroll;
+	_WindowMessageMap[WM_SIZE      ] = &View::onSize;
+	_WindowMessageMap[WM_HSCROLL   ] = &View::onHScroll;
+	_WindowMessageMap[WM_VSCROLL   ] = &View::onVScroll;
 
-	_WindowMessageMap.handle(WM_MOUSEWHEEL) = &View::onMouseWheel;
-	_WindowMessageMap.handle(WM_MOUSEMOVE ) = &View::onMouseMove;
+	_WindowMessageMap[WM_MOUSEWHEEL] = &View::onMouseWheel;
+	_WindowMessageMap[WM_MOUSEMOVE ] = &View::onMouseMove;
 
-	_WindowMessageMap.handle(WM_KEYDOWN   ) = &View::onKeyDown;
+	_WindowMessageMap[WM_KEYDOWN   ] = &View::onKeyDown;
 
-	_WindowMessageMap.handle(WM_ERASEBKGND) = &View::onEraseBkgnd;
-	_WindowMessageMap.handle(WM_PAINT     ) = &View::onPaint;
+	_WindowMessageMap[WM_ERASEBKGND] = &View::onEraseBkgnd;
+	_WindowMessageMap[WM_PAINT     ] = &View::onPaint;
 
-	_WindowMessageMap.handle(WM_COMMAND   ) = &View::onCommand;
+	_WindowMessageMap[WM_COMMAND   ] = &View::onCommand;
 }
 
 void View::onCreate(cx::wui::WindowMessage& windowMessage)

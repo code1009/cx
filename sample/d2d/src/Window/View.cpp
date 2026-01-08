@@ -188,10 +188,10 @@ HWND View::createView(HWND parentWindowHandle)
 //===========================================================================
 void View::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_SIZE) = &View::onSize;
-	_WindowMessageMap.handle(WM_ERASEBKGND) = &View::onEraseBkgnd;
-	_WindowMessageMap.handle(WM_PAINT) = &View::onPaint;
-	_WindowMessageMap.handle(WM_COMMAND) = &View::onCommand;
+	_WindowMessageMap[WM_SIZE] = &View::onSize;
+	_WindowMessageMap[WM_ERASEBKGND] = &View::onEraseBkgnd;
+	_WindowMessageMap[WM_PAINT] = &View::onPaint;
+	_WindowMessageMap[WM_COMMAND] = &View::onCommand;
 }
 
 void View::onSize(cx::wui::WindowMessage& windowMessage)

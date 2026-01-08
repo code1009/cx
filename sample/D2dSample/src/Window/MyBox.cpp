@@ -63,10 +63,10 @@ void MyBox::initializeDialogTemplate(void)
 //===========================================================================
 void MyBox::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_INITDIALOG) = &MyBox::onInitDialog;
-	_WindowMessageMap.handle(WM_DESTROY   ) = &MyBox::onDestroy;
-	_WindowMessageMap.handle(WM_CLOSE     ) = &MyBox::onClose;
-	_WindowMessageMap.handle(WM_COMMAND   ) = &MyBox::onCommand;
+	_WindowMessageMap[WM_INITDIALOG] = &MyBox::onInitDialog;
+	_WindowMessageMap[WM_DESTROY   ] = &MyBox::onDestroy;
+	_WindowMessageMap[WM_CLOSE     ] = &MyBox::onClose;
+	_WindowMessageMap[WM_COMMAND   ] = &MyBox::onCommand;
 }
 
 void MyBox::onInitDialog(cx::wui::WindowMessage& windowMessage)

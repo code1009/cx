@@ -73,8 +73,8 @@ void AboutBox::initializeDialogTemplate(void)
 //===========================================================================
 void AboutBox::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_INITDIALOG) = &AboutBox::onInitDialog;
-	_WindowMessageMap.handle(WM_COMMAND   ) = &AboutBox::onCommand;
+	_WindowMessageMap[WM_INITDIALOG] = &AboutBox::onInitDialog;
+	_WindowMessageMap[WM_COMMAND   ] = &AboutBox::onCommand;
 }
 
 void AboutBox::onInitDialog(cx::wui::WindowMessage& windowMessage)

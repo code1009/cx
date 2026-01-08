@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -48,10 +48,10 @@ public:
 public:
 	void registerWindowMessageMap(void)
 	{
-		_WindowMessageMap.handle(WM_INITDIALOG) = &AboutBox::onInitDialog;
-		_WindowMessageMap.handle(WM_DESTROY)    = &AboutBox::onDestroy;
-		_WindowMessageMap.handle(WM_CLOSE)      = &AboutBox::onClose;
-		_WindowMessageMap.handle(WM_COMMAND)    = &AboutBox::onCommand;
+		_WindowMessageMap[WM_INITDIALOG] = &AboutBox::onInitDialog;
+		_WindowMessageMap[WM_DESTROY]    = &AboutBox::onDestroy;
+		_WindowMessageMap[WM_CLOSE]      = &AboutBox::onClose;
+		_WindowMessageMap[WM_COMMAND]    = &AboutBox::onCommand;
 	}
 
 	void onInitDialog(cx::wui::WindowMessage& windowMessage)

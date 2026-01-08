@@ -39,13 +39,13 @@ MainBox::~MainBox()
 //===========================================================================
 void MainBox::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_INITDIALOG) = &MainBox::onInitDialog;
-	_WindowMessageMap.handle(WM_CLOSE)      = &MainBox::onClose;
-	_WindowMessageMap.handle(WM_SIZE)       = &MainBox::onSize;
-	_WindowMessageMap.handle(WM_COMMAND)    = &MainBox::onCommand;
+	_WindowMessageMap[WM_INITDIALOG] = &MainBox::onInitDialog;
+	_WindowMessageMap[WM_CLOSE]      = &MainBox::onClose;
+	_WindowMessageMap[WM_SIZE]       = &MainBox::onSize;
+	_WindowMessageMap[WM_COMMAND]    = &MainBox::onCommand;
 
-	_WindowMessageMap.handle(WM_USER+0) = &MainBox::onUser0;
-	_WindowMessageMap.handle(WM_USER+1) = &MainBox::onUser1;
+	_WindowMessageMap[WM_USER+0] = &MainBox::onUser0;
+	_WindowMessageMap[WM_USER+1] = &MainBox::onUser1;
 }
 
 void MainBox::onInitDialog(cx::wui::WindowMessage& windowMessage)

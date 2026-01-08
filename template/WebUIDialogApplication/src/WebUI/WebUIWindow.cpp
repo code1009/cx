@@ -150,12 +150,12 @@ HWND WebUIWindow::createWebUIWindow(HWND parentWindowHandle, bool popupWindowSty
 //===========================================================================
 void WebUIWindow::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_CREATE    ) = &WebUIWindow::onCreate;
-	_WindowMessageMap.handle(WM_DESTROY   ) = &WebUIWindow::onDestroy;
-	_WindowMessageMap.handle(WM_CLOSE     ) = &WebUIWindow::onClose;
-	_WindowMessageMap.handle(WM_SIZE      ) = &WebUIWindow::onSize;
-	_WindowMessageMap.handle(WM_DPICHANGED) = &WebUIWindow::onDPIChanged;
-	_WindowMessageMap.handle(WM_USER+1    ) = &WebUIWindow::onUser1;
+	_WindowMessageMap[WM_CREATE    ] = &WebUIWindow::onCreate;
+	_WindowMessageMap[WM_DESTROY   ] = &WebUIWindow::onDestroy;
+	_WindowMessageMap[WM_CLOSE     ] = &WebUIWindow::onClose;
+	_WindowMessageMap[WM_SIZE      ] = &WebUIWindow::onSize;
+	_WindowMessageMap[WM_DPICHANGED] = &WebUIWindow::onDPIChanged;
+	_WindowMessageMap[WM_USER+1    ] = &WebUIWindow::onUser1;
 }
 
 void WebUIWindow::onCreate(cx::wui::WindowMessage& windowMessage)

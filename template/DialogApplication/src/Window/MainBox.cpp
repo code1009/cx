@@ -36,8 +36,8 @@ MainBox::~MainBox()
 //===========================================================================
 void MainBox::registerWindowMessageMap(void)
 {
-	_WindowMessageMap.handle(WM_INITDIALOG) = &MainBox::onInitDialog;
-	_WindowMessageMap.handle(WM_COMMAND   ) = &MainBox::onCommand;
+	_WindowMessageMap[WM_INITDIALOG] = &MainBox::onInitDialog;
+	_WindowMessageMap[WM_COMMAND   ] = &MainBox::onCommand;
 }
 
 void MainBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
