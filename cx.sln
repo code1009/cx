@@ -45,6 +45,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RuntimeLog", "sample\Runtim
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DiagramEditor", "sample\DiagramEditor\DiagramEditor.vcxproj", "{A9B0EC73-EA90-47CD-A14F-E79FD67E3C52}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Designer", "tool\Designer\Designer.vcxproj", "{2B369E40-12BA-429B-8844-86D3F30A76C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -189,6 +191,14 @@ Global
 		{A9B0EC73-EA90-47CD-A14F-E79FD67E3C52}.Release|x64.Build.0 = Release|x64
 		{A9B0EC73-EA90-47CD-A14F-E79FD67E3C52}.Release|x86.ActiveCfg = Release|Win32
 		{A9B0EC73-EA90-47CD-A14F-E79FD67E3C52}.Release|x86.Build.0 = Release|Win32
+		{2B369E40-12BA-429B-8844-86D3F30A76C7}.Debug|x64.ActiveCfg = Debug|x64
+		{2B369E40-12BA-429B-8844-86D3F30A76C7}.Debug|x64.Build.0 = Debug|x64
+		{2B369E40-12BA-429B-8844-86D3F30A76C7}.Debug|x86.ActiveCfg = Debug|Win32
+		{2B369E40-12BA-429B-8844-86D3F30A76C7}.Debug|x86.Build.0 = Debug|Win32
+		{2B369E40-12BA-429B-8844-86D3F30A76C7}.Release|x64.ActiveCfg = Release|x64
+		{2B369E40-12BA-429B-8844-86D3F30A76C7}.Release|x64.Build.0 = Release|x64
+		{2B369E40-12BA-429B-8844-86D3F30A76C7}.Release|x86.ActiveCfg = Release|Win32
+		{2B369E40-12BA-429B-8844-86D3F30A76C7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -211,6 +221,7 @@ Global
 		{1E2646C1-EEA2-464A-B773-0F45A376209D} = {50EFC057-4A08-4362-8DAB-9B2001376C18}
 		{3476EC73-E991-4214-A7E6-792B2CAE00BB} = {50EFC057-4A08-4362-8DAB-9B2001376C18}
 		{A9B0EC73-EA90-47CD-A14F-E79FD67E3C52} = {50EFC057-4A08-4362-8DAB-9B2001376C18}
+		{2B369E40-12BA-429B-8844-86D3F30A76C7} = {C2826898-6919-49D6-9840-D436441D42E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC7C65DC-29E2-40ED-8440-0F008964DA46}

@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Anchor.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Color.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Core.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Design.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Drawing.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-DrawingStyle.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Edit.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-EditCommand.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-EditPointerTool.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-EditSeed.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Event.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Factory.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-File.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Item.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Point.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-PropertiesManipulator.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Property.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-View.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Arrow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Base.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Ellipse.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-HalfArrow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Line.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Rectangle.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Style.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Coord.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Factory.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Renderer.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Style.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d.cpp" />
+    <ClCompile Include=".\src\Application.cpp" />
+    <ClCompile Include=".\src\Main.cpp" />
+    <ClCompile Include=".\src\Window\AboutBox.cpp" />
+    <ClCompile Include=".\src\Window\MainFrame.cpp" />
+    <ClCompile Include=".\src\Window\View.cpp" />
+    <ClCompile Include=".\src\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Window\CommandPanel.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\ClipboardFormat.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\DropSource.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\DropTarget.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\HGlobal.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\WindowDropSourceNotifier.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\WindowDropTargetHandler.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\WindowMouseHandler.cpp" />
+    <ClCompile Include="src\Window\WindowHandler\WindowScrollHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Anchor.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Color.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Core.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Design.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Drawing.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-DrawingStyle.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Edit.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-EditCommand.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-EditPointerTool.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-EditSeed.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Event.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Factory.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-File.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Item.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Point.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-PropertiesManipulator.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Property.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-UsingNamespace.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-View.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\pch.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Arrow.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Base.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Ellipse.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-HalfArrow.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Line.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Rectangle.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Style.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\shape\pch.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Coord.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Factory.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Renderer.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Style.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\pch.hpp" />
+    <ClInclude Include=".\res\Resource.h" />
+    <ClInclude Include=".\src\Application.hpp" />
+    <ClInclude Include=".\src\Window\AboutBox.hpp" />
+    <ClInclude Include=".\src\Window\MainFrame.hpp" />
+    <ClInclude Include=".\src\Window\View.hpp" />
+    <ClInclude Include=".\src\Window\pch.hpp" />
+    <ClInclude Include=".\src\framework.hpp" />
+    <ClInclude Include=".\src\pch.hpp" />
+    <ClInclude Include=".\src\targetver.h" />
+    <ClInclude Include="src\Window\CommandPanel.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\ClipboardFormat.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\DropSource.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\DropTarget.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\HGlobal.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\pch.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\WindowDropSourceNotifier.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\WindowDropTargetHandler.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\WindowHandler.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\WindowMouseHandler.hpp" />
+    <ClInclude Include="src\Window\WindowHandler\WindowScrollHandler.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\res\Application.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include=".\res\Application.ico" />
+    <Image Include=".\res\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".\vcpkg.json" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{2b369e40-12ba-429b-8844-86d3f30a76c7}</ProjectGuid>
+    <RootNamespace>Designer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+    <cxDirectory>..\..\</cxDirectory>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>True</VcpkgEnableManifest>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/Win32/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/Win32/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/x64/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(cxDirectory)library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)Output/Object/Directory/Root/%(RelativeDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/x64/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

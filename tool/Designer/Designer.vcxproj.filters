@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{1f665b61-e61c-4010-9642-744dacc6d1ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{79bca325-33e9-419b-a8f1-3c6c44033955}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Window">
+      <UniqueIdentifier>{ff66618a-1a96-43d7-811a-8a0a56b12fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx">
+      <UniqueIdentifier>{574b5c97-5da2-4dce-8235-461cf23eba16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\d2d">
+      <UniqueIdentifier>{488e4c1b-c759-467b-aceb-afe7ec69c80f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Window\WindowHandler">
+      <UniqueIdentifier>{3f0322ec-7422-4d70-b85c-2ee1f2f5991f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\d2dw">
+      <UniqueIdentifier>{bba5fbbc-782f-45ba-a059-ac2e1fada37b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cx\d2dw\shape">
+      <UniqueIdentifier>{d203759b-998e-4ba2-82f7-b432095b5954}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include=".\src\Application.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Window\AboutBox.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Window\MainFrame.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\Window\View.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include=".\src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Coord.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Factory.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Renderer.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Style.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\ClipboardFormat.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\DropSource.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\DropTarget.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\HGlobal.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\WindowDropSourceNotifier.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\WindowDropTargetHandler.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\WindowMouseHandler.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\WindowHandler\WindowScrollHandler.cpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\CommandPanel.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Anchor.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Color.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Core.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Design.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Drawing.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-DrawingStyle.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Edit.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-EditCommand.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-EditPointerTool.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-EditSeed.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Event.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Factory.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-File.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Item.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Point.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-PropertiesManipulator.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-Property.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\cx-Widget-View.cpp">
+      <Filter>cx\d2dw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Arrow.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Base.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Ellipse.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-HalfArrow.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Line.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Rectangle.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Style.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.cpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include=".\res\Resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Application.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Window\AboutBox.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Window\MainFrame.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Window\View.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\Window\pch.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\framework.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\pch.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include=".\src\targetver.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Coord.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Factory.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Renderer.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Style.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\pch.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\ClipboardFormat.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\DropSource.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\DropTarget.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\HGlobal.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\pch.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowDropSourceNotifier.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowDropTargetHandler.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowHandler.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowMouseHandler.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\WindowHandler\WindowScrollHandler.hpp">
+      <Filter>src\Window\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\CommandPanel.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Anchor.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Color.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Core.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Design.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Drawing.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-DrawingStyle.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Edit.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-EditCommand.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-EditPointerTool.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-EditSeed.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Event.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Factory.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-File.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Item.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Point.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-PropertiesManipulator.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Property.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-UsingNamespace.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-View.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\pch.hpp">
+      <Filter>cx\d2dw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Arrow.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Base.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Ellipse.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-HalfArrow.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Line.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Rectangle.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Style.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\shape\pch.hpp">
+      <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\res\Application.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include=".\res\Application.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include=".\res\small.ico">
+      <Filter>res</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".\vcpkg.json" />
+  </ItemGroup>
+</Project>
