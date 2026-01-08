@@ -63,7 +63,7 @@ MainFrame::MainFrame()
 
 	//-----------------------------------------------------------------------
 	HWND hwnd;
-	hwnd = createWindow(MainFrame_WindowClassName);
+	hwnd = createWindow(MainFrame_WindowClassName, nullptr, L"Designer");
 	if (nullptr == hwnd)
 	{
 		throw std::runtime_error("MainFrame::MainFrame(): createWindow() failed");
@@ -159,13 +159,40 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 
 	switch (wm.nID())
 	{
-	case IDM_ABOUT:
+	case IDM_APP_ABOUT:
 		onAppAbout(windowMessage);
 		break;
 
-	case IDM_EXIT:
+	case IDM_APP_EXIT:
 		destroyWindow();
 		break;
+
+	case IDM_FILE_NEW              : _View->_Designer->onFile_New            (); break;
+	case IDM_FILE_OPEN             : _View->_Designer->onFile_Open           (); break;
+	case IDM_FILE_CLOSE            : _View->_Designer->onFile_Close          (); break;
+	case IDM_FILE_SAVE             : _View->_Designer->onFile_Save           (); break;
+	case IDM_FILE_SAVEAS           : _View->_Designer->onFile_Saveas         (); break;
+	case IDM_EDIT_UNDO             : _View->_Designer->onEdit_Undo           (); break;
+	case IDM_EDIT_REDO             : _View->_Designer->onEdit_Redo           (); break;
+	case IDM_EDIT_CUT              : _View->_Designer->onEdit_Cut            (); break;
+	case IDM_EDIT_COPY             : _View->_Designer->onEdit_Copy           (); break;
+	case IDM_EDIT_PASTE            : _View->_Designer->onEdit_Paste          (); break;
+	case IDM_EDIT_SELECT_ALL       : _View->_Designer->onEdit_SelectAll      (); break;
+	case IDM_EDIT_SELECT_CANCEL    : _View->_Designer->onEdit_SelectCancel   (); break;
+	case IDM_EDIT_DELETE           : _View->_Designer->onEdit_Delete         (); break;
+	case IDM_DESIGN_VIEW_COMMAND   : _View->_Designer->onDesign_ViewCommand  (); break;
+	case IDM_DESIGN_VIEW_PROPERTY  : _View->_Designer->onDesign_ViewProperty (); break;
+	case IDM_DESIGN_ZOOMIN         : _View->_Designer->onDesign_ZoomIn       (); break;
+	case IDM_DESIGN_ZOOMOUT        : _View->_Designer->onDesign_ZoomOut      (); break;
+	case IDM_DESIGN_SNAP_TO_GRID   : _View->_Designer->onDesign_SnapToGrid   (); break;
+	case IDM_DESIGN_BRING_TO_FRONT : _View->_Designer->onDesign_BringToFront (); break;
+	case IDM_DESIGN_SEND_TO_BACK   : _View->_Designer->onDesign_SendToBack   (); break;
+	case IDM_DESIGN_BRING_TO_TOP   : _View->_Designer->onDesign_BringToTop   (); break;
+	case IDM_DESIGN_SEND_TO_BOTTOM : _View->_Designer->onDesign_SendToBottom (); break;
+	case IDM_DESIGN_FILE_PROPERTY  : _View->_Designer->onDesign_FileProperty (); break;
+	case IDM_DESIGN_SHOW_GRID      : _View->_Designer->onDesign_ShowGrid     (); break;
+	case IDM_DESIGN_SHOW_GRID_COORD: _View->_Designer->onDesign_ShowGridCoord(); break;
+	case IDM_DESIGN_SHOW_STATUS    : _View->_Designer->onDesign_ShowStatus   (); break;
 
 	default:
 		defaultWindowProc(windowMessage);

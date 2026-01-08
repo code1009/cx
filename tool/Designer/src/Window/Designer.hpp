@@ -34,4 +34,32 @@ public:
 public:
 	void zoomIn(float px, float py);
 	void zoomOut(float px, float py);
+
+public:
+	void onFile_New            (void);
+	void onFile_Open           (void);
+	void onFile_Close          (void);
+	void onFile_Save           (void);
+	void onFile_Saveas         (void);
+	void onEdit_Undo           (void);
+	void onEdit_Redo           (void);
+	void onEdit_Cut            (void);
+	void onEdit_Copy           (void);
+	void onEdit_Paste          (void);
+	void onEdit_SelectAll      (void);
+	void onEdit_SelectCancel   (void);
+	void onEdit_Delete         (void);
+	void onDesign_ViewCommand  (void);
+	void onDesign_ViewProperty (void);
+	void onDesign_ZoomIn       (void);
+	void onDesign_ZoomOut      (void);
+	void onDesign_SnapToGrid   (void);
+	void onDesign_BringToFront (void);
+	void onDesign_SendToBack   (void);
+	void onDesign_BringToTop   (void);
+	void onDesign_SendToBottom (void);
+	void onDesign_FileProperty (void);
+	void onDesign_ShowGrid     (void);
+	void onDesign_ShowGridCoord(void);
+	void onDesign_ShowStatus   (void);
 };

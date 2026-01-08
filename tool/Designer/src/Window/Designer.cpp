@@ -439,3 +439,31 @@ void Designer::zoomOut(float px, float py)
 
 	invalidate();
 }
+
+void Designer::onFile_New            (void){ CX_RUNTIME_LOG(cxLInfo) << L"onFile_New            "; }
+void Designer::onFile_Open           (void){ CX_RUNTIME_LOG(cxLInfo) << L"onFile_Open           "; }
+void Designer::onFile_Close          (void){ CX_RUNTIME_LOG(cxLInfo) << L"onFile_Close          "; }
+void Designer::onFile_Save           (void){ CX_RUNTIME_LOG(cxLInfo) << L"onFile_Save           "; }
+void Designer::onFile_Saveas         (void){ CX_RUNTIME_LOG(cxLInfo) << L"onFile_Saveas         "; }
+void Designer::onEdit_Undo           (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Undo           "; }
+void Designer::onEdit_Redo           (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Redo           "; }
+void Designer::onEdit_Cut            (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Cut            "; }
+void Designer::onEdit_Copy           (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Copy           "; }
+void Designer::onEdit_Paste          (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Paste          "; }
+void Designer::onEdit_SelectAll      (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_SelectAll      "; }
+void Designer::onEdit_SelectCancel   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_SelectCancel   "; }
+void Designer::onEdit_Delete         (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Delete         "; }
+void Designer::onDesign_ViewCommand  (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewCommand  "; }
+void Designer::onDesign_ViewProperty (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewProperty "; }
+void Designer::onDesign_ZoomIn       (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomIn       "; }
+void Designer::onDesign_ZoomOut      (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomOut      "; }
+void Designer::onDesign_SnapToGrid   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SnapToGrid   "; }
+void Designer::onDesign_BringToFront (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_BringToFront "; }
+void Designer::onDesign_SendToBack   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SendToBack   "; }
+void Designer::onDesign_BringToTop   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_BringToTop   "; }
+void Designer::onDesign_SendToBottom (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SendToBottom "; }
+void Designer::onDesign_FileProperty (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_FileProperty "; }
+void Designer::onDesign_ShowGrid     (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGrid     "; }
+void Designer::onDesign_ShowGridCoord(void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGridCoord"; }
+void Designer::onDesign_ShowStatus   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowStatus   "; }
+
