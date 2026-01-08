@@ -16,33 +16,41 @@
 
 
 ## 라이브러리
-`cx/library`의 하위 폴더 단위로 라이브러리를 구성하고 있습니다.  
-하위 폴더 `runtime`과 `common`은 공통으로 사용하는 모듈입니다.  
-`runtime`과 `common`을 제외하고, 그 이외의 폴더 들은 각각 
-독립적으로 사용이 가능합니다.
+'/library/cx`의 하위 폴더 단위로 라이브러리를 구성하고 있습니다.  
 
-### `common`
+하위 폴더 `runtime`과 `common`은 공통으로 사용하는 모듈입니다.  
+
+`runtime`과 `common`을 제외하고, 그 이외의 폴더 들은 각각 독립적으로 사용이 가능합니다.
+
+
+### 필수 기능 라이브러리
+
+#### `/library/cx/common`
 - 기본적인 공통 모듈입니다.
 
-### `runtime`
+#### `/library/cx/runtime`
 - log와 assert문을 제공합니다.
 
-### `component`
+
+
+### 개별 기능 라이브러리
+
+#### `/library/cx/component`
 - 유틸리티 모음입니다.
 
-### `wui(Windows User Interface)`
-- WinAPI 기반의 창(window)을 관리하는 라이브러리입니다.
-- 윈도우 생성, 메시지 맵 처리, 드래그 앤 드롭 핸들러 등을 제공합니다.
 
-### `d2d(Direct2D)`
+#### `/library/cx/wui` 
+- Windows User Interface
+- WinAPI 기반의 창(window)을 관리하는 라이브러리입니다.
+
+#### `/library/cx/d2d`
 - Direct2D 1.1 기반의 그래픽 라이브러리 래퍼입니다.
-- Canvas, Brush, Geometry 등의 리소스를 Modern C++ 스타일로 관리합니다.
 - *개발 중입니다.*
 
-### `network`
+#### `/library/cx/network`
 - 간단한 socket 라이브러리입니다.
 
-### `gw(Graphic Widget)` (Deprecated)
+#### `/library/cx/gw(Graphic Widget)` (Deprecated)
 - *삭제 예정*
 
 
