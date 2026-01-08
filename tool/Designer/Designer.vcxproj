@@ -72,16 +72,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\WindowHandler\ClipboardFormat.cpp" />
+    <ClCompile Include="src\WindowHandler\DropSource.cpp" />
+    <ClCompile Include="src\WindowHandler\DropTarget.cpp" />
+    <ClCompile Include="src\WindowHandler\HGlobal.cpp" />
+    <ClCompile Include="src\WindowHandler\WindowDragDropClipboardFormat.cpp" />
+    <ClCompile Include="src\WindowHandler\WindowDropSourceNotifier.cpp" />
+    <ClCompile Include="src\WindowHandler\WindowDropTargetHandler.cpp" />
+    <ClCompile Include="src\WindowHandler\WindowMouseHandler.cpp" />
+    <ClCompile Include="src\WindowHandler\WindowScrollHandler.cpp" />
     <ClCompile Include="src\Window\CommandPanel.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\ClipboardFormat.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\DropSource.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\DropTarget.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\HGlobal.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\WindowDropSourceNotifier.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\WindowDropTargetHandler.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\WindowMouseHandler.cpp" />
-    <ClCompile Include="src\Window\WindowHandler\WindowScrollHandler.cpp" />
+    <ClCompile Include="src\Window\Designer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Anchor.hpp" />
@@ -134,18 +135,19 @@
     <ClInclude Include=".\src\framework.hpp" />
     <ClInclude Include=".\src\pch.hpp" />
     <ClInclude Include=".\src\targetver.h" />
+    <ClInclude Include="src\WindowHandler\ClipboardFormat.hpp" />
+    <ClInclude Include="src\WindowHandler\DropSource.hpp" />
+    <ClInclude Include="src\WindowHandler\DropTarget.hpp" />
+    <ClInclude Include="src\WindowHandler\HGlobal.hpp" />
+    <ClInclude Include="src\WindowHandler\pch.hpp" />
+    <ClInclude Include="src\WindowHandler\WindowDragDropClipboardFormat.hpp" />
+    <ClInclude Include="src\WindowHandler\WindowDropSourceNotifier.hpp" />
+    <ClInclude Include="src\WindowHandler\WindowDropTargetHandler.hpp" />
+    <ClInclude Include="src\WindowHandler\WindowHandler.hpp" />
+    <ClInclude Include="src\WindowHandler\WindowMouseHandler.hpp" />
+    <ClInclude Include="src\WindowHandler\WindowScrollHandler.hpp" />
     <ClInclude Include="src\Window\CommandPanel.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\ClipboardFormat.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\DropSource.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\DropTarget.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\HGlobal.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\pch.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\WindowDropSourceNotifier.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\WindowDropTargetHandler.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\WindowHandler.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\WindowMouseHandler.hpp" />
-    <ClInclude Include="src\Window\WindowHandler\WindowScrollHandler.hpp" />
+    <ClInclude Include="src\Window\Designer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\res\Application.rc" />
@@ -284,7 +286,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/x64/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(cxDirectory)/x64/Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -307,7 +309,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(cxDirectory)/library/lib/cx_static_library/x64/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(cxDirectory)/x64/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

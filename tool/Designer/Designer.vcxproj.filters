@@ -16,14 +16,14 @@
     <Filter Include="cx\d2d">
       <UniqueIdentifier>{488e4c1b-c759-467b-aceb-afe7ec69c80f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Window\WindowHandler">
-      <UniqueIdentifier>{3f0322ec-7422-4d70-b85c-2ee1f2f5991f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cx\d2dw">
       <UniqueIdentifier>{bba5fbbc-782f-45ba-a059-ac2e1fada37b}</UniqueIdentifier>
     </Filter>
     <Filter Include="cx\d2dw\shape">
       <UniqueIdentifier>{d203759b-998e-4ba2-82f7-b432095b5954}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\WindowHandler">
+      <UniqueIdentifier>{e68b3e33-1c83-468f-a521-c69d3f267add}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,33 +71,6 @@
     </ClCompile>
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d.cpp">
       <Filter>cx\d2d</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\ClipboardFormat.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\DropSource.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\DropTarget.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\HGlobal.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\WindowDropSourceNotifier.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\WindowDropTargetHandler.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\WindowMouseHandler.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window\WindowHandler\WindowScrollHandler.cpp">
-      <Filter>src\Window\WindowHandler</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\CommandPanel.cpp">
       <Filter>src\Window</Filter>
@@ -183,6 +156,36 @@
     <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.cpp">
       <Filter>cx\d2dw\shape</Filter>
     </ClCompile>
+    <ClCompile Include="src\WindowHandler\ClipboardFormat.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowHandler\DropSource.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowHandler\DropTarget.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowHandler\HGlobal.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowHandler\WindowDragDropClipboardFormat.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowHandler\WindowDropSourceNotifier.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowHandler\WindowDropTargetHandler.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowHandler\WindowMouseHandler.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowHandler\WindowScrollHandler.cpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\Designer.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -241,39 +244,6 @@
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\pch.hpp">
       <Filter>cx\d2d</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\ClipboardFormat.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\DropSource.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\DropTarget.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\HGlobal.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\pch.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\WindowDragDropClipboardFormat.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\WindowDropSourceNotifier.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\WindowDropTargetHandler.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\WindowHandler.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\WindowMouseHandler.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Window\WindowHandler\WindowScrollHandler.hpp">
-      <Filter>src\Window\WindowHandler</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\CommandPanel.hpp">
       <Filter>src\Window</Filter>
@@ -370,6 +340,42 @@
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2dw\shape\pch.hpp">
       <Filter>cx\d2dw\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\ClipboardFormat.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\DropSource.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\DropTarget.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\HGlobal.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\pch.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\WindowDragDropClipboardFormat.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\WindowDropSourceNotifier.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\WindowDropTargetHandler.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\WindowHandler.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\WindowMouseHandler.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowHandler\WindowScrollHandler.hpp">
+      <Filter>src\WindowHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\Designer.hpp">
+      <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

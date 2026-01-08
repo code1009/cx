@@ -14,10 +14,16 @@
 #include "../../res/resource.h"
 
 //===========================================================================
-#include "WindowHandler/WindowHandler.hpp"
+#include "../WindowHandler/WindowHandler.hpp"
+
+//===========================================================================
+#include "Designer.hpp"
+
 #include "View.hpp"
 #include "CommandPanel.hpp"
+
 #include "MainFrame.hpp"
+
 #include "AboutBox.hpp"
 
 
