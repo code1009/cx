@@ -79,9 +79,7 @@ Designer::Designer(HWND hwnd) :
 #if 0
 			CX_RUNTIME_LOG(cxLInfo) << L"drawing";
 #endif
-
 			drawingSession->Clear(cx::d2d::Colors::AliceBlue());
-
 			_Edit->draw(*drawingSession);
 		}
 	;
@@ -191,9 +189,7 @@ Designer::Designer(HWND hwnd) :
 			);
 
 			_MouseHandler->setMouseCapture();
-
 			invalidate();
-
 			return true;
 		}
 	;
@@ -215,9 +211,7 @@ Designer::Designer(HWND hwnd) :
 			);
 
 			_MouseHandler->releaseMouseCapture();
-
 			invalidate();
-
 			return true;
 		}
 	;
@@ -270,7 +264,6 @@ Designer::Designer(HWND hwnd) :
 				invalidate();
 				return;
 			}
-
 			_Edit->dragOverNewItem(static_cast<float>(x), static_cast<float>(y));
 		}
 	;
@@ -323,7 +316,6 @@ Designer::Designer(HWND hwnd) :
 
 Designer::~Designer()
 {
-
 }
 
 //===========================================================================
@@ -336,7 +328,8 @@ void Designer::resize(std::uint32_t cx, std::uint32_t cy)
 	rv = _Edit->viewContext().setWindowSize(static_cast<float>(cx), static_cast<float>(cy));
 	if (!rv)
 	{
-		CX_RUNTIME_LOG(cxLTrace) << L"not changed.";
+		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
+		return;
 	}
 	updateScrollBar();
 	invalidate();
@@ -351,15 +344,17 @@ void Designer::invalidate(void)
 void Designer::updateScrollBar(void)
 {
 	//-------------------------------------------------------------------
-	std::int64_t scaledWidth = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
-	std::int64_t scaledHeight = static_cast<std::int64_t>(_Edit->viewContext().scaledHeight());
 	std::int64_t windowWidth = static_cast<std::int64_t>(_Edit->viewContext().windowWidth());
 	std::int64_t windowHeight = static_cast<std::int64_t>(_Edit->viewContext().windowHeight());
+
+	std::int64_t scaledWidth = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
+	std::int64_t scaledHeight = static_cast<std::int64_t>(_Edit->viewContext().scaledHeight());
+
 	std::int64_t xScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().X);
 	std::int64_t yScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().Y);
 
-	float maxXScrollOffset = _Edit->viewContext().scaledWidth() - _Edit->viewContext().windowWidth();
-	float maxYScrollOffset = _Edit->viewContext().scaledHeight() - _Edit->viewContext().windowHeight();
+	//std::int64_t maxXScrollOffset = scaledWidth - windowWidth;
+	//std::int64_t maxYScrollOffset = scaledHeight - windowHeight;
 
 	_ScrollHandler->setXYScroll(
 		scaledWidth, windowWidth, xScrollPos,
@@ -387,6 +382,7 @@ void Designer::zoomIn(float px, float py)
 	//-------------------------------------------------------------------
 	if (!_Edit->viewContext().zoomIn())
 	{
+		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
 		return;
 	}
 	updateScrollBar();
@@ -412,6 +408,7 @@ void Designer::zoomOut(float px, float py)
 	//-------------------------------------------------------------------
 	if (!_Edit->viewContext().zoomOut())
 	{
+		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
 		return;
 	}
 	updateScrollBar();
