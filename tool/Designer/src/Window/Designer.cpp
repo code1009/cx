@@ -76,7 +76,7 @@ Designer::Designer(HWND hwnd) :
 	_Canvas->drawingHandler =
 		[this](cx::d2d::DrawingSession* drawingSession)
 		{
-#if 1
+#if 0
 			CX_RUNTIME_LOG(cxLInfo) << L"drawing";
 #endif
 
@@ -338,11 +338,22 @@ void Designer::resize(std::uint32_t cx, std::uint32_t cy)
 	{
 		CX_RUNTIME_LOG(cxLTrace) << L"not changed.";
 	}
+	updateScrollBar();
+	invalidate();
+}
 
+//===========================================================================
+void Designer::invalidate(void)
+{
+	InvalidateRect(_Hwnd, nullptr, FALSE);
+}
 
-	std::int64_t scaledWidth  = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
+void Designer::updateScrollBar(void)
+{
+	//-------------------------------------------------------------------
+	std::int64_t scaledWidth = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
 	std::int64_t scaledHeight = static_cast<std::int64_t>(_Edit->viewContext().scaledHeight());
-	std::int64_t windowWidth  = static_cast<std::int64_t>(_Edit->viewContext().windowWidth());
+	std::int64_t windowWidth = static_cast<std::int64_t>(_Edit->viewContext().windowWidth());
 	std::int64_t windowHeight = static_cast<std::int64_t>(_Edit->viewContext().windowHeight());
 	std::int64_t xScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().X);
 	std::int64_t yScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().Y);
@@ -353,20 +364,14 @@ void Designer::resize(std::uint32_t cx, std::uint32_t cy)
 	_ScrollHandler->setXYScroll(
 		scaledWidth, windowWidth, xScrollPos,
 		scaledHeight, windowHeight, yScrollPos
-		);
-
-	_Canvas->draw();
-}
-
-void Designer::invalidate(void)
-{
-	InvalidateRect(_Hwnd, nullptr, FALSE);
+	);
 }
 
 //===========================================================================
 void Designer::zoomIn(float px, float py)
 {
 	//-------------------------------------------------------------------
+#if 0
 	cx::Widget::Point window0{ px, py };
 	cx::Widget::Point view0;
 	view0 = _Edit->viewContext().fromWindow(window0);
@@ -376,35 +381,22 @@ void Designer::zoomIn(float px, float py)
 			window0.X, window0.Y,
 			view0.X, view0.Y
 		);
+#endif
 
 
 	//-------------------------------------------------------------------
 	if (!_Edit->viewContext().zoomIn())
 	{
-		//return;
+		return;
 	}
-
-	std::int64_t scaledWidth = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
-	std::int64_t scaledHeight = static_cast<std::int64_t>(_Edit->viewContext().scaledHeight());
-	std::int64_t windowWidth = static_cast<std::int64_t>(_Edit->viewContext().windowWidth());
-	std::int64_t windowHeight = static_cast<std::int64_t>(_Edit->viewContext().windowHeight());
-	std::int64_t xScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().X);
-	std::int64_t yScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().Y);
-
-	float maxXScrollOffset = _Edit->viewContext().scaledWidth() - _Edit->viewContext().windowWidth();
-	float maxYScrollOffset = _Edit->viewContext().scaledHeight() - _Edit->viewContext().windowHeight();
-
-	_ScrollHandler->setXYScroll(
-		scaledWidth, windowWidth, xScrollPos,
-		scaledHeight, windowHeight, yScrollPos
-	);
-
+	updateScrollBar();
 	invalidate();
 }
 
 void Designer::zoomOut(float px, float py)
 {
 	//-------------------------------------------------------------------
+#if 0
 	cx::Widget::Point window0{ px, py };
 	cx::Widget::Point view0;
 	view0 = _Edit->viewContext().fromWindow(window0);
@@ -414,32 +406,19 @@ void Designer::zoomOut(float px, float py)
 			window0.X, window0.Y,
 			view0.X, view0.Y
 		);
+#endif
 
 
 	//-------------------------------------------------------------------
 	if (!_Edit->viewContext().zoomOut())
 	{
-		//return;
+		return;
 	}
-
-	std::int64_t scaledWidth = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
-	std::int64_t scaledHeight = static_cast<std::int64_t>(_Edit->viewContext().scaledHeight());
-	std::int64_t windowWidth = static_cast<std::int64_t>(_Edit->viewContext().windowWidth());
-	std::int64_t windowHeight = static_cast<std::int64_t>(_Edit->viewContext().windowHeight());
-	std::int64_t xScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().X);
-	std::int64_t yScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().Y);
-
-	float maxXScrollOffset = _Edit->viewContext().scaledWidth() - _Edit->viewContext().windowWidth();
-	float maxYScrollOffset = _Edit->viewContext().scaledHeight() - _Edit->viewContext().windowHeight();
-
-	_ScrollHandler->setXYScroll(
-		scaledWidth, windowWidth, xScrollPos,
-		scaledHeight, windowHeight, yScrollPos
-	);
-
+	updateScrollBar();
 	invalidate();
 }
 
+//===========================================================================
 void Designer::onFile_New            (void){ CX_RUNTIME_LOG(cxLInfo) << L"onFile_New            "; }
 void Designer::onFile_Open           (void){ CX_RUNTIME_LOG(cxLInfo) << L"onFile_Open           "; }
 void Designer::onFile_Close          (void){ CX_RUNTIME_LOG(cxLInfo) << L"onFile_Close          "; }
@@ -455,8 +434,8 @@ void Designer::onEdit_SelectCancel   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit
 void Designer::onEdit_Delete         (void){ CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Delete         "; }
 void Designer::onDesign_ViewCommand  (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewCommand  "; }
 void Designer::onDesign_ViewProperty (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewProperty "; }
-void Designer::onDesign_ZoomIn       (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomIn       "; }
-void Designer::onDesign_ZoomOut      (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomOut      "; }
+void Designer::onDesign_ZoomIn       (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomIn       "; zoomIn(0,0);  }
+void Designer::onDesign_ZoomOut      (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomOut      "; zoomOut(0,0); }
 void Designer::onDesign_SnapToGrid   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SnapToGrid   "; }
 void Designer::onDesign_BringToFront (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_BringToFront "; }
 void Designer::onDesign_SendToBack   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SendToBack   "; }

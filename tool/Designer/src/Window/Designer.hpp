@@ -32,6 +32,9 @@ public:
 	void invalidate(void);
 
 public:
+	void updateScrollBar(void);
+
+public:
 	void zoomIn(float px, float py);
 	void zoomOut(float px, float py);
 
