@@ -159,7 +159,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 
 			//-----------------------------------------------------------------------
 			/*
-			_Diagram_Edit->eventGenerator().pointerMoved(
+			_Edit->eventGenerator().pointerMoved(
 				static_cast<float>(pt.x),
 				static_cast<float>(pt.y),
 				controlKeyPressed,
@@ -187,7 +187,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 				;
 
 			/*
-			_Diagram_Edit->eventGenerator().pointerPressed(
+			_Edit->eventGenerator().pointerPressed(
 				static_cast<float>(pt.x),
 				static_cast<float>(pt.y),
 				controlKeyPressed,
@@ -215,7 +215,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 				;
 
 			/*
-			_Diagram_Edit->eventGenerator().pointerReleased(
+			_Edit->eventGenerator().pointerReleased(
 				static_cast<float>(pt.x),
 				static_cast<float>(pt.y),
 				controlKeyPressed,
@@ -240,7 +240,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 				cx::Widget::Point scrollOffset;
 				scrollOffset.X = static_cast<float>(x);
 				scrollOffset.Y = static_cast<float>(y);
-				_Diagram_Edit->viewContext().setWindowScrollOffset(scrollOffset);
+				_Edit->viewContext().setWindowScrollOffset(scrollOffset);
 
 				invalidate();
 				*/
@@ -437,7 +437,7 @@ void CommandPanel::addCommands(void)
 
 
 	//-------------------------------------------------------------------
-	_View->_d2dDiagram->_Diagram_Edit->factory().clear();
+	_View->_Designer->_Edit->factory().clear();
 	_CommandInfos.clear();
 
 
@@ -477,7 +477,7 @@ void CommandPanel::addCommand_NewItem(std::shared_ptr<cx::Widget::Item> const& i
 	}
 
 
-	_View->_d2dDiagram->_Diagram_Edit->factory().registerItem(item, makeProperties, friendlyName);
+	_View->_Designer->_Edit->factory().registerItem(item, makeProperties, friendlyName);
 
 	CommandInfo commandInfo{ L"NewItem", friendlyName.data(), L"" };
 	_CommandInfos.push_back(commandInfo);
@@ -507,7 +507,7 @@ void CommandPanel::doDragDrop(void)
 	CommandInfo const& commandInfo = _CommandInfos[4];
 
 
-	auto itemClassInfo = _View->_d2dDiagram->_Diagram_Edit->factory().findByFriendlyName(commandInfo.label);
+	auto itemClassInfo = _View->_Designer->_Edit->factory().findByFriendlyName(commandInfo.label);
 	if (!itemClassInfo)
 	{
 		CX_RUNTIME_LOG(cxLError) << L"itemClassInfo is nullptr";
@@ -530,5 +530,5 @@ void CommandPanel::doDragDrop(void)
 
 
 
-	_View->_d2dDiagram->_Diagram_Edit->setNewItem(nullptr);
+	_View->_Designer->_Edit->setNewItem(nullptr);
 }

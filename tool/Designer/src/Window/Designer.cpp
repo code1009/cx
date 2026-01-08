@@ -57,17 +57,17 @@ static std::wstring std_uint8_t_vector_to_std_wstring(std::vector<std::uint8_t> 
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-d2dDiagram::d2dDiagram(HWND hwnd) :
+Designer::Designer(HWND hwnd) :
 	_Hwnd(hwnd)
 {
 	//-----------------------------------------------------------------------
-	_Diagram_Edit = std::make_unique<cx::Widget::Edit>(cx::Widget::DefaultViewWidth, cx::Widget::DefaultViewHeight);
+	_Edit = std::make_unique<cx::Widget::Edit>(cx::Widget::DefaultViewWidth, cx::Widget::DefaultViewHeight);
 
-	_Diagram_Edit->viewGrid().showGridLine(true);
-	_Diagram_Edit->viewGrid().showCenterLine(true);
-	_Diagram_Edit->viewGrid().showOutline(true);
-	_Diagram_Edit->viewGrid().showCoordinate(true);
-	_Diagram_Edit->viewStatus().show(true);
+	_Edit->viewGrid().showGridLine(true);
+	_Edit->viewGrid().showCenterLine(true);
+	_Edit->viewGrid().showOutline(true);
+	_Edit->viewGrid().showCoordinate(true);
+	_Edit->viewStatus().show(true);
 
 
 	//-----------------------------------------------------------------------
@@ -82,13 +82,13 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 
 			drawingSession->Clear(cx::d2d::Colors::AliceBlue());
 
-			_Diagram_Edit->draw(*drawingSession);
+			_Edit->draw(*drawingSession);
 		}
 	;
 
 
 	//-----------------------------------------------------------------------
-	_Diagram_Edit->invalidatedEventListener.attach(
+	_Edit->invalidatedEventListener.attach(
 		reinterpret_cast<std::uintptr_t>(this),
 		[this](cx::ev::Event& /*event*/)
 		{
@@ -158,14 +158,14 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
 			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
 
-			_Diagram_Edit->eventGenerator().pointerMoved(
+			_Edit->eventGenerator().pointerMoved(
 				static_cast<float>(pt.x),
 				static_cast<float>(pt.y),
 				controlKeyPressed,
 				shiftKeyPressed
 			);
 
-			if (_Diagram_Edit->eventGenerator().isPointerCaptured())
+			if (_Edit->eventGenerator().isPointerCaptured())
 			{
 				invalidate();
 			}
@@ -183,7 +183,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
 			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
 
-			_Diagram_Edit->eventGenerator().pointerPressed(
+			_Edit->eventGenerator().pointerPressed(
 				static_cast<float>(pt.x),
 				static_cast<float>(pt.y),
 				controlKeyPressed,
@@ -207,7 +207,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
 			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
 
-			_Diagram_Edit->eventGenerator().pointerReleased(
+			_Edit->eventGenerator().pointerReleased(
 				static_cast<float>(pt.x),
 				static_cast<float>(pt.y),
 				controlKeyPressed,
@@ -233,7 +233,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				cx::Widget::Point scrollOffset;
 				scrollOffset.X = static_cast<float>(x);
 				scrollOffset.Y = static_cast<float>(y);
-				_Diagram_Edit->viewContext().setWindowScrollOffset(scrollOffset);
+				_Edit->viewContext().setWindowScrollOffset(scrollOffset);
 
 				invalidate();
 			}
@@ -263,15 +263,15 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				<< L"name=" << name
 				;
 
-			auto item = _Diagram_Edit->makeNewItemByFriendlyName(name);
+			auto item = _Edit->makeNewItemByFriendlyName(name);
 			if (!item)
 			{
-				_Diagram_Edit->setNewItem(nullptr);
+				_Edit->setNewItem(nullptr);
 				invalidate();
 				return;
 			}
 
-			_Diagram_Edit->dragOverNewItem(static_cast<float>(x), static_cast<float>(y));
+			_Edit->dragOverNewItem(static_cast<float>(x), static_cast<float>(y));
 		}
 	;
 
@@ -289,7 +289,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				;
 				*/
 
-			_Diagram_Edit->dragOverNewItem(static_cast<float>(x), static_cast<float>(y));
+			_Edit->dragOverNewItem(static_cast<float>(x), static_cast<float>(y));
 		}
 	;
 	_DropTargetHandler->dragLeaveHandler =
@@ -300,7 +300,7 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				<< L"seq=" << seq
 				;
 
-			_Diagram_Edit->setNewItem(nullptr);
+			_Edit->setNewItem(nullptr);
 			invalidate();
 		}
 	;
@@ -316,39 +316,39 @@ d2dDiagram::d2dDiagram(HWND hwnd) :
 				<< L"y=" << y
 				;
 
-			_Diagram_Edit->dropNewItem(static_cast<float>(x), static_cast<float>(y));
+			_Edit->dropNewItem(static_cast<float>(x), static_cast<float>(y));
 		}
 	;
 }
 
-d2dDiagram::~d2dDiagram()
+Designer::~Designer()
 {
 
 }
 
 //===========================================================================
-void d2dDiagram::resize(std::uint32_t cx, std::uint32_t cy)
+void Designer::resize(std::uint32_t cx, std::uint32_t cy)
 {
 	_Canvas->resize(cx, cy);
 
 
 	bool rv;
-	rv = _Diagram_Edit->viewContext().setWindowSize(static_cast<float>(cx), static_cast<float>(cy));
+	rv = _Edit->viewContext().setWindowSize(static_cast<float>(cx), static_cast<float>(cy));
 	if (!rv)
 	{
 		CX_RUNTIME_LOG(cxLTrace) << L"not changed.";
 	}
 
 
-	std::int64_t scaledWidth  = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledWidth());
-	std::int64_t scaledHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledHeight());
-	std::int64_t windowWidth  = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowWidth());
-	std::int64_t windowHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowHeight());
-	std::int64_t xScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().X);
-	std::int64_t yScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().Y);
+	std::int64_t scaledWidth  = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
+	std::int64_t scaledHeight = static_cast<std::int64_t>(_Edit->viewContext().scaledHeight());
+	std::int64_t windowWidth  = static_cast<std::int64_t>(_Edit->viewContext().windowWidth());
+	std::int64_t windowHeight = static_cast<std::int64_t>(_Edit->viewContext().windowHeight());
+	std::int64_t xScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().X);
+	std::int64_t yScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().Y);
 
-	float maxXScrollOffset = _Diagram_Edit->viewContext().scaledWidth() - _Diagram_Edit->viewContext().windowWidth();
-	float maxYScrollOffset = _Diagram_Edit->viewContext().scaledHeight() - _Diagram_Edit->viewContext().windowHeight();
+	float maxXScrollOffset = _Edit->viewContext().scaledWidth() - _Edit->viewContext().windowWidth();
+	float maxYScrollOffset = _Edit->viewContext().scaledHeight() - _Edit->viewContext().windowHeight();
 
 	_ScrollHandler->setXYScroll(
 		scaledWidth, windowWidth, xScrollPos,
@@ -358,18 +358,18 @@ void d2dDiagram::resize(std::uint32_t cx, std::uint32_t cy)
 	_Canvas->draw();
 }
 
-void d2dDiagram::invalidate(void)
+void Designer::invalidate(void)
 {
 	InvalidateRect(_Hwnd, nullptr, FALSE);
 }
 
 //===========================================================================
-void d2dDiagram::zoomIn(float px, float py)
+void Designer::zoomIn(float px, float py)
 {
 	//-------------------------------------------------------------------
 	cx::Widget::Point window0{ px, py };
 	cx::Widget::Point view0;
-	view0 = _Diagram_Edit->viewContext().fromWindow(window0);
+	view0 = _Edit->viewContext().fromWindow(window0);
 	CX_RUNTIME_LOG(cxLTrace)
 		<< L"zoomIn(): "
 		<< std::format(L"window0=({:.2f}, {:.2f}) view0=({:.2f}, {:.2f})",
@@ -379,20 +379,20 @@ void d2dDiagram::zoomIn(float px, float py)
 
 
 	//-------------------------------------------------------------------
-	if (!_Diagram_Edit->viewContext().zoomIn())
+	if (!_Edit->viewContext().zoomIn())
 	{
 		//return;
 	}
 
-	std::int64_t scaledWidth = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledWidth());
-	std::int64_t scaledHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledHeight());
-	std::int64_t windowWidth = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowWidth());
-	std::int64_t windowHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowHeight());
-	std::int64_t xScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().X);
-	std::int64_t yScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().Y);
+	std::int64_t scaledWidth = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
+	std::int64_t scaledHeight = static_cast<std::int64_t>(_Edit->viewContext().scaledHeight());
+	std::int64_t windowWidth = static_cast<std::int64_t>(_Edit->viewContext().windowWidth());
+	std::int64_t windowHeight = static_cast<std::int64_t>(_Edit->viewContext().windowHeight());
+	std::int64_t xScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().X);
+	std::int64_t yScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().Y);
 
-	float maxXScrollOffset = _Diagram_Edit->viewContext().scaledWidth() - _Diagram_Edit->viewContext().windowWidth();
-	float maxYScrollOffset = _Diagram_Edit->viewContext().scaledHeight() - _Diagram_Edit->viewContext().windowHeight();
+	float maxXScrollOffset = _Edit->viewContext().scaledWidth() - _Edit->viewContext().windowWidth();
+	float maxYScrollOffset = _Edit->viewContext().scaledHeight() - _Edit->viewContext().windowHeight();
 
 	_ScrollHandler->setXYScroll(
 		scaledWidth, windowWidth, xScrollPos,
@@ -402,12 +402,12 @@ void d2dDiagram::zoomIn(float px, float py)
 	invalidate();
 }
 
-void d2dDiagram::zoomOut(float px, float py)
+void Designer::zoomOut(float px, float py)
 {
 	//-------------------------------------------------------------------
 	cx::Widget::Point window0{ px, py };
 	cx::Widget::Point view0;
-	view0 = _Diagram_Edit->viewContext().fromWindow(window0);
+	view0 = _Edit->viewContext().fromWindow(window0);
 	CX_RUNTIME_LOG(cxLTrace)
 		<< L"zoomOut(): "
 		<< std::format(L"window0=({:.2f}, {:.2f}) view0=({:.2f}, {:.2f})",
@@ -417,20 +417,20 @@ void d2dDiagram::zoomOut(float px, float py)
 
 
 	//-------------------------------------------------------------------
-	if (!_Diagram_Edit->viewContext().zoomOut())
+	if (!_Edit->viewContext().zoomOut())
 	{
 		//return;
 	}
 
-	std::int64_t scaledWidth = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledWidth());
-	std::int64_t scaledHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().scaledHeight());
-	std::int64_t windowWidth = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowWidth());
-	std::int64_t windowHeight = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowHeight());
-	std::int64_t xScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().X);
-	std::int64_t yScrollPos = static_cast<std::int64_t>(_Diagram_Edit->viewContext().windowScrollOffset().Y);
+	std::int64_t scaledWidth = static_cast<std::int64_t>(_Edit->viewContext().scaledWidth());
+	std::int64_t scaledHeight = static_cast<std::int64_t>(_Edit->viewContext().scaledHeight());
+	std::int64_t windowWidth = static_cast<std::int64_t>(_Edit->viewContext().windowWidth());
+	std::int64_t windowHeight = static_cast<std::int64_t>(_Edit->viewContext().windowHeight());
+	std::int64_t xScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().X);
+	std::int64_t yScrollPos = static_cast<std::int64_t>(_Edit->viewContext().windowScrollOffset().Y);
 
-	float maxXScrollOffset = _Diagram_Edit->viewContext().scaledWidth() - _Diagram_Edit->viewContext().windowWidth();
-	float maxYScrollOffset = _Diagram_Edit->viewContext().scaledHeight() - _Diagram_Edit->viewContext().windowHeight();
+	float maxXScrollOffset = _Edit->viewContext().scaledWidth() - _Edit->viewContext().windowWidth();
+	float maxYScrollOffset = _Edit->viewContext().scaledHeight() - _Edit->viewContext().windowHeight();
 
 	_ScrollHandler->setXYScroll(
 		scaledWidth, windowWidth, xScrollPos,

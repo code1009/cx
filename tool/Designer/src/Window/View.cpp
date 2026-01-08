@@ -92,23 +92,23 @@ View::View(HWND parentWindowHandle)
 
 
 	//-----------------------------------------------------------------------
-	_d2dDiagram = std::make_unique<d2dDiagram>(*this);
+	_Designer = std::make_unique<Designer>(*this);
 }
 
 //===========================================================================
 LRESULT View::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
-	if (_d2dDiagram)
+	if (_Designer)
 	{
 		bool handled; 
 		
-		handled = _d2dDiagram->_MouseHandler->onWindowMessage(windowMessage);
+		handled = _Designer->_MouseHandler->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
 		}
 
-		handled = _d2dDiagram->_ScrollHandler->onWindowMessage(windowMessage);
+		handled = _Designer->_ScrollHandler->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
@@ -156,7 +156,7 @@ void View::registerWindowMessageMap(void)
 
 void View::onDestroy(cx::wui::WindowMessage& windowMessage)
 {
-	_d2dDiagram.reset();
+	_Designer.reset();
 }
 
 void View::onSize(cx::wui::WindowMessage& windowMessage)
@@ -182,9 +182,9 @@ void View::onSize(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	if (_d2dDiagram)
+	if (_Designer)
 	{
-		_d2dDiagram->resize(cx, cy);
+		_Designer->resize(cx, cy);
 	}
 }
 
@@ -208,9 +208,9 @@ void View::onPaint(cx::wui::WindowMessage& windowMessage)
 		;
 #endif
 
-	if (_d2dDiagram)
+	if (_Designer)
 	{
-		_d2dDiagram->_Canvas->draw();
+		_Designer->_Canvas->draw();
 	}
 
 	// The ValidateRect function validates the client area within a rectangle by
@@ -264,26 +264,26 @@ void View::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 //===========================================================================
 void View::onIdle(void)
 {
-	if (_d2dDiagram)
+	if (_Designer)
 	{
-		_d2dDiagram->_Canvas->draw();
+		_Designer->_Canvas->draw();
 	}
 }
 
 //===========================================================================
 void View::zoomIn(float px, float py)
 {
-	if (_d2dDiagram)
+	if (_Designer)
 	{
-		_d2dDiagram->zoomIn(px, py);
+		_Designer->zoomIn(px, py);
 	}
 }
 
 void View::zoomOut(float px, float py)
 {
-	if (_d2dDiagram)
+	if (_Designer)
 	{
-		_d2dDiagram->zoomOut(px, py);
+		_Designer->zoomOut(px, py);
 	}
 }
 
