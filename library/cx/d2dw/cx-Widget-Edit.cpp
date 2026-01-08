@@ -10,7 +10,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram
+namespace cx::Widget
 {
 	//=======================================================================
 	Edit::Edit(Coord const w, Coord const h) :
@@ -702,15 +702,15 @@ namespace cx::Diagram
 		editCommandManager().clear();
 
 
-		bool rv = cx::Diagram::loadFile(filePath, *this, true);
+		bool rv = cx::Widget::loadFile(filePath, *this, true);
 		if (!rv)
 		{
-			CX_RUNTIME_LOG(cxLError) << L"cx::Diagram::loadFile() failed";
+			CX_RUNTIME_LOG(cxLError) << L"cx::Widget::loadFile() failed";
 		}
 		auto& items = model().items();
 		for (auto& item : items)
 		{
-			auto design = std::dynamic_pointer_cast<cx::Diagram::Design>(item);
+			auto design = std::dynamic_pointer_cast<cx::Widget::Design>(item);
 			if (design)
 			{
 				design->setEdit(this);

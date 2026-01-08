@@ -40,11 +40,11 @@ namespace
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	Arrow::Arrow() :
-		Item(L"cx.Diagram.Shape.Arrow")
+		Item(L"cx.Widget.Shape.Arrow")
 	{
 		_ShapeStyle = std::make_shared<ShapeStyle>();
 		_ShapeStyle->fill().fillColor(Colors::LightGray());
@@ -344,11 +344,11 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	ArrowDesign::ArrowDesign() :
-		Design(L"cx.Diagram.Shape.Arrow.Design")
+		Design(L"cx.Widget.Shape.Arrow.Design")
 	{
 		auto target = std::make_shared<Arrow>();
 		setTarget(target);
@@ -432,7 +432,7 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	class PropertyFriendlyNames_Arrow

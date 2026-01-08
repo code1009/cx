@@ -10,11 +10,11 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	Line::Line() :
-		Item(L"cx.Diagram.Shape.Line")
+		Item(L"cx.Widget.Shape.Line")
 	{
 		_ShapeStyle = std::make_shared<ShapeStyle>();
 
@@ -114,11 +114,11 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	LineDesign::LineDesign() :
-		Design(L"cx.Diagram.Shape.Line.Design")
+		Design(L"cx.Widget.Shape.Line.Design")
 	{
 		auto target = std::make_shared<Line>();
 		setTarget(target);
@@ -198,7 +198,7 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	class PropertyFriendlyNames_Line

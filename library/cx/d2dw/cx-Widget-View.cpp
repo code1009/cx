@@ -12,7 +12,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram
+namespace cx::Widget
 {
 	//=======================================================================
 	ViewContext::ViewContext(Coord const w, Coord const h)
@@ -330,7 +330,7 @@ namespace cx::Diagram
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram
+namespace cx::Widget
 {
 	//=======================================================================
 	ViewBackground::ViewBackground()
@@ -425,7 +425,7 @@ namespace cx::Diagram
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram
+namespace cx::Widget
 {
 	//=======================================================================
 	ViewGrid::ViewGrid()
@@ -673,7 +673,7 @@ namespace cx::Diagram
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram
+namespace cx::Widget
 {
 	//=======================================================================
 	void FPSCounter::calculate(void)
@@ -836,7 +836,7 @@ namespace cx::Diagram
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram
+namespace cx::Widget
 {
 	//=======================================================================
 	View::View(Coord const w, Coord const h)
@@ -1033,10 +1033,10 @@ namespace cx::Diagram
 
 	bool View::saveFile(std::wstring filePath)
 	{
-		bool rv = cx::Diagram::saveFile(filePath, *this);
+		bool rv = cx::Widget::saveFile(filePath, *this);
 		if (!rv)
 		{
-			CX_RUNTIME_LOG(cxLError) << L"cx::Diagram::saveFile() failed";
+			CX_RUNTIME_LOG(cxLError) << L"cx::Widget::saveFile() failed";
 		}
 		return rv;
 	}
@@ -1044,10 +1044,10 @@ namespace cx::Diagram
 	bool View::loadFile(std::wstring filePath)
 	{
 		model().items().clear();
-		bool rv = cx::Diagram::loadFile(filePath, *this);
+		bool rv = cx::Widget::loadFile(filePath, *this);
 		if (!rv)
 		{
-			CX_RUNTIME_LOG(cxLError) << L"cx::Diagram::loadFile() failed";
+			CX_RUNTIME_LOG(cxLError) << L"cx::Widget::loadFile() failed";
 		}
 		auto& items = model().items();
 		for (auto& item : items)

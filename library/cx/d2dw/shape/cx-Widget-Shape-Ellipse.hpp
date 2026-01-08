@@ -2,14 +2,14 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	void drawEllipseShape(DrawingContext& dctx, std::shared_ptr<Item> shapeTemplate);
 
 	struct Ellipse : public BasicTemplate
 	{
-		Ellipse() : BasicTemplate{ L"cx.Diagram.Shape.Ellipse", drawEllipseShape } {}
+		Ellipse() : BasicTemplate{ L"cx.Widget.Shape.Ellipse", drawEllipseShape } {}
 	};
 
 	//=======================================================================
@@ -17,6 +17,6 @@ namespace cx::Diagram::Shape
 
 	struct EllipseDesign : public BasicTemplateDesign
 	{
-		EllipseDesign() : BasicTemplateDesign{ L"cx.Diagram.Shape.Ellipse.Design", makeEllipseShape } {}
+		EllipseDesign() : BasicTemplateDesign{ L"cx.Widget.Shape.Ellipse.Design", makeEllipseShape } {}
 	};
 }

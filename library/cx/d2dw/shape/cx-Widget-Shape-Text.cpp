@@ -10,11 +10,11 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	Text::Text() :
-		Base(L"cx.Diagram.Shape.Text", L"글")
+		Base(L"cx.Widget.Shape.Text", L"글")
 	{
 		shapeStyle().text().textColor(Color(255, 0, 0, 0));
 	}
@@ -47,11 +47,11 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	TextDesign::TextDesign() :
-		BaseDesign(L"cx.Diagram.Shape.Text.Design")
+		BaseDesign(L"cx.Widget.Shape.Text.Design")
 	{
 		auto target = std::make_shared<Text>();
 		setTarget(target);
@@ -78,7 +78,7 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	class PropertiesBuilder_Text

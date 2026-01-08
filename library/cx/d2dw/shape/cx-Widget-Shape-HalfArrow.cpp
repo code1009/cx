@@ -40,11 +40,11 @@ namespace
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	HalfArrow::HalfArrow() :
-		Item(L"cx.Diagram.Shape.HalfArrow")
+		Item(L"cx.Widget.Shape.HalfArrow")
 	{
 		_ShapeStyle = std::make_shared<ShapeStyle>();
 		_ShapeStyle->fill().fillColor(Colors::LightGray());
@@ -357,11 +357,11 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	HalfArrowDesign::HalfArrowDesign() :
-		Design(L"cx.Diagram.Shape.HalfArrow.Design")
+		Design(L"cx.Widget.Shape.HalfArrow.Design")
 	{
 		auto target = std::make_shared<HalfArrow>();
 		setTarget(target);
@@ -445,7 +445,7 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	class PropertyFriendlyNames_HalfArrow

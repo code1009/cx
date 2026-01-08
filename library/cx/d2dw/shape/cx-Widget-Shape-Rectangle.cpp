@@ -10,11 +10,11 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	Rectangle::Rectangle() :
-		Base(L"cx.Diagram.Shape.Rectangle")
+		Base(L"cx.Widget.Shape.Rectangle")
 	{
 	}
 
@@ -53,11 +53,11 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	RectangleDesign::RectangleDesign() :
-		BaseDesign(L"cx.Diagram.Shape.Rectangle.Design")
+		BaseDesign(L"cx.Widget.Shape.Rectangle.Design")
 	{
 		auto target = std::make_shared<Rectangle>();
 		setTarget(target);
@@ -84,7 +84,7 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	std::shared_ptr<Properties> makeProperties_Rectangle(std::shared_ptr<Item> item)

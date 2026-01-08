@@ -2,7 +2,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram
+namespace cx::Widget
 {
 	//=======================================================================
 	class Edit : public View
@@ -16,7 +16,7 @@ namespace cx::Diagram
 		std::unique_ptr<EventGenerator> _EventGenerator;
 
 	private:
-		wchar_t const* const _DragDropFormat{ L"cx.Diagram" };
+		wchar_t const* const _DragDropFormat{ L"cx.Widget" };
 		std::unique_ptr<ViewGrid> _ViewGrid;
 		std::unique_ptr<ViewStatus> _ViewStatus;
 		std::unique_ptr<EditPointerTool> _EditPointerTool;

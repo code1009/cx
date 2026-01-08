@@ -9,7 +9,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	BasicTemplate::BasicTemplate(StringView const& className, DrawShapeFunction const& drawShape) :
@@ -39,7 +39,7 @@ namespace cx::Diagram::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Diagram::Shape
+namespace cx::Widget::Shape
 {
 	//=======================================================================
 	BasicTemplateDesign::BasicTemplateDesign(StringView const& className, MakeTargetFunction const& makeTarget) :
