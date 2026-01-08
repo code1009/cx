@@ -132,7 +132,7 @@ void AboutBox::initializeDialogTemplate(void)
 		w.CONTROL_ICON         (MAKEINTRESOURCEW(IDI_APP_ICON)             , IDC_STATIC              , 10,  20,  20,  20);
 		w.CONTROL_LTEXT        (L"어플리케이션"                            , IDC_ABOUTBOX_APP_NAME   , 35,  20, 210,  10);
 		w.CONTROL_LTEXT        (L"버전 0.0.0.0"                            , IDC_ABOUTBOX_APP_VERSION, 35,  30, 210,  10);
-		w.CONTROL_LTEXT        (L"Copyright (c) 2025 <회사 이름> Co., Ltd.", IDC_STATIC              , 35,  50, 210,  10);
+		w.CONTROL_LTEXT        (L"Copyright (p) 2025 code1009."            , IDC_STATIC              , 35,  50, 210,  10);
 		w.CONTROL_LTEXT        (L"All Rights Reserved."                    , IDC_STATIC              , 35,  60, 210,  10);
 		w.CONTROL_LTEXT        (L""                                        , IDC_ABOUTBOX_APP_NOTE   , 35,  80, 210,  35);
 		w.CONTROL_DEFPUSHBUTTON(L"확인"                                    , IDOK                    ,190, 130,  65,  15);
