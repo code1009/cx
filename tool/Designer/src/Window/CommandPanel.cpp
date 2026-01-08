@@ -8,7 +8,7 @@
 
 //===========================================================================
 #include <cx/d2d/cx-d2d.hpp>
-#include <cx/d2dDiagram/cx-Diagram.hpp>
+#include <cx/d2dw/cx-Widget.hpp>
 
 //===========================================================================
 #include "../../res/resource.h"

@@ -46,26 +46,26 @@ std::shared_ptr<const T> std::enable_shared_from_this<T>::shared_from_this() con
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-Core.hpp>
+#include <cx/d2dw/cx-Widget-Core.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-Point.hpp>
-#include <cx/d2dDiagram/cx-Diagram-Color.hpp>
+#include <cx/d2dw/cx-Widget-Point.hpp>
+#include <cx/d2dw/cx-Widget-Color.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-Drawing.hpp>
+#include <cx/d2dw/cx-Widget-Drawing.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-Event.hpp>
-#include <cx/d2dDiagram/cx-Diagram-DrawingStyle.hpp>
+#include <cx/d2dw/cx-Widget-Event.hpp>
+#include <cx/d2dw/cx-Widget-DrawingStyle.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-Item.hpp>
+#include <cx/d2dw/cx-Widget-Item.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-Property.hpp>
-#include <cx/d2dDiagram/cx-Diagram-Factory.hpp>
-#include <cx/d2dDiagram/cx-Diagram-View.hpp>
+#include <cx/d2dw/cx-Widget-Property.hpp>
+#include <cx/d2dw/cx-Widget-Factory.hpp>
+#include <cx/d2dw/cx-Widget-View.hpp>
 
 
 
@@ -74,7 +74,7 @@ std::shared_ptr<const T> std::enable_shared_from_this<T>::shared_from_this() con
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-File.hpp>
+#include <cx/d2dw/cx-Widget-File.hpp>
 
 
 
@@ -82,15 +82,15 @@ std::shared_ptr<const T> std::enable_shared_from_this<T>::shared_from_this() con
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-PropertiesManipulator.hpp>
-#include <cx/d2dDiagram/cx-Diagram-Anchor.hpp>
-#include <cx/d2dDiagram/cx-Diagram-Design.hpp>
+#include <cx/d2dw/cx-Widget-PropertiesManipulator.hpp>
+#include <cx/d2dw/cx-Widget-Anchor.hpp>
+#include <cx/d2dw/cx-Widget-Design.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/cx-Diagram-EditSeed.hpp>
-#include <cx/d2dDiagram/cx-Diagram-EditPointerTool.hpp>
-#include <cx/d2dDiagram/cx-Diagram-EditCommand.hpp>
-#include <cx/d2dDiagram/cx-Diagram-Edit.hpp>
+#include <cx/d2dw/cx-Widget-EditSeed.hpp>
+#include <cx/d2dw/cx-Widget-EditPointerTool.hpp>
+#include <cx/d2dw/cx-Widget-EditCommand.hpp>
+#include <cx/d2dw/cx-Widget-Edit.hpp>
 
 
 
@@ -98,21 +98,21 @@ std::shared_ptr<const T> std::enable_shared_from_this<T>::shared_from_this() con
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-Style.hpp>
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-Base.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-Style.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-Base.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-Text.hpp>
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-Rectangle.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-Text.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-Rectangle.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-Template.hpp>
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-Ellipse.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-Template.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-Ellipse.hpp>
 
 //===========================================================================
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-Line.hpp>
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-Arrow.hpp>
-#include <cx/d2dDiagram/shape/cx-Diagram-Shape-HalfArrow.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-Line.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-Arrow.hpp>
+#include <cx/d2dw/shape/cx-Widget-Shape-HalfArrow.hpp>
 
 
 

@@ -2,7 +2,7 @@
 //===========================================================================
 #include "pch.hpp"
 
-#include "cx-Diagram.hpp"
+#include "cx-Widget.hpp"
 
 
 
