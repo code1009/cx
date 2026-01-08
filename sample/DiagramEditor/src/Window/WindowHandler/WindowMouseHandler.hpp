@@ -65,6 +65,7 @@ public:
 	void setMouseCaptureEnabled(bool enabled);
 	void setMouseCapture(void);
 	void releaseMouseCapture(void);
+	void resetMouseCaptureFlag(void);
 
 public:
 	bool getMouseTrackEnabled(void);

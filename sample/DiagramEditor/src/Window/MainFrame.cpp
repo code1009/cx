@@ -202,7 +202,6 @@ void MainFrame::onIdle(void)
 
 void MainFrame::updateLayout(void)
 {
-
 	//-----------------------------------------------------------------------
 	RECT rect;
 

@@ -516,8 +516,6 @@ View::View(HWND parentWindowHandle)
 //===========================================================================
 LRESULT View::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
-	auto result = cx::wui::MessageMapWindowT<View, cx::wui::BaseWindow>::onWindowMessage(windowMessage);
-
 	if (_d2dDiagram)
 	{
 		bool handled; 
@@ -535,7 +533,7 @@ LRESULT View::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 		}
 	}
 
-	return result;
+	return cx::wui::MessageMapWindowT<View, cx::wui::BaseWindow>::onWindowMessage(windowMessage);;
 }
 
 //===========================================================================

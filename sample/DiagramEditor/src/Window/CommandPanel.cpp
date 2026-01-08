@@ -135,6 +135,26 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
 			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
 
+			//-----------------------------------------------------------------------
+			RECT rect;
+			::GetClientRect(*this, &rect);
+			//-----------------------------------------------------------------------
+			UINT cx;
+			UINT cy;
+			cx = static_cast<UINT>(rect.right - rect.left);
+			cy = static_cast<UINT>(rect.bottom - rect.top);
+			//-----------------------------------------------------------------------
+			if ((pt.x < 0) || (pt.x >= static_cast<LONG>(cx))
+				||
+				(pt.y < 0) || (pt.y >= static_cast<LONG>(cy))
+				)
+			{
+				_MouseHandler->releaseMouseCapture();
+				doDragDrop();
+				return true;
+			}
+
+			//-----------------------------------------------------------------------
 			/*
 			_Diagram_Edit->eventGenerator().pointerMoved(
 				static_cast<float>(pt.x),
@@ -143,6 +163,9 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 				shiftKeyPressed
 			);
 			*/
+
+
+			//-----------------------------------------------------------------------
 			return true;
 		}
 	;
@@ -156,6 +179,10 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
 			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
 
+			CX_RUNTIME_LOG(cxLInfo)
+				<< L"LButton-DOWN"
+				;
+
 			/*
 			_Diagram_Edit->eventGenerator().pointerPressed(
 				static_cast<float>(pt.x),
@@ -165,9 +192,8 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 			);
 			*/
 
-			doDragDrop();
+			_MouseHandler->setMouseCapture();		
 			
-			//_MouseHandler->setMouseCapture();
 			return true;
 		}
 	;
@@ -181,6 +207,10 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
 			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
 
+			CX_RUNTIME_LOG(cxLInfo)
+				<< L"LButton-UP"
+				;
+
 			/*
 			_Diagram_Edit->eventGenerator().pointerReleased(
 				static_cast<float>(pt.x),
@@ -190,7 +220,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 			);
 			*/
 
-			//_MouseHandler->releaseMouseCapture();
+			_MouseHandler->releaseMouseCapture();
 			return true;
 		}
 	;
@@ -227,8 +257,6 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 //===========================================================================
 LRESULT CommandPanel::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
-	auto result = cx::wui::MessageMapWindowT<CommandPanel, cx::wui::BaseWindow>::onWindowMessage(windowMessage);
-
 	if (_MouseHandler)
 	{
 		bool handled;
@@ -250,7 +278,7 @@ LRESULT CommandPanel::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 		}
 	}
 
-	return result;
+	return cx::wui::MessageMapWindowT<CommandPanel, cx::wui::BaseWindow>::onWindowMessage(windowMessage);;
 }
 
 //===========================================================================

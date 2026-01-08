@@ -73,6 +73,11 @@ void WindowMouseHandler::releaseMouseCapture(void)
 	}
 }
 
+void WindowMouseHandler::resetMouseCaptureFlag(void)
+{
+	_MouseCaptured = false;
+}
+
 //===========================================================================
 bool WindowMouseHandler::getMouseTrackEnabled(void)
 {
@@ -119,6 +124,9 @@ void WindowMouseHandler::releaseMouseTrack(void)
 //===========================================================================
 bool WindowMouseHandler::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
+	// WM_MOUSEWHEEL 스크린 좌표계를 사용하고, 
+	// 그 이외의 마우스 메시지는 클라이언트 좌표계를 사용한다.
+
 	switch (windowMessage.uMsg)
 	{
 	case WM_MOUSEWHEEL: return onMouseWheel(windowMessage);
