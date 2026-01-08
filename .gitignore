@@ -375,3 +375,4 @@ FodyWeavers.xsd
 /library/cx_static_library/vcpkg_installed/x64-windows
 /sample/d2d/vcpkg_installed/x64-windows
 /sample/DiagramEditor/vcpkg_installed/x64-windows
+/tool/Designer/vcpkg_installed/x64-windows
