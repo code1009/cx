@@ -15,7 +15,8 @@
 namespace cx::Widget
 {
 	//=======================================================================
-	ViewContext::ViewContext(Coord const w, Coord const h)
+	ViewContext::ViewContext(Coord const w, Coord const h, bool alignCenter) :
+		_AlignCenter(alignCenter)
 	{
 		setSize(w, h);
 	}
@@ -156,7 +157,14 @@ namespace cx::Widget
 			_WindowScrollOffset.X = 0.0f;
 
 
-			_OffsetPosition.X = (_WindowWidth - _ScaledWidth) / 2.0f;
+			if (_AlignCenter)
+			{
+				_OffsetPosition.X = (_WindowWidth - _ScaledWidth) / 2.0f;
+			}
+			else
+			{
+				_OffsetPosition.X = 0.0f;
+			}
 		}
 		else
 		{
@@ -177,7 +185,14 @@ namespace cx::Widget
 			_WindowScrollOffset.Y = 0.0f;
 
 
-			_OffsetPosition.Y = (_WindowHeight - _ScaledHeight) / 2.0f;
+			if (_AlignCenter)
+			{
+				_OffsetPosition.Y = (_WindowHeight - _ScaledHeight) / 2.0f;
+			}
+			else
+			{
+				_OffsetPosition.Y = 0.0f;
+			}
 		}
 		else
 		{
@@ -278,7 +293,14 @@ namespace cx::Widget
 
 		if (_ScaledWidth < _WindowWidth)
 		{
-			view.X = (window.X / _Scale) - ((_WindowWidth - _ScaledWidth) / _Scale / 2);
+			if (_AlignCenter)
+			{
+				view.X = (window.X / _Scale) - ((_WindowWidth - _ScaledWidth) / _Scale / 2);
+			}
+			else
+			{
+				view.X = (window.X / _Scale);
+			}
 		}
 		else
 		{
@@ -287,7 +309,14 @@ namespace cx::Widget
 
 		if (_ScaledHeight < _WindowHeight)
 		{
-			view.Y = (window.Y / _Scale) - ((_WindowHeight - _ScaledHeight) / _Scale / 2);
+			if (_AlignCenter)
+			{
+				view.Y = (window.Y / _Scale) - ((_WindowHeight - _ScaledHeight) / _Scale / 2);
+			}
+			else
+			{
+				view.Y = (window.Y / _Scale);
+			}
 		}
 		else
 		{
@@ -304,7 +333,14 @@ namespace cx::Widget
 
 		if (_ScaledWidth < _WindowWidth)
 		{
-			window.X = (view.X * _Scale) + ((_WindowWidth - _ScaledWidth) / 2);
+			if (_AlignCenter)
+			{
+				window.X = (view.X * _Scale) + ((_WindowWidth - _ScaledWidth) / 2);
+			}
+			else
+			{
+				window.X = (view.X * _Scale);
+			}
 		}
 		else
 		{
@@ -313,7 +349,14 @@ namespace cx::Widget
 
 		if (_ScaledHeight < _WindowHeight)
 		{
-			window.Y = (view.Y * _Scale) + ((_WindowHeight - _ScaledHeight) / 2);
+			if (_AlignCenter)
+			{
+				window.Y = (view.Y * _Scale) + ((_WindowHeight - _ScaledHeight) / 2);
+			}
+			else
+			{
+				window.Y = (view.Y * _Scale);
+			}
 		}
 		else
 		{
@@ -839,9 +882,9 @@ namespace cx::Widget
 namespace cx::Widget
 {
 	//=======================================================================
-	View::View(Coord const w, Coord const h)
+	View::View(Coord const w, Coord const h, bool alignCenter)
 	{
-		_ViewContext = std::make_unique<ViewContext>(w, h);
+		_ViewContext = std::make_unique<ViewContext>(w, h, alignCenter);
 		_Model = std::make_unique<Model>();
 		_ViewBackground = std::make_unique<ViewBackground>();
 		_Factory = std::make_unique<Factory>();

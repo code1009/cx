@@ -13,6 +13,9 @@ namespace cx::Widget
 	class ViewContext
 	{
 	private:
+		bool _AlignCenter{ false };
+
+	private:
 		Point _OffsetPosition{ 0.0f, 0.0f };
 		Coord _Width { DefaultViewWidth  };
 		Coord _Height{ DefaultViewHeight };
@@ -42,7 +45,7 @@ namespace cx::Widget
 		ViewContext();
 
 	public:
-		explicit ViewContext(Coord const w, Coord const h);
+		explicit ViewContext(Coord const w, Coord const h, bool alignCenter=true);
 
 	public:
 		ViewContext(const ViewContext& other) = delete;
@@ -348,7 +351,7 @@ namespace cx::Widget
 		std::unique_ptr<cx::ev::target::EventHandlerRegistry> _EventHandlerRegistry;
 
 	public:
-		explicit View(Coord const w, Coord const h);
+		explicit View(Coord const w, Coord const h, bool alignCenter = true);
 
 	public:
 		virtual ~View() = default;

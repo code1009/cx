@@ -79,7 +79,7 @@ UIController::~UIController()
 void UIController::setupCanvasView(void)
 {
 	//-----------------------------------------------------------------------
-	_View = std::make_unique<cx::Widget::View>(cx::Widget::DefaultViewWidth, cx::Widget::DefaultViewHeight);
+	_View = std::make_unique<cx::Widget::View>(cx::Widget::DefaultViewWidth, cx::Widget::DefaultViewHeight, false);
 
 
 	//-----------------------------------------------------------------------
