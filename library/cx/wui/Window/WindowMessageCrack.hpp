@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -1445,7 +1445,7 @@ WM_LBUTTONDOWN
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_LBUTTONDOWN_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_LBUTTONDOWN_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnLButtonUp(UINT nFlags, CPoint point)
@@ -1454,7 +1454,7 @@ WM_LBUTTONUP
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_LBUTTONUP_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_LBUTTONUP_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnLButtonDblClk(UINT nFlags, CPoint point)
@@ -1463,7 +1463,7 @@ WM_LBUTTONDBLCLK
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_LBUTTONDBLCLK_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_LBUTTONDBLCLK_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnRButtonDown(UINT nFlags, CPoint point)
@@ -1472,7 +1472,7 @@ WM_RBUTTONDOWN
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_RBUTTONDOWN_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_RBUTTONDOWN_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnRButtonUp(UINT nFlags, CPoint point)
@@ -1481,7 +1481,7 @@ WM_RBUTTONUP
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_RBUTTONUP_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_RBUTTONUP_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnRButtonDblClk(UINT nFlags, CPoint point)
@@ -1490,7 +1490,7 @@ WM_RBUTTONDBLCLK
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_RBUTTONDBLCLK_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_RBUTTONDBLCLK_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnMButtonDown(UINT nFlags, CPoint point)
@@ -1499,7 +1499,7 @@ WM_MBUTTONDOWN
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_MBUTTONDOWN_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_MBUTTONDOWN_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnMButtonUp(UINT nFlags, CPoint point)
@@ -1508,7 +1508,7 @@ WM_MBUTTONUP
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_MBUTTONUP_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_MBUTTONUP_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnMButtonDblClk(UINT nFlags, CPoint point)
@@ -1517,7 +1517,7 @@ WM_MBUTTONDBLCLK
 		func((UINT)wParam, _WTYPES_NS::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam))); \
 		lResult = 0; \
 */
-using WM_MBUTTONDBLCLK_WindowMessageCrack = WM_KEYDOWN_WindowMessageCrack;
+using WM_MBUTTONDBLCLK_WindowMessageCrack = WM_MOUSEMOVE_WindowMessageCrack;
 
 //===========================================================================
 // void OnParentNotify(UINT message, UINT nChildID, LPARAM lParam)

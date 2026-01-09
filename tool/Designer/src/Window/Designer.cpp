@@ -62,6 +62,24 @@ Designer::Designer(HWND hwnd) :
 	_Hwnd(hwnd)
 {
 	//-----------------------------------------------------------------------
+	setupCanvasView();
+	setupMouseHandlerHandler();
+	setupScrollHandler();
+	setupDropTargetHandler();
+
+
+	//-----------------------------------------------------------------------
+	loadCatalog();
+}
+
+Designer::~Designer()
+{
+}
+
+//===========================================================================
+void Designer::setupCanvasView(void)
+{
+	//-----------------------------------------------------------------------
 	_Edit = std::make_unique<cx::Widget::Edit>(cx::Widget::DefaultViewWidth, cx::Widget::DefaultViewHeight);
 
 	_Edit->viewGrid().showGridLine(true);
@@ -73,7 +91,7 @@ Designer::Designer(HWND hwnd) :
 
 	//-----------------------------------------------------------------------
 	cx::d2d::Factory factory;
-	_Canvas = std::make_unique<cx::d2d::Canvas>(&factory, hwnd);
+	_Canvas = std::make_unique<cx::d2d::Canvas>(&factory, _Hwnd);
 	_Canvas->drawingHandler =
 		[this](cx::d2d::DrawingSession* drawingSession)
 		{
@@ -94,10 +112,15 @@ Designer::Designer(HWND hwnd) :
 			invalidate();
 		}
 	);
+}
+
+void Designer::setupMouseHandlerHandler(void)
+{
+	//-----------------------------------------------------------------------
+	_MouseHandler = std::make_unique<cx::wui::WindowMouseHandler>(_Hwnd);
 
 
 	//-----------------------------------------------------------------------
-	_MouseHandler = std::make_unique<cx::wui::WindowMouseHandler>(hwnd);
 	_MouseHandler->mouseWheelHandler =
 		[this](cx::wui::WindowMessage& windowMessage) -> bool
 		{
@@ -216,10 +239,15 @@ Designer::Designer(HWND hwnd) :
 			return true;
 		}
 	;
+}
+
+void Designer::setupScrollHandler(void)
+{
+	//-----------------------------------------------------------------------
+	_ScrollHandler = std::make_unique<cx::wui::WindowScrollHandler>(_Hwnd);
 
 
 	//-----------------------------------------------------------------------
-	_ScrollHandler = std::make_unique<cx::wui::WindowScrollHandler>(hwnd);
 	_ScrollHandler->scrollChangedHandler =
 		[this](bool byScrollBar, std::int64_t x, std::int64_t y)
 		{
@@ -234,14 +262,18 @@ Designer::Designer(HWND hwnd) :
 			}
 		}
 	;
+}
 
-
+void Designer::setupDropTargetHandler(void)
+{
 	//-----------------------------------------------------------------------
 	_DropTargetHandler = std::make_unique<cx::wui::dragdrop::WindowDropTargetHandler>(
-		hwnd,
+		_Hwnd,
 		cx::wui::dragdrop::getWindowDragDropClipboardFormat()->getClipboardFormat()
 	);
 
+
+	//-----------------------------------------------------------------------
 	_DropTargetHandler->dragEnterHandler =
 		[this](std::uint32_t seq, std::uint32_t flags, std::int32_t x, std::int32_t y, cx::wui::dragdrop::WindowDropTargetData const& data)
 		{
@@ -314,19 +346,13 @@ Designer::Designer(HWND hwnd) :
 		}
 	;
 
-
-	//-----------------------------------------------------------------------
-	loadCatalog();
 }
 
-Designer::~Designer()
-{
-}
-
-//===========================================================================
 void Designer::loadCatalog(void)
 {
+	//-------------------------------------------------------------------
 	_Catalog = std::make_unique<Catalog>(this);
+
 
 	//-------------------------------------------------------------------
 	using namespace cx::Widget;

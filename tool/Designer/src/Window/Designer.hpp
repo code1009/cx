@@ -8,6 +8,7 @@
 //===========================================================================
 class Designer
 {
+	//-----------------------------------------------------------------------
 public:
 	HWND _Hwnd{ nullptr };
 	std::unique_ptr<cx::d2d::Canvas> _Canvas;
@@ -26,22 +27,31 @@ private:
 private:
 	std::vector<std::wstring> _FontFamilies;
 
+	//-----------------------------------------------------------------------
 public:
 	explicit Designer(HWND hwnd);
 	virtual ~Designer();
 
+	//-----------------------------------------------------------------------
 public:
 	Designer(const Designer& other) = delete;
 	Designer& operator=(const Designer& other) = delete;
 	Designer(Designer&& other) noexcept = delete;
 	Designer& operator=(Designer&& other) noexcept = delete;
 
-	//===========================================================================
+	//-----------------------------------------------------------------------
+private:
+	void setupCanvasView(void);
+	void setupMouseHandlerHandler(void);
+	void setupScrollHandler(void);
+	void setupDropTargetHandler(void);
+
+	//-----------------------------------------------------------------------
 public:
 	auto catalog() { return _Catalog.get(); }
 	void loadCatalog(void);
 
-	//===========================================================================
+	//-----------------------------------------------------------------------
 public:
 	void resize(std::uint32_t cx, std::uint32_t cy);
 	void invalidate(void);
@@ -49,7 +59,7 @@ public:
 public:
 	void updateScrollBar(void);
 
-	//===========================================================================
+	//-----------------------------------------------------------------------
 	// Commands
 public:
 	void newFile(void);
@@ -88,7 +98,7 @@ public:
 	void showGridCoord(bool show);
 	void showStatus(bool show);
 
-	//===========================================================================
+	//-----------------------------------------------------------------------
 	// Command Handlers
 public:
 	void onFile_New             (void);

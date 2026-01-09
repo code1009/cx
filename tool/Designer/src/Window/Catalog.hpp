@@ -30,12 +30,14 @@ public:
 //===========================================================================
 class Catalog
 {
+	//-----------------------------------------------------------------------
 private:
 	Designer* _Designer{ nullptr };
 
 public:
 	std::vector<CatalogInfo> _Items;
 
+	//-----------------------------------------------------------------------
 public:
     explicit Catalog(Designer* designer) :
 		_Designer(designer)
@@ -45,12 +47,14 @@ public:
 public:
     virtual ~Catalog() = default;
 
+	//-----------------------------------------------------------------------
 public:
     Catalog(const Catalog& other) = delete;
     Catalog& operator=(const Catalog& other) = delete;
     Catalog(Catalog&& other) noexcept = delete;
     Catalog& operator=(Catalog&& other) noexcept = delete;
 
+	//-----------------------------------------------------------------------
 public:
 	void addLabel(std::wstring Label);
 	void addSpare();

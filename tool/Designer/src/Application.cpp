@@ -20,6 +20,7 @@
 
 //===========================================================================
 #include "Window/Catalog.hpp"
+#include "Window/UIController.hpp"
 #include "Window/Designer.hpp"
 #include "Window/View.hpp"
 #include "Window/CommandPanel.hpp"

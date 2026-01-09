@@ -192,13 +192,16 @@
     <ClCompile Include="src\Window\Catalog.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\UIController.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Base.cpp">
       <Filter>cx\d2dw\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.cpp">
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Style.cpp">
       <Filter>cx\d2dw\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Style.cpp">
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.cpp">
       <Filter>cx\d2dw\ui</Filter>
     </ClCompile>
   </ItemGroup>
@@ -398,13 +401,16 @@
     <ClInclude Include="..\..\library\cx\d2dw\ui\pch.hpp">
       <Filter>cx\d2dw\ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Window\UIController.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Base.hpp">
       <Filter>cx\d2dw\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.hpp">
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Style.hpp">
       <Filter>cx\d2dw\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Style.hpp">
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.hpp">
       <Filter>cx\d2dw\ui</Filter>
     </ClInclude>
   </ItemGroup>

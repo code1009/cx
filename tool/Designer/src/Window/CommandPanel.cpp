@@ -17,6 +17,7 @@
 #include "../WindowHandler/WindowHandler.hpp"
 
 //===========================================================================
+#include "UIController.hpp"
 #include "Catalog.hpp"
 #include "Designer.hpp"
 #include "CommandPanel.hpp"
@@ -55,13 +56,9 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, Designer* designer) :
 {
 	//-----------------------------------------------------------------------
 	cx::wui::WindowClass windowClass;
-
-
 	windowClass.registerWindowClass(
 		CommandPanel_WindowClassName
 	);
-
-
 	//-----------------------------------------------------------------------
 	registerWindowMessageMap();
 
@@ -76,60 +73,8 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, Designer* designer) :
 
 
 	//-----------------------------------------------------------------------
-	cx::d2d::Factory factory;
-	_Canvas = std::make_unique<cx::d2d::Canvas>(&factory, hwnd);
-	_Canvas->drawingHandler =
-		[this](cx::d2d::DrawingSession* drawingSession)
-		{
-			drawingSession->Clear(cx::d2d::Colors::LightGray());
-		}
-	;
-
-
-	//-----------------------------------------------------------------------
-	_MouseHandler = std::make_unique<cx::wui::WindowMouseHandler>(hwnd);
-	_MouseHandler->mouseWheelHandler =
-		[this](cx::wui::WindowMessage& windowMessage) -> bool
-		{
-			cx::wui::WM_MOUSEWHEEL_WindowMessageCrack wm{ windowMessage };
-
-			POINT pt = wm.pt();
-			short delta = wm.zDelta();
-			UINT flag = wm.nFlags();
-
-			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
-			//bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
-
-			//bool lButtonPressed = (flag & MK_LBUTTON) != 0;
-			//bool rButtonPressed = (flag & MK_RBUTTON) != 0;
-			//bool mButtonPressed = (flag & MK_MBUTTON) != 0;
-			//bool x1ButtonPressed = (flag & MK_XBUTTON1) != 0;
-			//bool x2ButtonPressed = (flag & MK_XBUTTON2) != 0;
-
-			if (controlKeyPressed)
-			{
-				if (delta > 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else
-			{
-				if (delta > 0)
-				{
-					_ScrollHandler->YScroll_LineUp();
-				}
-				else
-				{
-					_ScrollHandler->YScroll_LineDown();
-				}
-			}
-			return true;
-		}
-	;
-	_MouseHandler->mouseMoveHandler =
+	_UIController = std::make_unique<UIController>(hwnd);
+	_UIController->_MouseHandler->mouseMoveHandler =
 		[this](cx::wui::WindowMessage& windowMessage) -> bool
 		{
 			cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
@@ -153,99 +98,24 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, Designer* designer) :
 				(pt.y < 0) || (pt.y >= static_cast<LONG>(cy))
 				)
 			{
-				_MouseHandler->releaseMouseCapture();
+				_UIController->_MouseHandler->mouseLButtonUpHandler(windowMessage);
+				//_MouseHandler->releaseMouseCapture();
 				doDragDrop();
 				return true;
 			}
 
-			//-----------------------------------------------------------------------
-			/*
-			_Edit->eventGenerator().pointerMoved(
-				static_cast<float>(pt.x),
-				static_cast<float>(pt.y),
-				controlKeyPressed,
-				shiftKeyPressed
-			);
-			*/
-
 
 			//-----------------------------------------------------------------------
-			return true;
-		}
-	;
-	_MouseHandler->mouseLButtonDownHandler =
-		[this](cx::wui::WindowMessage& windowMessage) -> bool
-		{
-			cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
-
-			POINT pt = wm.point();
-			UINT flag = wm.nFlags();
-			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
-			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
-
-			CX_RUNTIME_LOG(cxLInfo)
-				<< L"LButton-DOWN"
-				;
-
-			/*
-			_Edit->eventGenerator().pointerPressed(
+			_UIController->_View->eventGenerator().pointerMoved(
 				static_cast<float>(pt.x),
 				static_cast<float>(pt.y),
 				controlKeyPressed,
 				shiftKeyPressed
 			);
-			*/
 
-			_MouseHandler->setMouseCapture();		
-			
+
+			//-----------------------------------------------------------------------
 			return true;
-		}
-	;
-	_MouseHandler->mouseLButtonUpHandler =
-		[this](cx::wui::WindowMessage& windowMessage) -> bool
-		{
-			cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
-
-			POINT pt = wm.point();
-			UINT flag = wm.nFlags();
-			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
-			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
-
-			CX_RUNTIME_LOG(cxLInfo)
-				<< L"LButton-UP"
-				;
-
-			/*
-			_Edit->eventGenerator().pointerReleased(
-				static_cast<float>(pt.x),
-				static_cast<float>(pt.y),
-				controlKeyPressed,
-				shiftKeyPressed
-			);
-			*/
-
-			_MouseHandler->releaseMouseCapture();
-			return true;
-		}
-	;
-
-
-	//-----------------------------------------------------------------------
-	_ScrollHandler = std::make_unique<cx::wui::WindowScrollHandler>(hwnd);
-	_ScrollHandler->scrollChangedHandler =
-		[this](bool byScrollBar, std::int64_t x, std::int64_t y)
-		{
-			if (byScrollBar)
-			{
-				/*
-				cx::Widget::Point scrollOffset;
-				scrollOffset.X = static_cast<float>(x);
-				scrollOffset.Y = static_cast<float>(y);
-				_Edit->viewContext().setWindowScrollOffset(scrollOffset);
-
-				invalidate();
-				*/
-			}
 		}
 	;
 
@@ -261,21 +131,16 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, Designer* designer) :
 //===========================================================================
 LRESULT CommandPanel::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
-	if (_MouseHandler)
+	if (_UIController)
 	{
 		bool handled;
-
-		handled = _MouseHandler->onWindowMessage(windowMessage);
+		handled = _UIController->_MouseHandler->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
 		}
-	}
-	if (_ScrollHandler)
-	{
-		bool handled;
 
-		handled = _ScrollHandler->onWindowMessage(windowMessage);
+		handled = _UIController->_ScrollHandler->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
@@ -339,9 +204,9 @@ void CommandPanel::onSize(cx::wui::WindowMessage& windowMessage)
 	cx = static_cast<UINT>(rect.right - rect.left);
 	cy = static_cast<UINT>(rect.bottom - rect.top);
 	//-----------------------------------------------------------------------
-	if (_Canvas)
+	if (_UIController)
 	{
-		_Canvas->resize(cx, cy);
+		_UIController->resize(cx, cy);
 	}
 }
 
@@ -365,7 +230,7 @@ void CommandPanel::onPaint(cx::wui::WindowMessage& windowMessage)
 		;
 #endif
 
-	_Canvas->draw();
+	_UIController->_Canvas->draw();
 
 	// The ValidateRect function validates the client area within a rectangle by
 	// removing the rectangle from the update region of the window.
@@ -418,9 +283,9 @@ void CommandPanel::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 //===========================================================================
 void CommandPanel::onIdle(void)
 {
-	if (_Canvas)
+	if (_UIController)
 	{
-		_Canvas->draw();
+		_UIController->_Canvas->draw();
 	}
 }
 
