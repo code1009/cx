@@ -17,6 +17,7 @@
 #include "../WindowHandler/WindowHandler.hpp"
 
 //===========================================================================
+#include "Catalog.hpp"
 #include "Designer.hpp"
 
 #include "View.hpp"
@@ -87,13 +88,13 @@ MainFrame::MainFrame()
 //===========================================================================
 void MainFrame::registerWindowMessageMap(void)
 {
-	_WindowMessageMap[WM_CREATE]     = &MainFrame::onCreate;
-	_WindowMessageMap[WM_DESTROY]    = &MainFrame::onDestroy;
-	_WindowMessageMap[WM_CLOSE]      = &MainFrame::onClose;
-	_WindowMessageMap[WM_SIZE]       = &MainFrame::onSize;
+	_WindowMessageMap[WM_CREATE    ] = &MainFrame::onCreate;
+	_WindowMessageMap[WM_DESTROY   ] = &MainFrame::onDestroy;
+	_WindowMessageMap[WM_CLOSE     ] = &MainFrame::onClose;
+	_WindowMessageMap[WM_SIZE      ] = &MainFrame::onSize;
 	_WindowMessageMap[WM_ERASEBKGND] = &MainFrame::onEraseBkgnd;
-	_WindowMessageMap[WM_KEYDOWN]    = &MainFrame::onKeyDown;
-	_WindowMessageMap[WM_COMMAND]    = &MainFrame::onCommand;
+	_WindowMessageMap[WM_KEYDOWN   ] = &MainFrame::onKeyDown;
+	_WindowMessageMap[WM_COMMAND   ] = &MainFrame::onCommand;
 }
 
 void MainFrame::onCreate(cx::wui::WindowMessage& windowMessage)
@@ -202,8 +203,6 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 void MainFrame::onAppAbout(cx::wui::WindowMessage& windowMessage)
 {
 	AboutBox aboutBox;
-
-
 	aboutBox.doModal(*this);
 }
 

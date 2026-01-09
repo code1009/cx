@@ -17,6 +17,7 @@
 #include "../WindowHandler/WindowHandler.hpp"
 
 //===========================================================================
+#include "Catalog.hpp"
 #include "Designer.hpp"
 #include "View.hpp"
 
@@ -109,11 +110,11 @@ HWND View::createView(HWND parentWindowHandle)
 //===========================================================================
 void View::registerWindowMessageMap(void)
 {
-	_WindowMessageMap[WM_DESTROY] = &View::onDestroy;
-	_WindowMessageMap[WM_SIZE] = &View::onSize;
+	_WindowMessageMap[WM_DESTROY   ] = &View::onDestroy;
+	_WindowMessageMap[WM_SIZE      ] = &View::onSize;
 	_WindowMessageMap[WM_ERASEBKGND] = &View::onEraseBkgnd;
-	_WindowMessageMap[WM_PAINT] = &View::onPaint;
-	_WindowMessageMap[WM_COMMAND] = &View::onCommand;
+	_WindowMessageMap[WM_PAINT     ] = &View::onPaint;
+	_WindowMessageMap[WM_COMMAND   ] = &View::onCommand;
 }
 
 void View::onDestroy(cx::wui::WindowMessage& windowMessage)

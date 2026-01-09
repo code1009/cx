@@ -18,6 +18,9 @@ public:
 	std::unique_ptr<cx::wui::dragdrop::WindowDropTargetHandler> _DropTargetHandler;
 
 private:
+	std::unique_ptr<Catalog> _Catalog;
+
+private:
 	std::wstring _FilePath;
 
 private:
@@ -33,6 +36,12 @@ public:
 	Designer(Designer&& other) noexcept = delete;
 	Designer& operator=(Designer&& other) noexcept = delete;
 
+	//===========================================================================
+public:
+	auto catalog() { return _Catalog.get(); }
+	void loadCatalog(void);
+
+	//===========================================================================
 public:
 	void resize(std::uint32_t cx, std::uint32_t cy);
 	void invalidate(void);

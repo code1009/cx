@@ -17,6 +17,7 @@
 #include "../WindowHandler/WindowHandler.hpp"
 
 //===========================================================================
+#include "Catalog.hpp"
 #include "Designer.hpp"
 #include "View.hpp"
 
@@ -312,10 +313,21 @@ Designer::Designer(HWND hwnd) :
 			_Edit->dropNewItem(static_cast<float>(x), static_cast<float>(y));
 		}
 	;
+
+
+	//-----------------------------------------------------------------------
+	loadCatalog();
 }
 
 Designer::~Designer()
 {
+}
+
+//===========================================================================
+void Designer::loadCatalog(void)
+{
+	_Catalog = std::make_unique<Catalog>(this);
+
 }
 
 //===========================================================================

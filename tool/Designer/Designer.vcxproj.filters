@@ -186,6 +186,9 @@
     <ClCompile Include="src\Window\Designer.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\Catalog.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -375,6 +378,9 @@
       <Filter>src\WindowHandler</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\Designer.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\Catalog.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>

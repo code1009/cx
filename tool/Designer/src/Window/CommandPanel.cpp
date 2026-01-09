@@ -17,6 +17,7 @@
 #include "../WindowHandler/WindowHandler.hpp"
 
 //===========================================================================
+#include "Catalog.hpp"
 #include "Designer.hpp"
 #include "CommandPanel.hpp"
 #include "View.hpp"

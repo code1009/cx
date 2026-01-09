@@ -81,6 +81,7 @@
     <ClCompile Include="src\WindowHandler\WindowDropTargetHandler.cpp" />
     <ClCompile Include="src\WindowHandler\WindowMouseHandler.cpp" />
     <ClCompile Include="src\WindowHandler\WindowScrollHandler.cpp" />
+    <ClCompile Include="src\Window\Catalog.cpp" />
     <ClCompile Include="src\Window\CommandPanel.cpp" />
     <ClCompile Include="src\Window\Designer.cpp" />
   </ItemGroup>
@@ -146,6 +147,7 @@
     <ClInclude Include="src\WindowHandler\WindowHandler.hpp" />
     <ClInclude Include="src\WindowHandler\WindowMouseHandler.hpp" />
     <ClInclude Include="src\WindowHandler\WindowScrollHandler.hpp" />
+    <ClInclude Include="src\Window\Catalog.hpp" />
     <ClInclude Include="src\Window\CommandPanel.hpp" />
     <ClInclude Include="src\Window\Designer.hpp" />
   </ItemGroup>
