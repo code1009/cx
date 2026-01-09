@@ -18,8 +18,10 @@ public:
 	std::unique_ptr<cx::wui::dragdrop::WindowDropTargetHandler> _DropTargetHandler;
 
 private:
-	std::vector<std::wstring> _FontFamilies;
 	std::wstring _FilePath;
+
+private:
+	std::vector<std::wstring> _FontFamilies;
 
 public:
 	explicit Designer(HWND hwnd);
