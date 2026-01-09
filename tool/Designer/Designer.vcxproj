@@ -52,6 +52,9 @@
     <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Style.cpp" />
     <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.cpp" />
     <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Base.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Style.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Canvas.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp" />
@@ -117,6 +120,9 @@
     <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\shape\pch.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Base.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Style.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\ui\pch.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp" />

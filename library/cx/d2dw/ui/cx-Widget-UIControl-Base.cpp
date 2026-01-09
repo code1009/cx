@@ -10,14 +10,14 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Widget::Shape
+namespace cx::Widget::UIControl
 {
 	//=======================================================================
 	Base::Base(StringView const& className, StringView const& text) :
 		Item(className),
 		_Text(text)
 	{
-		_ShapeStyle = std::make_unique<ShapeStyle>();
+		_UIControlStyle = std::make_unique<UIControlStyle>();
 
 
 		std::vector<Point>& points = getPoints();
@@ -26,34 +26,34 @@ namespace cx::Widget::Shape
 		points[1] = Point{ 100, 100 }; // rb
 
 
-		shapeStyle_attachPropertyChangedEventHandler();
+		uiControlStyle_attachPropertyChangedEventHandler();
 	}
 
 	//=======================================================================
-	void Base::shapeStyle_attachPropertyChangedEventHandler(void)
+	void Base::uiControlStyle_attachPropertyChangedEventHandler(void)
 	{
-		_ShapeStyle->propertyChangedEventListener.attach(
+		_UIControlStyle->propertyChangedEventListener.attach(
 			reinterpret_cast<std::uintptr_t>(this),
 			std::bind(
-				&Base::shapeStyle_onPropertyChanged,
+				&Base::uiControlStyle_onPropertyChanged,
 				this,
 				std::placeholders::_1
 			)
 		);
 	}
 
-	void Base::shapeStyle_detachPropertyChangedEventHandler(void)
+	void Base::uiControlStyle_detachPropertyChangedEventHandler(void)
 	{
-		_ShapeStyle->propertyChangedEventListener.detach(
+		_UIControlStyle->propertyChangedEventListener.detach(
 			reinterpret_cast<std::uintptr_t>(this)
 		);
 	}
 
-	void Base::shapeStyle_onPropertyChanged(cx::ev::Event& /*event*/)
+	void Base::uiControlStyle_onPropertyChanged(cx::ev::Event& /*event*/)
 	{
 		/*
 		CX_RUNTIME_LOG(cxLTrace)
-			<< L"Base::shapeStyle_onPropertyChanged:" << event.eventType()
+			<< L"Base::uiControlStyle_onPropertyChanged:" << event.eventType()
 			;
 		*/
 		notifyPropertyChanged();
@@ -65,7 +65,7 @@ namespace cx::Widget::Shape
 		auto other = std::dynamic_pointer_cast<Base>(dest);
 		Item::copyTo(other);
 		other->text(text());
-		shapeStyle().copyTo(other->shapeStyle());
+		uiControlStyle().copyTo(other->uiControlStyle());
 	}
 
 	//=======================================================================
@@ -91,8 +91,8 @@ namespace cx::Widget::Shape
 			text().c_str(),
 			x, y,
 			w, h,
-			shapeStyle().text().textColor(),
-			shapeStyle().text().textFormat()
+			uiControlStyle().text().textColor(),
+			uiControlStyle().text().textFormat()
 		);
 	}
 }
@@ -103,7 +103,7 @@ namespace cx::Widget::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Widget::Shape
+namespace cx::Widget::UIControl
 {
 	//=======================================================================
 	BaseDesign::BaseDesign(StringView const& className) :
@@ -189,7 +189,7 @@ namespace cx::Widget::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Widget::Shape
+namespace cx::Widget::UIControl
 {
 	//=======================================================================
 	class PropertiesBuilder_Base
@@ -206,78 +206,78 @@ namespace cx::Widget::Shape
 	public:
 		void build(std::shared_ptr<Base> item)
 		{
-			build_shapeStyle_fill(item);
-			build_shapeStyle_line(item);
-			build_shapeStyle_text(item);
+			build_uiControlStyle_fill(item);
+			build_uiControlStyle_line(item);
+			build_uiControlStyle_text(item);
 			build_text(item);
 		}
 
-		void build_shapeStyle_fill(std::shared_ptr<Base> item)
+		void build_uiControlStyle_fill(std::shared_ptr<Base> item)
 		{
 			std::shared_ptr<Property> property;
 
 			property = std::make_shared<Property>(
 				true,
-				String(PropertyFriendlyNames_Base::shapeStyle_fill),
-				String(PropertyNames_Base::shapeStyle_fill),
+				String(PropertyFriendlyNames_Base::uiControlStyle_fill),
+				String(PropertyNames_Base::uiControlStyle_fill),
 				String(PropertyTypes::FillStyle),
 				[item]() -> String
 				{
-					return to_std_wstring(item->shapeStyle().fill());
+					return to_std_wstring(item->uiControlStyle().fill());
 				},
 				[item](StringView const& newValue)
 				{
 					copyFillStyle(
 						to_FillStyle(String(newValue)),
-						item->shapeStyle().fill()
+						item->uiControlStyle().fill()
 					);
 				}
 			);
 
 			_Properties->add(property);
 		}
-		void build_shapeStyle_line(std::shared_ptr<Base> item)
+		void build_uiControlStyle_line(std::shared_ptr<Base> item)
 		{
 			std::shared_ptr<Property> property;
 
 			property = std::make_shared<Property>(
 				true,
-				String(PropertyFriendlyNames_Base::shapeStyle_line),
-				String(PropertyNames_Base::shapeStyle_line),
+				String(PropertyFriendlyNames_Base::uiControlStyle_line),
+				String(PropertyNames_Base::uiControlStyle_line),
 				String(PropertyTypes::LineStyle),
 				[item]() -> String
 				{
-					return to_std_wstring(item->shapeStyle().line());
+					return to_std_wstring(item->uiControlStyle().line());
 				},
 				[item](StringView const& newValue)
 				{
 					copyLineStyle(
 						to_LineStyle(String(newValue)),
-						item->shapeStyle().line()
+						item->uiControlStyle().line()
 					);
 				}
 			);
 
 			_Properties->add(property);
 		}
-		void build_shapeStyle_text(std::shared_ptr<Base> item)
+		void build_uiControlStyle_text(std::shared_ptr<Base> item)
 		{
 			std::shared_ptr<Property> property;
 
 			property = std::make_shared<Property>(
 				true,
-				String(PropertyFriendlyNames_Base::shapeStyle_text),
-				String(PropertyNames_Base::shapeStyle_text),
+				String(PropertyFriendlyNames_Base::uiControlStyle_text),
+				String(PropertyNames_Base::uiControlStyle_text),
 				String(PropertyTypes::TextStyle),
 				[item]() -> String
 				{
-					return to_std_wstring(item->shapeStyle().text());
+					return to_std_wstring(item->uiControlStyle().text());
 				},
 				[item](StringView const& newValue)
 				{
 					copyTextStyle(
 						to_TextStyle(String(newValue)),
-						item->shapeStyle().text()
+						item->uiControlStyle().text()
 					);
 				}
 			);

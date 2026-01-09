@@ -87,7 +87,7 @@ namespace cx::Widget::UIControl
 		static constexpr StringView uiControlStyle_fill = PropertyFriendlyNames::fillStyle;
 		static constexpr StringView uiControlStyle_line = PropertyFriendlyNames::lineStyle;
 		static constexpr StringView uiControlStyle_text = PropertyFriendlyNames::textStyle;
-		static constexpr StringView text            = PropertyFriendlyNames::text;
+		static constexpr StringView text                = PropertyFriendlyNames::text;
 	};
 
 	//=======================================================================
@@ -97,7 +97,7 @@ namespace cx::Widget::UIControl
 		static constexpr StringView uiControlStyle_fill = L"UIControl.uiControlStyle.fill";
 		static constexpr StringView uiControlStyle_line = L"UIControl.uiControlStyle.line";
 		static constexpr StringView uiControlStyle_text = L"UIControl.uiControlStyle.text";
-		static constexpr StringView text            = L"UIControl.text";
+		static constexpr StringView text                = L"UIControl.text";
 	};
 
 	//=======================================================================

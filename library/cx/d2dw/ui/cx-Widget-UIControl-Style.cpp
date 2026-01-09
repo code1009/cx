@@ -93,7 +93,7 @@ namespace cx::Widget::UIControl
 	{
 		//CX_RUNTIME_LOG(cxLTrace) << L"UIControlStyle::notifyPropertyChanged";
 		propertyChangedEventListener.notify(
-			UIControlStyle_PropertyChangedEvent,
+			ItemStyle_PropertyChangedEvent,
 			nullptr
 		);
 	}

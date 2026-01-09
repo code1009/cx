@@ -10,13 +10,13 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Widget::Shape
+namespace cx::Widget::UIControl
 {
 	//=======================================================================
 	Text::Text() :
-		Base(L"cx.Widget.Shape.Text", L"글")
+		Base(L"cx.Widget.UIControl.Text", L"글")
 	{
-		shapeStyle().text().textColor(Color(255, 0, 0, 0));
+		uiControlStyle().text().textColor(Color(255, 0, 0, 0));
 	}
 
 	//=======================================================================
@@ -47,11 +47,11 @@ namespace cx::Widget::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Widget::Shape
+namespace cx::Widget::UIControl
 {
 	//=======================================================================
 	TextDesign::TextDesign() :
-		BaseDesign(L"cx.Widget.Shape.Text.Design")
+		BaseDesign(L"cx.Widget.UIControl.Text.Design")
 	{
 		auto target = std::make_shared<Text>();
 		setTarget(target);
@@ -78,7 +78,7 @@ namespace cx::Widget::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Widget::Shape
+namespace cx::Widget::UIControl
 {
 	//=======================================================================
 	class PropertiesBuilder_Text
@@ -95,15 +95,15 @@ namespace cx::Widget::Shape
 	public:
 		void build(std::shared_ptr<Text> /*item*/)
 		{
-			auto property_shapeStyle_fill = _Properties->find(PropertyNames_Base::shapeStyle_fill);
-			if (property_shapeStyle_fill)
+			auto property_uiControlStyle_fill = _Properties->find(PropertyNames_Base::uiControlStyle_fill);
+			if (property_uiControlStyle_fill)
 			{
-				property_shapeStyle_fill->visible(false);
+				property_uiControlStyle_fill->visible(false);
 			}
-			auto property_shapeStyle_line = _Properties->find(PropertyNames_Base::shapeStyle_line);
-			if (property_shapeStyle_line)
+			auto property_uiControlStyle_line = _Properties->find(PropertyNames_Base::uiControlStyle_line);
+			if (property_uiControlStyle_line)
 			{
-				property_shapeStyle_line->visible(false);
+				property_uiControlStyle_line->visible(false);
 			}
 		}
 	};
