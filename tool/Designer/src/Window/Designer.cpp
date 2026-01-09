@@ -386,8 +386,8 @@ void Designer::resize(std::uint32_t cx, std::uint32_t cy)
 	if (!rv)
 	{
 		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
-		return;
 	}
+
 	updateScrollBar();
 	invalidate();
 }

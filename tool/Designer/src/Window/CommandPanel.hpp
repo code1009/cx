@@ -58,5 +58,8 @@ public:
 	void addCommand_Catalog(Catalog* catalog);
 
 public:
+	void setupUIControlls(void);
+
+public:
 	void doDragDrop(void);
 };

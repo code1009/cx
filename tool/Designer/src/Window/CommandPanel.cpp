@@ -293,6 +293,8 @@ void CommandPanel::onIdle(void)
 void CommandPanel::loadCommand(void)
 {
 	addCommand_Catalog(_Designer->catalog());
+
+	setupUIControlls();
 }
 
 void CommandPanel::addCommand_Catalog(Catalog* catalog)
@@ -315,6 +317,58 @@ void CommandPanel::addCommand_Catalog(Catalog* catalog)
 			_CommandInfos.push_back(commandInfo);
 		}
 	}
+}
+
+void CommandPanel::setupUIControlls(void)
+{
+	//-------------------------------------------------------------------
+	cx::Widget::Point lt;
+	cx::Widget::Point rb;
+
+	cx::Widget::Coord y = 0.0;
+	cx::Widget::Coord cy = 25;
+
+	for (auto info : _CommandInfos)
+	{
+		lt.X = 0; lt.Y = y;
+		rb.X = 100; rb.Y = y + cy;
+
+		if (info.type == L"NewItem")
+		{
+			auto item = std::make_shared<cx::Widget::UIControl::Text>();
+			item->setPoint(0, lt);
+			item->setPoint(1, rb);
+			item->text(info.label);
+			item->uiControlStyle().text().textHAlignment(cx::Widget::TextHAlignment::Left);
+
+
+			_UIController->_View->model().add(item);
+		}
+		else if (info.type == L"Label")
+		{
+			auto item = std::make_shared<cx::Widget::UIControl::Text>();
+			item->setPoint(0, lt);
+			item->setPoint(1, rb);
+			item->text(info.label);
+			item->uiControlStyle().text().textColor(cx::Widget::Color(255, 0, 0, 255));
+			item->uiControlStyle().text().textHAlignment(cx::Widget::TextHAlignment::Center);
+
+			_UIController->_View->model().add(item);
+		}
+		else if (info.type == L"Spare")
+		{
+		}
+
+		y += cy;
+	}
+
+
+
+	auto viewCx = _UIController->_View->viewContext().width();
+	auto viewCy = _UIController->_View->viewContext().height();
+
+	viewCy = y;
+	_UIController->_View->viewContext().setSize(viewCx, viewCy);
 }
 
 //===========================================================================

@@ -283,7 +283,6 @@ void UIController::resize(std::uint32_t cx, std::uint32_t cy)
 	if (!rv)
 	{
 		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
-		return;
 	}
 //	_View->viewContext().setSize(static_cast<float>(cx), static_cast<float>(cy));
 
