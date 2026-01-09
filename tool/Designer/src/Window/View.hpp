@@ -33,8 +33,4 @@ public:
 
 public:
 	void onIdle(void);
-
-public:
-	void zoomIn(float px, float py);
-	void zoomOut(float px, float py);
 };

@@ -38,13 +38,9 @@ View::View(HWND parentWindowHandle)
 {
 	//-----------------------------------------------------------------------
 	cx::wui::WindowClass windowClass;
-
-
 	windowClass.registerWindowClass(
 		View_WindowClassName
 	);
-
-
 	//-----------------------------------------------------------------------
 	registerWindowMessageMap();
 
@@ -57,39 +53,6 @@ View::View(HWND parentWindowHandle)
 		throw std::runtime_error("View::View(): createView() failed");
 	}
 
-	/*
-	//-----------------------------------------------------------------------
-	RECT rect;
-	UINT cx;
-	UINT cy;
-	::GetClientRect(*this, &rect);
-	cx = static_cast<UINT>(rect.right - rect.left);
-	cy = static_cast<UINT>(rect.bottom - rect.top);
-
-	CX_RUNTIME_LOG(cxLInfo)
-		<< L"cx=" << cx
-		<< L" "
-		<< L"cy=" << cy
-		;
-
-
-	//-----------------------------------------------------------------------
-	::ShowWindow(*this, SW_SHOW);
-	::UpdateWindow(*this);
-
-
-	//-----------------------------------------------------------------------
-	::GetClientRect(*this, &rect);
-	cx = static_cast<UINT>(rect.right - rect.left);
-	cy = static_cast<UINT>(rect.bottom - rect.top);
-
-	CX_RUNTIME_LOG(cxLInfo)
-		<< L"cx=" << cx
-		<< L" "
-		<< L"cy=" << cy
-		;
-	*/
-
 
 	//-----------------------------------------------------------------------
 	_Designer = std::make_unique<Designer>(*this);
@@ -100,8 +63,7 @@ LRESULT View::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
 	if (_Designer)
 	{
-		bool handled; 
-		
+		bool handled;		
 		handled = _Designer->_MouseHandler->onWindowMessage(windowMessage);
 		if (handled)
 		{
@@ -167,20 +129,14 @@ void View::onSize(cx::wui::WindowMessage& windowMessage)
 		<< L"onSize()"
 		;
 #endif
-
-
 	//-----------------------------------------------------------------------
 	RECT rect;
 	::GetClientRect(*this, &rect);
-
-
 	//-----------------------------------------------------------------------
 	UINT cx;
 	UINT cy;
 	cx = static_cast<UINT>(rect.right - rect.left);
 	cy = static_cast<UINT>(rect.bottom - rect.top);
-
-
 	//-----------------------------------------------------------------------
 	if (_Designer)
 	{
@@ -195,7 +151,6 @@ void View::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
 		<< L"onEraseBkgnd()"
 		;
 #endif
-
 	cx::wui::WM_ERASEBKGND_WindowMessageCrack wm{ windowMessage };
 	wm.Result(TRUE);
 }
@@ -207,7 +162,6 @@ void View::onPaint(cx::wui::WindowMessage& windowMessage)
 		<< L"onPaint()"
 		;
 #endif
-
 	if (_Designer)
 	{
 		_Designer->_Canvas->draw();
@@ -269,23 +223,3 @@ void View::onIdle(void)
 		_Designer->_Canvas->draw();
 	}
 }
-
-//===========================================================================
-void View::zoomIn(float px, float py)
-{
-	if (_Designer)
-	{
-		_Designer->zoomIn(px, py);
-	}
-}
-
-void View::zoomOut(float px, float py)
-{
-	if (_Designer)
-	{
-		_Designer->zoomOut(px, py);
-	}
-}
-
-
-
