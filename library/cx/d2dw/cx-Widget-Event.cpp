@@ -238,7 +238,7 @@ namespace cx::Widget
 		_View.eventDispatcher().notifyEvent(
 			ItemPointerPressedEvent,
 			item,
-			std::make_shared<PointerEventData>(pointerEventData)
+			std::make_shared<ItemPointerEventData>(item, pointerEventData)
 		);
 	}
 
@@ -247,7 +247,7 @@ namespace cx::Widget
 		_View.eventDispatcher().notifyEvent(
 			ItemPointerReleasedEvent,
 			item,
-			std::make_shared<PointerEventData>(pointerEventData)
+			std::make_shared<ItemPointerEventData>(item, pointerEventData)
 		);
 	}
 
@@ -256,7 +256,7 @@ namespace cx::Widget
 		_View.eventDispatcher().notifyEvent(
 			ItemPointerClickedEvent,
 			item,
-			std::make_shared<PointerEventData>(pointerEventData)
+			std::make_shared<ItemPointerEventData>(item, pointerEventData)
 		);
 	}
 
@@ -265,7 +265,7 @@ namespace cx::Widget
 		_View.eventDispatcher().notifyEvent(
 			ItemPointerDbClickedEvent,
 			item,
-			std::make_shared<PointerEventData>(pointerEventData)
+			std::make_shared<ItemPointerEventData>(item, pointerEventData)
 		);
 	}
 
@@ -274,7 +274,7 @@ namespace cx::Widget
 		_View.eventDispatcher().notifyEvent(
 			ItemPointerOverEvent,
 			item,
-			std::make_shared<PointerEventData>(pointerEventData)
+			std::make_shared<ItemPointerEventData>(item, pointerEventData)
 		);
 	}
 
@@ -283,7 +283,7 @@ namespace cx::Widget
 		_View.eventDispatcher().notifyEvent(
 			ItemPointerLeaveEvent,
 			item,
-			std::make_shared<PointerEventData>(pointerEventData)
+			std::make_shared<ItemPointerEventData>(item, pointerEventData)
 		);
 	}
 
@@ -292,7 +292,7 @@ namespace cx::Widget
 		_View.eventDispatcher().notifyEvent(
 			ItemPointerDraggingEvent,
 			item,
-			std::make_shared<PointerEventData>(pointerEventData)
+			std::make_shared<ItemPointerEventData>(item, pointerEventData)
 		);
 	}
 }

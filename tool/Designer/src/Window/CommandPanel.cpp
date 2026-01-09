@@ -364,9 +364,12 @@ void CommandPanel::setupUIControlls(void)
 				[this](cx::ev::Event& event)
 				{
 					auto eventType = event.eventType();
-					//std::shared_ptr<cx::Widget::UIControl::Text> item = event.eventDataeventTarget();
+					auto itemPointerEventData = event.eventDataAs<cx::Widget::ItemPointerEventData>();
 
-					MessageBoxW(*this, L"Label pressed", L"Info", MB_OK);
+					std::shared_ptr<cx::Widget::UIControl::Text> item =
+						std::dynamic_pointer_cast<cx::Widget::UIControl::Text>(itemPointerEventData->_Item);
+
+					item->text(L"Pressed");
 				}
 /*
 				std::bind(
@@ -375,6 +378,22 @@ void CommandPanel::setupUIControlls(void)
 					std::placeholders::_1
 				)
 */
+			);
+
+			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+				cx::Widget::ItemPointerReleasedEvent,
+				item,
+				[this](cx::ev::Event& event)
+				{
+					auto eventType = event.eventType();
+					auto itemPointerEventData = event.eventDataAs<cx::Widget::ItemPointerEventData>();
+
+					std::shared_ptr<cx::Widget::UIControl::Text> item =
+						std::dynamic_pointer_cast<cx::Widget::UIControl::Text>(itemPointerEventData->_Item);
+
+					item->text(L"Released");
+
+				}
 			);
 		}
 		else if (info.type == L"Spare")

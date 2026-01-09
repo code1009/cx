@@ -194,7 +194,7 @@ namespace cx::Widget
 	//=======================================================================
 	void Design::onItemPointerPressed(cx::ev::Event& event)
 	{
-		std::shared_ptr<PointerEventData> eventData = event.eventDataAs<PointerEventData>();
+		std::shared_ptr<ItemPointerEventData> eventData = event.eventDataAs<ItemPointerEventData>();
 		Point PointerPressedPosition = eventData->_PointerPosition;;
 
 		/*
@@ -209,7 +209,7 @@ namespace cx::Widget
 
 	void Design::onItemPointerReleased(cx::ev::Event& event)
 	{
-		std::shared_ptr<PointerEventData> eventData = event.eventDataAs<PointerEventData>();
+		std::shared_ptr<ItemPointerEventData> eventData = event.eventDataAs<ItemPointerEventData>();
 		Point PointerPressedPosition = eventData->_PointerPosition;;
 		Point PointerPressedSnappedPosition = getEdit().toSnappedPoint(PointerPressedPosition);
 		//Point offset = PointerPressedSnappedPosition - _AnchorPointerPressedPosition;
@@ -235,7 +235,7 @@ namespace cx::Widget
 
 	void Design::onItemPointerDragging(cx::ev::Event& event)
 	{
-		std::shared_ptr<PointerEventData> eventData = event.eventDataAs<PointerEventData>();
+		std::shared_ptr<ItemPointerEventData> eventData = event.eventDataAs<ItemPointerEventData>();
 		Point PointerPressedPosition = eventData->_PointerPosition;;
 		Point PointerPressedSnappedPosition = getEdit().toSnappedPoint(PointerPressedPosition);
 		//Point offset = PointerPressedSnappedPosition - _AnchorPointerPressedPosition;

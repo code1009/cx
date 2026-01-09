@@ -55,15 +55,8 @@ namespace cx::Widget
 namespace cx::Widget
 {
 	//=======================================================================
-	class PointerEventData : public cx::ev::EventData
-	{
-	public:
-		Point _PointerPosition{};
-		bool  _LButtonPressed{ false };
-		bool  _RButtonPressed{ false };
-		bool  _ShiftKeyPressed{ false };
-		bool  _CtrlKeyPressed{ false };
-	};
+	class Item;
+	class View;
 }
 
 
@@ -75,8 +68,40 @@ namespace cx::Widget
 namespace cx::Widget
 {
 	//=======================================================================
-	class Item;
-	class View;
+	class PointerEventData : public cx::ev::EventData
+	{
+	public:
+		Point _PointerPosition{};
+		bool  _LButtonPressed{ false };
+		bool  _RButtonPressed{ false };
+		bool  _ShiftKeyPressed{ false };
+		bool  _CtrlKeyPressed{ false };
+	};
+
+	//=======================================================================
+	class ItemPointerEventData : public cx::ev::EventData
+	{
+	public:
+		std::shared_ptr<Item> _Item{ nullptr };
+
+	public:
+		Point _PointerPosition{};
+		bool  _LButtonPressed{ false };
+		bool  _RButtonPressed{ false };
+		bool  _ShiftKeyPressed{ false };
+		bool  _CtrlKeyPressed{ false };
+
+	public:
+		explicit ItemPointerEventData(std::shared_ptr<Item>& item, PointerEventData const& pointerEventData) :
+			_Item(item),
+			_PointerPosition(pointerEventData._PointerPosition),
+			_LButtonPressed(pointerEventData._LButtonPressed),
+			_RButtonPressed(pointerEventData._RButtonPressed),
+			_ShiftKeyPressed(pointerEventData._ShiftKeyPressed),
+			_CtrlKeyPressed(pointerEventData._CtrlKeyPressed)
+		{
+		}
+	};
 }
 
 
