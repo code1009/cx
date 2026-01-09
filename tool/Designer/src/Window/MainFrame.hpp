@@ -14,10 +14,6 @@ private:
 	std::unique_ptr<CommandPanel> _PropertyPanel;
 	std::unique_ptr<View> _View;
 
-private:
-	const std::uint32_t _CommandPanel_Width{ 250 };
-	const std::uint32_t _PropertyPanel_Width{ 200 };
-
 public:
 	MainFrame();
 

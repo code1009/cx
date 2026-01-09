@@ -236,16 +236,10 @@ void MainFrame::updateLayout(void)
 {
 	//-----------------------------------------------------------------------
 	RECT rect;
-
-
 	::GetClientRect(*this, &rect);
-
-
 	//-----------------------------------------------------------------------
 	UINT cx;
 	UINT cy;
-
-
 	cx = static_cast<UINT>(rect.right - rect.left);
 	cy = static_cast<UINT>(rect.bottom - rect.top);
 
@@ -258,11 +252,13 @@ void MainFrame::updateLayout(void)
 		std::uint32_t cx{ 0 };
 		std::uint32_t cy{ 0 };
 	};
-
 	WindowLayoutPosition wlps[3];
 	WindowLayoutPosition* wlp;
 
-	
+
+	//-----------------------------------------------------------------------
+	const std::uint32_t _CommandPanel_Width{ 250 };
+	const std::uint32_t _PropertyPanel_Width{ 200 };
 	bool hasCommandPanel = (_CommandPanel.get() != nullptr);
 	bool hasPropertyPanel = (_PropertyPanel.get() != nullptr);
 
