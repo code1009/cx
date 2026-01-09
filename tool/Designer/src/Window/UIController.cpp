@@ -260,8 +260,6 @@ void UIController::loadUIControls(void)
 {
 	//-------------------------------------------------------------------
 	using namespace cx::Widget;
-	using namespace cx::Widget::UIControl;
-	//	using namespace rs::Diagram;
 
 
 	//-------------------------------------------------------------------
@@ -269,7 +267,8 @@ void UIController::loadUIControls(void)
 
 
 	//-------------------------------------------------------------------
-	_View->factory().registerItem(std::make_shared<Text>(), makeProperties_Text, L"글");
+	_View->factory().registerItem(std::make_shared<Shape::Rectangle>(), Shape::makeProperties_Rectangle, L"상자");
+	_View->factory().registerItem(std::make_shared<UIControl::Text>(), UIControl::makeProperties_Text, L"글");
 }
 
 //===========================================================================
@@ -282,9 +281,10 @@ void UIController::resize(std::uint32_t cx, std::uint32_t cy)
 	rv = _View->viewContext().setWindowSize(static_cast<float>(cx), static_cast<float>(cy));
 	if (!rv)
 	{
+#if 0
 		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
+#endif
 	}
-//	_View->viewContext().setSize(static_cast<float>(cx), static_cast<float>(cy));
 
 	updateScrollBar();
 	invalidate();

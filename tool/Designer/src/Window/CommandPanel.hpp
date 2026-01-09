@@ -23,6 +23,8 @@ private:
 
 	std::vector<CommandInfo> _CommandInfos;
 
+	std::wstring _NewItemName;
+
 	//-----------------------------------------------------------------------
 public:
 	std::unique_ptr<UIController> _UIController;
@@ -59,6 +61,7 @@ public:
 
 public:
 	void setupUIControlls(void);
+	void recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy);
 
 public:
 	void doDragDrop(void);

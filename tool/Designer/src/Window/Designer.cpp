@@ -385,7 +385,9 @@ void Designer::resize(std::uint32_t cx, std::uint32_t cy)
 	rv = _Edit->viewContext().setWindowSize(static_cast<float>(cx), static_cast<float>(cy));
 	if (!rv)
 	{
+#if 0
 		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
+#endif
 	}
 
 	updateScrollBar();

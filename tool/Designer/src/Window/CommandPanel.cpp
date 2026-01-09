@@ -206,6 +206,7 @@ void CommandPanel::onSize(cx::wui::WindowMessage& windowMessage)
 	//-----------------------------------------------------------------------
 	if (_UIController)
 	{
+		recalcUIControllsLayout(cx, cy);
 		_UIController->resize(cx, cy);
 	}
 }
@@ -322,78 +323,127 @@ void CommandPanel::addCommand_Catalog(Catalog* catalog)
 void CommandPanel::setupUIControlls(void)
 {
 	//-------------------------------------------------------------------
-	cx::Widget::Point lt;
-	cx::Widget::Point rb;
+	using namespace cx::Widget;
 
-	cx::Widget::Coord y = 0.0;
-	cx::Widget::Coord cy = 25;
 
+	//-----------------------------------------------------------------------
+	Point lt;
+	Point rb;
+
+	Coord y = 0.0;
+	Coord cy = 25;
+
+
+	//-----------------------------------------------------------------------
+	//using Control = UIControl::Text;
+	using Control = Shape::Rectangle;
+
+
+	//-----------------------------------------------------------------------
 	for (auto info : _CommandInfos)
 	{
-		lt.X = 0; lt.Y = y;
-		rb.X = 100; rb.Y = y + cy;
+		lt.X = 0; 
+		lt.Y = y;
+		rb.X = 100; 
+		rb.Y = y + cy;
+
 
 		if (info.type == L"NewItem")
 		{
-			auto item = std::make_shared<cx::Widget::UIControl::Text>();
+			auto item = std::make_shared<Control>();
 			item->setPoint(0, lt);
 			item->setPoint(1, rb);
 			item->text(info.label);
 			item->name(info.label);
-			item->uiControlStyle().text().textHAlignment(cx::Widget::TextHAlignment::Left);
-
-
+			//item->uiControlStyle().text().textHAlignment(TextHAlignment::Left);
+			item->shapeStyle().fill().fillColor(Colors::LightGray());
+			item->shapeStyle().line().lineSize(0.0f);
+			item->shapeStyle().text().textColor(Colors::Black());
 			_UIController->_View->model().add(item);
-		}
-		else if (info.type == L"Label")
-		{
-			auto item = std::make_shared<cx::Widget::UIControl::Text>();
-			item->setPoint(0, lt);
-			item->setPoint(1, rb);
-			item->text(info.label);
-			item->uiControlStyle().text().textColor(cx::Widget::Color(255, 0, 0, 255));
-			item->uiControlStyle().text().textHAlignment(cx::Widget::TextHAlignment::Center);
-
-			_UIController->_View->model().add(item);
-
 
 
 			_UIController->_View->eventHandlerRegistry().registerEventHandler(
-				cx::Widget::ItemPointerPressedEvent,
+				ItemPointerPressedEvent,
 				item,
 				[this](cx::ev::Event& event)
 				{
+					using Control = Shape::Rectangle;
 					auto eventType = event.eventType();
-					auto itemPointerEventData = event.eventDataAs<cx::Widget::ItemPointerEventData>();
+					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+					std::shared_ptr<Control> item =
+						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
-					std::shared_ptr<cx::Widget::UIControl::Text> item =
-						std::dynamic_pointer_cast<cx::Widget::UIControl::Text>(itemPointerEventData->_Item);
+					item->shapeStyle().fill().fillColor(Colors::LightSkyBlue());
+
+					_NewItemName = item->name();
+				}
+			);
+
+			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+				ItemPointerReleasedEvent,
+				item,
+				[this](cx::ev::Event& event)
+				{
+					using Control = Shape::Rectangle;
+					auto eventType = event.eventType();
+					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+					std::shared_ptr<Control> item =
+						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+					item->shapeStyle().fill().fillColor(Colors::LightGray());
+				}
+			);
+		}
+		else if (info.type == L"Label")
+		{
+			auto item = std::make_shared<Control>();
+			item->setPoint(0, lt);
+			item->setPoint(1, rb);
+			item->text(info.label);
+			//item->uiControlStyle().text().textColor(Color(255, 0, 0, 255));
+			//item->uiControlStyle().text().textHAlignment(TextHAlignment::Center);
+			item->shapeStyle().text().textColor(Colors::White());
+			item->shapeStyle().text().textHAlignment(TextHAlignment::Center);
+			item->shapeStyle().line().lineSize(0.0f);
+			_UIController->_View->model().add(item);
+
+
+			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+				ItemPointerPressedEvent,
+				item,
+				[this](cx::ev::Event& event)
+				{
+					using Control = Shape::Rectangle;
+					auto eventType = event.eventType();
+					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+					std::shared_ptr<UIControl::Text> item =
+						std::dynamic_pointer_cast<UIControl::Text>(itemPointerEventData->_Item);
 
 					item->text(L"Pressed");
 				}
-/*
+			);
+
+			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+				ItemPointerReleasedEvent,
+				item,
+				[this](cx::ev::Event& event)
+				{
+					using Control = Shape::Rectangle;
+					auto eventType = event.eventType();
+					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+					std::shared_ptr<UIControl::Text> item =
+						std::dynamic_pointer_cast<UIControl::Text>(itemPointerEventData->_Item);
+
+					item->text(L"Release");
+				}
+				/*
+				// onItemPointerPressed(cx::ev::Event& event)
 				std::bind(
 					&CommandPanel::onItemPointerPressed,
 					this,
 					std::placeholders::_1
 				)
-*/
-			);
-
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
-				cx::Widget::ItemPointerReleasedEvent,
-				item,
-				[this](cx::ev::Event& event)
-				{
-					auto eventType = event.eventType();
-					auto itemPointerEventData = event.eventDataAs<cx::Widget::ItemPointerEventData>();
-
-					std::shared_ptr<cx::Widget::UIControl::Text> item =
-						std::dynamic_pointer_cast<cx::Widget::UIControl::Text>(itemPointerEventData->_Item);
-
-					item->text(L"Released");
-
-				}
+				*/
 			);
 		}
 		else if (info.type == L"Spare")
@@ -404,7 +454,7 @@ void CommandPanel::setupUIControlls(void)
 	}
 
 
-
+	//-----------------------------------------------------------------------
 	auto viewCx = _UIController->_View->viewContext().width();
 	auto viewCy = _UIController->_View->viewContext().height();
 
@@ -412,24 +462,52 @@ void CommandPanel::setupUIControlls(void)
 	_UIController->_View->viewContext().setSize(viewCx, viewCy);
 }
 
+void CommandPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	std::size_t count = _UIController->_View->model().size();
+	for (std::size_t i = 0; i < count; i++)
+	{
+		auto item = _UIController->_View->model().at(i);
+		if (item)
+		{
+			Point lt;
+			Point rb;
+			lt.X = 0; 
+			lt.Y = static_cast<Coord>(i * 25);
+			rb.X = static_cast<Coord>(cx); 
+			rb.Y = static_cast<Coord>((i + 1) * 25);
+			item->setPoint(0, lt);
+			item->setPoint(1, rb);
+		}
+	}
+}
+
 //===========================================================================
 void CommandPanel::doDragDrop(void)
 {
 	//-----------------------------------------------------------------------
-	CommandInfo const& commandInfo = _CommandInfos[4];
-	if (commandInfo.type != L"NewItem")
+	if (_NewItemName.empty())
 	{
 		return;
 	}
 
 
 	//-----------------------------------------------------------------------
-	std::wstring name = commandInfo.label;
+	std::wstring name = _NewItemName;
 	cx::wui::dragdrop::WindowDropSourceData data(
 		cx::wui::dragdrop::getWindowDragDropClipboardFormat()->getClipboardFormat()
 	);
 	data._DataBuffer = std_wstring_to_std_uint8_t_vector(name);
 	_DropSourceNotifier->doDragDrop(data);
+
+
+	//-----------------------------------------------------------------------
+	_NewItemName.clear();
 
 
 	_Designer->_Edit->setNewItem(nullptr);
