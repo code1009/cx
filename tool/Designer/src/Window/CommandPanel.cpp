@@ -339,6 +339,7 @@ void CommandPanel::setupUIControlls(void)
 			item->setPoint(0, lt);
 			item->setPoint(1, rb);
 			item->text(info.label);
+			item->name(info.label);
 			item->uiControlStyle().text().textHAlignment(cx::Widget::TextHAlignment::Left);
 
 
@@ -354,6 +355,27 @@ void CommandPanel::setupUIControlls(void)
 			item->uiControlStyle().text().textHAlignment(cx::Widget::TextHAlignment::Center);
 
 			_UIController->_View->model().add(item);
+
+
+
+			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+				cx::Widget::ItemPointerPressedEvent,
+				item,
+				[this](cx::ev::Event& event)
+				{
+					auto eventType = event.eventType();
+					//std::shared_ptr<cx::Widget::UIControl::Text> item = event.eventDataeventTarget();
+
+					MessageBoxW(*this, L"Label pressed", L"Info", MB_OK);
+				}
+/*
+				std::bind(
+					&CommandPanel::onItemPointerPressed,
+					this,
+					std::placeholders::_1
+				)
+*/
+			);
 		}
 		else if (info.type == L"Spare")
 		{
