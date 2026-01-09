@@ -73,7 +73,7 @@ MainFrame::MainFrame()
 
 	//-----------------------------------------------------------------------
 	_View = std::make_unique<View>(*this);
-	_CommandPanel = std::make_unique<CommandPanel>(*this, _View.get());
+	_CommandPanel = std::make_unique<CommandPanel>(*this, _View->_Designer.get());
 
 
 	//-----------------------------------------------------------------------
@@ -108,6 +108,19 @@ void MainFrame::onDestroy(cx::wui::WindowMessage& windowMessage)
 
 void MainFrame::onClose(cx::wui::WindowMessage& windowMessage)
 {
+	if (_CommandPanel)
+	{
+		_CommandPanel->destroyWindow();
+	}
+	_CommandPanel.reset();
+
+
+	if (_View)
+	{
+		_View->destroyWindow();
+	}
+	_View.reset();
+
 	destroyWindow();
 }
 

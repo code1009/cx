@@ -328,6 +328,25 @@ void Designer::loadCatalog(void)
 {
 	_Catalog = std::make_unique<Catalog>(this);
 
+	//-------------------------------------------------------------------
+	using namespace cx::Widget;
+	using namespace cx::Widget::Shape;
+	//	using namespace rs::Diagram;
+
+
+	//-------------------------------------------------------------------
+	_Edit->factory().clear();
+
+
+	//-------------------------------------------------------------------
+	_Catalog->addLabel(L"도형");
+	//-------------------------------------------------------------------
+	_Catalog->addItem(std::make_shared<TextDesign         >(), makeProperties_TextDesign, L"글");
+	_Catalog->addItem(std::make_shared<LineDesign         >(), makeProperties_LineDesign, L"선");
+	//_Catalog->addItem(std::make_shared<ArrowDesign        >(), makeProperties_ArrowDesign, L"화살표");
+	//_Catalog->addItem(std::make_shared<HalfArrowDesign    >(), makeProperties_HalfArrowDesign, L"반쪽화살표");
+	_Catalog->addItem(std::make_shared<RectangleDesign    >(), makeProperties_RectangleDesign, L"사각형");
+	_Catalog->addItem(std::make_shared<EllipseDesign      >(), makeProperties_BaseDesign, L"타원");
 }
 
 //===========================================================================

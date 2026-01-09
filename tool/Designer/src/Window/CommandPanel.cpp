@@ -50,8 +50,8 @@ constexpr LPCWSTR CommandPanel_WindowClassName = L"CommandPanel";
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
-	_View{ view }
+CommandPanel::CommandPanel(HWND parentWindowHandle, Designer* designer) :
+	_Designer(designer)
 {
 	//-----------------------------------------------------------------------
 	cx::wui::WindowClass windowClass;
@@ -255,7 +255,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, View* view) :
 
 
 	//-----------------------------------------------------------------------
-	addCommands();
+	loadCommand();
 }
 
 //===========================================================================
@@ -333,15 +333,11 @@ void CommandPanel::onSize(cx::wui::WindowMessage& windowMessage)
 	//-----------------------------------------------------------------------
 	RECT rect;
 	::GetClientRect(*this, &rect);
-
-
 	//-----------------------------------------------------------------------
 	UINT cx;
 	UINT cy;
 	cx = static_cast<UINT>(rect.right - rect.left);
 	cy = static_cast<UINT>(rect.bottom - rect.top);
-
-
 	//-----------------------------------------------------------------------
 	if (_Canvas)
 	{
@@ -429,107 +425,52 @@ void CommandPanel::onIdle(void)
 }
 
 //===========================================================================
-void CommandPanel::addCommands(void)
+void CommandPanel::loadCommand(void)
 {
-	//-------------------------------------------------------------------
-	using namespace cx::Widget;
-	using namespace cx::Widget::Shape;
-//	using namespace rs::Diagram;
-
-
-	//-------------------------------------------------------------------
-	_View->_Designer->_Edit->factory().clear();
-	_CommandInfos.clear();
-
-
-	//-------------------------------------------------------------------
-	addCommand_Label(L"도형");
-	//-------------------------------------------------------------------
-	addCommand_NewItem(std::make_shared<TextDesign         >(), makeProperties_TextDesign, L"글");
-	addCommand_NewItem(std::make_shared<LineDesign         >(), makeProperties_LineDesign, L"선");
-	//AddCommand_NewItem(std::make_shared<ArrowDesign        >(), makeProperties_ArrowDesign, L"화살표");
-	//AddCommand_NewItem(std::make_shared<HalfArrowDesign    >(), makeProperties_HalfArrowDesign, L"반쪽화살표");
-	addCommand_NewItem(std::make_shared<RectangleDesign    >(), makeProperties_RectangleDesign, L"사각형");
-	addCommand_NewItem(std::make_shared<EllipseDesign      >(), makeProperties_BaseDesign, L"타원");
-	addCommand_Spare();
+	addCommand_Catalog(_Designer->catalog());
 }
 
-void CommandPanel::addCommand_Label(std::wstring Label)
+void CommandPanel::addCommand_Catalog(Catalog* catalog)
 {
-	CommandInfo commandInfo{ L"Label", Label, L"" };
-	_CommandInfos.push_back(commandInfo);
-}
-
-void CommandPanel::addCommand_Spare()
-{
-	CommandInfo commandInfo{ L"Spare", L"", L"" };
-	_CommandInfos.push_back(commandInfo);
-}
-
-void CommandPanel::addCommand_NewItem(std::shared_ptr<cx::Widget::Item> const& item, cx::Widget::ClassInfo::MakePropertiesFunction const& makeProperties, cx::Widget::StringView const& friendlyName)
-{
-	if (!item)
+	for (auto item : catalog->_Items)
 	{
-		return;
-	}
-	if (!makeProperties)
-	{
-		return;
-	}
-
-
-	_View->_Designer->_Edit->factory().registerItem(item, makeProperties, friendlyName);
-
-	CommandInfo commandInfo{ L"NewItem", friendlyName.data(), L"" };
-	_CommandInfos.push_back(commandInfo);
-}
-
-void CommandPanel::loadCommands(void)
-{
-	for (auto item : _CommandInfos)
-	{
-		if (item.type == L"NewItem")
+		if (item.type == L"Item")
 		{
-			//loadCommand_NewItem(item);
+			CommandInfo commandInfo{ L"NewItem", item.label, L""};
+			_CommandInfos.push_back(commandInfo);
 		}
 		else if (item.type == L"Label")
 		{
-			//loadCommand_Label(item);
+			CommandInfo commandInfo{ L"Label", item.label, L"" };
+			_CommandInfos.push_back(commandInfo);
 		}
 		else if (item.type == L"Spare")
 		{
-			//loadCommand_Spare(item);
+			CommandInfo commandInfo{ L"Spare", L"", L"" };
+			_CommandInfos.push_back(commandInfo);
 		}
 	}
 }
 
+//===========================================================================
 void CommandPanel::doDragDrop(void)
 {
+	//-----------------------------------------------------------------------
 	CommandInfo const& commandInfo = _CommandInfos[4];
-
-
-	auto itemClassInfo = _View->_Designer->_Edit->factory().findByFriendlyName(commandInfo.label);
-	if (!itemClassInfo)
+	if (commandInfo.type != L"NewItem")
 	{
-		CX_RUNTIME_LOG(cxLError) << L"itemClassInfo is nullptr";
 		return;
 	}
 
 
-	auto const& name = itemClassInfo->friendlyName();
-
-
-
+	//-----------------------------------------------------------------------
+	std::wstring name = commandInfo.label;
 	cx::wui::dragdrop::WindowDropSourceData data(
 		cx::wui::dragdrop::getWindowDragDropClipboardFormat()->getClipboardFormat()
 	);
 	data._DataBuffer = std_wstring_to_std_uint8_t_vector(name);
-
-
-
 	_DropSourceNotifier->doDragDrop(data);
 
 
-
-	_View->_Designer->_Edit->setNewItem(nullptr);
+	_Designer->_Edit->setNewItem(nullptr);
 }

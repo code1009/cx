@@ -53,6 +53,7 @@ void Catalog::addItem(
 
 	_Designer->_Edit->factory().registerItem(item, makeProperties, friendlyName);
 
-	CatalogInfo info{ L"NewItem", friendlyName.data(), L"" };
+
+	CatalogInfo info{ L"Item", friendlyName.data(), L"" };
 	_Items.push_back(info);
 }

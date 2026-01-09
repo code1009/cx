@@ -17,7 +17,7 @@ class CommandPanel :
 	public cx::wui::MessageMapWindowT<CommandPanel, cx::wui::BaseWindow>
 {
 private:
-	View* _View{ nullptr };
+	Designer* _Designer{ nullptr };
 
 private:
 	struct CommandInfo
@@ -36,7 +36,7 @@ public:
 	std::unique_ptr<cx::wui::dragdrop::WindowDropSourceNotifier> _DropSourceNotifier;
 
 public:
-	explicit CommandPanel(HWND parentWindowHandle, View* view);
+	explicit CommandPanel(HWND parentWindowHandle, Designer* designer);
 
 public:
 	virtual HWND createCommandPanel(HWND parentWindowHandle);
@@ -57,13 +57,8 @@ public:
 	void onIdle(void);
 
 public:
-	void addCommands(void);
-	void addCommand_Label(std::wstring Label);
-	void addCommand_Spare();
-	void addCommand_NewItem(std::shared_ptr<cx::Widget::Item> const& item, cx::Widget::ClassInfo::MakePropertiesFunction const& makeProperties, cx::Widget::StringView const& friendlyName);
-
-public:
-	void loadCommands(void);
+	void loadCommand(void);
+	void addCommand_Catalog(Catalog* catalog);
 
 public:
 	void doDragDrop(void);
