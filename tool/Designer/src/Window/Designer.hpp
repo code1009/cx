@@ -40,6 +40,8 @@ public:
 public:
 	void updateScrollBar(void);
 
+	//===========================================================================
+	// Commands
 public:
 	void newFile(void);
 	void openFile(void);
@@ -77,6 +79,8 @@ public:
 	void showGridCoord(bool show);
 	void showStatus(bool show);
 
+	//===========================================================================
+	// Command Handlers
 public:
 	void onFile_New             (void);
 	void onFile_Open            (void);
