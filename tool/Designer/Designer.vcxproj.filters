@@ -25,6 +25,9 @@
     <Filter Include="src\WindowHandler">
       <UniqueIdentifier>{e68b3e33-1c83-468f-a521-c69d3f267add}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cx\d2dw\ui">
+      <UniqueIdentifier>{974f4bee-85d5-4145-b6e1-f2e1c3304eb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include=".\src\Application.cpp">
@@ -382,6 +385,9 @@
     </ClInclude>
     <ClInclude Include="src\Window\Catalog.hpp">
       <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\ui\pch.hpp">
+      <Filter>cx\d2dw\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

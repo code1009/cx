@@ -117,6 +117,7 @@
     <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\shape\pch.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\ui\pch.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Canvas.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp" />

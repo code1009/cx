@@ -6,7 +6,7 @@ namespace cx::Widget
 {
 	//=======================================================================
 	constexpr cx::ev::EventType DrawingStyle_PropertyChangedEvent = 100;
-	constexpr cx::ev::EventType ShapeStyle_PropertyChangedEvent = 101;
+	constexpr cx::ev::EventType ItemStyle_PropertyChangedEvent = 101;
 	constexpr cx::ev::EventType AnchorStyle_PropertyChangedEvent = 102;
 	constexpr cx::ev::EventType EditPointerToolStyle_PropertyChangedEvent = 103;
 

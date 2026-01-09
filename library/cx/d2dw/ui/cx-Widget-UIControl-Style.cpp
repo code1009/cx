@@ -10,10 +10,10 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Widget::Shape
+namespace cx::Widget::UIControl
 {
 	//=======================================================================
-	ShapeStyle::ShapeStyle()
+	UIControlStyle::UIControlStyle()
 	{
 		_FillStyle = std::make_shared<FillStyle>(Color(255, 128, 128, 255));
 		_LineStyle = std::make_shared<LineStyle>(Color(255, 64, 64, 255), 2.0f);
@@ -34,7 +34,7 @@ namespace cx::Widget::Shape
 
 
 	//=======================================================================
-	ShapeStyle::ShapeStyle(const ShapeStyle& other) : 
+	UIControlStyle::UIControlStyle(const UIControlStyle& other) : 
 		//propertyChangedEventListener(other.propertyChangedEventListener),
 		_FillStyle(nullptr),
 		_LineStyle(nullptr),
@@ -45,7 +45,7 @@ namespace cx::Widget::Shape
 		if (other._TextStyle) _TextStyle = std::make_shared<TextStyle>(*other._TextStyle);
 	}
 
-	ShapeStyle& ShapeStyle::operator=(const ShapeStyle& other)
+	UIControlStyle& UIControlStyle::operator=(const UIControlStyle& other)
 	{
 		if (this != &other)
 		{
@@ -68,7 +68,7 @@ namespace cx::Widget::Shape
 		return *this;
 	}
 
-	ShapeStyle::ShapeStyle(ShapeStyle&& other) noexcept : 
+	UIControlStyle::UIControlStyle(UIControlStyle&& other) noexcept : 
 		//propertyChangedEventListener(std::move(other.propertyChangedEventListener)),
 		_FillStyle(std::move(other._FillStyle)),
 		_LineStyle(std::move(other._LineStyle)),
@@ -76,7 +76,7 @@ namespace cx::Widget::Shape
 	{
 	}
 
-	ShapeStyle& ShapeStyle::operator=(ShapeStyle&& other) noexcept
+	UIControlStyle& UIControlStyle::operator=(UIControlStyle&& other) noexcept
 	{
 		if (this != &other)
 		{
@@ -89,124 +89,124 @@ namespace cx::Widget::Shape
 	}
 
 	//=======================================================================
-	void ShapeStyle::notifyPropertyChanged(void)
+	void UIControlStyle::notifyPropertyChanged(void)
 	{
-		//CX_RUNTIME_LOG(cxLTrace) << L"ShapeStyle::notifyPropertyChanged";
+		//CX_RUNTIME_LOG(cxLTrace) << L"UIControlStyle::notifyPropertyChanged";
 		propertyChangedEventListener.notify(
-			ItemStyle_PropertyChangedEvent,
+			UIControlStyle_PropertyChangedEvent,
 			nullptr
 		);
 	}
 
 	//=======================================================================
-	void ShapeStyle::fill_attachPropertyChangedEventHandler(void)
+	void UIControlStyle::fill_attachPropertyChangedEventHandler(void)
 	{
 		_FillStyle->propertyChangedEventListener.attach(
 			reinterpret_cast<std::uintptr_t>(this),
 			std::bind(
-				&ShapeStyle::fill_onPropertyChanged,
+				&UIControlStyle::fill_onPropertyChanged,
 				this,
 				std::placeholders::_1
 			)
 		);
 	}
 
-	void ShapeStyle::fill_detachPropertyChangedEventHandler(void)
+	void UIControlStyle::fill_detachPropertyChangedEventHandler(void)
 	{
 		_FillStyle->propertyChangedEventListener.detach(
 			reinterpret_cast<std::uintptr_t>(this)
 		);
 	}
 
-	void ShapeStyle::fill_onPropertyChanged(cx::ev::Event& /*event*/)
+	void UIControlStyle::fill_onPropertyChanged(cx::ev::Event& /*event*/)
 	{
 		/*
 		CX_RUNTIME_LOG(cxLTrace)
-			<< L"ShapeStyle::fill_onPropertyChanged:" << event.eventType()
+			<< L"UIControlStyle::fill_onPropertyChanged:" << event.eventType()
 			;
 		*/
 		notifyPropertyChanged();
 	}
 
 	//=======================================================================
-	void ShapeStyle::line_attachPropertyChangedEventHandler(void)
+	void UIControlStyle::line_attachPropertyChangedEventHandler(void)
 	{
 		_LineStyle->propertyChangedEventListener.attach(
 			reinterpret_cast<std::uintptr_t>(this),
 			std::bind(
-				&ShapeStyle::line_onPropertyChanged,
+				&UIControlStyle::line_onPropertyChanged,
 				this,
 				std::placeholders::_1
 			)
 		);
 	}
 
-	void ShapeStyle::line_detachPropertyChangedEventHandler(void)
+	void UIControlStyle::line_detachPropertyChangedEventHandler(void)
 	{
 		_LineStyle->propertyChangedEventListener.detach(
 			reinterpret_cast<std::uintptr_t>(this)
 		);
 	}
 
-	void ShapeStyle::line_onPropertyChanged(cx::ev::Event& /*event*/)
+	void UIControlStyle::line_onPropertyChanged(cx::ev::Event& /*event*/)
 	{	
 		/*
 		CX_RUNTIME_LOG(cxLTrace) 
-			<< L"ShapeStyle::line_onPropertyChanged:" << event.eventType()
+			<< L"UIControlStyle::line_onPropertyChanged:" << event.eventType()
 			;
 		*/
 		notifyPropertyChanged();
 	}
 
 	//=======================================================================
-	void ShapeStyle::text_attachPropertyChangedEventHandler(void)
+	void UIControlStyle::text_attachPropertyChangedEventHandler(void)
 	{
 		_TextStyle->propertyChangedEventListener.attach(
 			reinterpret_cast<std::uintptr_t>(this),
 			std::bind(
-				&ShapeStyle::text_onPropertyChanged,
+				&UIControlStyle::text_onPropertyChanged,
 				this,
 				std::placeholders::_1
 			)
 		);
 	}
 
-	void ShapeStyle::text_detachPropertyChangedEventHandler(void)
+	void UIControlStyle::text_detachPropertyChangedEventHandler(void)
 	{
 		_TextStyle->propertyChangedEventListener.detach(
 			reinterpret_cast<std::uintptr_t>(this)
 		);
 	}
 
-	void ShapeStyle::text_onPropertyChanged(cx::ev::Event& /*event*/)
+	void UIControlStyle::text_onPropertyChanged(cx::ev::Event& /*event*/)
 	{
 		/*
 		CX_RUNTIME_LOG(cxLTrace)
-			<< L"ShapeStyle::text_onPropertyChanged:" << event.eventType()
+			<< L"UIControlStyle::text_onPropertyChanged:" << event.eventType()
 			;
 		*/
 		notifyPropertyChanged();
 	}
 
 	//=======================================================================
-	FillStyle& ShapeStyle::fill() const
+	FillStyle& UIControlStyle::fill() const
 	{
 		return *_FillStyle;
 	}
 
-	LineStyle& ShapeStyle::line() const
+	LineStyle& UIControlStyle::line() const
 	{
 		return *_LineStyle;
 	}
 
-	TextStyle& ShapeStyle::text() const
+	TextStyle& UIControlStyle::text() const
 	{
 		return *_TextStyle;
 	}
 
-	void ShapeStyle::copyTo(ShapeStyle& dest) const
+	void UIControlStyle::copyTo(UIControlStyle& dest) const
 	{
-		//copyShapeStyle(
+		//copyUIControlStyle(
 		//	*this,
 		//	dest
 		//);
@@ -222,12 +222,12 @@ namespace cx::Widget::Shape
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-namespace cx::Widget::Shape
+namespace cx::Widget::UIControl
 {
 	//=======================================================================
-	void copyShapeStyle(
-		const ShapeStyle& source,
-		ShapeStyle& dest
+	void copyUIControlStyle(
+		const UIControlStyle& source,
+		UIControlStyle& dest
 	)
 	{
 		copyFillStyle(source.fill(), dest.fill());

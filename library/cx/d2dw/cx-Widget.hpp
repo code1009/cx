@@ -118,5 +118,15 @@ std::shared_ptr<const T> std::enable_shared_from_this<T>::shared_from_this() con
 
 
 
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+#include <cx/d2dw/ui/cx-Widget-UIControl-Style.hpp>
+#include <cx/d2dw/ui/cx-Widget-UIControl-Base.hpp>
+
+//===========================================================================
+#include <cx/d2dw/ui/cx-Widget-UIControl-Text.hpp>
+
+
+
 
 
