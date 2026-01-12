@@ -127,7 +127,20 @@ void MainFrame::onClose(cx::wui::WindowMessage& windowMessage)
 
 void MainFrame::onSize(cx::wui::WindowMessage& windowMessage)
 {
-	updateLayout();
+	//-----------------------------------------------------------------------
+	RECT rect;
+	::GetClientRect(*this, &rect);
+
+
+	//-----------------------------------------------------------------------
+	UINT cx;
+	UINT cy;
+	cx = static_cast<UINT>(rect.right - rect.left);
+	cy = static_cast<UINT>(rect.bottom - rect.top);
+
+
+	//-----------------------------------------------------------------------
+	updateLayout(cx, cy);
 }
 
 void MainFrame::onEraseBkgnd(cx::wui::WindowMessage& windowMessage)
@@ -245,18 +258,8 @@ void MainFrame::onIdle(void)
 	}
 }
 
-void MainFrame::updateLayout(void)
+void MainFrame::updateLayout(std::uint32_t cx, std::uint32_t cy)
 {
-	//-----------------------------------------------------------------------
-	RECT rect;
-	::GetClientRect(*this, &rect);
-	//-----------------------------------------------------------------------
-	UINT cx;
-	UINT cy;
-	cx = static_cast<UINT>(rect.right - rect.left);
-	cy = static_cast<UINT>(rect.bottom - rect.top);
-
-
 	//-----------------------------------------------------------------------
 	struct WindowLayoutPosition
 	{

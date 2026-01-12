@@ -88,6 +88,7 @@
     <ClCompile Include="src\Window\CommandPanel.cpp" />
     <ClCompile Include="src\Window\Designer.cpp" />
     <ClCompile Include="src\Window\UIController.cpp" />
+    <ClCompile Include="src\Window\UILayout.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Anchor.hpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="src\Window\CommandPanel.hpp" />
     <ClInclude Include="src\Window\Designer.hpp" />
     <ClInclude Include="src\Window\UIController.hpp" />
+    <ClInclude Include="src\Window\UILayout.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\res\Application.rc" />

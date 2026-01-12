@@ -204,6 +204,9 @@
     <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.cpp">
       <Filter>cx\d2dw\ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\UILayout.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.hpp">
       <Filter>cx\d2dw\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\UILayout.hpp">
+      <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

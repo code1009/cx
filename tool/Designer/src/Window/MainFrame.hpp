@@ -34,5 +34,5 @@ public:
 	void onIdle(void);
 
 public:
-	void updateLayout(void);
+	void updateLayout(std::uint32_t cx, std::uint32_t cy);
 };
