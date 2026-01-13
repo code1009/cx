@@ -17,6 +17,8 @@
 #include "../WindowHandler/WindowHandler.hpp"
 
 //===========================================================================
+#include "UILayout.hpp"
+
 #include "UIController.hpp"
 #include "Catalog.hpp"
 #include "Designer.hpp"
@@ -260,6 +262,7 @@ void MainFrame::onIdle(void)
 
 void MainFrame::updateLayout(std::uint32_t cx, std::uint32_t cy)
 {
+#if 0
 	//-----------------------------------------------------------------------
 	struct WindowLayoutPosition
 	{
@@ -347,6 +350,67 @@ void MainFrame::updateLayout(std::uint32_t cx, std::uint32_t cy)
 		wlp = &wlps[0];
 		::MoveWindow(*_View, wlp->x, wlp->y, wlp->cx, wlp->cy, TRUE);
 	}
+#endif
+	UILayoutManager layoutManager;
+	bool firstCol = true;
+
+	auto layoutChangedHandler = [this](UILayout* layout)
+		{
+			HWND hwnd = reinterpret_cast<HWND>(layout->_Item._Data);
+			if (hwnd != nullptr)
+			{
+				::MoveWindow(
+					hwnd,
+					static_cast<LONG>(layout->_Item._L),
+					static_cast<LONG>(layout->_Item._T),
+					static_cast<LONG>(layout->_Item._R - layout->_Item._L),
+					static_cast<LONG>(layout->_Item._B - layout->_Item._T),
+					TRUE
+				);
+			}
+		};
+
+	if (_CommandPanel)
+	{
+		UILayoutStyle uiLayoutStyle{ 200.0f, 0.0f, UIColStyle::Fixed, UIRowStyle::Fill };
+
+		layoutManager.add(
+			firstCol,
+			uiLayoutStyle,
+			layoutChangedHandler,
+			_CommandPanel.get()->getWindowHandle(),
+			0
+		);
+		firstCol = false;
+	}
+	if (_View)
+	{
+		UILayoutStyle uiLayoutStyle{ 0.0f, 0.0f, UIColStyle::Fill, UIRowStyle::Fill };
+
+		layoutManager.add(
+			firstCol,
+			uiLayoutStyle,
+			layoutChangedHandler,
+			_View.get()->getWindowHandle(),
+			0
+		);
+		firstCol = false;
+	}
+	if (_PropertyPanel)
+	{
+		UILayoutStyle uiLayoutStyle{ 250.0f, 0.0f, UIColStyle::Fixed, UIRowStyle::Fill };
+
+		layoutManager.add(
+			firstCol,
+			uiLayoutStyle,
+			layoutChangedHandler,
+			_PropertyPanel.get()->getWindowHandle(),
+			0
+		);
+		firstCol = false;
+	}
+
+	layoutManager.recalcLayout(static_cast<UICoord>(cx), static_cast<UICoord>(cy));
 }
 
 

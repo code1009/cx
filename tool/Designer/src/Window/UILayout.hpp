@@ -18,7 +18,10 @@ constexpr UICoord UICoordZero = static_cast<cx::Widget::Coord>(0.0f);
 enum class UIColStyle
 {
 	Fixed,
-	Fill
+	Fill,
+	Near,
+	Center,
+	Far,
 };
 
 enum class UIRowStyle
@@ -49,6 +52,16 @@ public:
 public:
 	UILayoutStyle() = default;
 	virtual ~UILayoutStyle() = default;
+
+public:
+	UILayoutStyle(
+		UICoord cx, UICoord cy, 
+		UIColStyle colStyle = UIColStyle::Fill, 
+		UIRowStyle rowStyle = UIRowStyle::Fixed
+	) :
+		_CX(cx), _CY(cy), _ColStyle(colStyle), _RowStyle(rowStyle)
+	{
+	}
 };
 
 
@@ -60,16 +73,26 @@ public:
 class UILayoutItem
 {
 public:
-	void* item{ nullptr };
+	std::uint32_t _Flag{ 0 };
+	void* _Data{ nullptr };
 	UICoord _L{ UICoordZero };
 	UICoord _T{ UICoordZero };
 	UICoord _R{ UICoordZero };
 	UICoord _B{ UICoordZero };
-	
 
 public:
 	UILayoutItem() = default;
 	virtual ~UILayoutItem() = default;
+
+public:
+	UILayoutItem(std::uint32_t flag, void* data) :
+		_Flag(flag), _Data(data)
+	{
+	}
+	UILayoutItem(void* data, std::uint32_t flag = 0) :
+		_Flag(flag), _Data(data)
+	{
+	}
 };
 
 
@@ -80,6 +103,9 @@ public:
 //===========================================================================
 class UILayout
 {
+public:
+	std::function<void(UILayout* uiLayout)> layoutChangedHandler;
+
 public:
 	UILayoutStyle _Style{ };
 	UILayoutItem _Item{ };
@@ -103,6 +129,8 @@ public:
 	UICoord _MinCY{ UICoordZero };
 	UIRowStyle _RowStyle{ UIRowStyle::Fixed };
 	UIColStyle _ColStyle{ UIColStyle::Fixed };
+	std::size_t _ColFixedCount{ 0 };
+	UICoord  _ColFixedCX{ UICoordZero };
 };
 
 
@@ -128,19 +156,22 @@ public:
 class UILayoutManager
 {
 	//-----------------------------------------------------------------------
-public:
-	UIGridLayout _Grid;
-	UICoord _X;
-	UICoord _Y;
-	UICoord _ViewCX;
-	UICoord _ViewCY;
-	UICoord _RemainingViewCX{ UICoordZero };
-	UICoord _RemainingViewCY{ UICoordZero };
+private:
+	UIGridLayout _Grid{};
 
-	UICoord _RowCY;
+private:
+	UICoord _ViewCX{ UICoordZero };
+	UICoord _ViewCY{ UICoordZero };
+	UICoord _RemainCX{ UICoordZero };
+	UICoord _RemainCY{ UICoordZero };
 
-	UICoord _CX;
-	UICoord _CY;
+private:
+	UICoord _X{ UICoordZero };
+	UICoord _Y{ UICoordZero };
+	UICoord _RowCY{ UICoordZero };
+	UICoord _RowCX{ UICoordZero };
+	UICoord _CX{ UICoordZero };
+	UICoord _CY{ UICoordZero };
 
 	//-----------------------------------------------------------------------
 public:
@@ -156,16 +187,23 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	void add(void* item, UILayoutStyle const& style, bool first = false);
+	void clear(void);
+	void add(
+		bool firstCol, 
+		UILayoutStyle const& style, 
+		std::function<void(UILayout*)> layoutChangedHandler = nullptr, 
+		void* data = nullptr, std::uint32_t itemFlag = 0
+	);
 
 	//-----------------------------------------------------------------------
-public:
-	void recalcLayout(UICoord cx, UICoord cy);
-
-public:
-	void recalcRowLayout(UIRowLayout& row);
+private:
+	void updateRow(UIRowLayout& row);
+	void updateGrid(void);
 
 private:
-	void updateGrid(void);
-	void updateRow(UIRowLayout& row);
+	void recalcItemLayout(UILayout& item, UICoord x, UICoord y, UICoord cx, UICoord cy);
+	void recalcRowLayout(UIRowLayout& row);
+
+public:
+	void recalcLayout(UICoord cx, UICoord cy);
 };
