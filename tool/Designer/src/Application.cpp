@@ -25,6 +25,7 @@
 #include "Window/Designer.hpp"
 #include "Window/View.hpp"
 #include "Window/CommandPanel.hpp"
+#include "Window/PropertyPanel.hpp"
 #include "Window/MainFrame.hpp"
 
 //===========================================================================

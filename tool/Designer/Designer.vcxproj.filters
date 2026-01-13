@@ -210,6 +210,9 @@
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Resource.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\PropertyPanel.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -424,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Resource.hpp">
       <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\PropertyPanel.hpp">
+      <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

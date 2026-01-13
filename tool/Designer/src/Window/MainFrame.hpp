@@ -11,7 +11,7 @@ class MainFrame :
 {
 private:
 	std::unique_ptr<CommandPanel> _CommandPanel;
-	std::unique_ptr<CommandPanel> _PropertyPanel;
+	std::unique_ptr<PropertyPanel> _PropertyPanel;
 	std::unique_ptr<View> _View;
 
 public:

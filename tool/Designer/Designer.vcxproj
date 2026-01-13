@@ -88,6 +88,7 @@
     <ClCompile Include="src\Window\Catalog.cpp" />
     <ClCompile Include="src\Window\CommandPanel.cpp" />
     <ClCompile Include="src\Window\Designer.cpp" />
+    <ClCompile Include="src\Window\PropertyPanel.cpp" />
     <ClCompile Include="src\Window\UIController.cpp" />
     <ClCompile Include="src\Window\UILayout.cpp" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="src\Window\Catalog.hpp" />
     <ClInclude Include="src\Window\CommandPanel.hpp" />
     <ClInclude Include="src\Window\Designer.hpp" />
+    <ClInclude Include="src\Window\PropertyPanel.hpp" />
     <ClInclude Include="src\Window\UIController.hpp" />
     <ClInclude Include="src\Window\UILayout.hpp" />
   </ItemGroup>

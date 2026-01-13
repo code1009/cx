@@ -25,6 +25,7 @@
 
 #include "View.hpp"
 #include "CommandPanel.hpp"
+#include "PropertyPanel.hpp"
 
 #include "MainFrame.hpp"
 
@@ -77,6 +78,7 @@ MainFrame::MainFrame()
 	//-----------------------------------------------------------------------
 	_View = std::make_unique<View>(*this);
 	_CommandPanel = std::make_unique<CommandPanel>(*this, _View->_Designer.get());
+	_PropertyPanel = std::make_unique<PropertyPanel>(*this, _View->_Designer.get());
 
 
 	//-----------------------------------------------------------------------
@@ -118,11 +120,20 @@ void MainFrame::onClose(cx::wui::WindowMessage& windowMessage)
 	_CommandPanel.reset();
 
 
+	if (_PropertyPanel)
+	{
+		_PropertyPanel->destroyWindow();
+	}
+	_PropertyPanel.reset();
+
+
 	if (_View)
 	{
 		_View->destroyWindow();
 	}
 	_View.reset();
+
+
 
 	destroyWindow();
 }

@@ -161,7 +161,7 @@ void UILayoutManager::recalcRowLayout(UIRowLayout& row)
 	{
 		if (row._ColFixedCount)
 		{
-			itemExpCX = remainCX / row._ColFixedCount;
+			itemExpCX = remainCX / (colCount - row._ColFixedCount);
 		}
 		else
 		{
