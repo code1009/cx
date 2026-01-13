@@ -15,16 +15,7 @@ constexpr UICoord UICoordZero = static_cast<cx::Widget::Coord>(0.0f);
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-enum class UIColStyle
-{
-	Fixed,
-	Fill,
-	Near,
-	Center,
-	Far,
-};
-
-enum class UIRowStyle
+enum class UILayoutAlignment
 {
 	Fixed,
 	Fill,
@@ -46,8 +37,8 @@ public:
 	UICoord _CY{ UICoordZero };
 
 public:
-	UIColStyle _ColStyle{ UIColStyle::Fill };
-	UIRowStyle _RowStyle{ UIRowStyle::Fixed };
+	UILayoutAlignment _ColAlignment{ UILayoutAlignment::Fill };
+	UILayoutAlignment _RowAlignment{ UILayoutAlignment::Fixed };
 
 public:
 	UILayoutStyle() = default;
@@ -56,10 +47,10 @@ public:
 public:
 	UILayoutStyle(
 		UICoord cx, UICoord cy, 
-		UIColStyle colStyle = UIColStyle::Fill, 
-		UIRowStyle rowStyle = UIRowStyle::Fixed
+		UILayoutAlignment colAlignment = UILayoutAlignment::Fill,
+		UILayoutAlignment rowAlignment = UILayoutAlignment::Fixed
 	) :
-		_CX(cx), _CY(cy), _ColStyle(colStyle), _RowStyle(rowStyle)
+		_CX(cx), _CY(cy), _ColAlignment(colAlignment), _RowAlignment(rowAlignment)
 	{
 	}
 };
@@ -127,8 +118,8 @@ public:
 	std::vector<UILayout> _Cols;
 	UICoord _MinCX{ UICoordZero };
 	UICoord _MinCY{ UICoordZero };
-	UIRowStyle _RowStyle{ UIRowStyle::Fixed };
-	UIColStyle _ColStyle{ UIColStyle::Fixed };
+	UILayoutAlignment _ColAlignment{ UILayoutAlignment::Fixed };
+	UILayoutAlignment _RowAlignment{ UILayoutAlignment::Fixed };
 	std::size_t _ColFixedCount{ 0 };
 	UICoord  _ColFixedCX{ UICoordZero };
 };

@@ -67,8 +67,8 @@ void UILayoutManager::updateRow(UIRowLayout& row)
 {
 	row._MinCX = UICoordZero;
 	row._MinCY = UICoordZero;
-	row._RowStyle = UIRowStyle::Fixed;
-	row._ColStyle = UIColStyle::Fixed;
+	row._RowAlignment = UILayoutAlignment::Fixed;
+	row._ColAlignment = UILayoutAlignment::Fixed;
 	row._ColFixedCount = 0;
 	row._ColFixedCX = UICoordZero;
 
@@ -83,16 +83,16 @@ void UILayoutManager::updateRow(UIRowLayout& row)
 			row._MinCY = cy;
 		}
 
-		if (layout._Style._RowStyle != UIRowStyle::Fixed)
+		if (layout._Style._RowAlignment != UILayoutAlignment::Fixed)
 		{
-			row._RowStyle = UIRowStyle::Fill;
+			row._RowAlignment = UILayoutAlignment::Fill;
 		}
-		if (layout._Style._ColStyle != UIColStyle::Fixed)
+		if (layout._Style._ColAlignment != UILayoutAlignment::Fixed)
 		{
-			row._ColStyle = UIColStyle::Fill;
+			row._ColAlignment = UILayoutAlignment::Fill;
 		}
 
-		if (layout._Style._ColStyle == UIColStyle::Fixed)
+		if (layout._Style._ColAlignment == UILayoutAlignment::Fixed)
 		{
 			row._ColFixedCount++;
 			row._ColFixedCX += cx;
@@ -186,25 +186,25 @@ void UILayoutManager::recalcRowLayout(UIRowLayout& row)
 	y = _Y;
 	for (auto& layout : row._Cols)
 	{
-		switch (layout._Style._ColStyle)
+		switch (layout._Style._ColAlignment)
 		{
-		case UIColStyle::Fixed:
+		case UILayoutAlignment::Fixed:
 			itemCX = layout._Style._CX;
 			itemOffsetX = UICoordZero;
 			break;
-		case UIColStyle::Fill:
+		case UILayoutAlignment::Fill:
 			itemCX = layout._Style._CX + itemExpCX;
 			itemOffsetX = UICoordZero;
 			break;
-		case UIColStyle::Near:
+		case UILayoutAlignment::Near:
 			itemCX = layout._Style._CX;
 			itemOffsetX = UICoordZero;
 			break;
-		case UIColStyle::Center:
+		case UILayoutAlignment::Center:
 			itemCX = layout._Style._CX;
 			itemOffsetX = (itemExpCX / 2);
 			break;
-		case UIColStyle::Far:
+		case UILayoutAlignment::Far:
 			itemCX = layout._Style._CX;
 			itemOffsetX = itemExpCX;
 			break;
@@ -214,25 +214,25 @@ void UILayoutManager::recalcRowLayout(UIRowLayout& row)
 			break;
 		}
 
-		switch (layout._Style._RowStyle)
+		switch (layout._Style._RowAlignment)
 		{
-		case UIRowStyle::Fixed:
+		case UILayoutAlignment::Fixed:
 			itemCY = layout._Style._CY;
 			itemOffsetY = UICoordZero;
 			break;
-		case UIRowStyle::Fill:
+		case UILayoutAlignment::Fill:
 			itemCY = layout._Style._CY + itemExpCY;
 			itemOffsetY = UICoordZero;
 			break;
-		case UIRowStyle::Near:
+		case UILayoutAlignment::Near:
 			itemCY = layout._Style._CY;
 			itemOffsetY = UICoordZero;
 			break;
-		case UIRowStyle::Center:
+		case UILayoutAlignment::Center:
 			itemCY = layout._Style._CY;
 			itemOffsetY = (itemExpCY / 2);
 			break;
-		case UIRowStyle::Far:
+		case UILayoutAlignment::Far:
 			itemCY = layout._Style._CY;
 			itemOffsetY = itemExpCY;
 			break;
@@ -308,7 +308,7 @@ void UILayoutManager::recalcLayout(UICoord cx, UICoord cy)
 	//-----------------------------------------------------------------------
 	for (auto& row : _Grid._Rows)
 	{
-		if (row._ColStyle != UIColStyle::Fixed)
+		if (row._ColAlignment != UILayoutAlignment::Fixed)
 		{
 			_RowCX = row._MinCX + itemExpCX;
 		}
@@ -316,7 +316,7 @@ void UILayoutManager::recalcLayout(UICoord cx, UICoord cy)
 		{
 			_RowCX = row._MinCX;
 		}
-		if (row._RowStyle != UIRowStyle::Fixed)
+		if (row._RowAlignment != UILayoutAlignment::Fixed)
 		{
 			_RowCY = row._MinCY + itemExpCY;
 		}
