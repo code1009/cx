@@ -15,6 +15,11 @@ namespace cx::Widget::UIControl
 		virtual void copyTo(std::shared_ptr<Item> const& dest) const override;
 
 	public:
+		virtual void registerEventHandler(cx::ev::target::EventHandlerRegistry& eventHandlerRegistry) override;
+		void onItemPointerPressed(cx::ev::Event& event);
+		void onItemPointerReleased(cx::ev::Event& event);
+
+	public:
 		virtual void drawContent(DrawingContext& dctx) override;
 	};
 }

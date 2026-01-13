@@ -33,6 +33,50 @@ namespace cx::Widget::UIControl
 	}
 
 	//=======================================================================
+	void Button::registerEventHandler(cx::ev::target::EventHandlerRegistry& eventHandlerRegistry)
+	{
+		eventHandlerRegistry.registerEventHandler(
+			ItemPointerPressedEvent,
+			shared_from_this(),
+			std::bind(
+				&Button::onItemPointerPressed,
+				this,
+				std::placeholders::_1
+			)
+		);
+		eventHandlerRegistry.registerEventHandler(
+			ItemPointerReleasedEvent,
+			shared_from_this(),
+			std::bind(
+				&Button::onItemPointerReleased,
+				this,
+				std::placeholders::_1
+			)
+		);
+	}
+
+	//=======================================================================
+	void Button::onItemPointerPressed(cx::ev::Event& event)
+	{
+		std::shared_ptr<ItemPointerEventData> eventData = event.eventDataAs<ItemPointerEventData>();
+		Point PointerPressedPosition = eventData->_PointerPosition;;
+
+		CX_RUNTIME_LOG(cxLTrace)
+			<< L"Button::onItemPointerPressed:" << event.eventType()
+			;
+	}
+
+	void Button::onItemPointerReleased(cx::ev::Event& event)
+	{
+		std::shared_ptr<ItemPointerEventData> eventData = event.eventDataAs<ItemPointerEventData>();
+		Point PointerPressedPosition = eventData->_PointerPosition;;
+
+		CX_RUNTIME_LOG(cxLTrace)
+			<< L"Button::onItemPointerReleased:" << event.eventType()
+			;
+	}
+
+	//=======================================================================
 	void Button::drawContent(DrawingContext& dctx)
 	{
 		auto& points = getPoints();

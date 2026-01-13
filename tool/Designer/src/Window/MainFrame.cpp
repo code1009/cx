@@ -320,7 +320,7 @@ void MainFrame::updateLayout(std::uint32_t cx, std::uint32_t cy)
 	}
 	if (_PropertyPanel)
 	{
-		UILayoutStyle uiLayoutStyle{ 250.0f, 0.0f, UILayoutAlignment::Fixed, UILayoutAlignment::Fill };
+		UILayoutStyle uiLayoutStyle{ 300.0f, 0.0f, UILayoutAlignment::Fixed, UILayoutAlignment::Fill };
 
 		layoutManager.add(
 			firstCol,
