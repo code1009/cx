@@ -48,9 +48,28 @@ void DeviceResource::unregisterDeviceResource(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+DeviceResourceManager::~DeviceResourceManager()
+{
+	releaseDeviceResources();
+	_DeviceResources.clear();
+}
+
+//===========================================================================
 void DeviceResourceManager::registerDeviceResource(DeviceResource* deviceResource)
 {
-	_DeviceResources.push_back(deviceResource);
+	auto it = std::find(
+		_DeviceResources.begin(),
+		_DeviceResources.end(),
+		deviceResource
+	);
+	if (it == _DeviceResources.end())
+	{
+		_DeviceResources.push_back(deviceResource);
+	}
+	else
+	{
+		CX_RUNTIME_ASSERT(0);
+	}
 }
 
 void DeviceResourceManager::unregisterDeviceResource(DeviceResource* deviceResource)
@@ -63,6 +82,10 @@ void DeviceResourceManager::unregisterDeviceResource(DeviceResource* deviceResou
 	if (it != _DeviceResources.end())
 	{
 		_DeviceResources.erase(it);
+	}
+	else
+	{
+		CX_RUNTIME_ASSERT(0);
 	}
 }
 

@@ -57,7 +57,7 @@ private:
 
 public:
 	DeviceResourceManager() = default;
-	virtual ~DeviceResourceManager() = default;
+	virtual ~DeviceResourceManager();
 
 public:
 	DeviceResourceManager(const DeviceResourceManager&) = delete;
