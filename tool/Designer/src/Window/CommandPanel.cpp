@@ -361,6 +361,7 @@ void CommandPanel::setupUIControlls(void)
 			item->text(info.label);
 			item->name(info.label);
 			_UIController->_View->model().add(item);
+			item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
 
 
 			_UIController->_View->eventHandlerRegistry().registerEventHandler(
@@ -445,6 +446,7 @@ void CommandPanel::setupUIControlls(void)
 			//item->uiControlStyle().line().lineSize(0.0f);
 			item->uiControlStyle().text().textColor(Colors::White());
 			_UIController->_View->model().add(item);
+			item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
 
 
 			_UIController->_View->eventHandlerRegistry().registerEventHandler(

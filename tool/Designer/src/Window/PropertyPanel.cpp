@@ -268,14 +268,14 @@ void PropertyPanel::setupUIControlls(void)
 
 
 	//-----------------------------------------------------------------------
-	using Control = UIControl::Label;
+	using Control = UIControl::Button;
 
 
 	//-----------------------------------------------------------------------
 	auto layoutChangedHandler = [this](UILayout* layout)
 		{
 			using namespace cx::Widget;
-			using Control = UIControl::Label;
+			using Control = UIControl::Button;
 
 			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
 
@@ -299,6 +299,7 @@ void PropertyPanel::setupUIControlls(void)
 			item->text(info.label);
 			item->name(info.label);
 			_UIController->_View->model().add(item);
+			item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
 
 
 			_UIController->_View->eventHandlerRegistry().registerEventHandler(
@@ -306,7 +307,7 @@ void PropertyPanel::setupUIControlls(void)
 				item,
 				[this](cx::ev::Event& event)
 				{
-					using Control = UIControl::Label;
+					using Control = UIControl::Button;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
@@ -326,6 +327,7 @@ void PropertyPanel::setupUIControlls(void)
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
 			_UIController->_View->model().add(item);
+			item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
 
 
 			_UILayoutManager->add(
