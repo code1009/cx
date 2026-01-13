@@ -21,6 +21,8 @@
 #include "Designer.hpp"
 #include "View.hpp"
 
+#include "FontFamilies.hpp"
+
 
 
 
@@ -70,6 +72,7 @@ Designer::Designer(HWND hwnd) :
 
 	//-----------------------------------------------------------------------
 	loadCatalog();
+	loadFontFamilies();
 }
 
 Designer::~Designer()
@@ -376,6 +379,11 @@ void Designer::loadCatalog(void)
 
 	_Catalog->addSpare();
 	_Catalog->addLabel(L"테스트");
+}
+
+void Designer::loadFontFamilies(void)
+{
+	_FontFamilies = getFontFamilies();
 }
 
 //===========================================================================

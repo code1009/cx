@@ -53,6 +53,11 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
+	void loadFontFamilies(void);
+	auto const& fontFamilies() const { return _FontFamilies; }
+
+	//-----------------------------------------------------------------------
+public:
 	void resize(std::uint32_t cx, std::uint32_t cy);
 	void invalidate(void);
 
