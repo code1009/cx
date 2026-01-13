@@ -1008,35 +1008,9 @@ namespace cx::Widget
 
 	void View::resetTransform(DrawingContext& dctx)
 	{
-#if 0
-		//winrt::Windows::Foundation::Numerics::float3x2 identity = winrt::Windows::Foundation::Numerics::float3x2::identity();
-		//dctx.Transform(identity);
-
-		winrt::Windows::Foundation::Numerics::float3x2 translate = winrt::Windows::Foundation::Numerics::make_float3x2_translation(
-			viewContext().windowScrollOffset().X,
-			viewContext().windowScrollOffset().Y
-		);
-		dctx.Transform(translate);
-#endif
-		// TODO
-#if 1
 		D2D1::Matrix3x2F matrix;
 		matrix = D2D1::Matrix3x2F::Identity();
 		dctx.Transform(matrix);
-#endif
-#if 0
-		Coord translationX = viewContext().windowScrollOffset().X;
-		Coord translationY = viewContext().windowScrollOffset().Y;
-
-
-		D2D1::Matrix3x2F matrixTranslate;
-		matrixTranslate =
-			D2D1::Matrix3x2F::Translation(
-				static_cast<FLOAT>(translationX),
-				static_cast<FLOAT>(translationY)
-			);
-		dctx.Transform(matrixTranslate);
-#endif
 	}
 
 	//=======================================================================

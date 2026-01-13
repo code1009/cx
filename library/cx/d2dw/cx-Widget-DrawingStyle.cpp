@@ -226,30 +226,6 @@ namespace cx::Widget
 	//=======================================================================
 	void TextStyle::updateTextFormat(void)
 	{
-#if 0
-		_TextFormat.FontFamily(_FontFamily.c_str());
-		_TextFormat.FontSize(_FontSize);
-		_TextFormat.FontWeight(
-			_FontBold ? winrt::Microsoft::UI::Text::FontWeights::Bold() : winrt::Microsoft::UI::Text::FontWeights::Normal()
-		);
-		_TextFormat.FontStyle(
-			_FontItalic ? winrt::Windows::UI::Text::FontStyle::Italic : winrt::Windows::UI::Text::FontStyle::Normal
-		);
-
-
-		_TextFormat.HorizontalAlignment(
-			_TextHAlignment
-		);
-		_TextFormat.VerticalAlignment(
-			_TextVAlignment
-		);
-
-
-		_TextFormat.WordWrapping(
-			winrt::Microsoft::Graphics::Canvas::Text::CanvasWordWrapping::Wrap
-		);
-#endif
-		// TODO
 		_TextFormat.FontFamily(_FontFamily);
 		_TextFormat.FontSize(_FontSize);
 		_TextFormat.FontWeight(
