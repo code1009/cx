@@ -327,12 +327,13 @@ void CommandPanel::setupUIControlls(void)
 
 
 	//-----------------------------------------------------------------------
+	/*
 	Point lt;
 	Point rb;
 
 	Coord y = 0.0;
 	Coord cy = 25;
-
+	*/
 
 	//-----------------------------------------------------------------------
 	//using Control = UIControl::Text;
@@ -342,17 +343,18 @@ void CommandPanel::setupUIControlls(void)
 	//-----------------------------------------------------------------------
 	for (auto info : _CommandInfos)
 	{
+		/*
 		lt.X = 0; 
 		lt.Y = y;
 		rb.X = 100; 
 		rb.Y = y + cy;
-
+		*/
 
 		if (info.type == L"NewItem")
 		{
 			auto item = std::make_shared<Control>();
-			item->setPoint(0, lt);
-			item->setPoint(1, rb);
+			//item->setPoint(0, lt);
+			//item->setPoint(1, rb);
 			item->text(info.label);
 			item->name(info.label);
 			//item->uiControlStyle().text().textHAlignment(TextHAlignment::Left);
@@ -397,8 +399,8 @@ void CommandPanel::setupUIControlls(void)
 		else if (info.type == L"Label")
 		{
 			auto item = std::make_shared<Control>();
-			item->setPoint(0, lt);
-			item->setPoint(1, rb);
+			//item->setPoint(0, lt);
+			//item->setPoint(1, rb);
 			item->text(info.label);
 			//item->uiControlStyle().text().textColor(Color(255, 0, 0, 255));
 			//item->uiControlStyle().text().textHAlignment(TextHAlignment::Center);
@@ -450,16 +452,18 @@ void CommandPanel::setupUIControlls(void)
 		{
 		}
 
-		y += cy;
+	//	y += cy;
 	}
 
 
 	//-----------------------------------------------------------------------
+/*
 	auto viewCx = _UIController->_View->viewContext().width();
 	auto viewCy = _UIController->_View->viewContext().height();
 
 	viewCy = y;
 	_UIController->_View->viewContext().setSize(viewCx, viewCy);
+	*/
 }
 
 void CommandPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
@@ -469,14 +473,18 @@ void CommandPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 
 
 	//-----------------------------------------------------------------------
+	Point lt;
+	Point rb;
+
+
+	//-----------------------------------------------------------------------
 	std::size_t count = _UIController->_View->model().size();
 	for (std::size_t i = 0; i < count; i++)
 	{
 		auto item = _UIController->_View->model().at(i);
 		if (item)
 		{
-			Point lt;
-			Point rb;
+
 			lt.X = 0; 
 			lt.Y = static_cast<Coord>(i * 25);
 			rb.X = static_cast<Coord>(cx); 
@@ -485,6 +493,13 @@ void CommandPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 			item->setPoint(1, rb);
 		}
 	}
+
+	auto viewCx = _UIController->_View->viewContext().width();
+	auto viewCy = _UIController->_View->viewContext().height();
+
+	viewCy = rb.Y;
+
+	_UIController->_View->viewContext().setSize(viewCx, viewCy);
 }
 
 //===========================================================================

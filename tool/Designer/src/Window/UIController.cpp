@@ -88,7 +88,8 @@ void UIController::setupCanvasView(void)
 	_Canvas->drawingHandler =
 		[this](cx::d2d::DrawingSession* drawingSession)
 		{
-			drawingSession->Clear(cx::d2d::Colors::LightGray());
+			//drawingSession->Clear(cx::d2d::Colors::LightGray());
+			drawingSession->Clear(cx::d2d::Colors::White());
 			_View->draw(*drawingSession);
 		}
 	;
