@@ -94,6 +94,9 @@ void DrawingSession::DrawText(std::wstring const& text, float x, float y, float 
 
 
 		format._Value = DWriteTextFormat;
+
+		
+		format.registerDeviceResource(_Context->getDeviceResourceManager());
 	}
 
 

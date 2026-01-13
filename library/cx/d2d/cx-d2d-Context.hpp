@@ -33,6 +33,9 @@ private:
 	wil::com_ptr_nothrow<ID2D1StrokeStyle> _CurrentStrokeStyle;
 	wil::com_ptr_nothrow<IDWriteTextFormat> _CurrentTextFormat;
 
+private:
+	std::unique_ptr<DeviceResourceManager> _DeviceResourceManager;
+
 public:
 	explicit Context(HWND hwnd, Factory* factory);
 	virtual ~Context();
@@ -77,6 +80,9 @@ public:
 	wil::com_ptr_nothrow<ID2D1SolidColorBrush>& getCurrentSolidColorBrush(void);
 	wil::com_ptr_nothrow<ID2D1StrokeStyle>& getCurrentStrokeStyle(void);
 	wil::com_ptr_nothrow<IDWriteTextFormat>& getCurrentTextFormat(void);
+
+public:
+	DeviceResourceManager* getDeviceResourceManager(void);
 };
 
 

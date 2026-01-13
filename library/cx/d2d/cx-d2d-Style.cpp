@@ -18,6 +18,12 @@ namespace cx::d2d
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+void TextFormat::releaseDeviceResources(void)
+{
+	_Value.reset();
+}
+
+//===========================================================================
 void TextFormat::FontFamily(std::wstring fontFamily)
 {
 	if (fontFamily!= _FontFamily)

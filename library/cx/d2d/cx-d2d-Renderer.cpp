@@ -89,6 +89,8 @@ void Renderer::destroyDeviceResources(void)
 		<< L"destroyDeviceResources()"
 		;
 
+	_Context->getDeviceResourceManager()->releaseDeviceResources();
+
 
 	_Context->destroyResources();
 
