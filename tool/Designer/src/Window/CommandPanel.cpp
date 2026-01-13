@@ -361,7 +361,6 @@ void CommandPanel::setupUIControlls(void)
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
 			item->name(info.label);
-			//item->uiControlStyle().text().textHAlignment(TextHAlignment::Left);
 			item->shapeStyle().fill().fillColor(Colors::LightGray());
 			item->shapeStyle().line().lineSize(0.0f);
 			item->shapeStyle().text().textColor(Colors::Black());
@@ -400,6 +399,36 @@ void CommandPanel::setupUIControlls(void)
 				}
 			);
 
+			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+				ItemPointerOverEvent,
+				item,
+				[this](cx::ev::Event& event)
+				{
+					using Control = Shape::Rectangle;
+					auto eventType = event.eventType();
+					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+					std::shared_ptr<Control> item =
+						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+					item->shapeStyle().fill().fillColor(Colors::LightSkyBlue());
+				}
+			);
+			
+			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+				ItemPointerLeaveEvent,
+				item,
+				[this](cx::ev::Event& event)
+				{
+					using Control = Shape::Rectangle;
+					auto eventType = event.eventType();
+					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+					std::shared_ptr<Control> item =
+						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+					item->shapeStyle().fill().fillColor(Colors::LightGray());
+				}
+			);
+
 			_UILayoutManager->add(
 				true,
 				uiLayoutStyle,
@@ -411,11 +440,9 @@ void CommandPanel::setupUIControlls(void)
 		{
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
-			//item->uiControlStyle().text().textColor(Color(255, 0, 0, 255));
-			//item->uiControlStyle().text().textHAlignment(TextHAlignment::Center);
-			item->shapeStyle().text().textColor(Colors::White());
-			item->shapeStyle().text().textHAlignment(TextHAlignment::Center);
+			item->shapeStyle().fill().fillColor(Colors::DarkBlue());
 			item->shapeStyle().line().lineSize(0.0f);
+			item->shapeStyle().text().textColor(Colors::White());
 			_UIController->_View->model().add(item);
 
 
