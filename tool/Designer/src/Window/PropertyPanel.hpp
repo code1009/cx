@@ -47,9 +47,9 @@ public:
 	void onSize(cx::wui::WindowMessage& windowMessage);
 	void onEraseBkgnd(cx::wui::WindowMessage& windowMessage);
 	void onPaint(cx::wui::WindowMessage& windowMessage);
-	void onProperty(cx::wui::WindowMessage& windowMessage);
-	void onMenuProperty(cx::wui::WindowMessage& windowMessage);
-	void onCtlProperty(cx::wui::WindowMessage& windowMessage);
+	void onCommand(cx::wui::WindowMessage& windowMessage);
+	void onMenuCommand(cx::wui::WindowMessage& windowMessage);
+	void onCtlCommand(cx::wui::WindowMessage& windowMessage);
 
 	//-----------------------------------------------------------------------
 public:

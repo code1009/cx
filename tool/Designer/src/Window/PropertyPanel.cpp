@@ -185,7 +185,7 @@ void PropertyPanel::registerWindowMessageMap(void)
 	_WindowMessageMap[WM_SIZE] = &PropertyPanel::onSize;
 	_WindowMessageMap[WM_ERASEBKGND] = &PropertyPanel::onEraseBkgnd;
 	_WindowMessageMap[WM_PAINT] = &PropertyPanel::onPaint;
-	_WindowMessageMap[WM_COMMAND] = &PropertyPanel::onProperty;
+	_WindowMessageMap[WM_COMMAND] = &PropertyPanel::onCommand;
 }
 
 void PropertyPanel::onSize(cx::wui::WindowMessage& windowMessage)
@@ -241,22 +241,22 @@ void PropertyPanel::onPaint(cx::wui::WindowMessage& windowMessage)
 	::ValidateRect(*this, nullptr);
 }
 
-void PropertyPanel::onProperty(cx::wui::WindowMessage& windowMessage)
+void PropertyPanel::onCommand(cx::wui::WindowMessage& windowMessage)
 {
 	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
 
 	if (wm.wndCtl() == nullptr)
 	{
-		onMenuProperty(windowMessage);
+		onMenuCommand(windowMessage);
 	}
 	else
 	{
-		onCtlProperty(windowMessage);
+		onCtlCommand(windowMessage);
 	}
 }
 
-void PropertyPanel::onMenuProperty(cx::wui::WindowMessage& windowMessage)
+void PropertyPanel::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 {
 	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
@@ -270,7 +270,7 @@ void PropertyPanel::onMenuProperty(cx::wui::WindowMessage& windowMessage)
 	}
 }
 
-void PropertyPanel::onCtlProperty(cx::wui::WindowMessage& windowMessage)
+void PropertyPanel::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 {
 	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
 
