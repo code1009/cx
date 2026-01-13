@@ -27,7 +27,7 @@ private:
 
 	//-----------------------------------------------------------------------
 public:
-	UILayoutManager _UILayoutManager;
+	std::unique_ptr<UILayoutManager> _UILayoutManager;
 	std::unique_ptr<UIController> _UIController;
 	std::unique_ptr<cx::wui::dragdrop::WindowDropSourceNotifier> _DropSourceNotifier;
 

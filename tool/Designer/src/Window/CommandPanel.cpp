@@ -335,6 +335,25 @@ void CommandPanel::setupUIControlls(void)
 
 
 	//-----------------------------------------------------------------------
+	auto layoutChangedHandler = [this](UILayout* layout)
+		{
+			using namespace cx::Widget;
+			using Control = Shape::Rectangle;
+
+			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
+
+			item->setPoint(0, Point(layout->_Item._L + 5, layout->_Item._T + 5));
+			item->setPoint(1, Point(layout->_Item._R - 5, layout->_Item._B - 1));
+		};
+
+	UILayoutStyle uiLayoutStyle {
+		static_cast<Coord>(0), static_cast<Coord>(35),
+		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
+	};
+	_UILayoutManager = std::make_unique<UILayoutManager>();
+
+
+	//-----------------------------------------------------------------------
 	for (auto info : _CommandInfos)
 	{
 		if (info.type == L"NewItem")
@@ -379,6 +398,13 @@ void CommandPanel::setupUIControlls(void)
 
 					item->shapeStyle().fill().fillColor(Colors::LightGray());
 				}
+			);
+
+			_UILayoutManager->add(
+				true,
+				uiLayoutStyle,
+				layoutChangedHandler,
+				reinterpret_cast<void*>(item.get())
 			);
 		}
 		else if (info.type == L"Label")
@@ -430,65 +456,37 @@ void CommandPanel::setupUIControlls(void)
 				)
 				*/
 			);
+
+			_UILayoutManager->add(
+				true,
+				uiLayoutStyle,
+				layoutChangedHandler,
+				reinterpret_cast<void*>(item.get())
+			);
 		}
 		else if (info.type == L"Spare")
 		{
+			_UILayoutManager->add(
+				true,
+				uiLayoutStyle
+			);
 		}
 	}
 }
 
 void CommandPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 {
-	//-----------------------------------------------------------------------
-	auto layoutChangedHandler = [this](UILayout* layout)
-		{
-			using namespace cx::Widget;
-			using Control = Shape::Rectangle;
-
-			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
-
-			item->setPoint(0, Point(layout->_Item._L + 5, layout->_Item._T + 5));
-			item->setPoint(1, Point(layout->_Item._R - 5, layout->_Item._B - 1));
-		};
-
-
-	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
-	using Control = Shape::Rectangle;
 
 
-	//-----------------------------------------------------------------------
-	_UILayoutManager.clear();
-
-
-	//-----------------------------------------------------------------------
-	std::size_t count = _UIController->_View->model().size();
-	for (std::size_t i = 0; i < count; i++)
+	if (_UILayoutManager)
 	{
-		auto item = _UIController->_View->model().at(i);
+		_UILayoutManager->recalcLayout(static_cast<Coord>(cx), static_cast<Coord>(cy));
 
-
-		UILayoutStyle uiLayoutStyle {
-			static_cast<Coord>(cx), static_cast<Coord>(35),
-			UILayoutAlignment::Fixed, UILayoutAlignment::Fixed
-		};
-		_UILayoutManager.add(
-			true,
-			uiLayoutStyle,
-			layoutChangedHandler,
-			reinterpret_cast<void*>(item.get())
-		);
+		auto viewCx = static_cast<Coord>(_UILayoutManager->getCX());
+		auto viewCy = static_cast<Coord>(_UILayoutManager->getCY());
+		_UIController->_View->viewContext().setSize(viewCx, viewCy);
 	}
-
-
-	//-----------------------------------------------------------------------
-	_UILayoutManager.recalcLayout(static_cast<Coord>(cx), static_cast<Coord>(cy));
-
-
-	//-----------------------------------------------------------------------
-	auto viewCx = static_cast<Coord>(_UILayoutManager.getCX());
-	auto viewCy = static_cast<Coord>(_UILayoutManager.getCY());
-	_UIController->_View->viewContext().setSize(viewCx, viewCy);
 }
 
 //===========================================================================
