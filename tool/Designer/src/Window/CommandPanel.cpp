@@ -347,7 +347,7 @@ void CommandPanel::setupUIControlls(void)
 		};
 
 	UILayoutStyle uiLayoutStyle {
-		static_cast<Coord>(0), static_cast<Coord>(35),
+		static_cast<Coord>(100), static_cast<Coord>(35),
 		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
 	};
 	_UILayoutManager = std::make_unique<UILayoutManager>();
@@ -409,6 +409,11 @@ void CommandPanel::setupUIControlls(void)
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
 						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+					if (_UIController->_View->eventGenerator().isPointerCaptured())
+					{
+						return;
+					}
 
 					item->shapeStyle().fill().fillColor(Colors::LightSkyBlue());
 				}
