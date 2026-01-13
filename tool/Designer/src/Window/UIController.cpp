@@ -27,37 +27,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static std::wstring std_uint8_t_vector_to_std_wstring(std::vector<std::uint8_t> const& dataBuffer)
-{
-	std::wstring result;
-
-	if (dataBuffer.size() < 2 || dataBuffer.size() % 2 != 0)
-	{
-		return result;
-	}
-
-	result.resize(dataBuffer.size() / 2);
-
-	for (std::size_t i = 0; i < result.size(); ++i)
-	{
-		std::size_t byteIndex = i * 2;
-
-		wchar_t ch = 
-			static_cast<wchar_t>(dataBuffer[byteIndex]) |
-			(static_cast<wchar_t>(dataBuffer[byteIndex + 1]) << 8);
-
-		result[i] = ch;
-	}
-
-	return result;
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 UIController::UIController(HWND hwnd) :
 	_Hwnd(hwnd)
 {
@@ -80,6 +49,7 @@ void UIController::setupCanvasView(void)
 {
 	//-----------------------------------------------------------------------
 	_View = std::make_unique<cx::Widget::View>(cx::Widget::DefaultViewWidth, cx::Widget::DefaultViewHeight, false);
+	_View->viewBackground().fillStyle().fillColor(cx::d2d::Colors::Gainsboro());
 
 
 	//-----------------------------------------------------------------------
@@ -88,8 +58,8 @@ void UIController::setupCanvasView(void)
 	_Canvas->drawingHandler =
 		[this](cx::d2d::DrawingSession* drawingSession)
 		{
-			//drawingSession->Clear(cx::d2d::Colors::LightGray());
-			drawingSession->Clear(cx::d2d::Colors::White());
+			drawingSession->Clear(cx::d2d::Colors::Gainsboro());
+			//drawingSession->Clear(cx::d2d::Colors::White());
 			_View->draw(*drawingSession);
 		}
 	;

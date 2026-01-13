@@ -32,20 +32,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-static std::vector<std::uint8_t> std_wstring_to_std_uint8_t_vector(std::wstring const& str)
-{
-	std::size_t size = (str.size()) * sizeof(wchar_t);
-	std::vector<std::uint8_t> data(size);
-	std::memcpy(data.data(), str.c_str(), size);
-	return data;
-}
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 constexpr LPCWSTR PropertyPanel_WindowClassName = L"PropertyPanel";
 
 
@@ -77,54 +63,6 @@ PropertyPanel::PropertyPanel(HWND parentWindowHandle, Designer* designer) :
 
 	//-----------------------------------------------------------------------
 	_UIController = std::make_unique<UIController>(hwnd);
-	_UIController->_MouseHandler->mouseMoveHandler =
-		[this](cx::wui::WindowMessage& windowMessage) -> bool
-		{
-			cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
-
-			POINT pt = wm.point();
-			UINT flag = wm.nFlags();
-			bool controlKeyPressed = (flag & MK_CONTROL) != 0;
-			bool shiftKeyPressed = (flag & MK_SHIFT) != 0;
-
-			//-----------------------------------------------------------------------
-			RECT rect;
-			::GetClientRect(*this, &rect);
-			//-----------------------------------------------------------------------
-			UINT cx;
-			UINT cy;
-			cx = static_cast<UINT>(rect.right - rect.left);
-			cy = static_cast<UINT>(rect.bottom - rect.top);
-			//-----------------------------------------------------------------------
-			if ((pt.x < 0) || (pt.x >= static_cast<LONG>(cx))
-				||
-				(pt.y < 0) || (pt.y >= static_cast<LONG>(cy))
-				)
-			{
-				_UIController->_MouseHandler->mouseLButtonUpHandler(windowMessage);
-				//_MouseHandler->releaseMouseCapture();
-				doDragDrop();
-				return true;
-			}
-
-
-			//-----------------------------------------------------------------------
-			_UIController->_View->eventGenerator().pointerMoved(
-				static_cast<float>(pt.x),
-				static_cast<float>(pt.y),
-				controlKeyPressed,
-				shiftKeyPressed
-			);
-
-
-			//-----------------------------------------------------------------------
-			return true;
-		}
-	;
-
-
-	//-----------------------------------------------------------------------
-	_DropSourceNotifier = std::make_unique<cx::wui::dragdrop::WindowDropSourceNotifier>();
 
 
 	//-----------------------------------------------------------------------
@@ -330,15 +268,14 @@ void PropertyPanel::setupUIControlls(void)
 
 
 	//-----------------------------------------------------------------------
-	//using Control = UIControl::Text;
-	using Control = Shape::Rectangle;
+	using Control = UIControl::Label;
 
 
 	//-----------------------------------------------------------------------
 	auto layoutChangedHandler = [this](UILayout* layout)
 		{
 			using namespace cx::Widget;
-			using Control = Shape::Rectangle;
+			using Control = UIControl::Label;
 
 			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
 
@@ -361,9 +298,6 @@ void PropertyPanel::setupUIControlls(void)
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
 			item->name(info.label);
-			item->shapeStyle().fill().fillColor(Colors::LightGray());
-			item->shapeStyle().line().lineSize(0.0f);
-			item->shapeStyle().text().textColor(Colors::Black());
 			_UIController->_View->model().add(item);
 
 
@@ -372,65 +306,11 @@ void PropertyPanel::setupUIControlls(void)
 				item,
 				[this](cx::ev::Event& event)
 				{
-					using Control = Shape::Rectangle;
+					using Control = UIControl::Label;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
 						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
-
-					item->shapeStyle().fill().fillColor(Colors::LightSkyBlue());
-
-					_NewItemName = item->name();
-				}
-			);
-
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
-				ItemPointerReleasedEvent,
-				item,
-				[this](cx::ev::Event& event)
-				{
-					using Control = Shape::Rectangle;
-					auto eventType = event.eventType();
-					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-					std::shared_ptr<Control> item =
-						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
-
-					item->shapeStyle().fill().fillColor(Colors::LightGray());
-				}
-			);
-
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
-				ItemPointerOverEvent,
-				item,
-				[this](cx::ev::Event& event)
-				{
-					using Control = Shape::Rectangle;
-					auto eventType = event.eventType();
-					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-					std::shared_ptr<Control> item =
-						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
-
-					if (_UIController->_View->eventGenerator().isPointerCaptured())
-					{
-						return;
-					}
-
-					item->shapeStyle().fill().fillColor(Colors::LightSkyBlue());
-				}
-			);
-			
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
-				ItemPointerLeaveEvent,
-				item,
-				[this](cx::ev::Event& event)
-				{
-					using Control = Shape::Rectangle;
-					auto eventType = event.eventType();
-					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-					std::shared_ptr<Control> item =
-						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
-
-					item->shapeStyle().fill().fillColor(Colors::LightGray());
 				}
 			);
 
@@ -445,49 +325,8 @@ void PropertyPanel::setupUIControlls(void)
 		{
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
-			item->shapeStyle().fill().fillColor(Colors::DarkBlue());
-			item->shapeStyle().line().lineSize(0.0f);
-			item->shapeStyle().text().textColor(Colors::White());
 			_UIController->_View->model().add(item);
 
-
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
-				ItemPointerPressedEvent,
-				item,
-				[this](cx::ev::Event& event)
-				{
-					using Control = Shape::Rectangle;
-					auto eventType = event.eventType();
-					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-					std::shared_ptr<Control> item =
-						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
-
-					item->text(L"Pressed");
-				}
-			);
-
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
-				ItemPointerReleasedEvent,
-				item,
-				[this](cx::ev::Event& event)
-				{
-					using Control = Shape::Rectangle;
-					auto eventType = event.eventType();
-					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-					std::shared_ptr<Control> item =
-						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
-
-					item->text(L"Release");
-				}
-				/*
-				// onItemPointerPressed(cx::ev::Event& event)
-				std::bind(
-					&PropertyPanel::onItemPointerPressed,
-					this,
-					std::placeholders::_1
-				)
-				*/
-			);
 
 			_UILayoutManager->add(
 				true,
@@ -519,30 +358,4 @@ void PropertyPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 		auto viewCy = static_cast<Coord>(_UILayoutManager->getCY());
 		_UIController->_View->viewContext().setSize(viewCx, viewCy);
 	}
-}
-
-//===========================================================================
-void PropertyPanel::doDragDrop(void)
-{
-	//-----------------------------------------------------------------------
-	if (_NewItemName.empty())
-	{
-		return;
-	}
-
-
-	//-----------------------------------------------------------------------
-	std::wstring name = _NewItemName;
-	cx::wui::dragdrop::WindowDropSourceData data(
-		cx::wui::dragdrop::getWindowDragDropClipboardFormat()->getClipboardFormat()
-	);
-	data._DataBuffer = std_wstring_to_std_uint8_t_vector(name);
-	_DropSourceNotifier->doDragDrop(data);
-
-
-	//-----------------------------------------------------------------------
-	_NewItemName.clear();
-
-
-	_Designer->_Edit->setNewItem(nullptr);
 }

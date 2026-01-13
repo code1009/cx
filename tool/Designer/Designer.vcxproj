@@ -52,6 +52,8 @@
     <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Style.cpp" />
     <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.cpp" />
     <ClCompile Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Button.cpp" />
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Label.cpp" />
     <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Base.cpp" />
     <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Style.cpp" />
     <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.cpp" />
@@ -124,6 +126,8 @@
     <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Template.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\shape\cx-Widget-Shape-Text.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\shape\pch.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Button.hpp" />
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Label.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Base.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Style.hpp" />
     <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Text.hpp" />

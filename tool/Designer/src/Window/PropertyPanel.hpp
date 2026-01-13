@@ -23,13 +23,10 @@ private:
 
 	std::vector<PropertyInfo> _PropertyInfos;
 
-	std::wstring _NewItemName;
-
 	//-----------------------------------------------------------------------
 public:
 	std::unique_ptr<UILayoutManager> _UILayoutManager;
 	std::unique_ptr<UIController> _UIController;
-	std::unique_ptr<cx::wui::dragdrop::WindowDropSourceNotifier> _DropSourceNotifier;
 
 	//-----------------------------------------------------------------------
 public:
@@ -63,7 +60,4 @@ public:
 public:
 	void setupUIControlls(void);
 	void recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy);
-
-public:
-	void doDragDrop(void);
 };

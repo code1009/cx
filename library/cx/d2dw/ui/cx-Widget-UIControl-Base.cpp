@@ -82,11 +82,14 @@ namespace cx::Widget::UIControl
 			return;
 		}
 
+		const Coord xPadding = 8.0f;
+		const Coord yPadding = 4.0f;
+
 		auto& points = getPoints();
-		Coord x = points[0].X;
-		Coord y = points[0].Y;
-		Coord w = points[1].X - points[0].X;
-		Coord h = points[1].Y - points[0].Y;
+		Coord x = points[0].X + xPadding;
+		Coord y = points[0].Y + yPadding;
+		Coord w = points[1].X - points[0].X - xPadding * 2;
+		Coord h = points[1].Y - points[0].Y - yPadding * 2;
 		dctx.DrawText(
 			text().c_str(),
 			x, y,

@@ -15,15 +15,15 @@ namespace cx::Widget::UIControl
 	//=======================================================================
 	UIControlStyle::UIControlStyle()
 	{
-		_FillStyle = std::make_shared<FillStyle>(Color(255, 128, 128, 255));
-		_LineStyle = std::make_shared<LineStyle>(Color(255, 64, 64, 255), 2.0f);
+		_FillStyle = std::make_shared<FillStyle>(Colors::LightGray());
+		_LineStyle = std::make_shared<LineStyle>(Colors::DarkGray(), 1.0f);
 		_TextStyle = std::make_shared<TextStyle>(
-			Color(255, 255, 255, 255),
+			Colors::Black(),
 			DrawingDefaults::fontFamily,
 			12.0f,
 			true,
 			false,
-			TextHAlignment::Center,
+			TextHAlignment::Left,
 			TextVAlignment::Center
 		);
 

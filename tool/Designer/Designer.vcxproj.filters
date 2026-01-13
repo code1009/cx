@@ -213,6 +213,12 @@
     <ClCompile Include="src\Window\PropertyPanel.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Label.cpp">
+      <Filter>cx\d2dw\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Button.cpp">
+      <Filter>cx\d2dw\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -430,6 +436,12 @@
     </ClInclude>
     <ClInclude Include="src\Window\PropertyPanel.hpp">
       <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Label.hpp">
+      <Filter>cx\d2dw\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2dw\ui\cx-Widget-UIControl-Button.hpp">
+      <Filter>cx\d2dw\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -330,15 +330,14 @@ void CommandPanel::setupUIControlls(void)
 
 
 	//-----------------------------------------------------------------------
-	//using Control = UIControl::Text;
-	using Control = Shape::Rectangle;
+	using Control = UIControl::Label;
 
 
 	//-----------------------------------------------------------------------
 	auto layoutChangedHandler = [this](UILayout* layout)
 		{
 			using namespace cx::Widget;
-			using Control = Shape::Rectangle;
+			using Control = UIControl::Label;
 
 			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
 
@@ -361,9 +360,6 @@ void CommandPanel::setupUIControlls(void)
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
 			item->name(info.label);
-			item->shapeStyle().fill().fillColor(Colors::LightGray());
-			item->shapeStyle().line().lineSize(0.0f);
-			item->shapeStyle().text().textColor(Colors::Black());
 			_UIController->_View->model().add(item);
 
 
@@ -372,13 +368,13 @@ void CommandPanel::setupUIControlls(void)
 				item,
 				[this](cx::ev::Event& event)
 				{
-					using Control = Shape::Rectangle;
+					using Control = UIControl::Label;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
 						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
-					item->shapeStyle().fill().fillColor(Colors::LightSkyBlue());
+					item->uiControlStyle().fill().fillColor(Colors::DarkGray());
 
 					_NewItemName = item->name();
 				}
@@ -389,13 +385,13 @@ void CommandPanel::setupUIControlls(void)
 				item,
 				[this](cx::ev::Event& event)
 				{
-					using Control = Shape::Rectangle;
+					using Control = UIControl::Label;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
 						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
-					item->shapeStyle().fill().fillColor(Colors::LightGray());
+					item->uiControlStyle().fill().fillColor(Colors::LightGray());
 				}
 			);
 
@@ -404,7 +400,7 @@ void CommandPanel::setupUIControlls(void)
 				item,
 				[this](cx::ev::Event& event)
 				{
-					using Control = Shape::Rectangle;
+					using Control = UIControl::Label;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
@@ -415,7 +411,7 @@ void CommandPanel::setupUIControlls(void)
 						return;
 					}
 
-					item->shapeStyle().fill().fillColor(Colors::LightSkyBlue());
+					item->uiControlStyle().fill().fillColor(Colors::DarkGray());
 				}
 			);
 			
@@ -424,13 +420,13 @@ void CommandPanel::setupUIControlls(void)
 				item,
 				[this](cx::ev::Event& event)
 				{
-					using Control = Shape::Rectangle;
+					using Control = UIControl::Label;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
 						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
-					item->shapeStyle().fill().fillColor(Colors::LightGray());
+					item->uiControlStyle().fill().fillColor(Colors::LightGray());
 				}
 			);
 
@@ -445,9 +441,9 @@ void CommandPanel::setupUIControlls(void)
 		{
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
-			item->shapeStyle().fill().fillColor(Colors::DarkBlue());
-			item->shapeStyle().line().lineSize(0.0f);
-			item->shapeStyle().text().textColor(Colors::White());
+			item->uiControlStyle().fill().fillColor(Colors::DarkBlue());
+			//item->uiControlStyle().line().lineSize(0.0f);
+			item->uiControlStyle().text().textColor(Colors::White());
 			_UIController->_View->model().add(item);
 
 
@@ -456,7 +452,7 @@ void CommandPanel::setupUIControlls(void)
 				item,
 				[this](cx::ev::Event& event)
 				{
-					using Control = Shape::Rectangle;
+					using Control = UIControl::Label;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
@@ -471,7 +467,7 @@ void CommandPanel::setupUIControlls(void)
 				item,
 				[this](cx::ev::Event& event)
 				{
-					using Control = Shape::Rectangle;
+					using Control = UIControl::Label;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 					std::shared_ptr<Control> item =
