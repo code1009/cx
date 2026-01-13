@@ -63,6 +63,9 @@
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Style.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Resource.cpp">
+      <Filter>cx\d2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -120,6 +123,9 @@
       <Filter>cx\d2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Style.hpp">
+      <Filter>cx\d2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Resource.hpp">
       <Filter>cx\d2d</Filter>
     </ClInclude>
   </ItemGroup>
