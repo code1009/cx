@@ -373,6 +373,9 @@ void Designer::loadCatalog(void)
 	//_Catalog->addItem(std::make_shared<HalfArrowDesign    >(), makeProperties_HalfArrowDesign, L"반쪽화살표");
 	_Catalog->addItem(std::make_shared<RectangleDesign    >(), makeProperties_RectangleDesign, L"사각형");
 	_Catalog->addItem(std::make_shared<EllipseDesign      >(), makeProperties_BaseDesign, L"타원");
+
+	_Catalog->addSpare();
+	_Catalog->addLabel(L"테스트");
 }
 
 //===========================================================================
