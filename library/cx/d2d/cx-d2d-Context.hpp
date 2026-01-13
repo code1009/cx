@@ -34,7 +34,8 @@ private:
 	wil::com_ptr_nothrow<IDWriteTextFormat> _CurrentTextFormat;
 
 private:
-	std::unique_ptr<DeviceResourceManager> _DeviceResourceManager;
+	std::unique_ptr<ResourceManager> _DeviceResourceManager;
+	std::unique_ptr<ResourceManager> _DeviceIndependentResourceManager;
 
 public:
 	explicit Context(HWND hwnd, Factory* factory);
@@ -82,7 +83,8 @@ public:
 	wil::com_ptr_nothrow<IDWriteTextFormat>& getCurrentTextFormat(void);
 
 public:
-	DeviceResourceManager* getDeviceResourceManager(void);
+	ResourceManager* getDeviceResourceManager(void);
+	ResourceManager* getDeviceIndependentResourceManager(void);
 };
 
 

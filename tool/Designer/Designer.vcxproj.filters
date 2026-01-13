@@ -207,7 +207,7 @@
     <ClCompile Include="src\Window\UILayout.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-DeviceResource.cpp">
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Resource.cpp">
       <Filter>cx\d2d</Filter>
     </ClCompile>
   </ItemGroup>
@@ -422,7 +422,7 @@
     <ClInclude Include="src\Window\UILayout.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-DeviceResource.hpp">
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Resource.hpp">
       <Filter>cx\d2d</Filter>
     </ClInclude>
   </ItemGroup>

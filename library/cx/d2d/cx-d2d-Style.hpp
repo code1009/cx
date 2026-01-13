@@ -83,7 +83,7 @@ enum class TextVAlignment : int32_t
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class TextFormat : public DeviceResource
+class TextFormat : public Resource
 {
 public:
     wil::com_ptr_nothrow<IDWriteTextFormat> _Value;
@@ -109,7 +109,7 @@ public:
     TextFormat& operator=(TextFormat&&) = delete;
 
 public:
-    virtual void releaseDeviceResources(void) override;
+    virtual void releaseResources(void) override;
 
 public:
     void FontFamily(std::wstring fontFamily);

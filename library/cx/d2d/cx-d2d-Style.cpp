@@ -18,7 +18,7 @@ namespace cx::d2d
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-void TextFormat::releaseDeviceResources(void)
+void TextFormat::releaseResources(void)
 {
 	_Value.reset();
 }

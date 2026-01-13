@@ -19,26 +19,26 @@ namespace cx::d2d
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-DeviceResource::~DeviceResource()
+Resource::~Resource()
 {
-	unregisterDeviceResource();
+	unregisterResource();
 }
 
 //===========================================================================
-void DeviceResource::registerDeviceResource(DeviceResourceManager* deviceResourceManager)
+void Resource::registerResource(ResourceManager* resourceManager)
 {
-	CX_RUNTIME_ASSERT(nullptr == _DeviceResourceManager);
+	CX_RUNTIME_ASSERT(nullptr == _ResourceManager);
 	
-	_DeviceResourceManager = deviceResourceManager;
-	_DeviceResourceManager->registerDeviceResource(this);
+	_ResourceManager = resourceManager;
+	_ResourceManager->registerResource(this);
 }
 
-void DeviceResource::unregisterDeviceResource(void)
+void Resource::unregisterResource(void)
 {
-	if (_DeviceResourceManager)
+	if (_ResourceManager)
 	{
-		_DeviceResourceManager->unregisterDeviceResource(this);
-		_DeviceResourceManager = nullptr;
+		_ResourceManager->unregisterResource(this);
+		_ResourceManager = nullptr;
 	}
 }
 
@@ -48,23 +48,23 @@ void DeviceResource::unregisterDeviceResource(void)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-DeviceResourceManager::~DeviceResourceManager()
+ResourceManager::~ResourceManager()
 {
-	releaseDeviceResources();
-	_DeviceResources.clear();
+	releaseResources();
+	_Resources.clear();
 }
 
 //===========================================================================
-void DeviceResourceManager::registerDeviceResource(DeviceResource* deviceResource)
+void ResourceManager::registerResource(Resource* resource)
 {
 	auto it = std::find(
-		_DeviceResources.begin(),
-		_DeviceResources.end(),
-		deviceResource
+		_Resources.begin(),
+		_Resources.end(),
+		resource
 	);
-	if (it == _DeviceResources.end())
+	if (it == _Resources.end())
 	{
-		_DeviceResources.push_back(deviceResource);
+		_Resources.push_back(resource);
 	}
 	else
 	{
@@ -72,16 +72,16 @@ void DeviceResourceManager::registerDeviceResource(DeviceResource* deviceResourc
 	}
 }
 
-void DeviceResourceManager::unregisterDeviceResource(DeviceResource* deviceResource)
+void ResourceManager::unregisterResource(Resource* resource)
 {
 	auto it = std::find(
-		_DeviceResources.begin(),
-		_DeviceResources.end(),
-		deviceResource
+		_Resources.begin(),
+		_Resources.end(),
+		resource
 	);
-	if (it != _DeviceResources.end())
+	if (it != _Resources.end())
 	{
-		_DeviceResources.erase(it);
+		_Resources.erase(it);
 	}
 	else
 	{
@@ -89,11 +89,11 @@ void DeviceResourceManager::unregisterDeviceResource(DeviceResource* deviceResou
 	}
 }
 
-void DeviceResourceManager::releaseDeviceResources(void)
+void ResourceManager::releaseResources(void)
 {
-	for (auto& deviceResource : _DeviceResources)
+	for (auto& resource : _Resources)
 	{
-		deviceResource->releaseDeviceResources();
+		resource->releaseResources();
 	}
 }
 

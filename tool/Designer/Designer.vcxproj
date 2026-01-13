@@ -59,7 +59,7 @@
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Color.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Context.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Coord.cpp" />
-    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-DeviceResource.cpp" />
+    <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Resource.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Factory.cpp" />
     <ClCompile Include="..\..\library\cx\d2d\cx-d2d-Renderer.cpp" />
@@ -131,7 +131,7 @@
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Color.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Context.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Coord.hpp" />
-    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-DeviceResource.hpp" />
+    <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Resource.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-DrawingSession.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Factory.hpp" />
     <ClInclude Include="..\..\library\cx\d2d\cx-d2d-Renderer.hpp" />

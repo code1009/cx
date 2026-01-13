@@ -48,6 +48,7 @@ bool Renderer::createDeviceIndependentResources(void)
 
 void Renderer::destroyDeviceIndependentResources(void)
 {
+	_Context->getDeviceIndependentResourceManager()->releaseResources();
 }
 
 //===========================================================================
@@ -89,7 +90,7 @@ void Renderer::destroyDeviceResources(void)
 		<< L"destroyDeviceResources()"
 		;
 
-	_Context->getDeviceResourceManager()->releaseDeviceResources();
+	_Context->getDeviceResourceManager()->releaseResources();
 
 
 	_Context->destroyResources();

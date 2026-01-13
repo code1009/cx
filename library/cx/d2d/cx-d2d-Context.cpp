@@ -26,8 +26,9 @@ Context::Context(HWND hwnd, Factory* factory)
 	_DWriteFactory = factory->getDWriteFactory();
 	_WICImagingFactory = factory->getWICImagingFactory();
 
-	_DeviceResourceManager = std::make_unique<DeviceResourceManager>();
-
+	_DeviceResourceManager = std::make_unique<ResourceManager>();
+	_DeviceIndependentResourceManager = std::make_unique<ResourceManager>();
+	
 #if 0
 	bool rv;
 	rv = createRenderTarget();
@@ -191,9 +192,14 @@ wil::com_ptr_nothrow<IDWriteTextFormat>& Context::getCurrentTextFormat(void)
 }
 
 //===========================================================================
-DeviceResourceManager* Context::getDeviceResourceManager(void)
+ResourceManager* Context::getDeviceResourceManager(void)
 {
 	return _DeviceResourceManager.get();
+}
+
+ResourceManager* Context::getDeviceIndependentResourceManager(void)
+{
+	return _DeviceIndependentResourceManager.get();
 }
 
 
