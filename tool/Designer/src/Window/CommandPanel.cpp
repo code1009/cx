@@ -17,9 +17,12 @@
 #include "../WindowHandler/WindowHandler.hpp"
 
 //===========================================================================
+#include "UILayout.hpp"
 #include "UIController.hpp"
+
 #include "Catalog.hpp"
 #include "Designer.hpp"
+
 #include "CommandPanel.hpp"
 #include "View.hpp"
 
@@ -327,15 +330,6 @@ void CommandPanel::setupUIControlls(void)
 
 
 	//-----------------------------------------------------------------------
-	/*
-	Point lt;
-	Point rb;
-
-	Coord y = 0.0;
-	Coord cy = 25;
-	*/
-
-	//-----------------------------------------------------------------------
 	//using Control = UIControl::Text;
 	using Control = Shape::Rectangle;
 
@@ -343,18 +337,9 @@ void CommandPanel::setupUIControlls(void)
 	//-----------------------------------------------------------------------
 	for (auto info : _CommandInfos)
 	{
-		/*
-		lt.X = 0; 
-		lt.Y = y;
-		rb.X = 100; 
-		rb.Y = y + cy;
-		*/
-
 		if (info.type == L"NewItem")
 		{
 			auto item = std::make_shared<Control>();
-			//item->setPoint(0, lt);
-			//item->setPoint(1, rb);
 			item->text(info.label);
 			item->name(info.label);
 			//item->uiControlStyle().text().textHAlignment(TextHAlignment::Left);
@@ -399,8 +384,6 @@ void CommandPanel::setupUIControlls(void)
 		else if (info.type == L"Label")
 		{
 			auto item = std::make_shared<Control>();
-			//item->setPoint(0, lt);
-			//item->setPoint(1, rb);
 			item->text(info.label);
 			//item->uiControlStyle().text().textColor(Color(255, 0, 0, 255));
 			//item->uiControlStyle().text().textHAlignment(TextHAlignment::Center);
@@ -418,8 +401,8 @@ void CommandPanel::setupUIControlls(void)
 					using Control = Shape::Rectangle;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-					std::shared_ptr<UIControl::Text> item =
-						std::dynamic_pointer_cast<UIControl::Text>(itemPointerEventData->_Item);
+					std::shared_ptr<Control> item =
+						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
 					item->text(L"Pressed");
 				}
@@ -433,8 +416,8 @@ void CommandPanel::setupUIControlls(void)
 					using Control = Shape::Rectangle;
 					auto eventType = event.eventType();
 					auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-					std::shared_ptr<UIControl::Text> item =
-						std::dynamic_pointer_cast<UIControl::Text>(itemPointerEventData->_Item);
+					std::shared_ptr<Control> item =
+						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
 					item->text(L"Release");
 				}
@@ -451,30 +434,31 @@ void CommandPanel::setupUIControlls(void)
 		else if (info.type == L"Spare")
 		{
 		}
-
-	//	y += cy;
 	}
-
-
-	//-----------------------------------------------------------------------
-/*
-	auto viewCx = _UIController->_View->viewContext().width();
-	auto viewCy = _UIController->_View->viewContext().height();
-
-	viewCy = y;
-	_UIController->_View->viewContext().setSize(viewCx, viewCy);
-	*/
 }
 
 void CommandPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 {
 	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
+	auto layoutChangedHandler = [this](UILayout* layout)
+		{
+			using namespace cx::Widget;
+			using Control = Shape::Rectangle;
+
+			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
+
+			item->setPoint(0, Point(layout->_Item._L + 5, layout->_Item._T + 5));
+			item->setPoint(1, Point(layout->_Item._R - 5, layout->_Item._B - 1));
+		};
 
 
 	//-----------------------------------------------------------------------
-	Point lt;
-	Point rb;
+	using namespace cx::Widget;
+	using Control = Shape::Rectangle;
+
+
+	//-----------------------------------------------------------------------
+	_UILayoutManager.clear();
 
 
 	//-----------------------------------------------------------------------
@@ -482,23 +466,28 @@ void CommandPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 	for (std::size_t i = 0; i < count; i++)
 	{
 		auto item = _UIController->_View->model().at(i);
-		if (item)
-		{
 
-			lt.X = 0; 
-			lt.Y = static_cast<Coord>(i * 25);
-			rb.X = static_cast<Coord>(cx); 
-			rb.Y = static_cast<Coord>((i + 1) * 25);
-			item->setPoint(0, lt);
-			item->setPoint(1, rb);
-		}
+
+		UILayoutStyle uiLayoutStyle {
+			static_cast<Coord>(cx), static_cast<Coord>(35),
+			UILayoutAlignment::Fixed, UILayoutAlignment::Fixed
+		};
+		_UILayoutManager.add(
+			true,
+			uiLayoutStyle,
+			layoutChangedHandler,
+			reinterpret_cast<void*>(item.get())
+		);
 	}
 
-	auto viewCx = _UIController->_View->viewContext().width();
-	auto viewCy = _UIController->_View->viewContext().height();
 
-	viewCy = rb.Y;
+	//-----------------------------------------------------------------------
+	_UILayoutManager.recalcLayout(static_cast<Coord>(cx), static_cast<Coord>(cy));
 
+
+	//-----------------------------------------------------------------------
+	auto viewCx = static_cast<Coord>(_UILayoutManager.getCX());
+	auto viewCy = static_cast<Coord>(_UILayoutManager.getCY());
 	_UIController->_View->viewContext().setSize(viewCx, viewCy);
 }
 

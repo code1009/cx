@@ -178,6 +178,11 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
+	UICoord getCX(void) const { return _CX; }
+	UICoord getCY(void) const { return _CY; }
+
+	//-----------------------------------------------------------------------
+public:
 	void clear(void);
 	void add(
 		bool firstCol, 
