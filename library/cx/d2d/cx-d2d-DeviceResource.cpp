@@ -1,6 +1,7 @@
 ﻿/////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 #include "pch.hpp"
+#include <cx/runtime/runtime.hpp>
 #include "cx-d2d.hpp"
 
 
@@ -26,6 +27,8 @@ DeviceResource::~DeviceResource()
 //===========================================================================
 void DeviceResource::registerDeviceResource(DeviceResourceManager* deviceResourceManager)
 {
+	CX_RUNTIME_ASSERT(nullptr == _DeviceResourceManager);
+	
 	_DeviceResourceManager = deviceResourceManager;
 	_DeviceResourceManager->registerDeviceResource(this);
 }
