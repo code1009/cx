@@ -525,7 +525,7 @@ void PropertyPanel::addUIControl_PropertySubName(std::wstring const& name)
 	);
 }
 
-void PropertyPanel::addUIControl_PropertyValueText(std::wstring const& value, bool readOnly)
+void PropertyPanel::addUIControl_PropertyStringValue(std::wstring const& value, bool readOnly)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -572,7 +572,7 @@ void PropertyPanel::loadItemPropertyUI_UInt8(std::int32_t& index, std::shared_pt
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -596,7 +596,7 @@ void PropertyPanel::loadItemPropertyUI_UInt16(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -620,7 +620,7 @@ void PropertyPanel::loadItemPropertyUI_UInt32(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -644,7 +644,7 @@ void PropertyPanel::loadItemPropertyUI_UInt64(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -668,7 +668,7 @@ void PropertyPanel::loadItemPropertyUI_Int8(std::int32_t& index, std::shared_ptr
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -692,7 +692,7 @@ void PropertyPanel::loadItemPropertyUI_Int16(std::int32_t& index, std::shared_pt
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -716,7 +716,7 @@ void PropertyPanel::loadItemPropertyUI_Int32(std::int32_t& index, std::shared_pt
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -740,7 +740,7 @@ void PropertyPanel::loadItemPropertyUI_Int64(std::int32_t& index, std::shared_pt
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -764,7 +764,7 @@ void PropertyPanel::loadItemPropertyUI_Float(std::int32_t& index, std::shared_pt
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -788,7 +788,7 @@ void PropertyPanel::loadItemPropertyUI_Double(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -812,7 +812,7 @@ void PropertyPanel::loadItemPropertyUI_Bool(std::int32_t& index, std::shared_ptr
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -835,7 +835,7 @@ void PropertyPanel::loadItemPropertyUI_String(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -858,7 +858,7 @@ void PropertyPanel::loadItemPropertyUI_Points(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyValueText(valueString, property->readOnly());
+	addUIControl_PropertyStringValue(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -886,7 +886,7 @@ void PropertyPanel::loadItemPropertyUI_FillStyle(std::int32_t& index, std::share
 
 	std::wstring fillColorString = to_std_wstring(fillColor);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
-	addUIControl_PropertyValueText(fillColorString, property->readOnly());
+	addUIControl_PropertyStringValue(fillColorString, property->readOnly());
 }
 
 void PropertyPanel::loadItemPropertyUI_LineStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
@@ -910,7 +910,7 @@ void PropertyPanel::loadItemPropertyUI_LineStyle(std::int32_t& index, std::share
 
 	std::wstring lineColorString = to_std_wstring(lineColor);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColor));
-	addUIControl_PropertyValueText(lineColorString, property->readOnly());
+	addUIControl_PropertyStringValue(lineColorString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
@@ -918,7 +918,7 @@ void PropertyPanel::loadItemPropertyUI_LineStyle(std::int32_t& index, std::share
 
 	std::wstring lineSizeString = cx::to_std_wstring(lineSize);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineSize));
-	addUIControl_PropertyValueText(lineSizeString, property->readOnly());
+	addUIControl_PropertyStringValue(lineSizeString, property->readOnly());
 }
 
 void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
@@ -942,7 +942,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	std::wstring textColorString = to_std_wstring(textColor);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColor));
-	addUIControl_PropertyValueText(textColorString, property->readOnly());
+	addUIControl_PropertyStringValue(textColorString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
@@ -950,7 +950,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	std::wstring fontFamilyString = fontFamily;
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontFamily));
-	addUIControl_PropertyValueText(fontFamilyString, property->readOnly());
+	addUIControl_PropertyStringValue(fontFamilyString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
@@ -958,7 +958,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	std::wstring fontSizeString = cx::to_std_wstring(fontSize);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontSize));
-	addUIControl_PropertyValueText(fontSizeString, property->readOnly());
+	addUIControl_PropertyStringValue(fontSizeString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
@@ -966,7 +966,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	std::wstring fontBoldString = cx::to_std_wstring(fontBold);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontBold));
-	addUIControl_PropertyValueText(fontBoldString, property->readOnly());
+	addUIControl_PropertyStringValue(fontBoldString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
@@ -974,7 +974,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	std::wstring fontItalicString = cx::to_std_wstring(fontItalic);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontItalic));
-	addUIControl_PropertyValueText(fontItalicString, property->readOnly());
+	addUIControl_PropertyStringValue(fontItalicString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
@@ -992,7 +992,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 	}
 
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textHAlignment));
-	addUIControl_PropertyValueText(textHAlignmentString, property->readOnly());
+	addUIControl_PropertyStringValue(textHAlignmentString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
@@ -1010,5 +1010,5 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 	}
 
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textVAlignment));
-	addUIControl_PropertyValueText(textVAlignmentString, property->readOnly());
+	addUIControl_PropertyStringValue(textVAlignmentString, property->readOnly());
 }
