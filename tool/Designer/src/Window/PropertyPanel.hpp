@@ -19,8 +19,19 @@ private:
 
 	//-----------------------------------------------------------------------
 public:
-	std::unique_ptr<UILayoutManager> _UILayoutManager;
 	std::unique_ptr<UIController> _UIController;
+
+	std::unique_ptr<UILayoutManager> _UILayoutManager;
+
+	std::unique_ptr<UILayoutStyle> _UILayoutStyle0;
+	std::unique_ptr<UILayoutStyle> _UILayoutStyle1;
+	std::unique_ptr<UILayoutStyle> _UILayoutStyle2;
+	std::unique_ptr<UILayoutStyle> _UILayoutStyle3;
+
+	std::function<void(UILayout*)> _UILayoutChangedHandler0 = { nullptr };
+	std::function<void(UILayout*)> _UILayoutChangedHandler1 = { nullptr };
+	std::function<void(UILayout*)> _UILayoutChangedHandler2 = { nullptr };
+	std::function<void(UILayout*)> _UILayoutChangedHandler3 = { nullptr };
 
 	//-----------------------------------------------------------------------
 public:
@@ -49,6 +60,7 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
+	void setupUILayoutStyles(void);
 	void setupUIControlls(void);
 	void recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy);
 

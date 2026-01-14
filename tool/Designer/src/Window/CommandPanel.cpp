@@ -341,12 +341,15 @@ void CommandPanel::setupUIControlls(void)
 
 			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
 
-			item->setPoint(0, Point(layout->_Item._L + 5, layout->_Item._T + 5));
-			item->setPoint(1, Point(layout->_Item._R - 5, layout->_Item._B - 1));
+			//item->setPoint(0, Point(layout->_Item._L + 5, layout->_Item._T + 5));
+			//item->setPoint(1, Point(layout->_Item._R - 5, layout->_Item._B - 1));
+
+			item->setPoint(0, Point(layout->_Item._L, layout->_Item._T));
+			item->setPoint(1, Point(layout->_Item._R, layout->_Item._B));
 		};
 
 	UILayoutStyle uiLayoutStyle {
-		static_cast<Coord>(100), static_cast<Coord>(35),
+		static_cast<Coord>(0), static_cast<Coord>(25),
 		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
 	};
 	_UILayoutManager = std::make_unique<UILayoutManager>();

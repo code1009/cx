@@ -63,6 +63,7 @@ PropertyPanel::PropertyPanel(HWND parentWindowHandle, Designer* designer) :
 
 	//-----------------------------------------------------------------------
 	_UIController = std::make_unique<UIController>(hwnd);
+	setupUILayoutStyles();
 
 
 	//-----------------------------------------------------------------------
@@ -391,14 +392,82 @@ void PropertyPanel::showItemProperty(void)
 	_ItemProperty_valueChanged_Flag = true;
 }
 
+void PropertyPanel::setupUILayoutStyles(void)
+{
+	//-----------------------------------------------------------------------
+	_UILayoutStyle0 = std::make_unique<UILayoutStyle>(
+		static_cast<float>(100), static_cast<float>(25),
+		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
+	);
+	_UILayoutChangedHandler0 = [this](UILayout* layout)
+		{
+			using namespace cx::Widget;
+			using Control = UIControl::Button;
+
+			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
+
+			item->setPoint(0, Point(layout->_Item._L, layout->_Item._T));
+			item->setPoint(1, Point(layout->_Item._R, layout->_Item._B));
+		};
+
+
+	//-----------------------------------------------------------------------
+	_UILayoutStyle1 = std::make_unique<UILayoutStyle>(
+		static_cast<float>(100), static_cast<float>(25),
+		UILayoutAlignment::Fixed, UILayoutAlignment::Fixed
+	);
+
+	_UILayoutStyle2 = std::make_unique<UILayoutStyle>(
+		static_cast<float>(0), static_cast<float>(25),
+		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
+	);
+
+	_UILayoutStyle3 = std::make_unique<UILayoutStyle>(
+		static_cast<float>(0), static_cast<float>(25),
+		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
+	);
+
+	//-----------------------------------------------------------------------
+	_UILayoutChangedHandler1 = [this](UILayout* layout)
+		{
+			using namespace cx::Widget;
+			using Control = UIControl::Label;
+
+			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
+
+			item->setPoint(0, Point(layout->_Item._L, layout->_Item._T));
+			item->setPoint(1, Point(layout->_Item._R, layout->_Item._B));
+		};
+
+	_UILayoutChangedHandler2 = [this](UILayout* layout)
+		{
+			using namespace cx::Widget;
+			using Control = UIControl::Button;
+
+			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
+
+			item->setPoint(0, Point(layout->_Item._L, layout->_Item._T));
+			item->setPoint(1, Point(layout->_Item._R, layout->_Item._B));
+		};
+
+	_UILayoutChangedHandler3 = [this](UILayout* layout)
+		{
+			using namespace cx::Widget;
+			using Control = UIControl::Button;
+
+			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
+
+			item->setPoint(0, Point(layout->_Item._L, layout->_Item._T));
+			item->setPoint(1, Point(layout->_Item._R, layout->_Item._B));
+		};
+}
+
 void PropertyPanel::setupUIControlls(void)
 {
 	//-----------------------------------------------------------------------
 	_UILayoutManager.reset();
 	_UIController->_View->model().clear();
 
-
-	//-----------------------------------------------------------------------
 	_UILayoutManager = std::make_unique<UILayoutManager>();
 
 
@@ -448,42 +517,15 @@ void PropertyPanel::LoadEmptyPropertyUI(void)
 
 
 	//-----------------------------------------------------------------------
-	auto layoutChangedHandler = [this](UILayout* layout)
-		{
-			using namespace cx::Widget;
-			using Control = UIControl::Button;
-
-			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
-
-			item->setPoint(0, Point(layout->_Item._L + 5, layout->_Item._T + 5));
-			item->setPoint(1, Point(layout->_Item._R - 10, layout->_Item._B - 1));
-		};
-
-	UILayoutStyle uiLayoutStyle0{
-		static_cast<Coord>(100), static_cast<Coord>(35),
-		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
-	};
-	UILayoutStyle uiLayoutStyle1{
-		static_cast<Coord>(100), static_cast<Coord>(35),
-		UILayoutAlignment::Fixed, UILayoutAlignment::Fixed
-	};
-	UILayoutStyle uiLayoutStyle2{
-		static_cast<Coord>(100), static_cast<Coord>(35),
-		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
-	};
-
-
-	//-----------------------------------------------------------------------
-	using Control = UIControl::Label;
-	auto item = std::make_shared<Control>();
+	auto item = std::make_shared<UIControl::Label>();
 	item->text(L"대상을 선택 하세요.");
 	_UIController->_View->model().add(item);
 
 
 	_UILayoutManager->add(
 		true,
-		uiLayoutStyle0,
-		layoutChangedHandler,
+		*_UILayoutStyle0.get(),
+		_UILayoutChangedHandler0,
 		reinterpret_cast<void*>(item.get())
 	);
 }
@@ -531,50 +573,614 @@ void PropertyPanel::loadItemPropertyUI(void)
 
 void PropertyPanel::addItemPropertyUI_UInt8(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_UInt16(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_UInt32(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_UInt64(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_Int8(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_Int16(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_Int32(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_Int64(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_Float(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_Double(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_Bool(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_String(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	//auto value = cx::to_std_uint8_t(property->value());
+	auto value = property->value();
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+
+
+	//-----------------------------------------------------------------------
+	auto valueItem = std::make_shared<UIControl::Button>();
+	valueItem->text(value);
+	_UIController->_View->model().add(valueItem);
+
+
+	_UILayoutManager->add(
+		false,
+		*_UILayoutStyle2.get(),
+		_UILayoutChangedHandler2,
+		reinterpret_cast<void*>(valueItem.get())
+	);
+
+
+	//-------------------------------------------------------------------
+	if (property->readOnly())
+	{
+		//input.IsEnabled(false);
+	}
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::addItemPropertyUI_Points(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
