@@ -272,7 +272,7 @@ void PropertyPanel::setupUILayoutStyles(void)
 {
 	//-----------------------------------------------------------------------
 	_UILayoutStyle0 = std::make_unique<UILayoutStyle>(
-		static_cast<float>(100), static_cast<float>(25),
+		static_cast<float>(0), static_cast<float>(25),
 		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
 	);
 	_UILayoutChangedHandler0 = [this](UILayout* layout)
@@ -329,7 +329,7 @@ void PropertyPanel::setupUILayoutStyles(void)
 	_UILayoutChangedHandler3 = [this](UILayout* layout)
 		{
 			using namespace cx::Widget;
-			using Control = UIControl::Button;
+			using Control = UIControl::Label;
 
 			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
 
@@ -447,7 +447,39 @@ void PropertyPanel::loadItemPropertyUI(void)
 	}
 }
 
-void PropertyPanel::addUIControl_Label(std::wstring const& name)
+void PropertyPanel::addUIControl_PropertyName(std::wstring const& name)
+{
+	//-----------------------------------------------------------------------
+	/*
+	LightGray = 0xD3D3D3,
+	DarkGray = 0xA9A9A9,
+	Gray = 0x808080,
+	DimGray = 0x696969,
+	*/
+
+
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+	nameItem->uiControlStyle().text().textHAlignment(TextHAlignment::Left);
+	nameItem->uiControlStyle().text().fontBold(true);
+	nameItem->uiControlStyle().fill().fillColor(0xb8b8b8);
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle1.get(),
+		_UILayoutChangedHandler1,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+}
+
+void PropertyPanel::addUIControl_PropertyGroupName(std::wstring const& name)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -458,6 +490,32 @@ void PropertyPanel::addUIControl_Label(std::wstring const& name)
 	nameItem->text(name);
 	_UIController->_View->model().add(nameItem);
 
+	nameItem->uiControlStyle().text().textHAlignment(TextHAlignment::Left);
+	nameItem->uiControlStyle().text().fontBold(true);
+	nameItem->uiControlStyle().fill().fillColor(0xb8b8b8);
+
+	_UILayoutManager->add(
+		true,
+		*_UILayoutStyle3.get(),
+		_UILayoutChangedHandler3,
+		reinterpret_cast<void*>(nameItem.get())
+	);
+}
+
+void PropertyPanel::addUIControl_PropertySubName(std::wstring const& name)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto nameItem = std::make_shared<UIControl::Label>();
+	nameItem->text(name);
+	_UIController->_View->model().add(nameItem);
+
+	nameItem->uiControlStyle().text().fontBold(false);
+	nameItem->uiControlStyle().text().textHAlignment(TextHAlignment::Right);
+	nameItem->uiControlStyle().fill().fillColor(0xc8c8c8);
 
 	_UILayoutManager->add(
 		true,
@@ -467,7 +525,7 @@ void PropertyPanel::addUIControl_Label(std::wstring const& name)
 	);
 }
 
-void PropertyPanel::addUIControl_Text(std::wstring const& value)
+void PropertyPanel::addUIControl_PropertyValueText(std::wstring const& value, bool readOnly)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -478,6 +536,16 @@ void PropertyPanel::addUIControl_Text(std::wstring const& value)
 	valueItem->text(value);
 	_UIController->_View->model().add(valueItem);
 
+	if (readOnly)
+	{
+		//valueItem->uiControlStyle().text().fontItalic(true);
+		valueItem->uiControlStyle().fill().fillColor(Colors::LightGray());
+	}
+	else
+	{
+		//valueItem->uiControlStyle().text().fontItalic(false);
+		valueItem->uiControlStyle().fill().fillColor(Colors::White());
+	}
 
 	_UILayoutManager->add(
 		false,
@@ -495,23 +563,16 @@ void PropertyPanel::loadItemPropertyUI_UInt8(std::int32_t& index, std::shared_pt
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_std_uint8_t(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -526,23 +587,16 @@ void PropertyPanel::loadItemPropertyUI_UInt16(std::int32_t& index, std::shared_p
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_std_uint16_t(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -557,23 +611,16 @@ void PropertyPanel::loadItemPropertyUI_UInt32(std::int32_t& index, std::shared_p
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_std_uint32_t(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -588,23 +635,16 @@ void PropertyPanel::loadItemPropertyUI_UInt64(std::int32_t& index, std::shared_p
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_std_uint64_t(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -619,23 +659,16 @@ void PropertyPanel::loadItemPropertyUI_Int8(std::int32_t& index, std::shared_ptr
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_std_int8_t(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -650,23 +683,16 @@ void PropertyPanel::loadItemPropertyUI_Int16(std::int32_t& index, std::shared_pt
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_std_int16_t(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -681,23 +707,16 @@ void PropertyPanel::loadItemPropertyUI_Int32(std::int32_t& index, std::shared_pt
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_std_int32_t(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -712,23 +731,16 @@ void PropertyPanel::loadItemPropertyUI_Int64(std::int32_t& index, std::shared_pt
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_std_int64_t(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -743,23 +755,16 @@ void PropertyPanel::loadItemPropertyUI_Float(std::int32_t& index, std::shared_pt
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_float(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -774,23 +779,16 @@ void PropertyPanel::loadItemPropertyUI_Double(std::int32_t& index, std::shared_p
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_double(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -805,23 +803,16 @@ void PropertyPanel::loadItemPropertyUI_Bool(std::int32_t& index, std::shared_ptr
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
+	auto value = cx::to_bool(valueString);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -836,23 +827,15 @@ void PropertyPanel::loadItemPropertyUI_String(std::int32_t& index, std::shared_p
 
 	//-----------------------------------------------------------------------
 	auto name = property->friendlyName();
-	//auto value = cx::to_std_uint8_t(property->value());
-	auto value = property->value();
+	auto valueString = property->value();
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Label(name);
+	addUIControl_PropertyName(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_Text(value);
-
-
-	//-------------------------------------------------------------------
-	if (property->readOnly())
-	{
-		//input.IsEnabled(false);
-	}
+	addUIControl_PropertyValueText(valueString, property->readOnly());
 
 
 	//-------------------------------------------------------------------
@@ -861,16 +844,171 @@ void PropertyPanel::loadItemPropertyUI_String(std::int32_t& index, std::shared_p
 
 void PropertyPanel::loadItemPropertyUI_Points(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	auto valueString = property->value();
+
+
+	//-----------------------------------------------------------------------
+	addUIControl_PropertyName(name);
+
+
+	//-----------------------------------------------------------------------
+	addUIControl_PropertyValueText(valueString, property->readOnly());
+
+
+	//-------------------------------------------------------------------
+	index++;
 }
 
 void PropertyPanel::loadItemPropertyUI_FillStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	auto valueString = property->value();
+	FillStyle fillStyle = to_FillStyle(valueString);
+
+
+	//-----------------------------------------------------------------------
+	addUIControl_PropertyGroupName(name);
+
+
+	//-----------------------------------------------------------------------
+	auto fillColor = fillStyle.fillColor();
+
+	std::wstring fillColorString = to_std_wstring(fillColor);
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
+	addUIControl_PropertyValueText(fillColorString, property->readOnly());
 }
 
 void PropertyPanel::loadItemPropertyUI_LineStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	auto valueString = property->value();
+	LineStyle lineStyle = to_LineStyle(valueString);
+
+
+	//-----------------------------------------------------------------------
+	addUIControl_PropertyGroupName(name);
+
+
+	//-----------------------------------------------------------------------
+	auto lineColor = lineStyle.lineColor();
+
+	std::wstring lineColorString = to_std_wstring(lineColor);
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColor));
+	addUIControl_PropertyValueText(lineColorString, property->readOnly());
+
+
+	//-----------------------------------------------------------------------
+	auto lineSize = lineStyle.lineSize();
+
+	std::wstring lineSizeString = cx::to_std_wstring(lineSize);
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineSize));
+	addUIControl_PropertyValueText(lineSizeString, property->readOnly());
 }
 
 void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
 {
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	auto valueString = property->value();
+	TextStyle textStyle = to_TextStyle(valueString);
+
+
+	//-----------------------------------------------------------------------
+	addUIControl_PropertyGroupName(name);
+
+
+	//-----------------------------------------------------------------------
+	auto textColor = textStyle.textColor();
+
+	std::wstring textColorString = to_std_wstring(textColor);
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColor));
+	addUIControl_PropertyValueText(textColorString, property->readOnly());
+
+
+	//-----------------------------------------------------------------------
+	std::wstring fontFamily = textStyle.fontFamily().data();
+
+	std::wstring fontFamilyString = fontFamily;
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontFamily));
+	addUIControl_PropertyValueText(fontFamilyString, property->readOnly());
+
+
+	//-----------------------------------------------------------------------
+	float fontSize = textStyle.fontSize();
+
+	std::wstring fontSizeString = cx::to_std_wstring(fontSize);
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontSize));
+	addUIControl_PropertyValueText(fontSizeString, property->readOnly());
+
+
+	//-----------------------------------------------------------------------
+	bool fontBold = textStyle.fontBold();
+
+	std::wstring fontBoldString = cx::to_std_wstring(fontBold);
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontBold));
+	addUIControl_PropertyValueText(fontBoldString, property->readOnly());
+
+
+	//-----------------------------------------------------------------------
+	bool fontItalic = textStyle.fontItalic();
+
+	std::wstring fontItalicString = cx::to_std_wstring(fontItalic);
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontItalic));
+	addUIControl_PropertyValueText(fontItalicString, property->readOnly());
+
+
+	//-----------------------------------------------------------------------
+	TextHAlignment textHAlignment = textStyle.textHAlignment();
+
+	std::wstring textHAlignmentString;
+	switch (textHAlignment)
+	{
+	case TextHAlignment::Left: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data(); break;
+	case TextHAlignment::Center: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Center.data(); break;
+	case TextHAlignment::Right: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Right.data(); break;
+	default:
+		textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data(); break;
+		break;
+	}
+
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textHAlignment));
+	addUIControl_PropertyValueText(textHAlignmentString, property->readOnly());
+
+
+	//-----------------------------------------------------------------------
+	TextVAlignment textVAlignment = textStyle.textVAlignment();
+
+	std::wstring textVAlignmentString;
+	switch (textVAlignment)
+	{
+	case TextVAlignment::Top: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data(); break;
+	case TextVAlignment::Center: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Center.data(); break;
+	case TextVAlignment::Bottom: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Bottom.data(); break;
+	default:
+		textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data(); break;
+		break;
+	}
+
+	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textVAlignment));
+	addUIControl_PropertyValueText(textVAlignmentString, property->readOnly());
 }

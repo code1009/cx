@@ -310,7 +310,8 @@ void UILayoutManager::recalcLayout(UICoord cx, UICoord cy)
 	{
 		if (row._ColAlignment != UILayoutAlignment::Fixed)
 		{
-			_RowCX = row._MinCX + itemExpCX;
+			//_RowCX = row._MinCX + itemExpCX;
+			_RowCX = _ViewCX;
 		}
 		else
 		{

@@ -15,6 +15,13 @@ namespace cx::Widget::UIControl
 	//=======================================================================
 	UIControlStyle::UIControlStyle()
 	{
+		/*
+		LightGray = 0xD3D3D3,
+		DarkGray = 0xA9A9A9,
+		Gray = 0x808080,
+		DimGray = 0x696969,
+		*/
+
 		_FillStyle = std::make_shared<FillStyle>(Colors::LightGray());
 		_LineStyle = std::make_shared<LineStyle>(Colors::DarkGray(), 1.0f);
 		_TextStyle = std::make_shared<TextStyle>(
