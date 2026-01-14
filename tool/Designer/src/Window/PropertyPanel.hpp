@@ -58,4 +58,21 @@ public:
 public:
 	void LoadEmptyPropertyUI(void);
 	void loadItemPropertyUI(void);
+	void addItemPropertyUI_UInt8    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_UInt16   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_UInt32   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_UInt64   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_Int8     (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_Int16    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_Int32    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_Int64    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_Float    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_Double   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_Bool     (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_String   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_Points   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+ 	void addItemPropertyUI_FillStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_LineStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyUI_TextStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+
 };

@@ -72,6 +72,8 @@ PropertyPanel::PropertyPanel(HWND parentWindowHandle, Designer* designer) :
 			showItemProperty();
 		}
 	;
+
+	showItemProperty();
 }
 
 PropertyPanel::~PropertyPanel()
@@ -498,4 +500,95 @@ void PropertyPanel::loadItemPropertyUI(void)
 	std::shared_ptr<cx::Widget::Properties> properties =
 		_Designer->_PropertiesManipulator->getProperties();
 
+
+	//-----------------------------------------------------------------------
+	std::int32_t index = 0;
+	for (auto const& property : properties->items())
+	{
+		if (!property->visible())
+		{
+			continue;
+		}
+
+		if      (property->type() == cx::Widget::PropertyTypes::UInt8    ) { addItemPropertyUI_UInt8    (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::UInt16   ) { addItemPropertyUI_UInt16   (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::UInt32   ) { addItemPropertyUI_UInt32   (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::UInt64   ) { addItemPropertyUI_UInt64   (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Int8     ) { addItemPropertyUI_Int8     (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Int16    ) { addItemPropertyUI_Int16    (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Int32    ) { addItemPropertyUI_Int32    (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Int64    ) { addItemPropertyUI_Int64    (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Float    ) { addItemPropertyUI_Float    (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Double   ) { addItemPropertyUI_Double   (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Bool     ) { addItemPropertyUI_Bool     (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::String   ) { addItemPropertyUI_String   (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Points   ) { addItemPropertyUI_Points   (index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::FillStyle) { addItemPropertyUI_FillStyle(index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::LineStyle) { addItemPropertyUI_LineStyle(index, property); }
+		else if (property->type() == cx::Widget::PropertyTypes::TextStyle) { addItemPropertyUI_TextStyle(index, property); }
+	}
+}
+
+void PropertyPanel::addItemPropertyUI_UInt8(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_UInt16(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_UInt32(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_UInt64(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_Int8(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_Int16(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_Int32(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_Int64(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_Float(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_Double(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_Bool(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_String(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_Points(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_FillStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_LineStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
+}
+
+void PropertyPanel::addItemPropertyUI_TextStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+{
 }
