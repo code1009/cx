@@ -525,7 +525,7 @@ void PropertyPanel::addUIControl_PropertySubName(std::wstring const& name)
 	);
 }
 
-void PropertyPanel::addUIControl_PropertyStringValue(std::wstring const& value, bool readOnly)
+std::shared_ptr<cx::Widget::UIControl::Button> PropertyPanel::addUIControl_PropertyStringValue(std::wstring const& value, bool readOnly)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -553,6 +553,8 @@ void PropertyPanel::addUIControl_PropertyStringValue(std::wstring const& value, 
 		_UILayoutChangedHandler2,
 		reinterpret_cast<void*>(valueItem.get())
 	);
+
+	return valueItem;
 }
 
 void PropertyPanel::loadItemPropertyUI_UInt8(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
@@ -966,16 +968,86 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	std::wstring fontBoldString = cx::to_std_wstring(fontBold);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontBold));
-	addUIControl_PropertyStringValue(fontBoldString, property->readOnly());
+	auto fontBoldUIControl = addUIControl_PropertyStringValue(fontBoldString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		fontBoldUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (false == _ItemProperty_valueChanged_Flag)
+			{
+				return;
+			}
+			if (property->readOnly())
+			{
+				return;
+			}
 
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item =
+				std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+	
+			auto valueString = property->value();
+			TextStyle textStyle = to_TextStyle(valueString);
+
+			bool fontBold = textStyle.fontBold();
+			fontBold = !fontBold;
+			textStyle.fontBold(fontBold);
+
+			property->value(cx::Widget::to_std_wstring(textStyle));
+
+			
+			std::wstring fontBoldString = cx::to_std_wstring(fontBold);
+			item->text(fontBoldString);
+		}
+	);
 
 	//-----------------------------------------------------------------------
 	bool fontItalic = textStyle.fontItalic();
 
 	std::wstring fontItalicString = cx::to_std_wstring(fontItalic);
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontItalic));
-	addUIControl_PropertyStringValue(fontItalicString, property->readOnly());
+	auto fontItalicUIControl = addUIControl_PropertyStringValue(fontItalicString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		fontItalicUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (false == _ItemProperty_valueChanged_Flag)
+			{
+				return;
+			}
+			if (property->readOnly())
+			{
+				return;
+			}
 
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item =
+				std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			TextStyle textStyle = to_TextStyle(valueString);
+
+			bool fontItalic = textStyle.fontItalic();
+			fontItalic = !fontItalic;
+			textStyle.fontItalic(fontItalic);
+
+			property->value(cx::Widget::to_std_wstring(textStyle));
+
+
+			std::wstring fontItalicString = cx::to_std_wstring(fontItalic);
+			item->text(fontItalicString);
+		}
+	);
 
 	//-----------------------------------------------------------------------
 	TextHAlignment textHAlignment = textStyle.textHAlignment();

@@ -27,10 +27,19 @@ Resource::~Resource()
 //===========================================================================
 void Resource::registerResource(ResourceManager* resourceManager)
 {
-	CX_RUNTIME_ASSERT(nullptr == _ResourceManager);
-	
-	_ResourceManager = resourceManager;
-	_ResourceManager->registerResource(this);
+	if (_ResourceManager == nullptr)
+	{
+		_ResourceManager = resourceManager;
+		_ResourceManager->registerResource(this);
+	}
+	else if (resourceManager == _ResourceManager)
+	{
+
+	}
+	else
+	{
+		CX_RUNTIME_ASSERT(0);
+	}
 }
 
 void Resource::unregisterResource(void)

@@ -73,8 +73,8 @@ public:
 	void addUIControl_PropertyName(std::wstring const& name);
 	void addUIControl_PropertyGroupName(std::wstring const& name);
 	void addUIControl_PropertySubName(std::wstring const& name);	
-	void addUIControl_PropertyStringValue(std::wstring const& value, bool readOnly = false);
-	void addUIControl_PropertyBoolValue(std::wstring const& value, bool readOnly = false);
+	std::shared_ptr<cx::Widget::UIControl::Button> addUIControl_PropertyStringValue(std::wstring const& value, bool readOnly = false);
+
 	void loadItemPropertyUI_UInt8    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
 	void loadItemPropertyUI_UInt16   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
 	void loadItemPropertyUI_UInt32   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
