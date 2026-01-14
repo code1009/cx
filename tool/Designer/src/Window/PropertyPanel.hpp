@@ -13,15 +13,9 @@ class PropertyPanel :
 private:
 	Designer* _Designer{ nullptr };
 
+	//-----------------------------------------------------------------------
 private:
-	struct PropertyInfo
-	{
-		std::wstring type;
-		std::wstring label;
-		std::wstring name;
-	};
-
-	std::vector<PropertyInfo> _PropertyInfos;
+	bool _ItemProperty_valueChanged_Flag{ false };
 
 	//-----------------------------------------------------------------------
 public:
@@ -31,6 +25,7 @@ public:
 	//-----------------------------------------------------------------------
 public:
 	explicit PropertyPanel(HWND parentWindowHandle, Designer* designer);
+	virtual ~PropertyPanel();
 
 public:
 	virtual HWND createPropertyPanel(HWND parentWindowHandle);
@@ -54,10 +49,13 @@ public:
 
 	//-----------------------------------------------------------------------
 public:
-	void loadProperty(void);
-	void addProperty_Catalog(Catalog* catalog);
-
-public:
 	void setupUIControlls(void);
 	void recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy);
+
+public:
+	void showItemProperty(void);
+
+public:
+	void LoadEmptyPropertyUI(void);
+	void loadItemPropertyUI(void);
 };

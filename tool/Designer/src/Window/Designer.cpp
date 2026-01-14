@@ -77,6 +77,21 @@ Designer::Designer(HWND hwnd) :
 
 Designer::~Designer()
 {
+	_Edit->viewPropertiesChangedEventListener.detach(
+		reinterpret_cast<std::uintptr_t>(this)
+	);
+	_Edit->modifiedEventListener.detach(
+		reinterpret_cast<std::uintptr_t>(this)
+	);
+	_Edit->invalidatedEventListener.detach(
+		reinterpret_cast<std::uintptr_t>(this)
+	);
+	_Edit->itemSelectionChangedEventListener.detach(
+		reinterpret_cast<std::uintptr_t>(this)
+	);
+	_PropertiesManipulator->propertyChangedEventListener.detach(
+		reinterpret_cast<std::uintptr_t>(this)
+	);
 }
 
 //===========================================================================
@@ -108,7 +123,53 @@ void Designer::setupCanvasView(void)
 
 
 	//-----------------------------------------------------------------------
+	_Edit->viewPropertiesChangedEventListener.attach(
+		reinterpret_cast<std::uintptr_t>(this),
+		[this](cx::ev::Event& /*event*/)
+		{
+			updateScrollBar();
+			invalidate();
+		}
+	);
+
+	_Edit->modifiedEventListener.attach(
+		reinterpret_cast<std::uintptr_t>(this),
+		[this](cx::ev::Event& /*event*/)
+		{
+			//FileSaveButton().IsEnabled(_Edit->editSeed().isModified());
+		}
+	);
+
 	_Edit->invalidatedEventListener.attach(
+		reinterpret_cast<std::uintptr_t>(this),
+		[this](cx::ev::Event& /*event*/)
+		{
+			invalidate();
+		}
+	);
+
+	_Edit->itemSelectionChangedEventListener.attach(
+		reinterpret_cast<std::uintptr_t>(this),
+		[this](cx::ev::Event& /*event*/)
+		{
+			auto selectedItems = _Edit->getSelectedItems();
+			std::size_t count = selectedItems.size();
+			if (1 == count)
+			{
+				auto selectedItem = selectedItems.at(0);
+				showItemProperty(selectedItem);
+			}
+			else
+			{
+				showItemProperty(nullptr);
+			}
+		}
+	);
+
+
+	//-----------------------------------------------------------------------
+	_PropertiesManipulator = std::make_unique<cx::Widget::PropertiesManipulator>(*_Edit);
+	_PropertiesManipulator->propertyChangedEventListener.attach(
 		reinterpret_cast<std::uintptr_t>(this),
 		[this](cx::ev::Event& /*event*/)
 		{
@@ -430,6 +491,33 @@ void Designer::updateScrollBar(void)
 		scaledWidth, windowWidth, xScrollPos,
 		scaledHeight, windowHeight, yScrollPos
 	);
+}
+
+//===========================================================================
+void Designer::showItemProperty(std::shared_ptr<cx::Widget::Item> const& item)
+{
+	/*
+	if (item == nullptr)
+	{
+		CX_RUNTIME_LOG(cxLTrace)
+			<< L"showItemProperty: nullptr"
+			;
+	}
+	else
+	{
+		CX_RUNTIME_LOG(cxLTrace)
+			<< L"showItemProperty: "
+			<< std::format(L"{}", item->className())
+			;
+	}
+	*/
+
+	_PropertiesManipulator->select(item);
+
+	if (_ShowItemPropertytHandler)
+	{
+		_ShowItemPropertytHandler();
+	}
 }
 
 //===========================================================================

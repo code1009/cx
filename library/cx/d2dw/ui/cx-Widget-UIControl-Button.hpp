@@ -8,6 +8,9 @@ namespace cx::Widget::UIControl
 	class Button : public Base
 	{
 	public:
+		bool _Pressed{ false };
+
+	public:
 		Button();
 
 	public:

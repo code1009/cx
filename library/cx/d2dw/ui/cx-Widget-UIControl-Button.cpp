@@ -64,6 +64,8 @@ namespace cx::Widget::UIControl
 		CX_RUNTIME_LOG(cxLTrace)
 			<< L"Button::onItemPointerPressed:" << event.eventType()
 			;
+
+		_Pressed = true;
 	}
 
 	void Button::onItemPointerReleased(cx::ev::Event& event)
@@ -74,6 +76,20 @@ namespace cx::Widget::UIControl
 		CX_RUNTIME_LOG(cxLTrace)
 			<< L"Button::onItemPointerReleased:" << event.eventType()
 			;
+
+		_Pressed = false;
+	}
+
+	//=======================================================================
+	static Color getPressedColor(Color color)
+	{
+		Color pressedColor;
+
+		pressedColor._Value.a = (color._Value.a * 1.25f > 1.0f) ? 1.0f : color._Value.a * 1.25f;
+		pressedColor._Value.r = (color._Value.r * 1.25f > 1.0f) ? 1.0f : color._Value.r * 1.25f;
+		pressedColor._Value.g = (color._Value.g * 1.25f > 1.0f) ? 1.0f : color._Value.g * 1.25f;
+		pressedColor._Value.b = (color._Value.b * 1.25f > 1.0f) ? 1.0f : color._Value.b * 1.25f;
+		return pressedColor;
 	}
 
 	//=======================================================================
@@ -84,7 +100,17 @@ namespace cx::Widget::UIControl
 		Coord y = points[0].Y;
 		Coord w = points[1].X - points[0].X;
 		Coord h = points[1].Y - points[0].Y;
-		dctx.FillRectangle(x, y, w, h, uiControlStyle().fill().fillColor());
+
+		if (_Pressed)
+		{
+			Color pressedColor = getPressedColor(uiControlStyle().fill().fillColor());
+			dctx.FillRectangle(x, y, w, h, pressedColor);
+		}
+		else
+		{
+			dctx.FillRectangle(x, y, w, h, uiControlStyle().fill().fillColor());
+		}
+
 		dctx.DrawRectangle(x, y, w, h, uiControlStyle().line().lineColor(), uiControlStyle().line().lineSize());
 
 		drawText(dctx);

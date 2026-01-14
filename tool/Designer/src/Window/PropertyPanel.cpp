@@ -66,7 +66,18 @@ PropertyPanel::PropertyPanel(HWND parentWindowHandle, Designer* designer) :
 
 
 	//-----------------------------------------------------------------------
-	loadProperty();
+	_Designer->_ShowItemPropertytHandler = 
+		[this]()
+		{
+			showItemProperty();
+		}
+	;
+}
+
+PropertyPanel::~PropertyPanel()
+{
+	//-----------------------------------------------------------------------
+	_Designer->_ShowItemPropertytHandler = nullptr;
 }
 
 //===========================================================================
@@ -232,6 +243,8 @@ void PropertyPanel::onIdle(void)
 }
 
 //===========================================================================
+#if 0
+
 void PropertyPanel::loadProperty(void)
 {
 	addProperty_Catalog(_Designer->catalog());
@@ -299,7 +312,6 @@ void PropertyPanel::setupUIControlls(void)
 			item->text(info.label);
 			item->name(info.label);
 			_UIController->_View->model().add(item);
-			item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
 
 
 			_UIController->_View->eventHandlerRegistry().registerEventHandler(
@@ -327,7 +339,6 @@ void PropertyPanel::setupUIControlls(void)
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
 			_UIController->_View->model().add(item);
-			item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
 
 
 			_UILayoutManager->add(
@@ -345,7 +356,16 @@ void PropertyPanel::setupUIControlls(void)
 			);
 		}
 	}
+
+
+	//-----------------------------------------------------------------------
+	for (auto item : _UIController->_View->model().items())
+	{
+		item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
+	}
 }
+
+#endif
 
 void PropertyPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 {
@@ -360,4 +380,122 @@ void PropertyPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 		auto viewCy = static_cast<Coord>(_UILayoutManager->getCY());
 		_UIController->_View->viewContext().setSize(viewCx, viewCy);
 	}
+}
+
+void PropertyPanel::showItemProperty(void)
+{
+	_ItemProperty_valueChanged_Flag = false;
+	setupUIControlls();
+	_ItemProperty_valueChanged_Flag = true;
+}
+
+void PropertyPanel::setupUIControlls(void)
+{
+	//-----------------------------------------------------------------------
+	_UILayoutManager.reset();
+	_UIController->_View->model().clear();
+
+
+	//-----------------------------------------------------------------------
+	_UILayoutManager = std::make_unique<UILayoutManager>();
+
+
+	//-----------------------------------------------------------------------
+	if (_Designer->_PropertiesManipulator->getProperties())
+	{
+		loadItemPropertyUI();
+	}
+	else
+	{
+		LoadEmptyPropertyUI();
+	}
+
+
+	//-----------------------------------------------------------------------
+	RECT rect;
+	::GetClientRect(*this, &rect);
+	//-----------------------------------------------------------------------
+	UINT cx;
+	UINT cy;
+	cx = static_cast<UINT>(rect.right - rect.left);
+	cy = static_cast<UINT>(rect.bottom - rect.top);
+	//-----------------------------------------------------------------------
+	if (_UIController)
+	{
+		recalcUIControllsLayout(cx, cy);
+	}
+
+
+	//-----------------------------------------------------------------------
+	for (auto item : _UIController->_View->model().items())
+	{
+		item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
+	}
+}
+
+void PropertyPanel::LoadEmptyPropertyUI(void)
+{
+	//-----------------------------------------------------------------------
+	CX_RUNTIME_LOG(cxLTrace)
+		<< L"LoadEmptyPropertyUI"
+		;
+
+
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto layoutChangedHandler = [this](UILayout* layout)
+		{
+			using namespace cx::Widget;
+			using Control = UIControl::Button;
+
+			auto item = reinterpret_cast<Control*>(layout->_Item._Data);
+
+			item->setPoint(0, Point(layout->_Item._L + 5, layout->_Item._T + 5));
+			item->setPoint(1, Point(layout->_Item._R - 10, layout->_Item._B - 1));
+		};
+
+	UILayoutStyle uiLayoutStyle0{
+		static_cast<Coord>(100), static_cast<Coord>(35),
+		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
+	};
+	UILayoutStyle uiLayoutStyle1{
+		static_cast<Coord>(100), static_cast<Coord>(35),
+		UILayoutAlignment::Fixed, UILayoutAlignment::Fixed
+	};
+	UILayoutStyle uiLayoutStyle2{
+		static_cast<Coord>(100), static_cast<Coord>(35),
+		UILayoutAlignment::Fill, UILayoutAlignment::Fixed
+	};
+
+
+	//-----------------------------------------------------------------------
+	using Control = UIControl::Label;
+	auto item = std::make_shared<Control>();
+	item->text(L"대상을 선택 하세요.");
+	_UIController->_View->model().add(item);
+
+
+	_UILayoutManager->add(
+		true,
+		uiLayoutStyle0,
+		layoutChangedHandler,
+		reinterpret_cast<void*>(item.get())
+	);
+}
+
+void PropertyPanel::loadItemPropertyUI(void)
+{
+	//-----------------------------------------------------------------------
+	CX_RUNTIME_LOG(cxLTrace)
+		<< L"loadItemPropertyUI"
+		;
+
+
+	//-----------------------------------------------------------------------
+	std::shared_ptr<cx::Widget::Properties> properties =
+		_Designer->_PropertiesManipulator->getProperties();
+
 }

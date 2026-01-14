@@ -18,6 +18,8 @@ public:
 	std::unique_ptr<cx::wui::WindowScrollHandler> _ScrollHandler;
 	std::unique_ptr<cx::wui::dragdrop::WindowDropTargetHandler> _DropTargetHandler;
 
+	std::function<void(void)> _ShowItemPropertytHandler{ nullptr };
+
 private:
 	std::unique_ptr<Catalog> _Catalog;
 
@@ -63,6 +65,9 @@ public:
 
 public:
 	void updateScrollBar(void);
+
+	//-----------------------------------------------------------------------
+	void showItemProperty(std::shared_ptr<cx::Widget::Item> const& item);
 
 	//-----------------------------------------------------------------------
 	// Commands
