@@ -1025,8 +1025,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 			using Control = UIControl::Button;
 			auto eventType = event.eventType();
 			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-			std::shared_ptr<Control> item =
-				std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
 	
 			auto valueString = property->value();
@@ -1061,8 +1060,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 			using Control = UIControl::Button;
 			auto eventType = event.eventType();
 			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-			std::shared_ptr<Control> item =
-				std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+			std::shared_ptr<Control> item =	std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
 
 			auto valueString = property->value();
