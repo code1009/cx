@@ -805,12 +805,16 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 	auto fillColorGByte = getColorGByte(fillColor);
 	auto fillColorBByte = getColorBByte(fillColor);
 
+	auto fillColorRGBString = std::format(L"{},{},{}", fillColorRByte, fillColorGByte, fillColorBByte);
+	auto fillColorAString = std::format(L"{}", fillColorAByte);
 
+
+	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
-	auto fillColorUIControl = addPropertyTextUIControl(fillColorString, property->readOnly());
+	auto fillColorRGBUIControl = addPropertyTextUIControl(fillColorRGBString, property->readOnly());
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
-		fillColorUIControl,
+		fillColorRGBUIControl,
 		[this, property](cx::ev::Event& event)
 		{
 			if (!isPropertyEditable(property)) { return; }
@@ -827,27 +831,25 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 			auto fillColor = fillStyle.fillColor();
-			std::wstring fillColorString = to_std_wstring(fillColor);
-
-
 			auto fillColorAByte = getColorAByte(fillColor);
 			auto fillColorRByte = getColorRByte(fillColor);
 			auto fillColorGByte = getColorGByte(fillColor);
 			auto fillColorBByte = getColorBByte(fillColor);
+			auto fillColorRGBString = std::format(L"{},{},{}", fillColorRByte, fillColorGByte, fillColorBByte);
 
 
 			cx::wui::ColorPickerDialog box;
 			if (IDOK == box.doModal(*this, fillColorRByte, fillColorGByte, fillColorBByte))
 			{
+				fillColorRGBString = std::format(L"{},{},{}", fillColorRByte, fillColorGByte, fillColorBByte);
+
+
 				fillColor = Color(
 					fillColorAByte,
 					fillColorRByte,
 					fillColorGByte,
 					fillColorBByte
 				);
-				fillColorString = to_std_wstring(fillColor);
-
-
 				fillStyle.fillColor(fillColor);
 
 
@@ -855,7 +857,63 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 				property->value(valueString);
 
 
-				item->text(fillColorString);
+				item->text(fillColorRGBString);
+			}
+		}
+	);
+
+
+	//-----------------------------------------------------------------------
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColorA));
+	auto fillColorAUIControl = addPropertyTextUIControl(fillColorAString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		fillColorAUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			FillStyle fillStyle = to_FillStyle(valueString);
+
+
+			auto fillColor = fillStyle.fillColor();
+			auto fillColorAByte = getColorAByte(fillColor);
+			auto fillColorRByte = getColorRByte(fillColor);
+			auto fillColorGByte = getColorGByte(fillColor);
+			auto fillColorBByte = getColorBByte(fillColor);
+			auto fillColorAString = std::format(L"{}", fillColorAByte);
+
+
+			std::uint32_t x, y, cx, cy;
+			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::UInt8, fillColorAString))
+			{
+				fillColorAByte = cx::to_std_uint8_t(fillColorAString);
+				fillColorAString = std::format(L"{}", fillColorAByte);
+
+
+				fillColor = Color(
+					fillColorAByte,
+					fillColorRByte,
+					fillColorGByte,
+					fillColorBByte
+				);
+				fillStyle.fillColor(fillColor);
+
+
+				valueString = to_std_wstring(fillStyle);
+				property->value(valueString);
+
+
+				item->text(fillColorAString);
 			}
 		}
 	);
@@ -881,8 +939,123 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 	auto lineColor = lineStyle.lineColor();
 	std::wstring lineColorString = to_std_wstring(lineColor);
 
+	auto lineColorAByte = getColorAByte(lineColor);
+	auto lineColorRByte = getColorRByte(lineColor);
+	auto lineColorGByte = getColorGByte(lineColor);
+	auto lineColorBByte = getColorBByte(lineColor);
+
+	auto lineColorRGBString = std::format(L"{},{},{}", lineColorRByte, lineColorGByte, lineColorBByte);
+	auto lineColorAString = std::format(L"{}", lineColorAByte);
+
+
+	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColor));
-	addPropertyTextUIControl(lineColorString, property->readOnly());
+	auto lineColorRGBUIControl = addPropertyTextUIControl(lineColorRGBString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		lineColorRGBUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			LineStyle lineStyle = to_LineStyle(valueString);
+
+
+			auto lineColor = lineStyle.lineColor();
+			auto lineColorAByte = getColorAByte(lineColor);
+			auto lineColorRByte = getColorRByte(lineColor);
+			auto lineColorGByte = getColorGByte(lineColor);
+			auto lineColorBByte = getColorBByte(lineColor);
+			auto lineColorRGBString = std::format(L"{},{},{}", lineColorRByte, lineColorGByte, lineColorBByte);
+
+
+			cx::wui::ColorPickerDialog box;
+			if (IDOK == box.doModal(*this, lineColorRByte, lineColorGByte, lineColorBByte))
+			{
+				lineColorRGBString = std::format(L"{},{},{}", lineColorRByte, lineColorGByte, lineColorBByte);
+
+
+				lineColor = Color(
+					lineColorAByte,
+					lineColorRByte,
+					lineColorGByte,
+					lineColorBByte
+				);
+				lineStyle.lineColor(lineColor);
+
+
+				valueString = to_std_wstring(lineStyle);
+				property->value(valueString);
+
+
+				item->text(lineColorRGBString);
+			}
+		}
+	);
+
+
+	//-----------------------------------------------------------------------
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColorA));
+	auto lineColorAUIControl = addPropertyTextUIControl(lineColorAString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		lineColorAUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			LineStyle lineStyle = to_LineStyle(valueString);
+
+
+			auto lineColor = lineStyle.lineColor();
+			auto lineColorAByte = getColorAByte(lineColor);
+			auto lineColorRByte = getColorRByte(lineColor);
+			auto lineColorGByte = getColorGByte(lineColor);
+			auto lineColorBByte = getColorBByte(lineColor);
+			auto lineColorAString = std::format(L"{}", lineColorAByte);
+
+
+			std::uint32_t x, y, cx, cy;
+			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::UInt8, lineColorAString))
+			{
+				lineColorAByte = cx::to_std_uint8_t(lineColorAString);
+				lineColorAString = std::format(L"{}", lineColorAByte);
+
+
+				lineColor = Color(
+					lineColorAByte,
+					lineColorRByte,
+					lineColorGByte,
+					lineColorBByte
+				);
+				lineStyle.lineColor(lineColor);
+
+
+				valueString = to_std_wstring(lineStyle);
+				property->value(valueString);
+
+
+				item->text(lineColorAString);
+			}
+		}
+	);
 
 
 	//-----------------------------------------------------------------------
@@ -952,8 +1125,123 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 	auto textColor = textStyle.textColor();
 	std::wstring textColorString = to_std_wstring(textColor);
 
+	auto textColorAByte = getColorAByte(textColor);
+	auto textColorRByte = getColorRByte(textColor);
+	auto textColorGByte = getColorGByte(textColor);
+	auto textColorBByte = getColorBByte(textColor);
+
+	auto textColorRGBString = std::format(L"{},{},{}", textColorRByte, textColorGByte, textColorBByte);
+	auto textColorAString = std::format(L"{}", textColorAByte);
+
+
+	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColor));
-	addPropertyTextUIControl(textColorString, property->readOnly());
+	auto textColorRGBUIControl = addPropertyTextUIControl(textColorRGBString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		textColorRGBUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			TextStyle textStyle = to_TextStyle(valueString);
+
+
+			auto textColor = textStyle.textColor();
+			auto textColorAByte = getColorAByte(textColor);
+			auto textColorRByte = getColorRByte(textColor);
+			auto textColorGByte = getColorGByte(textColor);
+			auto textColorBByte = getColorBByte(textColor);
+			auto textColorRGBString = std::format(L"{},{},{}", textColorRByte, textColorGByte, textColorBByte);
+
+
+			cx::wui::ColorPickerDialog box;
+			if (IDOK == box.doModal(*this, textColorRByte, textColorGByte, textColorBByte))
+			{
+				textColorRGBString = std::format(L"{},{},{}", textColorRByte, textColorGByte, textColorBByte);
+
+
+				textColor = Color(
+					textColorAByte,
+					textColorRByte,
+					textColorGByte,
+					textColorBByte
+				);
+				textStyle.textColor(textColor);
+
+
+				valueString = to_std_wstring(textStyle);
+				property->value(valueString);
+
+
+				item->text(textColorRGBString);
+			}
+		}
+	);
+
+
+	//-----------------------------------------------------------------------
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColorA));
+	auto textColorAUIControl = addPropertyTextUIControl(textColorAString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		textColorAUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			TextStyle textStyle = to_TextStyle(valueString);
+
+
+			auto textColor = textStyle.textColor();
+			auto textColorAByte = getColorAByte(textColor);
+			auto textColorRByte = getColorRByte(textColor);
+			auto textColorGByte = getColorGByte(textColor);
+			auto textColorBByte = getColorBByte(textColor);
+			auto textColorAString = std::format(L"{}", textColorAByte);
+
+
+			std::uint32_t x, y, cx, cy;
+			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::UInt8, textColorAString))
+			{
+				textColorAByte = cx::to_std_uint8_t(textColorAString);
+				textColorAString = std::format(L"{}", textColorAByte);
+
+
+				textColor = Color(
+					textColorAByte,
+					textColorRByte,
+					textColorGByte,
+					textColorBByte
+				);
+				textStyle.textColor(textColor);
+
+
+				valueString = to_std_wstring(textStyle);
+				property->value(valueString);
+
+
+				item->text(textColorAString);
+			}
+		}
+	);
 
 
 	//-----------------------------------------------------------------------
@@ -969,7 +1257,46 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 	std::wstring fontSizeString = cx::to_std_wstring(fontSize);
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontSize));
-	addPropertyTextUIControl(fontSizeString, property->readOnly());
+	auto fontSizeUIControl = addPropertyTextUIControl(fontSizeString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		fontSizeUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			TextStyle textStyle = to_TextStyle(valueString);
+
+
+			auto fontSize = textStyle.fontSize();
+			std::wstring fontSizeString = cx::to_std_wstring(fontSize);
+
+
+			std::uint32_t x, y, cx, cy;
+			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::Float, fontSizeString))
+			{
+				fontSize = cx::to_float(fontSizeString);
+				if (1.0f < fontSize && fontSize < 128.0f)
+				{
+					textStyle.fontSize(fontSize);
+					valueString = cx::Widget::to_std_wstring(textStyle);
+					property->value(valueString);
+
+
+					item->text(fontSizeString);
+				}
+			}
+		}
+	);
 
 
 	//-----------------------------------------------------------------------
@@ -1007,6 +1334,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 		}
 	);
 
+
 	//-----------------------------------------------------------------------
 	bool fontItalic = textStyle.fontItalic();
 	std::wstring fontItalicString = cx::to_std_wstring(fontItalic);
@@ -1042,6 +1370,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 		}
 	);
 
+
 	//-----------------------------------------------------------------------
 	TextHAlignment textHAlignment = textStyle.textHAlignment();
 	std::wstring textHAlignmentString = getTextHAlignmentString(textHAlignment);
@@ -1065,6 +1394,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 		}
 	);
+
 
 	//-----------------------------------------------------------------------
 	TextVAlignment textVAlignment = textStyle.textVAlignment();
