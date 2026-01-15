@@ -924,7 +924,6 @@ bool showInputTextBox(
 	return false;
 }
 
-
 bool showInputTextListBox(
 	HWND hwnd,
 	std::uint32_t x, std::uint32_t y,
