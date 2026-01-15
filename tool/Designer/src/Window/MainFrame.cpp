@@ -220,8 +220,8 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 	case IDM_EDIT_SELECT_ALL       : _View->_Designer->onEdit_SelectAll       (); break;
 	case IDM_EDIT_DESELECT_ALL     : _View->_Designer->onEdit_DeselectAll     (); break;
 	case IDM_EDIT_DELETE           : _View->_Designer->onEdit_Delete          (); break;
-	case IDM_DESIGN_VIEW_COMMAND   : _View->_Designer->onDesign_ViewCommand   (); break;
-	case IDM_DESIGN_VIEW_PROPERTY  : _View->_Designer->onDesign_ViewProperty  (); break;
+	//case IDM_DESIGN_VIEW_COMMAND   : _View->_Designer->onDesign_ViewCommand   (); break;
+	//case IDM_DESIGN_VIEW_PROPERTY  : _View->_Designer->onDesign_ViewProperty  (); break;
 	case IDM_DESIGN_ZOOMIN         : _View->_Designer->onDesign_ZoomIn        (); break;
 	case IDM_DESIGN_ZOOMOUT        : _View->_Designer->onDesign_ZoomOut       (); break;
 	case IDM_DESIGN_BRING_TO_FRONT : _View->_Designer->onDesign_BringToFront  (); break;

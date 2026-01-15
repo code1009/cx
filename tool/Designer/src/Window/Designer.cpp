@@ -20,6 +20,7 @@
 #include "Catalog.hpp"
 #include "Designer.hpp"
 #include "View.hpp"
+#include "ViewPropertyBox.hpp"
 
 #include "FontFamilies.hpp"
 
@@ -658,9 +659,11 @@ void Designer::erase(void)
 }
 
 //===========================================================================
-void Designer::setFileProperties(void)
+void Designer::setViewProperties(void)
 {
+	ViewPropertyBox box;
 
+	box.doModal(_Hwnd);
 }
 
 //===========================================================================
@@ -702,7 +705,7 @@ void Designer::onDesign_BringToFront   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDe
 void Designer::onDesign_SendToBack     (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SendToBack     "; sendToBack();}
 void Designer::onDesign_BringToTop     (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_BringToTop     "; bringToTop();}
 void Designer::onDesign_SendToBottom   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SendToBottom   "; sendToBottom();}
-void Designer::onDesign_FileProperties(void) { CX_RUNTIME_LOG(cxLInfo) << L"onDesign_FileProperties "; setFileProperties(); }
+void Designer::onDesign_FileProperties(void) { CX_RUNTIME_LOG(cxLInfo) << L"onDesign_FileProperties "; setViewProperties(); }
 void Designer::onDesign_SnapToGrid     (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SnapToGrid     "; static bool v=true; v=!v; snapToGrid   (v); }
 void Designer::onDesign_ShowGrid       (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGrid       "; static bool v=true; v=!v; showGrid     (v); }
 void Designer::onDesign_ShowGridCoord  (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGridCoord  "; static bool v=true; v=!v; showGridCoord(v); }

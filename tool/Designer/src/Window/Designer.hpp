@@ -98,7 +98,7 @@ public:
 	void sendToBottom(void);
 
 public:
-	void setFileProperties(void);
+	void setViewProperties(void);
 
 public:
 	void snapToGrid(bool enable);

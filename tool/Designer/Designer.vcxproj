@@ -92,8 +92,10 @@
     <ClCompile Include="src\Window\Designer.cpp" />
     <ClCompile Include="src\Window\FontFamilies.cpp" />
     <ClCompile Include="src\Window\PropertyPanel.cpp" />
+    <ClCompile Include="src\Window\PropertyValueBox.cpp" />
     <ClCompile Include="src\Window\UIController.cpp" />
     <ClCompile Include="src\Window\UILayout.cpp" />
+    <ClCompile Include="src\Window\ViewPropertyBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\library\cx\d2dw\cx-Widget-Anchor.hpp" />
@@ -169,8 +171,10 @@
     <ClInclude Include="src\Window\Designer.hpp" />
     <ClInclude Include="src\Window\FontFamilies.hpp" />
     <ClInclude Include="src\Window\PropertyPanel.hpp" />
+    <ClInclude Include="src\Window\PropertyValueBox.hpp" />
     <ClInclude Include="src\Window\UIController.hpp" />
     <ClInclude Include="src\Window\UILayout.hpp" />
+    <ClInclude Include="src\Window\ViewPropertyBox.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\res\Application.rc" />

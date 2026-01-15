@@ -222,6 +222,12 @@
     <ClCompile Include="src\Window\FontFamilies.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\ViewPropertyBox.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\PropertyValueBox.cpp">
+      <Filter>src\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\res\Resource.h">
@@ -447,6 +453,12 @@
       <Filter>cx\d2dw\ui</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\FontFamilies.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\ViewPropertyBox.hpp">
+      <Filter>src\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\PropertyValueBox.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>
