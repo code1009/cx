@@ -89,12 +89,13 @@ public:
 
 protected:
 	std::wstring _Text;
+	bool _ReadOnly{ false };
 
 public:
 	InputTextBox();
 
 public:
-	virtual void setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, TextType textType);
+	virtual void setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, bool readOnly, TextType textType);
 
 public:
 	virtual void initializeDialogTemplate(void);
@@ -124,6 +125,7 @@ bool showInputTextBox(
 	HWND hwnd, 
 	std::uint32_t x, std::uint32_t y, 
 	std::uint32_t cx, std::uint32_t cy, 
+	bool readOnly,
 	InputTextBox::TextType textType, 
 	std::wstring& text
 );

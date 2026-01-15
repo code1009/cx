@@ -450,7 +450,7 @@ void PropertyPanel::loadItemPropertyUI(void)
 
 bool PropertyPanel::isPropertyEditable(std::shared_ptr<cx::Widget::Property> property) const
 {
-	return _ItemProperty_valueChanged_Flag && !property->readOnly();
+	return _ItemProperty_valueChanged_Flag;
 }
 
 std::wstring PropertyPanel::getTextHAlignmentString(cx::Widget::TextHAlignment textHAlignment)
@@ -710,7 +710,7 @@ void PropertyPanel::addItemPropertyTextUI(std::shared_ptr<cx::Widget::Property> 
 
 			std::uint32_t x, y, cx, cy;
 			calcPropertyValueBoxRect(item, x, y, cx, cy);
-			if (showInputTextBox(*this, x, y, cx, cy, textType, valueString))
+			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), textType, valueString))
 			{
 				property->value(valueString);
 				item->text(valueString);
@@ -755,7 +755,29 @@ void PropertyPanel::addItemPropertyPointsUI(std::shared_ptr<cx::Widget::Property
 
 
 	//-----------------------------------------------------------------------
-	addPropertyTextUIControl(valueString, property->readOnly());
+	auto valueUIControl = addPropertyTextUIControl(valueString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		valueUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			std::wstring valueString = property->value();
+
+
+			std::uint32_t x, y, cx, cy;
+			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			showInputTextBox(*this, x, y, cx, cy, true, InputTextBox::TextType::String, valueString);
+		}
+	);
 }
 
 void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Property> property)
@@ -778,8 +800,65 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 	auto fillColor = fillStyle.fillColor();
 	std::wstring fillColorString = to_std_wstring(fillColor);
 
+	auto fillColorAByte = getColorAByte(fillColor);
+	auto fillColorRByte = getColorRByte(fillColor);
+	auto fillColorGByte = getColorGByte(fillColor);
+	auto fillColorBByte = getColorBByte(fillColor);
+
+
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
-	addPropertyTextUIControl(fillColorString, property->readOnly());
+	auto fillColorUIControl = addPropertyTextUIControl(fillColorString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		fillColorUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			FillStyle fillStyle = to_FillStyle(valueString);
+
+
+			auto fillColor = fillStyle.fillColor();
+			std::wstring fillColorString = to_std_wstring(fillColor);
+
+
+			auto fillColorAByte = getColorAByte(fillColor);
+			auto fillColorRByte = getColorRByte(fillColor);
+			auto fillColorGByte = getColorGByte(fillColor);
+			auto fillColorBByte = getColorBByte(fillColor);
+
+
+			cx::wui::ColorPickerDialog box;
+			if (IDOK == box.doModal(*this, fillColorRByte, fillColorGByte, fillColorBByte))
+			{
+				fillColor = Color(
+					fillColorAByte,
+					fillColorRByte,
+					fillColorGByte,
+					fillColorBByte
+				);
+				fillColorString = to_std_wstring(fillColor);
+
+
+				fillStyle.fillColor(fillColor);
+
+
+				valueString = to_std_wstring(fillStyle);
+				property->value(valueString);
+
+
+				item->text(fillColorString);
+			}
+		}
+	);
 }
 
 void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Property> property)
@@ -811,7 +890,46 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 	std::wstring lineSizeString = cx::to_std_wstring(lineSize);
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineSize));
-	addPropertyTextUIControl(lineSizeString, property->readOnly());
+	auto lineSizeUIControl = addPropertyTextUIControl(lineSizeString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		lineSizeUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			LineStyle lineStyle = to_LineStyle(valueString);
+
+
+			auto lineSize = lineStyle.lineSize();
+			std::wstring lineSizeString = cx::to_std_wstring(lineSize);
+
+
+			std::uint32_t x, y, cx, cy;
+			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::Float, lineSizeString))
+			{
+				lineSize = cx::to_float(lineSizeString);
+				if (1.0f < lineSize && lineSize < 128.0f)
+				{
+					lineStyle.lineSize(lineSize);
+					valueString = cx::Widget::to_std_wstring(lineStyle);
+					property->value(valueString);
+
+
+					item->text(lineSizeString);
+				}
+			}
+		}
+	);
 }
 
 void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Property> property)

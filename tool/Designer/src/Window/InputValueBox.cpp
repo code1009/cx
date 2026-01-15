@@ -297,13 +297,14 @@ InputTextBox::InputTextBox()
 }
 
 //===========================================================================
-void InputTextBox::setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, TextType textType)
+void InputTextBox::setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, bool readOnly, TextType textType)
 {
 	//-----------------------------------------------------------------------
 	_X = x;
 	_Y = y;
 	_CX = cx;
 	_CY = cy;
+	_ReadOnly = readOnly;
 	
 
 	//-----------------------------------------------------------------------
@@ -354,11 +355,18 @@ void InputTextBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
+	DWORD dwStyle;
+	dwStyle = WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL | ES_LEFT;
+	if (_ReadOnly)
+	{
+		dwStyle |= ES_READONLY;
+	}
+
 	_EditControlHandle = ::CreateWindowEx(
 		WS_EX_CLIENTEDGE,
 		L"EDIT",
 		nullptr,
-		WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL | ES_LEFT,
+		dwStyle,
 		0,
 		0,
 		_CX,
@@ -539,14 +547,15 @@ void InputTextBox::onEndDialog(INT_PTR result)
 bool showInputTextBox(
 	HWND hwnd, 
 	std::uint32_t x, std::uint32_t y, 
-	std::uint32_t cx, std::uint32_t cy, 
+	std::uint32_t cx, std::uint32_t cy,
+	bool readOnly,
 	InputTextBox::TextType textType, 
 	std::wstring& text
 )
 {
 	InputTextBox box;
 	box.setText(text);
-	box.setup(x, y, cx, cy, textType);
+	box.setup(x, y, cx, cy, readOnly, textType);
 	if (IDOK == box.doModal(hwnd))
 	{
 		text = box.getText();

@@ -34,11 +34,14 @@ namespace cx::Widget
 	public:
 		static constexpr StringView fillStyle                = L"채움 모양";
 		static constexpr StringView fillStyle_fillColor      = L"책움 색상";
+		static constexpr StringView fillStyle_fillColorA     = L"책움 투명도";
 		static constexpr StringView lineStyle                = L"선 모양";
 		static constexpr StringView lineStyle_lineColor      = L"선 색상";
+		static constexpr StringView lineStyle_lineColorA     = L"선 투명도";
 		static constexpr StringView lineStyle_lineSize       = L"선 크기";
 		static constexpr StringView textStyle                = L"글자 모양";
 		static constexpr StringView textStyle_textColor      = L"글자 색상";
+		static constexpr StringView textStyle_textColorA     = L"글자 투명도";
 		static constexpr StringView textStyle_fontFamily     = L"글꼴 이름";
 		static constexpr StringView textStyle_fontSize       = L"글꼴 크기";
 		static constexpr StringView textStyle_fontBold       = L"글꼴 굵게";
