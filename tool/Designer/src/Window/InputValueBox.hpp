@@ -25,7 +25,7 @@ public:
 	virtual LRESULT onWindowMessage(cx::wui::WindowMessage& windowMessage) override;
 
 public:
-	virtual void setupInputBox(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy);
+	virtual void setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy);
 	virtual void setPosition(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy);
 	virtual void setWindowPosition(void);
 
@@ -53,31 +53,65 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-class InputStringBox : public InputValueBox
+class InputTextBox : 
+	public cx::wui::MessageMapWindowT<InputTextBox, cx::wui::ModalIndirectBaseDialog>
 {
-private:
+protected:
+	cx::wui::MemoryDialogTemplate _DialogTemplate;
+
+protected:
+	std::uint32_t _X{ 0 };
+	std::uint32_t _Y{ 0 };
+	std::uint32_t _CX{ 0 };
+	std::uint32_t _CY{ 0 };
+
+protected:
 	std::unique_ptr<cx::wui::Font> _Font;
-	std::wstring _String;
 	HWND _EditControlHandle{ nullptr };
 
 public:
-	InputStringBox();
+	enum class TextType
+	{
+		String,
+		Float,
+		Double,
+		Uint8,
+		Uint16,
+		Uint32,
+		Uint64,
+		Int8,
+		Int16,
+		Int32,
+		Int64
+	};
+
+	TextType _TextType{ TextType::String };
+
+protected:
+	std::wstring _Text;
 
 public:
-	virtual void setupInputStringBox(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy);
+	InputTextBox();
 
 public:
-	virtual void initializeDialogTemplate(void) override;
+	virtual void setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, TextType textType);
 
 public:
-	void setString(std::wstring const& value);
-	std::wstring getString(void);
+	virtual void initializeDialogTemplate(void);
 
 public:
-	virtual void onInitDialog(cx::wui::WindowMessage& windowMessage) override;
+	virtual void registerWindowMessageMap(void);
+	virtual void onInitDialog(cx::wui::WindowMessage& windowMessage);
+	virtual void onCommand(cx::wui::WindowMessage& windowMessage);
+	virtual void onNcActivate(cx::wui::WindowMessage& windowMessage);
+	virtual void onUser1(cx::wui::WindowMessage& windowMessage);
 
 public:
-	virtual void onEndDialog(INT_PTR result) override;
+	virtual void setText(std::wstring const& value);
+	virtual std::wstring getText(void);
+
+public:
+	virtual void onEndDialog(INT_PTR result);
 };
 
 
@@ -86,4 +120,14 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bool showInputStringBox(HWND hwnd, std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, std::wstring& value);
+bool showInputTextBox(
+	HWND hwnd, 
+	std::uint32_t x, std::uint32_t y, 
+	std::uint32_t cx, std::uint32_t cy, 
+	InputTextBox::TextType textType, 
+	std::wstring& text
+);
+
+
+
+

@@ -956,7 +956,7 @@ void PropertyPanel::loadItemPropertyUI_String(std::int32_t& index, std::shared_p
 
 			std::uint32_t x, y, cx, cy;
 			calcPropertyValueBoxRect(item, x, y, cx, cy);
-			if (showInputStringBox(*this, x, y, cx, cy, valueString))
+			if (showInputTextBox(*this, x, y, cx, cy, InputTextBox::TextType::String, valueString))
 			{
 				property->value(valueString);
 				item->text(valueString);

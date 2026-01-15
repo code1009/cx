@@ -3,11 +3,9 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <cx/wui/wui.hpp>
 #include <cx/runtime/runtime.hpp>
-
-//===========================================================================
-#include "../../res/resource.h"
+#include <cx/common/common.hpp>
+#include <cx/wui/wui.hpp>
 
 //===========================================================================
 #include "InputValueBox.hpp"
@@ -34,7 +32,7 @@ LRESULT InputValueBox::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 }
 
 //===========================================================================
-void InputValueBox::setupInputBox(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy)
+void InputValueBox::setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy)
 {
 	//-----------------------------------------------------------------------
 	setPosition(x, y, cx, cy);
@@ -80,13 +78,13 @@ void InputValueBox::initializeDialogTemplate(void)
 void InputValueBox::registerWindowMessageMap(void)
 {
 	_WindowMessageMap[WM_INITDIALOG] = &InputValueBox::onInitDialog;
-	_WindowMessageMap[WM_COMMAND   ] = &InputValueBox::onCommand;
+	_WindowMessageMap[WM_COMMAND] = &InputValueBox::onCommand;
 	_WindowMessageMap[WM_NCACTIVATE] = &InputValueBox::onNcActivate;
-	_WindowMessageMap[WM_ACTIVATE  ] = &InputValueBox::onActivate;
+	_WindowMessageMap[WM_ACTIVATE] = &InputValueBox::onActivate;
 	_WindowMessageMap[WM_SETFOCUS] = &InputValueBox::onSetFocus;
 	_WindowMessageMap[WM_KILLFOCUS] = &InputValueBox::onKillFocus;
-	_WindowMessageMap[WM_USER+1] = &InputValueBox::onUser1;
-//	_WindowMessageMap[WM_PAINT] = &InputValueBox::onPaint;
+	_WindowMessageMap[WM_USER + 1] = &InputValueBox::onUser1;
+	_WindowMessageMap[WM_PAINT] = &InputValueBox::onPaint;
 }
 
 void InputValueBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
@@ -292,18 +290,24 @@ void InputValueBox::onEndDialog(INT_PTR result)
 
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-InputStringBox::InputStringBox()
+InputTextBox::InputTextBox()
 {
 }
 
 //===========================================================================
-void InputStringBox::setupInputStringBox(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy)
+void InputTextBox::setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, TextType textType)
 {
 	//-----------------------------------------------------------------------
-	setPosition(x, y, cx, cy);
+	_X = x;
+	_Y = y;
+	_CX = cx;
+	_CY = cy;
+	
+
+	//-----------------------------------------------------------------------
+	_TextType = textType;
 
 
 	//-----------------------------------------------------------------------
@@ -313,7 +317,7 @@ void InputStringBox::setupInputStringBox(std::uint32_t x, std::uint32_t y, std::
 }
 
 //===========================================================================
-void InputStringBox::initializeDialogTemplate(void)
+void InputTextBox::initializeDialogTemplate(void)
 {
 	cx::wui::MemoryDialogTemplateWriter w(_DialogTemplate);
 
@@ -330,10 +334,19 @@ void InputStringBox::initializeDialogTemplate(void)
 }
 
 //===========================================================================
-void InputStringBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
+void InputTextBox::registerWindowMessageMap(void)
+{
+	_WindowMessageMap[WM_INITDIALOG] = &InputTextBox::onInitDialog;
+	_WindowMessageMap[WM_COMMAND] = &InputTextBox::onCommand;
+	_WindowMessageMap[WM_NCACTIVATE] = &InputTextBox::onNcActivate;
+	_WindowMessageMap[WM_USER + 1] = &InputTextBox::onUser1;
+}
+
+//===========================================================================
+void InputTextBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
-	setWindowPosition();
+	MoveWindow(*this, _X, _Y, _CX, _CY, FALSE);
 
 
 	//-----------------------------------------------------------------------
@@ -345,7 +358,7 @@ void InputStringBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 		WS_EX_CLIENTEDGE,
 		L"EDIT",
 		nullptr,
-		WS_CHILD | WS_VISIBLE | ES_LEFT,
+		WS_CHILD | WS_VISIBLE | ES_AUTOHSCROLL | ES_LEFT,
 		0,
 		0,
 		_CX,
@@ -356,16 +369,14 @@ void InputStringBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 		nullptr
 	);
 	::SendMessageW(
-		_EditControlHandle, 
-		WM_SETFONT, 
-		reinterpret_cast<WPARAM>(_Font->getFontHandle()), 
+		_EditControlHandle,
+		WM_SETFONT,
+		reinterpret_cast<WPARAM>(_Font->getFontHandle()),
 		/*reinterpret_cast<LPARAM>*/(TRUE)
 	);
-
-
-	if (!_String.empty())
+	if (!_Text.empty())
 	{
-		SetWindowTextW(_EditControlHandle, _String.c_str());
+		SetWindowTextW(_EditControlHandle, _Text.c_str());
 	}
 
 
@@ -373,25 +384,149 @@ void InputStringBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 	windowMessage.setResult(TRUE);
 }
 
-void InputStringBox::setString(std::wstring const& value)
+void InputTextBox::onCommand(cx::wui::WindowMessage& windowMessage)
 {
-	_String = value;
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+
+
+	switch (wm.nID())
+	{
+	case IDOK:
+		onEndDialog(IDOK);
+		::EndDialog(*this, IDOK);
+		windowMessage.setResult(TRUE);
+		break;
+
+	case IDCANCEL:
+		onEndDialog(IDCANCEL);
+		::EndDialog(*this, IDCANCEL);
+		windowMessage.setResult(TRUE);
+		break;
+
+	default:
+		windowMessage.setResult(FALSE);
+		break;
+	}
 }
 
-std::wstring InputStringBox::getString(void)
+void InputTextBox::onNcActivate(cx::wui::WindowMessage& windowMessage)
 {
-	return _String;
+	cx::wui::WM_NCACTIVATE_WindowMessageCrack wm{ windowMessage };
+
+	BOOL active = wm.bActive();
+	if (!active)
+	{
+		PostMessage(*this, WM_USER + 1, 1009, 1);
+	}
 }
 
-void InputStringBox::onEndDialog(INT_PTR result)
+void InputTextBox::onUser1(cx::wui::WindowMessage& windowMessage)
+{
+	if (windowMessage.wParam = 1009 && windowMessage.lParam == 1)
+	{
+		onEndDialog(IDOK);
+		::EndDialog(*this, IDOK);
+	}
+}
+
+void InputTextBox::setText(std::wstring const& text)
+{
+	_Text = text;
+}
+
+std::wstring InputTextBox::getText(void)
+{
+	return _Text;
+}
+
+void InputTextBox::onEndDialog(INT_PTR result)
 {
 	CX_RUNTIME_LOG(cxLTrace) <<
-		L"InputStringBox::onEndDialog"
+		L"InputIntegerBox::onEndDialog"
 		;
 
 	if (_EditControlHandle)
 	{
-		_String = cx::wui::getWindowText(_EditControlHandle);
+		std::wstring text = cx::wui::getWindowText(_EditControlHandle);
+		switch (_TextType)
+		{
+		case TextType::String:
+			_Text = text;
+			break;
+
+		case TextType::Float:
+			if (cx::is_float_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Double:
+			if (cx::is_double_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Uint8:
+			if (cx::is_uint8_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Uint16:
+			if (cx::is_uint16_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Uint32:
+			if (cx::is_uint32_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Uint64:
+			if (cx::is_uint64_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Int8:
+			if (cx::is_int8_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Int16:
+			if (cx::is_int16_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Int32:
+			if (cx::is_int32_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Int64:
+			if (cx::is_int64_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		default:
+			break;
+		}
 	}
 }
 
@@ -401,19 +536,22 @@ void InputStringBox::onEndDialog(INT_PTR result)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-bool showInputStringBox(HWND hwnd, std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, std::wstring& value)
+bool showInputTextBox(
+	HWND hwnd, 
+	std::uint32_t x, std::uint32_t y, 
+	std::uint32_t cx, std::uint32_t cy, 
+	InputTextBox::TextType textType, 
+	std::wstring& text
+)
 {
-	InputStringBox box;
-	box.setString(value);
-	box.setupInputStringBox(x, y, cx, cy);
+	InputTextBox box;
+	box.setText(text);
+	box.setup(x, y, cx, cy, textType);
 	if (IDOK == box.doModal(hwnd))
 	{
-		value = box.getString();
+		text = box.getText();
 		return true;
 	}
 	return false;
 }
-
-
-
 

@@ -87,18 +87,17 @@ void DrawingSession::DrawText(std::wstring const& text, float x, float y, float 
 			DWriteTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 			break;
 		default:
-			// vcenter
 			DWriteTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 			break;
 		}
 
+		DWriteTextFormat->SetWordWrapping(DWRITE_WORD_WRAPPING_NO_WRAP);
 
-		format._Value = DWriteTextFormat;
 
-		
+		format._Value = DWriteTextFormat;		
 		format.registerResource(_Context->getDeviceIndependentResourceManager());
 	}
-
+		
 
 	_Context->getD2dHwndRenderTarget()->DrawText(
 		text.c_str(),
@@ -106,7 +105,7 @@ void DrawingSession::DrawText(std::wstring const& text, float x, float y, float 
 		format._Value.get(),
 		D2D1::RectF(x, y, x + w, y + h),
 		brush.get(),
-		D2D1_DRAW_TEXT_OPTIONS_NONE,
+		D2D1_DRAW_TEXT_OPTIONS_CLIP | D2D1_DRAW_TEXT_OPTIONS_NO_SNAP,
 		DWRITE_MEASURING_MODE_NATURAL
 	);
 }
