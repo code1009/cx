@@ -520,10 +520,30 @@ void PropertyPanel::calcPropertyValueBoxRect(
 	ClientToScreen(*this, &points[0]);
 	ClientToScreen(*this, &points[1]);
 
-	x = points[0].x + 1;
-	y = points[1].y + 1;
-	cx = points[1].x - points[0].x - 2;
-	//cy = points[1].y - points[0].y;
+	x = points[0].x;
+	y = points[0].y;
+	cx = points[1].x - points[0].x;
+	cy = points[1].y - points[0].y;
+}
+
+void PropertyPanel::calcPropertyValueDropBoxRect(
+	std::shared_ptr<cx::Widget::UIControl::Base> control,
+	std::uint32_t& x, std::uint32_t& y,
+	std::uint32_t& cx, std::uint32_t& cy
+)
+{
+	std::uint32_t X;
+	std::uint32_t Y;
+	std::uint32_t CX;
+	std::uint32_t CY;
+	calcPropertyValueBoxRect(control, X, Y, CX, CY);
+
+	x = X + 1;
+	y = Y + CY + 1;
+	if (CX > 2)
+	{
+		cx = CX - 2;
+	}
 }
 
 void PropertyPanel::addUIControl_PropertyName(std::wstring const& name)
@@ -1136,7 +1156,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 			std::uint32_t y;
 			std::uint32_t cx;
 			std::uint32_t cy = 100;
-			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
 			PropertyValueBox box(x, y, cx, cy);
 			box.doModal(*this);
 		}

@@ -34,4 +34,5 @@ public:
 	virtual void onSetFocus(cx::wui::WindowMessage& windowMessage);
 	virtual void onKillFocus(cx::wui::WindowMessage& windowMessage);
 	virtual void onUser1(cx::wui::WindowMessage& windowMessage);
+	virtual void onPaint(cx::wui::WindowMessage& windowMessage);
 };

@@ -78,6 +78,11 @@ public:
 		std::shared_ptr<cx::Widget::UIControl::Base> control,
 		std::uint32_t& x, std::uint32_t& y,
 		std::uint32_t& cx, std::uint32_t& cy
+	);
+	void calcPropertyValueDropBoxRect(
+		std::shared_ptr<cx::Widget::UIControl::Base> control,
+		std::uint32_t& x, std::uint32_t& y,
+		std::uint32_t& cx, std::uint32_t& cy
 		);
 
 	void addUIControl_PropertyName(std::wstring const& name);

@@ -36,7 +36,7 @@ void PropertyValueBox::initializeDialogTemplate(void)
 
 
 	w.BEGIN_DIALOG(0, 0, _CX, _CY);
-		w.DIALOG_STYLE  (DS_SETFONT | WS_POPUP);
+		w.DIALOG_STYLE  (DS_SETFONT | WS_POPUP | WS_BORDER | WS_VSCROLL);
 		w.DIALOG_FONT   (9, L"Segoe UI");
 	w.END_DIALOG();
 	w.BEGIN_CONTROLS_MAP();
@@ -56,6 +56,7 @@ void PropertyValueBox::registerWindowMessageMap(void)
 	_WindowMessageMap[WM_SETFOCUS] = &PropertyValueBox::onSetFocus;
 	_WindowMessageMap[WM_KILLFOCUS] = &PropertyValueBox::onKillFocus;
 	_WindowMessageMap[WM_USER+1] = &PropertyValueBox::onUser1;
+	_WindowMessageMap[WM_PAINT] = &PropertyValueBox::onPaint;
 }
 
 LRESULT PropertyValueBox::onWindowMessage(cx::wui::WindowMessage& windowMessage)
@@ -187,4 +188,68 @@ void PropertyValueBox::onUser1(cx::wui::WindowMessage& windowMessage)
 
 		::EndDialog(*this, IDCANCEL);
 	}
+}
+
+void PropertyValueBox::onPaint(cx::wui::WindowMessage& windowMessage)
+{
+	cx::wui::PaintDC paintDC(*this);
+
+
+	RECT rc;
+	::GetClientRect(*this, &rc);
+
+
+	::FillRect(paintDC, &rc, (HBRUSH)(COLOR_WINDOW + 1));
+
+
+	rc.right--;
+	rc.bottom--;
+
+
+	HPEN lightPen = ::CreatePen(PS_SOLID, 1, RGB(240, 240, 255));
+	HPEN darkPen = ::CreatePen(PS_SOLID, 1, RGB(64, 64, 128));
+	
+	HPEN lPen;
+	HPEN rPen;
+	HPEN tPen;
+	HPEN bPen;
+
+	HPEN oldPen;
+	HPEN firstPen;
+
+	lPen = lightPen;
+	tPen = lightPen;
+	rPen = darkPen;
+	bPen = lightPen;
+
+	
+	firstPen = rPen;
+	oldPen = (HPEN)::SelectObject(paintDC, rPen);
+	::MoveToEx(paintDC, rc.right, rc.top, nullptr);
+	::LineTo(paintDC, rc.right, rc.bottom);
+
+	if (firstPen != bPen)
+	{
+		::SelectObject(paintDC, bPen);
+	}
+	::LineTo(paintDC, rc.left, rc.bottom);
+
+	if (firstPen != lPen)
+	{
+		::SelectObject(paintDC, lPen);
+	}
+	::LineTo(paintDC, rc.left, rc.top);
+
+	if (firstPen != tPen)
+	{
+		::SelectObject(paintDC, tPen);
+	}
+	::LineTo(paintDC, rc.right, rc.top);
+
+
+	::SelectObject(paintDC, oldPen);
+
+
+	::DeleteObject(lightPen);
+	::DeleteObject(darkPen);
 }
