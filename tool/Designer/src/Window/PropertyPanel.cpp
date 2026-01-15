@@ -422,7 +422,6 @@ void PropertyPanel::loadItemPropertyUI(void)
 
 
 	//-----------------------------------------------------------------------
-	std::int32_t index = 0;
 	for (auto const& property : properties->items())
 	{
 		if (!property->visible())
@@ -430,22 +429,22 @@ void PropertyPanel::loadItemPropertyUI(void)
 			continue;
 		}
 
-		if      (property->type() == cx::Widget::PropertyTypes::UInt8    ) { loadItemPropertyUI_UInt8    (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::UInt16   ) { loadItemPropertyUI_UInt16   (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::UInt32   ) { loadItemPropertyUI_UInt32   (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::UInt64   ) { loadItemPropertyUI_UInt64   (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::Int8     ) { loadItemPropertyUI_Int8     (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::Int16    ) { loadItemPropertyUI_Int16    (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::Int32    ) { loadItemPropertyUI_Int32    (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::Int64    ) { loadItemPropertyUI_Int64    (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::Float    ) { loadItemPropertyUI_Float    (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::Double   ) { loadItemPropertyUI_Double   (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::Bool     ) { loadItemPropertyUI_Bool     (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::String   ) { loadItemPropertyUI_String   (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::Points   ) { loadItemPropertyUI_Points   (index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::FillStyle) { loadItemPropertyUI_FillStyle(index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::LineStyle) { loadItemPropertyUI_LineStyle(index, property); }
-		else if (property->type() == cx::Widget::PropertyTypes::TextStyle) { loadItemPropertyUI_TextStyle(index, property); }
+		if      (property->type() == cx::Widget::PropertyTypes::UInt8    ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::UInt16   ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::UInt32   ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::UInt64   ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Int8     ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Int16    ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Int32    ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Int64    ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Float    ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Double   ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Bool     ) { addItemPropertyBoolUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::String   ) { addItemPropertyTextUI     (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::Points   ) { addItemPropertyPointsUI   (property); }
+		else if (property->type() == cx::Widget::PropertyTypes::FillStyle) { addItemPropertyFillStyleUI(property); }
+		else if (property->type() == cx::Widget::PropertyTypes::LineStyle) { addItemPropertyLineStyleUI(property); }
+		else if (property->type() == cx::Widget::PropertyTypes::TextStyle) { addItemPropertyTextStyleUI(property); }
 	}
 }
 
@@ -546,7 +545,7 @@ void PropertyPanel::calcPropertyValueDropBoxRect(
 	}
 }
 
-void PropertyPanel::addUIControl_PropertyName(std::wstring const& name)
+void PropertyPanel::addPropertyNameUIControl(std::wstring const& name)
 {
 	//-----------------------------------------------------------------------
 	/*
@@ -578,7 +577,7 @@ void PropertyPanel::addUIControl_PropertyName(std::wstring const& name)
 	);
 }
 
-void PropertyPanel::addUIControl_PropertyGroupName(std::wstring const& name)
+void PropertyPanel::addPropertyGroupNameUIControl(std::wstring const& name)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -601,7 +600,7 @@ void PropertyPanel::addUIControl_PropertyGroupName(std::wstring const& name)
 	);
 }
 
-void PropertyPanel::addUIControl_PropertySubName(std::wstring const& name)
+void PropertyPanel::addPropertySubNameUIControl(std::wstring const& name)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -624,7 +623,7 @@ void PropertyPanel::addUIControl_PropertySubName(std::wstring const& name)
 	);
 }
 
-std::shared_ptr<cx::Widget::UIControl::Button> PropertyPanel::addUIControl_PropertyStringValue(std::wstring const& value, bool readOnly)
+std::shared_ptr<cx::Widget::UIControl::Button> PropertyPanel::addPropertyTextUIControl(std::wstring const& value, bool readOnly)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -656,271 +655,8 @@ std::shared_ptr<cx::Widget::UIControl::Button> PropertyPanel::addUIControl_Prope
 	return valueItem;
 }
 
-void PropertyPanel::loadItemPropertyUI_UInt8(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_std_uint8_t(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_UInt16(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_std_uint16_t(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_UInt32(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_std_uint32_t(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_UInt64(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_std_uint64_t(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_Int8(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_std_int8_t(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_Int16(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_std_int16_t(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_Int32(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_std_int32_t(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_Int64(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_std_int64_t(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_Float(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_float(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_Double(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_double(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_Bool(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
-{
-	//-----------------------------------------------------------------------
-	using namespace cx::Widget;
-
-
-	//-----------------------------------------------------------------------
-	auto name = property->friendlyName();
-	auto valueString = property->value();
-	auto value = cx::to_bool(valueString);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
-
-
-	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
-}
-
-void PropertyPanel::loadItemPropertyUI_String(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+//===========================================================================
+void PropertyPanel::addItemPropertyTextUI(std::shared_ptr<cx::Widget::Property> property)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -932,17 +668,35 @@ void PropertyPanel::loadItemPropertyUI_String(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
+	addPropertyNameUIControl(name);
 
 
 	//-----------------------------------------------------------------------
-	auto valueUIControl = addUIControl_PropertyStringValue(valueString, property->readOnly());
+	auto valueUIControl = addPropertyTextUIControl(valueString, property->readOnly());
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		valueUIControl,
 		[this, property](cx::ev::Event& event)
 		{
 			if (!isPropertyEditable(property)) { return; }
+
+
+			InputTextBox::TextType textType;
+			if      (property->type() == cx::Widget::PropertyTypes::UInt8 ) { textType = InputTextBox::TextType::UInt8 ; }
+			else if (property->type() == cx::Widget::PropertyTypes::UInt16) { textType = InputTextBox::TextType::UInt16; }
+			else if (property->type() == cx::Widget::PropertyTypes::UInt32) { textType = InputTextBox::TextType::UInt32; }
+			else if (property->type() == cx::Widget::PropertyTypes::UInt64) { textType = InputTextBox::TextType::UInt64; }
+			else if (property->type() == cx::Widget::PropertyTypes::Int8  ) { textType = InputTextBox::TextType::Int8  ; }
+			else if (property->type() == cx::Widget::PropertyTypes::Int16 ) { textType = InputTextBox::TextType::Int16 ; }
+			else if (property->type() == cx::Widget::PropertyTypes::Int32 ) { textType = InputTextBox::TextType::Int32 ; }
+			else if (property->type() == cx::Widget::PropertyTypes::Int64 ) { textType = InputTextBox::TextType::Int64 ; }
+			else if (property->type() == cx::Widget::PropertyTypes::Float ) { textType = InputTextBox::TextType::Float ; }
+			else if (property->type() == cx::Widget::PropertyTypes::Double) { textType = InputTextBox::TextType::Double; }
+			else if (property->type() == cx::Widget::PropertyTypes::String) { textType = InputTextBox::TextType::String; }
+			else
+			{
+				return;
+			}
 
 
 			using Control = UIControl::Button;
@@ -956,20 +710,36 @@ void PropertyPanel::loadItemPropertyUI_String(std::int32_t& index, std::shared_p
 
 			std::uint32_t x, y, cx, cy;
 			calcPropertyValueBoxRect(item, x, y, cx, cy);
-			if (showInputTextBox(*this, x, y, cx, cy, InputTextBox::TextType::String, valueString))
+			if (showInputTextBox(*this, x, y, cx, cy, textType, valueString))
 			{
 				property->value(valueString);
 				item->text(valueString);
 			}
 		}
 	);
-
-
-	//-------------------------------------------------------------------
-	index++;
 }
 
-void PropertyPanel::loadItemPropertyUI_Points(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+void PropertyPanel::addItemPropertyBoolUI(std::shared_ptr<cx::Widget::Property> property)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto name = property->friendlyName();
+	auto valueString = property->value();
+	auto value = cx::to_bool(valueString);
+
+
+	//-----------------------------------------------------------------------
+	addPropertyNameUIControl(name);
+
+
+	//-----------------------------------------------------------------------
+	addPropertyTextUIControl(valueString, property->readOnly());
+}
+
+void PropertyPanel::addItemPropertyPointsUI(std::shared_ptr<cx::Widget::Property> property)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -981,18 +751,14 @@ void PropertyPanel::loadItemPropertyUI_Points(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyName(name);
+	addPropertyNameUIControl(name);
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
-
-
-	//-------------------------------------------------------------------
-	index++;
+	addPropertyTextUIControl(valueString, property->readOnly());
 }
 
-void PropertyPanel::loadItemPropertyUI_FillStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Property> property)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -1005,18 +771,18 @@ void PropertyPanel::loadItemPropertyUI_FillStyle(std::int32_t& index, std::share
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyGroupName(name);
+	addPropertyGroupNameUIControl(name);
 
 
 	//-----------------------------------------------------------------------
 	auto fillColor = fillStyle.fillColor();
 	std::wstring fillColorString = to_std_wstring(fillColor);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
-	addUIControl_PropertyStringValue(fillColorString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
+	addPropertyTextUIControl(fillColorString, property->readOnly());
 }
 
-void PropertyPanel::loadItemPropertyUI_LineStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Property> property)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -1029,26 +795,26 @@ void PropertyPanel::loadItemPropertyUI_LineStyle(std::int32_t& index, std::share
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyGroupName(name);
+	addPropertyGroupNameUIControl(name);
 
 
 	//-----------------------------------------------------------------------
 	auto lineColor = lineStyle.lineColor();
 	std::wstring lineColorString = to_std_wstring(lineColor);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColor));
-	addUIControl_PropertyStringValue(lineColorString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColor));
+	addPropertyTextUIControl(lineColorString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
 	auto lineSize = lineStyle.lineSize();
 	std::wstring lineSizeString = cx::to_std_wstring(lineSize);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineSize));
-	addUIControl_PropertyStringValue(lineSizeString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineSize));
+	addPropertyTextUIControl(lineSizeString, property->readOnly());
 }
 
-void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property)
+void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Property> property)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
@@ -1061,39 +827,39 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyGroupName(name);
+	addPropertyGroupNameUIControl(name);
 
 
 	//-----------------------------------------------------------------------
 	auto textColor = textStyle.textColor();
 	std::wstring textColorString = to_std_wstring(textColor);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColor));
-	addUIControl_PropertyStringValue(textColorString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColor));
+	addPropertyTextUIControl(textColorString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
 	std::wstring fontFamily = textStyle.fontFamily().data();
 	std::wstring fontFamilyString = fontFamily;
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontFamily));
-	addUIControl_PropertyStringValue(fontFamilyString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontFamily));
+	addPropertyTextUIControl(fontFamilyString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
 	float fontSize = textStyle.fontSize();
 	std::wstring fontSizeString = cx::to_std_wstring(fontSize);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontSize));
-	addUIControl_PropertyStringValue(fontSizeString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontSize));
+	addPropertyTextUIControl(fontSizeString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
 	bool fontBold = textStyle.fontBold();
 	std::wstring fontBoldString = cx::to_std_wstring(fontBold);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontBold));
-	auto fontBoldUIControl = addUIControl_PropertyStringValue(fontBoldString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontBold));
+	auto fontBoldUIControl = addPropertyTextUIControl(fontBoldString, property->readOnly());
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fontBoldUIControl,
@@ -1127,8 +893,8 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 	bool fontItalic = textStyle.fontItalic();
 	std::wstring fontItalicString = cx::to_std_wstring(fontItalic);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontItalic));
-	auto fontItalicUIControl = addUIControl_PropertyStringValue(fontItalicString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontItalic));
+	auto fontItalicUIControl = addPropertyTextUIControl(fontItalicString, property->readOnly());
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fontItalicUIControl,
@@ -1162,8 +928,8 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 	TextHAlignment textHAlignment = textStyle.textHAlignment();
 	std::wstring textHAlignmentString = getTextHAlignmentString(textHAlignment);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textHAlignment));
-	auto textHAlignmenUItControl = addUIControl_PropertyStringValue(textHAlignmentString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textHAlignment));
+	auto textHAlignmenUItControl = addPropertyTextUIControl(textHAlignmentString, property->readOnly());
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		textHAlignmenUItControl,
@@ -1186,6 +952,6 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 	TextVAlignment textVAlignment = textStyle.textVAlignment();
 	std::wstring textVAlignmentString = getTextVAlignmentString(textVAlignment);
 
-	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textVAlignment));
-	addUIControl_PropertyStringValue(textVAlignmentString, property->readOnly());
+	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textVAlignment));
+	addPropertyTextUIControl(textVAlignmentString, property->readOnly());
 }

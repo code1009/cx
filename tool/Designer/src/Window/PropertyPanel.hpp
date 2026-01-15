@@ -78,32 +78,22 @@ public:
 		std::shared_ptr<cx::Widget::UIControl::Base> control,
 		std::uint32_t& x, std::uint32_t& y,
 		std::uint32_t& cx, std::uint32_t& cy
-	);
+		);
 	void calcPropertyValueDropBoxRect(
 		std::shared_ptr<cx::Widget::UIControl::Base> control,
 		std::uint32_t& x, std::uint32_t& y,
 		std::uint32_t& cx, std::uint32_t& cy
 		);
 
-	void addUIControl_PropertyName(std::wstring const& name);
-	void addUIControl_PropertyGroupName(std::wstring const& name);
-	void addUIControl_PropertySubName(std::wstring const& name);	
-	std::shared_ptr<cx::Widget::UIControl::Button> addUIControl_PropertyStringValue(std::wstring const& value, bool readOnly = false);
+	void addPropertyNameUIControl(std::wstring const& name);
+	void addPropertyGroupNameUIControl(std::wstring const& name);
+	void addPropertySubNameUIControl(std::wstring const& name);
+	std::shared_ptr<cx::Widget::UIControl::Button> addPropertyTextUIControl(std::wstring const& value, bool readOnly = false);
 
-	void loadItemPropertyUI_UInt8    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_UInt16   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_UInt32   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_UInt64   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_Int8     (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_Int16    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_Int32    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_Int64    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_Float    (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_Double   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_Bool     (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_String   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_Points   (std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
- 	void loadItemPropertyUI_FillStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_LineStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-	void loadItemPropertyUI_TextStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyTextUI     (std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyBoolUI     (std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyPointsUI   (std::shared_ptr<cx::Widget::Property> property);
+ 	void addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Property> property);
+	void addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Property> property);
 };

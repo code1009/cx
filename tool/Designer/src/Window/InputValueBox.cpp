@@ -468,28 +468,28 @@ void InputTextBox::onEndDialog(INT_PTR result)
 			}
 			break;
 
-		case TextType::Uint8:
+		case TextType::UInt8:
 			if (cx::is_uint8_std_wstring(text))
 			{
 				_Text = text;
 			}
 			break;
 
-		case TextType::Uint16:
+		case TextType::UInt16:
 			if (cx::is_uint16_std_wstring(text))
 			{
 				_Text = text;
 			}
 			break;
 
-		case TextType::Uint32:
+		case TextType::UInt32:
 			if (cx::is_uint32_std_wstring(text))
 			{
 				_Text = text;
 			}
 			break;
 
-		case TextType::Uint64:
+		case TextType::UInt64:
 			if (cx::is_uint64_std_wstring(text))
 			{
 				_Text = text;
