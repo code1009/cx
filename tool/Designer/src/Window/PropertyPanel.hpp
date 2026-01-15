@@ -70,6 +70,11 @@ public:
 public:
 	void LoadEmptyPropertyUI(void);
 	void loadItemPropertyUI(void);
+
+	bool isPropertyEditable(std::shared_ptr<cx::Widget::Property> property) const;
+	std::wstring getTextHAlignmentString(cx::Widget::TextHAlignment textHAlignment);
+	std::wstring getTextVAlignmentString(cx::Widget::TextVAlignment textVAlignment);
+
 	void addUIControl_PropertyName(std::wstring const& name);
 	void addUIControl_PropertyGroupName(std::wstring const& name);
 	void addUIControl_PropertySubName(std::wstring const& name);	

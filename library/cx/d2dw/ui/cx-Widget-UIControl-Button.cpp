@@ -85,10 +85,10 @@ namespace cx::Widget::UIControl
 	{
 		Color pressedColor;
 
-		pressedColor._Value.a = (color._Value.a * 1.25f > 1.0f) ? 1.0f : color._Value.a * 1.25f;
-		pressedColor._Value.r = (color._Value.r * 1.25f > 1.0f) ? 1.0f : color._Value.r * 1.25f;
-		pressedColor._Value.g = (color._Value.g * 1.25f > 1.0f) ? 1.0f : color._Value.g * 1.25f;
-		pressedColor._Value.b = (color._Value.b * 1.25f > 1.0f) ? 1.0f : color._Value.b * 1.25f;
+		pressedColor._Value.a = color._Value.a;
+		pressedColor._Value.r = color._Value.r * 0.9f;
+		pressedColor._Value.g = color._Value.g * 0.9f;
+		pressedColor._Value.b = color._Value.b * 0.9f;
 		return pressedColor;
 	}
 

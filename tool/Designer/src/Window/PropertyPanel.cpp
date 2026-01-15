@@ -447,6 +447,51 @@ void PropertyPanel::loadItemPropertyUI(void)
 	}
 }
 
+bool PropertyPanel::isPropertyEditable(std::shared_ptr<cx::Widget::Property> property) const
+{
+	return _ItemProperty_valueChanged_Flag && !property->readOnly();
+}
+
+std::wstring PropertyPanel::getTextHAlignmentString(cx::Widget::TextHAlignment textHAlignment)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	std::wstring textHAlignmentString;
+	switch (textHAlignment)
+	{
+	case TextHAlignment::Left: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data(); break;
+	case TextHAlignment::Center: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Center.data(); break;
+	case TextHAlignment::Right: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Right.data(); break;
+	default:
+		textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data(); break;
+		break;
+	}
+
+	return textHAlignmentString;
+}
+
+std::wstring PropertyPanel::getTextVAlignmentString(cx::Widget::TextVAlignment textVAlignment)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	std::wstring textVAlignmentString;
+	switch (textVAlignment)
+	{
+	case TextVAlignment::Top: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data(); break;
+	case TextVAlignment::Center: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Center.data(); break;
+	case TextVAlignment::Bottom: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Bottom.data(); break;
+	default:
+		textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data(); break;
+		break;
+	}
+
+	return textVAlignmentString;
+}
+
 void PropertyPanel::addUIControl_PropertyName(std::wstring const& name)
 {
 	//-----------------------------------------------------------------------
@@ -885,8 +930,8 @@ void PropertyPanel::loadItemPropertyUI_FillStyle(std::int32_t& index, std::share
 
 	//-----------------------------------------------------------------------
 	auto fillColor = fillStyle.fillColor();
-
 	std::wstring fillColorString = to_std_wstring(fillColor);
+
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
 	addUIControl_PropertyStringValue(fillColorString, property->readOnly());
 }
@@ -909,16 +954,16 @@ void PropertyPanel::loadItemPropertyUI_LineStyle(std::int32_t& index, std::share
 
 	//-----------------------------------------------------------------------
 	auto lineColor = lineStyle.lineColor();
-
 	std::wstring lineColorString = to_std_wstring(lineColor);
+
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColor));
 	addUIControl_PropertyStringValue(lineColorString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
 	auto lineSize = lineStyle.lineSize();
-
 	std::wstring lineSizeString = cx::to_std_wstring(lineSize);
+
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineSize));
 	addUIControl_PropertyStringValue(lineSizeString, property->readOnly());
 }
@@ -941,32 +986,32 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	//-----------------------------------------------------------------------
 	auto textColor = textStyle.textColor();
-
 	std::wstring textColorString = to_std_wstring(textColor);
+
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColor));
 	addUIControl_PropertyStringValue(textColorString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
 	std::wstring fontFamily = textStyle.fontFamily().data();
-
 	std::wstring fontFamilyString = fontFamily;
+
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontFamily));
 	addUIControl_PropertyStringValue(fontFamilyString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
 	float fontSize = textStyle.fontSize();
-
 	std::wstring fontSizeString = cx::to_std_wstring(fontSize);
+
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontSize));
 	addUIControl_PropertyStringValue(fontSizeString, property->readOnly());
 
 
 	//-----------------------------------------------------------------------
 	bool fontBold = textStyle.fontBold();
-
 	std::wstring fontBoldString = cx::to_std_wstring(fontBold);
+
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontBold));
 	auto fontBoldUIControl = addUIControl_PropertyStringValue(fontBoldString, property->readOnly());
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
@@ -974,14 +1019,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 		fontBoldUIControl,
 		[this, property](cx::ev::Event& event)
 		{
-			if (false == _ItemProperty_valueChanged_Flag)
-			{
-				return;
-			}
-			if (property->readOnly())
-			{
-				return;
-			}
+			if (!isPropertyEditable(property)) { return; }
 
 
 			using Control = UIControl::Button;
@@ -1008,8 +1046,8 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	//-----------------------------------------------------------------------
 	bool fontItalic = textStyle.fontItalic();
-
 	std::wstring fontItalicString = cx::to_std_wstring(fontItalic);
+
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontItalic));
 	auto fontItalicUIControl = addUIControl_PropertyStringValue(fontItalicString, property->readOnly());
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
@@ -1017,14 +1055,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 		fontItalicUIControl,
 		[this, property](cx::ev::Event& event)
 		{
-			if (false == _ItemProperty_valueChanged_Flag)
-			{
-				return;
-			}
-			if (property->readOnly())
-			{
-				return;
-			}
+			if (!isPropertyEditable(property)) { return;  }
 
 
 			using Control = UIControl::Button;
@@ -1051,17 +1082,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	//-----------------------------------------------------------------------
 	TextHAlignment textHAlignment = textStyle.textHAlignment();
-
-	std::wstring textHAlignmentString;
-	switch (textHAlignment)
-	{
-	case TextHAlignment::Left: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data(); break;
-	case TextHAlignment::Center: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Center.data(); break;
-	case TextHAlignment::Right: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Right.data(); break;
-	default:
-		textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data(); break;
-		break;
-	}
+	std::wstring textHAlignmentString = getTextHAlignmentString(textHAlignment);
 
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textHAlignment));
 	addUIControl_PropertyStringValue(textHAlignmentString, property->readOnly());
@@ -1069,17 +1090,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 
 	//-----------------------------------------------------------------------
 	TextVAlignment textVAlignment = textStyle.textVAlignment();
-
-	std::wstring textVAlignmentString;
-	switch (textVAlignment)
-	{
-	case TextVAlignment::Top: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data(); break;
-	case TextVAlignment::Center: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Center.data(); break;
-	case TextVAlignment::Bottom: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Bottom.data(); break;
-	default:
-		textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data(); break;
-		break;
-	}
+	std::wstring textVAlignmentString = getTextVAlignmentString(textVAlignment);
 
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textVAlignment));
 	addUIControl_PropertyStringValue(textVAlignmentString, property->readOnly());
