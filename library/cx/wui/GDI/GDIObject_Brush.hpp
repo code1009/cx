@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -37,6 +37,12 @@ public:
 
 public:
 	[[nodiscard]] constexpr operator HBRUSH(void) const
+	{
+		return _BrushHandle;
+	}
+
+public:
+	HBRUSH getBrushHandle(void) const
 	{
 		return _BrushHandle;
 	}

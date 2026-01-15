@@ -225,7 +225,7 @@
     <ClCompile Include="src\Window\ViewPropertyBox.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window\PropertyValueBox.cpp">
+    <ClCompile Include="src\Window\InputValueBox.cpp">
       <Filter>src\Window</Filter>
     </ClCompile>
   </ItemGroup>
@@ -458,7 +458,7 @@
     <ClInclude Include="src\Window\ViewPropertyBox.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\PropertyValueBox.hpp">
+    <ClInclude Include="src\Window\InputValueBox.hpp">
       <Filter>src\Window</Filter>
     </ClInclude>
   </ItemGroup>

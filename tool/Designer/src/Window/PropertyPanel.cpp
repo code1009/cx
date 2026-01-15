@@ -26,7 +26,7 @@
 #include "PropertyPanel.hpp"
 #include "View.hpp"
 
-#include "PropertyValueBox.hpp"
+#include "InputValueBox.hpp"
 
 
 
@@ -936,7 +936,33 @@ void PropertyPanel::loadItemPropertyUI_String(std::int32_t& index, std::shared_p
 
 
 	//-----------------------------------------------------------------------
-	addUIControl_PropertyStringValue(valueString, property->readOnly());
+	auto valueUIControl = addUIControl_PropertyStringValue(valueString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		valueUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			std::wstring valueString = property->value();
+
+
+			std::uint32_t x, y, cx, cy;
+			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			if (showInputStringBox(*this, x, y, cx, cy, valueString))
+			{
+				property->value(valueString);
+				item->text(valueString);
+			}
+		}
+	);
 
 
 	//-------------------------------------------------------------------
@@ -1152,13 +1178,7 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
 
-			std::uint32_t x;
-			std::uint32_t y;
-			std::uint32_t cx;
-			std::uint32_t cy = 100;
-			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
-			PropertyValueBox box(x, y, cx, cy);
-			box.doModal(*this);
+
 		}
 	);
 

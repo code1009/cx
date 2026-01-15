@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -37,6 +37,11 @@ public:
 
 public:
 	[[nodiscard]] constexpr operator HPEN(void) const
+	{
+		return _PenHandle;
+	}
+
+	HPEN getPenHandle(void) const
 	{
 		return _PenHandle;
 	}

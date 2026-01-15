@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -37,6 +37,12 @@ public:
 
 public:
 	[[nodiscard]] constexpr operator HBITMAP(void) const
+	{
+		return _BitmapHandle;
+	}
+
+public:
+	HBITMAP getBitmapHandle(void) const
 	{
 		return _BitmapHandle;
 	}

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 
@@ -38,6 +38,12 @@ public:
 
 public:
 	[[nodiscard]] constexpr operator HFONT(void) const
+	{
+		return _FontHandle;
+	}
+
+public:
+	HFONT getFontHandle(void) const
 	{
 		return _FontHandle;
 	}
