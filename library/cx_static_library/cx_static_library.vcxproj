@@ -254,6 +254,7 @@
     <ClInclude Include="..\cx\runtime\pch.hpp" />
     <ClInclude Include="..\cx\runtime\runtime.hpp" />
     <ClInclude Include="..\cx\wui\AppModule.hpp" />
+    <ClInclude Include="..\cx\wui\CommonDialog\ColorPickerDialog.hpp" />
     <ClInclude Include="..\cx\wui\CommonDialog\FileDialog.hpp" />
     <ClInclude Include="..\cx\wui\CommonDialog\FolderDialog.hpp" />
     <ClInclude Include="..\cx\wui\CommonDialog\pch.hpp" />
@@ -370,6 +371,7 @@
     <ClCompile Include="..\cx\runtime\log_facility\log_writer.cpp" />
     <ClCompile Include="..\cx\runtime\memory_debug.cpp" />
     <ClCompile Include="..\cx\wui\AppModule.cpp" />
+    <ClCompile Include="..\cx\wui\CommonDialog\ColorPickerDialog.cpp" />
     <ClCompile Include="..\cx\wui\CommonDialog\FileDialog.cpp" />
     <ClCompile Include="..\cx\wui\CommonDialog\FolderDialog.cpp" />
     <ClCompile Include="..\cx\wui\GDI\DC.cpp" />

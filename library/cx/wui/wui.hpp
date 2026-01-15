@@ -80,5 +80,6 @@
 //===========================================================================
 #include <cx/wui/CommonDialog/FileDialog.hpp>
 #include <cx/wui/CommonDialog/FolderDialog.hpp>
+#include <cx/wui/CommonDialog/ColorPickerDialog.hpp>
 
 

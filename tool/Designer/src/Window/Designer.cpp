@@ -673,15 +673,50 @@ void Designer::newFile(void)
 }
 void Designer::openFile(void)
 {
+	cx::wui::OpenFileDialog openFileDialog(
+		L"",
+		L"",
+		L"Design Files (*.xml)\0*.xml\0All Files (*.*)\0*.*\0",
+		L"xml",
+		L".",
+		L"파일 열기"
+	);
 
+	std::wstring openFilePath;
+	if (openFileDialog.doModal(_Hwnd, openFilePath))
+	{
+		CX_RUNTIME_LOG(cxLInfo)
+			<< L"open file: "
+			<< openFilePath
+			;
+		_FilePath = openFilePath;
+	}
 }
 void Designer::saveFile(void)
 {
-
+	
 }
+
 void Designer::saveFileAs(void)
 {
+	cx::wui::SaveFileDialog openFileDialog(
+		L"",
+		L"",
+		L"Design Files (*.xml)\0*.xml\0All Files (*.*)\0*.*\0",
+		L"xml",
+		L".",
+		L"파일 저장"
+	);
 
+	std::wstring openFilePath;
+	if (openFileDialog.doModal(_Hwnd, openFilePath))
+	{
+		CX_RUNTIME_LOG(cxLInfo)
+			<< L"open file: "
+			<< openFilePath
+			;
+		_FilePath = openFilePath;
+	}
 }
 
 //===========================================================================

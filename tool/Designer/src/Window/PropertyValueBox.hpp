@@ -23,15 +23,15 @@ public:
 	virtual LRESULT onWindowMessage(cx::wui::WindowMessage& windowMessage) override;
 
 public:
-	void initializeDialogTemplate(void);
+	virtual void initializeDialogTemplate(void);
 
 public:
-	void registerWindowMessageMap(void);
-	void onInitDialog(cx::wui::WindowMessage& windowMessage);
-	void onCommand(cx::wui::WindowMessage& windowMessage);
-	void onNcActivate(cx::wui::WindowMessage& windowMessage);
-	void onActivate(cx::wui::WindowMessage& windowMessage);	
-	void onSetFocus(cx::wui::WindowMessage& windowMessage);
-	void onKillFocus(cx::wui::WindowMessage& windowMessage);
-	void onUser1(cx::wui::WindowMessage& windowMessage);
+	virtual void registerWindowMessageMap(void);
+	virtual void onInitDialog(cx::wui::WindowMessage& windowMessage);
+	virtual void onCommand(cx::wui::WindowMessage& windowMessage);
+	virtual void onNcActivate(cx::wui::WindowMessage& windowMessage);
+	virtual void onActivate(cx::wui::WindowMessage& windowMessage);	
+	virtual void onSetFocus(cx::wui::WindowMessage& windowMessage);
+	virtual void onKillFocus(cx::wui::WindowMessage& windowMessage);
+	virtual void onUser1(cx::wui::WindowMessage& windowMessage);
 };

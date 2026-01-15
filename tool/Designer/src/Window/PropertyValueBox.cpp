@@ -18,16 +18,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-#define IDC_ABOUTBOX_APP_VERSION 1001
-#define IDC_ABOUTBOX_APP_NAME    1002
-#define IDC_ABOUTBOX_APP_NOTE    1003
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//===========================================================================
 PropertyValueBox::PropertyValueBox(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy) :
 	_X(x),
 	_Y(y),
@@ -81,7 +71,6 @@ LRESULT PropertyValueBox::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 void PropertyValueBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
-	//cx::wui::centerWindow(getWindowHandle());
 	MoveWindow(*this, _X, _Y, _CX, _CY, TRUE);
 
 

@@ -471,6 +471,9 @@
     <ClInclude Include="..\cx\rs_comm\pch.hpp">
       <Filter>cx\rs_comm</Filter>
     </ClInclude>
+    <ClInclude Include="..\cx\wui\CommonDialog\ColorPickerDialog.hpp">
+      <Filter>cx\wui\CommonDialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -778,6 +781,9 @@
     </ClCompile>
     <ClCompile Include="..\cx\ev\cx-ev-target.cpp">
       <Filter>cx\ev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cx\wui\CommonDialog\ColorPickerDialog.cpp">
+      <Filter>cx\wui\CommonDialog</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
