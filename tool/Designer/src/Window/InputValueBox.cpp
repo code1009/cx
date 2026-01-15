@@ -544,6 +544,280 @@ void InputTextBox::onEndDialog(INT_PTR result)
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+InputTextListBox::InputTextListBox()
+{
+}
+
+//===========================================================================
+void InputTextListBox::setup(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy, bool readOnly, TextType textType)
+{
+	//-----------------------------------------------------------------------
+	_X = x;
+	_Y = y;
+	_CX = cx;
+	_CY = cy;
+	_ReadOnly = readOnly;
+
+
+	//-----------------------------------------------------------------------
+	_TextType = textType;
+
+
+	//-----------------------------------------------------------------------
+	initializeDialogTemplate();
+
+	registerWindowMessageMap();
+}
+
+//===========================================================================
+void InputTextListBox::initializeDialogTemplate(void)
+{
+	cx::wui::MemoryDialogTemplateWriter w(_DialogTemplate);
+
+
+	w.BEGIN_DIALOG(0, 0, _CX, _CY);
+	w.DIALOG_STYLE(DS_SETFONT | WS_POPUP | WS_BORDER);
+	w.DIALOG_FONT(9, L"Segoe UI");
+	w.END_DIALOG();
+	w.BEGIN_CONTROLS_MAP();
+	w.END_CONTROLS_MAP();
+
+
+	setTemplate(_DialogTemplate.getTemplatePtr());
+}
+
+//===========================================================================
+void InputTextListBox::registerWindowMessageMap(void)
+{
+	_WindowMessageMap[WM_INITDIALOG] = &InputTextListBox::onInitDialog;
+	_WindowMessageMap[WM_COMMAND] = &InputTextListBox::onCommand;
+	_WindowMessageMap[WM_NCACTIVATE] = &InputTextListBox::onNcActivate;
+	_WindowMessageMap[WM_USER + 1] = &InputTextListBox::onUser1;
+}
+
+//===========================================================================
+void InputTextListBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
+{
+	//-----------------------------------------------------------------------
+	MoveWindow(*this, _X, _Y, _CX, _CY, FALSE);
+
+
+	//-----------------------------------------------------------------------
+	_Font = std::make_unique<cx::wui::Font>(L"맑은 고딕", 100);
+
+
+	//-----------------------------------------------------------------------
+	DWORD dwStyle = WS_CHILD | WS_VISIBLE | LBS_NOTIFY | WS_BORDER | WS_VSCROLL;
+	if (_ReadOnly)
+	{
+		dwStyle |= LBS_NOSEL;
+	}
+
+	_ListBoxControlHandle = ::CreateWindowEx(
+		WS_EX_CLIENTEDGE,
+		L"LISTBOX",
+		nullptr,
+		dwStyle,
+		0,
+		0,
+		_CX,
+		_CY,
+		*this,
+		reinterpret_cast<HMENU>(1001),
+		nullptr,
+		nullptr
+	);
+	::SendMessageW(
+		_ListBoxControlHandle,
+		WM_SETFONT,
+		reinterpret_cast<WPARAM>(_Font->getFontHandle()),
+		/*reinterpret_cast<LPARAM>*/(TRUE)
+	);
+	for (const auto& item : _TextList)
+	{
+		::SendMessageW(_ListBoxControlHandle, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(item.c_str()));
+	}
+	if (!_Text.empty())
+	{
+		int index = static_cast<int>(::SendMessageW(_ListBoxControlHandle, LB_FINDSTRINGEXACT, static_cast<WPARAM>(-1), reinterpret_cast<LPARAM>(_Text.c_str())));
+		if (index != LB_ERR)
+		{
+			::SendMessageW(_ListBoxControlHandle, LB_SETCURSEL, static_cast<WPARAM>(index), 0);
+		}
+	}
+
+
+	//-----------------------------------------------------------------------
+	windowMessage.setResult(TRUE);
+}
+
+void InputTextListBox::onCommand(cx::wui::WindowMessage& windowMessage)
+{
+	cx::wui::WM_COMMAND_WindowMessageCrack wm{ windowMessage };
+
+
+	switch (wm.nID())
+	{
+	case IDOK:
+		onEndDialog(IDOK);
+		::EndDialog(*this, IDOK);
+		windowMessage.setResult(TRUE);
+		break;
+
+	case IDCANCEL:
+		onEndDialog(IDCANCEL);
+		::EndDialog(*this, IDCANCEL);
+		windowMessage.setResult(TRUE);
+		break;
+
+	default:
+		windowMessage.setResult(FALSE);
+		break;
+	}
+}
+
+void InputTextListBox::onNcActivate(cx::wui::WindowMessage& windowMessage)
+{
+	cx::wui::WM_NCACTIVATE_WindowMessageCrack wm{ windowMessage };
+
+	BOOL active = wm.bActive();
+	if (!active)
+	{
+		PostMessage(*this, WM_USER + 1, 1009, 1);
+	}
+}
+
+void InputTextListBox::onUser1(cx::wui::WindowMessage& windowMessage)
+{
+	if (windowMessage.wParam = 1009 && windowMessage.lParam == 1)
+	{
+		onEndDialog(IDOK);
+		::EndDialog(*this, IDOK);
+	}
+}
+
+void InputTextListBox::setTextList(std::vector<std::wstring> const& textList)
+{
+	_TextList = textList;
+}
+
+void InputTextListBox::setText(std::wstring const& text)
+{
+	_Text = text;
+}
+
+std::wstring InputTextListBox::getText(void)
+{
+	return _Text;
+}
+
+void InputTextListBox::onEndDialog(INT_PTR result)
+{
+	CX_RUNTIME_LOG(cxLTrace) <<
+		L"InputIntegerBox::onEndDialog"
+		;
+
+	if (_ListBoxControlHandle)
+	{
+		std::wstring text;
+		int selectedIndex = static_cast<int>(::SendMessageW(_ListBoxControlHandle, LB_GETCURSEL, 0, 0));
+		if (selectedIndex != LB_ERR)
+		{
+			int textLength = static_cast<int>(::SendMessageW(_ListBoxControlHandle, LB_GETTEXTLEN, static_cast<WPARAM>(selectedIndex), 0));
+			if (textLength > 0)
+			{
+				std::vector<wchar_t> buffer(textLength + 1);
+				::SendMessageW(_ListBoxControlHandle, LB_GETTEXT, static_cast<WPARAM>(selectedIndex), reinterpret_cast<LPARAM>(buffer.data()));
+				text = std::wstring(buffer.data());
+			}
+		}
+		switch (_TextType)
+		{
+		case TextType::String:
+			_Text = text;
+			break;
+
+		case TextType::Float:
+			if (cx::is_float_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Double:
+			if (cx::is_double_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::UInt8:
+			if (cx::is_uint8_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::UInt16:
+			if (cx::is_uint16_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::UInt32:
+			if (cx::is_uint32_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::UInt64:
+			if (cx::is_uint64_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Int8:
+			if (cx::is_int8_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Int16:
+			if (cx::is_int16_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Int32:
+			if (cx::is_int32_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		case TextType::Int64:
+			if (cx::is_int64_std_wstring(text))
+			{
+				_Text = text;
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//===========================================================================
 bool showInputTextBox(
 	HWND hwnd, 
 	std::uint32_t x, std::uint32_t y, 
@@ -564,3 +838,25 @@ bool showInputTextBox(
 	return false;
 }
 
+
+bool showInputTextListBox(
+	HWND hwnd,
+	std::uint32_t x, std::uint32_t y,
+	std::uint32_t cx, std::uint32_t cy,
+	bool readOnly,
+	InputTextListBox::TextType textType,
+	std::vector<std::wstring> textList,
+	std::wstring& text
+)
+{
+	InputTextListBox box;
+	box.setTextList(textList);
+	box.setText(text);
+	box.setup(x, y, cx, cy, readOnly, textType);
+	if (IDOK == box.doModal(hwnd))
+	{
+		text = box.getText();
+		return true;
+	}
+	return false;
+}

@@ -1091,7 +1091,7 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::Float, lineSizeString))
 			{
 				lineSize = cx::to_float(lineSizeString);
-				if (1.0f < lineSize && lineSize < 128.0f)
+				if (0.1f < lineSize && lineSize < 128.0f)
 				{
 					lineStyle.lineSize(lineSize);
 					valueString = cx::Widget::to_std_wstring(lineStyle);
