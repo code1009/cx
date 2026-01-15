@@ -28,7 +28,11 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-PropertyValueBox::PropertyValueBox()
+PropertyValueBox::PropertyValueBox(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy) :
+	_X(x),
+	_Y(y),
+	_CX(cx),
+	_CY(cy)
 {
 	initializeDialogTemplate();
 
@@ -41,20 +45,11 @@ void PropertyValueBox::initializeDialogTemplate(void)
 	cx::wui::MemoryDialogTemplateWriter w(_DialogTemplate);
 
 
-	w.BEGIN_DIALOG(0, 0, 260, 150);
-		w.DIALOG_CAPTION(L"정보");
-		w.DIALOG_STYLE  (DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU);
+	w.BEGIN_DIALOG(0, 0, _CX, _CY);
+		w.DIALOG_STYLE  (DS_SETFONT | WS_POPUP);
 		w.DIALOG_FONT   (9, L"Segoe UI");
 	w.END_DIALOG();
 	w.BEGIN_CONTROLS_MAP();
-		w.CONTROL_ICON         (MAKEINTRESOURCEW(IDI_APP_ICON)             , IDC_STATIC              , 10,  20,  20,  20);
-		w.CONTROL_LTEXT        (L"어플리케이션"                            , IDC_ABOUTBOX_APP_NAME   , 35,  20, 210,  10);
-		w.CONTROL_LTEXT        (L"버전 0.0.0.0"                            , IDC_ABOUTBOX_APP_VERSION, 35,  30, 210,  10);
-		w.CONTROL_LTEXT        (L"Copyright (p) 2025 code1009."            , IDC_STATIC              , 35,  50, 210,  10);
-		w.CONTROL_LTEXT        (L"All Rights Reserved."                    , IDC_STATIC              , 35,  60, 210,  10);
-		w.CONTROL_LTEXT        (L""                                        , IDC_ABOUTBOX_APP_NOTE   , 35,  80, 210,  35);
-		w.CONTROL_DEFPUSHBUTTON(L"확인"                                    , IDOK                    ,190, 130,  65,  15);
-		w.CONTROL_GROUPBOX     (L""                                        , IDC_STATIC              ,  5,   5, 250, 120);
 	w.END_CONTROLS_MAP();
 
 
@@ -86,7 +81,8 @@ LRESULT PropertyValueBox::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 void PropertyValueBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
-	cx::wui::centerWindow(getWindowHandle());
+	//cx::wui::centerWindow(getWindowHandle());
+	MoveWindow(*this, _X, _Y, _CX, _CY, TRUE);
 
 
 	//-----------------------------------------------------------------------

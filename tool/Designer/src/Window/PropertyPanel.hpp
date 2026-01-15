@@ -74,6 +74,11 @@ public:
 	bool isPropertyEditable(std::shared_ptr<cx::Widget::Property> property) const;
 	std::wstring getTextHAlignmentString(cx::Widget::TextHAlignment textHAlignment);
 	std::wstring getTextVAlignmentString(cx::Widget::TextVAlignment textVAlignment);
+	void calcPropertyValueBoxRect(
+		std::shared_ptr<cx::Widget::UIControl::Base> control,
+		std::uint32_t& x, std::uint32_t& y,
+		std::uint32_t& cx, std::uint32_t& cy
+		);
 
 	void addUIControl_PropertyName(std::wstring const& name);
 	void addUIControl_PropertyGroupName(std::wstring const& name);
@@ -96,5 +101,4 @@ public:
  	void loadItemPropertyUI_FillStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
 	void loadItemPropertyUI_LineStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
 	void loadItemPropertyUI_TextStyle(std::int32_t& index, std::shared_ptr<cx::Widget::Property> property);
-
 };

@@ -26,6 +26,8 @@
 #include "PropertyPanel.hpp"
 #include "View.hpp"
 
+#include "PropertyValueBox.hpp"
+
 
 
 
@@ -490,6 +492,38 @@ std::wstring PropertyPanel::getTextVAlignmentString(cx::Widget::TextVAlignment t
 	}
 
 	return textVAlignmentString;
+}
+
+void PropertyPanel::calcPropertyValueBoxRect(
+	std::shared_ptr<cx::Widget::UIControl::Base> control,
+	std::uint32_t& x, std::uint32_t& y,
+	std::uint32_t& cx, std::uint32_t& cy
+)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	auto lt = control->getPoint(0);
+	auto rb = control->getPoint(1);
+	
+	Point wlt = _UIController->_View->viewContext().toWindow(lt);
+	Point wrb = _UIController->_View->viewContext().toWindow(rb);
+
+
+	//-----------------------------------------------------------------------
+	POINT points[2];
+	points[0].x = static_cast<LONG>(wlt.X);
+	points[0].y = static_cast<LONG>(wlt.Y);
+	points[1].x = static_cast<LONG>(wrb.X);
+	points[1].y = static_cast<LONG>(wrb.Y);
+	ClientToScreen(*this, &points[0]);
+	ClientToScreen(*this, &points[1]);
+
+	x = points[0].x + 1;
+	y = points[1].y + 1;
+	cx = points[1].x - points[0].x - 2;
+	//cy = points[1].y - points[0].y;
 }
 
 void PropertyPanel::addUIControl_PropertyName(std::wstring const& name)
@@ -1083,8 +1117,30 @@ void PropertyPanel::loadItemPropertyUI_TextStyle(std::int32_t& index, std::share
 	std::wstring textHAlignmentString = getTextHAlignmentString(textHAlignment);
 
 	addUIControl_PropertySubName(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textHAlignment));
-	addUIControl_PropertyStringValue(textHAlignmentString, property->readOnly());
+	auto textHAlignmenUItControl = addUIControl_PropertyStringValue(textHAlignmentString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		textHAlignmenUItControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
 
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			std::uint32_t x;
+			std::uint32_t y;
+			std::uint32_t cx;
+			std::uint32_t cy = 100;
+			calcPropertyValueBoxRect(item, x, y, cx, cy);
+			PropertyValueBox box(x, y, cx, cy);
+			box.doModal(*this);
+		}
+	);
 
 	//-----------------------------------------------------------------------
 	TextVAlignment textVAlignment = textStyle.textVAlignment();

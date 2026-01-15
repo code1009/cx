@@ -11,9 +11,13 @@ class PropertyValueBox :
 {
 private:
 	cx::wui::MemoryDialogTemplate _DialogTemplate;
+	std::uint32_t _X; 
+	std::uint32_t _Y; 
+	std::uint32_t _CX; 
+	std::uint32_t _CY;
 
 public:
-	PropertyValueBox();
+	explicit PropertyValueBox(std::uint32_t x, std::uint32_t y, std::uint32_t cx, std::uint32_t cy);
 
 public:
 	virtual LRESULT onWindowMessage(cx::wui::WindowMessage& windowMessage) override;
