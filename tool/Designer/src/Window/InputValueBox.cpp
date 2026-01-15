@@ -353,6 +353,15 @@ void InputTextBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 	//-----------------------------------------------------------------------
 	_Font = std::make_unique<cx::wui::Font>(L"맑은 고딕", 100);
 
+	
+	//-----------------------------------------------------------------------
+	::SendMessageW(
+		*this,
+		WM_SETFONT,
+		reinterpret_cast<WPARAM>(_Font->getFontHandle()),
+		/*reinterpret_cast<LPARAM>*/(TRUE)
+	);
+
 
 	//-----------------------------------------------------------------------
 	DWORD dwStyle;
@@ -599,11 +608,20 @@ void InputTextListBox::registerWindowMessageMap(void)
 void InputTextListBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 {
 	//-----------------------------------------------------------------------
-	MoveWindow(*this, _X, _Y, _CX, _CY, FALSE);
+	//MoveWindow(*this, _X, _Y, _CX, _CY, FALSE);
 
 
 	//-----------------------------------------------------------------------
-	_Font = std::make_unique<cx::wui::Font>(L"맑은 고딕", 120);
+	_Font = std::make_unique<cx::wui::Font>(L"맑은 고딕", 100);
+
+
+	//-----------------------------------------------------------------------
+	::SendMessageW(
+		*this,
+		WM_SETFONT,
+		reinterpret_cast<WPARAM>(_Font->getFontHandle()),
+		/*reinterpret_cast<LPARAM>*/(TRUE)
+	);
 
 
 	//-----------------------------------------------------------------------
@@ -613,6 +631,36 @@ void InputTextListBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 		dwStyle |= LBS_NOSEL;
 	}
 
+
+	//-----------------------------------------------------------------------
+	auto calculatePixelFromPoint =
+		[](int pointSize) -> std::uint32_t
+		{
+			HDC hdc = ::GetDC(NULL);
+			int dpi = ::GetDeviceCaps(hdc, LOGPIXELSY);
+			::ReleaseDC(NULL, hdc);
+			std::uint32_t pixels = static_cast<std::uint32_t>((pointSize * dpi) / 72.0f + 0.5f);
+			return pixels;
+		}
+	;
+
+
+	//-----------------------------------------------------------------------
+	auto count = _TextList.size();
+	std::uint32_t maxCY;
+	std::uint32_t itemCY = calculatePixelFromPoint(10);
+	if (count < 1)
+	{
+		count = 5;
+	}
+	if (count > 10)
+	{
+		count = 10;
+	}
+	maxCY = static_cast<std::uint32_t>(count * itemCY * 2.0f);
+
+
+	//-----------------------------------------------------------------------
 	_ListBoxControlHandle = ::CreateWindowEx(
 		0,
 		L"LISTBOX",
@@ -621,7 +669,7 @@ void InputTextListBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 		0,
 		0,
 		_CX,
-		_CY,
+		maxCY,
 		*this,
 		reinterpret_cast<HMENU>(1001),
 		nullptr,
@@ -633,13 +681,6 @@ void InputTextListBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 		reinterpret_cast<WPARAM>(_Font->getFontHandle()),
 		/*reinterpret_cast<LPARAM>*/(TRUE)
 	);
-	//MoveWindow(_ListBoxControlHandle, 0, 0, _CX, _CY, FALSE);
-	RECT rc;
-	GetWindowRect(_ListBoxControlHandle, &rc);
-	auto cx = rc.right - rc.left;
-	auto cy = rc.bottom - rc.top;
-	MoveWindow(*this, _X, _Y, _CX, cy, FALSE);
-
 	for (const auto& item : _TextList)
 	{
 		::SendMessageW(_ListBoxControlHandle, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(item.c_str()));
@@ -652,6 +693,14 @@ void InputTextListBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 			::SendMessageW(_ListBoxControlHandle, LB_SETCURSEL, static_cast<WPARAM>(index), 0);
 		}
 	}
+
+
+	//-----------------------------------------------------------------------
+	RECT rc;
+	GetWindowRect(_ListBoxControlHandle, &rc);
+	auto cx = rc.right - rc.left;
+	auto cy = rc.bottom - rc.top;
+	MoveWindow(*this, _X, _Y, _CX, cy, FALSE);
 
 
 	//-----------------------------------------------------------------------
@@ -886,17 +935,6 @@ bool showInputTextListBox(
 	std::wstring& text
 )
 {
-	auto count = textList.size();
-	if (count < 1)
-	{
-		count = 5;
-	}
-	if (count > 10)
-	{
-		count = 10;
-	}
-	cy = count * 30;
-
 	InputTextListBox box;
 	box.setTextList(textList);
 	box.setText(text);

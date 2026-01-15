@@ -759,7 +759,7 @@ void PropertyPanel::addItemPropertyBoolUI(std::shared_ptr<cx::Widget::Property> 
 			valueStringList.push_back(L"false");
 
 
-			std::uint32_t x, y, cx, cy;
+			std::uint32_t x, y, cx, cy = 50;
 			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
 			if (showInputTextListBox(*this, x, y, cx, cy, property->readOnly(), InputTextListBox::TextType::String, valueStringList, valueString))
 			{
