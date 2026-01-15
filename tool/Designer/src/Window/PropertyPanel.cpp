@@ -736,7 +736,38 @@ void PropertyPanel::addItemPropertyBoolUI(std::shared_ptr<cx::Widget::Property> 
 
 
 	//-----------------------------------------------------------------------
-	addPropertyTextUIControl(valueString, property->readOnly());
+	auto valueUIControl = addPropertyTextUIControl(valueString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		valueUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			std::wstring valueString = property->value();
+			
+			
+			std::vector<std::wstring> valueStringList;
+			valueStringList.push_back(L"true");
+			valueStringList.push_back(L"false");
+
+
+			std::uint32_t x, y, cx, cy;
+			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
+			if (showInputTextListBox(*this, x, y, cx, cy, property->readOnly(), InputTextListBox::TextType::String, valueStringList, valueString))
+			{
+				property->value(valueString);
+				item->text(valueString);
+			}
+		}
+	);
 }
 
 void PropertyPanel::addItemPropertyPointsUI(std::shared_ptr<cx::Widget::Property> property)

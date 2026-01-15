@@ -450,7 +450,7 @@ std::wstring InputTextBox::getText(void)
 void InputTextBox::onEndDialog(INT_PTR result)
 {
 	CX_RUNTIME_LOG(cxLTrace) <<
-		L"InputIntegerBox::onEndDialog"
+		L"InputTextBox::onEndDialog"
 		;
 
 	if (_EditControlHandle)
@@ -603,18 +603,18 @@ void InputTextListBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 
 
 	//-----------------------------------------------------------------------
-	_Font = std::make_unique<cx::wui::Font>(L"맑은 고딕", 100);
+	_Font = std::make_unique<cx::wui::Font>(L"맑은 고딕", 120);
 
 
 	//-----------------------------------------------------------------------
-	DWORD dwStyle = WS_CHILD | WS_VISIBLE | LBS_NOTIFY | WS_BORDER | WS_VSCROLL;
+	DWORD dwStyle = WS_CHILD | WS_VISIBLE | LBS_NOTIFY | WS_VSCROLL;
 	if (_ReadOnly)
 	{
 		dwStyle |= LBS_NOSEL;
 	}
 
 	_ListBoxControlHandle = ::CreateWindowEx(
-		WS_EX_CLIENTEDGE,
+		0,
 		L"LISTBOX",
 		nullptr,
 		dwStyle,
@@ -633,6 +633,13 @@ void InputTextListBox::onInitDialog(cx::wui::WindowMessage& windowMessage)
 		reinterpret_cast<WPARAM>(_Font->getFontHandle()),
 		/*reinterpret_cast<LPARAM>*/(TRUE)
 	);
+	//MoveWindow(_ListBoxControlHandle, 0, 0, _CX, _CY, FALSE);
+	RECT rc;
+	GetWindowRect(_ListBoxControlHandle, &rc);
+	auto cx = rc.right - rc.left;
+	auto cy = rc.bottom - rc.top;
+	MoveWindow(*this, _X, _Y, _CX, cy, FALSE);
+
 	for (const auto& item : _TextList)
 	{
 		::SendMessageW(_ListBoxControlHandle, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(item.c_str()));
@@ -658,6 +665,36 @@ void InputTextListBox::onCommand(cx::wui::WindowMessage& windowMessage)
 
 	switch (wm.nID())
 	{
+	case 1001:
+		switch (wm.uNotifyCode())
+		{
+		case LBN_SELCHANGE:
+			{
+				CX_RUNTIME_LOG(cxLTrace) <<
+					L"LBN_SELCHANGE - Selection changed"
+					;
+				onEndDialog(IDOK);
+				::EndDialog(*this, IDOK);
+				windowMessage.setResult(TRUE);
+			}
+			break;
+
+		case LBN_DBLCLK:
+			{
+				CX_RUNTIME_LOG(cxLTrace) <<
+					L"LBN_DBLCLK - Double clicked"
+					;
+				onEndDialog(IDOK);
+				::EndDialog(*this, IDOK);
+				windowMessage.setResult(TRUE);
+			}
+			break;
+
+		default:
+			break;
+		}
+		break;
+
 	case IDOK:
 		onEndDialog(IDOK);
 		::EndDialog(*this, IDOK);
@@ -714,7 +751,7 @@ std::wstring InputTextListBox::getText(void)
 void InputTextListBox::onEndDialog(INT_PTR result)
 {
 	CX_RUNTIME_LOG(cxLTrace) <<
-		L"InputIntegerBox::onEndDialog"
+		L"InputTextListBox::onEndDialog"
 		;
 
 	if (_ListBoxControlHandle)
@@ -849,6 +886,17 @@ bool showInputTextListBox(
 	std::wstring& text
 )
 {
+	auto count = textList.size();
+	if (count < 1)
+	{
+		count = 5;
+	}
+	if (count > 10)
+	{
+		count = 10;
+	}
+	cy = count * 30;
+
 	InputTextListBox box;
 	box.setTextList(textList);
 	box.setText(text);
