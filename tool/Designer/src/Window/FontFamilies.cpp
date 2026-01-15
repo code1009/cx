@@ -19,12 +19,12 @@ std::vector<std::wstring> getFontFamilies(void)
 	std::vector<std::wstring> fontFamilies;
 
 	HRESULT hr = S_OK;
-	wil::com_ptr<IDWriteFactory> dwriteFactory;
+	wil::com_ptr<::IDWriteFactory> dwriteFactory;
 
 	hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<::IUnknown**>(dwriteFactory.put()));
 	if (!SUCCEEDED(hr))
 	{
-		CX_RUNTIME_LOG(cxLError) << L"Failed to create DWrite factory.";
+		CX_RUNTIME_LOG(cxLError) << L"Failed to create IDWriteFactory.";
 		return fontFamilies;
 	}
 
