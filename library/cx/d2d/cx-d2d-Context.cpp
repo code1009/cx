@@ -194,11 +194,27 @@ wil::com_ptr_nothrow<IDWriteTextFormat>& Context::getCurrentTextFormat(void)
 //===========================================================================
 ResourceManager* Context::getDeviceResourceManager(void)
 {
+	/*
+	ID2D1Brush
+	ID2D1Layer
+	ID2D1RenderTarget
+	...
+	*/
+
 	return _DeviceResourceManager.get();
 }
 
 ResourceManager* Context::getDeviceIndependentResourceManager(void)
 {
+	/*
+	ID2D1DrawingStateBlock
+	ID2D1Factory
+	ID2D1Geometry
+	ID2D1GeometrySink
+	ID2D1SimplifiedGeometrySink
+	ID2D1StrokeStyle
+	*/
+
 	return _DeviceIndependentResourceManager.get();
 }
 
