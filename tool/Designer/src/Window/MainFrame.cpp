@@ -208,46 +208,61 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 		destroyWindow();
 		break;
 
-	case IDM_FILE_NEW              : _View->_Designer->onFile_New             (); break;
-	case IDM_FILE_OPEN             : _View->_Designer->onFile_Open            (); break;
-	case IDM_FILE_SAVE             : _View->_Designer->onFile_Save            (); break;
-	case IDM_FILE_SAVEAS           : _View->_Designer->onFile_SaveAs          (); break;
-	case IDM_EDIT_UNDO             : _View->_Designer->onEdit_Undo            (); break;
-	case IDM_EDIT_REDO             : _View->_Designer->onEdit_Redo            (); break;
-	case IDM_EDIT_CUT              : _View->_Designer->onEdit_Cut             (); break;
-	case IDM_EDIT_COPY             : _View->_Designer->onEdit_Copy            (); break;
-	case IDM_EDIT_PASTE            : _View->_Designer->onEdit_Paste           (); break;
-	case IDM_EDIT_SELECT_ALL       : _View->_Designer->onEdit_SelectAll       (); break;
-	case IDM_EDIT_DESELECT_ALL     : _View->_Designer->onEdit_DeselectAll     (); break;
-	case IDM_EDIT_DELETE           : _View->_Designer->onEdit_Delete          (); break;
-	//case IDM_DESIGN_VIEW_COMMAND   : _View->_Designer->onDesign_ViewCommand   (); break;
-	//case IDM_DESIGN_VIEW_PROPERTY  : _View->_Designer->onDesign_ViewProperty  (); break;
-	case IDM_DESIGN_ZOOMIN         : _View->_Designer->onDesign_ZoomIn        (); break;
-	case IDM_DESIGN_ZOOMOUT        : _View->_Designer->onDesign_ZoomOut       (); break;
-	case IDM_DESIGN_BRING_TO_FRONT : _View->_Designer->onDesign_BringToFront  (); break;
-	case IDM_DESIGN_SEND_TO_BACK   : _View->_Designer->onDesign_SendToBack    (); break;
-	case IDM_DESIGN_BRING_TO_TOP   : _View->_Designer->onDesign_BringToTop    (); break;
-	case IDM_DESIGN_SEND_TO_BOTTOM : _View->_Designer->onDesign_SendToBottom  (); break;
-	case IDM_DESIGN_FILE_PROPERTIES: _View->_Designer->onDesign_FileProperties(); break;
+	case IDM_FILE_NEW              : CX_RUNTIME_LOG(cxLInfo) << L"onFile_New              "; _View->_Designer->newFile();      break;
+	case IDM_FILE_OPEN             : CX_RUNTIME_LOG(cxLInfo) << L"onFile_Open             "; _View->_Designer->openFile();     break;
+	case IDM_FILE_SAVE             : CX_RUNTIME_LOG(cxLInfo) << L"onFile_Save             "; _View->_Designer->saveFile();     break;
+	case IDM_FILE_SAVEAS           : CX_RUNTIME_LOG(cxLInfo) << L"onFile_SaveAs           "; _View->_Designer->saveFileAs();   break;
+	case IDM_EDIT_UNDO             : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Undo             "; _View->_Designer->undo();         break;
+	case IDM_EDIT_REDO             : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Redo             "; _View->_Designer->redo();         break;
+	case IDM_EDIT_CUT              : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Cut              "; _View->_Designer->cut();          break;
+	case IDM_EDIT_COPY             : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Copy             "; _View->_Designer->copy();         break;
+	case IDM_EDIT_PASTE            : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Paste            "; _View->_Designer->paste();        break;
+	case IDM_EDIT_SELECT_ALL       : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_SelectAll        "; _View->_Designer->selectAll();    break;
+	case IDM_EDIT_DESELECT_ALL     : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_DeselectAll      "; _View->_Designer->deselectAll();  break;
+	case IDM_EDIT_DELETE           : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Delete           "; _View->_Designer->erase();        break;
+
+	case IDM_DESIGN_VIEW_COMMAND   : 
+		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewCommand    ";
+		toggleMenuItemChecked(wm.nID(), _MenuCheck.VIEW_COMMAND);
+		//_View->_Designer->onDesign_ViewCommand   (); 
+		break;
+
+	case IDM_DESIGN_VIEW_PROPERTY  : 
+		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewProperty   ";
+		toggleMenuItemChecked(wm.nID(), _MenuCheck.VIEW_PROPERTY);
+		//_View->_Designer->onDesign_ViewProperty  ();
+		break;
+
+	case IDM_DESIGN_ZOOMIN         : CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomIn         "; _View->_Designer->zoomIn();            ; break;
+	case IDM_DESIGN_ZOOMOUT        : CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomOut        "; _View->_Designer->zoomOut();           ; break;
+	case IDM_DESIGN_BRING_TO_FRONT : CX_RUNTIME_LOG(cxLInfo) << L"onDesign_BringToFront   "; _View->_Designer->bringToFront();      ; break;
+	case IDM_DESIGN_SEND_TO_BACK   : CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SendToBack     "; _View->_Designer->sendToBack();        ; break;
+	case IDM_DESIGN_BRING_TO_TOP   : CX_RUNTIME_LOG(cxLInfo) << L"onDesign_BringToTop     "; _View->_Designer->bringToTop();        ; break;
+	case IDM_DESIGN_SEND_TO_BOTTOM : CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SendToBottom   "; _View->_Designer->sendToBottom();      ; break;
+	case IDM_DESIGN_FILE_PROPERTIES: CX_RUNTIME_LOG(cxLInfo) << L"onDesign_FileProperties "; _View->_Designer->setViewProperties(); ; break;
 
 	case IDM_DESIGN_SNAP_TO_GRID   :
+		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SnapToGrid     ";
 		toggleMenuItemChecked(wm.nID(), _MenuCheck.SNAP_TO_GRID);
-		_View->_Designer->onDesign_SnapToGrid    (); 
+		_View->_Designer->snapToGrid (_MenuCheck.SNAP_TO_GRID);
 		break;
 
 	case IDM_DESIGN_SHOW_GRID      : 
+		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGrid       ";
 		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_GRID);
-		_View->_Designer->onDesign_ShowGrid      ();
+		_View->_Designer->showGrid (_MenuCheck.SHOW_GRID);
 		break;
 
 	case IDM_DESIGN_SHOW_GRID_COORD: 
+		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGridCoord  ";
 		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_GRID_COORD);
-		_View->_Designer->onDesign_ShowGridCoord ();
+		_View->_Designer->showGridCoord (_MenuCheck.SHOW_GRID_COORD);
 		break;
 
 	case IDM_DESIGN_SHOW_STATUS    : 
+		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowStatus     ";
 		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_STATUS);
-		_View->_Designer->onDesign_ShowStatus    ();
+		_View->_Designer->showStatus (_MenuCheck.SHOW_STATUS);
 		break;
 
 	default:

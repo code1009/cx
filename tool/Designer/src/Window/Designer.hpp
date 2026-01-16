@@ -49,13 +49,15 @@ private:
 	void setupDropTargetHandler(void);
 
 	//-----------------------------------------------------------------------
+private:
+	void loadCatalog(void);
 public:
 	auto catalog() { return _Catalog.get(); }
-	void loadCatalog(void);
 
 	//-----------------------------------------------------------------------
-public:
+private:
 	void loadFontFamilies(void);
+public:
 	auto const& fontFamilies() const { return _FontFamilies; }
 
 	//-----------------------------------------------------------------------
@@ -63,14 +65,12 @@ public:
 	void resize(std::uint32_t cx, std::uint32_t cy);
 	void invalidate(void);
 
-public:
+private:
 	void updateScrollBar(void);
 
 	//-----------------------------------------------------------------------
-	void showItemProperty(std::shared_ptr<cx::Widget::Item> const& item);
-
+	// commands
 	//-----------------------------------------------------------------------
-	// Commands
 public:
 	void newFile(void);
 	void openFile(void);
@@ -88,8 +88,8 @@ public:
 	void erase(void);
 
 public:
-	void zoomIn(float px, float py);
-	void zoomOut(float px, float py);
+	void zoomIn(void);
+	void zoomOut(void);
 
 public:
 	void bringToFront(void);
@@ -108,32 +108,6 @@ public:
 	void showGridCoord(bool show);
 	void showStatus(bool show);
 
-	//-----------------------------------------------------------------------
-	// Command Handlers
 public:
-	void onFile_New             (void);
-	void onFile_Open            (void);
-	void onFile_Save            (void);
-	void onFile_SaveAs          (void);
-	void onEdit_Undo            (void);
-	void onEdit_Redo            (void);
-	void onEdit_Cut             (void);
-	void onEdit_Copy            (void);
-	void onEdit_Paste           (void);
-	void onEdit_SelectAll       (void);
-	void onEdit_DeselectAll     (void);
-	void onEdit_Delete          (void);
-	void onDesign_ViewCommand   (void);
-	void onDesign_ViewProperty  (void);
-	void onDesign_ZoomIn        (void);
-	void onDesign_ZoomOut       (void);
-	void onDesign_BringToFront  (void);
-	void onDesign_SendToBack    (void);
-	void onDesign_BringToTop    (void);
-	void onDesign_SendToBottom  (void);
-	void onDesign_FileProperties(void);
-	void onDesign_SnapToGrid    (void);
-	void onDesign_ShowGrid      (void);
-	void onDesign_ShowGridCoord (void);
-	void onDesign_ShowStatus    (void);
+	void showItemProperty(std::shared_ptr<cx::Widget::Item> const& item);
 };

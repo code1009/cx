@@ -18,6 +18,8 @@ private:
 	class MenuCheck
 	{
 	public:
+		bool VIEW_COMMAND{ true };
+		bool VIEW_PROPERTY{ true };
 		bool SNAP_TO_GRID{ true };
 		bool SHOW_GRID{ true };
 		bool SHOW_GRID_COORD{ false };
