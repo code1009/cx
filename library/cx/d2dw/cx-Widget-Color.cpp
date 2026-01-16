@@ -65,21 +65,34 @@ namespace cx::Widget
 namespace cx::Widget
 {
 	//=======================================================================
-	std::uint8_t getColorAByte(Color const& v)
+	std::uint8_t getColorA8(Color const& v)
 	{
 		return static_cast<uint8_t>(v._Value.a * 255.0f);
 	}
-	std::uint8_t getColorRByte(Color const& v)
+	std::uint8_t getColorR8(Color const& v)
 	{
 		return static_cast<uint8_t>(v._Value.r * 255.0f);
 	}
-	std::uint8_t getColorGByte(Color const& v)
+	std::uint8_t getColorG8(Color const& v)
 	{
 		return static_cast<uint8_t>(v._Value.g * 255.0f);
 	}
-	std::uint8_t getColorBByte(Color const& v)
+	std::uint8_t getColorB8(Color const& v)
 	{
 		return static_cast<uint8_t>(v._Value.b * 255.0f);
+	}
+	std::uint32_t getColorRGB32(Color const& v)
+	{
+		std::uint8_t r = getColorR8(v);
+		std::uint8_t g = getColorG8(v);
+		std::uint8_t b = getColorB8(v);
+
+		std::uint32_t rgb = 
+			(static_cast<std::uint32_t>(r) << 16) |
+			(static_cast<std::uint32_t>(g) << 8) |
+			(static_cast<std::uint32_t>(b) << 0);
+
+		return rgb;
 	}
 
 	//=======================================================================

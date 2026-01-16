@@ -89,6 +89,7 @@ public:
 	void addPropertyGroupNameUIControl(std::wstring const& name);
 	void addPropertySubNameUIControl(std::wstring const& name);
 	std::shared_ptr<cx::Widget::UIControl::Button> addPropertyTextUIControl(std::wstring const& value, bool readOnly = false);
+	void setPropertyColorValueUIControl(std::shared_ptr<cx::Widget::UIControl::Button>, cx::Widget::Color color);
 
 	void addItemPropertyTextUI     (std::shared_ptr<cx::Widget::Property> property);
 	void addItemPropertyBoolUI     (std::shared_ptr<cx::Widget::Property> property);

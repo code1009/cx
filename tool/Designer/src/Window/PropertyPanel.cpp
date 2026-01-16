@@ -655,6 +655,93 @@ std::shared_ptr<cx::Widget::UIControl::Button> PropertyPanel::addPropertyTextUIC
 	return valueItem;
 }
 
+void PropertyPanel::setPropertyColorValueUIControl(std::shared_ptr<cx::Widget::UIControl::Button> control, cx::Widget::Color color)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	auto r = getColorR8(color);
+	auto g = getColorG8(color);
+	auto b = getColorB8(color);
+
+
+	// RGB를 HSV로 변환하여 채도와 명도 계산
+	float rf = r / 255.0f;
+	float gf = g / 255.0f;
+	float bf = b / 255.0f;
+
+	float max_val = std::max({ rf, gf, bf });
+	float min_val = std::min({ rf, gf, bf });
+	float delta = max_val - min_val;
+
+	// 채도(Saturation) 계산
+	float saturation = (max_val == 0.0f) ? 0.0f : (delta / max_val);
+	// 명도(Value/Brightness) 계산
+	float brightness = max_val;
+
+	// 텍스트 색상 결정 로직
+	bool useWhiteText = false;
+
+	if (brightness < 0.5f)
+	{
+		// 어두운 색상 -> 흰색 텍스트
+		useWhiteText = true;
+	}
+	else if (brightness > 0.8f && saturation < 0.3f) 
+	{
+		// 밝고 채도가 낮은 색상 (회색계열) -> 검은색 텍스트
+		useWhiteText = false;
+	}
+	else if (saturation < 0.4f) 
+	{
+		// 채도가 낮은 경우 명도만으로 판단
+		useWhiteText = (brightness < 0.6f);
+	}
+	else
+	{
+		// 채도가 높은 경우 더 세밀한 판단
+		if (brightness < 0.4f) 
+		{
+			useWhiteText = true;
+		}
+		else if (brightness > 0.7f) 
+		{
+			useWhiteText = false;
+		}
+		else
+		{
+			// 중간 명도에서는 색상별 가중치 적용 (인간의 시각 특성 고려)
+			float luminance = 0.299f * rf + 0.587f * gf + 0.114f * bf;
+			useWhiteText = (luminance < 0.5f);
+		}
+	}
+
+
+	//-----------------------------------------------------------------------
+	auto rgb = getColorRGB32(color);
+
+	Color fillColor(rgb);
+	Color textColor(~rgb);
+//	Color lineColor(Colors::Black());
+
+	if (useWhiteText) 
+	{
+		textColor = Colors::White();
+	}
+	else 
+	{
+		textColor = Colors::Black();
+	}
+
+
+	control->uiControlStyle().fill().fillColor(fillColor);
+//	control->uiControlStyle().line().lineColor(lineColor);
+//	control->uiControlStyle().line().lineSize(1);
+	control->uiControlStyle().text().textColor(textColor);
+}
+
 //===========================================================================
 void PropertyPanel::addItemPropertyTextUI(std::shared_ptr<cx::Widget::Property> property)
 {
@@ -831,18 +918,19 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 	auto fillColor = fillStyle.fillColor();
 	std::wstring fillColorString = to_std_wstring(fillColor);
 
-	auto fillColorAByte = getColorAByte(fillColor);
-	auto fillColorRByte = getColorRByte(fillColor);
-	auto fillColorGByte = getColorGByte(fillColor);
-	auto fillColorBByte = getColorBByte(fillColor);
+	auto fillColorA8 = getColorA8(fillColor);
+	auto fillColorR8 = getColorR8(fillColor);
+	auto fillColorG8 = getColorG8(fillColor);
+	auto fillColorB8 = getColorB8(fillColor);
 
-	auto fillColorRGBString = std::format(L"{},{},{}", fillColorRByte, fillColorGByte, fillColorBByte);
-	auto fillColorAString = std::format(L"{}", fillColorAByte);
+	auto fillColorRGBString = std::format(L"{},{},{}", fillColorR8, fillColorG8, fillColorB8);
+	auto fillColorAString = std::format(L"{}", fillColorA8);
 
 
 	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
 	auto fillColorRGBUIControl = addPropertyTextUIControl(fillColorRGBString, property->readOnly());
+	setPropertyColorValueUIControl(fillColorRGBUIControl, fillColor);
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fillColorRGBUIControl,
@@ -862,24 +950,24 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 			auto fillColor = fillStyle.fillColor();
-			auto fillColorAByte = getColorAByte(fillColor);
-			auto fillColorRByte = getColorRByte(fillColor);
-			auto fillColorGByte = getColorGByte(fillColor);
-			auto fillColorBByte = getColorBByte(fillColor);
-			auto fillColorRGBString = std::format(L"{},{},{}", fillColorRByte, fillColorGByte, fillColorBByte);
+			auto fillColorA8 = getColorA8(fillColor);
+			auto fillColorR8 = getColorR8(fillColor);
+			auto fillColorG8 = getColorG8(fillColor);
+			auto fillColorB8 = getColorB8(fillColor);
+			auto fillColorRGBString = std::format(L"{},{},{}", fillColorR8, fillColorG8, fillColorB8);
 
 
 			cx::wui::ColorPickerDialog box;
-			if (IDOK == box.doModal(*this, fillColorRByte, fillColorGByte, fillColorBByte))
+			if (IDOK == box.doModal(*this, fillColorR8, fillColorG8, fillColorB8))
 			{
-				fillColorRGBString = std::format(L"{},{},{}", fillColorRByte, fillColorGByte, fillColorBByte);
+				fillColorRGBString = std::format(L"{},{},{}", fillColorR8, fillColorG8, fillColorB8);
 
 
 				fillColor = Color(
-					fillColorAByte,
-					fillColorRByte,
-					fillColorGByte,
-					fillColorBByte
+					fillColorA8,
+					fillColorR8,
+					fillColorG8,
+					fillColorB8
 				);
 				fillStyle.fillColor(fillColor);
 
@@ -889,6 +977,7 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 				item->text(fillColorRGBString);
+				setPropertyColorValueUIControl(item, fillColor);
 			}
 		}
 	);
@@ -916,26 +1005,26 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 			auto fillColor = fillStyle.fillColor();
-			auto fillColorAByte = getColorAByte(fillColor);
-			auto fillColorRByte = getColorRByte(fillColor);
-			auto fillColorGByte = getColorGByte(fillColor);
-			auto fillColorBByte = getColorBByte(fillColor);
-			auto fillColorAString = std::format(L"{}", fillColorAByte);
+			auto fillColorA8 = getColorA8(fillColor);
+			auto fillColorR8 = getColorR8(fillColor);
+			auto fillColorG8 = getColorG8(fillColor);
+			auto fillColorB8 = getColorB8(fillColor);
+			auto fillColorAString = std::format(L"{}", fillColorA8);
 
 
 			std::uint32_t x, y, cx, cy;
 			calcPropertyValueBoxRect(item, x, y, cx, cy);
 			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::UInt8, fillColorAString))
 			{
-				fillColorAByte = cx::to_std_uint8_t(fillColorAString);
-				fillColorAString = std::format(L"{}", fillColorAByte);
+				fillColorA8 = cx::to_std_uint8_t(fillColorAString);
+				fillColorAString = std::format(L"{}", fillColorA8);
 
 
 				fillColor = Color(
-					fillColorAByte,
-					fillColorRByte,
-					fillColorGByte,
-					fillColorBByte
+					fillColorA8,
+					fillColorR8,
+					fillColorG8,
+					fillColorB8
 				);
 				fillStyle.fillColor(fillColor);
 
@@ -970,18 +1059,19 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 	auto lineColor = lineStyle.lineColor();
 	std::wstring lineColorString = to_std_wstring(lineColor);
 
-	auto lineColorAByte = getColorAByte(lineColor);
-	auto lineColorRByte = getColorRByte(lineColor);
-	auto lineColorGByte = getColorGByte(lineColor);
-	auto lineColorBByte = getColorBByte(lineColor);
+	auto lineColorA8 = getColorA8(lineColor);
+	auto lineColorR8 = getColorR8(lineColor);
+	auto lineColorG8 = getColorG8(lineColor);
+	auto lineColorB8 = getColorB8(lineColor);
 
-	auto lineColorRGBString = std::format(L"{},{},{}", lineColorRByte, lineColorGByte, lineColorBByte);
-	auto lineColorAString = std::format(L"{}", lineColorAByte);
+	auto lineColorRGBString = std::format(L"{},{},{}", lineColorR8, lineColorG8, lineColorB8);
+	auto lineColorAString = std::format(L"{}", lineColorA8);
 
 
 	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColor));
 	auto lineColorRGBUIControl = addPropertyTextUIControl(lineColorRGBString, property->readOnly());
+	setPropertyColorValueUIControl(lineColorRGBUIControl, lineColor);
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		lineColorRGBUIControl,
@@ -1001,24 +1091,24 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 			auto lineColor = lineStyle.lineColor();
-			auto lineColorAByte = getColorAByte(lineColor);
-			auto lineColorRByte = getColorRByte(lineColor);
-			auto lineColorGByte = getColorGByte(lineColor);
-			auto lineColorBByte = getColorBByte(lineColor);
-			auto lineColorRGBString = std::format(L"{},{},{}", lineColorRByte, lineColorGByte, lineColorBByte);
+			auto lineColorA8 = getColorA8(lineColor);
+			auto lineColorR8 = getColorR8(lineColor);
+			auto lineColorG8 = getColorG8(lineColor);
+			auto lineColorB8 = getColorB8(lineColor);
+			auto lineColorRGBString = std::format(L"{},{},{}", lineColorR8, lineColorG8, lineColorB8);
 
 
 			cx::wui::ColorPickerDialog box;
-			if (IDOK == box.doModal(*this, lineColorRByte, lineColorGByte, lineColorBByte))
+			if (IDOK == box.doModal(*this, lineColorR8, lineColorG8, lineColorB8))
 			{
-				lineColorRGBString = std::format(L"{},{},{}", lineColorRByte, lineColorGByte, lineColorBByte);
+				lineColorRGBString = std::format(L"{},{},{}", lineColorR8, lineColorG8, lineColorB8);
 
 
 				lineColor = Color(
-					lineColorAByte,
-					lineColorRByte,
-					lineColorGByte,
-					lineColorBByte
+					lineColorA8,
+					lineColorR8,
+					lineColorG8,
+					lineColorB8
 				);
 				lineStyle.lineColor(lineColor);
 
@@ -1028,6 +1118,7 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 				item->text(lineColorRGBString);
+				setPropertyColorValueUIControl(item, lineColor);
 			}
 		}
 	);
@@ -1055,26 +1146,26 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 			auto lineColor = lineStyle.lineColor();
-			auto lineColorAByte = getColorAByte(lineColor);
-			auto lineColorRByte = getColorRByte(lineColor);
-			auto lineColorGByte = getColorGByte(lineColor);
-			auto lineColorBByte = getColorBByte(lineColor);
-			auto lineColorAString = std::format(L"{}", lineColorAByte);
+			auto lineColorA8 = getColorA8(lineColor);
+			auto lineColorR8 = getColorR8(lineColor);
+			auto lineColorG8 = getColorG8(lineColor);
+			auto lineColorB8 = getColorB8(lineColor);
+			auto lineColorAString = std::format(L"{}", lineColorA8);
 
 
 			std::uint32_t x, y, cx, cy;
 			calcPropertyValueBoxRect(item, x, y, cx, cy);
 			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::UInt8, lineColorAString))
 			{
-				lineColorAByte = cx::to_std_uint8_t(lineColorAString);
-				lineColorAString = std::format(L"{}", lineColorAByte);
+				lineColorA8 = cx::to_std_uint8_t(lineColorAString);
+				lineColorAString = std::format(L"{}", lineColorA8);
 
 
 				lineColor = Color(
-					lineColorAByte,
-					lineColorRByte,
-					lineColorGByte,
-					lineColorBByte
+					lineColorA8,
+					lineColorR8,
+					lineColorG8,
+					lineColorB8
 				);
 				lineStyle.lineColor(lineColor);
 
@@ -1156,18 +1247,19 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 	auto textColor = textStyle.textColor();
 	std::wstring textColorString = to_std_wstring(textColor);
 
-	auto textColorAByte = getColorAByte(textColor);
-	auto textColorRByte = getColorRByte(textColor);
-	auto textColorGByte = getColorGByte(textColor);
-	auto textColorBByte = getColorBByte(textColor);
+	auto textColorA8 = getColorA8(textColor);
+	auto textColorR8 = getColorR8(textColor);
+	auto textColorG8 = getColorG8(textColor);
+	auto textColorB8 = getColorB8(textColor);
 
-	auto textColorRGBString = std::format(L"{},{},{}", textColorRByte, textColorGByte, textColorBByte);
-	auto textColorAString = std::format(L"{}", textColorAByte);
+	auto textColorRGBString = std::format(L"{},{},{}", textColorR8, textColorG8, textColorB8);
+	auto textColorAString = std::format(L"{}", textColorA8);
 
 
 	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColor));
 	auto textColorRGBUIControl = addPropertyTextUIControl(textColorRGBString, property->readOnly());
+	setPropertyColorValueUIControl(textColorRGBUIControl, textColor);
 	_UIController->_View->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		textColorRGBUIControl,
@@ -1187,24 +1279,24 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 			auto textColor = textStyle.textColor();
-			auto textColorAByte = getColorAByte(textColor);
-			auto textColorRByte = getColorRByte(textColor);
-			auto textColorGByte = getColorGByte(textColor);
-			auto textColorBByte = getColorBByte(textColor);
-			auto textColorRGBString = std::format(L"{},{},{}", textColorRByte, textColorGByte, textColorBByte);
+			auto textColorA8 = getColorA8(textColor);
+			auto textColorR8 = getColorR8(textColor);
+			auto textColorG8 = getColorG8(textColor);
+			auto textColorB8 = getColorB8(textColor);
+			auto textColorRGBString = std::format(L"{},{},{}", textColorR8, textColorG8, textColorB8);
 
 
 			cx::wui::ColorPickerDialog box;
-			if (IDOK == box.doModal(*this, textColorRByte, textColorGByte, textColorBByte))
+			if (IDOK == box.doModal(*this, textColorR8, textColorG8, textColorB8))
 			{
-				textColorRGBString = std::format(L"{},{},{}", textColorRByte, textColorGByte, textColorBByte);
+				textColorRGBString = std::format(L"{},{},{}", textColorR8, textColorG8, textColorB8);
 
 
 				textColor = Color(
-					textColorAByte,
-					textColorRByte,
-					textColorGByte,
-					textColorBByte
+					textColorA8,
+					textColorR8,
+					textColorG8,
+					textColorB8
 				);
 				textStyle.textColor(textColor);
 
@@ -1214,6 +1306,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 				item->text(textColorRGBString);
+				setPropertyColorValueUIControl(item, textColor);
 			}
 		}
 	);
@@ -1241,26 +1334,26 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 
 			auto textColor = textStyle.textColor();
-			auto textColorAByte = getColorAByte(textColor);
-			auto textColorRByte = getColorRByte(textColor);
-			auto textColorGByte = getColorGByte(textColor);
-			auto textColorBByte = getColorBByte(textColor);
-			auto textColorAString = std::format(L"{}", textColorAByte);
+			auto textColorA8 = getColorA8(textColor);
+			auto textColorR8 = getColorR8(textColor);
+			auto textColorG8 = getColorG8(textColor);
+			auto textColorB8 = getColorB8(textColor);
+			auto textColorAString = std::format(L"{}", textColorA8);
 
 
 			std::uint32_t x, y, cx, cy;
 			calcPropertyValueBoxRect(item, x, y, cx, cy);
 			if (showInputTextBox(*this, x, y, cx, cy, property->readOnly(), InputTextBox::TextType::UInt8, textColorAString))
 			{
-				textColorAByte = cx::to_std_uint8_t(textColorAString);
-				textColorAString = std::format(L"{}", textColorAByte);
+				textColorA8 = cx::to_std_uint8_t(textColorAString);
+				textColorAString = std::format(L"{}", textColorA8);
 
 
 				textColor = Color(
-					textColorAByte,
-					textColorRByte,
-					textColorGByte,
-					textColorBByte
+					textColorA8,
+					textColorR8,
+					textColorG8,
+					textColorB8
 				);
 				textStyle.textColor(textColor);
 

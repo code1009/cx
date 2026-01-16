@@ -18,10 +18,12 @@ namespace cx::Widget
 namespace cx::Widget
 {
 	//=======================================================================
-	std::uint8_t getColorAByte(Color const& v);
-	std::uint8_t getColorRByte(Color const& v);
-	std::uint8_t getColorGByte(Color const& v);
-	std::uint8_t getColorBByte(Color const& v);
+	std::uint8_t getColorA8(Color const& v);
+	std::uint8_t getColorR8(Color const& v);
+	std::uint8_t getColorG8(Color const& v);
+	std::uint8_t getColorB8(Color const& v);
+	
+	std::uint32_t getColorRGB32(Color const& v);
 
 	//=======================================================================
 	Color fromARGB(
