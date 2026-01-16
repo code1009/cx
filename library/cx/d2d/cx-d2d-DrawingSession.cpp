@@ -195,14 +195,14 @@ void DrawingSession::DrawEllipse(float x, float y, float radiusX, float radiusY,
 }
 
 //===========================================================================
-void DrawingSession::Transform(D2D1_MATRIX_3X2_F const& value)
+void DrawingSession::Transform(D2D1::Matrix3x2F const& value)
 {
 	_Context->getD2dHwndRenderTarget()->SetTransform(value);
 }
 
-D2D1_MATRIX_3X2_F DrawingSession::Transform(void)
+D2D1::Matrix3x2F DrawingSession::Transform(void) const
 {
-	D2D1_MATRIX_3X2_F value;
+	D2D1::Matrix3x2F value;
 	_Context->getD2dHwndRenderTarget()->GetTransform(&value);
 	return value;
 }

@@ -659,9 +659,27 @@ void Designer::erase(void)
 //===========================================================================
 void Designer::setViewProperties(void)
 {
-	ViewPropertyBox box;
+	//-------------------------------------------------------------------
+	using namespace cx::Widget;
 
-	box.doModal(_Hwnd);
+
+	//-------------------------------------------------------------------
+	auto backgroundColor = _Edit->viewBackground().fillStyle().fillColor();
+	auto R8 = getColorR8(backgroundColor);
+	auto G8 = getColorG8(backgroundColor);
+	auto B8 = getColorB8(backgroundColor);
+
+	ViewPropertyBox box;
+	box._CX = static_cast<std::uint32_t>(_Edit->viewContext().width());
+	box._CY = static_cast<std::uint32_t>(_Edit->viewContext().height());
+	box._ColorR8 = R8;
+	box._ColorG8 = G8;
+	box._ColorB8 = B8;
+
+	if (IDOK == box.doModal(_Hwnd))
+	{
+
+	}
 }
 
 //===========================================================================

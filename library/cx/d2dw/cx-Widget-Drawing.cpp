@@ -90,6 +90,37 @@ namespace cx::Widget
 		// 변환 상태 복원
 		dctx.Transform(oldTransform);
 #endif
+		/*
+				D2D1::Matrix3x2F matrixScale;
+		D2D1::Matrix3x2F matrixTranslate;
+		D2D1::Matrix3x2F matrix;
+		//matrix = D2D1::Matrix3x2F::Identity();
+		matrixScale =
+			D2D1::Matrix3x2F::Scale(
+				static_cast<FLOAT>(scale),
+				static_cast<FLOAT>(scale)
+			);
+		matrixTranslate =
+			D2D1::Matrix3x2F::Translation(
+				static_cast<FLOAT>(translationX),
+				static_cast<FLOAT>(translationY)
+			);
+		matrix = matrixScale * matrixTranslate;
+		dctx.Transform(matrix);
+		*/
 		// TODO
+#if 0
+		D2D1::Matrix3x2F oldTransform = dctx.Transform();
+		//class Matrix3x2F : public D2D1_MATRIX_3X2_F
+		D2D1::Matrix3x2F rotation = D2D1::Matrix3x2F::Rotation(radianAngle,	D2D1::Point2F(x, y));
+		D2D1::Matrix3x2F matrix = rotation * oldTransform;
+		dctx.Transform(matrix);
+
+		dctx.DrawText(text, x, y, color, textFormat);
+
+//		void Transform(D2D1::Matrix3x2F const& value);
+
+		dctx.Transform(oldTransform);
+#endif
 	}
 }

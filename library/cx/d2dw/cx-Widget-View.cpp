@@ -971,17 +971,6 @@ namespace cx::Widget
 	//=======================================================================
 	void View::setTransform(DrawingContext& dctx)
 	{
-#if 0
-		winrt::Windows::Foundation::Numerics::float3x2 scale = winrt::Windows::Foundation::Numerics::make_float3x2_scale(
-			viewContext().scale(),
-			viewContext().scale()
-		);
-		winrt::Windows::Foundation::Numerics::float3x2 translate = winrt::Windows::Foundation::Numerics::make_float3x2_translation(
-			viewContext().offsetPosition().X,
-			viewContext().offsetPosition().Y
-		);
-		dctx.Transform(scale * translate);
-#endif
 		// TODO
 		float scale = viewContext().scale();
 		Coord translationX = viewContext().offsetPosition().X;
