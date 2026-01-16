@@ -32,5 +32,5 @@ public:
 
 public:
 	void pickColor(void);
-	void updateData(void);
+	bool updateData(void);
 };

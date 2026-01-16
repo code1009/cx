@@ -112,9 +112,11 @@ void ViewPropertyBox::onCommand(cx::wui::WindowMessage& windowMessage)
 		break;
 
 	case IDOK:
-		updateData();
-		::EndDialog(*this, IDOK);
-		windowMessage.setResult(TRUE);
+		if (updateData())
+		{
+			::EndDialog(*this, IDOK);
+			windowMessage.setResult(TRUE);
+		}
 		break;
 
 	case IDCANCEL:
@@ -146,26 +148,48 @@ void ViewPropertyBox::pickColor(void)
 	}
 }
 
-void ViewPropertyBox::updateData(void)
+bool ViewPropertyBox::updateData(void)
 {
 	std::uint32_t cx;
 	std::uint32_t cy;
 
 
+	//-------------------------------------------------------------------
 	BOOL translatedFlag;
 
 
 	translatedFlag = FALSE;
 	cx = GetDlgItemInt(*this, IDC_EDIT_CX, reinterpret_cast<BOOL*>(&translatedFlag), FALSE);
-	if (translatedFlag)
+	if (!translatedFlag)
 	{
-		_CX = cx;
+		return false;
 	}
 
 	translatedFlag = FALSE;
 	cy = GetDlgItemInt(*this, IDC_EDIT_CY, reinterpret_cast<BOOL*>(&translatedFlag), FALSE);
-	if (translatedFlag)
+	if (!translatedFlag)
 	{
-		_CY = cy;
+		return false;
 	}
+
+
+	//-------------------------------------------------------------------
+	const std::uint32_t maxCX = 1920 * 4;
+	const std::uint32_t maxCY = 1080 * 4;
+
+	if (cx == 0 || cy == 0)
+	{
+		return false;
+	}
+	if (cx > maxCX || cy > maxCY)
+	{
+		return false;
+	}
+
+
+	//-------------------------------------------------------------------
+	_CX = cx;
+	_CY = cy;
+
+	return true;
 }

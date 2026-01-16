@@ -664,29 +664,43 @@ void Designer::setViewProperties(void)
 
 
 	//-------------------------------------------------------------------
-	auto backgroundColor = _Edit->viewBackground().fillStyle().fillColor();
-	auto R8 = getColorR8(backgroundColor);
-	auto G8 = getColorG8(backgroundColor);
-	auto B8 = getColorB8(backgroundColor);
+	auto cx = static_cast<std::uint32_t>(_Edit->viewContext().width());
+	auto cy = static_cast<std::uint32_t>(_Edit->viewContext().height());
 
+
+	//-------------------------------------------------------------------
+	auto color = _Edit->viewBackground().fillStyle().fillColor();
+	auto R8 = getColorR8(color);
+	auto G8 = getColorG8(color);
+	auto B8 = getColorB8(color);
+
+
+	//-------------------------------------------------------------------
 	ViewPropertyBox box;
-	box._CX = static_cast<std::uint32_t>(_Edit->viewContext().width());
-	box._CY = static_cast<std::uint32_t>(_Edit->viewContext().height());
+	box._CX = cx;
+	box._CY = cy;
 	box._ColorR8 = R8;
 	box._ColorG8 = G8;
 	box._ColorB8 = B8;
-
 	if (IDOK == box.doModal(_Hwnd))
 	{
+		Color boxColor = Color(255, box._ColorR8, box._ColorG8, box._ColorB8);
+		if ( (box._CX == cx && box._CY == cy) && (boxColor == color) )
+		{
+			CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
+			return;
+		}
+
+
 		auto viewWidth = static_cast<Coord>(box._CX);
 		auto viewHeight = static_cast<Coord>(box._CY);
 		auto viewBackgroundFillColor = Color(255, box._ColorR8, box._ColorG8, box._ColorB8);
-
 		ViewProperties viewProperties;
 		viewProperties.width(viewWidth);
 		viewProperties.height(viewHeight);
 		viewProperties.backgroundFillColor(viewBackgroundFillColor);
 		_Edit->setViewProperties(viewProperties);
+
 
 		_Edit->viewContext().setWindowScrollOffset({ 0.0f, 0.0f });
 		_Edit->viewContext().update();
