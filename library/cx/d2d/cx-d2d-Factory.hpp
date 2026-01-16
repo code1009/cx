@@ -41,8 +41,6 @@ public:
 	wil::com_ptr_nothrow<ID2D1Factory> getD2dFactory(void);
 	wil::com_ptr_nothrow<IDWriteFactory> getDWriteFactory(void);
 	wil::com_ptr_nothrow<IWICImagingFactory> getWICImagingFactory(void);
-
-
 };
 
 
