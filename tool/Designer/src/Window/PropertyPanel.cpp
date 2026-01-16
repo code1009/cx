@@ -453,20 +453,93 @@ bool PropertyPanel::isPropertyEditable(std::shared_ptr<cx::Widget::Property> pro
 	return _ItemProperty_valueChanged_Flag;
 }
 
+std::vector<std::wstring> PropertyPanel::getTextHAlignmentStringList(void)
+{
+	std::vector<std::wstring> textHAlignmentStringList;
+	textHAlignmentStringList.push_back(cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data());
+	textHAlignmentStringList.push_back(cx::Widget::PropertyFriendlyNames::textHAlignment_Center.data());
+	textHAlignmentStringList.push_back(cx::Widget::PropertyFriendlyNames::textHAlignment_Right.data());
+	return textHAlignmentStringList;
+}
+
+std::vector<std::wstring> PropertyPanel::getTextVAlignmentStringList(void)
+{
+	std::vector<std::wstring> textVAlignmentStringList;
+	textVAlignmentStringList.push_back(cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data());
+	textVAlignmentStringList.push_back(cx::Widget::PropertyFriendlyNames::textVAlignment_Center.data());
+	textVAlignmentStringList.push_back(cx::Widget::PropertyFriendlyNames::textVAlignment_Bottom.data());
+	return textVAlignmentStringList;
+}
+
+cx::Widget::TextHAlignment PropertyPanel::toTextHAlignment(std::wstring const& textHAlignmentString)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	TextHAlignment textHAlignment;
+	if (textHAlignmentString == PropertyFriendlyNames::textHAlignment_Left.data())
+	{
+		textHAlignment = TextHAlignment::Left;
+	}
+	else if (textHAlignmentString == PropertyFriendlyNames::textHAlignment_Center.data())
+	{
+		textHAlignment = TextHAlignment::Center;
+	}
+	else if (textHAlignmentString == PropertyFriendlyNames::textHAlignment_Right.data())
+	{
+		textHAlignment = TextHAlignment::Right;
+	}
+	else
+	{
+		textHAlignment = TextHAlignment::Left;
+	}
+	return textHAlignment;
+}
+
+cx::Widget::TextVAlignment PropertyPanel::toTextVAlignment(std::wstring const& textHAlignmentString)
+{
+	//-----------------------------------------------------------------------
+	using namespace cx::Widget;
+
+
+	//-----------------------------------------------------------------------
+	TextVAlignment textVAlignment;
+	if (textHAlignmentString == PropertyFriendlyNames::textVAlignment_Top.data())
+	{
+		textVAlignment = TextVAlignment::Top;
+	}
+	else if (textHAlignmentString == PropertyFriendlyNames::textVAlignment_Center.data())
+	{
+		textVAlignment = TextVAlignment::Center;
+	}
+	else if (textHAlignmentString == PropertyFriendlyNames::textVAlignment_Bottom.data())
+	{
+		textVAlignment = TextVAlignment::Bottom;
+	}
+	else
+	{
+		textVAlignment = TextVAlignment::Top;
+	}
+	return textVAlignment;
+}
+
 std::wstring PropertyPanel::getTextHAlignmentString(cx::Widget::TextHAlignment textHAlignment)
 {
 	//-----------------------------------------------------------------------
 	using namespace cx::Widget;
 
 
+	//-----------------------------------------------------------------------
 	std::wstring textHAlignmentString;
 	switch (textHAlignment)
 	{
-	case TextHAlignment::Left: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data(); break;
-	case TextHAlignment::Center: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Center.data(); break;
-	case TextHAlignment::Right: textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Right.data(); break;
+	case TextHAlignment::Left  : textHAlignmentString = PropertyFriendlyNames::textHAlignment_Left.data(); break;
+	case TextHAlignment::Center: textHAlignmentString = PropertyFriendlyNames::textHAlignment_Center.data(); break;
+	case TextHAlignment::Right : textHAlignmentString = PropertyFriendlyNames::textHAlignment_Right.data(); break;
 	default:
-		textHAlignmentString = cx::Widget::PropertyFriendlyNames::textHAlignment_Left.data(); break;
+		textHAlignmentString = PropertyFriendlyNames::textHAlignment_Left.data(); break;
 		break;
 	}
 
@@ -479,14 +552,15 @@ std::wstring PropertyPanel::getTextVAlignmentString(cx::Widget::TextVAlignment t
 	using namespace cx::Widget;
 
 
+	//-----------------------------------------------------------------------
 	std::wstring textVAlignmentString;
 	switch (textVAlignment)
 	{
-	case TextVAlignment::Top: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data(); break;
-	case TextVAlignment::Center: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Center.data(); break;
-	case TextVAlignment::Bottom: textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Bottom.data(); break;
+	case TextVAlignment::Top   : textVAlignmentString = PropertyFriendlyNames::textVAlignment_Top.data(); break;
+	case TextVAlignment::Center: textVAlignmentString = PropertyFriendlyNames::textVAlignment_Center.data(); break;
+	case TextVAlignment::Bottom: textVAlignmentString = PropertyFriendlyNames::textVAlignment_Bottom.data(); break;
 	default:
-		textVAlignmentString = cx::Widget::PropertyFriendlyNames::textVAlignment_Top.data(); break;
+		textVAlignmentString = PropertyFriendlyNames::textVAlignment_Top.data(); break;
 		break;
 	}
 
@@ -503,6 +577,7 @@ void PropertyPanel::calcPropertyValueBoxRect(
 	using namespace cx::Widget;
 
 
+	//-----------------------------------------------------------------------
 	auto lt = control->getPoint(0);
 	auto rb = control->getPoint(1);
 	
@@ -519,6 +594,8 @@ void PropertyPanel::calcPropertyValueBoxRect(
 	ClientToScreen(*this, &points[0]);
 	ClientToScreen(*this, &points[1]);
 
+
+	//-----------------------------------------------------------------------
 	x = points[0].x;
 	y = points[0].y;
 	cx = points[1].x - points[0].x;
@@ -842,8 +919,8 @@ void PropertyPanel::addItemPropertyBoolUI(std::shared_ptr<cx::Widget::Property> 
 			
 			
 			std::vector<std::wstring> valueStringList;
-			valueStringList.push_back(L"true");
-			valueStringList.push_back(L"false");
+			valueStringList.push_back(cx::to_std_wstring(true));
+			valueStringList.push_back(cx::to_std_wstring(false));
 
 
 			std::uint32_t x, y, cx, cy = 50;
@@ -1373,7 +1450,43 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 	std::wstring fontFamilyString = fontFamily;
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontFamily));
-	addPropertyTextUIControl(fontFamilyString, property->readOnly());
+	auto fontFamilyUIControl = addPropertyTextUIControl(fontFamilyString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		fontFamilyUIControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			TextStyle textStyle = to_TextStyle(valueString);
+
+
+			auto fontFamily = textStyle.fontFamily();
+			std::wstring fontFamilyString = fontFamily.data();
+			std::vector<std::wstring> fontFamilyStringList = _Designer->fontFamilies();
+
+
+			std::uint32_t x, y, cx, cy = 200;
+			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
+			if (showInputTextListBox(*this, x, y, cx, cy, property->readOnly(), InputTextListBox::TextType::String, fontFamilyStringList, fontFamilyString))
+			{
+				textStyle.fontFamily(fontFamilyString);
+				valueString = cx::Widget::to_std_wstring(textStyle);
+				property->value(valueString);
+
+
+				item->text(fontFamilyString);
+			}
+		}
+	);
 
 
 	//-----------------------------------------------------------------------
@@ -1442,19 +1555,31 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
 			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
-	
+
 			auto valueString = property->value();
 			TextStyle textStyle = to_TextStyle(valueString);
 
+
 			bool fontBold = textStyle.fontBold();
-			fontBold = !fontBold;
-			textStyle.fontBold(fontBold);
-
-			property->value(cx::Widget::to_std_wstring(textStyle));
-
-			
 			std::wstring fontBoldString = cx::to_std_wstring(fontBold);
-			item->text(fontBoldString);
+
+
+			std::vector<std::wstring> valueStringList;
+			valueStringList.push_back(cx::to_std_wstring(true));
+			valueStringList.push_back(cx::to_std_wstring(false));
+
+
+			std::uint32_t x, y, cx, cy = 50;
+			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
+			if (showInputTextListBox(*this, x, y, cx, cy, property->readOnly(), InputTextListBox::TextType::String, valueStringList, fontBoldString))
+			{
+				fontBold = cx::to_bool(fontBoldString);
+				textStyle.fontBold(fontBold);
+				valueString = cx::Widget::to_std_wstring(textStyle);
+				property->value(valueString);
+
+				item->text(fontBoldString);
+			}
 		}
 	);
 
@@ -1470,27 +1595,39 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 		fontItalicUIControl,
 		[this, property](cx::ev::Event& event)
 		{
-			if (!isPropertyEditable(property)) { return;  }
+			if (!isPropertyEditable(property)) { return; }
 
 
 			using Control = UIControl::Button;
 			auto eventType = event.eventType();
 			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
-			std::shared_ptr<Control> item =	std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
 
 			auto valueString = property->value();
 			TextStyle textStyle = to_TextStyle(valueString);
 
+			
 			bool fontItalic = textStyle.fontItalic();
-			fontItalic = !fontItalic;
-			textStyle.fontItalic(fontItalic);
-
-			property->value(cx::Widget::to_std_wstring(textStyle));
-
-
 			std::wstring fontItalicString = cx::to_std_wstring(fontItalic);
-			item->text(fontItalicString);
+
+
+			std::vector<std::wstring> valueStringList;
+			valueStringList.push_back(cx::to_std_wstring(true));
+			valueStringList.push_back(cx::to_std_wstring(false));
+
+
+			std::uint32_t x, y, cx, cy = 50;
+			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
+			if (showInputTextListBox(*this, x, y, cx, cy, property->readOnly(), InputTextListBox::TextType::String, valueStringList, fontItalicString))
+			{
+				fontItalic = cx::to_bool(fontItalicString);
+				textStyle.fontItalic(fontItalic);
+				valueString = cx::Widget::to_std_wstring(textStyle);
+				property->value(valueString);
+
+				item->text(fontItalicString);
+			}
 		}
 	);
 
@@ -1515,7 +1652,28 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
 
+			auto valueString = property->value();
+			TextStyle textStyle = to_TextStyle(valueString);
 
+
+			TextHAlignment textHAlignment = textStyle.textHAlignment();
+			std::wstring textHAlignmentString = getTextHAlignmentString(textHAlignment);
+
+
+			std::vector<std::wstring> valueStringList = getTextHAlignmentStringList();
+
+
+			std::uint32_t x, y, cx, cy = 50;
+			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
+			if (showInputTextListBox(*this, x, y, cx, cy, property->readOnly(), InputTextListBox::TextType::String, valueStringList, textHAlignmentString))
+			{
+				textHAlignment = toTextHAlignment(textHAlignmentString);
+				textStyle.textHAlignment(textHAlignment);
+				valueString = cx::Widget::to_std_wstring(textStyle);
+				property->value(valueString);
+
+				item->text(textHAlignmentString);
+			}
 		}
 	);
 
@@ -1525,5 +1683,43 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 	std::wstring textVAlignmentString = getTextVAlignmentString(textVAlignment);
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textVAlignment));
-	addPropertyTextUIControl(textVAlignmentString, property->readOnly());
+	auto textVAlignmenUItControl = addPropertyTextUIControl(textVAlignmentString, property->readOnly());
+	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+		ItemPointerClickedEvent,
+		textVAlignmenUItControl,
+		[this, property](cx::ev::Event& event)
+		{
+			if (!isPropertyEditable(property)) { return; }
+
+
+			using Control = UIControl::Button;
+			auto eventType = event.eventType();
+			auto itemPointerEventData = event.eventDataAs<ItemPointerEventData>();
+			std::shared_ptr<Control> item = std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
+
+
+			auto valueString = property->value();
+			TextStyle textStyle = to_TextStyle(valueString);
+
+
+			TextVAlignment textVAlignment = textStyle.textVAlignment();
+			std::wstring textVAlignmentString = getTextVAlignmentString(textVAlignment);
+
+
+			std::vector<std::wstring> valueStringList = getTextVAlignmentStringList();
+
+
+			std::uint32_t x, y, cx, cy = 50;
+			calcPropertyValueDropBoxRect(item, x, y, cx, cy);
+			if (showInputTextListBox(*this, x, y, cx, cy, property->readOnly(), InputTextListBox::TextType::String, valueStringList, textVAlignmentString))
+			{
+				textVAlignment = toTextVAlignment(textVAlignmentString);
+				textStyle.textVAlignment(textVAlignment);
+				valueString = cx::Widget::to_std_wstring(textStyle);
+				property->value(valueString);
+
+				item->text(textVAlignmentString);
+			}
+		}
+	);
 }

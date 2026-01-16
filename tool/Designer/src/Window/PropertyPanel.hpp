@@ -72,8 +72,14 @@ public:
 	void loadItemPropertyUI(void);
 
 	bool isPropertyEditable(std::shared_ptr<cx::Widget::Property> property) const;
+
+	std::vector<std::wstring> getTextHAlignmentStringList(void);
+	std::vector<std::wstring> getTextVAlignmentStringList(void);
 	std::wstring getTextHAlignmentString(cx::Widget::TextHAlignment textHAlignment);
 	std::wstring getTextVAlignmentString(cx::Widget::TextVAlignment textVAlignment);
+	cx::Widget::TextHAlignment toTextHAlignment(std::wstring const& textHAlignmentString);
+	cx::Widget::TextVAlignment toTextVAlignment(std::wstring const& textVAlignmentString);
+
 	void calcPropertyValueBoxRect(
 		std::shared_ptr<cx::Widget::UIControl::Base> control,
 		std::uint32_t& x, std::uint32_t& y,
