@@ -38,64 +38,11 @@ void DrawingSession::DrawText(std::wstring const& text, float x, float y, float 
 
 	if (nullptr == format._Value.get())
 	{
-		HRESULT hr;
-		wil::com_ptr_nothrow<IDWriteTextFormat> DWriteTextFormat;
-
-		hr = _Context->getDWriteFactory()->CreateTextFormat(
-			format._FontFamily.c_str(),
-			nullptr,
-			format._FontBold   ? DWRITE_FONT_WEIGHT_ULTRA_BLACK : DWRITE_FONT_WEIGHT_NORMAL,
-			format._FontItalic ? DWRITE_FONT_STYLE_ITALIC       : DWRITE_FONT_STYLE_NORMAL ,
-			DWRITE_FONT_STRETCH_NORMAL,
-			format._FontSize,
-			L"ko-kr",
-			DWriteTextFormat.put()
-		);
-		if (FAILED(hr))
+		bool rv = format.createResources(_Context);
+		if (!rv)
 		{
 			return;
 		}
-
-		switch (format._TextHAlign)
-		{
-		case TextHAlignment::Left:
-			DWriteTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
-			break;
-		case TextHAlignment::Right:
-			DWriteTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
-			break;
-		case TextHAlignment::Center:
-			DWriteTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-			break;
-		case TextHAlignment::Justified:
-			DWriteTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_JUSTIFIED);
-			break;
-		default:
-			DWriteTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-			break;
-		}
-
-		switch (format._TextVAlign)
-		{
-		case TextVAlignment::Top:
-			DWriteTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
-			break;
-		case TextVAlignment::Bottom:
-			DWriteTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
-			break;
-		case TextVAlignment::Center:
-			DWriteTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
-			break;
-		default:
-			DWriteTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
-			break;
-		}
-
-		DWriteTextFormat->SetWordWrapping(DWRITE_WORD_WRAPPING_NO_WRAP);
-
-
-		format._Value = DWriteTextFormat;		
-		format.registerResource(_Context->getDeviceIndependentResourceManager());
 	}
 		
 

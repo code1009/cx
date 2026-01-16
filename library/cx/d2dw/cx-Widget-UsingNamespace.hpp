@@ -18,7 +18,7 @@ namespace cx::Widget
 	using DrawingContext = d2d::DrawingSession;
 
 	using StrokeStyle = d2d::StrokeStyle;
-	using CapStyle = d2d::CapStyle;
+	using CapStyle = d2d::Stroke::CapStyle;
 
 	using TextFormat = d2d::TextFormat;
 	using TextHAlignment = d2d::TextHAlignment;

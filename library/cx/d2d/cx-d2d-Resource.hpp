@@ -15,6 +15,7 @@ namespace cx::d2d
 
 /////////////////////////////////////////////////////////////////////////////
 //===========================================================================
+class Context;
 class ResourceManager;
 
 
@@ -41,6 +42,9 @@ public:
 public:
 	virtual void registerResource(ResourceManager* deviceResourceManager);
 	virtual void unregisterResource(void);
+
+public:
+	virtual bool createResources(Context* context) = 0;
 	virtual void releaseResources(void) = 0;
 };
 
