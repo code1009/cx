@@ -15,21 +15,21 @@ private:
 	std::unique_ptr<View> _View;
 
 private:
-	class MenuCheck
+	class MenuFlags
 	{
 	public:
-		bool VIEW_COMMAND{ true };
-		bool VIEW_PROPERTY{ true };
-		bool SNAP_TO_GRID{ true };
-		bool SHOW_GRID{ true };
-		bool SHOW_GRID_COORD{ false };
-		bool SHOW_STATUS{ false };
+		bool design_viewCommand{ true };
+		bool design_viewProperty{ true };
+		bool design_snapToGrid{ true };
+		bool design_showGrid{ true };
+		bool design_showGridCoord{ false };
+		bool design_showStatus{ false };
 
 	public:
-		MenuCheck() = default;
+		MenuFlags() = default;
 	};
 
-	MenuCheck _MenuCheck;
+	MenuFlags _MenuFlags;
 
 public:
 	MainFrame();
@@ -49,10 +49,13 @@ public:
 
 public:
 	void toggleMenuItemChecked(UINT itemID, bool& checked);
+	void onMenuCommand_DesignViewCommand();
+	void onMenuCommand_DesignViewProperty();
 
 public:
 	void onIdle(void);
 
 public:
+	void updateTitle(void);
 	void updateLayout(std::uint32_t cx, std::uint32_t cy);
 };

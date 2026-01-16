@@ -24,6 +24,7 @@ private:
 
 public:
 	std::function<void(void)> showItemPropertytHandler{ nullptr };
+	std::function<void(void)> modifiedHandler{ nullptr };
 
 private:
 	std::unique_ptr<Catalog> _Catalog;
@@ -55,6 +56,8 @@ public:
 public:
 	auto catalog() { return _Catalog.get(); }
 	auto const& fontFamilies() const { return _FontFamilies; }
+	auto filePath() const { return _FilePath; }
+	auto isModified() const { return _Edit->editSeed().isModified(); }
 
 	//-----------------------------------------------------------------------
 private:

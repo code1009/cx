@@ -137,7 +137,10 @@ void Designer::setupCanvasView(void)
 		reinterpret_cast<std::uintptr_t>(this),
 		[this](cx::ev::Event& /*event*/)
 		{
-			//FileSaveButton().IsEnabled(_Edit->editSeed().isModified());
+			if (modifiedHandler)
+			{
+				modifiedHandler();
+			}
 		}
 	);
 

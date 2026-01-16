@@ -3,8 +3,9 @@
 #include "pch.hpp"
 
 //===========================================================================
-#include <cx/wui/wui.hpp>
 #include <cx/runtime/runtime.hpp>
+#include <cx/common/fs_std_wstring.hpp>
+#include <cx/wui/wui.hpp>
 
 //===========================================================================
 #include <cx/d2d/cx-d2d.hpp>
@@ -81,6 +82,13 @@ MainFrame::MainFrame()
 
 	//-----------------------------------------------------------------------
 	_View = std::make_unique<View>(*this);
+	_View->_Designer->modifiedHandler =
+		[this]()
+		{
+			updateTitle();
+		}
+	;
+
 	_CommandPanel = std::make_unique<CommandPanel>(*this, _View->_Designer.get());
 	_PropertyPanel = std::make_unique<PropertyPanel>(*this, _View->_Designer.get());
 
@@ -226,15 +234,11 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 	case IDM_EDIT_DELETE           : CX_RUNTIME_LOG(cxLInfo) << L"onEdit_Delete           "; _View->_Designer->erase();        break;
 
 	case IDM_DESIGN_VIEW_COMMAND   : 
-		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewCommand    ";
-		toggleMenuItemChecked(wm.nID(), _MenuCheck.VIEW_COMMAND);
-		//_View->_Designer->onDesign_ViewCommand   (); 
+		onMenuCommand_DesignViewCommand();
 		break;
-
+		
 	case IDM_DESIGN_VIEW_PROPERTY  : 
-		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewProperty   ";
-		toggleMenuItemChecked(wm.nID(), _MenuCheck.VIEW_PROPERTY);
-		//_View->_Designer->onDesign_ViewProperty  ();
+		onMenuCommand_DesignViewProperty();
 		break;
 
 	case IDM_DESIGN_ZOOMIN         : CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ZoomIn         "; _View->_Designer->zoomIn();            ; break;
@@ -247,26 +251,26 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 
 	case IDM_DESIGN_SNAP_TO_GRID   :
 		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SnapToGrid     ";
-		toggleMenuItemChecked(wm.nID(), _MenuCheck.SNAP_TO_GRID);
-		_View->_Designer->snapToGrid (_MenuCheck.SNAP_TO_GRID);
+		toggleMenuItemChecked(wm.nID(), _MenuFlags.design_snapToGrid);
+		_View->_Designer->snapToGrid (_MenuFlags.design_snapToGrid);
 		break;
 
 	case IDM_DESIGN_SHOW_GRID      : 
 		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGrid       ";
-		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_GRID);
-		_View->_Designer->showGrid (_MenuCheck.SHOW_GRID);
+		toggleMenuItemChecked(wm.nID(), _MenuFlags.design_showGrid);
+		_View->_Designer->showGrid (_MenuFlags.design_showGrid);
 		break;
 
 	case IDM_DESIGN_SHOW_GRID_COORD: 
 		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGridCoord  ";
-		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_GRID_COORD);
-		_View->_Designer->showGridCoord (_MenuCheck.SHOW_GRID_COORD);
+		toggleMenuItemChecked(wm.nID(), _MenuFlags.design_showGridCoord);
+		_View->_Designer->showGridCoord (_MenuFlags.design_showGridCoord);
 		break;
 
 	case IDM_DESIGN_SHOW_STATUS    : 
 		CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowStatus     ";
-		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_STATUS);
-		_View->_Designer->showStatus (_MenuCheck.SHOW_STATUS);
+		toggleMenuItemChecked(wm.nID(), _MenuFlags.design_showStatus);
+		_View->_Designer->showStatus (_MenuFlags.design_showStatus);
 		break;
 
 	default:
@@ -320,12 +324,115 @@ void MainFrame::toggleMenuItemChecked(UINT itemID, bool& checkFlag)
 	}
 }
 
+void MainFrame::onMenuCommand_DesignViewCommand()
+{
+	CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewCommand    ";
+
+
+	toggleMenuItemChecked(IDM_DESIGN_VIEW_COMMAND, _MenuFlags.design_viewCommand);
+
+
+	if (_MenuFlags.design_viewCommand)
+	{
+		_CommandPanel = std::make_unique<CommandPanel>(*this, _View->_Designer.get());
+
+	}
+	else
+	{
+		if (_CommandPanel)
+		{
+			_CommandPanel->destroyWindow();
+		}
+		_CommandPanel.reset();
+	}
+
+
+	RECT rect;
+	::GetClientRect(*this, &rect);
+
+	UINT cx;
+	UINT cy;
+	cx = static_cast<UINT>(rect.right - rect.left);
+	cy = static_cast<UINT>(rect.bottom - rect.top);
+
+
+	updateLayout(cx, cy);
+}
+
+void MainFrame::onMenuCommand_DesignViewProperty()
+{
+	CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ViewProperty   ";
+
+	toggleMenuItemChecked(IDM_DESIGN_VIEW_PROPERTY, _MenuFlags.design_viewProperty);
+
+	
+	if (_MenuFlags.design_viewProperty)
+	{
+		_PropertyPanel = std::make_unique<PropertyPanel>(*this, _View->_Designer.get());
+
+	}
+	else
+	{
+		if (_PropertyPanel)
+		{
+			_PropertyPanel->destroyWindow();
+		}
+		_PropertyPanel.reset();
+	}
+
+
+	RECT rect;
+	::GetClientRect(*this, &rect);
+
+	UINT cx;
+	UINT cy;
+	cx = static_cast<UINT>(rect.right - rect.left);
+	cy = static_cast<UINT>(rect.bottom - rect.top);
+
+
+	updateLayout(cx, cy);
+}
+
+//===========================================================================
 void MainFrame::onIdle(void)
 {
 	if (_View.get())
 	{
 //		_View->onIdle();
 	}
+}
+
+//===========================================================================
+void MainFrame::updateTitle(void)
+{
+	std::wstring appTitleString = cx::wui::loadString(IDS_APP_TITLE);
+	std::wstring filePath = _View->_Designer->filePath();
+	std::wstring fileName;
+	std::wstring windowTitle;
+
+
+	if ((!_View->_Designer->isModified()) && (filePath.empty()))
+	{
+		windowTitle = appTitleString;
+	}
+	else
+	{
+		if (filePath.empty())
+		{
+			fileName = L"제목 없음";
+		}
+		else
+		{
+			fileName = cx::wfs::get_file_name_of_file_path(filePath);
+		}
+		if (_View->_Designer->isModified())
+		{
+			fileName += L"*";
+		}
+		windowTitle = std::format(L"{} - {}", fileName, appTitleString);
+	}
+
+	::SetWindowTextW(*this, windowTitle.c_str());
 }
 
 void MainFrame::updateLayout(std::uint32_t cx, std::uint32_t cy)
