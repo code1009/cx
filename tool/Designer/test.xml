@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<도표>
+	<문서 넓이="1920" 높이="1000" 배경색="{255,255,250,250}" />
+	<목록>
+		<항목 유형="cx.Widget.Shape.Rectangle">
+			<속성 이름="Item.name"><![CDATA[]]></속성>
+			<속성 이름="Item.visible"><![CDATA[true]]></속성>
+			<속성 이름="Item.points"><![CDATA[{{240,160},{340,260}}]]></속성>
+			<속성 이름="Shape.shapeStyle.fill"><![CDATA[{{255,128,128,255}}]]></속성>
+			<속성 이름="Shape.shapeStyle.line"><![CDATA[{{255,64,64,255},2}]]></속성>
+			<속성 이름="Shape.shapeStyle.text"><![CDATA[{{255,255,255,255},맑은 고딕,12,true,false,Center,Center}]]></속성>
+			<속성 이름="Shape.text"><![CDATA[글]]></속성>
+		</항목>
+	</목록>
+</도표>

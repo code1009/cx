@@ -101,12 +101,6 @@ void Designer::setupCanvasView(void)
 	//-----------------------------------------------------------------------
 	_Edit = std::make_unique<cx::Widget::Edit>(cx::Widget::DefaultViewWidth, cx::Widget::DefaultViewHeight);
 
-	_Edit->viewGrid().showGridLine(true);
-	_Edit->viewGrid().showCenterLine(true);
-	_Edit->viewGrid().showOutline(true);
-	_Edit->viewGrid().showCoordinate(true);
-	_Edit->viewStatus().show(true);
-
 
 	//-----------------------------------------------------------------------
 	cx::d2d::Factory factory;
@@ -128,6 +122,12 @@ void Designer::setupCanvasView(void)
 		reinterpret_cast<std::uintptr_t>(this),
 		[this](cx::ev::Event& /*event*/)
 		{
+			bool rv = _Edit->viewContext().update();
+			if (!rv)
+			{
+				CX_RUNTIME_LOG(cxLTrace) << L"not changed.";
+			}
+
 			updateScrollBar();
 			invalidate();
 		}
@@ -422,7 +422,6 @@ void Designer::loadCatalog(void)
 	//-------------------------------------------------------------------
 	using namespace cx::Widget;
 	using namespace cx::Widget::Shape;
-	//	using namespace rs::Diagram;
 
 
 	//-------------------------------------------------------------------
@@ -439,6 +438,9 @@ void Designer::loadCatalog(void)
 	_Catalog->addItem(std::make_shared<RectangleDesign    >(), makeProperties_RectangleDesign, L"사각형");
 	_Catalog->addItem(std::make_shared<EllipseDesign      >(), makeProperties_BaseDesign, L"타원");
 
+
+	//-------------------------------------------------------------------
+	//	using namespace rs::Diagram;
 }
 
 void Designer::loadFontFamilies(void)
@@ -575,12 +577,23 @@ void Designer::zoomOut(float px, float py)
 //===========================================================================
 void Designer::snapToGrid(bool enable)
 {
-	_Edit->snapToGrid(enable);
+	//_Edit->snapToGrid(enable);
+	if (enable)
+	{
+		_Edit->setGridSize(5, 5);
+	}
+	else
+	{
+		_Edit->setGridSize(20, 20);
+	}
 }
 
 void Designer::showGrid(bool show)
 {
 	_Edit->viewGrid().showGridLine(show);
+	_Edit->viewGrid().showCenterLine(show);
+	_Edit->viewGrid().showOutline(show);
+
 	invalidate();
 }
 
@@ -686,21 +699,70 @@ void Designer::setViewProperties(void)
 		viewProperties.width(viewWidth);
 		viewProperties.height(viewHeight);
 		viewProperties.backgroundFillColor(viewBackgroundFillColor);
-				
-		_Edit->viewContext().setWindowScrollOffset({ 0.0f, 0.0f });
 		_Edit->setViewProperties(viewProperties);
 
+		_Edit->viewContext().setWindowScrollOffset({ 0.0f, 0.0f });
+		_Edit->viewContext().update();
 		updateScrollBar();
+		invalidate();
 	}
 }
 
 //===========================================================================
 void Designer::newFile(void)
 {
+	//-----------------------------------------------------------------------
+	if (_Edit->editSeed().isModified())
+	{
+		int ret = MessageBoxW(
+			_Hwnd,
+			L"현재 편집중인 내용이 저장되지 않았습니다.\n새로운 파일을 만드시겠습니까?",
+			L"새 파일",
+			MB_YESNO | MB_ICONWARNING
+		);
+		if (ret != IDYES)
+		{
+			return;
+		}
+	}
 
+
+	//-----------------------------------------------------------------------
+	_FilePath.clear();
+	_Edit->reset();
+
+
+	//-----------------------------------------------------------------------
+	_Edit->viewContext().setWindowScrollOffset({ 0.0f, 0.0f });
+	_Edit->viewContext().update();
+	updateScrollBar();
+	invalidate();
 }
+
 void Designer::openFile(void)
 {
+	//-----------------------------------------------------------------------
+	if (_Edit->editSeed().isModified())
+	{
+		int ret = MessageBoxW(
+			_Hwnd,
+			L"현재 편집중인 내용이 저장되지 않았습니다.\n파일을 저장하시겠습니까?",
+			L"파일 열기",
+			MB_YESNO | MB_ICONWARNING
+		);
+		if (ret == IDYES)
+		{
+			saveFile();
+		}
+	}
+
+
+	//-----------------------------------------------------------------------
+	bool rv;
+
+
+	//-----------------------------------------------------------------------
+	std::wstring openFilePath;
 	cx::wui::OpenFileDialog openFileDialog(
 		L"",
 		L"",
@@ -709,25 +771,84 @@ void Designer::openFile(void)
 		L".",
 		L"파일 열기"
 	);
-
-	std::wstring openFilePath;
-	if (openFileDialog.doModal(_Hwnd, openFilePath))
+	rv = openFileDialog.doModal(_Hwnd, openFilePath);
+	if (!rv)
 	{
-		CX_RUNTIME_LOG(cxLInfo)
-			<< L"open file: "
-			<< openFilePath
-			;
-		_FilePath = openFilePath;
+		return;
 	}
+
+
+	//-----------------------------------------------------------------------
+	CX_RUNTIME_LOG(cxLInfo)
+		<< L"open file: "
+		<< openFilePath
+		;
+
+
+	//-----------------------------------------------------------------------
+	if (!std::filesystem::exists(openFilePath))
+	{
+		return;
+	}
+
+
+	//-----------------------------------------------------------------------
+	rv = _Edit->loadFile(openFilePath);
+	if (!rv)
+	{
+		CX_RUNTIME_LOG(cxLError) << L"_Edit->loadFile() failed";
+		std::wstring message = std::format(L"파일을 열 수 없습니다.\n대상 파일: {})", openFilePath);
+		MessageBoxW(
+			_Hwnd,
+			message.c_str(),
+			L"파일 열기 오류",
+			MB_OK | MB_ICONERROR
+		);
+	}
+	_FilePath = openFilePath;
+
+
+	//-----------------------------------------------------------------------
+	_Edit->viewContext().setWindowScrollOffset({ 0.0f, 0.0f });
+	_Edit->viewContext().update();
+	updateScrollBar();
+	invalidate();
 }
+
 void Designer::saveFile(void)
 {
-	
+	//-----------------------------------------------------------------------
+	if (_FilePath.empty())
+	{
+		saveFileAs();
+		return;
+	}
+
+
+	//-----------------------------------------------------------------------
+	bool rv = _Edit->saveFile(_FilePath);
+	if (!rv)
+	{
+		CX_RUNTIME_LOG(cxLError) << L"_Edit->saveFile() failed";
+		std::wstring message = std::format(L"파일 저장을 실패 했습니다.\n대상 파일: {})", _FilePath);
+		MessageBoxW(
+			_Hwnd,
+			message.c_str(),
+			L"파일 열기 오류",
+			MB_OK | MB_ICONERROR
+		);
+	}
 }
 
 void Designer::saveFileAs(void)
 {
-	cx::wui::SaveFileDialog openFileDialog(
+	//-----------------------------------------------------------------------
+	bool rv;
+
+
+	//-----------------------------------------------------------------------
+	std::wstring saveFilePath;
+	cx::wui::SaveFileDialog saveFileDialog(
 		L"",
 		L"",
 		L"Design Files (*.xml)\0*.xml\0All Files (*.*)\0*.*\0",
@@ -735,15 +856,33 @@ void Designer::saveFileAs(void)
 		L".",
 		L"파일 저장"
 	);
-
-	std::wstring openFilePath;
-	if (openFileDialog.doModal(_Hwnd, openFilePath))
+	rv = saveFileDialog.doModal(_Hwnd, saveFilePath);
+	if (!rv)
 	{
-		CX_RUNTIME_LOG(cxLInfo)
-			<< L"open file: "
-			<< openFilePath
+		return;
+	}
+
+	
+	//-----------------------------------------------------------------------
+	CX_RUNTIME_LOG(cxLInfo)
+			<< L"save file: "
+			<< saveFilePath
 			;
-		_FilePath = openFilePath;
+	_FilePath = saveFilePath;
+
+
+	//-----------------------------------------------------------------------
+	rv = _Edit->saveFile(_FilePath);
+	if (!rv)
+	{
+		CX_RUNTIME_LOG(cxLError) << L"_Edit->saveFile() failed";
+		std::wstring message = std::format(L"파일 저장을 실패 했습니다.\n대상 파일: {})", _FilePath);
+		MessageBoxW(
+			_Hwnd,
+			message.c_str(),
+			L"파일 열기 오류",
+			MB_OK | MB_ICONERROR
+		);
 	}
 }
 
@@ -771,6 +910,6 @@ void Designer::onDesign_SendToBottom   (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDe
 void Designer::onDesign_FileProperties(void) { CX_RUNTIME_LOG(cxLInfo) << L"onDesign_FileProperties "; setViewProperties(); }
 void Designer::onDesign_SnapToGrid     (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_SnapToGrid     "; static bool v=true; v=!v; snapToGrid   (v); }
 void Designer::onDesign_ShowGrid       (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGrid       "; static bool v=true; v=!v; showGrid     (v); }
-void Designer::onDesign_ShowGridCoord  (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGridCoord  "; static bool v=true; v=!v; showGridCoord(v); }
-void Designer::onDesign_ShowStatus     (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowStatus     "; static bool v=true; v=!v; showStatus   (v); }
+void Designer::onDesign_ShowGridCoord  (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowGridCoord  "; static bool v=false; v=!v; showGridCoord(v); }
+void Designer::onDesign_ShowStatus     (void){ CX_RUNTIME_LOG(cxLInfo) << L"onDesign_ShowStatus     "; static bool v= false; v=!v; showStatus   (v); }
 

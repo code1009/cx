@@ -229,10 +229,26 @@ void MainFrame::onMenuCommand(cx::wui::WindowMessage& windowMessage)
 	case IDM_DESIGN_BRING_TO_TOP   : _View->_Designer->onDesign_BringToTop    (); break;
 	case IDM_DESIGN_SEND_TO_BOTTOM : _View->_Designer->onDesign_SendToBottom  (); break;
 	case IDM_DESIGN_FILE_PROPERTIES: _View->_Designer->onDesign_FileProperties(); break;
-	case IDM_DESIGN_SNAP_TO_GRID   : _View->_Designer->onDesign_SnapToGrid    (); break;
-	case IDM_DESIGN_SHOW_GRID      : _View->_Designer->onDesign_ShowGrid      (); break;
-	case IDM_DESIGN_SHOW_GRID_COORD: _View->_Designer->onDesign_ShowGridCoord (); break;
-	case IDM_DESIGN_SHOW_STATUS    : _View->_Designer->onDesign_ShowStatus    (); break;
+
+	case IDM_DESIGN_SNAP_TO_GRID   :
+		toggleMenuItemChecked(wm.nID(), _MenuCheck.SNAP_TO_GRID);
+		_View->_Designer->onDesign_SnapToGrid    (); 
+		break;
+
+	case IDM_DESIGN_SHOW_GRID      : 
+		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_GRID);
+		_View->_Designer->onDesign_ShowGrid      ();
+		break;
+
+	case IDM_DESIGN_SHOW_GRID_COORD: 
+		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_GRID_COORD);
+		_View->_Designer->onDesign_ShowGridCoord ();
+		break;
+
+	case IDM_DESIGN_SHOW_STATUS    : 
+		toggleMenuItemChecked(wm.nID(), _MenuCheck.SHOW_STATUS);
+		_View->_Designer->onDesign_ShowStatus    ();
+		break;
 
 	default:
 		defaultWindowProc(windowMessage);
@@ -263,6 +279,28 @@ void MainFrame::onCtlCommand(cx::wui::WindowMessage& windowMessage)
 }
 
 //===========================================================================
+void MainFrame::toggleMenuItemChecked(UINT itemID, bool& checkFlag)
+{
+	if (checkFlag)
+	{
+		checkFlag = false;
+		::CheckMenuItem(
+			::GetMenu(*this),
+			itemID,
+			checkFlag ? MF_CHECKED : MF_UNCHECKED
+		);
+	}
+	else
+	{
+		checkFlag = true;
+		::CheckMenuItem(
+			::GetMenu(*this),
+			itemID,
+			checkFlag ? MF_CHECKED : MF_UNCHECKED
+		);
+	}
+}
+
 void MainFrame::onIdle(void)
 {
 	if (_View.get())

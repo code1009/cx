@@ -14,6 +14,21 @@ private:
 	std::unique_ptr<PropertyPanel> _PropertyPanel;
 	std::unique_ptr<View> _View;
 
+private:
+	class MenuCheck
+	{
+	public:
+		bool SNAP_TO_GRID{ true };
+		bool SHOW_GRID{ true };
+		bool SHOW_GRID_COORD{ false };
+		bool SHOW_STATUS{ false };
+
+	public:
+		MenuCheck() = default;
+	};
+
+	MenuCheck _MenuCheck;
+
 public:
 	MainFrame();
 
@@ -29,6 +44,9 @@ public:
 	void onMenuCommand(cx::wui::WindowMessage& windowMessage);
 	void onAppAbout(cx::wui::WindowMessage& windowMessage);
 	void onCtlCommand(cx::wui::WindowMessage& windowMessage);
+
+public:
+	void toggleMenuItemChecked(UINT itemID, bool& checked);
 
 public:
 	void onIdle(void);
