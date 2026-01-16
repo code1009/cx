@@ -69,7 +69,7 @@ PropertyPanel::PropertyPanel(HWND parentWindowHandle, Designer* designer) :
 
 
 	//-----------------------------------------------------------------------
-	_Designer->_ShowItemPropertytHandler = 
+	_Designer->showItemPropertytHandler =
 		[this]()
 		{
 			showItemProperty();
@@ -82,7 +82,7 @@ PropertyPanel::PropertyPanel(HWND parentWindowHandle, Designer* designer) :
 PropertyPanel::~PropertyPanel()
 {
 	//-----------------------------------------------------------------------
-	_Designer->_ShowItemPropertytHandler = nullptr;
+	_Designer->showItemPropertytHandler = nullptr;
 }
 
 //===========================================================================
@@ -91,13 +91,7 @@ LRESULT PropertyPanel::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 	if (_UIController)
 	{
 		bool handled;
-		handled = _UIController->_MouseHandler->onWindowMessage(windowMessage);
-		if (handled)
-		{
-			return windowMessage.lResult;
-		}
-
-		handled = _UIController->_ScrollHandler->onWindowMessage(windowMessage);
+		handled = _UIController->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
@@ -188,7 +182,7 @@ void PropertyPanel::onPaint(cx::wui::WindowMessage& windowMessage)
 		;
 #endif
 
-	_UIController->_Canvas->draw();
+	_UIController->canvas()->draw();
 
 	// The ValidateRect function validates the client area within a rectangle by
 	// removing the rectangle from the update region of the window.
@@ -243,7 +237,7 @@ void PropertyPanel::onIdle(void)
 {
 	if (_UIController)
 	{
-		_UIController->_Canvas->draw();
+		_UIController->canvas()->draw();
 	}
 }
 
@@ -259,7 +253,7 @@ void PropertyPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 
 		auto viewCx = static_cast<Coord>(_UILayoutManager->getCX());
 		auto viewCy = static_cast<Coord>(_UILayoutManager->getCY());
-		_UIController->_View->viewContext().setSize(viewCx, viewCy);
+		_UIController->view()->viewContext().setSize(viewCx, viewCy);
 	}
 }
 
@@ -344,13 +338,13 @@ void PropertyPanel::setupUIControlls(void)
 {
 	//-----------------------------------------------------------------------
 	_UILayoutManager.reset();
-	_UIController->_View->model().clear();
+	_UIController->view()->model().clear();
 
 	_UILayoutManager = std::make_unique<UILayoutManager>();
 
 
 	//-----------------------------------------------------------------------
-	if (_Designer->_PropertiesManipulator->getProperties())
+	if (_Designer->propertiesManipulator()->getProperties())
 	{
 		loadItemPropertyUI();
 	}
@@ -376,9 +370,9 @@ void PropertyPanel::setupUIControlls(void)
 
 
 	//-----------------------------------------------------------------------
-	for (auto item : _UIController->_View->model().items())
+	for (auto item : _UIController->view()->model().items())
 	{
-		item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
+		item->registerEventHandler(_UIController->view()->eventHandlerRegistry());
 	}
 }
 
@@ -397,7 +391,7 @@ void PropertyPanel::LoadEmptyPropertyUI(void)
 	//-----------------------------------------------------------------------
 	auto item = std::make_shared<UIControl::Label>();
 	item->text(L"대상을 선택 하세요.");
-	_UIController->_View->model().add(item);
+	_UIController->view()->model().add(item);
 
 
 	_UILayoutManager->add(
@@ -418,7 +412,7 @@ void PropertyPanel::loadItemPropertyUI(void)
 
 	//-----------------------------------------------------------------------
 	std::shared_ptr<cx::Widget::Properties> properties =
-		_Designer->_PropertiesManipulator->getProperties();
+		_Designer->propertiesManipulator()->getProperties();
 
 
 	//-----------------------------------------------------------------------
@@ -581,8 +575,8 @@ void PropertyPanel::calcPropertyValueBoxRect(
 	auto lt = control->getPoint(0);
 	auto rb = control->getPoint(1);
 	
-	Point wlt = _UIController->_View->viewContext().toWindow(lt);
-	Point wrb = _UIController->_View->viewContext().toWindow(rb);
+	Point wlt = _UIController->view()->viewContext().toWindow(lt);
+	Point wrb = _UIController->view()->viewContext().toWindow(rb);
 
 
 	//-----------------------------------------------------------------------
@@ -640,7 +634,7 @@ void PropertyPanel::addPropertyNameUIControl(std::wstring const& name)
 	//-----------------------------------------------------------------------
 	auto nameItem = std::make_shared<UIControl::Label>();
 	nameItem->text(name);
-	_UIController->_View->model().add(nameItem);
+	_UIController->view()->model().add(nameItem);
 
 	nameItem->uiControlStyle().text().textHAlignment(TextHAlignment::Left);
 	nameItem->uiControlStyle().text().fontBold(true);
@@ -663,7 +657,7 @@ void PropertyPanel::addPropertyGroupNameUIControl(std::wstring const& name)
 	//-----------------------------------------------------------------------
 	auto nameItem = std::make_shared<UIControl::Label>();
 	nameItem->text(name);
-	_UIController->_View->model().add(nameItem);
+	_UIController->view()->model().add(nameItem);
 
 	nameItem->uiControlStyle().text().textHAlignment(TextHAlignment::Left);
 	nameItem->uiControlStyle().text().fontBold(true);
@@ -686,7 +680,7 @@ void PropertyPanel::addPropertySubNameUIControl(std::wstring const& name)
 	//-----------------------------------------------------------------------
 	auto nameItem = std::make_shared<UIControl::Label>();
 	nameItem->text(name);
-	_UIController->_View->model().add(nameItem);
+	_UIController->view()->model().add(nameItem);
 
 	nameItem->uiControlStyle().text().fontBold(false);
 	nameItem->uiControlStyle().text().textHAlignment(TextHAlignment::Right);
@@ -709,7 +703,7 @@ std::shared_ptr<cx::Widget::UIControl::Button> PropertyPanel::addPropertyTextUIC
 	//-----------------------------------------------------------------------
 	auto valueItem = std::make_shared<UIControl::Button>();
 	valueItem->text(value);
-	_UIController->_View->model().add(valueItem);
+	_UIController->view()->model().add(valueItem);
 
 	if (readOnly)
 	{
@@ -837,7 +831,7 @@ void PropertyPanel::addItemPropertyTextUI(std::shared_ptr<cx::Widget::Property> 
 
 	//-----------------------------------------------------------------------
 	auto valueUIControl = addPropertyTextUIControl(valueString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		valueUIControl,
 		[this, property](cx::ev::Event& event)
@@ -901,7 +895,7 @@ void PropertyPanel::addItemPropertyBoolUI(std::shared_ptr<cx::Widget::Property> 
 
 	//-----------------------------------------------------------------------
 	auto valueUIControl = addPropertyTextUIControl(valueString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		valueUIControl,
 		[this, property](cx::ev::Event& event)
@@ -951,7 +945,7 @@ void PropertyPanel::addItemPropertyPointsUI(std::shared_ptr<cx::Widget::Property
 
 	//-----------------------------------------------------------------------
 	auto valueUIControl = addPropertyTextUIControl(valueString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		valueUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1008,7 +1002,7 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColor));
 	auto fillColorRGBUIControl = addPropertyTextUIControl(fillColorRGBString, property->readOnly());
 	setPropertyColorValueUIControl(fillColorRGBUIControl, fillColor);
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fillColorRGBUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1063,7 +1057,7 @@ void PropertyPanel::addItemPropertyFillStyleUI(std::shared_ptr<cx::Widget::Prope
 	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::fillStyle_fillColorA));
 	auto fillColorAUIControl = addPropertyTextUIControl(fillColorAString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fillColorAUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1149,7 +1143,7 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColor));
 	auto lineColorRGBUIControl = addPropertyTextUIControl(lineColorRGBString, property->readOnly());
 	setPropertyColorValueUIControl(lineColorRGBUIControl, lineColor);
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		lineColorRGBUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1204,7 +1198,7 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineColorA));
 	auto lineColorAUIControl = addPropertyTextUIControl(lineColorAString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		lineColorAUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1263,7 +1257,7 @@ void PropertyPanel::addItemPropertyLineStyleUI(std::shared_ptr<cx::Widget::Prope
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::lineStyle_lineSize));
 	auto lineSizeUIControl = addPropertyTextUIControl(lineSizeString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		lineSizeUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1337,7 +1331,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColor));
 	auto textColorRGBUIControl = addPropertyTextUIControl(textColorRGBString, property->readOnly());
 	setPropertyColorValueUIControl(textColorRGBUIControl, textColor);
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		textColorRGBUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1392,7 +1386,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 	//-----------------------------------------------------------------------
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textColorA));
 	auto textColorAUIControl = addPropertyTextUIControl(textColorAString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		textColorAUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1451,7 +1445,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontFamily));
 	auto fontFamilyUIControl = addPropertyTextUIControl(fontFamilyString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fontFamilyUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1495,7 +1489,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontSize));
 	auto fontSizeUIControl = addPropertyTextUIControl(fontSizeString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fontSizeUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1542,7 +1536,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontBold));
 	auto fontBoldUIControl = addPropertyTextUIControl(fontBoldString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fontBoldUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1590,7 +1584,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_fontItalic));
 	auto fontItalicUIControl = addPropertyTextUIControl(fontItalicString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		fontItalicUIControl,
 		[this, property](cx::ev::Event& event)
@@ -1638,7 +1632,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textHAlignment));
 	auto textHAlignmenUItControl = addPropertyTextUIControl(textHAlignmentString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		textHAlignmenUItControl,
 		[this, property](cx::ev::Event& event)
@@ -1684,7 +1678,7 @@ void PropertyPanel::addItemPropertyTextStyleUI(std::shared_ptr<cx::Widget::Prope
 
 	addPropertySubNameUIControl(std::wstring(cx::Widget::PropertyFriendlyNames::textStyle_textVAlignment));
 	auto textVAlignmenUItControl = addPropertyTextUIControl(textVAlignmentString, property->readOnly());
-	_UIController->_View->eventHandlerRegistry().registerEventHandler(
+	_UIController->view()->eventHandlerRegistry().registerEventHandler(
 		ItemPointerClickedEvent,
 		textVAlignmenUItControl,
 		[this, property](cx::ev::Event& event)

@@ -100,26 +100,7 @@ void UIController::setupMouseHandlerHandler(void)
 			//bool x1ButtonPressed = (flag & MK_XBUTTON1) != 0;
 			//bool x2ButtonPressed = (flag & MK_XBUTTON2) != 0;
 
-			if (controlKeyPressed)
-			{
-#if 0
-				if (delta > 0)
-				{
-					zoomIn(
-						static_cast<float>(pt.x),
-						static_cast<float>(pt.y)
-					);
-				}
-				else
-				{
-					zoomOut(
-						static_cast<float>(pt.x),
-						static_cast<float>(pt.y)
-					);
-				}
-#endif
-			}
-			else
+			if (!controlKeyPressed)
 			{
 				if (delta > 0)
 				{
@@ -289,54 +270,22 @@ void UIController::updateScrollBar(void)
 }
 
 //===========================================================================
-void UIController::zoomIn(float px, float py)
+bool UIController::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 {
-	//-------------------------------------------------------------------
-#if 0
-	cx::Widget::Point window0{ px, py };
-	cx::Widget::Point view0;
-	view0 = _View->viewContext().fromWindow(window0);
-	CX_RUNTIME_LOG(cxLTrace)
-		<< L"zoomIn(): "
-		<< std::format(L"window0=({:.2f}, {:.2f}) view0=({:.2f}, {:.2f})",
-			window0.X, window0.Y,
-			view0.X, view0.Y
-		);
-#endif
+	bool handled;
 
 
-	//-------------------------------------------------------------------
-	if (!_View->viewContext().zoomIn())
+	handled = _MouseHandler->onWindowMessage(windowMessage);
+	if (handled)
 	{
-		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
-		return;
+		return true;
 	}
-	updateScrollBar();
-	invalidate();
-}
 
-void UIController::zoomOut(float px, float py)
-{
-	//-------------------------------------------------------------------
-#if 0
-	cx::Widget::Point window0{ px, py };
-	cx::Widget::Point view0;
-	view0 = _View->viewContext().fromWindow(window0);
-	CX_RUNTIME_LOG(cxLTrace)
-		<< L"zoomOut(): "
-		<< std::format(L"window0=({:.2f}, {:.2f}) view0=({:.2f}, {:.2f})",
-			window0.X, window0.Y,
-			view0.X, view0.Y
-		);
-#endif
-
-
-	//-------------------------------------------------------------------
-	if (!_View->viewContext().zoomOut())
+	handled = _ScrollHandler->onWindowMessage(windowMessage);
+	if (handled)
 	{
-		CX_RUNTIME_LOG(cxLTrace) << L"no changed.";
-		return;
+		return true;
 	}
-	updateScrollBar();
-	invalidate();
+
+	return false;
 }

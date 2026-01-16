@@ -77,7 +77,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, Designer* designer) :
 
 	//-----------------------------------------------------------------------
 	_UIController = std::make_unique<UIController>(hwnd);
-	_UIController->_MouseHandler->mouseMoveHandler =
+	_UIController->mouseHandler()->mouseMoveHandler =
 		[this](cx::wui::WindowMessage& windowMessage) -> bool
 		{
 			cx::wui::WM_MOUSEMOVE_WindowMessageCrack wm{ windowMessage };
@@ -101,7 +101,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, Designer* designer) :
 				(pt.y < 0) || (pt.y >= static_cast<LONG>(cy))
 				)
 			{
-				_UIController->_MouseHandler->mouseLButtonUpHandler(windowMessage);
+				_UIController->mouseHandler()->mouseLButtonUpHandler(windowMessage);
 				//_MouseHandler->releaseMouseCapture();
 				doDragDrop();
 				return true;
@@ -109,7 +109,7 @@ CommandPanel::CommandPanel(HWND parentWindowHandle, Designer* designer) :
 
 
 			//-----------------------------------------------------------------------
-			_UIController->_View->eventGenerator().pointerMoved(
+			_UIController->view()->eventGenerator().pointerMoved(
 				static_cast<float>(pt.x),
 				static_cast<float>(pt.y),
 				controlKeyPressed,
@@ -137,13 +137,7 @@ LRESULT CommandPanel::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 	if (_UIController)
 	{
 		bool handled;
-		handled = _UIController->_MouseHandler->onWindowMessage(windowMessage);
-		if (handled)
-		{
-			return windowMessage.lResult;
-		}
-
-		handled = _UIController->_ScrollHandler->onWindowMessage(windowMessage);
+		handled = _UIController->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
@@ -234,7 +228,7 @@ void CommandPanel::onPaint(cx::wui::WindowMessage& windowMessage)
 		;
 #endif
 
-	_UIController->_Canvas->draw();
+	_UIController->canvas()->draw();
 
 	// The ValidateRect function validates the client area within a rectangle by
 	// removing the rectangle from the update region of the window.
@@ -289,7 +283,7 @@ void CommandPanel::onIdle(void)
 {
 	if (_UIController)
 	{
-		_UIController->_Canvas->draw();
+		_UIController->canvas()->draw();
 	}
 }
 
@@ -363,10 +357,10 @@ void CommandPanel::setupUIControlls(void)
 			auto item = std::make_shared<Control>();
 			item->text(info.label);
 			item->name(info.label);
-			_UIController->_View->model().add(item);
+			_UIController->view()->model().add(item);
 
 
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+			_UIController->view()->eventHandlerRegistry().registerEventHandler(
 				ItemPointerPressedEvent,
 				item,
 				[this](cx::ev::Event& event)
@@ -383,7 +377,7 @@ void CommandPanel::setupUIControlls(void)
 				}
 			);
 
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+			_UIController->view()->eventHandlerRegistry().registerEventHandler(
 				ItemPointerReleasedEvent,
 				item,
 				[this](cx::ev::Event& event)
@@ -398,7 +392,7 @@ void CommandPanel::setupUIControlls(void)
 				}
 			);
 
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+			_UIController->view()->eventHandlerRegistry().registerEventHandler(
 				ItemPointerOverEvent,
 				item,
 				[this](cx::ev::Event& event)
@@ -409,7 +403,7 @@ void CommandPanel::setupUIControlls(void)
 					std::shared_ptr<Control> item =
 						std::dynamic_pointer_cast<Control>(itemPointerEventData->_Item);
 
-					if (_UIController->_View->eventGenerator().isPointerCaptured())
+					if (_UIController->view()->eventGenerator().isPointerCaptured())
 					{
 						return;
 					}
@@ -418,7 +412,7 @@ void CommandPanel::setupUIControlls(void)
 				}
 			);
 			
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+			_UIController->view()->eventHandlerRegistry().registerEventHandler(
 				ItemPointerLeaveEvent,
 				item,
 				[this](cx::ev::Event& event)
@@ -447,10 +441,10 @@ void CommandPanel::setupUIControlls(void)
 			item->uiControlStyle().fill().fillColor(Colors::DarkBlue());
 			//item->uiControlStyle().line().lineSize(0.0f);
 			item->uiControlStyle().text().textColor(Colors::White());
-			_UIController->_View->model().add(item);
+			_UIController->view()->model().add(item);
 
 
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+			_UIController->view()->eventHandlerRegistry().registerEventHandler(
 				ItemPointerPressedEvent,
 				item,
 				[this](cx::ev::Event& event)
@@ -465,7 +459,7 @@ void CommandPanel::setupUIControlls(void)
 				}
 			);
 
-			_UIController->_View->eventHandlerRegistry().registerEventHandler(
+			_UIController->view()->eventHandlerRegistry().registerEventHandler(
 				ItemPointerReleasedEvent,
 				item,
 				[this](cx::ev::Event& event)
@@ -506,9 +500,9 @@ void CommandPanel::setupUIControlls(void)
 
 
 	//-----------------------------------------------------------------------
-	for (auto item : _UIController->_View->model().items())
+	for (auto item : _UIController->view()->model().items())
 	{
-		item->registerEventHandler(_UIController->_View->eventHandlerRegistry());
+		item->registerEventHandler(_UIController->view()->eventHandlerRegistry());
 	}
 }
 
@@ -523,7 +517,7 @@ void CommandPanel::recalcUIControllsLayout(std::uint32_t cx, std::uint32_t cy)
 
 		auto viewCx = static_cast<Coord>(_UILayoutManager->getCX());
 		auto viewCy = static_cast<Coord>(_UILayoutManager->getCY());
-		_UIController->_View->viewContext().setSize(viewCx, viewCy);
+		_UIController->view()->viewContext().setSize(viewCx, viewCy);
 	}
 }
 
@@ -550,5 +544,5 @@ void CommandPanel::doDragDrop(void)
 	_NewItemName.clear();
 
 
-	_Designer->_Edit->setNewItem(nullptr);
+	_Designer->edit()->setNewItem(nullptr);
 }

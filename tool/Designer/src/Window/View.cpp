@@ -65,13 +65,7 @@ LRESULT View::onWindowMessage(cx::wui::WindowMessage& windowMessage)
 	if (_Designer)
 	{
 		bool handled;		
-		handled = _Designer->_MouseHandler->onWindowMessage(windowMessage);
-		if (handled)
-		{
-			return windowMessage.lResult;
-		}
-
-		handled = _Designer->_ScrollHandler->onWindowMessage(windowMessage);
+		handled = _Designer->onWindowMessage(windowMessage);
 		if (handled)
 		{
 			return windowMessage.lResult;
@@ -165,7 +159,7 @@ void View::onPaint(cx::wui::WindowMessage& windowMessage)
 #endif
 	if (_Designer)
 	{
-		_Designer->_Canvas->draw();
+		_Designer->canvas()->draw();
 	}
 
 	// The ValidateRect function validates the client area within a rectangle by
@@ -221,6 +215,6 @@ void View::onIdle(void)
 {
 	if (_Designer)
 	{
-		_Designer->_Canvas->draw();
+		_Designer->canvas()->draw();
 	}
 }

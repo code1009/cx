@@ -434,7 +434,6 @@ void Designer::loadCatalog(void)
 
 
 	//-------------------------------------------------------------------
-	//	using namespace rs::Diagram;
 }
 
 void Designer::loadFontFamilies(void)
@@ -489,6 +488,27 @@ void Designer::updateScrollBar(void)
 }
 
 //===========================================================================
+bool Designer::onWindowMessage(cx::wui::WindowMessage& windowMessage)
+{
+	bool handled;
+	
+
+	handled = _MouseHandler->onWindowMessage(windowMessage);
+	if (handled)
+	{
+		return true;
+	}
+
+	handled = _ScrollHandler->onWindowMessage(windowMessage);
+	if (handled)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+//===========================================================================
 void Designer::showItemProperty(std::shared_ptr<cx::Widget::Item> const& item)
 {
 	/*
@@ -509,9 +529,9 @@ void Designer::showItemProperty(std::shared_ptr<cx::Widget::Item> const& item)
 
 	_PropertiesManipulator->select(item);
 
-	if (_ShowItemPropertytHandler)
+	if (showItemPropertytHandler)
 	{
-		_ShowItemPropertytHandler();
+		showItemPropertytHandler();
 	}
 }
 

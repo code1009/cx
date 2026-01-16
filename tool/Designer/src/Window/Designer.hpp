@@ -9,25 +9,28 @@
 class Designer
 {
 	//-----------------------------------------------------------------------
-public:
+private:
 	HWND _Hwnd{ nullptr };
+
+private:
 	std::unique_ptr<cx::d2d::Canvas> _Canvas;
-	std::unique_ptr<cx::Widget::PropertiesManipulator> _PropertiesManipulator;
 	std::unique_ptr<cx::Widget::Edit> _Edit;
+	std::unique_ptr<cx::Widget::PropertiesManipulator> _PropertiesManipulator;
+
+private:
 	std::unique_ptr<cx::wui::WindowMouseHandler> _MouseHandler;
 	std::unique_ptr<cx::wui::WindowScrollHandler> _ScrollHandler;
 	std::unique_ptr<cx::wui::dragdrop::WindowDropTargetHandler> _DropTargetHandler;
 
-	std::function<void(void)> _ShowItemPropertytHandler{ nullptr };
+public:
+	std::function<void(void)> showItemPropertytHandler{ nullptr };
 
 private:
 	std::unique_ptr<Catalog> _Catalog;
+	std::vector<std::wstring> _FontFamilies;
 
 private:
 	std::wstring _FilePath;
-
-private:
-	std::vector<std::wstring> _FontFamilies;
 
 	//-----------------------------------------------------------------------
 public:
@@ -42,23 +45,26 @@ public:
 	Designer& operator=(Designer&& other) noexcept = delete;
 
 	//-----------------------------------------------------------------------
+public:
+	cx::d2d::Canvas* canvas(void) { return _Canvas.get(); }
+	cx::Widget::Edit* edit(void) { return _Edit.get(); }
+	cx::Widget::PropertiesManipulator* propertiesManipulator(void) { return _PropertiesManipulator.get(); }
+	cx::wui::WindowMouseHandler* mouseHandler(void) { return _MouseHandler.get(); }
+	cx::wui::WindowScrollHandler* scrollHandler(void) { return _ScrollHandler.get(); }
+
+public:
+	auto catalog() { return _Catalog.get(); }
+	auto const& fontFamilies() const { return _FontFamilies; }
+
+	//-----------------------------------------------------------------------
 private:
 	void setupCanvasView(void);
 	void setupMouseHandlerHandler(void);
 	void setupScrollHandler(void);
 	void setupDropTargetHandler(void);
 
-	//-----------------------------------------------------------------------
-private:
 	void loadCatalog(void);
-public:
-	auto catalog() { return _Catalog.get(); }
-
-	//-----------------------------------------------------------------------
-private:
 	void loadFontFamilies(void);
-public:
-	auto const& fontFamilies() const { return _FontFamilies; }
 
 	//-----------------------------------------------------------------------
 public:
@@ -67,6 +73,10 @@ public:
 
 private:
 	void updateScrollBar(void);
+
+	//-----------------------------------------------------------------------
+public:
+	bool onWindowMessage(cx::wui::WindowMessage& windowMessage);
 
 	//-----------------------------------------------------------------------
 	// commands

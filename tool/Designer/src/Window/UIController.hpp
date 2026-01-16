@@ -9,7 +9,7 @@
 class UIController
 {
 	//-----------------------------------------------------------------------
-public:
+private:
 	HWND _Hwnd{ nullptr };
 	std::unique_ptr<cx::d2d::Canvas> _Canvas;
 	std::unique_ptr<cx::Widget::View> _View;
@@ -29,6 +29,13 @@ public:
 	UIController& operator=(UIController&& other) noexcept = delete;
 
 	//-----------------------------------------------------------------------
+public:
+	cx::d2d::Canvas* canvas(void) { return _Canvas.get(); }
+	cx::Widget::View* view(void) { return _View.get(); }
+	cx::wui::WindowMouseHandler* mouseHandler(void) { return _MouseHandler.get(); }
+	cx::wui::WindowScrollHandler* scrollHandler(void) { return _ScrollHandler.get(); }
+
+	//-----------------------------------------------------------------------
 private:
 	void setupCanvasView(void);
 	void setupMouseHandlerHandler(void);
@@ -44,6 +51,5 @@ public:
 	void updateScrollBar(void);
 
 public:
-	void zoomIn(float px, float py);
-	void zoomOut(float px, float py);
+	bool onWindowMessage(cx::wui::WindowMessage& windowMessage);
 };

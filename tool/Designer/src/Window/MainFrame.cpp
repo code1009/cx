@@ -67,8 +67,12 @@ MainFrame::MainFrame()
 
 
 	//-----------------------------------------------------------------------
+	std::wstring appTitleString = cx::wui::loadString(IDS_APP_TITLE);
+
+
+	//-----------------------------------------------------------------------
 	HWND hwnd;
-	hwnd = createWindow(MainFrame_WindowClassName, nullptr, L"Designer");
+	hwnd = createWindow(MainFrame_WindowClassName, nullptr, appTitleString.c_str());
 	if (nullptr == hwnd)
 	{
 		throw std::runtime_error("MainFrame::MainFrame(): createWindow() failed");

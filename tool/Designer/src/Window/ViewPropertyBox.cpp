@@ -51,11 +51,11 @@ void ViewPropertyBox::initializeDialogTemplate(void)
 	w.BEGIN_CONTROLS_MAP();
 		w.CONTROL_LTEXT        (L"넓이:"          , IDC_STATIC               , 20,  25,  30,  15, SS_CENTERIMAGE, 0);
 		w.CONTROL_EDITTEXT     (                    IDC_EDIT_CX              , 55,  25,  80,  15, ES_NUMBER);
-		w.CONTROL_LTEXT        (L"픽셀"           , IDC_STATIC               ,140,  25,  40,  15, SS_CENTERIMAGE, 0);
+//		w.CONTROL_LTEXT        (L"픽셀"           , IDC_STATIC               ,140,  25,  40,  15, SS_CENTERIMAGE, 0);
 																			 
 		w.CONTROL_LTEXT        (L"높이:"          , IDC_STATIC               , 20,  45,  30,  15, SS_CENTERIMAGE, 0);
 		w.CONTROL_EDITTEXT     (                    IDC_EDIT_CY              , 55,  45,  80,  15, ES_NUMBER);
-		w.CONTROL_LTEXT        (L"픽셀"           , IDC_STATIC               ,140,  45,  40,  15, SS_CENTERIMAGE, 0);
+//		w.CONTROL_LTEXT        (L"픽셀"           , IDC_STATIC               ,140,  45,  40,  15, SS_CENTERIMAGE, 0);
 																			 
 		w.CONTROL_LTEXT        (L"배경색:"        , IDC_STATIC               , 20,  70,  30,  15, SS_CENTERIMAGE, 0);
 		w.CONTROL_EDITTEXT     (                    IDC_EDIT_COLOR           , 55,  70,  80,  15, ES_UPPERCASE | ES_READONLY );
