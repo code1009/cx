@@ -678,7 +678,19 @@ void Designer::setViewProperties(void)
 
 	if (IDOK == box.doModal(_Hwnd))
 	{
+		auto viewWidth = static_cast<Coord>(box._CX);
+		auto viewHeight = static_cast<Coord>(box._CY);
+		auto viewBackgroundFillColor = Color(255, box._ColorR8, box._ColorG8, box._ColorB8);
 
+		ViewProperties viewProperties;
+		viewProperties.width(viewWidth);
+		viewProperties.height(viewHeight);
+		viewProperties.backgroundFillColor(viewBackgroundFillColor);
+				
+		_Edit->viewContext().setWindowScrollOffset({ 0.0f, 0.0f });
+		_Edit->setViewProperties(viewProperties);
+
+		updateScrollBar();
 	}
 }
 

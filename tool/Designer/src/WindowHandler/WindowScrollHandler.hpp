@@ -67,8 +67,10 @@ public:
 public:
 	void setXScroll(std::int64_t size, std::int64_t page, std::int64_t pos);
 	void setXScroll(std::int64_t size, std::int64_t page);
+
 	void setYScroll(std::int64_t size, std::int64_t page, std::int64_t pos);
 	void setYScroll(std::int64_t size, std::int64_t page);
+
 	void setXYScroll(
 		std::int64_t xsize, std::int64_t xpage, std::int64_t xpos,
 		std::int64_t ysize, std::int64_t ypage, std::int64_t ypos
@@ -76,7 +78,7 @@ public:
 	void setXYScroll(
 		std::int64_t xsize, std::int64_t xpage,
 		std::int64_t ysize, std::int64_t ypage
-	); 
+	);
 
 public:
 	void updateScrollBars(void);
